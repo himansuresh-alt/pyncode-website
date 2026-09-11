@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pyncode Admin Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+
+        body{
+            font-family:Arial, Helvetica, sans-serif;
+            background:#faf9f7;
+            color:#171717;
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .header{
+            background:#fff;
+            border-bottom:1px solid #e8e8e8;
+            padding:26px 28px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .brand{
+            font-size:28px;
+            font-weight:800;
+            letter-spacing:-1px;
+        }
+
+        .logout-btn{
+            border:none;
+            background:#fff0f0;
+            color:#c62828;
+            padding:13px 20px;
+            border-radius:14px;
+            font-size:15px;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .logout-btn:active{
+            transform:scale(.98);
+        }
+
+        .container{
+            width:100%;
+            max-width:900px;
+            margin:auto;
+            padding:55px 18px 70px;
+            flex:1;
+        }
+
+        .hero{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .hero-icon{
+            width:76px;
+            height:76px;
+            margin:0 auto 20px;
+            border-radius:24px;
+            background:linear-gradient(135deg,#fff0df,#ffe8ef);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:38px;
+        }
+
+        .hero h1{
+            font-size:34px;
+            margin-bottom:10px;
+            letter-spacing:-1px;
+        }
+
+        .hero p{
+            color:#777;
+            font-size:16px;
+            line-height:1.6;
+        }
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:22px;
+        }
+
+        .admin-card{
+            background:#fff;
+            border:1px solid #e7e7e7;
+            border-radius:24px;
+            padding:30px;
+            box-shadow:0 12px 35px rgba(0,0,0,.05);
+            cursor:pointer;
+            transition:.2s ease;
+        }
+
+        .admin-card:hover{
+            transform:translateY(-3px);
+            box-shadow:0 16px 40px rgba(0,0,0,.08);
+        }
+
+        .card-icon{
+            width:62px;
+            height:62px;
+            border-radius:18px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:30px;
+            margin-bottom:22px;
+        }
+
+        .promotion-icon{
+            background:#fff0e5;
+        }
+
+        .offer-icon{
+            background:#eaf8ee;
+        }
+
+        .admin-card h2{
+            font-size:21px;
+            margin-bottom:10px;
+        }
+
+        .admin-card p{
+            color:#777;
+            font-size:14px;
+            line-height:1.6;
+            margin-bottom:24px;
+        }
+
+        .open-btn{
+            width:100%;
+            border:none;
+            padding:14px;
+            border-radius:13px;
+            background:#151515;
+            color:#fff;
+            font-size:14px;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .open-btn:active{
+            transform:scale(.98);
+        }
+
+        .security-note{
+            margin-top:28px;
+            background:#f4f4f4;
+            border-radius:16px;
+            padding:16px;
+            text-align:center;
+            color:#777;
+            font-size:13px;
+        }
+
+        .footer{
+            background:#111;
+            color:#fff;
+            text-align:center;
+            padding:30px 20px;
+        }
+
+        .footer-title{
+            font-size:17px;
+            font-weight:700;
+            margin-bottom:8px;
+        }
+
+        .footer-subtitle{
+            color:#aaa;
+            font-size:14px;
+        }
+
+        @media(max-width:650px){
+
+            .header{
+                padding:22px 20px;
+            }
+
+            .brand{
+                font-size:23px;
+            }
+
+            .logout-btn{
+                padding:11px 15px;
+                font-size:14px;
+            }
+
+            .container{
+                padding:42px 15px 55px;
+            }
+
+            .hero{
+                margin-bottom:30px;
+            }
+
+            .hero-icon{
+                width:68px;
+                height:68px;
+                font-size:34px;
+            }
+
+            .hero h1{
+                font-size:29px;
+            }
+
+            .hero p{
+                font-size:14px;
+            }
+
+            .cards{
+                grid-template-columns:1fr;
+                gap:18px;
+            }
+
+            .admin-card{
+                padding:25px;
+            }
+
+            .admin-card h2{
+                font-size:20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+            Visiting Card
+        </div>
+
+        <button
+            type="button"
+            class="logout-btn"
+            id="logoutBtn">
+            Logout
+        </button>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="container">
+
+        <section class="hero">
+
+            <div class="hero-icon">
+                🔐
+            </div>
+
+            <h1>
+                Pyncode Admin Dashboard
+            </h1>
+
+            <p>
+                Manage promotions and shop advertisements
+                from one secure admin panel.
+            </p>
+
+        </section>
+
+
+        <!-- ADMIN OPTIONS -->
+        <section class="cards">
+
+
+            <!-- PROMOTION MANAGER -->
+            <div
+                class="admin-card"
+                id="promotionCard">
+
+                <div class="card-icon promotion-icon">
+                    📢
+                </div>
+
+                <h2>
+                    Promotion Manager
+                </h2>
+
+                <p>
+                    Upload, view and manage Pyncode
+                    promotional posters by category and pincode.
+                </p>
+
+                <button
+                    type="button"
+                    class="open-btn">
+                    Manage Promotions →
+                </button>
+
+            </div>
+
+
+            <!-- SHOP OFFER APPROVAL -->
+            <div
+                class="admin-card"
+                id="shopOfferCard">
+
+                <div class="card-icon offer-icon">
+                    🔥
+                </div>
+
+                <h2>
+                    Shop Offer Approvals
+                </h2>
+
+                <p>
+                    Review advertisements submitted by
+                    registered Pyncode shop owners.
+                </p>
+
+                <button
+                    type="button"
+                    class="open-btn">
+                    Review Shop Offers →
+                </button>
+
+            </div>
+
+                      <!-- SHOP MANAGEMENT -->
+            <div
+                class="admin-card"
+                id="shopManagementCard">
+
+                <div class="card-icon shop-icon">
+                    🏪
+                </div>
+
+                <h2>
+                    Shop Management
+                </h2>
+
+                <p>
+                    View registered shops and manage
+                    shop listings from the admin panel.
+                </p>
+
+                <button
+                    type="button"
+                    class="open-btn">
+                    Manage Shops →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <div class="security-note">
+            🔒 Admin access only • Pyncode management panel
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-title">
+            Pyncode
+        </div>
+
+        <div class="footer-subtitle">
+            Pynd Everything Near You
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        /* =========================================
+           SUPABASE CONFIG
+        ========================================= */
+
+        const SUPABASE_URL =
+            "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        /* =========================================
+           ADMIN ACCESS CHECK
+        ========================================= */
+
+        async function checkAdminAccess(){
+
+            try{
+
+                const {
+                    data: { session },
+                    error: sessionError
+                } =
+                    await supabaseClient.auth.getSession();
+
+
+                /* No login session */
+
+                if(sessionError || !session){
+
+                    window.location.replace(
+                        "promotion-admin-login.html"
+                    );
+
+                    return false;
+                }
+
+
+                /* Check admin_users table */
+
+                const {
+                    data: adminUser,
+                    error: adminError
+                } =
+                    await supabaseClient
+                        .from("admin_users")
+                        .select("id")
+                        .eq(
+                            "auth_user_id",
+                            session.user.id
+                        )
+                        .maybeSingle();
+
+
+                /* User is not an admin */
+
+                if(adminError || !adminUser){
+
+                    await supabaseClient.auth.signOut();
+
+                    alert("Admin access required.");
+
+                    window.location.replace(
+                        "promotion-admin-login.html"
+                    );
+
+                    return false;
+                }
+
+
+                return true;
+
+            }catch(error){
+
+                console.error(
+                    "Admin access error:",
+                    error
+                );
+
+                window.location.replace(
+                    "promotion-admin-login.html"
+                );
+
+                return false;
+            }
+        }
+
+
+        /* =========================================
+           PROMOTION MANAGER
+        ========================================= */
+
+        document
+            .getElementById("promotionCard")
+            .addEventListener(
+                "click",
+                function(){
+
+                    window.location.href =
+                        "promotion-poster-manager.html";
+
+                }
+            );
+
+
+        /* =========================================
+           SHOP OFFER APPROVALS
+        ========================================= */
+
+        document
+            .getElementById("shopOfferCard")
+            .addEventListener(
+                "click",
+                function(){
+
+                    window.location.href =
+                        "shop-offer-admin.html";
+
+                }
+            );
+
+   /* =========================================
+   SHOP MANAGEMENT
+========================================= */
+
+document
+    .getElementById("shopManagementCard")
+    .addEventListener(
+        "click",
+        function(){
+
+            window.location.href =
+                "shop-management.html";
+
+        }
+    );
+
+        /* =========================================
+           LOGOUT
+        ========================================= */
+
+        document
+            .getElementById("logoutBtn")
+            .addEventListener(
+                "click",
+                async function(){
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient.auth.signOut();
+
+
+                    if(error){
+
+                        console.error(
+                            "Logout error:",
+                            error
+                        );
+
+                        alert(
+                            "Logout failed. Please try again."
+                        );
+
+                        return;
+                    }
+
+
+                    window.location.replace(
+                        "promotion-admin-login.html"
+                    );
+
+                }
+            );
+
+
+        /* =========================================
+           START SECURITY CHECK
+        ========================================= */
+
+        checkAdminAccess();
+
+    </script>
+
+</body>
+</html>

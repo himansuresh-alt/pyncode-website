@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Promotion Admin Login | Pyncode</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:#faf9f7;
+
+    color:#171717;
+
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    min-height:72px;
+
+    background:#fff;
+
+    border-bottom:1px solid #eee;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 20px;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.back-button{
+    text-decoration:none;
+
+    background:#171717;
+    color:#fff;
+
+    border-radius:12px;
+
+    padding:10px 16px;
+
+    font-size:14px;
+    font-weight:800;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    flex:1;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:30px 15px 50px;
+}
+
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+.login-card{
+    width:100%;
+    max-width:400px;
+
+    background:#fff;
+
+    border:1px solid #e5e5e5;
+
+    border-radius:20px;
+
+    padding:30px 25px;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.06);
+}
+
+.login-icon{
+    text-align:center;
+
+    font-size:42px;
+
+    margin-bottom:10px;
+}
+
+.login-card h1{
+    text-align:center;
+
+    font-size:27px;
+
+    font-weight:900;
+
+    letter-spacing:-1px;
+
+    margin-bottom:7px;
+}
+
+.login-card .subtitle{
+    text-align:center;
+
+    color:#777;
+
+    font-size:14px;
+
+    margin-bottom:25px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    margin-bottom:7px;
+}
+
+.form-group input{
+    width:100%;
+
+    height:48px;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    padding:0 14px;
+
+    font-size:15px;
+
+    outline:none;
+
+    background:#fff;
+}
+
+.form-group input:focus{
+    border-color:#171717;
+}
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+.login-button{
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#171717;
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.login-button:active{
+    transform:scale(.98);
+}
+
+.login-button:disabled{
+    opacity:.6;
+
+    cursor:not-allowed;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+    display:none;
+
+    margin-top:15px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    font-size:13px;
+
+    line-height:1.4;
+
+    text-align:center;
+}
+
+.message.error{
+    display:block;
+
+    background:#fff1f1;
+
+    color:#b42318;
+
+    border:1px solid #ffd5d2;
+}
+
+.message.success{
+    display:block;
+
+    background:#effaf3;
+
+    color:#18794e;
+
+    border:1px solid #ccebd8;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    background:#171717;
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:25px 15px;
+
+    font-size:13px;
+}
+
+.footer-title{
+    font-size:16px;
+
+    font-weight:800;
+
+    margin-bottom:6px;
+}
+
+.footer-text{
+    color:#aaa;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .header{
+        padding:0 15px;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .back-button{
+        padding:9px 14px;
+
+        font-size:13px;
+    }
+
+    .main{
+        padding:
+            25px 12px 40px;
+    }
+
+    .login-card{
+        padding:28px 20px;
+
+        border-radius:18px;
+    }
+
+    .login-card h1{
+        font-size:25px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="logo">
+        Visiting Card
+    </div>
+
+    <a
+        href="promotion.html"
+        class="back-button"
+    >
+        Back
+    </a>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+    <div class="login-card">
+
+        <div class="login-icon">
+            🔐
+        </div>
+
+        <h1>
+            Admin Login
+        </h1>
+
+        <p class="subtitle">
+            Manage Pyncode promotions
+        </p>
+
+
+        <form id="loginForm">
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter admin email"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="loginButton"
+                class="login-button"
+            >
+                Login
+            </button>
+
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <div class="footer-title">
+        Pyncode
+    </div>
+
+    <div class="footer-text">
+        Promotion Admin Panel
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
+
+const emailInput =
+    document.getElementById(
+        "email"
+    );
+
+const passwordInput =
+    document.getElementById(
+        "password"
+    );
+
+const loginButton =
+    document.getElementById(
+        "loginButton"
+    );
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showMessage(
+    text,
+    type
+){
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message " + type;
+
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+loginForm.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+
+        const email =
+            emailInput.value.trim();
+
+        const password =
+            passwordInput.value;
+
+
+        if(
+            !email ||
+            !password
+        ){
+
+            showMessage(
+                "Please enter email and password.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        loginButton.disabled =
+            true;
+
+        loginButton.textContent =
+            "Logging in...";
+
+
+        showMessage(
+            "",
+            ""
+        );
+
+
+        const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+
+                email:email,
+
+                password:password
+
+            });
+
+
+        if(error){
+
+            console.error(
+                "Admin login error:",
+                error
+            );
+
+            showMessage(
+                "Invalid email or password.",
+                "error"
+            );
+
+            loginButton.disabled =
+                false;
+
+            loginButton.textContent =
+                "Login";
+
+            return;
+
+        }
+
+
+        if(data.session){
+
+            showMessage(
+                "Login successful. Opening admin panel...",
+                "success"
+            );
+
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "admin-dashboard.html";
+
+                },
+                600
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

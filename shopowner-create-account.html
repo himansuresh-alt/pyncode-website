@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Create Shop Owner Account - Pyncode</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#faf9f7;
+    color:#171717;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* HEADER */
+
+.header{
+    background:#ffffff;
+    border-bottom:1px solid #eeeeee;
+    padding:16px 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:12px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    text-decoration:none;
+    color:#171717;
+}
+
+.brand-icon{
+    width:38px;
+    height:38px;
+
+    border-radius:10px;
+
+    background:#111111;
+    color:#ffffff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-weight:800;
+    font-size:18px;
+}
+
+.brand-text{
+    font-size:18px;
+    font-weight:800;
+}
+
+.back-btn{
+    border:1px solid #dddddd;
+
+    background:#ffffff;
+    color:#222222;
+
+    padding:9px 13px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:700;
+}
+
+
+/* MAIN */
+
+.container{
+    width:100%;
+    max-width:480px;
+
+    margin:auto;
+
+    padding:35px 16px 55px;
+
+    flex:1;
+}
+
+.card{
+    background:#ffffff;
+
+    border:1px solid #eeeeee;
+
+    border-radius:18px;
+
+    padding:25px 20px;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.05);
+}
+
+
+/* ICON */
+
+.icon{
+    width:58px;
+    height:58px;
+
+    border-radius:16px;
+
+    background:#111111;
+    color:#ffffff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+
+    margin:0 auto 15px;
+}
+
+
+/* TITLE */
+
+h1{
+    margin:0;
+
+    text-align:center;
+
+    font-size:25px;
+}
+
+.subtitle{
+    text-align:center;
+
+    color:#777777;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    margin:9px 0 25px;
+}
+
+
+/* FORM */
+
+.field{
+    margin-bottom:17px;
+}
+
+label{
+    display:block;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    margin-bottom:7px;
+
+    color:#333333;
+}
+
+input{
+    width:100%;
+
+    height:48px;
+
+    border:1px solid #dddddd;
+
+    border-radius:11px;
+
+    padding:0 13px;
+
+    font-size:15px;
+
+    outline:none;
+
+    background:#ffffff;
+
+    color:#171717;
+}
+
+input:focus{
+    border-color:#111111;
+}
+
+
+/* PASSWORD */
+
+.password-wrap{
+    position:relative;
+}
+
+.password-wrap input{
+    padding-right:70px;
+}
+
+.show-password{
+    position:absolute;
+
+    right:10px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:0;
+
+    background:transparent;
+
+    color:#555555;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    padding:7px;
+}
+
+
+/* CONFIRMATION */
+
+.terms{
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:9px;
+
+    margin:3px 0 18px;
+
+    font-size:12px;
+
+    color:#666666;
+
+    line-height:1.45;
+}
+
+.terms input{
+    width:16px;
+    height:16px;
+
+    margin-top:1px;
+
+    flex-shrink:0;
+}
+
+
+/* CREATE BUTTON */
+
+.create-btn{
+    width:100%;
+
+    height:50px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:#111111;
+
+    color:#ffffff;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.create-btn:disabled{
+    opacity:.55;
+
+    cursor:not-allowed;
+}
+
+
+/* MESSAGE */
+
+.message{
+    display:none;
+
+    margin-top:17px;
+
+    padding:13px;
+
+    border-radius:10px;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+.message.show{
+    display:block;
+}
+
+.message.success{
+    background:#edf9f0;
+
+    color:#17652b;
+
+    border:1px solid #c9ebd1;
+}
+
+.message.error{
+    background:#fff0f0;
+
+    color:#a32020;
+
+    border:1px solid #f0caca;
+}
+
+
+/* LOGIN LINK */
+
+.login-link{
+    text-align:center;
+
+    margin-top:20px;
+
+    font-size:13px;
+
+    color:#666666;
+}
+
+.login-link a{
+    color:#111111;
+
+    font-weight:800;
+
+    text-decoration:none;
+}
+
+
+/* SECURITY */
+
+.security-note{
+    margin-top:20px;
+
+    padding:13px;
+
+    background:#f7f7f7;
+
+    border-radius:11px;
+
+    font-size:12px;
+
+    color:#666666;
+
+    line-height:1.5;
+}
+
+
+/* FOOTER */
+
+.footer{
+    background:#111111;
+
+    color:#ffffff;
+
+    text-align:center;
+
+    padding:18px 15px;
+
+    font-size:12px;
+}
+
+
+@media(max-width:380px){
+
+    .card{
+        padding:22px 16px;
+    }
+
+    h1{
+        font-size:23px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <a
+        href="index.html"
+        class="brand"
+    >
+
+        <div class="brand-icon">
+            P
+        </div>
+
+        <div class="brand-text">
+            Pyncode
+        </div>
+
+    </a>
+
+
+    <a
+        href="shopowner-upload-login.html"
+        class="back-btn"
+    >
+        ← Login
+    </a>
+
+</header>
+
+
+
+<main class="container">
+
+    <div class="card">
+
+
+        <div class="icon">
+            🔐
+        </div>
+
+
+        <h1>
+            Create Owner Account
+        </h1>
+
+
+        <div class="subtitle">
+
+            Create your secure Shop Owner account
+            to manage your shop offers and
+            advertisements.
+
+        </div>
+
+
+
+        <form id="createAccountForm">
+
+
+            <!-- REGISTERED MOBILE -->
+
+            <div class="field">
+
+                <label for="registeredMobile">
+                    Registered Mobile Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="registeredMobile"
+                    name="registeredMobile"
+                    placeholder="Enter registered 10-digit mobile"
+                    maxlength="10"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="field">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="field">
+
+                <label for="password">
+                    Create Password
+                </label>
+
+
+                <div class="password-wrap">
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create password"
+                        minlength="6"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        id="showPassword"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="field">
+
+                <label for="confirmPassword">
+                    Confirm Password
+                </label>
+
+
+                <div class="password-wrap">
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Re-enter password"
+                        minlength="6"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        id="showConfirmPassword"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CONFIRMATION -->
+
+            <label class="terms">
+
+                <input
+                    type="checkbox"
+                    id="agree"
+                    required
+                >
+
+                <span>
+
+                    I confirm that this mobile number
+                    belongs to my registered Pyncode shop.
+
+                </span>
+
+            </label>
+
+
+
+            <!-- CREATE ACCOUNT -->
+
+            <button
+                type="submit"
+                class="create-btn"
+                id="createBtn"
+            >
+                Create Account
+            </button>
+
+
+        </form>
+
+
+
+        <!-- MESSAGE -->
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+
+        <!-- LOGIN -->
+
+        <div class="login-link">
+
+            Already have an account?
+
+            <a href="shopowner-upload-login.html">
+                Shop Owner Login
+            </a>
+
+        </div>
+
+
+
+        <!-- SECURITY -->
+
+        <div class="security-note">
+
+            🔒 <strong>Secure Account</strong><br>
+
+            Your password is securely handled by
+            Supabase Authentication.
+
+            Pyncode does not store your password
+            as plain text.
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<footer class="footer">
+
+    © Pyncode — Pynd Everything Near You
+
+</footer>
+
+
+<script>
+
+/* ==========================================
+   SUPABASE
+========================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const form =
+    document.getElementById(
+        "createAccountForm"
+    );
+
+const mobileInput =
+    document.getElementById(
+        "registeredMobile"
+    );
+
+const emailInput =
+    document.getElementById(
+        "email"
+    );
+
+const passwordInput =
+    document.getElementById(
+        "password"
+    );
+
+const confirmPasswordInput =
+    document.getElementById(
+        "confirmPassword"
+    );
+
+const createBtn =
+    document.getElementById(
+        "createBtn"
+    );
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+const agree =
+    document.getElementById(
+        "agree"
+    );
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(text,type){
+
+    message.textContent = text;
+
+    message.className =
+        "message show " + type;
+
+}
+
+
+/* ==========================================
+   MOBILE NUMBER
+========================================== */
+
+mobileInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+                .replace(/\D/g,"")
+                .slice(0,10);
+
+    }
+);
+
+
+/* ==========================================
+   SHOW PASSWORD
+========================================== */
+
+document
+    .getElementById("showPassword")
+    .addEventListener(
+        "click",
+        function(){
+
+            if(
+                passwordInput.type ===
+                "password"
+            ){
+
+                passwordInput.type =
+                    "text";
+
+                this.textContent =
+                    "Hide";
+
+            }else{
+
+                passwordInput.type =
+                    "password";
+
+                this.textContent =
+                    "Show";
+
+            }
+
+        }
+    );
+
+
+/* ==========================================
+   SHOW CONFIRM PASSWORD
+========================================== */
+
+document
+    .getElementById("showConfirmPassword")
+    .addEventListener(
+        "click",
+        function(){
+
+            if(
+                confirmPasswordInput.type ===
+                "password"
+            ){
+
+                confirmPasswordInput.type =
+                    "text";
+
+                this.textContent =
+                    "Hide";
+
+            }else{
+
+                confirmPasswordInput.type =
+                    "password";
+
+                this.textContent =
+                    "Show";
+
+            }
+
+        }
+    );
+
+  /* ==========================================
+   CREATE ACCOUNT
+========================================== */
+
+form.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+
+        /* ----------------------------------
+           GET VALUES
+        ---------------------------------- */
+
+        const mobile =
+            mobileInput.value.trim();
+
+        const email =
+            emailInput.value
+                .trim()
+                .toLowerCase();
+
+        const password =
+            passwordInput.value;
+
+        const confirmPassword =
+            confirmPasswordInput.value;
+
+
+        /* ----------------------------------
+           MOBILE VALIDATION
+        ---------------------------------- */
+
+        if(
+            !/^\d{10}$/.test(mobile)
+        ){
+
+            showMessage(
+                "Please enter your registered 10-digit mobile number.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ----------------------------------
+           EMAIL VALIDATION
+        ---------------------------------- */
+
+        if(!email){
+
+            showMessage(
+                "Please enter your email address.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ----------------------------------
+           PASSWORD VALIDATION
+        ---------------------------------- */
+
+        if(
+            password.length < 6
+        ){
+
+            showMessage(
+                "Password must contain at least 6 characters.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ----------------------------------
+           CONFIRM PASSWORD
+        ---------------------------------- */
+
+        if(
+            password !==
+            confirmPassword
+        ){
+
+            showMessage(
+                "Passwords do not match.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ----------------------------------
+           MOBILE OWNERSHIP CONFIRMATION
+        ---------------------------------- */
+
+        if(
+            !agree.checked
+        ){
+
+            showMessage(
+                "Please confirm that this mobile number belongs to your registered Pyncode shop.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ----------------------------------
+           LOADING
+        ---------------------------------- */
+
+        createBtn.disabled =
+            true;
+
+        createBtn.textContent =
+            "Creating Account...";
+
+        message.className =
+            "message";
+
+
+        try{
+
+
+            /* ==================================
+               SUPABASE AUTH SIGN UP
+            ================================== */
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signUp({
+
+                    email:
+                        email,
+
+                    password:
+                        password,
+
+                    options:{
+
+                        data:{
+
+                            registered_mobile:
+                                mobile
+
+                        },
+
+                        emailRedirectTo:
+                            window.location.origin +
+                            "/shopowner-upload-login.html"
+
+                    }
+
+                });
+
+
+            /* ==================================
+               SUPABASE ERROR
+            ================================== */
+
+            if(error){
+
+                console.error(
+                    "Supabase signup error:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            /* ==================================
+               USER CHECK
+            ================================== */
+
+            if(
+                !data ||
+                !data.user
+            ){
+
+                throw new Error(
+                    "Account could not be created."
+                );
+
+            }
+
+
+            /* ==================================
+               IF SESSION EXISTS
+            ================================== */
+
+            if(
+                data.session
+            ){
+
+                await supabaseClient.auth.signOut();
+
+            }
+
+
+            /* ==================================
+               SUCCESS
+            ================================== */
+
+            showMessage(
+
+              "Account created successfully! Your Shop Owner account is ready. You can now use Shop Owner Login to access and manage your shop."
+
+            );
+
+
+            /* ==================================
+               CLEAR FORM
+            ================================== */
+
+            mobileInput.value =
+                "";
+
+            emailInput.value =
+                "";
+
+            passwordInput.value =
+                "";
+
+            confirmPasswordInput.value =
+                "";
+
+            agree.checked =
+                false;
+
+
+            createBtn.textContent =
+                "Account Created";
+
+          setTimeout(function(){
+
+    window.location.href =
+        "shopowner-upload-login.html";
+
+}, 2000);
+          
+
+        }catch(error){
+
+
+            /* ==================================
+               CONSOLE ERROR
+            ================================== */
+
+            console.error(
+                "Create Owner Account Error:",
+                error
+            );
+
+
+            let errorText =
+                error &&
+                error.message
+                    ? error.message
+                    : "Unable to create account. Please try again.";
+
+
+            const lowerError =
+                errorText.toLowerCase();
+
+
+            /* ==================================
+               EMAIL ALREADY REGISTERED
+            ================================== */
+
+            if(
+                lowerError.includes(
+                    "already registered"
+                ) ||
+                lowerError.includes(
+                    "already been registered"
+                ) ||
+                lowerError.includes(
+                    "user already exists"
+                )
+            ){
+
+                errorText =
+                    "This email is already registered. Please use another email or login with your existing account.";
+
+            }
+
+
+            /* ==================================
+               MOBILE NOT FOUND
+            ================================== */
+
+            else if(
+                lowerError.includes(
+                    "not linked"
+                ) ||
+                lowerError.includes(
+                    "registered mobile"
+                ) ||
+                lowerError.includes(
+                    "available registered"
+                )
+            ){
+
+                errorText =
+                    "This mobile number is not linked to an available registered Pyncode shop owner.";
+
+            }
+
+
+            /* ==================================
+               MULTIPLE OWNER MATCH
+            ================================== */
+
+            else if(
+                lowerError.includes(
+                    "more than one shop owner"
+                )
+            ){
+
+                errorText =
+                    "This mobile number is linked to more than one shop owner. Please contact Pyncode.";
+
+            }
+
+
+            /* ==================================
+               INVALID EMAIL
+            ================================== */
+
+            else if(
+                lowerError.includes(
+                    "invalid email"
+                )
+            ){
+
+                errorText =
+                    "Please enter a valid email address.";
+
+            }
+
+
+            /* ==================================
+               PASSWORD ERROR
+            ================================== */
+
+            else if(
+                lowerError.includes(
+                    "password"
+                )
+            ){
+
+                errorText =
+                    "Please use a valid password with at least 6 characters.";
+
+            }
+
+
+            /* ==================================
+               DATABASE / TRIGGER ERROR
+            ================================== */
+
+            else if(
+                lowerError.includes(
+                    "database error"
+                ) ||
+                lowerError.includes(
+                    "saving new user"
+                ) ||
+                lowerError.includes(
+                    "saving user"
+                )
+            ){
+
+                errorText =
+                    "This shop owner account could not be linked. Please make sure the registered mobile number is correctly registered with Pyncode.";
+
+            }
+
+
+            /* ==================================
+               SHOW ERROR
+            ================================== */
+
+            showMessage(
+                errorText,
+                "error"
+            );
+
+
+            /* ==================================
+               ENABLE BUTTON
+            ================================== */
+
+            createBtn.disabled =
+                false;
+
+            createBtn.textContent =
+                "Create Account";
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>List Your Service | Pyncode.in</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f7f7f7;
+    color:#111;
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* HEADER */
+
+header{
+    width:100%;
+    height:72px;
+    background:#fff;
+    border-bottom:1px solid #e8e8e8;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:800;
+    color:#111;
+}
+
+.home-btn{
+    text-decoration:none;
+    color:#111;
+    font-size:15px;
+    font-weight:700;
+    border:1px solid #ddd;
+    padding:10px 18px;
+    border-radius:10px;
+    background:#fff;
+}
+
+
+/* MAIN */
+
+main{
+    width:100%;
+    max-width:850px;
+    margin:0 auto;
+    padding:45px 20px 60px;
+    flex:1;
+}
+
+.page-title{
+    text-align:center;
+    font-size:32px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.page-subtitle{
+    text-align:center;
+    color:#777;
+    font-size:14px;
+    line-height:1.6;
+    margin-bottom:32px;
+}
+
+
+/* FORM */
+
+.form-card{
+    background:#fff;
+    border:1px solid #e2e2e2;
+    border-radius:20px;
+    padding:32px;
+    box-shadow:0 8px 30px rgba(0,0,0,.04);
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+.form-group label{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:8px;
+    color:#222;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    border:1px solid #dcdcdc;
+    border-radius:10px;
+    padding:13px 14px;
+    font-size:15px;
+    font-family:inherit;
+    outline:none;
+    background:#fff;
+    color:#111;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#111;
+}
+
+.form-group textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+
+/* PHOTO */
+
+#serviceImagePreview img{
+    display:block;
+}
+
+
+/* SUBMIT */
+
+.submit-btn{
+    width:100%;
+    border:none;
+    background:#111;
+    color:#fff;
+    padding:15px;
+    border-radius:11px;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+.submit-btn:hover{
+    background:#222;
+}
+
+.submit-btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+.message{
+    text-align:center;
+    font-size:14px;
+    margin-top:18px;
+    line-height:1.5;
+}
+
+.message.success{
+    color:#16803c;
+}
+
+.message.error{
+    color:#d62828;
+}
+
+
+/* FOOTER */
+
+.footer{
+    width:100%;
+    background:#111;
+    color:#fff;
+    padding:32px 5%;
+    text-align:left;
+    margin-top:auto;
+}
+
+.footer-inner{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.2fr 1fr auto;
+    align-items:center;
+    gap:30px;
+}
+
+.footer-title{
+    font-size:21px;
+    font-weight:800;
+}
+
+.footer-text{
+    color:#aaa;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:8px;
+}
+
+.footer-links{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+    color:#aaa !important;
+    text-decoration:none !important;
+    font-size:13px;
+}
+
+.footer-separator{
+    color:#555;
+}
+
+.footer-contact{
+    border-left:1px solid #444;
+    padding-left:28px;
+    min-width:200px;
+}
+
+.footer-ad{
+    color:#aaa;
+    font-size:12px;
+    margin-bottom:5px;
+}
+
+.footer-contact a{
+    display:block;
+    color:#fff !important;
+    text-decoration:none !important;
+    font-size:15px;
+    font-weight:800;
+}
+
+.footer-number{
+    font-size:20px !important;
+    margin-top:2px;
+}
+
+.footer-copy{
+    width:100%;
+    max-width:1200px;
+    margin:25px auto 0;
+    padding-top:18px;
+    border-top:1px solid #292929;
+    color:#777 !important;
+    font-size:12px;
+    text-align:center;
+}
+
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    header{
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    main{
+        padding:35px 15px 45px;
+    }
+
+    .page-title{
+        font-size:28px;
+    }
+
+    .form-card{
+        padding:22px 18px;
+        border-radius:16px;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+        gap:0;
+    }
+
+    .footer{
+        padding:28px 18px;
+    }
+
+    .footer-inner{
+        grid-template-columns:1fr;
+        gap:22px;
+    }
+
+    .footer-links{
+        justify-content:flex-start;
+    }
+
+    .footer-contact{
+        border-left:0;
+        border-top:1px solid #333;
+        padding-left:0;
+        padding-top:20px;
+        min-width:0;
+    }
+
+    .footer-copy{
+        margin-top:22px;
+        padding-top:17px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        Pyncode.in
+    </div>
+
+    <a
+        href="index.html"
+        class="home-btn"
+    >
+        Home
+    </a>
+
+</header>
+
+
+<main>
+
+    <h1 class="page-title">
+        List Your Service
+    </h1>
+
+    <p class="page-subtitle">
+        Register your service and help customers find you near their location.
+    </p>
+
+
+    <div class="form-card">
+
+        <form id="serviceForm">
+
+
+            <!-- SERVICE NAME -->
+
+            <div class="form-group">
+
+                <label for="serviceName">
+                    Service Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="serviceName"
+                    placeholder="Enter service name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- SERVICE CATEGORY -->
+
+            <div class="form-group">
+
+                <label for="serviceCategory">
+                    Service Category *
+                </label>
+
+                <select
+                    id="serviceCategory"
+                    required
+                >
+
+                    <option value="">
+                        Select Service Category
+                    </option>
+
+                    <option value="AC Service & Repair">
+                        AC Service & Repair
+                    </option>
+
+                    <option value="Plumbing Services">
+                        Plumbing Services
+                    </option>
+
+                    <option value="Electrician Services">
+                        Electrician Services
+                    </option>
+
+                    <option value="Home Appliance Repair">
+                        Home Appliance Repair
+                    </option>
+
+                    <option value="RO / Water Purifier Service">
+                        RO / Water Purifier Service
+                    </option>
+
+                    <option value="Washing Machine Repair">
+                        Washing Machine Repair
+                    </option>
+
+                    <option value="Refrigerator Repair">
+                        Refrigerator Repair
+                    </option>
+
+                    <option value="TV Repair">
+                        TV Repair
+                    </option>
+
+                    <option value="Carpenter Services">
+                        Carpenter Services
+                    </option>
+
+                    <option value="Painting Services">
+                        Painting Services
+                    </option>
+
+                    <option value="Home Cleaning Services">
+                        Home Cleaning Services
+                    </option>
+
+                    <option value="Pest Control Services">
+                        Pest Control Services
+                    </option>
+
+                    <option value="Mobile Repair Services">
+                        Mobile Repair Services
+                    </option>
+
+                    <option value="Computer & Laptop Service">
+                        Computer & Laptop Service
+                    </option>
+
+                    <option value="CCTV Installation & Service">
+                        CCTV Installation & Service
+                    </option>
+
+                    <option value="Solar Panel Installation & Service">
+                        Solar Panel Installation & Service
+                    </option>
+
+                    <option value="Car Service & Repair">
+                        Car Service & Repair
+                    </option>
+
+                    <option value="Bike Service & Repair">
+                        Bike Service & Repair
+                    </option>
+
+                    <option value="Car Washing & Detailing">
+                        Car Washing & Detailing
+                    </option>
+
+                    <option value="Tyre & Puncture Services">
+                        Tyre & Puncture Services
+                    </option>
+
+                    <option value="Interior Design Services">
+                        Interior Design Services
+                    </option>
+
+                    <option value="Aluminium & Glass Works">
+                        Aluminium & Glass Works
+                    </option>
+
+                    <option value="Door & Window Services">
+                        Door & Window Services
+                    </option>
+
+                    <option value="Civil & Construction Services">
+                        Civil & Construction Services
+                    </option>
+
+                    <option value="Packers & Movers">
+                        Packers & Movers
+                    </option>
+
+                    <option value="Event Decoration Services">
+                        Event Decoration Services
+                    </option>
+
+                    <option value="Photography & Videography">
+                        Photography & Videography
+                    </option>
+
+                    <option value="Makeup & Beauty Services">
+                        Makeup & Beauty Services
+                    </option>
+
+                    <option value="Wedding Services">
+                        Wedding Services
+                    </option>
+
+                    <option value="Legal & Documentation Services">
+                        Legal & Documentation Services
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PROVIDER NAME -->
+
+            <div class="form-group">
+
+                <label for="providerName">
+                    Service Provider Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="providerName"
+                    placeholder="Enter your name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- MOBILE + WHATSAPP -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="mobile">
+                        Mobile Number *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        placeholder="Enter mobile number"
+                        inputmode="numeric"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="whatsapp">
+                        WhatsApp Number *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="whatsapp"
+                        placeholder="Enter WhatsApp number"
+                        inputmode="numeric"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+                      
+            <!-- ADDRESS -->
+
+            <div class="form-group">
+
+                <label for="address">
+                    Address *
+                </label>
+
+                <input
+                    type="text"
+                    id="address"
+                    placeholder="Enter your address"
+                    required
+                >
+
+            </div>
+
+
+            <!-- AREA + CITY -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="area">
+                        Area *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="area"
+                        placeholder="Enter area"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="city">
+                        City *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        placeholder="Enter city"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- PINCODE -->
+
+            <div class="form-group">
+
+                <label for="pincode">
+                    Pincode *
+                </label>
+
+                <input
+                    type="text"
+                    id="pincode"
+                    placeholder="Enter 6 digit pincode"
+                    inputmode="numeric"
+                    maxlength="6"
+                    pattern="[1-9][0-9]{5}"
+                    title="Please enter a valid 6 digit pincode"
+                    required
+                >
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    placeholder="Tell customers about your service..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- SERVICE PHOTO -->
+
+            <div class="form-group">
+
+                <label for="serviceImage">
+                    Service Photo
+                </label>
+
+                <input
+                    type="file"
+                    id="serviceImage"
+                    accept="image/png,image/jpeg,image/jpg"
+                >
+
+                <small
+                    style="display:block;margin-top:6px;color:#777;"
+                >
+                    Upload your service photo (JPG or PNG, max 5MB)
+                </small>
+
+                <div id="serviceImagePreview"></div>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                id="submitButton"
+                class="submit-btn"
+            >
+                Submit Your Service
+            </button>
+
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="footer-inner">
+
+
+        <div class="footer-brand">
+
+            <div class="footer-title">
+                Pyncode.in
+            </div>
+
+            <div class="footer-text">
+                Find Local Service Professionals Near You.
+            </div>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#">
+                Privacy Policy
+            </a>
+
+            <span class="footer-separator">
+                |
+            </span>
+
+            <a href="#">
+                Terms
+            </a>
+
+            <span class="footer-separator">
+                |
+            </span>
+
+            <a href="#">
+                Contact
+            </a>
+
+        </div>
+
+
+        <div class="footer-contact">
+
+            <div class="footer-ad">
+                For Advertisement
+            </div>
+
+            <a href="tel:9092035926">
+                Call or WhatsApp
+            </a>
+
+            <a
+                class="footer-number"
+                href="https://wa.me/919092035926"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                9092035926
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer-copy">
+        © 2026 Pyncode.in. All rights reserved.
+    </div>
+
+</footer>
+
+
+<script>
+
+
+/* =========================
+   SUPABASE CONFIG
+========================= */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================
+   FORM ELEMENTS
+========================= */
+
+const serviceForm =
+    document.getElementById(
+        "serviceForm"
+    );
+
+const submitButton =
+    document.getElementById(
+        "submitButton"
+    );
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+const serviceImageInput =
+    document.getElementById(
+        "serviceImage"
+    );
+
+const serviceImagePreview =
+    document.getElementById(
+        "serviceImagePreview"
+    );
+
+
+/* =========================
+   PHOTO PREVIEW
+========================= */
+
+serviceImageInput.addEventListener(
+    "change",
+    function(){
+
+        serviceImagePreview.innerHTML =
+            "";
+
+        const file =
+            this.files[0];
+
+        if(!file){
+            return;
+        }
+
+        const image =
+            document.createElement(
+                "img"
+            );
+
+        image.src =
+            URL.createObjectURL(
+                file
+            );
+
+        image.style.width =
+            "100%";
+
+        image.style.maxWidth =
+            "300px";
+
+        image.style.height =
+            "180px";
+
+        image.style.objectFit =
+            "cover";
+
+        image.style.borderRadius =
+            "12px";
+
+        image.style.marginTop =
+            "12px";
+
+        serviceImagePreview.appendChild(
+            image
+        );
+
+    }
+);
+
+
+/* =========================
+   PINCODE INPUT
+========================= */
+
+const pincodeInput =
+    document.getElementById(
+        "pincode"
+    );
+
+
+pincodeInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+            .replace(
+                /[^0-9]/g,
+                ""
+            )
+            .slice(
+                0,
+                6
+            );
+
+    }
+);
+
+
+/* =========================
+   FORM SUBMIT
+========================= */
+
+serviceForm.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+
+        message.textContent =
+            "";
+
+        message.className =
+            "message";
+
+
+        /* =========================
+           GET VALUES
+        ========================= */
+
+        const serviceName =
+            document
+            .getElementById(
+                "serviceName"
+            )
+            .value
+            .trim();
+
+
+        const serviceCategory =
+            document
+            .getElementById(
+                "serviceCategory"
+            )
+            .value
+            .trim();
+
+
+        const providerName =
+            document
+            .getElementById(
+                "providerName"
+            )
+            .value
+            .trim();
+
+
+        const mobile =
+            document
+            .getElementById(
+                "mobile"
+            )
+            .value
+            .trim();
+
+
+        const whatsapp =
+            document
+            .getElementById(
+                "whatsapp"
+            )
+            .value
+            .trim();
+
+
+        const address =
+            document
+            .getElementById(
+                "address"
+            )
+            .value
+            .trim();
+
+
+        const area =
+            document
+            .getElementById(
+                "area"
+            )
+            .value
+            .trim();
+
+
+        const city =
+            document
+            .getElementById(
+                "city"
+            )
+            .value
+            .trim();
+
+
+        const pincode =
+            document
+            .getElementById(
+                "pincode"
+            )
+            .value
+            .trim();
+
+
+        const description =
+            document
+            .getElementById(
+                "description"
+            )
+            .value
+            .trim();
+
+
+        const serviceImageFile =
+            serviceImageInput.files[0];
+
+
+        /* =========================
+           PINCODE VALIDATION
+        ========================= */
+
+        if(
+            !/^[1-9][0-9]{5}$/.test(
+                pincode
+            )
+        ){
+
+            message.textContent =
+                "Please enter a valid 6 digit pincode.";
+
+            message.className =
+                "message error";
+
+            return;
+
+        }
+
+
+        /* =========================
+           MOBILE VALIDATION
+        ========================= */
+
+        const cleanMobile =
+            mobile.replace(
+                /[^0-9]/g,
+                ""
+            );
+
+
+        if(
+            cleanMobile.length < 10
+        ){
+
+            message.textContent =
+                "Please enter a valid mobile number.";
+
+            message.className =
+                "message error";
+
+            return;
+
+        }
+
+
+        /* =========================
+           WHATSAPP VALIDATION
+        ========================= */
+
+        const cleanWhatsApp =
+            whatsapp.replace(
+                /[^0-9]/g,
+                ""
+            );
+
+
+        if(
+            cleanWhatsApp.length < 10
+        ){
+
+            message.textContent =
+                "Please enter a valid WhatsApp number.";
+
+            message.className =
+                "message error";
+
+            return;
+
+        }
+
+              /* =========================
+           SERVICE PHOTO UPLOAD
+        ========================= */
+
+        let serviceImageUrl = "";
+
+        if(serviceImageFile){
+
+            /* MAX 5MB */
+
+            if(
+                serviceImageFile.size >
+                5 * 1024 * 1024
+            ){
+
+                message.textContent =
+                    "Service photo must be less than 5MB.";
+
+                message.className =
+                    "message error";
+
+                return;
+
+            }
+
+
+            /* FILE TYPE */
+
+            if(
+                ![
+                    "image/jpeg",
+                    "image/png",
+                    "image/jpg"
+                ].includes(
+                    serviceImageFile.type
+                )
+            ){
+
+                message.textContent =
+                    "Please upload JPG or PNG image.";
+
+                message.className =
+                    "message error";
+
+                return;
+
+            }
+
+
+            /* UNIQUE FILE NAME */
+
+            const fileExtension =
+                serviceImageFile.name
+                .split(".")
+                .pop();
+
+
+            const fileName =
+                "service-" +
+                Date.now() +
+                "-" +
+                Math.random()
+                    .toString(36)
+                    .substring(2,8) +
+                "." +
+                fileExtension;
+
+
+            /* UPLOAD */
+
+            const {
+                error: uploadError
+            } =
+                await supabaseClient
+                .storage
+                .from("shop-images")
+                .upload(
+                    fileName,
+                    serviceImageFile,
+                    {
+                        cacheControl:"3600",
+                        upsert:false
+                    }
+                );
+
+
+            if(uploadError){
+
+                console.error(
+                    "Service image upload error:",
+                    uploadError
+                );
+
+                message.textContent =
+                    "Service photo upload failed.";
+
+                message.className =
+                    "message error";
+
+                return;
+
+            }
+
+
+            /* PUBLIC URL */
+
+            const {
+                data: publicUrlData
+            } =
+                supabaseClient
+                .storage
+                .from("shop-images")
+                .getPublicUrl(
+                    fileName
+                );
+
+
+            serviceImageUrl =
+                publicUrlData.publicUrl;
+
+        }
+
+
+        /* =========================
+           DISABLE BUTTON
+        ========================= */
+
+        submitButton.disabled =
+            true;
+
+        submitButton.textContent =
+            "Submitting...";
+
+
+        /* =========================
+           SUPABASE INSERT
+        ========================= */
+
+        try{
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+                .from("shops")
+                .insert([
+                    {
+
+                        shop_name:
+                            serviceName,
+
+                        listing_type:
+                            "service",
+
+                        category:
+                            serviceCategory,
+
+                        owner_name:
+                            providerName,
+
+                        mobile:
+                            cleanMobile,
+
+                        whatsapp:
+                            cleanWhatsApp,
+
+                        address:
+                            address,
+
+                        area:
+                            area,
+
+                        city:
+                            city,
+
+                        pincode:
+                            pincode,
+
+                        description:
+                            description,
+
+                        shop_image:
+                            serviceImageUrl
+
+                    }
+                ])
+                .select();
+
+
+            /* =========================
+               CHECK ERROR
+            ========================= */
+
+            if(error){
+
+                console.error(
+                    "Supabase insert error:",
+                    error
+                );
+
+                throw error;
+
+            }
+
+
+            /* =========================
+               SUCCESS
+            ========================= */
+
+            message.textContent =
+                "Service submitted successfully!";
+
+            message.className =
+                "message success";
+
+
+            serviceForm.reset();
+
+
+            serviceImagePreview.innerHTML =
+                "";
+
+
+            submitButton.textContent =
+                "Submitted ✓";
+
+
+            setTimeout(
+                function(){
+
+                    submitButton.disabled =
+                        false;
+
+                    submitButton.textContent =
+                        "Submit Your Service";
+
+                },
+                2500
+            );
+
+          setTimeout(function(){
+
+    window.location.href =
+        "service-category.html?category=" +
+        encodeURIComponent(serviceCategory);
+
+}, 1200);
+
+
+        }
+        catch(error){
+
+            console.error(
+                "Service submission error:",
+                error
+            );
+
+
+            message.textContent =
+                error.message ||
+                "Something went wrong. Please try again.";
+
+
+            message.className =
+                "message error";
+
+
+            submitButton.disabled =
+                false;
+
+
+            submitButton.textContent =
+                "Submit Your Service";
+
+        }
+
+    }
+
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Upload Banner - Visiting Card</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    min-height:100%;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f6f8;
+    color:#111;
+
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    height:70px;
+
+    background:#fff;
+
+    border-bottom:1px solid #ddd;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 5%;
+
+    flex-shrink:0;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:800;
+}
+
+.header-buttons{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.dashboard-btn,
+.logout-btn{
+
+    border:0;
+
+    color:#fff;
+
+    padding:11px 17px;
+
+    border-radius:10px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+.dashboard-btn{
+    background:#eee;
+    color:#111;
+}
+
+.logout-btn{
+    background:#111;
+}
+
+.dashboard-btn:hover{
+    background:#ddd;
+}
+
+.logout-btn:hover{
+    background:#222;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    width:100%;
+    max-width:800px;
+
+    margin:auto;
+
+    padding:45px 20px 60px;
+
+    flex:1;
+}
+
+h1{
+    font-size:36px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#777;
+    font-size:16px;
+    margin-bottom:30px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    background:#fff;
+
+    border:1px solid #ddd;
+
+    border-radius:20px;
+
+    padding:25px;
+}
+
+
+/* =========================
+   SELECT AREA
+========================= */
+
+.select-box{
+    background:#fafafa;
+
+    border:1px solid #ddd;
+
+    border-radius:15px;
+
+    padding:45px 20px;
+
+    text-align:center;
+}
+
+.icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.select-title{
+    font-size:21px;
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.select-text{
+    color:#777;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.select-btn{
+    display:inline-block;
+
+    background:#111;
+    color:#fff;
+
+    padding:13px 24px;
+
+    border-radius:10px;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+#bannerInput{
+    display:none;
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview{
+    margin-top:20px;
+
+    display:none;
+}
+
+.preview img{
+    width:100%;
+
+    max-height:300px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+    display:block;
+}
+
+.file-name{
+    text-align:center;
+
+    color:#666;
+
+    font-size:13px;
+
+    margin-top:10px;
+}
+
+
+/* =========================
+   UPLOAD BUTTON
+========================= */
+
+.upload-btn{
+    width:100%;
+
+    margin-top:20px;
+
+    background:#111;
+    color:#fff;
+
+    border:0;
+
+    padding:16px;
+
+    border-radius:11px;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.upload-btn:disabled{
+    opacity:.5;
+
+    cursor:not-allowed;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+    display:none;
+
+    margin-top:15px;
+
+    padding:13px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-size:14px;
+}
+
+.message.success{
+    display:block;
+
+    background:#e8f7ed;
+
+    color:#137333;
+}
+
+.message.error{
+    display:block;
+
+    background:#ffe8e8;
+
+    color:#b00020;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    background:#111;
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:30px 20px;
+
+    margin-top:auto;
+
+    flex-shrink:0;
+}
+
+.footer-title{
+    font-size:17px;
+    font-weight:700;
+}
+
+.footer-text{
+    color:#aaa;
+    font-size:13px;
+    margin-top:8px;
+}
+
+.footer-copy{
+    color:#777;
+    font-size:12px;
+    margin-top:18px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .header{
+        height:64px;
+
+        padding:0 16px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    .header-buttons{
+        gap:7px;
+    }
+
+    .dashboard-btn,
+    .logout-btn{
+        padding:10px 12px;
+
+        font-size:11px;
+    }
+
+    .main{
+        padding:35px 15px 50px;
+    }
+
+    h1{
+        font-size:31px;
+    }
+
+    .subtitle{
+        font-size:14px;
+    }
+
+    .card{
+        padding:18px;
+
+        border-radius:17px;
+    }
+
+    .select-box{
+        padding:40px 15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="logo">
+        Visiting Card
+    </div>
+
+
+    <div class="header-buttons">
+
+        <button
+            type="button"
+            class="dashboard-btn"
+            onclick="goDashboard()"
+        >
+            ← Dashboard
+        </button>
+
+
+        <button
+            type="button"
+            class="logout-btn"
+            id="logoutButton"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+    <h1>
+        Upload Banner
+    </h1>
+
+    <p class="subtitle">
+        Upload a banner image for your website.
+    </p>
+
+
+    <div class="card">
+
+
+        <!-- SELECT IMAGE -->
+
+        <div class="select-box">
+
+            <div class="icon">
+                🖼️
+            </div>
+
+
+            <div class="select-title">
+                Select Banner Image
+            </div>
+
+
+            <div class="select-text">
+                Choose an image from your device
+            </div>
+
+
+            <label
+                for="bannerInput"
+                class="select-btn"
+            >
+                Select Image
+            </label>
+
+
+            <input
+                type="file"
+                id="bannerInput"
+                accept="image/*"
+            >
+
+        </div>
+
+
+
+        <!-- PREVIEW -->
+
+        <div
+            class="preview"
+            id="preview"
+        >
+
+            <img
+                id="previewImage"
+                alt="Banner preview"
+            >
+
+
+            <div
+                class="file-name"
+                id="fileName"
+            ></div>
+
+        </div>
+
+
+
+        <!-- UPLOAD -->
+
+        <button
+            class="upload-btn"
+            id="uploadBtn"
+            type="button"
+        >
+            Upload Banner
+        </button>
+
+
+
+        <!-- MESSAGE -->
+
+        <div
+            class="message"
+            id="message"
+        ></div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <div class="footer-title">
+        Visiting Card
+    </div>
+
+    <div class="footer-text">
+        Admin Banner Upload
+    </div>
+
+    <div class="footer-copy">
+        © 2026 Visiting Card. All rights reserved.
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+const BUCKET =
+    "banners";
+
+const TABLE =
+    "banners";
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const input =
+    document.getElementById(
+        "bannerInput"
+    );
+
+
+const preview =
+    document.getElementById(
+        "preview"
+    );
+
+
+const previewImage =
+    document.getElementById(
+        "previewImage"
+    );
+
+
+const fileName =
+    document.getElementById(
+        "fileName"
+    );
+
+
+const uploadBtn =
+    document.getElementById(
+        "uploadBtn"
+    );
+
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
+
+
+/* =====================================================
+   ADMIN SESSION CHECK
+===================================================== */
+
+async function checkAdmin(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .auth
+            .getUser();
+
+
+        if(
+            error ||
+            !data ||
+            !data.user
+        ){
+
+            window.location.replace(
+                "admin-login.html"
+            );
+
+            return;
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "ADMIN CHECK ERROR:",
+            error
+        );
+
+        window.location.replace(
+            "admin-login.html"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function goDashboard(){
+
+    window.location.href =
+        "admin-dashboard.html";
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+logoutButton.addEventListener(
+    "click",
+    async function(){
+
+        logoutButton.disabled =
+            true;
+
+        logoutButton.textContent =
+            "Logging out...";
+
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .auth
+            .signOut();
+
+
+        if(error){
+
+            console.error(
+                "LOGOUT ERROR:",
+                error
+            );
+
+            alert(
+                "Unable to logout. Please try again."
+            );
+
+            logoutButton.disabled =
+                false;
+
+            logoutButton.textContent =
+                "Logout";
+
+            return;
+
+        }
+
+
+        window.location.replace(
+            "admin-login.html"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   SELECT IMAGE
+===================================================== */
+
+input.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            input.files[0];
+
+
+        message.className =
+            "message";
+
+        message.textContent =
+            "";
+
+
+        if(!file){
+
+            preview.style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        if(
+            !file.type.startsWith(
+                "image/"
+            )
+        ){
+
+            showMessage(
+                "Please select an image.",
+                "error"
+            );
+
+            input.value = "";
+
+            return;
+
+        }
+
+
+        previewImage.src =
+            URL.createObjectURL(
+                file
+            );
+
+
+        fileName.textContent =
+            file.name;
+
+
+        preview.style.display =
+            "block";
+
+    }
+);
+
+
+/* =====================================================
+   UPLOAD BANNER
+===================================================== */
+
+uploadBtn.addEventListener(
+    "click",
+    async function(){
+
+        const file =
+            input.files[0];
+
+
+        if(!file){
+
+            showMessage(
+                "Please select an image.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        uploadBtn.disabled =
+            true;
+
+        uploadBtn.textContent =
+            "Uploading...";
+
+
+        try{
+
+            const extension =
+                file.name
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
+
+
+            const filePath =
+                "banner-" +
+                Date.now() +
+                "." +
+                extension;
+
+
+            /* STORAGE */
+
+            const storageResult =
+                await supabaseClient
+                    .storage
+                    .from(BUCKET)
+                    .upload(
+                        filePath,
+                        file,
+                        {
+                            cacheControl:"3600",
+                            upsert:false
+                        }
+                    );
+
+
+            if(storageResult.error){
+
+                throw storageResult.error;
+
+            }
+
+
+            /* PUBLIC URL */
+
+            const urlResult =
+                supabaseClient
+                    .storage
+                    .from(BUCKET)
+                    .getPublicUrl(
+                        filePath
+                    );
+
+
+            const imageUrl =
+                urlResult
+                    .data
+                    .publicUrl;
+
+
+            /* DATABASE */
+
+            const databaseResult =
+                await supabaseClient
+                    .from(TABLE)
+                    .insert({
+
+                        name:
+                            file.name,
+
+                        image_url:
+                            imageUrl,
+
+                        is_active:
+                            true
+
+                    });
+
+
+            if(databaseResult.error){
+
+                throw databaseResult.error;
+
+            }
+
+
+            showMessage(
+                "Banner uploaded successfully!",
+                "success"
+            );
+
+
+            input.value = "";
+
+
+            preview.style.display =
+                "none";
+
+
+            fileName.textContent =
+                "";
+
+
+        }
+        catch(error){
+
+            console.error(
+                "BANNER UPLOAD ERROR:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "Upload failed. Please try again.",
+                "error"
+            );
+
+        }
+
+
+        uploadBtn.disabled =
+            false;
+
+        uploadBtn.textContent =
+            "Upload Banner";
+
+    }
+);
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type
+){
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message " +
+        type;
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+checkAdmin();
+
+</script>
+
+
+</body>
+
+</html>

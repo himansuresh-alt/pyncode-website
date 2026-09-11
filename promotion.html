@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="Explore local business promotions and offers on Pyncode."
+>
+
+<title>Promotions | Pyncode</title>
+
+<style>
+
+/* =========================
+   BASIC
+========================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#faf9f7;
+    color:#171717;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    min-height:72px;
+    background:#fff;
+    border-bottom:1px solid #eee;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 20px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.home-button{
+    text-decoration:none;
+    background:#171717;
+    color:#fff;
+
+    border-radius:12px;
+
+    padding:10px 16px;
+
+    font-size:14px;
+    font-weight:800;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+    width:100%;
+    max-width:1050px;
+
+    margin:auto;
+
+    padding:35px 15px 60px;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.page-icon{
+    font-size:38px;
+    margin-bottom:8px;
+}
+
+.page-title h1{
+    font-size:36px;
+    font-weight:900;
+    letter-spacing:-1.5px;
+    margin-bottom:8px;
+}
+
+.page-title p{
+    color:#777;
+    font-size:15px;
+    line-height:1.5;
+}
+
+
+/* =========================
+   CATEGORY GRID
+========================= */
+
+.category-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap:12px;
+}
+
+.category-card{
+    width:100%;
+
+    min-height:105px;
+
+    background:#fff;
+
+    border:1px solid #e5e5e5;
+
+    border-radius:16px;
+
+    padding:18px 10px;
+
+    text-decoration:none;
+
+    color:#171717;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    box-shadow:
+        0 4px 16px rgba(0,0,0,.045);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+.category-card:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.08);
+
+    border-color:#ddd;
+}
+
+.category-card:active{
+    transform:scale(.97);
+}
+
+.category-icon{
+    font-size:30px;
+
+    margin-bottom:9px;
+
+    line-height:1;
+}
+
+.category-name{
+    font-size:13px;
+
+    font-weight:800;
+
+    line-height:1.25;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    background:#171717;
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:28px 15px;
+
+    font-size:13px;
+}
+
+.footer-title{
+    font-size:16px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.footer-text{
+    color:#aaa;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media(max-width:850px){
+
+    .category-grid{
+        grid-template-columns:
+            repeat(4, 1fr);
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .header{
+        padding:0 15px;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .home-button{
+        padding:9px 14px;
+        font-size:13px;
+    }
+
+    .container{
+        padding:
+            28px 12px 45px;
+    }
+
+    .page-title{
+        margin-bottom:25px;
+    }
+
+    .page-title h1{
+        font-size:30px;
+    }
+
+    .page-icon{
+        font-size:34px;
+    }
+
+    .category-grid{
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap:10px;
+    }
+
+    .category-card{
+        min-height:105px;
+        padding:17px 8px;
+    }
+
+    .category-icon{
+        font-size:29px;
+    }
+
+    .category-name{
+        font-size:13px;
+    }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media(max-width:360px){
+
+    .category-grid{
+        gap:8px;
+    }
+
+    .category-card{
+        min-height:100px;
+        padding:15px 6px;
+    }
+
+    .category-icon{
+        font-size:27px;
+    }
+
+    .category-name{
+        font-size:12px;
+    }
+
+}
+
+  .pyn-text{
+    color:#ef603e;
+}
+
+.code-text{
+    color:#151923;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="logo">
+        <span class="pyn-text">Pyn</span><span class="code-text">code.in</span>
+    </div>
+
+    <a
+        href="index.html"
+        class="home-button"
+    >
+        Home
+    </a>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+    <!-- PAGE TITLE -->
+
+    <section class="page-title">
+
+        <div class="page-icon">
+            📢
+        </div>
+
+        <h1 id="promotionAdminTrigger">
+            Promotions
+        </h1>
+
+        <p>
+            <p>
+  <p>
+    Promote Your Business on Pyncode<br>
+    <strong>Call or WhatsApp: 909203592</strong>
+  </p>
+            </p>
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         PROMOTION CATEGORIES
+    ========================= -->
+
+    <div
+        id="categoryGrid"
+        class="category-grid"
+    ></div>
+
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <div class="footer-title">
+        Pyncode
+    </div>
+
+    <div class="footer-text">
+        Pynd Great Deals & Promotions Near You.
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =========================================
+   PYNCODE PROMOTION CATEGORIES
+========================================= */
+
+const categories = [
+
+    ["🏠","Real Estate & Property"],
+    ["🏢","Builders & Developers"],
+    ["🚗","Cars & Automobile Dealers"],
+    ["🏍️","Bikes & Scooters"],
+    ["⚡","EV Vehicles"],
+    ["📱","Mobile Phone Accessories"],
+    ["📱","Mobile Showrooms"],
+    ["🔌","Electronics & Electrical Products"],
+    ["🏠","Home Appliances"],
+    ["🖥️","Computers & IT Products"],
+    ["📷","Cameras & Photography Equipment"],
+    ["🎮","Gaming Products & Services"],
+    ["🛋️","Furniture & Home Decor"],
+    ["👗","Clothing & Fashion"],
+    ["💍","Jewellery"],
+    ["👟","Footwear"],
+    ["💄","Beauty & Personal Care"],
+    ["🛒","Retail & Supermarkets"],
+    ["🍽️","Restaurants & Cafes"],
+    ["🎂","Bakeries & Cakes"],
+    ["🍱","Catering & Food Businesses"],
+    ["🏨","Hotels & Resorts"],
+    ["🎓","Schools & Colleges"],
+    ["📚","Coaching & Tuition"],
+    ["💻","Training & Skill Development"],
+    ["💼","Jobs & Recruitment"],
+    ["💰","Finance, Loans & Insurance"],
+    ["🏭","Manufacturing & Industrial"],
+    ["📦","Wholesale & Distribution"],
+    ["🤝","Franchise & Business Opportunities"],
+    ["🌾","Agriculture & Farming"],
+    ["🏗️","Construction & Building Materials"],
+    ["🐾","Pets & Animal Products"],
+    ["🏋️","Sports & Fitness"],
+    ["🏥","Healthcare & Hospitals"],
+    ["🔧","Home & Professional Services"],
+    ["💒","Weddings"],
+    ["🎉","Events & Entertainment"],
+    ["📸","Photography & Videography"],
+    ["✈️","Travel & Tours"],
+    ["📢","Marketing & Advertising"],
+    ["🛍️","Online Business & E-commerce"],
+    ["🖨️","Printing & Packaging"],
+    ["🚚","Logistics & Transport"],
+    ["⚖️","Legal & Documentation"],
+    ["🤝","NGO & Social Organisations"],
+    ["🏢","Coworking & Office Spaces"],
+    ["🏘️","PG, Hostels & Accommodation"],
+    ["🎬","Movies & Media"],
+    ["📣","Exhibitions & Expos"],
+    ["👤","Professionals & Freelancers"],
+    ["🆕","New Brands & Product Launches"],
+    ["🎁","Offers, Discounts & Sales"],
+    ["📣","Announcements & Public Notices"]
+
+];
+
+
+/* =========================================
+   CREATE CATEGORY CARDS
+========================================= */
+
+const categoryGrid =
+    document.getElementById(
+        "categoryGrid"
+    );
+
+
+categories.forEach(function(category){
+
+    const icon =
+        category[0];
+
+    const name =
+        category[1];
+
+
+    const card =
+        document.createElement("a");
+
+
+    card.className =
+        "category-card";
+
+
+    card.href =
+        "promotion-category.html?category=" +
+        encodeURIComponent(name);
+
+
+    card.innerHTML = `
+
+        <div class="category-icon">
+            ${icon}
+        </div>
+
+        <div class="category-name">
+            ${name}
+        </div>
+
+    `;
+
+
+    categoryGrid.appendChild(card);
+
+});
+
+
+
+/* =========================================
+   HIDDEN PROMOTION ADMIN LOGIN
+   5 TAPS
+========================================= */
+
+let promotionTapCount = 0;
+
+let promotionTapTimer = null;
+
+
+const promotionAdminTrigger =
+    document.getElementById(
+        "promotionAdminTrigger"
+    );
+
+
+if(promotionAdminTrigger){
+
+    promotionAdminTrigger.addEventListener(
+        "click",
+        function(){
+
+            promotionTapCount++;
+
+
+            clearTimeout(
+                promotionTapTimer
+            );
+
+
+            promotionTapTimer =
+                setTimeout(
+                    function(){
+
+                        promotionTapCount = 0;
+
+                    },
+                    2000
+                );
+
+
+            if(
+                promotionTapCount >= 5
+            ){
+
+                promotionTapCount = 0;
+
+
+                window.location.href =
+                    "promotion-admin-login.html";
+
+            }
+
+        }
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

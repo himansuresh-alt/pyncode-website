@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Upload Advertisement - Pyncode</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    background:#f6f7fb;
+    color:#171717;
+}
+
+body{
+    min-height:100vh;
+}
+
+.page{
+    width:100%;
+    max-width:600px;
+    margin:0 auto;
+    padding:18px 14px 30px;
+}
+
+/* ================================
+   HEADER
+================================ */
+
+.header{
+    background:#ffffff;
+    border-radius:18px;
+    padding:16px;
+    box-shadow:
+        0 6px 24px rgba(0,0,0,0.07);
+    margin-bottom:16px;
+}
+
+.brand-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    width:46px;
+    height:46px;
+    border-radius:13px;
+    background:linear-gradient(
+        135deg,
+        #ff7a18,
+        #ff4d4d
+    );
+    color:#ffffff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:800;
+    box-shadow:
+        0 5px 15px rgba(255,100,40,0.25);
+}
+
+.brand-text h1{
+    margin:0;
+    font-size:20px;
+    font-weight:800;
+}
+
+.brand-text p{
+    margin:2px 0 0;
+    font-size:12px;
+    color:#777;
+}
+
+.back-btn{
+    border:none;
+    background:#171717;
+    color:#fff;
+    padding:9px 13px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* ================================
+   OWNER CARD
+================================ */
+
+.owner-card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:
+        0 6px 24px rgba(0,0,0,0.07);
+}
+
+.section-title{
+    font-size:14px;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.owner-shop-name{
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.owner-category{
+    font-size:13px;
+    color:#666;
+    margin-bottom:8px;
+}
+
+.owner-location{
+    font-size:13px;
+    color:#777;
+    line-height:1.5;
+}
+
+.owner-status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:12px;
+    padding:7px 10px;
+    background:#f0fdf4;
+    color:#15803d;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:700;
+}
+
+/* ================================
+   UPLOAD CARD
+================================ */
+
+.upload-card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:18px;
+    box-shadow:
+        0 6px 24px rgba(0,0,0,0.07);
+}
+
+.upload-title{
+    font-size:19px;
+    font-weight:800;
+    margin:0 0 5px;
+}
+
+.upload-subtitle{
+    font-size:13px;
+    color:#777;
+    margin:0 0 18px;
+    line-height:1.5;
+}
+
+/* ================================
+   FILE PICKER
+================================ */
+
+.poster-label{
+    display:block;
+    width:100%;
+    border:2px dashed #d6d6d6;
+    border-radius:16px;
+    padding:25px 16px;
+    text-align:center;
+    cursor:pointer;
+    background:#fafafa;
+    transition:0.2s ease;
+}
+
+.poster-label:hover{
+    border-color:#ff6b35;
+    background:#fffaf7;
+}
+
+.poster-icon{
+    font-size:38px;
+    margin-bottom:8px;
+}
+
+.poster-label strong{
+    display:block;
+    font-size:15px;
+    margin-bottom:5px;
+}
+
+.poster-label span{
+    display:block;
+    font-size:12px;
+    color:#777;
+}
+
+#posterInput{
+    display:none;
+}
+
+/* ================================
+   PREVIEW
+================================ */
+
+.preview-box{
+    display:none;
+    margin-top:15px;
+}
+
+.preview-box img{
+    display:block;
+    width:100%;
+    max-height:420px;
+    object-fit:contain;
+    background:#f3f3f3;
+    border-radius:14px;
+    border:1px solid #e6e6e6;
+}
+
+.file-info{
+    margin-top:9px;
+    padding:10px 12px;
+    background:#f7f7f7;
+    border-radius:10px;
+    font-size:12px;
+    color:#666;
+    word-break:break-word;
+}
+
+/* ================================
+   BUTTON
+================================ */
+
+.upload-btn{
+    width:100%;
+    margin-top:17px;
+    border:none;
+    border-radius:13px;
+    padding:14px 16px;
+    background:linear-gradient(
+        135deg,
+        #ff7a18,
+        #ff4d4d
+    );
+    color:#ffffff;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:
+        0 7px 18px rgba(255,90,40,0.22);
+}
+
+.upload-btn:disabled{
+    opacity:0.55;
+    cursor:not-allowed;
+    box-shadow:none;
+}
+
+/* ================================
+   MESSAGE
+================================ */
+
+.message{
+    display:none;
+    margin-top:14px;
+    padding:12px 13px;
+    border-radius:11px;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.message.success{
+    display:block;
+    background:#f0fdf4;
+    color:#166534;
+    border:1px solid #bbf7d0;
+}
+
+.message.error{
+    display:block;
+    background:#fff1f2;
+    color:#be123c;
+    border:1px solid #fecdd3;
+}
+
+.message.info{
+    display:block;
+    background:#eff6ff;
+    color:#1d4ed8;
+    border:1px solid #bfdbfe;
+}
+
+/* ================================
+   FOOTER
+================================ */
+
+.footer{
+    text-align:center;
+    padding:20px 10px 0;
+    color:#888;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.hidden{
+    display:none !important;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- ================================
+         HEADER
+    ================================= -->
+
+    <div class="header">
+
+        <div class="brand-row">
+
+            <div class="brand">
+
+                <div class="logo">
+                    P
+                </div>
+
+                <div class="brand-text">
+
+                    <h1>Pyncode</h1>
+
+                    <p>
+                        Shop Owner Advertisement
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button
+                class="back-btn"
+                type="button"
+                onclick="goBack()"
+            >
+                ← Back
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         OWNER / SHOP INFORMATION
+    ================================= -->
+
+    <div
+        class="owner-card"
+        id="ownerCard"
+    >
+
+        <div class="section-title">
+            Your Registered Shop
+        </div>
+
+        <div
+            class="owner-shop-name"
+            id="shopName"
+        >
+            Loading...
+        </div>
+
+        <div
+            class="owner-category"
+            id="shopCategory"
+        >
+            Loading...
+        </div>
+
+        <div
+            class="owner-location"
+            id="shopLocation"
+        >
+            Loading...
+        </div>
+
+        <div
+            class="owner-status"
+            id="ownerStatus"
+        >
+            ● Verifying owner account...
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         UPLOAD CARD
+    ================================= -->
+
+    <div
+        class="upload-card"
+        id="uploadCard"
+    >
+
+        <h2 class="upload-title">
+            Upload Advertisement
+        </h2>
+
+        <p class="upload-subtitle">
+            Upload your offer poster here.
+            Your advertisement will be sent to
+            Pyncode Admin for verification.
+        </p>
+
+
+        <!-- IMPORTANT:
+             label is properly closed.
+             Upload button is NOT inside this label.
+        -->
+
+        <label
+            class="poster-label"
+            for="posterInput"
+        >
+
+            <div class="poster-icon">
+                🖼️
+            </div>
+
+            <strong>
+                Select Advertisement Poster
+            </strong>
+
+            <span>
+                JPG, PNG or WEBP • Maximum 10 MB
+            </span>
+
+        </label>
+
+
+        <input
+            id="posterInput"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+        >
+
+
+        <!-- PREVIEW -->
+
+        <div
+            class="preview-box"
+            id="previewBox"
+        >
+
+            <img
+                id="posterPreview"
+                alt="Advertisement preview"
+            >
+
+            <div
+                class="file-info"
+                id="fileInfo"
+            ></div>
+
+        </div>
+
+
+        <!-- UPLOAD BUTTON -->
+
+        <button
+            class="upload-btn"
+            id="uploadBtn"
+            type="button"
+            disabled
+        >
+            Upload Advertisement
+        </button>
+
+
+        <!-- MESSAGE -->
+
+        <div
+            class="message"
+            id="message"
+        ></div>
+
+    </div>
+
+
+    <div class="footer">
+        Pyncode • Discover Local Businesses Near You
+    </div>
+
+</div>
+
+
+<script>
+
+/* =================================
+   SUPABASE CONFIGURATION
+================================= */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const STORAGE_BUCKET =
+    "shop-offers";
+
+
+/* =================================
+   SUPABASE CLIENT
+================================= */
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =================================
+   GLOBAL VARIABLES
+================================= */
+
+let selectedFile = null;
+
+let verifiedShopId = null;
+
+let verifiedPincode = null;
+
+let verifiedOwnerId = null;
+
+let uploadStage = "Starting";
+
+
+/* =================================
+   DOM ELEMENTS
+================================= */
+
+const posterInput =
+    document.getElementById("posterInput");
+
+const posterPreview =
+    document.getElementById("posterPreview");
+
+const previewBox =
+    document.getElementById("previewBox");
+
+const fileInfo =
+    document.getElementById("fileInfo");
+
+const uploadBtn =
+    document.getElementById("uploadBtn");
+
+const messageBox =
+    document.getElementById("message");
+
+const shopName =
+    document.getElementById("shopName");
+
+const shopCategory =
+    document.getElementById("shopCategory");
+
+const shopLocation =
+    document.getElementById("shopLocation");
+
+const ownerStatus =
+    document.getElementById("ownerStatus");
+
+
+/* =================================
+   MESSAGE HELPER
+================================= */
+
+function showMessage(
+    text,
+    type = "info"
+){
+
+    messageBox.className =
+        "message " + type;
+
+    messageBox.textContent =
+        text;
+
+}
+
+
+/* =================================
+   CLEAR MESSAGE
+================================= */
+
+function clearMessage(){
+
+    messageBox.className =
+        "message";
+
+    messageBox.textContent =
+        "";
+
+}
+
+
+/* =================================
+   FORMAT FILE SIZE
+================================= */
+
+function formatFileSize(bytes){
+
+    if(bytes < 1024){
+        return bytes + " B";
+    }
+
+    if(bytes < 1024 * 1024){
+        return (
+            bytes / 1024
+        ).toFixed(1) + " KB";
+    }
+
+    return (
+        bytes /
+        (1024 * 1024)
+    ).toFixed(2) + " MB";
+
+}
+
+
+/* =================================
+   PAGE BACK
+================================= */
+
+function goBack(){
+
+    window.history.back();
+
+}
+
+
+/* =================================
+   LOAD OWNER + SHOP
+================================= */
+
+async function loadOwnerShop(){
+
+    try{
+
+        uploadStage =
+            "Checking login";
+
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+            await supabaseClient
+                .auth
+                .getSession();
+
+
+        if(sessionError){
+
+            console.error(
+                "Session error:",
+                sessionError
+            );
+
+            throw sessionError;
+
+        }
+
+
+        const session =
+            sessionData?.session;
+
+
+        if(!session || !session.user){
+
+            showMessage(
+                "Please login as a Shop Owner first.",
+                "error"
+            );
+
+            ownerStatus.textContent =
+                "● Login required";
+
+            uploadBtn.disabled =
+                true;
+
+            return;
+
+        }
+
+
+        const user =
+            session.user;
+
+
+        /* ================================
+           OWNER ACCOUNT
+        ================================= */
+
+        uploadStage =
+            "Checking owner mapping";
+
+        const {
+            data: ownerData,
+            error: ownerError
+        } =
+            await supabaseClient
+                .from("shop_owner_accounts")
+                .select(
+                    "owner_id, shop_id, registered_mobile"
+                )
+                .eq(
+                    "auth_user_id",
+                    user.id
+                )
+                .maybeSingle();
+
+
+        if(ownerError){
+
+            console.error(
+                "Owner account error:",
+                ownerError
+            );
+
+            throw ownerError;
+
+        }
+
+
+        if(!ownerData){
+
+            showMessage(
+                "Your account is not linked to a registered Pyncode shop.",
+                "error"
+            );
+
+            ownerStatus.textContent =
+                "● Shop mapping not found";
+
+            uploadBtn.disabled =
+                true;
+
+            return;
+
+        }
+
+
+        verifiedOwnerId =
+            ownerData.owner_id;
+
+        verifiedShopId =
+            ownerData.shop_id;
+
+
+        /* ================================
+           SHOP DETAILS
+        ================================= */
+
+        uploadStage =
+            "Checking registered shop";
+
+        const {
+            data: shopData,
+            error: shopError
+        } =
+            await supabaseClient
+                .from("shops")
+                .select(
+                    "id, shop_name, category, area, city, pincode"
+                )
+                .eq(
+                    "id",
+                    ownerData.shop_id
+                )
+                .maybeSingle();
+
+
+        if(shopError){
+
+            console.error(
+                "Shop query error:",
+                shopError
+            );
+
+            throw shopError;
+
+        }
+
+
+        if(!shopData){
+
+            showMessage(
+                "Your registered shop could not be found.",
+                "error"
+            );
+
+            ownerStatus.textContent =
+                "● Shop not found";
+
+            uploadBtn.disabled =
+                true;
+
+            return;
+
+        }
+
+
+        /* ================================
+           VERIFY SHOP ID
+        ================================= */
+
+        if(
+            Number(shopData.id) !==
+            Number(ownerData.shop_id)
+        ){
+
+            throw new Error(
+                "Owner shop mapping verification failed."
+            );
+
+        }
+
+
+        verifiedShopId =
+            shopData.id;
+
+
+        verifiedPincode =
+            String(
+                shopData.pincode || ""
+            ).replace(
+                /\D/g,
+                ""
+            );
+
+
+        if(
+            verifiedPincode.length !== 6
+        ){
+
+            showMessage(
+                "Your registered shop does not have a valid 6-digit pincode.",
+                "error"
+            );
+
+            ownerStatus.textContent =
+                "● Pincode required";
+
+            uploadBtn.disabled =
+                true;
+
+            return;
+
+        }
+
+
+        /* ================================
+           DISPLAY SHOP
+        ================================= */
+
+        shopName.textContent =
+            shopData.shop_name ||
+            "Registered Shop";
+
+        shopCategory.textContent =
+            shopData.category ||
+            "Business";
+
+        const locationParts = [
+            shopData.area,
+            shopData.city
+        ].filter(Boolean);
+
+        shopLocation.textContent =
+            locationParts.length
+                ? locationParts.join(", ") +
+                  " • Pincode " +
+                  verifiedPincode
+                : "Pincode " +
+                  verifiedPincode;
+
+
+        ownerStatus.textContent =
+            "● Owner verified • " +
+            (verifiedOwnerId || "Pyncode Owner");
+
+
+        uploadBtn.disabled =
+            !selectedFile;
+
+
+        clearMessage();
+
+        console.log(
+            "OWNER VERIFIED:",
+            {
+                owner_id: verifiedOwnerId,
+                shop_id: verifiedShopId,
+                pincode: verifiedPincode
+            }
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "loadOwnerShop error:",
+            error
+        );
+
+        uploadStage =
+            "Owner verification";
+
+        showMessage(
+            "Unable to verify your shop. Please login again and try.",
+            "error"
+        );
+
+        ownerStatus.textContent =
+            "● Verification failed";
+
+        uploadBtn.disabled =
+            true;
+
+    }
+
+}
+
+
+/* =================================
+   FILE SELECT
+================================= */
+
+posterInput.addEventListener(
+    "change",
+    function(){
+
+        clearMessage();
+
+        const file =
+            posterInput.files &&
+            posterInput.files[0];
+
+
+        if(!file){
+
+            selectedFile =
+                null;
+
+            previewBox.style.display =
+                "none";
+
+            uploadBtn.disabled =
+                true;
+
+            return;
+
+        }
+
+
+        /* ================================
+           FILE TYPE CHECK
+        ================================= */
+
+        const allowedTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+
+        if(
+            !allowedTypes.includes(
+                file.type
+            )
+        ){
+
+            posterInput.value =
+                "";
+
+            selectedFile =
+                null;
+
+            previewBox.style.display =
+                "none";
+
+            uploadBtn.disabled =
+                true;
+
+            showMessage(
+                "Only JPG, PNG or WEBP images are allowed.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ================================
+           FILE SIZE CHECK
+        ================================= */
+
+        const maxSize =
+            10 * 1024 * 1024;
+
+
+        if(file.size > maxSize){
+
+            posterInput.value =
+                "";
+
+            selectedFile =
+                null;
+
+            previewBox.style.display =
+                "none";
+
+            uploadBtn.disabled =
+                true;
+
+            showMessage(
+                "Image is larger than 10 MB. Please choose a smaller poster.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ================================
+           STORE SELECTED FILE
+        ================================= */
+
+        selectedFile =
+            file;
+
+
+        /* ================================
+           PREVIEW
+        ================================= */
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function(event){
+
+                posterPreview.src =
+                    event.target.result;
+
+                previewBox.style.display =
+                    "block";
+
+                fileInfo.textContent =
+                    file.name +
+                    " • " +
+                    formatFileSize(
+                        file.size
+                    );
+
+            };
+
+
+        reader.readAsDataURL(
+            file
+        );
+
+
+        uploadBtn.disabled =
+            !verifiedShopId;
+
+
+        console.log(
+            "FILE SELECTED:",
+            file.name,
+            file.type,
+            file.size
+        );
+
+    }
+);
+
+/* =================================
+   UPLOAD ADVERTISEMENT
+================================= */
+
+uploadBtn.addEventListener(
+    "click",
+    async function(){
+
+        clearMessage();
+
+
+        /* ================================
+           BASIC FILE CHECK
+        ================================= */
+
+        if(!selectedFile){
+
+            showMessage(
+                "Please select an advertisement poster first.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!verifiedShopId){
+
+            showMessage(
+                "Your shop is not verified. Please login again.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !verifiedPincode ||
+            verifiedPincode.length !== 6
+        ){
+
+            showMessage(
+                "Your shop pincode is invalid.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ================================
+           DISABLE BUTTON
+        ================================= */
+
+        uploadBtn.disabled =
+            true;
+
+        uploadBtn.textContent =
+            "Uploading...";
+
+
+        let filePath =
+            null;
+
+
+        try{
+
+            /* ================================
+               1. CHECK CURRENT SESSION
+            ================================= */
+
+            uploadStage =
+                "Checking login";
+
+            const {
+                data: sessionData,
+                error: sessionError
+            } =
+                await supabaseClient
+                    .auth
+                    .getSession();
+
+
+            if(sessionError){
+
+                console.error(
+                    "Session error:",
+                    sessionError
+                );
+
+                throw sessionError;
+
+            }
+
+
+            const session =
+                sessionData?.session;
+
+
+            if(
+                !session ||
+                !session.user
+            ){
+
+                throw new Error(
+                    "Your login session has expired. Please login again."
+                );
+
+            }
+
+
+            console.log(
+                "CURRENT AUTH USER:",
+                session.user.id
+            );
+
+
+            /* ================================
+               2. RE-CHECK OWNER MAPPING
+            ================================= */
+
+            uploadStage =
+                "Verifying owner mapping";
+
+            const {
+                data: ownerData,
+                error: ownerError
+            } =
+                await supabaseClient
+                    .from("shop_owner_accounts")
+                    .select(
+                        "owner_id, shop_id, registered_mobile"
+                    )
+                    .eq(
+                        "auth_user_id",
+                        session.user.id
+                    )
+                    .maybeSingle();
+
+
+            if(ownerError){
+
+                console.error(
+                    "Owner mapping error:",
+                    ownerError
+                );
+
+                throw ownerError;
+
+            }
+
+
+            if(!ownerData){
+
+                throw new Error(
+                    "Owner account mapping was not found."
+                );
+
+            }
+
+
+            /* ================================
+               3. VERIFY SHOP ID
+            ================================= */
+
+            if(
+                Number(ownerData.shop_id) !==
+                Number(verifiedShopId)
+            ){
+
+                throw new Error(
+                    "Shop ownership verification failed."
+                );
+
+            }
+
+
+            const finalShopId =
+                Number(
+                    ownerData.shop_id
+                );
+
+
+            console.log(
+                "VERIFIED SHOP ID:",
+                finalShopId
+            );
+
+
+            /* ================================
+               4. RE-CHECK SHOP
+            ================================= */
+
+            uploadStage =
+                "Checking registered shop";
+
+            const {
+                data: shopData,
+                error: shopError
+            } =
+                await supabaseClient
+                    .from("shops")
+                    .select(
+                        "id, shop_name, category, area, city, pincode"
+                    )
+                    .eq(
+                        "id",
+                        finalShopId
+                    )
+                    .maybeSingle();
+
+
+            if(shopError){
+
+                console.error(
+                    "Shop verification error:",
+                    shopError
+                );
+
+                throw shopError;
+
+            }
+
+
+            if(!shopData){
+
+                throw new Error(
+                    "Registered shop could not be found."
+                );
+
+            }
+
+
+            if(
+                Number(shopData.id) !==
+                finalShopId
+            ){
+
+                throw new Error(
+                    "Shop ID verification failed."
+                );
+
+            }
+
+
+            const finalPincode =
+                String(
+                    shopData.pincode || ""
+                ).replace(
+                    /\D/g,
+                    ""
+                );
+
+
+            if(
+                finalPincode.length !== 6
+            ){
+
+                throw new Error(
+                    "Registered shop pincode is invalid."
+                );
+
+            }
+
+
+            /* ================================
+               5. CREATE FILE PATH
+            ================================= */
+
+            const extension =
+                selectedFile.name
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
+
+
+            const safeExtension =
+                extension === "jpeg"
+                    ? "jpg"
+                    : extension;
+
+
+            const uniqueName =
+                crypto.randomUUID() +
+                "." +
+                safeExtension;
+
+
+            /*
+             IMPORTANT:
+             First folder = auth.uid()
+
+             This matches the existing
+             Storage INSERT policy.
+            */
+
+            filePath =
+                session.user.id +
+                "/" +
+                uniqueName;
+
+
+            console.log(
+                "UPLOAD START:",
+                filePath
+            );
+
+            console.log(
+                "FILE:",
+                selectedFile.name,
+                selectedFile.type,
+                selectedFile.size
+            );
+
+
+            /* ================================
+               6. CREATE SIGNED UPLOAD URL
+            ================================= */
+
+            uploadStage =
+                "Creating secure upload link";
+
+            uploadBtn.textContent =
+                "Preparing Upload...";
+
+
+            console.log(
+                "CREATE SIGNED UPLOAD URL:",
+                filePath
+            );
+
+
+            const {
+                data: signedUploadData,
+                error: signedUploadError
+            } =
+                await supabaseClient
+                    .storage
+                    .from(
+                        STORAGE_BUCKET
+                    )
+                    .createSignedUploadUrl(
+                        filePath
+                    );
+
+
+            if(signedUploadError){
+
+                console.error(
+                    "Create signed upload URL error:",
+                    signedUploadError
+                );
+
+                throw signedUploadError;
+
+            }
+
+
+            if(
+                !signedUploadData ||
+                !signedUploadData.token
+            ){
+
+                throw new Error(
+                    "Storage upload token could not be created."
+                );
+
+            }
+
+
+            console.log(
+                "SIGNED UPLOAD TOKEN CREATED"
+            );
+
+
+            /* ================================
+               7. UPLOAD USING SIGNED URL
+            ================================= */
+
+            uploadStage =
+                "Uploading advertisement";
+
+            uploadBtn.textContent =
+                "Uploading Advertisement...";
+
+
+            console.log(
+                "SIGNED UPLOAD START:",
+                filePath
+            );
+
+
+            const {
+                data: signedResult,
+                error: signedUploadError2
+            } =
+                await supabaseClient
+                    .storage
+                    .from(
+                        STORAGE_BUCKET
+                    )
+                    .uploadToSignedUrl(
+                        filePath,
+                        signedUploadData.token,
+                        selectedFile,
+                        {
+                            contentType:
+                                selectedFile.type,
+
+                            cacheControl:
+                                "3600"
+                        }
+                    );
+
+
+            if(signedUploadError2){
+
+                console.error(
+                    "Signed storage upload error:",
+                    signedUploadError2
+                );
+
+                throw signedUploadError2;
+
+            }
+
+
+            console.log(
+                "SIGNED STORAGE UPLOAD SUCCESS:",
+                signedResult
+            );
+
+
+            /* ================================
+               8. GET PUBLIC URL
+            ================================= */
+
+            uploadStage =
+                "Creating advertisement link";
+
+            uploadBtn.textContent =
+                "Finalizing...";
+
+
+            const {
+                data: publicUrlData
+            } =
+                supabaseClient
+                    .storage
+                    .from(
+                        STORAGE_BUCKET
+                    )
+                    .getPublicUrl(
+                        filePath
+                    );
+
+
+            const publicImageUrl =
+                publicUrlData &&
+                publicUrlData.publicUrl;
+
+
+            if(!publicImageUrl){
+
+                throw new Error(
+                    "Public advertisement image URL could not be created."
+                );
+
+            }
+
+
+            console.log(
+                "PUBLIC IMAGE URL:",
+                publicImageUrl
+            );
+
+
+            /* ================================
+               9. INSERT SHOP OFFER
+            ================================= */
+
+            uploadStage =
+                "Saving advertisement";
+
+            uploadBtn.textContent =
+                "Saving Advertisement...";
+
+
+           const {
+    error: offerError
+} =
+    await supabaseClient
+        .from("shop_offers")
+        .insert({
+
+            shop_id:
+                finalShopId,
+
+            offer_image:
+                publicImageUrl,
+
+            pincode:
+                finalPincode,
+
+            status:
+                "active",
+
+            is_active:
+                true
+
+        });
+
+
+            if(offerError){
+
+                console.error(
+                    "Shop offer insert error:",
+                    offerError
+                );
+
+                throw offerError;
+
+            }
+
+
+            /* ================================
+               10. SUCCESS
+            ================================= */
+
+            uploadStage =
+                "Completed";
+
+
+          showMessage(
+    "Uploaded successfully! Check your Offer Page. Thank you!",
+    "success"
+);
+
+
+            uploadBtn.textContent =
+                "Advertisement Submitted ✓";
+
+
+            /* ================================
+               RESET FILE
+            ================================= */
+
+            posterInput.value =
+                "";
+
+            selectedFile =
+                null;
+
+            previewBox.style.display =
+                "none";
+
+
+            /*
+             Keep button disabled after
+             successful submission.
+            */
+
+            uploadBtn.disabled =
+                true;
+
+
+        }
+        catch(error){
+
+            console.error(
+                "ADVERTISEMENT UPLOAD ERROR:",
+                error
+            );
+
+
+            /* ================================
+               DETAILED ERROR
+            ================================= */
+
+            let errorText =
+                "Please try again.";
+
+
+            if(error){
+
+                if(
+                    typeof error.message ===
+                    "string" &&
+                    error.message.trim()
+                ){
+
+                    errorText =
+                        error.message.trim();
+
+                }
+                else if(
+                    typeof error.error_description ===
+                    "string" &&
+                    error.error_description.trim()
+                ){
+
+                    errorText =
+                        error.error_description.trim();
+
+                }
+                else if(
+                    typeof error.statusCode !==
+                    "undefined"
+                ){
+
+                    errorText =
+                        "Storage request returned status " +
+                        error.statusCode;
+
+                }
+
+            }
+
+
+            showMessage(
+                "Upload failed at: " +
+                uploadStage +
+                ". " +
+                errorText,
+                "error"
+            );
+
+
+            uploadBtn.textContent =
+                "Upload Advertisement";
+
+
+            uploadBtn.disabled =
+                !selectedFile;
+
+
+        }
+
+    }
+);
+
+
+/* =================================
+   INITIAL LOAD
+================================= */
+
+loadOwnerShop();
+
+</script>
+
+</body>
+</html>

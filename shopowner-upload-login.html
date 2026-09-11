@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shop Owner Login - Pyncode</title>
+
+    <style>
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+
+        body{
+            font-family:Arial, Helvetica, sans-serif;
+            background:#faf9f7;
+            color:#171717;
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+        }
+
+        header{
+            background:#ffffff;
+            border-bottom:1px solid #eeeeee;
+            padding:16px 18px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .brand{
+            font-size:22px;
+            font-weight:800;
+            color:#111111;
+        }
+
+        .back-btn{
+            border:none;
+            background:#f2f2f2;
+            color:#222;
+            padding:9px 14px;
+            border-radius:10px;
+            font-size:13px;
+            font-weight:600;
+            cursor:pointer;
+        }
+
+        .container{
+            width:100%;
+            max-width:430px;
+            margin:auto;
+            padding:30px 18px 50px;
+            flex:1;
+            display:flex;
+            align-items:center;
+        }
+
+        .login-card{
+            width:100%;
+            background:#ffffff;
+            border:1px solid #eeeeee;
+            border-radius:20px;
+            padding:28px 22px;
+            box-shadow:0 8px 30px rgba(0,0,0,.06);
+        }
+
+        .icon{
+            width:64px;
+            height:64px;
+            margin:0 auto 18px;
+            border-radius:18px;
+            background:#fff3e8;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:32px;
+        }
+
+        h1{
+            text-align:center;
+            font-size:24px;
+            margin-bottom:8px;
+        }
+
+        .subtitle{
+            text-align:center;
+            color:#777;
+            font-size:14px;
+            line-height:1.5;
+            margin-bottom:25px;
+        }
+
+        .form-group{
+            margin-bottom:17px;
+        }
+
+        label{
+            display:block;
+            font-size:13px;
+            font-weight:700;
+            margin-bottom:7px;
+        }
+
+        input{
+            width:100%;
+            height:48px;
+            border:1px solid #dddddd;
+            border-radius:11px;
+            padding:0 13px;
+            font-size:15px;
+            outline:none;
+            background:#fff;
+        }
+
+        input:focus{
+            border-color:#111111;
+        }
+
+        .password-wrap{
+            position:relative;
+        }
+
+        .password-wrap input{
+            padding-right:48px;
+        }
+
+        .show-password{
+            position:absolute;
+            right:10px;
+            top:50%;
+            transform:translateY(-50%);
+            border:none;
+            background:transparent;
+            font-size:18px;
+            cursor:pointer;
+            padding:5px;
+        }
+
+        .login-btn{
+            width:100%;
+            height:49px;
+            border:none;
+            border-radius:11px;
+            background:#111111;
+            color:#ffffff;
+            font-size:15px;
+            font-weight:700;
+            cursor:pointer;
+            margin-top:5px;
+        }
+
+        .login-btn:disabled{
+            opacity:.6;
+            cursor:not-allowed;
+        }
+
+        .forgot-btn{
+            display:block;
+            margin:16px auto 0;
+            border:none;
+            background:none;
+            color:#555;
+            font-size:13px;
+            font-weight:600;
+            cursor:pointer;
+        }
+
+        .forgot-btn:hover{
+            text-decoration:underline;
+        }
+
+        .create-account-btn{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:100%;
+            height:48px;
+            margin-top:14px;
+            border:1px solid #e5e5e5;
+            border-radius:11px;
+            background:#ffffff;
+            color:#111111;
+            text-decoration:none;
+            font-size:14px;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .create-account-btn:hover{
+            background:#f8f8f8;
+        }
+
+        .message{
+            display:none;
+            margin-top:15px;
+            padding:11px 12px;
+            border-radius:10px;
+            font-size:13px;
+            text-align:center;
+            line-height:1.4;
+        }
+
+        .message.error{
+            display:block;
+            background:#fff0f0;
+            color:#c62828;
+        }
+
+        .message.success{
+            display:block;
+            background:#effaf1;
+            color:#237a32;
+        }
+
+        .owner-note{
+            margin-top:22px;
+            padding-top:18px;
+            border-top:1px solid #eeeeee;
+            text-align:center;
+            font-size:12px;
+            line-height:1.5;
+            color:#888;
+        }
+
+        footer{
+            background:#111111;
+            color:#ffffff;
+            text-align:center;
+            padding:18px 15px;
+            font-size:12px;
+        }
+
+        .footer-title{
+            font-weight:700;
+            margin-bottom:5px;
+        }
+
+        .footer-text{
+            color:#bbbbbb;
+        }
+
+        @media(max-width:480px){
+
+            header{
+                padding:14px 15px;
+            }
+
+            .brand{
+                font-size:20px;
+            }
+
+            .container{
+                padding:22px 15px 40px;
+            }
+
+            .login-card{
+                padding:25px 19px;
+            }
+
+            h1{
+                font-size:22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="brand">
+        Pyncode.in
+    </div>
+
+    <button
+        type="button"
+        class="back-btn"
+        onclick="history.back()">
+        ← Back
+    </button>
+
+</header>
+
+
+<main class="container">
+
+    <div class="login-card">
+
+        <div class="icon">
+            🏪
+        </div>
+
+        <h1>
+            Shop Owner Login
+        </h1>
+
+        <p class="subtitle">
+            Login to manage your shop advertisements
+            and current offers on Pyncode.
+        </p>
+
+
+        <form id="ownerLoginForm">
+
+            <div class="form-group">
+
+                <label for="ownerEmail">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="ownerEmail"
+                    name="ownerEmail"
+                    placeholder="Enter your email address"
+                    autocomplete="username"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="ownerPassword">
+                    Password
+                </label>
+
+                <div class="password-wrap">
+
+                    <input
+                        type="password"
+                        id="ownerPassword"
+                        name="ownerPassword"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required>
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        id="showPassword"
+                        aria-label="Show password">
+                        👁️
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-btn"
+                id="loginBtn">
+                Login
+            </button>
+
+
+            <button
+                type="button"
+                class="forgot-btn"
+                id="forgotPassword">
+                Forgot Password?
+            </button>
+
+
+            <a
+                href="shopowner-create-account.html"
+                class="create-account-btn"
+                id="createAccountLink">
+                ➕ Create New Account
+            </a>
+
+        </form>
+
+
+        <div
+            id="loginMessage"
+            class="message">
+        </div>
+
+
+        <div class="owner-note">
+            Only registered Pyncode shop owners can access
+            the advertisement upload system.
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-title">
+        Pyncode
+    </div>
+
+    <div class="footer-text">
+        Pynd Everything Near You
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+    const SUPABASE_URL =
+        "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+    const ownerLoginForm =
+        document.getElementById("ownerLoginForm");
+
+    const ownerEmailInput =
+        document.getElementById("ownerEmail");
+
+    const ownerPassword =
+        document.getElementById("ownerPassword");
+
+    const showPassword =
+        document.getElementById("showPassword");
+
+    const forgotPassword =
+        document.getElementById("forgotPassword");
+
+    const loginBtn =
+        document.getElementById("loginBtn");
+
+    const loginMessage =
+        document.getElementById("loginMessage");
+
+
+    /* Show / Hide Password */
+
+    showPassword.addEventListener("click", function(){
+
+        if(ownerPassword.type === "password"){
+
+            ownerPassword.type = "text";
+            showPassword.textContent = "🙈";
+
+        }else{
+
+            ownerPassword.type = "password";
+            showPassword.textContent = "👁️";
+
+        }
+
+    });
+
+
+    /* Message */
+
+    function showMessage(text, type){
+
+        loginMessage.textContent = text;
+
+        loginMessage.className =
+            "message " + type;
+
+    }
+
+
+    /* Owner Login */
+
+    ownerLoginForm.addEventListener(
+        "submit",
+        async function(event){
+
+            event.preventDefault();
+
+
+            const email =
+                ownerEmailInput.value
+                    .trim()
+                    .toLowerCase();
+
+            const password =
+                ownerPassword.value;
+
+
+            if(!email || !password){
+
+                showMessage(
+                    "Please enter your email address and password.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Logging in...";
+
+            loginMessage.className = "message";
+
+
+            try{
+
+                /* Supabase Auth Login */
+
+                const { data, error } =
+                    await supabaseClient.auth
+                        .signInWithPassword({
+                            email: email,
+                            password: password
+                        });
+
+
+                if(error){
+
+                    throw error;
+
+                }
+
+
+                if(!data.session || !data.user){
+
+                    throw new Error(
+                        "Login session could not be created."
+                    );
+
+                }
+
+
+                /*
+                 * Verify that this authenticated user
+                 * is registered as a Pyncode shop owner.
+                 *
+                 * IMPORTANT:
+                 * shop_id comes only from the database.
+                 * Owner cannot choose a shop manually.
+                 */
+
+                const { data: ownerAccount, error: ownerError } =
+                    await supabaseClient
+                        .from("shop_owner_accounts")
+                        .select(
+                            "id, owner_id, shop_id"
+                        )
+                        .eq(
+                            "auth_user_id",
+                            data.user.id
+                        )
+                        .maybeSingle();
+
+
+                if(ownerError){
+
+                    await supabaseClient.auth.signOut();
+
+                    throw ownerError;
+
+                }
+
+
+                if(!ownerAccount){
+
+                    await supabaseClient.auth.signOut();
+
+                    throw new Error(
+                        "This account is not registered as a Pyncode shop owner."
+                    );
+
+                }
+
+
+                /*
+                 * Store verified shop information.
+                 *
+                 * The owner does NOT select the shop.
+                 * The shop_id is taken from the verified
+                 * shop_owner_accounts record.
+                 */
+
+                sessionStorage.setItem(
+                    "pyncode_owner_id",
+                    ownerAccount.owner_id
+                );
+
+                sessionStorage.setItem(
+                    "pyncode_shop_id",
+                    String(ownerAccount.shop_id)
+                );
+
+
+                showMessage(
+                    "Login successful. Opening your shop...",
+                    "success"
+                );
+
+
+                setTimeout(function(){
+
+                    window.location.href =
+                        "shop-offer-upload.html";
+
+                }, 700);
+
+
+            }catch(error){
+
+                console.error(
+                    "Owner login error:",
+                    error
+                );
+
+
+                let errorMessage =
+                    "Login failed. Please check your email and password.";
+
+
+                if(
+                    error.message &&
+                    error.message.includes("not registered")
+                ){
+
+                    errorMessage =
+                        "This account is not registered as a Pyncode shop owner.";
+
+                }else if(
+                    error.message &&
+                    error.message.toLowerCase().includes("invalid login credentials")
+                ){
+
+                    errorMessage =
+                        "Invalid email or password.";
+
+                }
+
+
+                showMessage(
+                    errorMessage,
+                    "error"
+                );
+
+            }finally{
+
+                loginBtn.disabled = false;
+                loginBtn.textContent = "Login";
+
+            }
+
+        }
+    );
+
+
+    /* Forgot Password */
+
+    forgotPassword.addEventListener(
+        "click",
+        function(){
+
+            showMessage(
+                "Please contact Pyncode Admin to reset your password.",
+                "success"
+            );
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

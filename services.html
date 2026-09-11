@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="Find local service providers near you with Pyncode. Discover AC service, plumbing, electrician, repair, cleaning and other services."
+>
+
+<link
+    rel="icon"
+    type="image/png"
+    href="/icon-192.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="/icon-192.png"
+>
+
+<link
+    rel="manifest"
+    href="/manifest.json"
+>
+
+<title>Services | Pyncode.in</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f8fbff 0%,
+            #f5f7fb 55%,
+            #ffffff 100%
+        );
+
+    color:#151a28;
+    min-height:100vh;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    width:100%;
+    min-height:76px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    border-bottom:
+        1px solid #e6e9ef;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 4%;
+
+    position:relative;
+    z-index:20;
+
+    box-shadow:
+        0 5px 20px
+        rgba(20,30,60,.045);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    color:#151a28;
+
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:-.5px;
+
+    text-decoration:none;
+}
+
+.logo-mark{
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:13px;
+
+    color:#fff;
+
+    font-size:21px;
+    font-weight:900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+
+    box-shadow:
+        0 8px 20px
+        rgba(255,90,70,.22);
+}
+
+.home-btn{
+    min-height:44px;
+
+    padding:0 19px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+
+    border-radius:12px;
+
+    background:#151a24;
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:900;
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.list-service-btn{
+    min-height:44px;
+    padding:0 17px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+
+    color:#fff;
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:900;
+
+    box-shadow:
+        0 8px 20px
+        rgba(255,90,70,.16);
+}
+  
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+    width:100%;
+    max-width:1200px;
+
+    margin:0 auto;
+
+    padding:
+        38px 4% 65px;
+}
+
+
+/* =====================================================
+   PAGE HEADING
+===================================================== */
+
+.page-heading{
+    margin-bottom:25px;
+}
+
+.eyebrow{
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    color:#ef603e;
+
+    font-size:12px;
+    font-weight:900;
+
+    letter-spacing:.7px;
+    text-transform:uppercase;
+
+    margin-bottom:8px;
+}
+
+.page-title{
+    color:#151a28;
+
+    font-size:31px;
+    line-height:1.15;
+
+    font-weight:900;
+
+    letter-spacing:-.7px;
+}
+
+.page-subtitle{
+    margin-top:8px;
+
+    color:#7b8492;
+
+    font-size:14px;
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   PINCODE SEARCH
+===================================================== */
+
+.search-box{
+    width:100%;
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:32px;
+}
+
+.pincode-input{
+    flex:1;
+    min-width:0;
+
+    height:52px;
+
+    padding:0 16px;
+
+    border:
+        1px solid #dfe4ea;
+
+    border-radius:14px;
+
+    background:#fff;
+    color:#151a28;
+
+    font-size:14px;
+
+    outline:none;
+
+    box-shadow:
+        0 5px 17px
+        rgba(25,40,70,.035);
+}
+
+.pincode-input:focus{
+    border-color:#ff9b79;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(255,118,25,.10);
+}
+
+.search-btn{
+    height:52px;
+
+    padding:0 21px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+
+    color:#fff;
+
+    font-size:14px;
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 20px
+        rgba(255,90,70,.18);
+}
+
+
+/* =====================================================
+   RESULT MESSAGE
+===================================================== */
+
+.result-message{
+    min-height:20px;
+
+    margin-top:-20px;
+    margin-bottom:22px;
+
+    color:#7b8492;
+
+    font-size:13px;
+}
+
+
+/* =====================================================
+   SERVICE GRID
+===================================================== */
+
+.service-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0,1fr)
+        );
+
+    gap:12px;
+}
+
+
+/* =====================================================
+   SERVICE CARD
+===================================================== */
+
+.service-card{
+    min-height:78px;
+
+    padding:13px 14px;
+
+    display:flex;
+    align-items:center;
+
+    gap:11px;
+
+    background:
+        rgba(255,255,255,.98);
+
+    border:
+        1px solid #dfe4ea;
+
+    border-radius:16px;
+
+    color:#171c28;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:800;
+
+    line-height:1.3;
+
+    box-shadow:
+        0 5px 17px
+        rgba(25,40,70,.035);
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.service-card:hover{
+    transform:
+        translateY(-3px);
+
+    border-color:#ffc1ad;
+
+    box-shadow:
+        0 11px 25px
+        rgba(255,91,65,.09);
+}
+
+.service-icon{
+    width:43px;
+    height:43px;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff1e9,
+            #fff8f5
+        );
+
+    border:
+        1px solid #ffded1;
+
+    font-size:20px;
+}
+
+.service-arrow{
+    margin-left:auto;
+
+    color:#a2a9b3;
+
+    font-size:17px;
+}
+
+.service-card:hover
+.service-arrow{
+    color:#f05e3c;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+    width:100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #101624,
+            #151d30
+        );
+
+    color:#fff;
+
+    padding:
+        32px 4% 21px;
+}
+
+.footer-inner{
+    width:100%;
+    max-width:1180px;
+
+    margin:0 auto;
+
+    display:grid;
+
+    grid-template-columns:
+        1.2fr
+        1fr
+        auto;
+
+    align-items:center;
+
+    gap:30px;
+}
+
+.footer-title{
+    color:#fff;
+
+    font-size:21px;
+    font-weight:900;
+}
+
+.footer-text{
+    margin-top:7px;
+
+    color:#aeb6c5;
+
+    font-size:13px;
+    line-height:1.5;
+}
+
+.footer-links{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:9px;
+
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+    color:#aeb6c5;
+
+    text-decoration:none;
+
+    font-size:13px;
+}
+
+.footer-separator{
+    color:#4d5668;
+}
+
+.footer-contact{
+    min-width:200px;
+
+    padding-left:27px;
+
+    border-left:
+        1px solid #343d50;
+}
+
+.footer-ad{
+    color:#969faf;
+
+    font-size:12px;
+
+    margin-bottom:5px;
+}
+
+.footer-contact a{
+    display:block;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:800;
+}
+
+.footer-number{
+    color:#ff9369 !important;
+
+    font-size:20px !important;
+
+    margin-top:3px;
+}
+
+.footer-copy{
+    width:100%;
+    max-width:1180px;
+
+    margin:
+        23px auto 0;
+
+    padding-top:17px;
+
+    border-top:
+        1px solid #2c3446;
+
+    color:#737d91;
+
+    font-size:12px;
+
+    text-align:center;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(max-width:900px){
+
+    .service-grid{
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0,1fr)
+            );
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+    .header{
+        min-height:68px;
+        padding:0 16px;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+  .pyncode-text{
+    color:#151a28;
+    font-weight:900;
+}
+
+.pyncode-orange{
+    color:#ff7619;
+}
+
+    .logo-mark{
+        width:36px;
+        height:36px;
+
+        border-radius:11px;
+
+        font-size:18px;
+    }
+
+    .home-btn{
+        min-height:42px;
+
+        padding:0 14px;
+
+        border-radius:11px;
+
+        font-size:12px;
+    }
+
+    .main{
+        padding:
+            30px 16px 48px;
+    }
+
+    .page-title{
+        font-size:26px;
+    }
+
+    .page-subtitle{
+        font-size:13px;
+    }
+
+    .search-box{
+        gap:8px;
+        margin-bottom:30px;
+    }
+
+    .pincode-input{
+        height:48px;
+        font-size:13px;
+    }
+
+    .search-btn{
+        height:48px;
+
+        padding:0 16px;
+
+        font-size:13px;
+    }
+
+    .service-grid{
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
+
+        gap:9px;
+    }
+
+    .service-card{
+        min-height:72px;
+
+        padding:10px;
+
+        gap:8px;
+
+        border-radius:14px;
+
+        font-size:11.5px;
+    }
+
+    .service-icon{
+        width:36px;
+        height:36px;
+
+        border-radius:10px;
+
+        font-size:17px;
+    }
+
+    .service-arrow{
+        font-size:14px;
+    }
+
+    .footer{
+        padding:
+            28px 18px 21px;
+    }
+
+    .footer-inner{
+        grid-template-columns:1fr;
+        gap:21px;
+    }
+
+    .footer-links{
+        justify-content:flex-start;
+    }
+
+    .footer-contact{
+        min-width:0;
+
+        padding:
+            18px 0 0;
+
+        border-left:0;
+
+        border-top:
+            1px solid #343d50;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:400px){
+
+    .logo{
+        font-size:18px;
+    }
+
+    .logo-mark{
+        width:34px;
+        height:34px;
+    }
+
+    .home-btn{
+        padding:0 12px;
+        font-size:11px;
+    }
+
+  .header-actions{
+    gap:6px;
+}
+
+.list-service-btn{
+    min-height:42px;
+    padding:0 12px;
+    border-radius:11px;
+    font-size:11px;
+}
+
+    .service-card{
+        font-size:11px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+  <a
+    href="index.html"
+    class="logo"
+>
+    <span class="pyncode-text">
+        <span class="pyncode-orange">Pyn</span>code.in
+    </span>
+  </a>
+
+
+    <div class="header-actions">
+
+        <a
+            href="list-your-service.html"
+            class="list-service-btn"
+        >
+            + List Your Service
+        </a>
+
+
+        <a
+            href="index.html"
+            class="home-btn"
+        >
+            ← Home
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+    <div class="page-heading">
+
+        <div class="eyebrow">
+            🛠️ Local Services
+        </div>
+
+        <h1 class="page-title">
+            Services Near You
+        </h1>
+
+        <p class="page-subtitle">
+            Find trusted service providers near you
+        </p>
+
+    </div>
+
+
+    <!-- SERVICE CATEGORIES -->
+
+    <div
+        id="serviceGrid"
+        class="service-grid"
+    ></div>
+
+</main>
+
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="footer-title">
+                Pyncode.in
+            </div>
+
+            <div class="footer-text">
+                Discover local services around you.
+            </div>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#">
+                Privacy Policy
+            </a>
+
+            <span class="footer-separator">
+                |
+            </span>
+
+            <a href="#">
+                Terms
+            </a>
+
+            <span class="footer-separator">
+                |
+            </span>
+
+            <a href="#">
+                Contact
+            </a>
+
+        </div>
+
+
+        <div class="footer-contact">
+
+            <div class="footer-ad">
+                For Advertisement
+            </div>
+
+            <a href="tel:9092035926">
+                Call or WhatsApp
+            </a>
+
+            <a
+                class="footer-number"
+                href="https://wa.me/919092035926"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                9092035926
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-copy">
+        © 2026 Pyncode.in. All rights reserved.
+    </div>
+
+</footer>
+
+  <!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   30 SERVICE CATEGORIES
+===================================================== */
+
+const serviceCategories = [
+
+    {
+        name: "AC Service & Repair",
+        icon: "❄️"
+    },
+
+    {
+        name: "Plumbing Services",
+        icon: "🚰"
+    },
+
+    {
+        name: "Electrician Services",
+        icon: "⚡"
+    },
+
+    {
+        name: "Home Appliance Repair",
+        icon: "🔧"
+    },
+
+    {
+        name: "RO / Water Purifier Service",
+        icon: "💧"
+    },
+
+    {
+        name: "Washing Machine Repair",
+        icon: "🧺"
+    },
+
+    {
+        name: "Refrigerator Repair",
+        icon: "🧊"
+    },
+
+    {
+        name: "TV Repair",
+        icon: "📺"
+    },
+
+    {
+        name: "Carpenter Services",
+        icon: "🪚"
+    },
+
+    {
+        name: "Painting Services",
+        icon: "🎨"
+    },
+
+    {
+        name: "Home Cleaning Services",
+        icon: "🧹"
+    },
+
+    {
+        name: "Pest Control Services",
+        icon: "🐜"
+    },
+
+    {
+        name: "Mobile Repair Services",
+        icon: "📱"
+    },
+
+    {
+        name: "Computer & Laptop Service",
+        icon: "💻"
+    },
+
+    {
+        name: "CCTV Installation & Service",
+        icon: "📹"
+    },
+
+    {
+        name: "Solar Panel Installation & Service",
+        icon: "☀️"
+    },
+
+    {
+        name: "Car Service & Repair",
+        icon: "🚗"
+    },
+
+    {
+        name: "Bike Service & Repair",
+        icon: "🏍️"
+    },
+
+    {
+        name: "Car Washing & Detailing",
+        icon: "🧽"
+    },
+
+    {
+        name: "Tyre & Puncture Services",
+        icon: "🛞"
+    },
+
+    {
+        name: "Interior Design Services",
+        icon: "🏠"
+    },
+
+    {
+        name: "Aluminium & Glass Works",
+        icon: "🪟"
+    },
+
+    {
+        name: "Door & Window Services",
+        icon: "🚪"
+    },
+
+    {
+        name: "Civil & Construction Services",
+        icon: "🏗️"
+    },
+
+    {
+        name: "Packers & Movers",
+        icon: "📦"
+    },
+
+    {
+        name: "Event Decoration Services",
+        icon: "🎉"
+    },
+
+    {
+        name: "Photography & Videography",
+        icon: "📸"
+    },
+
+    {
+        name: "Makeup & Beauty Services",
+        icon: "💄"
+    },
+
+    {
+        name: "Wedding Services",
+        icon: "💍"
+    },
+
+    {
+        name: "Legal & Documentation Services",
+        icon: "⚖️"
+    }
+
+];
+
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const serviceGrid =
+    document.getElementById(
+        "serviceGrid"
+    );
+
+/* =====================================================
+   RENDER SERVICE CATEGORIES
+===================================================== */
+
+function renderServices(
+    pincode = ""
+){
+
+    serviceGrid.innerHTML = "";
+
+
+    serviceCategories.forEach(
+        function(service){
+
+            const card =
+                document.createElement("a");
+
+
+            card.className =
+                "service-card";
+
+
+            /*
+               IMPORTANT:
+               listingType parameter must match
+               category.html
+            */
+
+            let url =
+    "service-category.html?category=" +
+                encodeURIComponent(
+                    service.name
+                ) +
+                "&listingType=service";
+
+
+            if(pincode){
+
+                url +=
+                    "&pincode=" +
+                    encodeURIComponent(
+                        pincode
+                    );
+
+            }
+
+
+            card.href =
+                url;
+
+
+            card.innerHTML = `
+
+                <span class="service-icon">
+                    ${service.icon}
+                </span>
+
+                <span>
+                    ${service.name}
+                </span>
+
+                <span class="service-arrow">
+                    →
+                </span>
+
+            `;
+
+
+            serviceGrid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+renderServices();
+
+  /* =====================================================
+   FINISH
+===================================================== */
+
+</script>
+
+
+<!-- =====================================================
+     SERVICE WORKER
+===================================================== -->
+
+<script>
+
+if(
+    "serviceWorker" in navigator
+){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker.register(
+                "/service-worker.js"
+            )
+            .then(
+                function(){
+
+                    console.log(
+                        "Pyncode Service Worker registered"
+                    );
+
+                }
+            )
+            .catch(
+                function(error){
+
+                    console.error(
+                        "Service Worker registration failed:",
+                        error
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

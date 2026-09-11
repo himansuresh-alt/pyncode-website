@@ -1,0 +1,2251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Shop Offer Admin - Pyncode</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* ================================
+   RESET
+================================ */
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f7f7f5;
+    color:#171717;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.header{
+    background:#fff;
+    border-bottom:1px solid #e8e8e8;
+    padding:18px 24px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.brand{
+    font-size:25px;
+    font-weight:800;
+}
+
+.header-actions{
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    border:none;
+    border-radius:12px;
+
+    padding:12px 18px;
+
+    font-size:14px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+.back-btn{
+    background:#f1f1f1;
+    color:#222;
+}
+
+.logout-btn{
+    background:#fff0f0;
+    color:#c62828;
+}
+
+
+/* ================================
+   CONTAINER
+================================ */
+
+.container{
+    width:100%;
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:35px 18px 70px;
+}
+
+
+/* ================================
+   HERO
+================================ */
+
+.hero{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.hero-icon{
+    width:70px;
+    height:70px;
+
+    margin:0 auto 15px;
+
+    border-radius:22px;
+
+    background:linear-gradient(
+        135deg,
+        #fff0df,
+        #ffe8ee
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:34px;
+}
+
+.hero h1{
+    margin:0;
+    font-size:32px;
+}
+
+.hero p{
+    margin:10px 0 0;
+    color:#777;
+    font-size:16px;
+}
+
+
+/* ================================
+   MESSAGE
+================================ */
+
+.message{
+    display:none;
+
+    padding:14px 16px;
+
+    border-radius:12px;
+
+    margin-bottom:20px;
+
+    text-align:center;
+
+    font-size:14px;
+    font-weight:600;
+}
+
+.message.success{
+    display:block;
+    background:#eaf8ef;
+    color:#16743f;
+}
+
+.message.error{
+    display:block;
+    background:#fff0f0;
+    color:#b42323;
+}
+
+
+/* ================================
+   STATS
+================================ */
+
+.stats{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+
+    margin-bottom:30px;
+}
+
+.stat{
+    background:#fff;
+
+    border:1px solid #e8e8e8;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    text-align:center;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.stat-label{
+    color:#777;
+    font-size:14px;
+}
+
+.pending-stat .stat-number{
+    color:#e67e22;
+}
+
+.approved-stat .stat-number{
+    color:#2e9d57;
+}
+
+.rejected-stat .stat-number{
+    color:#d64545;
+}
+
+
+/* ================================
+   SECTION
+================================ */
+
+.section{
+    background:#fff;
+
+    border:1px solid #e5e5e5;
+
+    border-radius:22px;
+
+    padding:24px;
+
+    margin-bottom:25px;
+}
+
+.section-title{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+.section-title h2{
+    margin:0;
+    font-size:22px;
+}
+
+.refresh-btn{
+    background:#f1f1f1;
+    color:#222;
+}
+
+
+/* ================================
+   OFFERS GRID
+================================ */
+
+.offers-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+
+/* ================================
+   OFFER CARD
+================================ */
+
+.offer-card{
+    border:1px solid #e4e4e4;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    background:#fff;
+}
+
+
+/* ================================
+   POSTER
+================================ */
+
+.poster-wrap{
+    width:100%;
+
+    aspect-ratio:9 / 16;
+
+    background:#f1f1f1;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    position:relative;
+}
+
+.poster-wrap img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+.no-poster{
+    width:100%;
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#888;
+
+    font-size:14px;
+}
+
+
+/* ================================
+   STATUS
+================================ */
+
+.status-badge{
+    position:absolute;
+
+    top:12px;
+    left:12px;
+
+    padding:7px 11px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    background:#fff;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.12);
+}
+
+.status-pending{
+    color:#d97706;
+}
+
+.status-approved{
+    color:#18864b;
+}
+
+.status-rejected{
+    color:#c62828;
+}
+
+
+/* ================================
+   OFFER INFO
+================================ */
+
+.offer-info{
+    padding:16px;
+}
+
+.shop-name{
+    font-size:18px;
+
+    font-weight:800;
+
+    margin-bottom:7px;
+}
+
+.offer-meta{
+    color:#777;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+/* ================================
+   ACTIONS
+================================ */
+
+.actions{
+    display:flex;
+
+    gap:9px;
+
+    margin-top:15px;
+}
+
+.approve-btn{
+    flex:1;
+
+    background:#eaf8ef;
+
+    color:#168044;
+}
+
+.reject-btn{
+    flex:1;
+
+    background:#fff0f0;
+
+    color:#c62828;
+}
+
+.delete-btn{
+    width:100%;
+
+    background:#f3f3f3;
+
+    color:#555;
+
+    margin-top:9px;
+}
+
+.delete-btn:hover{
+    background:#ffe8e8;
+    color:#c62828;
+}
+
+
+/* ================================
+   EMPTY / LOADING
+================================ */
+
+.empty{
+    text-align:center;
+
+    padding:55px 20px;
+
+    color:#777;
+
+    grid-column:1 / -1;
+}
+
+.empty-icon{
+    font-size:45px;
+
+    margin-bottom:12px;
+}
+
+.loading{
+    text-align:center;
+
+    padding:50px 20px;
+
+    color:#777;
+
+    grid-column:1 / -1;
+}
+
+  /* ================================
+   FOOTER
+================================ */
+
+.footer{
+    background:#111;
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:28px 15px;
+}
+
+.footer-title{
+    font-size:16px;
+
+    font-weight:800;
+}
+
+.footer-text{
+    margin-top:7px;
+
+    color:#aaa;
+
+    font-size:14px;
+}
+
+
+/* ================================
+   FULLSCREEN VIEWER
+================================ */
+
+.viewer{
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.95);
+
+    z-index:9999;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+}
+
+.viewer.active{
+    display:flex;
+}
+
+.viewer img{
+    width:auto;
+
+    height:auto;
+
+    max-width:94vw;
+
+    max-height:94vh;
+
+    object-fit:contain;
+}
+
+.viewer-close{
+    position:absolute;
+
+    top:18px;
+
+    right:18px;
+
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.18);
+
+    color:#fff;
+
+    font-size:28px;
+
+    cursor:pointer;
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media(max-width:800px){
+
+    .offers-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .header{
+        padding:15px;
+    }
+
+
+    .brand{
+        font-size:21px;
+    }
+
+
+    .container{
+        padding:25px 12px 50px;
+    }
+
+
+    .hero h1{
+        font-size:27px;
+    }
+
+
+    .hero p{
+        font-size:14px;
+    }
+
+
+    .stats{
+        gap:8px;
+    }
+
+
+    .stat{
+        padding:16px 8px;
+    }
+
+
+    .stat-number{
+        font-size:23px;
+    }
+
+
+    .stat-label{
+        font-size:12px;
+    }
+
+
+    .offers-grid{
+        grid-template-columns:1fr;
+    }
+
+
+    .section{
+        padding:16px;
+
+        border-radius:18px;
+    }
+
+
+    .section-title h2{
+        font-size:19px;
+    }
+
+
+    .header-actions .btn{
+        padding:10px 12px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================
+     HEADER
+================================ -->
+
+<header class="header">
+
+    <div class="brand">
+        Visiting Card
+    </div>
+
+
+    <div class="header-actions">
+
+        <button
+            type="button"
+            class="btn back-btn"
+            id="backBtn"
+        >
+            ← Back
+        </button>
+
+
+        <button
+            type="button"
+            class="btn logout-btn"
+            id="logoutBtn"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================================
+     MAIN
+================================ -->
+
+<main class="container">
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-icon">
+            🛡️
+        </div>
+
+
+        <h1>
+            Shop Offer Approvals
+        </h1>
+
+
+        <p>
+            Review advertisements submitted by Pyncode shop owners.
+        </p>
+
+    </section>
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+
+        <div class="stat pending-stat">
+
+            <div
+                class="stat-number"
+                id="pendingCount"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Pending
+            </div>
+
+        </div>
+
+
+        <div class="stat approved-stat">
+
+            <div
+                class="stat-number"
+                id="approvedCount"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Approved
+            </div>
+
+        </div>
+
+
+        <div class="stat rejected-stat">
+
+            <div
+                class="stat-number"
+                id="rejectedCount"
+            >
+                0
+            </div>
+
+            <div class="stat-label">
+                Rejected
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- SUBMITTED OFFERS -->
+
+    <section class="section">
+
+
+        <div class="section-title">
+
+            <h2>
+                Submitted Advertisements
+            </h2>
+
+
+            <button
+                type="button"
+                class="btn refresh-btn"
+                id="refreshBtn"
+            >
+                ↻ Refresh
+            </button>
+
+        </div>
+
+
+        <div
+            id="offersContainer"
+            class="offers-grid"
+        >
+
+            <div class="loading">
+                Loading advertisements...
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- ================================
+     FOOTER
+================================ -->
+
+<footer class="footer">
+
+    <div class="footer-title">
+        Pyncode
+    </div>
+
+
+    <div class="footer-text">
+        Shop Offer Admin Panel
+    </div>
+
+</footer>
+
+
+<!-- ================================
+     IMAGE VIEWER
+================================ -->
+
+<div
+    id="viewer"
+    class="viewer"
+>
+
+
+    <button
+        type="button"
+        id="viewerClose"
+        class="viewer-close"
+    >
+        ×
+    </button>
+
+
+    <img
+        id="viewerImage"
+        src=""
+        alt="Advertisement Poster"
+    >
+
+
+</div>
+
+
+<script>
+
+  /* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const offersContainer =
+    document.getElementById(
+        "offersContainer"
+    );
+
+const pendingCount =
+    document.getElementById(
+        "pendingCount"
+    );
+
+const approvedCount =
+    document.getElementById(
+        "approvedCount"
+    );
+
+const rejectedCount =
+    document.getElementById(
+        "rejectedCount"
+    );
+
+const messageBox =
+    document.getElementById(
+        "message"
+    );
+
+const refreshBtn =
+    document.getElementById(
+        "refreshBtn"
+    );
+
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
+
+const backBtn =
+    document.getElementById(
+        "backBtn"
+    );
+
+const viewer =
+    document.getElementById(
+        "viewer"
+    );
+
+const viewerImage =
+    document.getElementById(
+        "viewerImage"
+    );
+
+const viewerClose =
+    document.getElementById(
+        "viewerClose"
+    );
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showMessage(
+    text,
+    type
+){
+
+    messageBox.textContent =
+        text;
+
+    messageBox.className =
+        "message " + type;
+
+    setTimeout(
+        function(){
+
+            messageBox.className =
+                "message";
+
+        },
+        3500
+    );
+}
+
+
+/* =========================================
+   ADMIN CHECK
+========================================= */
+
+async function checkAdmin(){
+
+    try{
+
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+            await supabaseClient
+                .auth
+                .getSession();
+
+
+        if(sessionError){
+
+            console.error(
+                "Session error:",
+                sessionError
+            );
+
+            showMessage(
+                sessionError.message ||
+                "Unable to check login session.",
+                "error"
+            );
+
+            return false;
+        }
+
+
+        const session =
+            sessionData.session;
+
+
+        if(!session){
+
+            showMessage(
+                "Admin login required.",
+                "error"
+            );
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "promotion-admin-login.html";
+
+                },
+                1000
+            );
+
+            return false;
+        }
+
+
+        const userId =
+            session.user.id;
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("admin_users")
+                .select(
+                    "auth_user_id"
+                )
+                .eq(
+                    "auth_user_id",
+                    userId
+                )
+                .maybeSingle();
+
+
+        if(error){
+
+            console.error(
+                "Admin check error:",
+                error
+            );
+
+            showMessage(
+                error.message ||
+                "Unable to verify admin access.",
+                "error"
+            );
+
+            return false;
+        }
+
+
+        if(!data){
+
+            showMessage(
+                "Admin access required.",
+                "error"
+            );
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "promotion-admin-login.html";
+
+                },
+                1000
+            );
+
+            return false;
+        }
+
+
+        return true;
+
+    }
+    catch(error){
+
+        console.error(
+            "Admin check exception:",
+            error
+        );
+
+        showMessage(
+            error.message ||
+            "Unable to verify admin.",
+            "error"
+        );
+
+        return false;
+    }
+}
+
+
+/* =========================================
+   LOAD OFFERS
+========================================= */
+
+async function loadOffers(){
+
+    offersContainer.innerHTML = `
+        <div class="loading">
+            Loading advertisements...
+        </div>
+    `;
+
+
+    try{
+
+        const {
+            data: offers,
+            error
+        } =
+            await supabaseClient
+                .from("shop_offers")
+                .select(`
+                    id,
+                    shop_id,
+                    offer_image,
+                    pincode,
+                    status,
+                    is_active,
+                    created_at,
+                    expires_at
+                `)
+                .order(
+                    "created_at",
+                    {
+                        ascending:false
+                    }
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        const offerList =
+            offers || [];
+
+
+        updateStats(
+            offerList
+        );
+
+
+        if(
+            offerList.length === 0
+        ){
+
+            offersContainer.innerHTML = `
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        📭
+                    </div>
+
+                    <strong>
+                        No advertisements found
+                    </strong>
+
+                    <br><br>
+
+                    <small>
+                        Shop owner submissions will appear here.
+                    </small>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        /* =========================================
+           SHOP MAPPING
+           
+           shop_offers.shop_id
+                    ↓
+                 shops.id
+
+           Existing mapping is preserved.
+        ========================================= */
+
+        const shopIds = [
+            ...new Set(
+                offerList
+                    .map(
+                        offer =>
+                            offer.shop_id
+                    )
+                    .filter(
+                        id =>
+                            id !== null &&
+                            id !== undefined
+                    )
+            )
+        ];
+
+
+        let shopsMap = {};
+
+
+        if(
+            shopIds.length > 0
+        ){
+
+            const {
+                data: shops,
+                error: shopError
+            } =
+                await supabaseClient
+                    .from("shops")
+                    .select(`
+                        id,
+                        shop_name,
+                        category,
+                        owner_name,
+                        area,
+                        city
+                    `)
+                    .in(
+                        "id",
+                        shopIds
+                    );
+
+
+            if(shopError){
+
+                console.error(
+                    "Shop loading error:",
+                    shopError
+                );
+
+            }
+            else if(shops){
+
+                shops.forEach(
+                    function(shop){
+
+                        shopsMap[
+                            shop.id
+                        ] = shop;
+
+                    }
+                );
+
+            }
+
+        }
+
+
+        renderOffers(
+            offerList,
+            shopsMap
+        );
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Load offers error:",
+            error
+        );
+
+
+        updateStats([]);
+
+
+        offersContainer.innerHTML = `
+            <div class="empty">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
+                <strong>
+                    Unable to load advertisements
+                </strong>
+
+                <br><br>
+
+                <small>
+                    ${escapeHtml(
+                        error.message ||
+                        "Please refresh and try again."
+                    )}
+                </small>
+
+            </div>
+        `;
+
+    }
+}
+
+
+/* =========================================
+   UPDATE STATS
+========================================= */
+
+function updateStats(
+    offers
+){
+
+    let pending = 0;
+    let approved = 0;
+    let rejected = 0;
+
+
+    offers.forEach(
+        function(offer){
+
+            const status =
+                String(
+                    offer.status ||
+                    ""
+                ).toLowerCase();
+
+
+            if(
+                status === "pending"
+            ){
+
+                pending++;
+
+            }
+
+
+            if(
+                status === "approved"
+            ){
+
+                approved++;
+
+            }
+
+
+            if(
+                status === "rejected"
+            ){
+
+                rejected++;
+
+            }
+
+        }
+    );
+
+
+    pendingCount.textContent =
+        pending;
+
+    approvedCount.textContent =
+        approved;
+
+    rejectedCount.textContent =
+        rejected;
+
+      }
+
+  /* =========================================
+   RENDER OFFERS
+========================================= */
+
+function renderOffers(
+    offers,
+    shopsMap
+){
+
+    offersContainer.innerHTML = "";
+
+
+    offers.forEach(
+        function(offer){
+
+            const shop =
+                shopsMap[
+                    offer.shop_id
+                ] || {};
+
+
+            const shopName =
+                shop.shop_name ||
+                "Unknown Shop";
+
+
+            const category =
+                shop.category ||
+                "Not specified";
+
+
+            const location =
+                [
+                    shop.area,
+                    shop.city
+                ]
+                .filter(Boolean)
+                .join(", ");
+
+
+            const status =
+                String(
+                    offer.status ||
+                    "pending"
+                ).toLowerCase();
+
+
+            let statusClass =
+                "status-pending";
+
+
+            if(
+                status === "approved"
+            ){
+                statusClass =
+                    "status-approved";
+            }
+
+
+            if(
+                status === "rejected"
+            ){
+                statusClass =
+                    "status-rejected";
+            }
+
+
+            const date =
+                offer.created_at
+                    ? new Date(
+                        offer.created_at
+                    ).toLocaleString(
+                        "en-IN",
+                        {
+                            dateStyle:
+                                "medium",
+                            timeStyle:
+                                "short"
+                        }
+                    )
+                    : "Unknown";
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "offer-card";
+
+
+            /* =========================================
+               POSTER
+            ========================================= */
+
+            let posterHtml = "";
+
+
+            if(
+                offer.offer_image
+            ){
+
+                posterHtml = `
+                    <img
+                        src="${escapeAttribute(
+                            offer.offer_image
+                        )}"
+                        alt="Advertisement Poster"
+                        loading="lazy"
+                    >
+                `;
+
+            }
+            else{
+
+                posterHtml = `
+                    <div class="no-poster">
+                        No Poster
+                    </div>
+                `;
+
+            }
+
+
+            /* =========================================
+               ACTION BUTTONS
+            ========================================= */
+
+            let actionButtons = "";
+
+
+            if(
+                status === "pending"
+            ){
+
+                actionButtons = `
+
+                    <div class="actions">
+
+                        <button
+                            type="button"
+                            class="btn approve-btn"
+                            data-action="approve"
+                        >
+                            ✓ Approve
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="btn reject-btn"
+                            data-action="reject"
+                        >
+                            ✕ Reject
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            actionButtons += `
+
+                <button
+                    type="button"
+                    class="btn delete-btn"
+                    data-action="delete"
+                >
+                    🗑 Delete Offer
+                </button>
+
+            `;
+
+
+            /* =========================================
+               CARD HTML
+            ========================================= */
+
+            card.innerHTML = `
+
+                <div
+                    class="poster-wrap"
+                >
+
+                    ${posterHtml}
+
+
+                    <div
+                        class="status-badge ${statusClass}"
+                    >
+                        ${escapeHtml(
+                            status.toUpperCase()
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="offer-info">
+
+                    <div class="shop-name">
+
+                        ${escapeHtml(
+                            shopName
+                        )}
+
+                    </div>
+
+
+                    <div class="offer-meta">
+
+                        Category:
+                        ${escapeHtml(
+                            category
+                        )}
+
+
+                        ${
+                            location
+                            ? `
+                                <br>
+                                Location:
+                                ${escapeHtml(
+                                    location
+                                )}
+                              `
+                            : ""
+                        }
+
+
+                        ${
+                            offer.pincode
+                            ? `
+                                <br>
+                                Pincode:
+                                ${escapeHtml(
+                                    offer.pincode
+                                )}
+                              `
+                            : ""
+                        }
+
+
+                        <br>
+
+                        Uploaded:
+                        ${escapeHtml(
+                            date
+                        )}
+
+                    </div>
+
+
+                    ${actionButtons}
+
+                </div>
+
+            `;
+
+
+            /* =========================================
+               POSTER VIEWER
+            ========================================= */
+
+            const poster =
+                card.querySelector(
+                    ".poster-wrap"
+                );
+
+
+            if(
+                poster &&
+                offer.offer_image
+            ){
+
+                poster.addEventListener(
+                    "click",
+                    function(){
+
+                        openViewer(
+                            offer.offer_image
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =========================================
+               APPROVE BUTTON
+            ========================================= */
+
+            const approveButton =
+                card.querySelector(
+                    '[data-action="approve"]'
+                );
+
+
+            if(
+                approveButton
+            ){
+
+                approveButton.addEventListener(
+                    "click",
+                    function(){
+
+                        updateOfferStatus(
+                            offer.id,
+                            "approved"
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =========================================
+               REJECT BUTTON
+            ========================================= */
+
+            const rejectButton =
+                card.querySelector(
+                    '[data-action="reject"]'
+                );
+
+
+            if(
+                rejectButton
+            ){
+
+                rejectButton.addEventListener(
+                    "click",
+                    function(){
+
+                        updateOfferStatus(
+                            offer.id,
+                            "rejected"
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =========================================
+               DELETE BUTTON
+            ========================================= */
+
+            const deleteButton =
+                card.querySelector(
+                    '[data-action="delete"]'
+                );
+
+
+            if(
+                deleteButton
+            ){
+
+                deleteButton.addEventListener(
+                    "click",
+                    function(){
+
+                        deleteOffer(
+                            offer.id
+                        );
+
+                    }
+                );
+
+            }
+
+
+            offersContainer.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================
+   ESCAPE ATTRIBUTE
+========================================= */
+
+function escapeAttribute(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    );
+
+}
+
+
+/* =========================================
+   UPDATE OFFER STATUS
+========================================= */
+
+async function updateOfferStatus(
+    offerId,
+    newStatus
+){
+
+    const actionText =
+        newStatus === "approved"
+            ? "approve"
+            : "reject";
+
+
+    if(
+        !confirm(
+            "Are you sure you want to " +
+            actionText +
+            " this offer?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("shop_offers")
+                .update({
+                    status:
+                        newStatus,
+
+                    is_active:
+                        newStatus ===
+                        "approved"
+                })
+                .eq(
+                    "id",
+                    offerId
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        showMessage(
+            newStatus === "approved"
+                ? "Offer approved successfully."
+                : "Offer rejected successfully.",
+            "success"
+        );
+
+
+        await loadOffers();
+
+    }
+    catch(error){
+
+        console.error(
+            "Status update error:",
+            error
+        );
+
+
+        showMessage(
+            error.message ||
+            "Unable to update offer.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   DELETE OFFER
+========================================= */
+
+async function deleteOffer(
+    offerId
+){
+
+    if(
+        !confirm(
+            "Are you sure you want to permanently delete this offer?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("shop_offers")
+                .delete()
+                .eq(
+                    "id",
+                    offerId
+                );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        showMessage(
+            "Offer deleted successfully.",
+            "success"
+        );
+
+
+        await loadOffers();
+
+    }
+    catch(error){
+
+        console.error(
+            "Delete error:",
+            error
+        );
+
+
+        showMessage(
+            error.message ||
+            "Unable to delete offer.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   OPEN VIEWER
+========================================= */
+
+function openViewer(
+    imageUrl
+){
+
+    if(!imageUrl){
+
+        return;
+
+    }
+
+
+    viewerImage.src =
+        imageUrl;
+
+
+    viewer.classList.add(
+        "active"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================================
+   CLOSE VIEWER
+========================================= */
+
+function closeViewer(){
+
+    viewer.classList.remove(
+        "active"
+    );
+
+
+    viewerImage.src =
+        "";
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =========================================
+   VIEWER CLOSE BUTTON
+========================================= */
+
+viewerClose.addEventListener(
+    "click",
+    function(){
+
+        closeViewer();
+
+    }
+);
+
+
+/* =========================================
+   CLICK OUTSIDE VIEWER
+========================================= */
+
+viewer.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target === viewer
+        ){
+
+            closeViewer();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   ESC KEY
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape" &&
+            viewer.classList.contains(
+                "active"
+            )
+        ){
+
+            closeViewer();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   REFRESH
+========================================= */
+
+refreshBtn.addEventListener(
+    "click",
+    async function(){
+
+        refreshBtn.disabled =
+            true;
+
+        refreshBtn.textContent =
+            "↻ Loading...";
+
+
+        try{
+
+            await loadOffers();
+
+        }
+        finally{
+
+            refreshBtn.disabled =
+                false;
+
+            refreshBtn.textContent =
+                "↻ Refresh";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+backBtn.addEventListener(
+    "click",
+    function(){
+
+        window.history.back();
+
+    }
+);
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+logoutBtn.addEventListener(
+    "click",
+    async function(){
+
+        logoutBtn.disabled =
+            true;
+
+        logoutBtn.textContent =
+            "Logging out...";
+
+
+        try{
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+        }
+        catch(error){
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+        }
+
+
+        window.location.href =
+            "promotion-admin-login.html";
+
+    }
+);
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+supabaseClient
+    .auth
+    .onAuthStateChange(
+        function(
+            event,
+            session
+        ){
+
+            if(
+                !session &&
+                event !== "INITIAL_SESSION"
+            ){
+
+                window.location.href =
+                    "promotion-admin-login.html";
+
+            }
+
+        }
+    );
+
+
+/* =========================================
+   PAGE INITIALIZATION
+========================================= */
+
+(async function(){
+
+    const isAdmin =
+        await checkAdmin();
+
+
+    if(!isAdmin){
+
+        return;
+
+    }
+
+
+    await loadOffers();
+
+})();
+
+</script>
+
+
+</body>
+
+</html>

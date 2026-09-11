@@ -1,0 +1,2467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="View local promotions and offers on Pyncode."
+>
+
+<title>Promotion | Pyncode</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* =========================
+   BASIC
+========================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#faf9f7;
+    color:#171717;
+
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    min-height:72px;
+    background:#fff;
+    border-bottom:1px solid #eee;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 20px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.home-button{
+    text-decoration:none;
+
+    background:#171717;
+    color:#fff;
+
+    border-radius:12px;
+
+    padding:10px 16px;
+
+    font-size:14px;
+    font-weight:800;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+    width:100%;
+    max-width:900px;
+
+    margin:auto;
+
+    padding:32px 15px 60px;
+
+    flex:1;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title{
+    text-align:center;
+
+    margin-bottom:22px;
+}
+
+.page-icon{
+    font-size:34px;
+
+    margin-bottom:7px;
+}
+
+.page-title h1{
+    font-size:30px;
+
+    font-weight:900;
+
+    letter-spacing:-1px;
+
+    margin-bottom:7px;
+
+    word-break:break-word;
+}
+
+.page-title p{
+    color:#777;
+
+    font-size:14px;
+
+    line-height:1.5;
+}
+
+
+/* =========================
+   PINCODE FILTER
+========================= */
+
+.pincode-filter{
+    width:100%;
+
+    max-width:550px;
+
+    margin:0 auto 25px;
+
+    background:#fff;
+
+    border:1px solid #e4e4e4;
+
+    border-radius:16px;
+
+    padding:14px;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.04);
+}
+
+.pincode-label{
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#222;
+
+    font-size:13px;
+
+    font-weight:800;
+}
+
+.pincode-row{
+    display:flex;
+
+    gap:8px;
+}
+
+.pincode-input{
+    flex:1;
+
+    width:100%;
+
+    min-width:0;
+
+    height:46px;
+
+    padding:0 13px;
+
+    border:1px solid #d8d8d8;
+
+    border-radius:10px;
+
+    outline:none;
+
+    background:#fff;
+
+    color:#171717;
+
+    font-size:14px;
+}
+
+.pincode-input:focus{
+    border-color:#171717;
+}
+
+.pincode-search{
+    flex-shrink:0;
+
+    min-width:82px;
+
+    height:46px;
+
+    padding:0 15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#171717;
+
+    color:#fff;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.pincode-clear{
+    flex-shrink:0;
+
+    height:46px;
+
+    padding:0 13px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    background:#fff;
+
+    color:#555;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.pincode-search:active,
+.pincode-clear:active{
+    transform:scale(.98);
+}
+
+.pincode-hint{
+    margin-top:7px;
+
+    color:#888;
+
+    font-size:11px;
+
+    line-height:1.4;
+}
+
+.filter-status{
+    display:none;
+
+    margin-top:9px;
+
+    color:#555;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+
+/* =========================
+   SLIDER
+========================= */
+
+.slider-wrap{
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+}
+
+.slider{
+    width:100%;
+
+    max-width:550px;
+
+    position:relative;
+}
+
+.slider-window{
+    width:100%;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    background:#eee;
+
+    box-shadow:
+        0 8px 28px rgba(0,0,0,.08);
+}
+
+.slider-track{
+    display:flex;
+
+    width:100%;
+
+    transition:
+        transform .35s ease;
+
+    touch-action:pan-y;
+}
+
+.slide{
+    min-width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#f1f1f1;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    -webkit-user-select:none;
+
+    touch-action:pan-y;
+}
+
+.slide img{
+    width:100%;
+
+    height:auto;
+
+    display:block;
+
+    object-fit:contain;
+
+    user-select:none;
+
+    -webkit-user-select:none;
+
+    -webkit-user-drag:none;
+
+    pointer-events:none;
+}
+
+
+/* =========================
+   SLIDER BUTTONS
+========================= */
+
+.slider-arrow{
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.55);
+
+    color:#fff;
+
+    font-size:27px;
+
+    line-height:1;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    z-index:10;
+}
+
+.slider-arrow:hover{
+    background:rgba(0,0,0,.72);
+}
+
+.slider-prev{
+    left:10px;
+}
+
+.slider-next{
+    right:10px;
+}
+
+
+/* =========================
+   DOTS
+========================= */
+
+.dots{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    margin-top:15px;
+}
+
+.dot{
+    width:8px;
+
+    height:8px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#d0d0d0;
+
+    padding:0;
+
+    cursor:pointer;
+
+    transition:
+        width .2s ease,
+        background .2s ease;
+}
+
+.dot.active{
+    width:22px;
+
+    border-radius:10px;
+
+    background:#171717;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state{
+    max-width:500px;
+
+    margin:30px auto 0;
+
+    background:#fff;
+
+    border:1px solid #e5e5e5;
+
+    border-radius:18px;
+
+    padding:45px 20px;
+
+    text-align:center;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.04);
+}
+
+.empty-icon{
+    font-size:42px;
+
+    margin-bottom:12px;
+}
+
+.empty-state h2{
+    font-size:20px;
+
+    margin-bottom:7px;
+}
+
+.empty-state p{
+    color:#777;
+
+    font-size:14px;
+
+    line-height:1.5;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+    text-align:center;
+
+    padding:45px 15px;
+
+    color:#777;
+
+    font-size:14px;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error-state{
+    max-width:500px;
+
+    margin:30px auto 0;
+
+    background:#fff;
+
+    border:1px solid #e5e5e5;
+
+    border-radius:18px;
+
+    padding:35px 20px;
+
+    text-align:center;
+}
+
+.error-state h2{
+    font-size:19px;
+
+    margin-bottom:8px;
+}
+
+.error-state p{
+    color:#777;
+
+    font-size:14px;
+
+    line-height:1.5;
+}
+
+
+/* =========================
+   FULLSCREEN VIEWER
+========================= */
+
+.banner-viewer{
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9999;
+
+    background:rgba(0,0,0,.94);
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.banner-viewer.active{
+    display:flex;
+}
+
+.banner-viewer-image{
+    width:100%;
+
+    max-width:100%;
+
+    max-height:100%;
+
+    object-fit:contain;
+
+    user-select:none;
+
+    -webkit-user-select:none;
+
+    -webkit-user-drag:none;
+
+    touch-action:none;
+}
+
+.banner-viewer-close{
+    position:absolute;
+
+    top:18px;
+
+    right:18px;
+
+    width:44px;
+
+    height:44px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.18);
+
+    color:#fff;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+    z-index:10001;
+}
+
+.banner-viewer-arrow{
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:44px;
+
+    height:44px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.35);
+
+    color:#fff;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+    z-index:10001;
+}
+
+.banner-viewer-prev{
+    left:14px;
+}
+
+.banner-viewer-next{
+    right:14px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    background:#171717;
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:30px 15px 24px;
+}
+
+.footer-title{
+    font-size:18px;
+
+    font-weight:900;
+
+    margin-bottom:7px;
+}
+
+.footer-text{
+    color:#aaa;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    max-width:500px;
+
+    margin:auto;
+}
+
+  .footer-links{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-top:16px;
+}
+
+.footer-links a{
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:600;
+}
+
+.footer-links a:hover{
+    opacity:.7;
+}
+
+.footer-note{
+    margin-top:14px;
+
+    color:#777;
+
+    font-size:11px;
+}
+
+.footer-copy{
+    margin-top:16px;
+
+    padding-top:14px;
+
+    border-top:1px solid #2d2d2d;
+
+    color:#666;
+
+    font-size:11px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .header{
+        padding:0 15px;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .home-button{
+        padding:9px 14px;
+
+        font-size:13px;
+    }
+
+    .container{
+        padding:
+            27px 12px 45px;
+    }
+
+    .page-title{
+        margin-bottom:19px;
+    }
+
+    .page-icon{
+        font-size:31px;
+    }
+
+    .page-title h1{
+        font-size:27px;
+    }
+
+    .page-title p{
+        font-size:13px;
+    }
+
+    .pincode-filter{
+        padding:12px;
+
+        margin-bottom:22px;
+
+        border-radius:14px;
+    }
+
+    .pincode-row{
+        gap:6px;
+    }
+
+    .pincode-input{
+        height:44px;
+
+        font-size:13px;
+
+        padding:0 11px;
+    }
+
+    .pincode-search{
+        height:44px;
+
+        min-width:70px;
+
+        padding:0 11px;
+
+        font-size:12px;
+    }
+
+    .pincode-clear{
+        height:44px;
+
+        padding:0 10px;
+
+        font-size:12px;
+    }
+
+    .slider{
+        max-width:100%;
+    }
+
+    .slider-window{
+        border-radius:15px;
+    }
+
+    .slider-arrow{
+        width:38px;
+
+        height:38px;
+
+        font-size:24px;
+    }
+
+    .slider-prev{
+        left:8px;
+    }
+
+    .slider-next{
+        right:8px;
+    }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media(max-width:360px){
+
+    .page-title h1{
+        font-size:24px;
+    }
+
+    .slider-arrow{
+        width:35px;
+
+        height:35px;
+
+        font-size:22px;
+    }
+
+    .pincode-search{
+        min-width:62px;
+    }
+
+    .pincode-clear{
+        padding:0 8px;
+    }
+
+}
+
+  .pyn-text{
+    color:#ef603e;
+}
+
+.code-text{
+    color:#151923;
+}
+
+</style>
+
+</head>
+
+  <body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="logo">
+        <span class="pyn-text">Pyn</span><span class="code-text">code.in</span>
+    </div>
+
+    <a
+        href="promotion.html"
+        class="home-button"
+    >
+        Back
+    </a>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+    <!-- =========================
+         PAGE TITLE
+    ========================= -->
+
+    <section class="page-title">
+
+        <div class="page-icon">
+            📢
+        </div>
+
+        <h1 id="categoryTitle">
+            Promotions
+        </h1>
+
+        <p>
+            Explore promotions and offers
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         PINCODE FILTER
+    ========================= -->
+
+    <section class="pincode-filter">
+
+        <label
+            for="pincodeInput"
+            class="pincode-label"
+        >
+            📍 Find promotions near you
+        </label>
+
+        <div class="pincode-row">
+
+            <input
+                type="text"
+                id="pincodeInput"
+                class="pincode-input"
+                placeholder="Enter 6-digit pincode"
+                inputmode="numeric"
+                maxlength="6"
+                autocomplete="postal-code"
+            >
+
+            <button
+                type="button"
+                id="pincodeSearch"
+                class="pincode-search"
+            >
+                Search
+            </button>
+
+            <button
+                type="button"
+                id="pincodeClear"
+                class="pincode-clear"
+            >
+                Clear
+            </button>
+
+        </div>
+
+        <div
+            id="filterStatus"
+            class="filter-status"
+        ></div>
+
+        <div class="pincode-hint">
+            Leave pincode empty to view all promotions in this category.
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         LOADING
+    ========================= -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        Loading promotions...
+    </div>
+
+
+
+    <!-- =========================
+         SLIDER
+    ========================= -->
+
+    <div
+        id="sliderWrap"
+        class="slider-wrap"
+        style="display:none;"
+    >
+
+        <div
+            id="slider"
+            class="slider"
+        >
+
+            <div
+                id="sliderWindow"
+                class="slider-window"
+            >
+
+                <div
+                    id="sliderTrack"
+                    class="slider-track"
+                ></div>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="sliderPrev"
+                class="slider-arrow slider-prev"
+                aria-label="Previous promotion"
+            >
+                ‹
+            </button>
+
+
+            <button
+                type="button"
+                id="sliderNext"
+                class="slider-arrow slider-next"
+                aria-label="Next promotion"
+            >
+                ›
+            </button>
+
+
+            <div
+                id="dots"
+                class="dots"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         EMPTY STATE
+    ========================= -->
+
+    <div
+        id="emptyState"
+        class="empty-state"
+        style="display:none;"
+    >
+
+        <div class="empty-icon">
+            📢
+        </div>
+
+        <h2 id="emptyTitle">
+            No Promotions Available
+        </h2>
+
+        <p id="emptyText">
+            There are currently no promotions in this category.
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================
+         ERROR STATE
+    ========================= -->
+
+    <div
+        id="errorState"
+        class="error-state"
+        style="display:none;"
+    >
+
+        <h2>
+            Unable to Load Promotions
+        </h2>
+
+        <p>
+            Please try again later.
+        </p>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <div class="footer-inner">
+
+        <div class="footer-brand">
+            Pyncode
+        </div>
+
+        <div class="footer-tagline">
+            Pynd Everything Near You
+        </div>
+
+        <div class="footer-description">
+            Find Great Deals & Promotions Near You.
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="promotion.html">Promotions</a>
+            <a href="services.html">Services</a>
+            <a href="list-your-shop.html">List Your Shop</a>
+        </div>
+
+        <div class="footer-copy">
+            © 2026 Pyncode. All rights reserved.
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================
+     FULLSCREEN VIEWER
+========================= -->
+
+<div
+    id="bannerViewer"
+    class="banner-viewer"
+>
+
+    <button
+        type="button"
+        id="bannerViewerClose"
+        class="banner-viewer-close"
+        aria-label="Close promotion"
+    >
+        ×
+    </button>
+
+
+    <button
+        type="button"
+        id="bannerViewerPrev"
+        class="banner-viewer-arrow banner-viewer-prev"
+        aria-label="Previous promotion"
+    >
+        ‹
+    </button>
+
+
+    <img
+        id="bannerViewerImage"
+        class="banner-viewer-image"
+        alt="Promotion"
+    >
+
+
+    <button
+        type="button"
+        id="bannerViewerNext"
+        class="banner-viewer-arrow banner-viewer-next"
+        aria-label="Next promotion"
+    >
+        ›
+    </button>
+
+</div>
+
+
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================
+   GET CATEGORY
+========================================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const selectedCategory =
+    params.get("category");
+
+
+const categoryTitle =
+    document.getElementById(
+        "categoryTitle"
+    );
+
+
+if(selectedCategory){
+
+    categoryTitle.textContent =
+        selectedCategory;
+
+    document.title =
+        selectedCategory +
+        " Promotions | Pyncode";
+
+}
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const loading =
+    document.getElementById(
+        "loading"
+    );
+
+const sliderWrap =
+    document.getElementById(
+        "sliderWrap"
+    );
+
+const sliderTrack =
+    document.getElementById(
+        "sliderTrack"
+    );
+
+const sliderPrev =
+    document.getElementById(
+        "sliderPrev"
+    );
+
+const sliderNext =
+    document.getElementById(
+        "sliderNext"
+    );
+
+const dots =
+    document.getElementById(
+        "dots"
+    );
+
+const emptyState =
+    document.getElementById(
+        "emptyState"
+    );
+
+const emptyTitle =
+    document.getElementById(
+        "emptyTitle"
+    );
+
+const emptyText =
+    document.getElementById(
+        "emptyText"
+    );
+
+const errorState =
+    document.getElementById(
+        "errorState"
+    );
+
+const bannerViewer =
+    document.getElementById(
+        "bannerViewer"
+    );
+
+const bannerViewerImage =
+    document.getElementById(
+        "bannerViewerImage"
+    );
+
+const bannerViewerClose =
+    document.getElementById(
+        "bannerViewerClose"
+    );
+
+const bannerViewerPrev =
+    document.getElementById(
+        "bannerViewerPrev"
+    );
+
+const bannerViewerNext =
+    document.getElementById(
+        "bannerViewerNext"
+    );
+
+const pincodeInput =
+    document.getElementById(
+        "pincodeInput"
+    );
+
+const pincodeSearch =
+    document.getElementById(
+        "pincodeSearch"
+    );
+
+const pincodeClear =
+    document.getElementById(
+        "pincodeClear"
+    );
+
+const filterStatus =
+    document.getElementById(
+        "filterStatus"
+    );
+
+
+/* =========================================
+   DATA
+========================================= */
+
+let promotions = [];
+
+let currentSlide = 0;
+
+let autoSlideTimer = null;
+
+let currentPincode = "";
+
+
+/* =========================================
+   LOAD PROMOTIONS
+========================================= */
+
+async function loadPromotions(){
+
+    if(!selectedCategory){
+
+        loading.style.display =
+            "none";
+
+        emptyTitle.textContent =
+            "No Category Selected";
+
+        emptyText.textContent =
+            "Please select a promotion category.";
+
+        emptyState.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    loading.style.display =
+        "block";
+
+    sliderWrap.style.display =
+        "none";
+
+    emptyState.style.display =
+        "none";
+
+    errorState.style.display =
+        "none";
+
+
+    stopAutoSlide();
+
+
+    try{
+
+        let query =
+            supabaseClient
+                .from("promotions")
+                .select(
+                    "id, category, poster_url, pincode, is_active, created_at"
+                )
+                .eq(
+                    "category",
+                    selectedCategory
+                )
+                .eq(
+                    "is_active",
+                    true
+                )
+                .not(
+                    "poster_url",
+                    "is",
+                    null
+                );
+
+
+        /* =========================
+           PINCODE FILTER
+        ========================= */
+
+        if(currentPincode){
+
+            query =
+                query.eq(
+                    "pincode",
+                    currentPincode
+                );
+
+        }
+
+
+        const {
+            data,
+            error
+        } =
+            await query.order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
+
+
+        if(error){
+
+            console.error(
+                "Promotion load error:",
+                error
+            );
+
+            showError();
+
+            return;
+
+        }
+
+
+        promotions =
+            data || [];
+
+
+        loading.style.display =
+            "none";
+
+
+        currentSlide =
+            0;
+
+
+        if(
+            promotions.length === 0
+        ){
+
+            showEmpty();
+
+            return;
+
+        }
+
+
+        renderSlider();
+
+
+        /* =========================
+           FILTER STATUS
+        ========================= */
+
+        if(currentPincode){
+
+            filterStatus.textContent =
+                promotions.length +
+                " promotion" +
+                (
+                    promotions.length !== 1
+                    ? "s"
+                    : ""
+                ) +
+                " found for pincode " +
+                currentPincode;
+
+            filterStatus.style.display =
+                "block";
+
+        }
+        else{
+
+            filterStatus.style.display =
+                "none";
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Unexpected error:",
+            error
+        );
+
+        showError();
+
+    }
+
+}
+
+
+/* =========================================
+   SHOW EMPTY
+========================================= */
+
+function showEmpty(){
+
+    loading.style.display =
+        "none";
+
+    sliderWrap.style.display =
+        "none";
+
+    emptyState.style.display =
+        "block";
+
+
+    if(currentPincode){
+
+        emptyTitle.textContent =
+            "No Promotions Found";
+
+        emptyText.textContent =
+            "There are no promotions in this category for pincode " +
+            currentPincode +
+            ".";
+
+    }
+    else{
+
+        emptyTitle.textContent =
+            "No Promotions Available";
+
+        emptyText.textContent =
+            "There are currently no promotions in this category.";
+
+    }
+
+}
+
+
+/* =========================================
+   SHOW ERROR
+========================================= */
+
+function showError(){
+
+    loading.style.display =
+        "none";
+
+    sliderWrap.style.display =
+        "none";
+
+    emptyState.style.display =
+        "none";
+
+    errorState.style.display =
+        "block";
+
+}
+
+
+/* =========================================
+   RENDER SLIDER
+========================================= */
+
+function renderSlider(){
+
+    sliderTrack.innerHTML = "";
+
+    dots.innerHTML = "";
+
+
+    promotions.forEach(
+        function(promotion, index){
+
+            const slide =
+                document.createElement(
+                    "div"
+                );
+
+            slide.className =
+                "slide";
+
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+            image.src =
+                promotion.poster_url;
+
+            image.alt =
+                selectedCategory +
+                " promotion";
+
+
+            image.draggable =
+                false;
+
+
+            slide.appendChild(
+                image
+            );
+
+
+            slide.addEventListener(
+                "click",
+                function(){
+
+                    openViewer(index);
+
+                }
+            );
+
+
+            sliderTrack.appendChild(
+                slide
+            );
+
+
+            const dot =
+                document.createElement(
+                    "button"
+                );
+
+            dot.type =
+                "button";
+
+            dot.className =
+                "dot";
+
+
+            dot.setAttribute(
+                "aria-label",
+                "Go to promotion " +
+                (index + 1)
+            );
+
+
+            dot.addEventListener(
+                "click",
+                function(){
+
+                    goToSlide(index);
+
+                    startAutoSlide();
+
+                }
+            );
+
+
+            dots.appendChild(
+                dot
+            );
+
+        }
+    );
+
+
+    sliderWrap.style.display =
+        "flex";
+
+
+    emptyState.style.display =
+        "none";
+
+
+    updateSlider();
+
+
+    if(
+        promotions.length > 1
+    ){
+
+        sliderPrev.style.display =
+            "flex";
+
+        sliderNext.style.display =
+            "flex";
+
+        startAutoSlide();
+
+    }
+    else{
+
+        sliderPrev.style.display =
+            "none";
+
+        sliderNext.style.display =
+            "none";
+
+        stopAutoSlide();
+
+    }
+
+}
+
+  /* =========================================
+   UPDATE SLIDER
+========================================= */
+
+function updateSlider(){
+
+    sliderTrack.style.transform =
+        "translateX(-" +
+        (currentSlide * 100) +
+        "%)";
+
+
+    const dotElements =
+        dots.querySelectorAll(
+            ".dot"
+        );
+
+
+    dotElements.forEach(
+        function(dot, index){
+
+            dot.classList.toggle(
+                "active",
+                index === currentSlide
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   GO TO SLIDE
+========================================= */
+
+function goToSlide(index){
+
+    if(
+        promotions.length === 0
+    ){
+
+        return;
+
+    }
+
+
+    if(index < 0){
+
+        index =
+            promotions.length - 1;
+
+    }
+
+
+    if(
+        index >= promotions.length
+    ){
+
+        index = 0;
+
+    }
+
+
+    currentSlide =
+        index;
+
+
+    updateSlider();
+
+
+    if(
+        bannerViewer.classList.contains(
+            "active"
+        )
+    ){
+
+        updateViewer();
+
+    }
+
+}
+
+
+/* =========================================
+   NEXT / PREVIOUS
+========================================= */
+
+function nextSlide(){
+
+    goToSlide(
+        currentSlide + 1
+    );
+
+}
+
+
+function previousSlide(){
+
+    goToSlide(
+        currentSlide - 1
+    );
+
+}
+
+
+/* =========================================
+   AUTO SLIDE
+========================================= */
+
+function startAutoSlide(){
+
+    stopAutoSlide();
+
+
+    if(
+        promotions.length <= 1
+    ){
+
+        return;
+
+    }
+
+
+    autoSlideTimer =
+        setInterval(
+            function(){
+
+                nextSlide();
+
+            },
+            4000
+        );
+
+}
+
+
+function stopAutoSlide(){
+
+    if(autoSlideTimer){
+
+        clearInterval(
+            autoSlideTimer
+        );
+
+        autoSlideTimer =
+            null;
+
+    }
+
+}
+
+
+/* =========================================
+   SLIDER BUTTONS
+========================================= */
+
+sliderNext.addEventListener(
+    "click",
+    function(event){
+
+        event.stopPropagation();
+
+        nextSlide();
+
+        startAutoSlide();
+
+    }
+);
+
+
+sliderPrev.addEventListener(
+    "click",
+    function(event){
+
+        event.stopPropagation();
+
+        previousSlide();
+
+        startAutoSlide();
+
+    }
+);
+
+
+/* =========================================
+   PINCODE INPUT
+========================================= */
+
+function getPincodeValue(){
+
+    return pincodeInput.value
+        .replace(/\D/g, "")
+        .substring(0, 6);
+
+}
+
+
+pincodeInput.addEventListener(
+    "input",
+    function(){
+
+        pincodeInput.value =
+            getPincodeValue();
+
+    }
+);
+
+
+/* =========================================
+   PINCODE SEARCH
+========================================= */
+
+pincodeSearch.addEventListener(
+    "click",
+    function(){
+
+        const pincode =
+            getPincodeValue();
+
+
+        /* Empty = show all */
+
+        if(
+            pincode.length === 0
+        ){
+
+            currentPincode = "";
+
+            loadPromotions();
+
+            return;
+
+        }
+
+
+        /* Must be 6 digits */
+
+        if(
+            pincode.length !== 6
+        ){
+
+            alert(
+                "Please enter a valid 6-digit pincode."
+            );
+
+            pincodeInput.focus();
+
+            return;
+
+        }
+
+
+        currentPincode =
+            pincode;
+
+
+        loadPromotions();
+
+    }
+);
+
+
+/* =========================================
+   PINCODE ENTER KEY
+========================================= */
+
+pincodeInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter"
+        ){
+
+            event.preventDefault();
+
+            pincodeSearch.click();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   CLEAR PINCODE
+========================================= */
+
+pincodeClear.addEventListener(
+    "click",
+    function(){
+
+        pincodeInput.value = "";
+
+        currentPincode = "";
+
+        filterStatus.style.display =
+            "none";
+
+        loadPromotions();
+
+    }
+);
+
+
+/* =========================================
+   FULLSCREEN VIEWER
+========================================= */
+
+function openViewer(index){
+
+    if(
+        !promotions[index]
+    ){
+
+        return;
+
+    }
+
+
+    currentSlide =
+        index;
+
+
+    updateViewer();
+
+
+    bannerViewer.classList.add(
+        "active"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    stopAutoSlide();
+
+}
+
+
+function updateViewer(){
+
+    if(
+        !promotions[currentSlide]
+    ){
+
+        return;
+
+    }
+
+
+    bannerViewerImage.src =
+        promotions[currentSlide].poster_url;
+
+}
+
+
+function closeViewer(){
+
+    bannerViewer.classList.remove(
+        "active"
+    );
+
+
+    bannerViewerImage.src =
+        "";
+
+
+    document.body.style.overflow =
+        "";
+
+
+    if(
+        promotions.length > 1
+    ){
+
+        startAutoSlide();
+
+    }
+
+}
+
+
+/* =========================================
+   VIEWER NEXT / PREVIOUS
+========================================= */
+
+function viewerNext(){
+
+    if(
+        promotions.length === 0
+    ){
+
+        return;
+
+    }
+
+
+    currentSlide++;
+
+    if(
+        currentSlide >= promotions.length
+    ){
+
+        currentSlide = 0;
+
+    }
+
+
+    updateViewer();
+
+    updateSlider();
+
+}
+
+
+function viewerPrevious(){
+
+    if(
+        promotions.length === 0
+    ){
+
+        return;
+
+    }
+
+
+    currentSlide--;
+
+    if(
+        currentSlide < 0
+    ){
+
+        currentSlide =
+            promotions.length - 1;
+
+    }
+
+
+    updateViewer();
+
+    updateSlider();
+
+}
+
+
+bannerViewerClose.addEventListener(
+    "click",
+    function(event){
+
+        event.stopPropagation();
+
+        closeViewer();
+
+    }
+);
+
+
+bannerViewerNext.addEventListener(
+    "click",
+    function(event){
+
+        event.stopPropagation();
+
+        viewerNext();
+
+    }
+);
+
+
+bannerViewerPrev.addEventListener(
+    "click",
+    function(event){
+
+        event.stopPropagation();
+
+        viewerPrevious();
+
+    }
+);
+
+
+/* =========================================
+   CLOSE VIEWER - BACKGROUND
+========================================= */
+
+bannerViewer.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target === bannerViewer
+        ){
+
+            closeViewer();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   KEYBOARD
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            !bannerViewer.classList.contains(
+                "active"
+            )
+        ){
+
+            return;
+
+        }
+
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeViewer();
+
+        }
+
+
+        if(
+            event.key === "ArrowRight"
+        ){
+
+            viewerNext();
+
+        }
+
+
+        if(
+            event.key === "ArrowLeft"
+        ){
+
+            viewerPrevious();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   VIEWER SWIPE
+========================================= */
+
+let touchStartX = 0;
+
+let touchEndX = 0;
+
+
+bannerViewer.addEventListener(
+    "touchstart",
+    function(event){
+
+        if(
+            event.touches.length !== 1
+        ){
+
+            return;
+
+        }
+
+
+        touchStartX =
+            event.touches[0].clientX;
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+bannerViewer.addEventListener(
+    "touchend",
+    function(event){
+
+        if(
+            event.changedTouches.length !== 1
+        ){
+
+            return;
+
+        }
+
+
+        touchEndX =
+            event.changedTouches[0].clientX;
+
+
+        const difference =
+            touchStartX -
+            touchEndX;
+
+
+        if(
+            Math.abs(difference) < 50
+        ){
+
+            return;
+
+        }
+
+
+        if(
+            difference > 0
+        ){
+
+            viewerNext();
+
+        }
+        else{
+
+            viewerPrevious();
+
+        }
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =========================================
+   SLIDER SWIPE
+========================================= */
+
+let sliderTouchStartX = 0;
+
+let sliderTouchEndX = 0;
+
+
+sliderTrack.addEventListener(
+    "touchstart",
+    function(event){
+
+        if(
+            event.touches.length !== 1
+        ){
+
+            return;
+
+        }
+
+
+        sliderTouchStartX =
+            event.touches[0].clientX;
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+sliderTrack.addEventListener(
+    "touchend",
+    function(event){
+
+        if(
+            event.changedTouches.length !== 1
+        ){
+
+            return;
+
+        }
+
+
+        sliderTouchEndX =
+            event.changedTouches[0].clientX;
+
+
+        const difference =
+            sliderTouchStartX -
+            sliderTouchEndX;
+
+
+        if(
+            Math.abs(difference) < 50
+        ){
+
+            return;
+
+        }
+
+
+        if(
+            difference > 0
+        ){
+
+            nextSlide();
+
+        }
+        else{
+
+            previousSlide();
+
+        }
+
+
+        startAutoSlide();
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =========================================
+   PAGE LOAD
+========================================= */
+
+loadPromotions();
+
+</script>
+
+
+</body>
+
+</html>

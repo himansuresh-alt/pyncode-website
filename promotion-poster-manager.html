@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Promotion Poster Manager | Pyncode</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    color:#222;
+}
+
+.header{
+    background:#111827;
+    color:#fff;
+    padding:16px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.header-left h1{
+    margin:0;
+    font-size:20px;
+}
+
+.header-left p{
+    margin:4px 0 0;
+    font-size:12px;
+    color:#cbd5e1;
+}
+
+.logout-btn{
+    border:none;
+    background:#ef4444;
+    color:#fff;
+    padding:10px 14px;
+    border-radius:8px;
+    font-size:13px;
+    cursor:pointer;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px 15px 40px;
+}
+
+.card{
+    background:#fff;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:18px;
+    box-shadow:0 4px 18px rgba(0,0,0,.07);
+}
+
+.card h2{
+    margin:0 0 15px;
+    font-size:18px;
+}
+
+label{
+    display:block;
+    margin:13px 0 7px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+select,
+input[type="file"],
+input[type="text"]{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    background:#fff;
+    font-size:14px;
+}
+
+input[type="text"]:focus,
+select:focus,
+input[type="file"]:focus{
+    outline:none;
+    border-color:#111827;
+}
+
+.preview-box{
+    display:none;
+    margin-top:15px;
+    text-align:center;
+}
+
+.preview-box img{
+    width:100%;
+    max-width:430px;
+    max-height:500px;
+    object-fit:contain;
+    border-radius:10px;
+    border:1px solid #e5e7eb;
+}
+
+.upload-btn{
+    width:100%;
+    margin-top:16px;
+    border:none;
+    background:#111827;
+    color:#fff;
+    padding:13px;
+    border-radius:9px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.upload-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    margin-top:13px;
+    padding:11px;
+    border-radius:8px;
+    font-size:13px;
+}
+
+.message.success{
+    display:block;
+    background:#dcfce7;
+    color:#166534;
+}
+
+.message.error{
+    display:block;
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.poster-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:15px;
+}
+
+.poster-card{
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    overflow:hidden;
+    background:#fff;
+}
+
+.poster-card img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    display:block;
+    background:#f3f4f6;
+}
+
+.poster-info{
+    padding:11px;
+}
+
+.poster-category{
+    font-size:13px;
+    font-weight:bold;
+    line-height:1.4;
+    min-height:38px;
+}
+
+.poster-date{
+    font-size:11px;
+    color:#6b7280;
+    margin-top:5px;
+}
+
+.delete-btn{
+    width:100%;
+    margin-top:9px;
+    padding:9px;
+    border:none;
+    border-radius:7px;
+    background:#fee2e2;
+    color:#b91c1c;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.empty{
+    text-align:center;
+    padding:25px 10px;
+    color:#6b7280;
+    font-size:14px;
+}
+
+.loading{
+    text-align:center;
+    padding:20px;
+    color:#6b7280;
+    font-size:14px;
+}
+
+@media(max-width:500px){
+
+    .header-left h1{
+        font-size:18px;
+    }
+
+    .logout-btn{
+        padding:9px 11px;
+    }
+
+    .poster-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
+
+    .poster-card img{
+        height:210px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-left">
+
+        <h1>
+            Promotion Poster Manager
+        </h1>
+
+        <p id="adminEmail">
+            Checking admin...
+        </p>
+
+    </div>
+
+    <button
+        type="button"
+        id="logoutBtn"
+        class="logout-btn"
+    >
+        Logout
+    </button>
+
+</header>
+
+
+<main class="container">
+
+
+    <section class="card">
+
+        <h2>
+            Upload New Promotion
+        </h2>
+
+
+        <label for="category">
+            Promotion Category
+        </label>
+
+        <select id="category">
+
+            <option value="">
+                Select Category
+            </option>
+
+        </select>
+
+
+        <label for="pincode">
+            Promotion Pincode
+        </label>
+
+        <input
+            type="text"
+            id="pincode"
+            inputmode="numeric"
+            maxlength="6"
+            placeholder="Enter 6-digit pincode"
+        >
+
+
+        <label for="posterFile">
+            Promotion Poster
+        </label>
+
+        <input
+            type="file"
+            id="posterFile"
+            accept="image/jpeg,image/png,image/webp"
+        >
+
+
+        <div
+            id="previewBox"
+            class="preview-box"
+        >
+
+            <img
+                id="previewImage"
+                alt="Poster Preview"
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            id="uploadBtn"
+            class="upload-btn"
+        >
+            Upload Promotion
+        </button>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>
+            Uploaded Promotions
+        </h2>
+
+        <div
+            id="posterList"
+            class="poster-grid"
+        >
+
+            <div class="loading">
+                Loading promotions...
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+const MAX_FILE_SIZE =
+    10 * 1024 * 1024;
+
+const ALLOWED_FILE_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+];
+
+
+const categories = [
+
+    ["🏠","Real Estate & Property"],
+    ["🏢","Builders & Developers"],
+    ["🚗","Cars & Automobile Dealers"],
+    ["🏍️","Bikes & Scooters"],
+    ["⚡","EV Vehicles"],
+    ["📱","Mobile Phone Accessories"],
+    ["📱","Mobile Showrooms"],
+    ["🔌","Electronics & Electrical Products"],
+    ["🏠","Home Appliances"],
+    ["🖥️","Computers & IT Products"],
+    ["📷","Cameras & Photography Equipment"],
+    ["🎮","Gaming Products & Services"],
+    ["🛋️","Furniture & Home Decor"],
+    ["👗","Clothing & Fashion"],
+    ["💍","Jewellery"],
+    ["👟","Footwear"],
+    ["💄","Beauty & Personal Care"],
+    ["🛒","Retail & Supermarkets"],
+    ["🍽️","Restaurants & Cafes"],
+    ["🎂","Bakeries & Cakes"],
+    ["🍱","Catering & Food Businesses"],
+    ["🏨","Hotels & Resorts"],
+    ["🎓","Schools & Colleges"],
+    ["📚","Coaching & Tuition"],
+    ["💻","Training & Skill Development"],
+    ["💼","Jobs & Recruitment"],
+    ["💰","Finance, Loans & Insurance"],
+    ["🏭","Manufacturing & Industrial"],
+    ["📦","Wholesale & Distribution"],
+    ["🤝","Franchise & Business Opportunities"],
+    ["🌾","Agriculture & Farming"],
+    ["🏗️","Construction & Building Materials"],
+    ["🐾","Pets & Animal Products"],
+    ["🏋️","Sports & Fitness"],
+    ["🏥","Healthcare & Hospitals"],
+    ["🔧","Home & Professional Services"],
+    ["💒","Weddings"],
+    ["🎉","Events & Entertainment"],
+    ["📸","Photography & Videography"],
+    ["✈️","Travel & Tours"],
+    ["📢","Marketing & Advertising"],
+    ["🛍️","Online Business & E-commerce"],
+    ["🖨️","Printing & Packaging"],
+    ["🚚","Logistics & Transport"],
+    ["⚖️","Legal & Documentation"],
+    ["🤝","NGO & Social Organisations"],
+    ["🏢","Coworking & Office Spaces"],
+    ["🏘️","PG, Hostels & Accommodation"],
+    ["🎬","Movies & Media"],
+    ["📣","Exhibitions & Expos"],
+    ["👤","Professionals & Freelancers"],
+    ["🆕","New Brands & Product Launches"],
+    ["🎁","Offers, Discounts & Sales"],
+    ["📣","Announcements & Public Notices"]
+
+];
+
+
+const categorySelect =
+    document.getElementById("category");
+
+const pincodeInput =
+    document.getElementById("pincode");
+
+const posterFile =
+    document.getElementById("posterFile");
+
+const previewBox =
+    document.getElementById("previewBox");
+
+const previewImage =
+    document.getElementById("previewImage");
+
+const uploadBtn =
+    document.getElementById("uploadBtn");
+
+const message =
+    document.getElementById("message");
+
+const posterList =
+    document.getElementById("posterList");
+
+const adminEmail =
+    document.getElementById("adminEmail");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+/* =====================================================
+   LOAD CATEGORIES
+===================================================== */
+
+categories.forEach(function(item){
+
+    const option =
+        document.createElement("option");
+
+    option.value =
+        item[1];
+
+    option.textContent =
+        item[0] + " " + item[1];
+
+    categorySelect.appendChild(
+        option
+    );
+
+});
+
+
+/* =====================================================
+   CHECK ADMIN LOGIN
+===================================================== */
+
+async function checkAdmin(){
+
+    try{
+
+        const {
+            data: { session },
+            error: sessionError
+        } =
+            await supabaseClient
+                .auth
+                .getSession();
+
+
+        if(
+            sessionError ||
+            !session ||
+            !session.user
+        ){
+
+            window.location.replace(
+                "promotion-admin-login.html"
+            );
+
+            return null;
+        }
+
+
+        const {
+            data: adminUser,
+            error: adminError
+        } =
+            await supabaseClient
+                .from("admin_users")
+                .select("id")
+                .eq(
+                    "auth_user_id",
+                    session.user.id
+                )
+                .maybeSingle();
+
+
+        if(
+            adminError ||
+            !adminUser
+        ){
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+            alert(
+                "Admin access required."
+            );
+
+            window.location.replace(
+                "promotion-admin-login.html"
+            );
+
+            return null;
+        }
+
+
+        adminEmail.textContent =
+            session.user.email ||
+            "Admin";
+
+
+        return session.user;
+
+    }
+    catch(error){
+
+        console.error(
+            "Admin access error:",
+            error
+        );
+
+        window.location.replace(
+            "promotion-admin-login.html"
+        );
+
+        return null;
+    }
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    type
+){
+
+    message.textContent =
+        text;
+
+    message.className =
+        type
+            ? "message " + type
+            : "message";
+
+}
+
+
+/* =====================================================
+   PINCODE INPUT
+===================================================== */
+
+pincodeInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+                .replace(/\D/g,"")
+                .slice(0,6);
+
+    }
+);
+
+
+/* =====================================================
+   PREVIEW
+===================================================== */
+
+posterFile.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            posterFile.files[0];
+
+
+        if(!file){
+
+            previewBox.style.display =
+                "none";
+
+            previewImage.src =
+                "";
+
+            return;
+
+        }
+
+
+        if(
+            !ALLOWED_FILE_TYPES.includes(
+                file.type
+            )
+        ){
+
+            showMessage(
+                "Please select a JPG, PNG or WEBP image.",
+                "error"
+            );
+
+            posterFile.value =
+                "";
+
+            previewBox.style.display =
+                "none";
+
+            previewImage.src =
+                "";
+
+            return;
+
+        }
+
+
+        if(
+            file.size >
+            MAX_FILE_SIZE
+        ){
+
+            showMessage(
+                "Poster image must be 10 MB or smaller.",
+                "error"
+            );
+
+            posterFile.value =
+                "";
+
+            previewBox.style.display =
+                "none";
+
+            previewImage.src =
+                "";
+
+            return;
+
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function(event){
+
+                previewImage.src =
+                    event.target.result;
+
+                previewBox.style.display =
+                    "block";
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/* =====================================================
+   UPLOAD
+===================================================== */
+
+uploadBtn.addEventListener(
+    "click",
+    async function(){
+
+        const user =
+            await checkAdmin();
+
+
+        if(!user){
+            return;
+        }
+
+
+        const selectedCategory =
+            categorySelect.value;
+
+        const pincode =
+            pincodeInput.value.trim();
+
+        const file =
+            posterFile.files[0];
+
+
+        if(!selectedCategory){
+
+            showMessage(
+                "Please select a category.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!/^\d{6}$/.test(pincode)){
+
+            showMessage(
+                "Please enter a valid 6-digit pincode.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!file){
+
+            showMessage(
+                "Please select a poster image.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !ALLOWED_FILE_TYPES.includes(
+                file.type
+            )
+        ){
+
+            showMessage(
+                "Please select a JPG, PNG or WEBP image.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            file.size >
+            MAX_FILE_SIZE
+        ){
+
+            showMessage(
+                "Poster image must be 10 MB or smaller.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        uploadBtn.disabled =
+            true;
+
+        uploadBtn.textContent =
+            "Uploading...";
+
+
+        showMessage(
+            "",
+            ""
+        );
+
+
+        let uploadedFilePath = "";
+
+
+        try{
+
+            const extension =
+                file.name
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
+
+
+            const fileName =
+                Date.now() +
+                "_" +
+                Math.random()
+                    .toString(36)
+                    .substring(2,9) +
+                "." +
+                extension;
+
+
+            const filePath =
+                "posters/" +
+                fileName;
+
+
+            uploadedFilePath =
+                filePath;
+
+
+            /* =============================================
+               UPLOAD IMAGE
+            ============================================= */
+
+            const {
+                error: uploadError
+            } =
+                await supabaseClient
+                    .storage
+                    .from("promotion-posters")
+                    .upload(
+                        filePath,
+                        file,
+                        {
+                            cacheControl:"3600",
+                            upsert:false,
+                            contentType:file.type
+                        }
+                    );
+
+
+            if(uploadError){
+
+                throw uploadError;
+
+            }
+
+
+            /* =============================================
+               PUBLIC IMAGE URL
+            ============================================= */
+
+            const {
+                data: publicData
+            } =
+                supabaseClient
+                    .storage
+                    .from("promotion-posters")
+                    .getPublicUrl(
+                        filePath
+                    );
+
+
+            const posterUrl =
+                publicData.publicUrl;
+
+
+            /* =============================================
+               SAVE PROMOTION
+            ============================================= */
+
+            const {
+                error: insertError
+            } =
+                await supabaseClient
+                    .from("promotions")
+                    .insert({
+
+                        category:
+                            selectedCategory,
+
+                        pincode:
+                            pincode,
+
+                        poster_url:
+                            posterUrl,
+
+                        is_active:
+                            true
+
+                    });
+
+
+            if(insertError){
+
+                throw insertError;
+
+            }
+
+
+            /* =============================================
+               SUCCESS
+            ============================================= */
+
+            uploadedFilePath =
+                "";
+
+
+            showMessage(
+                "Promotion poster uploaded successfully.",
+                "success"
+            );
+
+
+            categorySelect.value =
+                "";
+
+            pincodeInput.value =
+                "";
+
+            posterFile.value =
+                "";
+
+            previewImage.src =
+                "";
+
+            previewBox.style.display =
+                "none";
+
+
+            await loadPromotions();
+
+
+        }
+        catch(error){
+
+            console.error(
+                "Promotion upload error:",
+                error
+            );
+
+
+            /* =============================================
+               CLEANUP STORAGE IF DB INSERT FAILED
+            ============================================= */
+
+            if(uploadedFilePath){
+
+                const {
+                    error: cleanupError
+                } =
+                    await supabaseClient
+                        .storage
+                        .from("promotion-posters")
+                        .remove([
+                            uploadedFilePath
+                        ]);
+
+
+                if(cleanupError){
+
+                    console.error(
+                        "Upload cleanup error:",
+                        cleanupError
+                    );
+
+                }
+
+            }
+
+
+            showMessage(
+                error.message ||
+                "Upload failed. Please try again.",
+                "error"
+            );
+
+        }
+
+
+        uploadBtn.disabled =
+            false;
+
+        uploadBtn.textContent =
+            "Upload Promotion";
+
+    }
+);
+
+  /* =====================================================
+   LOAD PROMOTIONS
+===================================================== */
+
+async function loadPromotions(){
+
+    posterList.innerHTML =
+        '<div class="loading">Loading promotions...</div>';
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("promotions")
+            .select(
+                "id, category, pincode, poster_url, is_active, created_at"
+            )
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
+
+
+    if(error){
+
+        posterList.innerHTML =
+            '<div class="empty">Unable to load promotions.</div>';
+
+        console.error(
+            "Load promotions error:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !data ||
+        data.length === 0
+    ){
+
+        posterList.innerHTML =
+            '<div class="empty">No promotion posters uploaded yet.</div>';
+
+        return;
+
+    }
+
+
+    posterList.innerHTML =
+        "";
+
+
+    data.forEach(
+        function(promotion){
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "poster-card";
+
+
+            const img =
+                document.createElement("img");
+
+            img.src =
+                promotion.poster_url;
+
+            img.alt =
+                promotion.category;
+
+
+            const info =
+                document.createElement("div");
+
+            info.className =
+                "poster-info";
+
+
+            /* CATEGORY */
+
+            const category =
+                document.createElement("div");
+
+            category.className =
+                "poster-category";
+
+            category.textContent =
+                promotion.category;
+
+
+            /* PINCODE */
+
+            const pincode =
+                document.createElement("div");
+
+            pincode.className =
+                "poster-date";
+
+            pincode.textContent =
+                "Pincode: " +
+                (
+                    promotion.pincode ||
+                    "Not specified"
+                );
+
+
+            /* DATE */
+
+            const date =
+                document.createElement("div");
+
+            date.className =
+                "poster-date";
+
+            date.textContent =
+                promotion.created_at
+                    ? new Date(
+                        promotion.created_at
+                    ).toLocaleString()
+                    : "";
+
+
+            /* DELETE BUTTON */
+
+            const deleteBtn =
+                document.createElement("button");
+
+            deleteBtn.type =
+                "button";
+
+            deleteBtn.className =
+                "delete-btn";
+
+            deleteBtn.textContent =
+                "Delete Poster";
+
+
+            deleteBtn.addEventListener(
+                "click",
+                function(){
+
+                    deletePromotion(
+                        promotion.id,
+                        promotion.poster_url
+                    );
+
+                }
+            );
+
+
+            info.appendChild(
+                category
+            );
+
+            info.appendChild(
+                pincode
+            );
+
+            info.appendChild(
+                date
+            );
+
+            info.appendChild(
+                deleteBtn
+            );
+
+
+            card.appendChild(
+                img
+            );
+
+            card.appendChild(
+                info
+            );
+
+
+            posterList.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   DELETE PROMOTION
+===================================================== */
+
+async function deletePromotion(
+    id,
+    posterUrl
+){
+
+    const user =
+        await checkAdmin();
+
+
+    if(!user){
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "Delete this promotion poster?"
+        );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    try{
+
+        /* =============================================
+           GET FILE PATH FROM PUBLIC URL
+        ============================================= */
+
+        let filePath =
+            "";
+
+
+        const marker =
+            "/storage/v1/object/public/promotion-posters/";
+
+
+        const index =
+            posterUrl.indexOf(
+                marker
+            );
+
+
+        if(index !== -1){
+
+            filePath =
+                decodeURIComponent(
+                    posterUrl.substring(
+                        index +
+                        marker.length
+                    )
+                );
+
+        }
+
+
+        /* =============================================
+           DELETE DATABASE ROW
+        ============================================= */
+
+        const {
+            error: deleteRowError
+        } =
+            await supabaseClient
+                .from("promotions")
+                .delete()
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if(deleteRowError){
+
+            throw deleteRowError;
+
+        }
+
+
+        /* =============================================
+           DELETE IMAGE FROM STORAGE
+        ============================================= */
+
+        if(filePath){
+
+            const {
+                error: storageError
+            } =
+                await supabaseClient
+                    .storage
+                    .from("promotion-posters")
+                    .remove([
+                        filePath
+                    ]);
+
+
+            if(storageError){
+
+                console.error(
+                    "Storage delete error:",
+                    storageError
+                );
+
+            }
+
+        }
+
+
+        showMessage(
+            "Promotion poster deleted.",
+            "success"
+        );
+
+
+        await loadPromotions();
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Delete promotion error:",
+            error
+        );
+
+
+        showMessage(
+            error.message ||
+            "Delete failed.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+logoutBtn.addEventListener(
+    "click",
+    async function(){
+
+        logoutBtn.disabled =
+            true;
+
+        logoutBtn.textContent =
+            "Logging out...";
+
+
+        try{
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+
+            if(error){
+
+                throw error;
+
+            }
+
+
+            window.location.replace(
+                "promotion-admin-login.html"
+            );
+
+        }
+        catch(error){
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+
+            logoutBtn.disabled =
+                false;
+
+            logoutBtn.textContent =
+                "Logout";
+
+
+            alert(
+                "Logout failed. Please try again."
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+(async function(){
+
+    const user =
+        await checkAdmin();
+
+
+    if(user){
+
+        await loadPromotions();
+
+    }
+
+})();
+
+</script>
+
+</body>
+
+</html>
