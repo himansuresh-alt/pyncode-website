@@ -3,31 +3,16 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta
-    name="description"
-    content="Pyncode helps you find local shops, businesses and services near you. Search by category and pincode, view shop details, and connect directly."
->
+    <title>Pyncode</title>
 
-<link
-    rel="icon"
-    type="image/png"
-    href="/icon-192.png"
->
-
-<link
-    rel="apple-touch-icon"
-    href="/icon-192.png"
->
-
-<title>Pyncode.in</title>
-
+  
 <link
     rel="manifest"
     href="/manifest.json"
@@ -1453,6 +1438,112 @@ body{
     gap:6px;
   }
 
+/* =====================================================
+   FIXED BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+    position:fixed;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:68px;
+
+    background:rgba(255,255,255,.97);
+
+    border-top:1px solid #e5e8ee;
+
+    display:flex;
+    align-items:stretch;
+    justify-content:space-around;
+
+    z-index:9998;
+
+    box-shadow:
+        0 -5px 20px
+        rgba(20,30,60,.08);
+
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+}
+
+
+.bottom-nav-item{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:4px;
+
+    text-decoration:none;
+
+    color:#7d8492;
+
+    font-size:11px;
+    font-weight:800;
+
+    transition:
+        color .2s ease,
+        transform .15s ease;
+}
+
+
+.bottom-nav-item .nav-icon{
+    font-size:22px;
+    line-height:1;
+}
+
+
+.bottom-nav-item .nav-label{
+    line-height:1.2;
+}
+
+
+.bottom-nav-item.active{
+    color:#ef603e;
+}
+
+
+.bottom-nav-item:active{
+    transform:scale(.94);
+}
+
+
+/* Keep page content above navigation */
+
+body{
+    padding-bottom:68px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .bottom-nav{
+        height:64px;
+    }
+
+    .bottom-nav-item{
+        font-size:10px;
+    }
+
+    .bottom-nav-item .nav-icon{
+        font-size:20px;
+    }
+
+    body{
+        padding-bottom:64px;
+    }
+
+}
+  
 </style>
 
 </head>
@@ -1573,36 +1664,6 @@ body{
 
 
 
-<!-- =====================================================
-     SERVICES + PROMOTIONS
-===================================================== -->
-
-<div class="home-action-buttons">
-
-    <a
-        href="services.html"
-        class="services-button"
-    >
-
-        🛠️ Services
-
-        <span>→</span>
-
-    </a>
-
-
-    <a
-        href="promotion.html"
-        class="promotion-button"
-    >
-
-        📢 Promotions
-
-        <span>→</span>
-
-    </a>
-
-</div>
 
 
 
@@ -1650,126 +1711,45 @@ body{
 </section>
 
 
-
 <!-- =====================================================
-     PREMIUM FOOTER
+     FIXED BOTTOM NAVIGATION
 ===================================================== -->
 
-<footer class="footer">
-
-
-    <div class="footer-inner">
-
-
-        <div class="footer-brand">
-
-            <div class="footer-title">
-
-                Pyncode.in
-
-            </div>
-
-
-            <div class="footer-text">
-
-                Discover Local Shops & Businesses Near You.
-
-            </div>
-
-        </div>
-
-
-
-        <div class="footer-links">
-
-
-            <a href="#">
-
-                Privacy Policy
-
-            </a>
-
-
-            <span class="footer-separator">
-
-                |
-
-            </span>
-
-
-            <a href="#">
-
-                Terms
-
-            </a>
-
-
-            <span class="footer-separator">
-
-                |
-
-            </span>
-
-
-            <a href="#">
-
-                Contact
-
-            </a>
-
-
-        </div>
-
-
-
-        <div class="footer-contact">
-
-
-            <div class="footer-ad">
-
-                For Advertisement
-
-            </div>
-
-
-            <a
-                href="tel:9092035926"
-            >
-
-                Call or WhatsApp
-
-            </a>
-
-
-            <a
-                class="footer-number"
-                href="https://wa.me/919092035926"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-
-                9092035926
-
-            </a>
-
-
-        </div>
-
-
-    </div>
-
-
-
-    <div class="footer-copy">
-
-        © 2026 Pyncode.in. All rights reserved.
-
-    </div>
-
-
-</footer>
-
-
+<nav class="bottom-nav">
+
+   <a
+    href="shops.html"
+    class="bottom-nav-item"
+>
+    <span class="nav-icon">🏬</span>
+    <span class="nav-label">Shops</span>
+   </a>
+
+    <a
+        href="services.html"
+        class="bottom-nav-item"
+    >
+        <span class="nav-icon">🛠️</span>
+        <span class="nav-label">Services</span>
+    </a>
+
+   <a
+    href="category.html"
+    class="bottom-nav-item active"
+>
+    <span class="nav-icon">▦</span>
+    <span class="nav-label">Category</span>
+   </a>
+
+    <a
+        href="promotion.html"
+        class="bottom-nav-item"
+    >
+        <span class="nav-icon">📢</span>
+        <span class="nav-label">Promotion</span>
+    </a>
+
+</nav>
 
 <!-- =====================================================
      FULL SCREEN BANNER VIEWER

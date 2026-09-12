@@ -2126,7 +2126,74 @@ body{
     }
 
 }
-                  
+
+  /* =====================================================
+   FIXED BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:78px;
+
+    background:#fff;
+    border-top:1px solid #e5e7eb;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+
+    padding:8px 10px;
+
+    z-index:9999;
+}
+
+/* Navigation Item */
+
+.bottom-nav-item{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    gap:4px;
+
+    text-decoration:none;
+    color:#777;
+
+    min-width:0;
+}
+
+/* Icon */
+
+.nav-icon{
+    font-size:23px;
+    line-height:1;
+}
+
+/* Label */
+
+.nav-label{
+    font-size:14px;
+    font-weight:600;
+}
+
+/* Active Navigation */
+
+.bottom-nav-item.active{
+    color:#ef5b3f;
+}
+
+/* Prevent content from being hidden */
+
+body{
+    padding-bottom:90px;
+  }
 
 </style>
 
@@ -2333,90 +2400,45 @@ body{
 
 </main>
 
-
 <!-- =====================================================
-     FOOTER
+   FIXED BOTTOM NAVIGATION
 ===================================================== -->
 
-<footer class="footer">
+<nav class="bottom-nav">
 
-    <div class="footer-inner">
+    <a
+        href="shops.html"
+        class="bottom-nav-item"
+    >
+        <span class="nav-icon">🏪</span>
+        <span class="nav-label">Shops</span>
+    </a>
 
+    <a
+        href="services.html"
+        class="bottom-nav-item"
+    >
+        <span class="nav-icon">🛠️</span>
+        <span class="nav-label">Services</span>
+    </a>
 
-        <div>
+    <a
+        href="category.html"
+        class="bottom-nav-item active"
+    >
+        <span class="nav-icon">▦</span>
+        <span class="nav-label">Category</span>
+    </a>
 
-            <div class="footer-title">
-                Pyncode.in
-            </div>
+    <a
+        href="promotion.html"
+        class="bottom-nav-item"
+    >
+        <span class="nav-icon">📣</span>
+        <span class="nav-label">Promotion</span>
+    </a>
 
-
-            <div class="footer-text">
-                Discover local services around you.
-            </div>
-
-        </div>
-
-
-        <div class="footer-links">
-
-            <a href="#">
-                Privacy Policy
-            </a>
-
-
-            <span class="footer-separator">
-                |
-            </span>
-
-
-            <a href="#">
-                Terms
-            </a>
-
-
-            <span class="footer-separator">
-                |
-            </span>
-
-
-            <a href="#">
-                Contact
-            </a>
-
-        </div>
-
-
-        <div class="footer-contact">
-
-            <div class="footer-ad">
-                For Advertisement
-            </div>
-
-
-            <a href="tel:9092035926">
-                Call or WhatsApp
-            </a>
-
-
-            <a
-                class="footer-number"
-                href="https://wa.me/919092035926"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                9092035926
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer-copy">
-        © 2026 Pyncode.in. All rights reserved.
-    </div>
-
-</footer>
+</nav>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 

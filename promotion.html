@@ -327,6 +327,71 @@ body{
     color:#151923;
 }
 
+/* =====================================================
+   FIXED BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:78px;
+
+    background:#fff;
+    border-top:1px solid #e5e7eb;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+
+    z-index:9999;
+
+    padding:8px 10px;
+}
+
+/* Bottom navigation items */
+
+.bottom-nav-item{
+    flex:1;
+    text-decoration:none;
+    color:#777;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    gap:4px;
+}
+
+/* Icon */
+
+.nav-icon{
+    font-size:23px;
+    line-height:1;
+}
+
+/* Label */
+
+.nav-label{
+    font-size:14px;
+    font-weight:600;
+}
+
+/* Active */
+
+.bottom-nav-item.active{
+    color:#ef5b3f;
+}
+
+/* Space for fixed navigation */
+
+body{
+    padding-bottom:90px;
+}
+  
 </style>
 
 </head>
@@ -379,7 +444,7 @@ body{
             <p>
   <p>
     Promote Your Business on Pyncode<br>
-    <strong>Call or WhatsApp: 909203592</strong>
+    <strong>Call or WhatsApp: 9092035926</strong>
   </p>
             </p>
         </p>
@@ -401,22 +466,33 @@ body{
 </main>
 
 
+  <!-- =====================================================
+   FIXED BOTTOM NAVIGATION
+===================================================== -->
 
-<!-- =========================
-     FOOTER
-========================= -->
+<nav class="bottom-nav">
 
-<footer class="footer">
+    <a href="shops.html" class="bottom-nav-item">
+        <span class="nav-icon">🏪</span>
+        <span class="nav-label">Shops</span>
+    </a>
 
-    <div class="footer-title">
-        Pyncode
-    </div>
+    <a href="services.html" class="bottom-nav-item">
+        <span class="nav-icon">🛠️</span>
+        <span class="nav-label">Services</span>
+    </a>
 
-    <div class="footer-text">
-        Pynd Great Deals & Promotions Near You.
-    </div>
+    <a href="category.html" class="bottom-nav-item">
+        <span class="nav-icon">▦</span>
+        <span class="nav-label">Category</span>
+    </a>
 
-</footer>
+    <a href="promotion.html" class="bottom-nav-item active">
+        <span class="nav-icon">📣</span>
+        <span class="nav-label">Promotion</span>
+    </a>
+
+</nav>
 
 
 

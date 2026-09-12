@@ -1,0 +1,4362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="Find local shops and businesses near you on Pyncode.in."
+>
+
+<link
+    rel="icon"
+    type="image/png"
+    href="/icon-192.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="/icon-192.png"
+>
+
+<title>Shops Near You | Pyncode.in</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f8fbff 0%,
+            #f5f7fb 55%,
+            #ffffff 100%
+        );
+
+    color:#151a28;
+
+    min-height:100vh;
+
+    padding-bottom:72px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    width:100%;
+
+    min-height:76px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    border-bottom:
+        1px solid #e6e9ef;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+        0 4%;
+
+    position:relative;
+
+    z-index:20;
+
+    box-shadow:
+        0 5px 20px
+        rgba(20,30,60,.045);
+
+}
+
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#151a28;
+
+    font-size:23px;
+
+    font-weight:900;
+
+    letter-spacing:-.5px;
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
+
+
+.logo-mark{
+
+    width:100px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:13px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+
+    box-shadow:
+        0 8px 20px
+        rgba(255,90,70,.22);
+
+}
+
+
+.logo-mark img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:contain;
+
+    display:block;
+
+}
+
+
+.pyn-text{
+    color:#ef603e;
+}
+
+.code-text{
+    color:#151923;
+}
+
+
+.header-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+}
+
+
+.list-shop-btn{
+
+    min-height:44px;
+
+    padding:
+        0 19px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #151a24,
+            #252b36
+        );
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    box-shadow:
+        0 7px 17px
+        rgba(0,0,0,.12);
+
+}
+
+
+.interested-btn{
+
+    height:44px;
+
+    border:1px solid #25D366;
+
+    background:#25D366;
+
+    color:#ffffff;
+
+    padding:
+        0 14px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+
+    width:100%;
+
+    max-width:1200px;
+
+    margin:0 auto;
+
+}
+
+
+/* =====================================================
+   CATEGORY HERO
+===================================================== */
+
+.category-hero{
+
+    margin:20px 4% 0;
+
+    min-height:230px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    background:#ffffff;
+
+    border:1px solid #e5e8ed;
+
+    box-shadow:
+        0 12px 30px
+        rgba(20,30,60,.10);
+
+}
+
+
+.category-hero-content{
+
+    position:relative;
+
+    z-index:3;
+
+    width:100%;
+
+    min-height:230px;
+
+    padding:28px 30px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    background:#ffffff;
+
+}
+
+
+.hero-eyebrow{
+
+    color:#ef603e;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    margin-bottom:7px;
+
+}
+
+
+.hero-title{
+
+    color:#151a28;
+
+    font-size:30px;
+
+    line-height:1.12;
+
+    font-weight:900;
+
+    letter-spacing:-.7px;
+
+}
+
+
+.hero-description{
+
+    margin-top:7px;
+
+    color:#737b89;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+}
+
+
+.hero-image{
+
+    display:none;
+
+}
+
+
+/* =====================================================
+   HERO BRANDS
+===================================================== */
+
+.hero-brands{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:16px;
+
+    overflow-x:auto;
+
+    scrollbar-width:none;
+
+    padding:
+        2px 2px 8px;
+
+}
+
+
+.hero-brands::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+.hero-brand{
+
+    flex:
+        0 0 105px;
+
+    height:62px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px;
+
+    background:#ffffff;
+
+    border:1px solid #e4e7ec;
+
+    border-radius:12px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(20,30,60,.06);
+
+}
+
+
+.hero-brand img{
+
+    max-width:85px;
+
+    max-height:44px;
+
+    width:auto;
+
+    height:auto;
+
+    object-fit:contain;
+
+}
+
+
+.hero-brand-name{
+
+    display:block;
+
+    color:#343b48;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    text-align:center;
+
+    line-height:1.25;
+
+}
+
+
+/* =====================================================
+   MOBILE HERO
+===================================================== */
+
+@media(max-width:600px){
+
+    .category-hero{
+
+        margin:
+            16px 16px 0;
+
+        min-height:225px;
+
+        border-radius:18px;
+
+    }
+
+
+    .category-hero-content{
+
+        min-height:225px;
+
+        padding:
+            22px 18px;
+
+    }
+
+
+    .hero-title{
+
+        font-size:25px;
+
+    }
+
+
+    .hero-description{
+
+        font-size:12px;
+
+    }
+
+
+    .hero-brands{
+
+        margin-top:15px;
+
+        gap:9px;
+
+    }
+
+
+    .hero-brand{
+
+        flex-basis:92px;
+
+        height:57px;
+
+    }
+
+}
+
+
+/* =====================================================
+   PINCODE SEARCH
+===================================================== */
+
+.search-section{
+
+    margin:
+        18px 4% 0;
+
+}
+
+
+.search-title{
+
+    font-size:16px;
+
+    font-weight:900;
+
+    margin-bottom:9px;
+
+}
+
+
+.search-box{
+
+    width:100%;
+
+    min-height:54px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+        6px 7px 6px 16px;
+
+    background:#ffffff;
+
+    border:
+        1px solid #dfe4ea;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 6px 20px
+        rgba(25,40,70,.055);
+
+}
+
+
+.search-icon{
+
+    font-size:20px;
+
+    flex-shrink:0;
+
+}
+
+
+.pincode-input{
+
+    flex:1;
+
+    min-width:0;
+
+    height:42px;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:#151a28;
+
+    font-size:14px;
+
+}
+
+
+.pincode-input::placeholder{
+
+    color:#9aa1ac;
+
+}
+
+
+.search-btn{
+
+    height:42px;
+
+    padding:
+        0 18px;
+
+    border:none;
+
+    border-radius:11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+
+    color:#ffffff;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   CATEGORY FILTER
+===================================================== */
+
+.filter-section{
+
+    margin-top:20px;
+
+}
+
+
+.filter-title{
+
+    padding:
+        0 4%;
+
+    font-size:16px;
+
+    font-weight:900;
+
+    margin-bottom:10px;
+
+}
+
+
+.category-filter{
+
+    width:100%;
+
+    display:flex;
+
+    gap:9px;
+
+    overflow-x:auto;
+
+    padding:
+        2px 4% 8px;
+
+    scrollbar-width:none;
+
+}
+
+
+.category-filter::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+.category-chip{
+
+    flex-shrink:0;
+
+    min-height:38px;
+
+    padding:
+        0 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    border:
+        1px solid #dfe4ea;
+
+    border-radius:20px;
+
+    background:#ffffff;
+
+    color:#596170;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+    transition:
+        .2s ease;
+
+}
+
+
+.category-chip.active{
+
+    border-color:#ef603e;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+
+    color:#ffffff;
+
+    box-shadow:
+        0 5px 14px
+        rgba(255,90,70,.18);
+
+}
+
+
+/* =====================================================
+   SHOP LISTING SECTION
+===================================================== */
+
+.shop-section{
+
+    margin:
+        24px 4% 0;
+
+}
+
+
+.shop-list-header{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:13px;
+
+}
+
+
+.shop-list-title{
+
+    font-size:22px;
+
+    font-weight:900;
+
+    letter-spacing:-.4px;
+
+}
+
+
+.shop-list-count{
+
+    margin-top:4px;
+
+    color:#858d9a;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+.shop-location{
+
+    color:#ef603e;
+
+    font-size:12px;
+
+    font-weight:800;
+
+}
+
+  /* =====================================================
+   PINCODE SEARCH
+===================================================== */
+
+.search-section{
+
+    margin:
+        18px 4% 0;
+
+}
+
+
+.search-title{
+
+    font-size:16px;
+
+    font-weight:900;
+
+    margin-bottom:9px;
+
+}
+
+
+.search-box{
+
+    width:100%;
+
+    min-height:54px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+        6px 7px 6px 16px;
+
+    background:#ffffff;
+
+    border:
+        1px solid #dfe4ea;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 6px 20px
+        rgba(25,40,70,.055);
+
+}
+
+
+.search-icon{
+
+    font-size:20px;
+
+    flex-shrink:0;
+
+}
+
+
+.pincode-input{
+
+    flex:1;
+
+    min-width:0;
+
+    height:42px;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:#151a28;
+
+    font-size:14px;
+
+}
+
+
+.pincode-input::placeholder{
+
+    color:#9aa1ac;
+
+}
+
+
+.search-btn{
+
+    height:42px;
+
+    padding:
+        0 18px;
+
+    border:none;
+
+    border-radius:11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+
+    color:#ffffff;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   CATEGORY FILTER
+===================================================== */
+
+.filter-section{
+
+    margin-top:20px;
+
+}
+
+
+.filter-title{
+
+    padding:
+        0 4%;
+
+    font-size:16px;
+
+    font-weight:900;
+
+    margin-bottom:10px;
+
+}
+
+
+.category-filter{
+
+    width:100%;
+
+    display:flex;
+
+    gap:9px;
+
+    overflow-x:auto;
+
+    padding:
+        2px 4% 8px;
+
+    scrollbar-width:none;
+
+}
+
+
+.category-filter::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+.category-chip{
+
+    flex-shrink:0;
+
+    min-height:38px;
+
+    padding:
+        0 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    border:
+        1px solid #dfe4ea;
+
+    border-radius:20px;
+
+    background:#ffffff;
+
+    color:#596170;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+    transition:
+        .2s ease;
+
+}
+
+
+.category-chip.active{
+
+    border-color:#ef603e;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+
+    color:#ffffff;
+
+    box-shadow:
+        0 5px 14px
+        rgba(255,90,70,.18);
+
+}
+
+
+/* =====================================================
+   SHOP LISTING SECTION
+===================================================== */
+
+.shop-section{
+
+    margin:
+        24px 4% 0;
+
+}
+
+
+.shop-list-header{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:13px;
+
+}
+
+
+.shop-list-title{
+
+    font-size:22px;
+
+    font-weight:900;
+
+    letter-spacing:-.4px;
+
+}
+
+
+.shop-list-count{
+
+    margin-top:4px;
+
+    color:#858d9a;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+.shop-location{
+
+    color:#ef603e;
+
+    font-size:12px;
+
+    font-weight:800;
+
+}
+
+
+/* =====================================================
+   SHOP GRID
+===================================================== */
+
+.shop-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:14px;
+
+}
+
+
+/* =====================================================
+   SHOP CARD
+===================================================== */
+
+.shop-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    border:1px solid #e1e5eb;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 6px 20px
+        rgba(25,40,70,.055);
+
+    cursor:default;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+
+}
+
+
+.shop-card:hover{
+
+    transform:
+        translateY(-3px);
+
+    border-color:#ffc4b4;
+
+    box-shadow:
+        0 12px 28px
+        rgba(25,40,70,.09);
+
+}
+
+
+/* =====================================================
+   SHOP IMAGE
+===================================================== */
+
+.shop-image-wrap{
+
+    width:100%;
+
+    height:190px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#eef1f5;
+
+}
+
+
+.shop-image{
+
+    width:100%;
+
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    transition:
+        transform .35s ease;
+
+}
+
+
+.shop-card:hover .shop-image{
+
+    transform:
+        scale(1.035);
+
+}
+
+
+/* =====================================================
+   VERIFIED BADGE
+===================================================== */
+
+.verified-badge{
+
+    position:absolute;
+
+    top:10px;
+
+    left:10px;
+
+    min-height:27px;
+
+    padding:
+        0 9px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:4px;
+
+    border-radius:9px;
+
+    background:
+        rgba(255,255,255,.94);
+
+    color:#16894a;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    box-shadow:
+        0 4px 12px
+        rgba(0,0,0,.10);
+
+    backdrop-filter:
+        blur(6px);
+
+}
+
+
+/* =====================================================
+   SHOP CARD BODY
+===================================================== */
+
+.shop-card-body{
+
+    padding:
+        14px;
+
+}
+
+
+.shop-name-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.shop-name{
+
+    min-width:0;
+
+    color:#171c28;
+
+    font-size:16px;
+
+    font-weight:900;
+
+    line-height:1.25;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+.shop-arrow{
+
+    width:30px;
+
+    height:30px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#f4f6f9;
+
+    color:#7c8491;
+
+    font-size:17px;
+
+}
+
+
+.shop-category{
+
+    margin-top:6px;
+
+    color:#ef603e;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+.shop-location{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    margin-top:8px;
+
+    color:#727b89;
+
+    font-size:12px;
+
+    line-height:1.4;
+
+}
+
+
+.shop-rating{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    margin-top:9px;
+
+    color:#4d5665;
+
+    font-size:11px;
+
+    font-weight:800;
+
+}
+
+
+.rating-star{
+
+    color:#f4a623;
+
+}
+
+
+/* =====================================================
+   SHOP CARD ACTIONS
+===================================================== */
+
+.shop-actions{
+
+    display:flex;
+
+    gap:7px;
+
+    margin-top:13px;
+
+}
+
+
+.shop-action{
+
+    flex:1;
+
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+    font-weight:900;
+
+}
+
+
+.call-action{
+
+    background:#f3f5f8;
+
+    color:#303744;
+
+    border:
+        1px solid #e0e4e9;
+
+}
+
+
+.whatsapp-action{
+
+    background:#25D366;
+
+    color:#ffffff;
+
+    border:
+        1px solid #25D366;
+
+}
+
+
+/* =====================================================
+   EMPTY / LOADING STATE
+===================================================== */
+
+.shop-empty{
+
+    width:100%;
+
+    min-height:180px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    background:#ffffff;
+
+    border:
+        1px dashed #d9dee6;
+
+    border-radius:18px;
+
+    padding:25px;
+
+}
+
+
+.shop-empty-icon{
+
+    font-size:34px;
+
+    margin-bottom:9px;
+
+}
+
+
+.shop-empty-title{
+
+    color:#343b48;
+
+    font-size:15px;
+
+    font-weight:900;
+
+}
+
+
+.shop-empty-text{
+
+    margin-top:5px;
+
+    color:#9299a5;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    max-width:300px;
+
+}
+
+  /* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    height:68px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    border-top:
+        1px solid #e5e8ee;
+
+    display:flex;
+
+    align-items:stretch;
+
+    justify-content:space-around;
+
+    z-index:9998;
+
+    box-shadow:
+        0 -5px 20px
+        rgba(20,30,60,.08);
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
+}
+
+
+.bottom-nav-item{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    text-decoration:none;
+
+    color:#7d8492;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    transition:
+        color .2s ease,
+        transform .15s ease;
+
+}
+
+
+.bottom-nav-item .nav-icon{
+
+    font-size:22px;
+
+    line-height:1;
+
+}
+
+
+.bottom-nav-item .nav-label{
+
+    line-height:1.2;
+
+}
+
+
+.bottom-nav-item.active{
+
+    color:#ef603e;
+
+}
+
+
+.bottom-nav-item:active{
+
+    transform:
+        scale(.94);
+
+}
+
+
+/* =====================================================
+   MOBILE SHOP GRID
+===================================================== */
+
+@media(max-width:900px){
+
+    .shop-grid{
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .shop-section{
+
+        margin:
+            21px 16px 0;
+
+    }
+
+
+    .shop-list-header{
+
+        margin-bottom:11px;
+
+    }
+
+
+    .shop-list-title{
+
+        font-size:20px;
+
+    }
+
+
+    .shop-grid{
+
+        grid-template-columns:
+            1fr;
+
+        gap:11px;
+
+    }
+
+
+    .shop-card{
+
+        border-radius:16px;
+
+    }
+
+
+    .shop-image-wrap{
+
+        height:190px;
+
+    }
+
+
+    .shop-card-body{
+
+        padding:13px;
+
+    }
+
+
+    .shop-name{
+
+        font-size:15px;
+
+    }
+
+
+    .bottom-nav{
+
+        height:64px;
+
+    }
+
+
+    .bottom-nav-item{
+
+        font-size:10px;
+
+    }
+
+
+    .bottom-nav-item .nav-icon{
+
+        font-size:20px;
+
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:400px){
+
+    .shop-image-wrap{
+
+        height:175px;
+
+    }
+
+
+    .shop-actions{
+
+        gap:6px;
+
+    }
+
+
+    .shop-action{
+
+        height:36px;
+
+        font-size:10px;
+
+    }
+
+}
+
+
+/* =====================================================
+   OFFERS ACTION
+===================================================== */
+
+.offers-action{
+
+    background:#f3f5f8;
+
+    color:#303744;
+
+    border:
+        1px solid #e0e4e9;
+
+}
+
+/* =====================================================
+   MOBILE HEADER FIX
+   Existing functionality unchanged
+===================================================== */
+
+@media(max-width:600px){
+
+    .header{
+        min-height:64px;
+        padding:0 10px;
+        gap:6px;
+    }
+
+    .logo{
+        gap:5px;
+        font-size:17px;
+        min-width:0;
+        flex-shrink:1;
+    }
+
+    .logo-mark{
+        width:68px;
+        height:34px;
+        border-radius:9px;
+        flex-shrink:0;
+    }
+
+    .header-actions{
+        gap:4px;
+        flex-shrink:0;
+    }
+
+    .list-shop-btn{
+        min-height:38px;
+        width:76px;
+        padding:0 7px;
+        border-radius:10px;
+        font-size:10px;
+        line-height:1.1;
+        text-align:center;
+    }
+
+    .interested-btn{
+        height:38px;
+        padding:0 9px;
+        border-radius:10px;
+        font-size:10px;
+        white-space:nowrap;
+    }
+
+}
+
+
+@media(max-width:360px){
+
+    .header{
+        padding:0 7px;
+    }
+
+    .logo{
+        font-size:16px;
+    }
+
+    .logo-mark{
+        width:62px;
+        height:32px;
+    }
+
+    .list-shop-btn{
+        width:72px;
+        padding:0 5px;
+        font-size:9.5px;
+    }
+
+    .interested-btn{
+        padding:0 7px;
+        font-size:9.5px;
+    }
+
+}
+  
+  </style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+   HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div
+        class="logo"
+        aria-label="Pyncode.in"
+    >
+
+        <span class="logo-mark">
+
+            <img
+                src="pyncode-logo.png"
+                alt="Pyncode"
+            >
+
+        </span>
+
+
+        <span>
+
+            <span class="pyn-text">
+                Pyn
+            </span>
+
+            <span class="code-text">
+                code.in
+            </span>
+
+        </span>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <a
+            href="list-your-shop.html"
+            class="list-shop-btn"
+        >
+            List Your Shop
+        </a>
+
+
+        <button
+            type="button"
+            class="interested-btn"
+            onclick="openInterestedWhatsApp()"
+        >
+            💬 I'm Interested
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+   MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<!-- =====================================================
+   CATEGORY HERO
+===================================================== -->
+
+<section class="category-hero">
+
+    <div class="category-hero-content">
+
+
+        <div class="hero-eyebrow">
+
+            📍 Discover Local
+
+        </div>
+
+
+        <h1
+            id="heroTitle"
+            class="hero-title"
+        >
+            All Shops
+        </h1>
+
+
+        <p
+            id="heroDescription"
+            class="hero-description"
+        >
+            Discover shops and businesses near you.
+        </p>
+
+
+        <!--
+            Brand logos will be inserted here
+            dynamically using JavaScript.
+        -->
+
+        <div
+            id="heroBrands"
+            class="hero-brands"
+        ></div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+   PINCODE SEARCH
+===================================================== -->
+
+<section class="search-section">
+
+
+    <div class="search-title">
+
+        Find Shops Near You
+
+    </div>
+
+
+    <div class="search-box">
+
+
+        <span class="search-icon">
+
+            📍
+
+        </span>
+
+
+        <input
+            id="pincodeInput"
+            class="pincode-input"
+            type="text"
+            inputmode="numeric"
+            maxlength="6"
+            placeholder="Enter 6 digit pincode"
+        >
+
+
+        <button
+            id="searchButton"
+            class="search-btn"
+            type="button"
+        >
+
+            Search
+
+        </button>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+   CATEGORY FILTER
+===================================================== -->
+
+<section class="filter-section">
+
+
+    <div class="filter-title">
+
+        Browse Categories
+
+    </div>
+
+
+    <div
+        id="categoryFilter"
+        class="category-filter"
+    >
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+   SHOP LIST
+===================================================== -->
+
+<section class="shop-section">
+
+
+    <div class="shop-list-header">
+
+
+        <div>
+
+
+            <div
+                id="shopListTitle"
+                class="shop-list-title"
+            >
+
+                All Shops
+
+            </div>
+
+
+            <div
+                id="shopListCount"
+                class="shop-list-count"
+            >
+
+                Discover local businesses near you
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            id="shopLocation"
+            class="shop-location"
+        >
+        </div>
+
+
+    </div>
+
+
+    <div
+        id="shopGrid"
+        class="shop-grid"
+    >
+    </div>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+   FIXED BOTTOM NAVIGATION
+===================================================== -->
+
+<nav class="bottom-nav">
+
+    <a
+        href="shops.html"
+        class="bottom-nav-item active"
+    >
+        <span class="nav-icon">
+            🏪
+        </span>
+
+        <span class="nav-label">
+            Shops
+        </span>
+    </a>
+
+
+    <a
+        href="services.html"
+        class="bottom-nav-item"
+    >
+        <span class="nav-icon">
+            🛠️
+        </span>
+
+        <span class="nav-label">
+            Services
+        </span>
+    </a>
+
+
+    <a
+        href="category.html"
+        class="bottom-nav-item"
+    >
+        <span class="nav-icon">
+            ▦
+        </span>
+
+        <span class="nav-label">
+            Category
+        </span>
+    </a>
+
+
+    <a
+        href="promotion.html"
+        class="bottom-nav-item"
+    >
+        <span class="nav-icon">
+            📣
+        </span>
+
+        <span class="nav-label">
+            Promotion
+        </span>
+    </a>
+
+</nav>
+
+<script>
+
+
+/* =====================================================
+   CATEGORY DATA
+===================================================== */
+
+const categories = [
+
+   {
+    icon:"✨",
+    name:"All",
+    description:
+        "Discover Shops, Businesses and Service Providers Near You .",
+    brands:[
+        
+    ]
+},
+
+
+    {
+        icon:"🏠",
+        name:"Home Appliances",
+        description:
+            "Find home appliance shops near you.",
+        brands:[
+            ["Sathya","sathya.in"],
+            ["Vasanth & Co","vasanthandco.in"],
+            ["Viveks","viveks.com"],
+            ["Girias","girias.in"],
+            ["Croma","croma.com"],
+            ["Reliance Digital","reliancedigital.in"],
+            ["Poorvika","poorvika.com"],
+            ["Lalithaa","lalithaa.in"],
+            ["Pai International","paiinternational.in"],
+            ["Electronics Mart","electronicsmartindia.in"]
+        ]
+    },
+
+
+    {
+        icon:"📱",
+        name:"Mobile Showrooms",
+        description:
+            "Find mobile showrooms and smartphone dealers.",
+        brands:[
+            ["Poorvika","poorvika.com"],
+            ["Sathya","sathya.in"],
+            ["Sangeetha Mobiles","sangeethamobiles.com"],
+            ["Reliance Digital","reliancedigital.in"],
+            ["Croma","croma.com"],
+            ["Vasanth & Co","vasanthandco.in"],
+            ["Lot Mobiles","lotmobiles.com"],
+            ["Bharath Mobiles","bharathmobiles.com"],
+            ["iPlanet","iplanet.one"],
+            ["Imagine","imagineonline.store"]
+        ]
+    },
+
+
+    {
+        icon:"⚡",
+        name:"EV Bike Showrooms",
+        description:
+            "Discover EV bike showrooms and dealers.",
+        brands:[
+            ["Ather","atherenergy.com"],
+            ["Ola Electric","olaelectric.com"],
+            ["TVS iQube","tvsmotor.com"],
+            ["Bajaj Chetak","chetak.com"],
+            ["Hero Electric","heroelectric.in"],
+            ["Vida","vidaworld.com"],
+            ["Ampere","ampere.greaveselectricmobility.com"],
+            ["Revolt","revoltmotors.com"],
+            ["Okinawa","okinawascooters.com"],
+            ["Ultraviolette","ultraviolette.com"]
+        ]
+    },
+
+
+    {
+        icon:"🏍️",
+        name:"Bike Showrooms",
+        description:
+            "Find bike showrooms and motorcycle dealers.",
+        brands:[
+            ["TVS","tvsmotor.com"],
+            ["Hero","heromotocorp.com"],
+            ["Honda","honda2wheelersindia.com"],
+            ["Yamaha","yamaha-motor-india.com"],
+            ["Bajaj","bajajauto.com"],
+            ["Royal Enfield","royalenfield.com"],
+            ["Suzuki","suzukimotorcycle.co.in"],
+            ["KTM","ktmindia.com"],
+            ["Jawa","jawamotorcycles.com"],
+            ["Aprilia","aprilia.com"]
+        ]
+    },
+
+
+    {
+        icon:"🚗",
+        name:"Car Showrooms",
+        description:
+            "Explore car showrooms and automobile dealers.",
+        brands:[
+            ["Maruti Suzuki","marutisuzuki.com"],
+            ["Hyundai","hyundai.com"],
+            ["Tata Motors","tatamotors.com"],
+            ["Toyota","toyotabharat.com"],
+            ["Honda","hondacarindia.com"],
+            ["Mahindra","mahindra.com"],
+            ["Kia","kia.com"],
+            ["Renault","renault.co.in"],
+            ["Nissan","nissan.in"],
+            ["MG Motor","mgmotor.co.in"]
+        ]
+    },
+
+
+    {
+        icon:"🛋️",
+        name:"Furnitures",
+        description:
+            "Discover furniture shops and home interior stores.",
+        brands:[
+            ["Godrej Interio","godrejinterio.com"],
+            ["Wakefit","wakefit.co"],
+            ["Pepperfry","pepperfry.com"],
+            ["Home Centre","homecentre.in"],
+            ["IKEA","ikea.com"],
+            ["Durian","durian.in"],
+            ["Nilkamal","nilkamal.com"],
+            ["Damro","damroindia.com"],
+            ["Royaloak","royaloakindia.com"],
+            ["Urban Ladder","urbanladder.com"]
+        ]
+    },
+
+
+    {
+        icon:"🔋",
+        name:"Battery Shops",
+        description:
+            "Find battery shops and dealers near you.",
+        brands:[
+            ["Amaron","amararaja.com"],
+            ["Exide","exideindustries.com"],
+            ["SF Sonic","sfsonic.com"],
+            ["Luminous","luminousindia.com"],
+            ["Livguard","livguard.com"],
+            ["Tata Green","tatagreenbattery.com"],
+            ["Okaya","okaya.in"],
+            ["HBL","hbl.in"],
+            ["Powerzone","powerzone.co.in"],
+            ["Microtek","microtekdirect.com"]
+        ]
+    },
+
+
+    {
+        icon:"👔",
+        name:"Men's Clothing",
+        description:
+            "Explore men's clothing stores near you.",
+        brands:[
+            ["Peter England","peterengland.com"],
+            ["Louis Philippe","louisphilippe.com"],
+            ["Van Heusen","vanheusenindia.com"],
+            ["Allen Solly","allensolly.com"],
+            ["Raymond","raymond.in"],
+            ["Manyavar","manyavar.com"],
+            ["Max Fashion","maxfashion.in"],
+            ["Pantaloons","pantaloons.com"],
+            ["Reliance Trends","reliancetrends.com"],
+            ["The Raymond Shop","raymond.in"]
+        ]
+    },
+
+
+    {
+        icon:"👗",
+        name:"Women's Clothing",
+        description:
+            "Discover women's clothing and fashion stores.",
+        brands:[
+            ["Soch","soch.com"],
+            ["Biba","biba.in"],
+            ["Aurelia","aurelia.in"],
+            ["W for Woman","wforwoman.com"],
+            ["Max Fashion","maxfashion.in"],
+            ["Pantaloons","pantaloons.com"],
+            ["Reliance Trends","reliancetrends.com"],
+            ["Lifestyle","lifestylestores.com"],
+            ["Chennai Silks","thechennaisilks.com"],
+            ["RMKV","rmkv.com"]
+        ]
+    },
+
+
+    {
+        icon:"👶",
+        name:"Kids Clothing",
+        description:
+            "Find kids clothing shops near you.",
+        brands:[
+            ["FirstCry","firstcry.com"],
+            ["Max Fashion","maxfashion.in"],
+            ["Pantaloons","pantaloons.com"],
+            ["Lifestyle","lifestylestores.com"],
+            ["Reliance Trends","reliancetrends.com"],
+            ["Hopscotch","hopscotch.in"],
+            ["Mothercare","mothercare.in"],
+            ["Babyhug","firstcry.com"],
+            ["Allen Solly Junior","allensolly.com"],
+            ["United Colors of Benetton","benetton.com"]
+        ]
+    },
+
+
+    {
+        icon:"🍼",
+        name:"New Born Babies Shops",
+        description:
+            "Find newborn baby products and baby stores.",
+        brands:[
+            ["FirstCry","firstcry.com"],
+            ["Babyhug","firstcry.com"],
+            ["Mothercare","mothercare.in"],
+            ["R for Rabbit","rforrabbit.com"],
+            ["Mee Mee","meemee.in"],
+            ["Chicco","chicco.in"],
+            ["Himalaya Baby","himalayawellness.in"],
+            ["Pigeon","pigeon-in.com"],
+            ["Philips Avent","philips.co.in"],
+            ["Johnson's Baby","jnj.com"]
+        ]
+    },
+
+
+    {
+        icon:"🧸",
+        name:"Toys Showrooms",
+        description:
+            "Discover toy shops and children's stores.",
+        brands:[
+            ["Hamleys","hamleys.in"],
+            ["Funskool","funskoolindia.com"],
+            ["FirstCry","firstcry.com"],
+            ["Toyworld","toyworld.com"],
+            ["Lego","lego.com"],
+            ["Mattel","mattel.com"],
+            ["Hot Wheels","hotwheels.com"],
+            ["Barbie","barbie.com"],
+            ["Fun City","funcity.in"],
+            ["Archies","archiesonline.com"]
+        ]
+    },
+
+
+    {
+        icon:"🍳",
+        name:"Utensils & Cookware",
+        description:
+            "Find cookware and kitchen utensil shops.",
+        brands:[
+            ["Prestige","ttkprestige.com"],
+            ["Hawkins","hawkinscookers.com"],
+            ["Butterfly","butterflyindia.com"],
+            ["Pigeon","stovekraft.com"],
+            ["Vinod","vinodcookware.com"],
+            ["Wonderchef","wonderchef.com"],
+            ["Bergner","bergnerhome.in"],
+            ["Milton","milton.in"],
+            ["Cello","celloworld.com"],
+            ["Sowbaghya","sowbaghya.com"]
+        ]
+    },
+
+
+    {
+        icon:"🛏️",
+        name:"Mattress & Bedding",
+        description:
+            "Explore mattress and bedding stores near you.",
+        brands:[
+            ["Kurlon","kurlon.com"],
+            ["Sleepwell","sleepwellmattress.in"],
+            ["Wakefit","wakefit.co"],
+            ["Duroflex","duroflexworld.com"],
+            ["Peps","pepsindia.com"],
+            ["SleepyCat","sleepycat.in"],
+            ["Centuary","centuarymattress.com"],
+            ["Springwel","springwel.com"],
+            ["Nilkamal","nilkamal.com"],
+            ["Godrej Interio","godrejinterio.com"]
+        ]
+    },
+
+
+    {
+        icon:"👘",
+        name:"Ethnic Wear Showroom",
+        description:
+            "Discover ethnic wear and traditional clothing stores.",
+        brands:[
+            ["Nalli","nalli.com"],
+            ["RMKV","rmkv.com"],
+            ["Chennai Silks","thechennaisilks.com"],
+            ["Pothys","pothys.com"],
+            ["Kumaran Silks","kumaransilks.com"],
+            ["Sundari Silks","sundarisilks.com"],
+            ["Manyavar","manyavar.com"],
+            ["Soch","soch.com"],
+            ["Biba","biba.in"],
+            ["Kalanikethan","kalanikethan.com"]
+        ]
+    },
+
+
+    {
+        icon:"⌚",
+        name:"Watches",
+        description:
+            "Find watch showrooms and retailers.",
+        brands:[
+            ["Titan","titan.co.in"],
+            ["Fastrack","fastrack.in"],
+            ["Sonata","sonatawatches.in"],
+            ["Casio","casio.com"],
+            ["Fossil","fossil.com"],
+            ["Timex","timex.com"],
+            ["Maxima","maximawatches.com"],
+            ["Seiko","seikowatches.com"],
+            ["Citizen","citizenwatch.com"],
+            ["Ethos","ethoswatches.com"]
+        ]
+    },
+
+
+    {
+        icon:"🌿",
+        name:"Ayurvedic & Herbals",
+        description:
+            "Find Ayurvedic and herbal product stores.",
+        brands:[
+            ["Patanjali","patanjaliayurved.net"],
+            ["Himalaya","himalayawellness.in"],
+            ["Dabur","dabur.com"],
+            ["Kottakkal Arya Vaidya Sala","aryavaidyasala.com"],
+            ["Kerala Ayurveda","keralaayurveda.biz"],
+            ["Baidyanath","baidyanath.co"],
+            ["Sri Sri Tattva","srisritattva.com"],
+            ["Pukka","pukkaherbs.com"],
+            ["Jiva Ayurveda","jiva.com"],
+            ["Hamdard","hamdard.in"]
+        ]
+    },
+
+
+    {
+        icon:"💪",
+        name:"Nutrition & Supplements",
+        description:
+            "Discover nutrition and sports supplement stores.",
+        brands:[
+            ["MuscleBlaze","muscleblaze.com"],
+            ["Optimum Nutrition","optimumnutrition.com"],
+            ["GNC","gnc.com"],
+            ["HealthKart","healthkart.com"],
+            ["Fast&Up","fastandup.in"],
+            ["Avvatar","avvatarindia.com"],
+            ["MyProtein","myprotein.co.in"],
+            ["MuscleTech","muscletech.com"],
+            ["Isopure","theisopurecompany.com"],
+            ["Ultimate Nutrition","ultimatenutrition.com"]
+        ]
+    },
+
+
+    {
+        icon:"⚡",
+        name:"Electrics & Electronics",
+        description:
+            "Find electrical and electronics shops near you.",
+        brands:[
+            ["Philips","philips.co.in"],
+            ["Havells","havells.com"],
+            ["Anchor","anchor-world.com"],
+            ["Polycab","polycab.com"],
+            ["Finolex","finolex.com"],
+            ["Crompton","crompton.co.in"],
+            ["Bajaj Electricals","bajajelectricals.com"],
+            ["Orient Electric","orientelectric.com"],
+            ["Syska","syska.co.in"],
+            ["Wipro","wiproconsumer.com"]
+        ]
+    },
+
+
+    {
+        icon:"🔨",
+        name:"Hardware",
+        description:
+            "Find hardware and tools shops near you.",
+        brands:[
+            ["Bosch","bosch.in"],
+            ["Stanley","stanleytools.in"],
+            ["DeWalt","dewalt.in"],
+            ["Makita","makita.in"],
+            ["Taparia","tapariatools.com"],
+            ["KPT","kpt.co.in"],
+            ["Hindware","hindwarehomes.com"],
+            ["Jaquar","jaquar.com"],
+            ["Parryware","parryware.in"],
+            ["Astral","astralpipes.com"]
+        ]
+    },
+
+
+    {
+        icon:"🎨",
+        name:"Paint Shops",
+        description:
+            "Discover paint shops and dealers.",
+        brands:[
+            ["Asian Paints","asianpaints.com"],
+            ["Berger","bergerpaints.com"],
+            ["Nerolac","nerolac.com"],
+            ["Dulux","dulux.in"],
+            ["Indigo Paints","indigopaints.com"],
+            ["JSW Paints","jswpaints.in"],
+            ["Shalimar Paints","shalimarpaints.com"],
+            ["Nippon Paint","nipponpaint.co.in"],
+            ["Birla Opus","birlaopus.com"],
+            ["British Paints","britishpaints.in"]
+        ]
+    },
+
+
+    {
+        icon:"🧹",
+        name:"Cleaning Products",
+        description:
+            "Find cleaning product and home care stores.",
+        brands:[
+            ["Harpic","harpic.co.in"],
+            ["Lizol","lizol.co.in"],
+            ["Vim","unilever.com"],
+            ["Surf Excel","surfexcel.in"],
+            ["Ariel","ariel.in"],
+            ["Comfort","comfort.in"],
+            ["Domex","domex.co.in"],
+            ["Colin","reckitt.com"],
+            ["Vanish","vanish.co.in"],
+            ["Dettol","dettol.co.in"]
+        ]
+    },
+
+
+    {
+        icon:"💊",
+        name:"Pharmacy/Medicals",
+        description:
+            "Find pharmacies and medical shops near you.",
+        brands:[
+            ["Apollo Pharmacy","apollopharmacy.in"],
+            ["MedPlus","medplusmart.com"],
+            ["Netmeds","netmeds.com"],
+            ["Tata 1mg","1mg.com"],
+            ["Wellness Forever","wellnessforever.com"],
+            ["Guardian Pharmacy","guardian.in"],
+            ["Jan Aushadhi","janaushadhi.gov.in"],
+            ["PharmEasy","pharmeasy.in"],
+            ["Mankind","mankindpharma.com"],
+            ["Cipla","cipla.com"]
+        ]
+    },
+
+
+    {
+        icon:"🏋️",
+        name:"Fitness Equipments",
+        description:
+            "Explore fitness equipment shops.",
+        brands:[
+            ["PowerMax","powermaxfitness.net"],
+            ["Cultsport","cultsport.com"],
+            ["Cosco","cosco.in"],
+            ["Kobo","kobofitness.in"],
+            ["Lifelong","lifelongindiaonline.com"],
+            ["Fitkit","fitkit.in"],
+            ["Johnson Fitness","johnsonfitness.com"],
+            ["Nivia","nivia.in"],
+            ["Welcare","welcareindia.com"],
+            ["Durafit","durafit.com"]
+        ]
+    },
+
+      {
+        icon:"📚",
+        name:"Books & Stationary",
+        description:"Discover bookstores and stationery shops.",
+        brands:[
+            "Higginbothams",
+            "Landmark",
+            "Crossword",
+            "Sapna Book House",
+            "Oxford Bookstore",
+            "ITC Classmate",
+            "Navneet",
+            "Camlin",
+            "Faber-Castell",
+            "DOMS"
+        ]
+    },
+
+    {
+        icon:"🌱",
+        name:"Garden & Plants",
+        description:"Find plant nurseries and gardening stores.",
+        brands:[
+            "Ugaoo",
+            "Nurserylive",
+            "TrustBasket",
+            "Plantsguru",
+            "Garden World",
+            "Chennai Plants",
+            "Greenlands",
+            "Plantshop",
+            "MyBageecha",
+            "Plant Nursery"
+        ]
+    },
+
+    {
+        icon:"🎁",
+        name:"Gift Shops",
+        description:"Discover gift shops and special stores.",
+        brands:[
+            "Archies",
+            "Ferns N Petals",
+            "IGP",
+            "The Bombay Store",
+            "Shoppers Stop",
+            "Lifestyle",
+            "Hamleys",
+            "Miniso",
+            "Chumbak",
+            "FNP"
+        ]
+    },
+
+    {
+        icon:"🪔",
+        name:"Pooja & Religious Shops",
+        description:"Find pooja and religious product stores.",
+        brands:[
+            "Giri Trading Agency",
+            "ISKCON Store",
+            "Patanjali",
+            "Ramraj Cotton",
+            "Shubhkart",
+            "Giri",
+            "Pooja Room",
+            "Vedic Vaani",
+            "Puja Samagri",
+            "Sri Krishna Sweets"
+        ]
+    },
+
+    {
+        icon:"👓",
+        name:"Opticals & Sunglasses",
+        description:"Find optical stores and eyewear dealers.",
+        brands:[
+            "Lenskart",
+            "Titan Eye+",
+            "Specsmakers",
+            "Lawrence & Mayo",
+            "GKB Opticals",
+            "Vision Express",
+            "Ray-Ban",
+            "Vogue Eyewear",
+            "Coolwinks",
+            "Sankara Nethralaya"
+        ]
+    },
+
+    {
+        icon:"💍",
+        name:"Jewellery Showrooms",
+        description:"Discover jewellery showrooms near you.",
+        brands:[
+            "Tanishq",
+            "Kalyan Jewellers",
+            "Malabar Gold & Diamonds",
+            "Joyalukkas",
+            "GRT Jewellers",
+            "Lalitha Jewellery",
+            "Saravana Stores",
+            "Jos Alukkas",
+            "Prince Jewellery",
+            "VBJ"
+        ]
+    },
+
+    {
+        icon:"👟",
+        name:"Footwares",
+        description:"Find footwear shops and shoe stores.",
+        brands:[
+            "Bata",
+            "Metro",
+            "Mochi",
+            "Reliance Footprint",
+            "Woodland",
+            "Skechers",
+            "Nike",
+            "Adidas",
+            "Puma",
+            "Campus"
+        ]
+    },
+
+    {
+        icon:"🍽️",
+        name:"Modular Kitchen",
+        description:"Explore modular kitchen showrooms.",
+        brands:[
+            "Godrej Interio",
+            "HomeTown",
+            "Häcker",
+            "Hafele",
+            "Hettich",
+            "Livspace",
+            "DesignCafe",
+            "Sleek",
+            "Spacewood",
+            "Carysil"
+        ]
+    },
+
+    {
+        icon:"🪟",
+        name:"Flooring & Tiles",
+        description:"Find tiles and flooring showrooms.",
+        brands:[
+            "Kajaria",
+            "Somany",
+            "Johnson",
+            "RAK Ceramics",
+            "Orient Bell",
+            "Simpolo",
+            "Nitco",
+            "Asian Granito",
+            "H&R Johnson",
+            "Varmora"
+        ]
+    },
+
+    {
+        icon:"🖨️",
+        name:"Printers & Scanners",
+        description:"Find printer and scanner dealers.",
+        brands:[
+            "HP",
+            "Canon",
+            "Epson",
+            "Brother",
+            "Xerox",
+            "Ricoh",
+            "Konica Minolta",
+            "Kyocera",
+            "Pantum",
+            "Lexmark"
+        ]
+    },
+
+    {
+        icon:"🔊",
+        name:"Home Theatre & Audio",
+        description:"Discover home theatre and audio shops.",
+        brands:[
+            "Sony",
+            "JBL",
+            "Bose",
+            "Samsung",
+            "LG",
+            "Yamaha",
+            "Denon",
+            "Onkyo",
+            "Pioneer",
+            "Philips"
+        ]
+    },
+
+      {
+        icon:"💻",
+        name:"Computers & Laptops",
+        description:"Find computer and laptop stores.",
+        brands:[
+            "Dell",
+            "HP",
+            "Lenovo",
+            "Apple",
+            "Asus",
+            "Acer",
+            "MSI",
+            "Microsoft",
+            "Samsung",
+            "LG"
+        ]
+    },
+
+    {
+        icon:"📹",
+        name:"CCTV & Security",
+        description:"Find CCTV and security solution providers.",
+        brands:[
+            "Hikvision",
+            "CP Plus",
+            "Dahua",
+            "Godrej Security",
+            "Honeywell",
+            "Matrix",
+            "Prama",
+            "Zicom",
+            "Panasonic",
+            "Bosch"
+        ]
+    },
+
+    {
+        icon:"📲",
+        name:"Mobile Accessories",
+        description:"Discover mobile accessories shops.",
+        brands:[
+            "Portronics",
+            "boAt",
+            "Stuffcool",
+            "Spigen",
+            "Ambrane",
+            "Zebronics",
+            "MI",
+            "Belkin",
+            "Anker",
+            "TP-Link"
+        ]
+    },
+
+    {
+        icon:"🚗",
+        name:"Vehicle Services",
+        description:"Discover vehicle service providers.",
+        brands:[
+            "Bosch Car Service",
+            "GoMechanic",
+            "MyTVS",
+            "Mahindra First Choice",
+            "Maruti Suzuki Service",
+            "Hyundai Service",
+            "Tata Motors Service",
+            "Toyota Service",
+            "Honda Service",
+            "CarzSpa"
+        ]
+    },
+
+    {
+        icon:"🏠",
+        name:"Home Appliances Service",
+        description:"Find home appliance repair and service providers.",
+        brands:[
+            "LG",
+            "Samsung",
+            "Whirlpool",
+            "IFB",
+            "Godrej",
+            "Haier",
+            "Panasonic",
+            "Voltas",
+            "Blue Star",
+            "Bosch"
+        ]
+    },
+
+    {
+        icon:"🚲",
+        name:"Cycle Showrooms",
+        description:"Find cycle showrooms near you.",
+        brands:[
+            "Hero Cycles",
+            "Hercules",
+            "Firefox",
+            "Montra",
+            "Ninety One",
+            "Avon",
+            "Mach City",
+            "Btwin",
+            "Giant",
+            "Trek"
+        ]
+    },
+
+    {
+        icon:"🔧",
+        name:"Cycle Service",
+        description:"Find bicycle service and repair shops.",
+        brands:[
+            "Hero Cycles",
+            "Firefox",
+            "Montra",
+            "Hercules",
+            "Ninety One",
+            "Avon",
+            "Btwin",
+            "Giant",
+            "Trek",
+            "Mach City"
+        ]
+    },
+
+    {
+        icon:"🏥",
+        name:"Hospitals",
+        description:"Find hospitals and healthcare facilities.",
+        brands:[
+            "Apollo Hospitals",
+            "MIOT International",
+            "Fortis",
+            "Kauvery Hospital",
+            "SIMS Hospital",
+            "Gleneagles Global",
+            "MGM Healthcare",
+            "Sri Ramachandra",
+            "Vijaya Hospital",
+            "Billroth Hospitals"
+        ]
+    },
+
+    {
+        icon:"🏠",
+        name:"Interior Designers",
+        description:"Discover interior designers and interior studios.",
+        brands:[
+            "Livspace",
+            "HomeLane",
+            "DesignCafe",
+            "Bonito Designs",
+            "D'Life",
+            "Asian Paints Beautiful Homes",
+            "Godrej Interio",
+            "HomeTown",
+            "IKEA",
+            "Decorpot"
+        ]
+    },
+
+    {
+        icon:"🪟",
+        name:"Doors & Windows Shops",
+        description:"Find doors and windows dealers.",
+        brands:[
+            "Fenesta",
+            "AIS Windows",
+            "Encraft",
+            "Weatherseal",
+            "Prominance",
+            "Rehau",
+            "Lingel",
+            "Koemmerling",
+            "Aparna Venster",
+            "Hindware"
+        ]
+    },
+
+      {
+        icon:"💈",
+        name:"Salon & Spa",
+        description:"Discover salons and spa businesses near you.",
+        brands:[
+            "Naturals",
+            "Green Trends",
+            "Lakme Salon",
+            "Jawed Habib",
+            "Tony & Guy",
+            "Studio11",
+            "Enrich",
+            "Looks Salon",
+            "YLG Salon",
+            "Limelite"
+        ]
+    },
+
+    {
+        icon:"📸",
+        name:"Photography Studios",
+        description:"Find photography studios near you.",
+        brands:[
+            "The Photo Today",
+            "Studio A",
+            "Pixel Studios",
+            "Foto Zone",
+            "Creative Studios",
+            "Dreams Photography",
+            "Click Studio",
+            "Frame Factory",
+            "Lens Art",
+            "Studio 360"
+        ]
+    },
+
+    {
+        icon:"🎂",
+        name:"Bakery & Cake Shops",
+        description:"Discover bakeries and cake shops.",
+        brands:[
+            "Adyar Ananda Bhavan",
+            "Hot Breads",
+            "CakeBee",
+            "The French Loaf",
+            "Monginis",
+            "Winkies",
+            "Mio Amore",
+            "Bakingo",
+            "Sandy's",
+            "Winners Bakery"
+        ]
+    },
+
+    {
+        icon:"🐾",
+        name:"Pet Shops & Vet",
+        description:"Find pet shops and veterinary services.",
+        brands:[
+            "Heads Up For Tails",
+            "Just Dogs",
+            "Zigly",
+            "Petsworld",
+            "Supertails",
+            "HUFT",
+            "Pet Zone",
+            "Royal Canin",
+            "Drools",
+            "Pedigree"
+        ]
+    },
+
+    {
+        icon:"☀️",
+        name:"Solar Panel Shops",
+        description:"Find solar panel dealers and installers.",
+        brands:[
+            "Tata Power Solar",
+            "Waaree",
+            "Adani Solar",
+            "Vikram Solar",
+            "Luminous",
+            "RenewSys",
+            "Jakson Solar",
+            "Solex",
+            "Goldi Solar",
+            "Rayzon Solar"
+        ]
+    },
+
+    {
+        icon:"🎓",
+        name:"Coaching & Tuition Centers",
+        description:"Find coaching and tuition centres near you.",
+        brands:[
+            "Aakash Institute",
+            "ALLEN",
+            "FIITJEE",
+            "Vedantu",
+            "BYJU'S",
+            "Physics Wallah",
+            "Narayana",
+            "Sri Chaitanya",
+            "TIME",
+            "Career Launcher"
+        ]
+    },
+
+    {
+        icon:"🏨",
+        name:"Hotels & Resorts",
+        description:"Discover hotels and resorts near you.",
+        brands:[
+            "Taj Hotels",
+            "ITC Hotels",
+            "The Leela",
+            "Marriott",
+            "Hyatt",
+            "Radisson",
+            "Hilton",
+            "Novotel",
+            "Accor",
+            "Lemon Tree Hotels"
+        ]
+    },
+
+    {
+        icon:"🔑",
+        name:"Packers & Movers",
+        description:"Find packers and movers near you.",
+        brands:[
+            "Agarwal Packers & Movers",
+            "DHL",
+            "SafeExpress",
+            "VRL Logistics",
+            "TCI",
+            "Gati",
+            "DTDC",
+            "Blue Dart",
+            "Porter",
+            "NoBroker Packers & Movers"
+        ]
+    },
+
+    {
+        icon:"💒",
+        name:"Wedding Halls / Kalyana Mandapam",
+        description:"Find wedding halls and marriage venues.",
+        brands:[
+            "Sri Krishna Mahal",
+            "Vijaya Mahal",
+            "Raja Annamalai Mandram",
+            "AGS Convention Centre",
+            "MRC Hall",
+            "The Leela Palace",
+            "ITC Grand Chola",
+            "Rani Meiyyammai Hall",
+            "MGR Janaki College Hall",
+            "Chennai Convention Centre"
+        ]
+    },
+
+    {
+        icon:"🎊",
+        name:"Event Decorators",
+        description:"Discover event decorators and decoration services.",
+        brands:[
+            "7Events",
+            "WedMeGood",
+            "WeddingWire",
+            "BookEventz",
+            "Event Capital",
+            "Party Cruisers",
+            "Dream Decor",
+            "Wedding Bells",
+            "Royal Events",
+            "Celebrations"
+        ]
+    },
+
+    {
+        icon:"📸",
+        name:"Wedding Photography",
+        description:"Find wedding photographers near you.",
+        brands:[
+            "WedMeGood",
+            "WeddingWire",
+            "The Wedding Story",
+            "Cupcake Productions",
+            "Stories by Joseph Radhik",
+            "PixelStory",
+            "ShutterDown",
+            "Happyframes",
+            "Studio A",
+            "Wedding Candid"
+        ]
+    },
+
+      {
+        icon:"🎵",
+        name:"Musical Instruments",
+        description:"Find musical instrument stores.",
+        brands:[
+            "Furtados",
+            "Musee Musical",
+            "Yamaha",
+            "Casio",
+            "Roland",
+            "Korg",
+            "Fender",
+            "Gibson",
+            "Pearl",
+            "Tama"
+        ]
+    },
+
+    {
+        icon:"🎮",
+        name:"Gaming Zones",
+        description:"Discover gaming zones and entertainment centres.",
+        brands:[
+            "Timezone",
+            "Funcity",
+            "Smaaash",
+            "Snow Kingdom",
+            "VR Chennai",
+            "Funskool",
+            "Hamleys",
+            "Game Point",
+            "Play Arena",
+            "Timezone Chennai"
+        ]
+    },
+
+    {
+        icon:"🌾",
+        name:"Seeds & Fertilizer Shops",
+        description:"Find seeds and fertilizer shops.",
+        brands:[
+            "Coromandel",
+            "IFFCO",
+            "Kaveri Seed",
+            "Nuziveedu Seeds",
+            "Bayer",
+            "Syngenta",
+            "UPL",
+            "Rallis India",
+            "Mahyco",
+            "Adama"
+        ]
+    },
+
+    {
+        icon:"🚜",
+        name:"Farm Equipment",
+        description:"Find agricultural and farm equipment dealers.",
+        brands:[
+            "John Deere",
+            "Mahindra",
+            "Swaraj",
+            "Sonalika",
+            "New Holland",
+            "TAFE",
+            "Kubota",
+            "Escorts Kubota",
+            "VST Tillers",
+            "Eicher"
+        ]
+    },
+
+    {
+        icon:"🏦",
+        name:"Insurance Offices",
+        description:"Find insurance offices and advisors.",
+        brands:[
+            "LIC",
+            "SBI Life",
+            "HDFC Life",
+            "ICICI Prudential",
+            "Max Life",
+            "Bajaj Allianz",
+            "Tata AIA",
+            "Aditya Birla Sun Life",
+            "Star Health",
+            "New India Assurance"
+        ]
+    },
+
+    {
+        icon:"💰",
+        name:"Loan & Finance Companies",
+        description:"Find loan and finance service providers.",
+        brands:[
+            "HDFC Bank",
+            "ICICI Bank",
+            "SBI",
+            "Axis Bank",
+            "Bajaj Finserv",
+            "Tata Capital",
+            "Muthoot Finance",
+            "Manappuram Finance",
+            "Cholamandalam Finance",
+            "Shriram Finance"
+        ]
+    },
+
+    {
+        icon:"💵",
+        name:"Chit Fund Companies",
+        description:"Find chit fund and financial service offices.",
+        brands:[
+            "Shri Ram Chits",
+            "Margadarsi Chit Fund",
+            "Kapil Chits",
+            "Sriram Chits",
+            "Kerala State Financial Enterprises",
+            "Sundaram Finance",
+            "Muthoot",
+            "Manappuram",
+            "Cholamandalam",
+            "Shriram"
+        ]
+    },
+
+    {
+        icon:"🏫",
+        name:"Play Schools & Kindergarten",
+        description:"Find playschools and kindergarten centres.",
+        brands:[
+            "EuroKids",
+            "Kidzee",
+            "Bachpan",
+            "Hello Kids",
+            "Little Millennium",
+            "Kangaroo Kids",
+            "Shemrock",
+            "Podar Jumbo Kids",
+            "Orchids",
+            "The Learning Curve"
+        ]
+    },
+
+    {
+        icon:"🎨",
+        name:"Drawing & Art Classes",
+        description:"Find drawing and art classes near you.",
+        brands:[
+            "Srishti Art Academy",
+            "Kalakshetra",
+            "Chennai Art Academy",
+            "Drawspace",
+            "Shankar Art School",
+            "Art World",
+            "Creative Hands",
+            "Art House",
+            "Colors Art Academy",
+            "Little Artists"
+        ]
+    },
+
+    {
+        icon:"💃",
+        name:"Dance Classes",
+        description:"Discover dance academies and classes.",
+        brands:[
+            "Shiamak Davar",
+            "Attakkalari",
+            "Kalakshetra",
+            "Natyarangam",
+            "Nrityanjali",
+            "Tanjore Dance Academy",
+            "Nritarutya",
+            "Danza",
+            "Dance India",
+            "Step2Step"
+        ]
+    },
+
+    {
+        icon:"🎵",
+        name:"Music Classes",
+        description:"Find music schools and music classes.",
+        brands:[
+            "KM Music Conservatory",
+            "Swarnabhoomi Academy",
+            "AR Rahman Foundation",
+            "Kalakshetra",
+            "Yamaha Music School",
+            "Tansen Academy",
+            "Bharathi Music School",
+            "Shankar Mahadevan Academy",
+            "Furtados School of Music",
+            "Music Academy Chennai"
+        ]
+    },
+
+    {
+        icon:"⚽",
+        name:"Sports Academy",
+        description:"Find sports academies and training centres.",
+        brands:[
+            "Decathlon",
+            "Sports Authority of India",
+            "FC Madras",
+            "Chennaiyin FC Academy",
+            "MCC Cricket Academy",
+            "TAF Academy",
+            "SDAT",
+            "Khelo India",
+            "Bharat Sports Academy",
+            "Chennai Sports Academy"
+        ]
+    }
+
+];
+
+  /* =====================================================
+   SUPABASE CONNECTION
+===================================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   LIVE SHOP DATA
+===================================================== */
+
+let shops = [];
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const categoryFilter =
+    document.getElementById(
+        "categoryFilter"
+    );
+
+const heroTitle =
+    document.getElementById(
+        "heroTitle"
+    );
+
+const heroDescription =
+    document.getElementById(
+        "heroDescription"
+    );
+
+const heroImage =
+    document.getElementById(
+        "heroImage"
+    );
+
+const shopGrid =
+    document.getElementById(
+        "shopGrid"
+    );
+
+const shopListTitle =
+    document.getElementById(
+        "shopListTitle"
+    );
+
+const shopListCount =
+    document.getElementById(
+        "shopListCount"
+    );
+
+const shopLocation =
+    document.getElementById(
+        "shopLocation"
+    );
+
+const pincodeInput =
+    document.getElementById(
+        "pincodeInput"
+    );
+
+const searchButton =
+    document.getElementById(
+        "searchButton"
+    );
+
+
+/* =====================================================
+   FILTER STATE
+===================================================== */
+
+let selectedCategory = "All";
+
+let selectedPincode = "";
+
+
+/* =====================================================
+   LOAD SHOPS FROM SUPABASE
+===================================================== */
+
+async function loadShopsFromSupabase(){
+
+    shopGrid.innerHTML = `
+        <div class="shop-empty">
+
+            <div class="shop-empty-icon">
+                ⏳
+            </div>
+
+            <div class="shop-empty-title">
+                Loading shops...
+            </div>
+
+            <div class="shop-empty-text">
+                Finding registered shops near you.
+            </div>
+
+        </div>
+    `;
+
+    try{
+
+  const { data, error } =
+    await supabaseClient
+        .from("shops")
+        .select("*")
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
+      
+        if(error){
+
+            console.error(
+                "Supabase shop loading error:",
+                error
+            );
+
+            shopGrid.innerHTML = `
+                <div class="shop-empty">
+
+                    <div class="shop-empty-icon">
+                        ⚠️
+                    </div>
+
+                    <div class="shop-empty-title">
+                        Unable to load shops
+                    </div>
+
+                    <div class="shop-empty-text">
+                        Please try again later.
+                    </div>
+
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        shops =
+            (data || []).map(
+                function(row){
+
+                    return {
+
+                        id:
+                            row.id || "",
+
+                        name:
+                            row.shop_name ||
+                            row.name ||
+                            "Shop",
+
+                        category:
+                            row.category ||
+                            "",
+
+                        location:
+                            [
+                                row.area,
+                                row.city
+                            ]
+                            .filter(Boolean)
+                            .join(", ") ||
+                            row.address ||
+                            "Location not available",
+
+                        pincode:
+                            String(
+                                row.pincode ||
+                                row.shop_pincode ||
+                                ""
+                            ).trim(),
+
+                        image:
+                            row.shop_image ||
+                            row.image ||
+                            "",
+
+                        phone:
+                            row.mobile ||
+                            row.phone ||
+                            row.registered_mobile ||
+                            "",
+
+                        whatsapp:
+                            row.whatsapp ||
+                            row.mobile ||
+                            row.phone ||
+                            "",
+
+                        rating:
+                            row.rating ||
+                            "New"
+
+                    };
+
+                }
+            );
+
+
+        renderShops();
+
+    }
+    catch(error){
+
+        console.error(
+            "Unexpected Supabase error:",
+            error
+        );
+
+        shopGrid.innerHTML = `
+            <div class="shop-empty">
+
+                <div class="shop-empty-icon">
+                    ⚠️
+                </div>
+
+                <div class="shop-empty-title">
+                    Something went wrong
+                </div>
+
+                <div class="shop-empty-text">
+                    Please refresh the page and try again.
+                </div>
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   CATEGORY FILTER
+===================================================== */
+
+function loadCategoryFilter(){
+
+    categoryFilter.innerHTML =
+        categories
+        .map(
+            function(category){
+
+                const active =
+                    category.name ===
+                    selectedCategory
+                    ? "active"
+                    : "";
+
+                return `
+
+                    <button
+                        type="button"
+                        class="category-chip ${active}"
+                        data-category="${category.name}"
+                    >
+
+                        <span>
+                            ${category.icon}
+                        </span>
+
+                        <span>
+                            ${category.name}
+                        </span>
+
+                    </button>
+
+                `;
+
+            }
+        )
+        .join("");
+
+
+    document
+        .querySelectorAll(
+            ".category-chip"
+        )
+        .forEach(
+            function(button){
+
+                button.addEventListener(
+                    "click",
+                    function(){
+
+                        selectedCategory =
+                            this.dataset.category;
+
+                        selectedPincode =
+                            "";
+
+                        pincodeInput.value =
+                            "";
+
+                        updateHero();
+
+                        renderShops();
+
+                        loadCategoryFilter();
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   UPDATE HERO
+===================================================== */
+
+function updateHero(){
+
+    const category =
+        categories.find(
+            function(item){
+
+                return item.name ===
+                    selectedCategory;
+
+            }
+        );
+
+
+    if(!category){
+
+        return;
+
+    }
+
+
+    heroTitle.textContent =
+        category.name;
+
+    heroDescription.textContent =
+        category.description;
+
+
+    const heroBrands =
+        document.getElementById(
+            "heroBrands"
+        );
+
+
+    if(!heroBrands){
+
+        return;
+
+    }
+
+
+    if(
+        category.brands &&
+        category.brands.length
+    ){
+
+        heroBrands.innerHTML =
+            category.brands
+            .map(
+                function(brand){
+
+                    const name =
+                        Array.isArray(brand)
+                        ? brand[0]
+                        : brand;
+
+                    const domain =
+                        Array.isArray(brand)
+                        ? brand[1]
+                        : "";
+
+
+                    if(domain){
+
+                        const logo =
+                            "https://www.google.com/s2/favicons?domain=" +
+                            domain +
+                            "&sz=128";
+
+                        return `
+
+                            <div
+                                class="hero-brand"
+                                title="${name}"
+                            >
+
+                                <img
+                                    src="${logo}"
+                                    alt="${name}"
+                                    loading="lazy"
+                                    onerror="
+                                        this.style.display='none';
+                                        this.parentElement.innerHTML=
+                                        '<span class=&quot;hero-brand-name&quot;>${name}</span>';
+                                    "
+                                >
+
+                                <span
+                                    class="hero-brand-name"
+                                >
+                                    ${name}
+                                </span>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    return `
+
+                        <div
+                            class="hero-brand"
+                            title="${name}"
+                        >
+
+                            <span
+                                class="hero-brand-name"
+                            >
+                                ${name}
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+    }
+    else{
+
+        heroBrands.innerHTML =
+            "";
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER SHOP CARDS
+===================================================== */
+
+function renderShops(){
+
+    let filteredShops =
+        shops.slice();
+
+
+    /* CATEGORY FILTER */
+
+    if(
+        selectedCategory !== "All"
+    ){
+
+        filteredShops =
+            filteredShops.filter(
+                function(shop){
+
+                    return shop.category ===
+                        selectedCategory;
+
+                }
+            );
+
+    }
+
+
+    /* PINCODE FILTER */
+
+    if(selectedPincode){
+
+        filteredShops =
+            filteredShops.filter(
+                function(shop){
+
+                    return shop.pincode ===
+                        selectedPincode;
+
+                }
+            );
+
+    }
+
+
+    /* LIST TITLE */
+
+    shopListTitle.textContent =
+        selectedCategory === "All"
+        ? "All Shops"
+        : selectedCategory;
+
+
+    /* LOCATION */
+
+    if(selectedPincode){
+
+        shopLocation.textContent =
+            "📍 " +
+            selectedPincode;
+
+    }
+    else{
+
+        shopLocation.textContent =
+            "";
+
+    }
+
+
+    /* SHOP COUNT */
+
+    shopListCount.textContent =
+        filteredShops.length +
+        " shop" +
+        (
+            filteredShops.length === 1
+            ? ""
+            : "s"
+        ) +
+        " available";
+
+
+    /* EMPTY STATE */
+
+    if(
+        filteredShops.length === 0
+    ){
+
+        shopGrid.innerHTML = `
+
+            <div class="shop-empty">
+
+                <div class="shop-empty-icon">
+                    🔍
+                </div>
+
+                <div class="shop-empty-title">
+                    No shops found
+                </div>
+
+                <div class="shop-empty-text">
+                    Try another category or pincode.
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* SHOP CARDS */
+
+    shopGrid.innerHTML =
+        filteredShops
+        .map(
+            function(shop){
+
+                const message =
+                    "Hi " +
+                    shop.name +
+                    ", I found your business on Pyncode.in.";
+
+
+                return `
+
+                    <article class="shop-card">
+
+                        <div class="shop-image-wrap">
+
+                            <img
+                                class="shop-image"
+                                src="${shop.image || 'icon-192.png'}"
+                                alt="${shop.name}"
+                                loading="lazy"
+                            >
+
+                            <div class="verified-badge">
+                                ✓ Verified
+                            </div>
+
+                        </div>
+
+
+                        <div class="shop-card-body">
+
+                            <div class="shop-name-row">
+
+                                <div class="shop-name">
+                                    ${shop.name}
+                                </div>
+
+                                <div class="shop-arrow">
+                                    →
+                                </div>
+
+                            </div>
+
+
+                            <div class="shop-category">
+                                ${shop.category}
+                            </div>
+
+
+                            <div class="shop-location">
+
+                                <span>
+                                    📍
+                                </span>
+
+                                <span>
+                                    ${shop.location}
+                                </span>
+
+                            </div>
+
+
+                            <div class="shop-rating">
+
+                                <span class="rating-star">
+                                    ★
+                                </span>
+
+                                <span>
+                                    ${shop.rating}
+                                </span>
+
+                                <span>
+                                    Trusted Business
+                                </span>
+
+                            </div>
+
+
+                            <div class="shop-actions">
+
+                                <a
+                                    href="tel:+91${String(shop.phone || "").replace(/\D/g, "")}"
+                                    class="shop-action call-action"
+                                    onclick="event.stopPropagation();"
+                                >
+                                    📞 Call
+                                </a>
+
+
+                                <a
+                                    href="https://wa.me/91${String(shop.whatsapp || shop.phone || "").replace(/\D/g, "")}?text=${encodeURIComponent(message)}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="shop-action whatsapp-action"
+                                    onclick="event.stopPropagation();"
+                                >
+                                    💬 WhatsApp
+                                </a>
+
+
+                                <a
+                                    href="category-shop-current-offer.html?shop_id=${encodeURIComponent(shop.id)}"
+                                    class="shop-action offers-action"
+                                    onclick="event.stopPropagation();"
+                                >
+                                    🔥 View Offers
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   PINCODE SEARCH
+===================================================== */
+
+function searchByPincode(){
+
+    const value =
+        pincodeInput.value
+        .replace(
+            /[^0-9]/g,
+            ""
+        )
+        .slice(
+            0,
+            6
+        );
+
+
+    pincodeInput.value =
+        value;
+
+
+    if(
+        value.length !== 6
+    ){
+
+        selectedPincode =
+            "";
+
+        renderShops();
+
+        return;
+
+    }
+
+
+    selectedPincode =
+        value;
+
+
+    renderShops();
+
+}
+
+
+/* =====================================================
+   SEARCH BUTTON
+===================================================== */
+
+if(searchButton){
+
+    searchButton.addEventListener(
+        "click",
+        searchByPincode
+    );
+
+}
+
+
+if(pincodeInput){
+
+    pincodeInput.addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key === "Enter"
+            ){
+
+                searchByPincode();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   INTERESTED WHATSAPP
+===================================================== */
+
+function openInterestedWhatsApp(){
+
+    const message =
+`👋 Hi Pyncode Team,
+
+நான் என் Shop / Service-ஐ Pyncode.in-ல் list பண்ண விரும்புகிறேன்.
+
+📋 My Details:
+
+🏪 Shop / Service Name:
+👤 Owner Name:
+📞 Phone Number:
+💬 WhatsApp Number:
+📍 Address:
+🏙️ City:
+📮 Pincode:
+
+📸 Visiting Card / Shop Photo: Attached
+
+Please help me list my business on Pyncode.
+Thank you! 🙏`;
+
+
+    const whatsappURL =
+        "https://wa.me/919092035926?text=" +
+        encodeURIComponent(message);
+
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+   READ CATEGORY FROM URL
+===================================================== */
+
+function loadCategoryFromURL(){
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const categoryFromURL =
+        params.get("category");
+
+
+    if(!categoryFromURL){
+
+        selectedCategory =
+            "All";
+
+        return;
+
+    }
+
+
+    const exists =
+        categories.some(
+            function(category){
+
+                return category.name ===
+                    categoryFromURL;
+
+            }
+        );
+
+
+    if(exists){
+
+        selectedCategory =
+            categoryFromURL;
+
+    }
+    else{
+
+        selectedCategory =
+            "All";
+
+    }
+
+}
+
+
+/* =====================================================
+   INITIALIZE PAGE
+===================================================== */
+
+async function initialize(){
+
+    loadCategoryFromURL();
+
+    loadCategoryFilter();
+
+    updateHero();
+
+    await loadShopsFromSupabase();
+
+}
+
+
+initialize();
+
+  </script>
+  
+</body>
+  
+</html>

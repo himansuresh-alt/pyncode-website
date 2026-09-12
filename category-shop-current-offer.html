@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -9,11 +10,15 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Current Offers - Pyncode</title>
+<title>Shop Offers - Pyncode</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -21,424 +26,1097 @@
     padding:0;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f7f8fc;
-    color:#171b2b;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:#f5f6fa;
+
+    color:#171923;
+
     min-height:100vh;
+
     display:flex;
+
     flex-direction:column;
+
+    padding-bottom:78px;
+
+    overflow-x:hidden;
 }
 
-/* =========================
-   HEADER
-========================= */
 
-.header{
-    height:88px;
-    background:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 24px;
-    border-bottom:1px solid #e8e8e8;
+/* =====================================================
+   CATEGORY HERO
+   MATCH SHOP.HTML STYLE
+===================================================== */
+
+.category-hero{
+
+    width:calc(100% - 32px);
+
+    max-width:1050px;
+
+    min-height:225px;
+
+    margin:20px auto 0;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    background:#ffffff;
+
+    border:1px solid #e5e8ed;
+
+    box-shadow:
+        0 12px 30px
+        rgba(20,30,60,.10);
 }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    font-size:25px;
-    font-weight:800;
-}
 
-.logo-icon{
-    width:52px;
-    height:52px;
-    border-radius:16px;
-    background:linear-gradient(135deg,#ff6b18,#ff416c);
-    color:#fff;
+.category-hero-content{
+
+    width:100%;
+
+    min-height:225px;
+
+    padding:28px 30px;
+
     display:flex;
-    align-items:center;
+
+    flex-direction:column;
+
     justify-content:center;
-    font-size:25px;
-    font-weight:800;
+
+    background:#ffffff;
 }
 
-.back-btn{
-    background:#202633;
-    color:#fff;
-    border:0;
-    border-radius:14px;
-    padding:14px 20px;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
+
+/* =====================================================
+   HERO EYEBROW
+===================================================== */
+
+.hero-eyebrow{
+
+    color:#ef603e;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    margin-bottom:7px;
 }
 
-/* =========================
+
+/* =====================================================
+   HERO TITLE
+===================================================== */
+
+.hero-title{
+
+    color:#151a28;
+
+    font-size:30px;
+
+    line-height:1.12;
+
+    font-weight:900;
+
+    letter-spacing:-.7px;
+}
+
+
+/* =====================================================
+   HERO DESCRIPTION
+===================================================== */
+
+.hero-description{
+
+    margin-top:7px;
+
+    color:#737b89;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   HERO BRANDS
+===================================================== */
+
+.hero-brands{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:16px;
+
+    overflow-x:auto;
+
+    scrollbar-width:none;
+
+    padding:2px 2px 8px;
+}
+
+.hero-brands::-webkit-scrollbar{
+
+    display:none;
+}
+
+
+/* =====================================================
+   HERO BRAND CARD
+===================================================== */
+
+.hero-brand{
+
+    flex:0 0 105px;
+
+    height:62px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px;
+
+    background:#ffffff;
+
+    border:1px solid #e4e7ec;
+
+    border-radius:12px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(20,30,60,.06);
+}
+
+
+.hero-brand img{
+
+    max-width:85px;
+
+    max-height:44px;
+
+    width:auto;
+
+    height:auto;
+
+    object-fit:contain;
+}
+
+
+.hero-brand-name{
+
+    display:block;
+
+    color:#343b48;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    text-align:center;
+
+    line-height:1.25;
+}
+
+
+/* =====================================================
    MAIN
-========================= */
+===================================================== */
 
 .container{
+
     width:100%;
-    max-width:900px;
-    margin:auto;
-    padding:28px 16px 55px;
+
+    max-width:1050px;
+
+    margin:0 auto;
+
+    padding:22px 16px 40px;
+
     flex:1;
 }
 
-/* =========================
-   SHOP HEADER
-========================= */
 
-.shop-header{
+/* =====================================================
+   SHOP PROFILE
+===================================================== */
+
+.shop-profile{
+
     background:#fff;
-    border-radius:22px;
-    padding:22px;
+
+    border-radius:24px;
+
+    padding:18px;
+
     display:flex;
+
     align-items:center;
-    gap:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,.05);
-    margin-bottom:28px;
+
+    gap:16px;
+
+    box-shadow:
+        0 8px 30px
+        rgba(17,24,39,.07);
+
+    margin-bottom:25px;
+
+    border:1px solid
+        rgba(0,0,0,.035);
 }
+
+
+.shop-image-wrap{
+
+    width:92px;
+
+    height:92px;
+
+    flex-shrink:0;
+
+    border-radius:22px;
+
+    padding:3px;
+
+    background:#f0f1f5;
+
+    overflow:hidden;
+}
+
 
 .shop-image{
-    width:100px;
-    height:100px;
-    border-radius:18px;
+
+    width:100%;
+
+    height:100%;
+
     object-fit:cover;
-    flex-shrink:0;
-    background:#f0f1f4;
+
+    border-radius:19px;
+
+    background:#f0f1f5;
+
+    display:block;
 }
+
+
+.shop-info{
+
+    min-width:0;
+
+    flex:1;
+}
+
 
 .shop-name{
-    font-size:26px;
+
+    font-size:22px;
+
+    line-height:1.2;
+
     font-weight:800;
-    margin-bottom:7px;
+
+    letter-spacing:-.3px;
+
+    word-break:break-word;
 }
+
 
 .shop-category{
-    color:#7d8493;
-    font-size:15px;
+
+    color:#7b8190;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-top:5px;
 }
+
 
 .shop-location{
+
+    color:#626978;
+
+    font-size:13px;
+
+    line-height:1.4;
+
     margin-top:8px;
-    color:#777;
-    font-size:14px;
+
+    word-break:break-word;
 }
 
-/* =========================
-   TITLE
-========================= */
 
-.title{
-    font-size:30px;
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.offers-heading{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-bottom:15px;
+}
+
+
+.offers-title{
+
+    font-size:24px;
+
     font-weight:800;
-    margin-bottom:7px;
+
+    letter-spacing:-.4px;
 }
 
-.subtitle{
-    color:#777f8e;
-    font-size:15px;
-    margin-bottom:22px;
+
+.offers-subtitle{
+
+    color:#858b98;
+
+    font-size:13px;
+
+    margin-top:5px;
 }
 
-/* =========================
-   SLIDER
-========================= */
+
+.offer-counter{
+
+    flex-shrink:0;
+
+    padding:7px 11px;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    color:#666d7b;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,.05);
+}
+
+
+/* =====================================================
+   OFFER AREA
+===================================================== */
+
+.offer-stage{
+
+    width:100%;
+
+    position:relative;
+
+    padding:8px 0 18px;
+}
+
 
 .offer-slider{
-    position:relative;
-    width:100%;
-    display:flex;
-    justify-content:center;
-    overflow:hidden;
-    border-radius:24px;
-}
 
-.slides{
-    display:flex;
     width:100%;
-    transition:transform .45s ease;
+
+    overflow:hidden;
+
+    border-radius:28px;
+
+    position:relative;
+
     touch-action:pan-y;
 }
 
-.slide{
-    min-width:100%;
+
+.slides{
+
     display:flex;
-    justify-content:center;
-    align-items:center;
+
+    width:100%;
+
+    transition:
+        transform .45s
+        cubic-bezier(.22,.61,.36,1);
+
+    touch-action:pan-y;
 }
 
+
+.slide{
+
+    min-width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:0 10px;
+}
+
+
+/* =====================================================
+   POSTER
+===================================================== */
+
+.poster-frame{
+
+    width:min(100%,520px);
+
+    padding:7px;
+
+    border-radius:28px;
+
+    background:#fff;
+
+    box-shadow:
+        0 18px 45px
+        rgba(17,24,39,.16);
+}
+
+
 .poster{
-    width:min(100%,500px);
+
+    width:100%;
+
     aspect-ratio:9 / 16;
+
     object-fit:cover;
+
     display:block;
-    border-radius:20px;
+
+    border-radius:22px;
+
     cursor:pointer;
-    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
     user-select:none;
+
     -webkit-user-select:none;
 }
 
-/* =========================
-   ARROWS
-========================= */
+
+/* =====================================================
+   SLIDER ARROWS
+===================================================== */
 
 .slider-arrow{
+
     position:absolute;
+
     top:50%;
-    transform:translateY(-50%);
-    width:46px;
-    height:46px;
+
+    transform:
+        translateY(-50%);
+
+    width:44px;
+
+    height:44px;
+
     border:0;
+
     border-radius:50%;
-    background:rgba(0,0,0,.65);
-    color:#fff;
-    font-size:30px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
+    background:
+        rgba(20,24,32,.72);
+
+    color:#fff;
+
+    font-size:28px;
+
     cursor:pointer;
+
     z-index:5;
+
+    box-shadow:
+        0 5px 18px
+        rgba(0,0,0,.18);
+
+    backdrop-filter:
+        blur(8px);
 }
+
 
 .slider-prev{
-    left:12px;
+
+    left:8px;
 }
+
 
 .slider-next{
-    right:12px;
+
+    right:8px;
 }
 
-/* =========================
+
+/* =====================================================
    DOTS
-========================= */
+===================================================== */
 
 .dots{
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
-    gap:8px;
-    margin-top:18px;
+
+    gap:6px;
+
+    margin-top:14px;
 }
+
 
 .dot{
-    width:8px;
-    height:8px;
+
+    width:7px;
+
+    height:7px;
+
     border-radius:50%;
-    background:#cfd2d8;
+
+    background:#d0d4dc;
+
     cursor:pointer;
-    transition:.25s;
+
+    transition:
+        all .25s ease;
 }
 
+
 .dot.active{
-    width:24px;
+
+    width:23px;
+
     border-radius:20px;
+
     background:#ff5b2a;
 }
 
-/* =========================
-   SLIDE COUNT
-========================= */
 
-.slide-count{
-    text-align:center;
-    margin-top:10px;
-    color:#8a909b;
-    font-size:13px;
-}
-
-/* =========================
-   EMPTY
-========================= */
+/* =====================================================
+   EMPTY STATE
+===================================================== */
 
 .empty{
+
     background:#fff;
+
+    border-radius:24px;
+
+    padding:55px 20px;
+
+    text-align:center;
+
+    box-shadow:
+        0 8px 28px
+        rgba(0,0,0,.05);
+}
+
+
+.empty-icon{
+
+    width:70px;
+
+    height:70px;
+
+    margin:0 auto 16px;
+
     border-radius:22px;
-    padding:50px 20px;
-    text-align:center;
-    color:#777;
-}
 
-/* =========================
-   FULLSCREEN VIEWER
-========================= */
-
-.viewer{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.96);
-    z-index:9999;
-    display:none;
-    align-items:center;
-    justify-content:center;
-}
-
-.viewer.active{
     display:flex;
-}
 
-.viewer-image{
-    width:100%;
-    height:100%;
-    max-width:100%;
-    max-height:100%;
-    object-fit:contain;
-    user-select:none;
-    -webkit-user-select:none;
-    touch-action:none;
-}
+    align-items:center;
 
-.viewer-close{
-    position:absolute;
-    top:18px;
-    right:18px;
-    width:46px;
-    height:46px;
-    border:0;
-    border-radius:50%;
-    background:rgba(255,255,255,.18);
-    color:#fff;
-    font-size:30px;
-    cursor:pointer;
-    z-index:10001;
-}
+    justify-content:center;
 
-.viewer-arrow{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:48px;
-    height:48px;
-    border:0;
-    border-radius:50%;
-    background:rgba(255,255,255,.18);
-    color:#fff;
+    background:#f2f3f7;
+
     font-size:32px;
-    cursor:pointer;
-    z-index:10001;
 }
 
-.viewer-prev{
-    left:15px;
-}
 
-.viewer-next{
-    right:15px;
-}
+.empty-title{
 
-/* =========================
-   FOOTER
-========================= */
-.footer{
-    background:#202633;
-    color:#fff;
-    text-align:center;
-    padding:28px 15px;
-    margin-top:auto;
-}
+    font-size:18px;
 
-.footer-title{
-    font-size:19px;
     font-weight:800;
 }
 
-.footer-text{
-    margin-top:7px;
-    color:#c8ccd4;
+
+.empty-text{
+
+    color:#7c8290;
+
     font-size:13px;
+
+    line-height:1.5;
+
+    margin-top:7px;
 }
 
-/* =========================
+
+/* =====================================================
+   FULLSCREEN VIEWER
+===================================================== */
+
+.viewer{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.97);
+
+    z-index:9999;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+
+.viewer.active{
+
+    display:flex;
+}
+
+
+.viewer-image{
+
+    width:100%;
+
+    height:100%;
+
+    max-width:100%;
+
+    max-height:100%;
+
+    object-fit:contain;
+
+    user-select:none;
+
+    -webkit-user-select:none;
+
+    touch-action:none;
+}
+
+
+.viewer-close{
+
+    position:absolute;
+
+    top:16px;
+
+    right:16px;
+
+    width:46px;
+
+    height:46px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.16);
+
+    color:#fff;
+
+    font-size:30px;
+
+    cursor:pointer;
+
+    z-index:10001;
+}
+
+
+.viewer-arrow{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    width:48px;
+
+    height:48px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.16);
+
+    color:#fff;
+
+    font-size:32px;
+
+    cursor:pointer;
+
+    z-index:10001;
+}
+
+
+.viewer-prev{
+
+    left:15px;
+}
+
+
+.viewer-next{
+
+    right:15px;
+}
+
+  /* =====================================================
+   FIXED BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    height:72px;
+
+    background:
+        rgba(255,255,255,.96);
+
+    border-top:1px solid
+        #e6e7eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-around;
+
+    z-index:5000;
+
+    box-shadow:
+        0 -5px 22px
+        rgba(0,0,0,.07);
+
+    backdrop-filter:
+        blur(14px);
+}
+
+
+.bottom-nav-item{
+
+    flex:1;
+
+    height:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:3px;
+
+    text-decoration:none;
+
+    color:#7c8290;
+
+    transition:.2s;
+
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+
+.nav-icon{
+
+    font-size:21px;
+
+    line-height:1;
+}
+
+
+.nav-label{
+
+    font-size:10px;
+
+    font-weight:700;
+}
+
+
+.bottom-nav-item.active{
+
+    color:#ff572d;
+}
+
+
+.bottom-nav-item:active{
+
+    transform:scale(.94);
+}
+
+
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media(max-width:600px){
 
-    .header{
-        height:76px;
-        padding:0 15px;
+    body{
+
+        padding-bottom:74px;
     }
 
-    .logo{
-        font-size:21px;
-        gap:10px;
-    }
 
-    .logo-icon{
-        width:44px;
-        height:44px;
-        border-radius:13px;
-        font-size:21px;
-    }
+    .category-hero{
 
-    .back-btn{
-        padding:11px 15px;
-        font-size:14px;
-    }
+        width:calc(100% - 32px);
 
-    .container{
-        padding:22px 15px 45px;
-    }
+        min-height:225px;
 
-    .shop-header{
-        padding:17px;
-        gap:14px;
-        margin-bottom:24px;
-    }
+        margin:16px 16px 0;
 
-    .shop-image{
-        width:82px;
-        height:82px;
-        border-radius:16px;
-    }
-
-    .shop-name{
-        font-size:21px;
-    }
-
-    .shop-category{
-        font-size:14px;
-    }
-
-    .shop-location{
-        font-size:13px;
-    }
-
-    .title{
-        font-size:26px;
-    }
-
-    .subtitle{
-        font-size:14px;
-        margin-bottom:18px;
-    }
-
-    .offer-slider{
-        border-radius:20px;
-    }
-
-    .poster{
-        width:100%;
         border-radius:18px;
     }
 
-    .slider-arrow{
-        width:40px;
-        height:40px;
+
+    .category-hero-content{
+
+        min-height:225px;
+
+        padding:22px 18px;
+    }
+
+
+    .hero-title{
+
         font-size:25px;
     }
 
+
+    .hero-description{
+
+        font-size:12px;
+    }
+
+
+    .hero-brands{
+
+        margin-top:15px;
+
+        gap:9px;
+    }
+
+
+    .hero-brand{
+
+        flex-basis:92px;
+
+        height:57px;
+    }
+
+
+    .container{
+
+        padding:
+            17px
+            13px
+            32px;
+    }
+
+
+    .shop-profile{
+
+        padding:15px;
+
+        border-radius:21px;
+
+        gap:13px;
+
+        margin-bottom:21px;
+    }
+
+
+    .shop-image-wrap{
+
+        width:76px;
+
+        height:76px;
+
+        border-radius:19px;
+    }
+
+
+    .shop-image{
+
+        border-radius:16px;
+    }
+
+
+    .shop-name{
+
+        font-size:19px;
+    }
+
+
+    .shop-category{
+
+        font-size:12px;
+    }
+
+
+    .shop-location{
+
+        font-size:12px;
+
+        margin-top:6px;
+    }
+
+
+    .offers-title{
+
+        font-size:22px;
+    }
+
+
+    .offers-subtitle{
+
+        font-size:12px;
+    }
+
+
+    .offer-counter{
+
+        font-size:11px;
+
+        padding:6px 9px;
+    }
+
+
+    .offer-slider{
+
+        border-radius:23px;
+    }
+
+
+    .slide{
+
+        padding:0 5px;
+    }
+
+
+    .poster-frame{
+
+        width:100%;
+
+        padding:5px;
+
+        border-radius:23px;
+    }
+
+
+    .poster{
+
+        border-radius:18px;
+    }
+
+
+    .slider-arrow{
+
+        width:38px;
+
+        height:38px;
+
+        font-size:24px;
+    }
+
+
     .slider-prev{
+
         left:8px;
     }
 
+
     .slider-next{
+
         right:8px;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL DEVICES
+===================================================== */
+
+@media(max-width:380px){
+
+    .shop-image-wrap{
+
+        width:68px;
+
+        height:68px;
+    }
+
+
+    .shop-name{
+
+        font-size:17px;
+    }
+
+
+    .hero-title{
+
+        font-size:22px;
     }
 
 }
@@ -450,52 +1128,73 @@ body{
 <body>
 
 
-<!-- =========================
-     HEADER
-========================= -->
+<!-- =====================================================
+     CATEGORY HERO
+===================================================== -->
 
-<header class="header">
+<section class="category-hero">
 
-    <div class="logo">
+    <div class="category-hero-content">
 
-        <div class="logo-icon">
-            P
+        <div class="hero-eyebrow">
+            📍 Discover Local
         </div>
 
-        <span>Pyncode</span>
+
+        <h1
+            id="categoryHeroTitle"
+            class="hero-title"
+        >
+            Loading Category...
+        </h1>
+
+
+        <p
+            id="categoryHeroDescription"
+            class="hero-description"
+        >
+            Discover shops and businesses near you.
+        </p>
+
+
+        <div
+            id="categoryHeroBrands"
+            class="hero-brands"
+        ></div>
 
     </div>
 
-    <button
-        type="button"
-        class="back-btn"
-        onclick="history.back()"
-    >
-        ← Back
-    </button>
-
-</header>
+</section>
 
 
-<!-- =========================
+<!-- =====================================================
      MAIN
-========================= -->
+===================================================== -->
 
 <main class="container">
 
 
-    <!-- SHOP DETAILS -->
+    <!-- =================================================
+         SHOP PROFILE
+    ================================================= -->
 
-    <section class="shop-header">
+    <section class="shop-profile">
 
-        <img
-            id="shopImage"
-            class="shop-image"
-            src=""
-            alt="Shop"
-        >
 
-        <div>
+        <div class="shop-image-wrap">
+
+            <img
+                id="shopImage"
+                class="shop-image"
+                src=""
+                alt="Shop"
+            >
+
+        </div>
+
+
+        <div class="shop-info">
+
 
             <div
                 id="shopName"
@@ -504,12 +1203,14 @@ body{
                 Loading...
             </div>
 
+
             <div
                 id="shopCategory"
                 class="shop-category"
             >
                 —
             </div>
+
 
             <div
                 id="shopLocation"
@@ -518,75 +1219,103 @@ body{
                 📍 Loading...
             </div>
 
+
         </div>
+
 
     </section>
 
 
-    <!-- TITLE -->
+    <!-- =================================================
+         OFFERS HEADING
+    ================================================= -->
 
-    <h1 class="title">
-        🔥 Current Offers
-    </h1>
-
-    <p class="subtitle">
-        Latest offers and special deals from this shop
-    </p>
+    <div class="offers-heading">
 
 
-    <!-- =========================
-         OFFER SLIDER
-    ========================= -->
+        <div>
 
-    <section
-        class="offer-slider"
-        id="offerSlider"
-        style="display:none;"
-    >
+            <h2 class="offers-title">
+                🔥 Current Offers
+            </h2>
+
+
+            <p class="offers-subtitle">
+                Latest deals from this shop
+            </p>
+
+        </div>
+
 
         <div
-            class="slides"
-            id="slides"
+            id="offerCounter"
+            class="offer-counter"
+        >
+            0 Offers
+        </div>
+
+
+    </div>
+
+
+    <!-- =================================================
+         OFFER STAGE
+    ================================================= -->
+
+    <section
+        class="offer-stage"
+        id="offerStage"
+    >
+
+
+        <div
+            class="offer-slider"
+            id="offerSlider"
+            style="display:none;"
+        >
+
+
+            <div
+                class="slides"
+                id="slides"
+            ></div>
+
+
+            <button
+                type="button"
+                class="slider-arrow slider-prev"
+                id="prevBtn"
+                aria-label="Previous offer"
+            >
+                ‹
+            </button>
+
+
+            <button
+                type="button"
+                class="slider-arrow slider-next"
+                id="nextBtn"
+                aria-label="Next offer"
+            >
+                ›
+            </button>
+
+
+        </div>
+
+
+        <div
+            class="dots"
+            id="dots"
         ></div>
 
 
-        <button
-            type="button"
-            class="slider-arrow slider-prev"
-            id="prevBtn"
-            aria-label="Previous offer"
-        >
-            ‹
-        </button>
-
-
-        <button
-            type="button"
-            class="slider-arrow slider-next"
-            id="nextBtn"
-            aria-label="Next offer"
-        >
-            ›
-        </button>
-
     </section>
 
 
-    <!-- DOTS -->
-
-    <div
-        class="dots"
-        id="dots"
-    ></div>
-
-
-    <div
-        class="slide-count"
-        id="slideCount"
-    ></div>
-
-
-    <!-- EMPTY -->
+    <!-- =================================================
+         EMPTY
+    ================================================= -->
 
     <div
         id="emptyBox"
@@ -594,28 +1323,24 @@ body{
         style="display:none;"
     >
 
-        <div
-            style="
-                font-size:42px;
-                margin-bottom:12px;
-            "
-        >
+
+        <div class="empty-icon">
             📭
         </div>
 
-        <strong>
+
+        <div class="empty-title">
             No Current Offers
-        </strong>
+        </div>
+
 
         <div
             id="emptyText"
-            style="
-                margin-top:8px;
-                font-size:14px;
-            "
+            class="empty-text"
         >
             This shop has no approved offers right now.
         </div>
+
 
     </div>
 
@@ -623,31 +1348,89 @@ body{
 </main>
 
 
-<!-- =========================
-     FOOTER
-========================= -->
+<!-- =====================================================
+     FIXED NAVIGATION
+===================================================== -->
 
-<footer class="footer">
-
-    <div class="footer-title">
-        Pyncode
-    </div>
-
-    <div class="footer-text">
-        Discover Local Offers & Promotions Near You.
-    </div>
-
-</footer>
+<nav class="bottom-nav">
 
 
-<!-- =========================
+    <a
+        href="shops.html"
+        class="bottom-nav-item active"
+    >
+
+        <span class="nav-icon">
+            🏪
+        </span>
+
+        <span class="nav-label">
+            Shops
+        </span>
+
+    </a>
+
+
+    <a
+        href="services.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            🛠️
+        </span>
+
+        <span class="nav-label">
+            Services
+        </span>
+
+    </a>
+
+
+    <a
+        href="category.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            ▦
+        </span>
+
+        <span class="nav-label">
+            Category
+        </span>
+
+    </a>
+
+
+    <a
+        href="promotion.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            📣
+        </span>
+
+        <span class="nav-label">
+            Promotion
+        </span>
+
+    </a>
+
+
+</nav>
+
+
+<!-- =====================================================
      FULLSCREEN VIEWER
-========================= -->
+===================================================== -->
 
 <div
     class="viewer"
     id="viewer"
 >
+
 
     <button
         type="button"
@@ -685,20 +1468,23 @@ body{
         ›
     </button>
 
+
 </div>
 
 
 <script>
 
 /* =====================================================
-   SUPABASE
+   SUPABASE CONNECTION
 ===================================================== */
 
 const SUPABASE_URL =
     "https://mtuspuehsxsjoaxoenen.supabase.co";
 
+
 const SUPABASE_KEY =
     "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -711,56 +1497,124 @@ const supabaseClient =
    ELEMENTS
 ===================================================== */
 
+const categoryHeroTitle =
+    document.getElementById(
+        "categoryHeroTitle"
+    );
+
+
+const categoryHeroDescription =
+    document.getElementById(
+        "categoryHeroDescription"
+    );
+
+
+const categoryHeroBrands =
+    document.getElementById(
+        "categoryHeroBrands"
+    );
+
+
 const shopNameElement =
-    document.getElementById("shopName");
+    document.getElementById(
+        "shopName"
+    );
+
 
 const shopCategoryElement =
-    document.getElementById("shopCategory");
+    document.getElementById(
+        "shopCategory"
+    );
+
 
 const shopLocationElement =
-    document.getElementById("shopLocation");
+    document.getElementById(
+        "shopLocation"
+    );
+
 
 const shopImageElement =
-    document.getElementById("shopImage");
+    document.getElementById(
+        "shopImage"
+    );
+
 
 const offerSlider =
-    document.getElementById("offerSlider");
+    document.getElementById(
+        "offerSlider"
+    );
+
 
 const slides =
-    document.getElementById("slides");
+    document.getElementById(
+        "slides"
+    );
+
 
 const prevBtn =
-    document.getElementById("prevBtn");
+    document.getElementById(
+        "prevBtn"
+    );
+
 
 const nextBtn =
-    document.getElementById("nextBtn");
+    document.getElementById(
+        "nextBtn"
+    );
+
 
 const dotsContainer =
-    document.getElementById("dots");
+    document.getElementById(
+        "dots"
+    );
 
-const slideCount =
-    document.getElementById("slideCount");
+
+const offerCounter =
+    document.getElementById(
+        "offerCounter"
+    );
+
 
 const emptyBox =
-    document.getElementById("emptyBox");
+    document.getElementById(
+        "emptyBox"
+    );
+
 
 const emptyText =
-    document.getElementById("emptyText");
+    document.getElementById(
+        "emptyText"
+    );
+
 
 const viewer =
-    document.getElementById("viewer");
+    document.getElementById(
+        "viewer"
+    );
+
 
 const viewerImage =
-    document.getElementById("viewerImage");
+    document.getElementById(
+        "viewerImage"
+    );
+
 
 const viewerClose =
-    document.getElementById("viewerClose");
+    document.getElementById(
+        "viewerClose"
+    );
+
 
 const viewerPrev =
-    document.getElementById("viewerPrev");
+    document.getElementById(
+        "viewerPrev"
+    );
+
 
 const viewerNext =
-    document.getElementById("viewerNext");
+    document.getElementById(
+        "viewerNext"
+    );
 
 
 /* =====================================================
@@ -772,11 +1626,889 @@ const params =
         window.location.search
     );
 
+
 const shopId =
     params.get("shop_id");
 
+  /* =====================================================
+   CATEGORY HERO DATA
+===================================================== */
+
+const categoryHeroData = {
+
+
+    "Home Appliances": {
+
+        description:
+            "Find home appliance shops near you.",
+
+        brands:[
+            ["Sathya","sathya.in"],
+            ["Vasanth & Co","vasanthandco.in"],
+            ["Viveks","viveks.com"],
+            ["Girias","girias.in"],
+            ["Croma","croma.com"],
+            ["Reliance Digital","reliancedigital.in"],
+            ["Poorvika","poorvika.com"],
+            ["Lalithaa","lalithaa.in"],
+            ["Pai International","paiinternational.in"],
+            ["Electronics Mart","electronicsmartindia.in"]
+        ]
+
+    },
+
+
+    "Mobile Showrooms": {
+
+        description:
+            "Find mobile showrooms and smartphone dealers.",
+
+        brands:[
+            ["Poorvika","poorvika.com"],
+            ["Sathya","sathya.in"],
+            ["Sangeetha Mobiles","sangeethamobiles.com"],
+            ["Reliance Digital","reliancedigital.com"],
+            ["Croma","croma.com"],
+            ["Vasanth & Co","vasanthandco.in"],
+            ["Lot Mobiles","lotmobiles.com"],
+            ["Bharath Mobiles","bharathmobiles.com"],
+            ["iPlanet","iplanet.one"],
+            ["Imagine","imagineonline.store"]
+        ]
+
+    },
+
+
+    "EV Bike Showrooms": {
+
+        description:
+            "Discover EV bike showrooms and dealers.",
+
+        brands:[
+            ["Ather","atherenergy.com"],
+            ["Ola Electric","olaelectric.com"],
+            ["TVS iQube","tvsmotor.com"],
+            ["Bajaj Chetak","chetak.com"],
+            ["Hero Electric","heroelectric.in"],
+            ["Vida","vidaworld.com"],
+            ["Ampere","ampere.greaveselectricmobility.com"],
+            ["Revolt","revoltmotors.com"],
+            ["Okinawa","okinawascooters.com"],
+            ["Ultraviolette","ultraviolette.com"]
+        ]
+
+    },
+
+
+    "Bike Showrooms": {
+
+        description:
+            "Find bike showrooms and motorcycle dealers.",
+
+        brands:[
+            ["Hero","heromotocorp.com"],
+            ["Honda","honda2wheelersindia.com"],
+            ["TVS","tvsmotor.com"],
+            ["Bajaj","bajajauto.com"],
+            ["Yamaha","yamaha-motor-india.com"],
+            ["Royal Enfield","royalenfield.com"],
+            ["Suzuki","suzukimotorcycle.co.in"],
+            ["KTM","ktmindia.com"],
+            ["Jawa","jawamotorcycles.com"],
+            ["BMW Motorrad","bmw-motorrad.in"]
+        ]
+
+    },
+
+
+    "Car Showrooms": {
+
+        description:
+            "Find car showrooms and automobile dealers.",
+
+        brands:[
+            ["Maruti Suzuki","marutisuzuki.com"],
+            ["Hyundai","hyundai.com"],
+            ["Tata Motors","tatamotors.com"],
+            ["Mahindra","mahindra.com"],
+            ["Toyota","toyotabharat.com"],
+            ["Honda","hondacarindia.com"],
+            ["Kia","kia.com"],
+            ["MG Motor","mgmotor.co.in"],
+            ["Renault","renault.co.in"],
+            ["Nissan","nissan.in"]
+        ]
+
+    },
+
+
+    "Furnitures": {
+
+        description:
+            "Find furniture shops and home furnishing stores.",
+
+        brands:[
+            ["IKEA","ikea.com"],
+            ["Pepperfry","pepperfry.com"],
+            ["Urban Ladder","urbanladder.com"],
+            ["Home Centre","homecentre.in"],
+            ["Durian","durian.in"],
+            ["Wakefit","wakefit.co"],
+            ["Godrej Interio","godrejinterio.com"],
+            ["Nilkamal","nilkamal.com"],
+            ["Royaloak","royaloakindia.com"],
+            ["HomeTown","hometown.in"]
+        ]
+
+    },
+
+
+    "Battery Shops": {
+
+        description:
+            "Find battery dealers and battery service shops.",
+
+        brands:[
+            ["Amaron","amaron.in"],
+            ["Exide","exideindustries.com"],
+            ["Luminous","luminousindia.com"],
+            ["Livguard","livguard.com"],
+            ["Okaya","okaya.in"],
+            ["SF Sonic","sfsonic.com"],
+            ["Tata Green Batteries","tatagreenbattery.com"],
+            ["Base Batteries","basebatteries.com"],
+            ["HBL","hbl.in"],
+            ["Powerzone","powerzone.in"]
+        ]
+
+    },
+
+
+    "Men's Clothing": {
+
+        description:
+            "Find men's clothing stores and fashion outlets.",
+
+        brands:[
+            ["Peter England","peterengland.com"],
+            ["Louis Philippe","louisphilippe.com"],
+            ["Van Heusen","vanheusenindia.com"],
+            ["Allen Solly","allensolly.com"],
+            ["Raymond","raymond.in"],
+            ["Manyavar","manyavar.com"],
+            ["Max Fashion","maxfashion.in"],
+            ["Lifestyle","lifestylestores.com"],
+            ["Pantaloons","pantaloons.com"],
+            ["Reliance Trends","reliancetrends.com"]
+        ]
+
+    },
+
+
+    "Women's Clothing": {
+
+        description:
+            "Discover women's clothing and fashion stores.",
+
+        brands:[
+            ["Biba","biba.in"],
+            ["W","wforwoman.com"],
+            ["Aurelia","aurelia.in"],
+            ["Max Fashion","maxfashion.in"],
+            ["Lifestyle","lifestylestores.com"],
+            ["Pantaloons","pantaloons.com"],
+            ["Fabindia","fabindia.com"],
+            ["Soch","soch.com"],
+            ["Manyavar","manyavar.com"],
+            ["Reliance Trends","reliancetrends.com"]
+        ]
+
+    },
+
+
+    "Kids Clothing": {
+
+        description:
+            "Find kids clothing stores and children's fashion.",
+
+        brands:[
+            ["FirstCry","firstcry.com"],
+            ["Mothercare","mothercare.in"],
+            ["Max Fashion","maxfashion.in"],
+            ["Lifestyle","lifestylestores.com"],
+            ["Pantaloons","pantaloons.com"],
+            ["Hopscotch","hopscotch.in"],
+            ["Allen Solly Junior","allensolly.com"],
+            ["U.S. Polo Assn. Kids","uspoloassn.in"],
+            ["Peppermint","peppermint.in"],
+            ["Gini & Jony","giniandjony.com"]
+        ]
+
+    },
+
+
+    "Toys Showrooms": {
+
+        description:
+            "Discover toy shops and children's entertainment stores.",
+
+        brands:[
+            ["Hamleys","hamleys.in"],
+            ["Funskool","funskoolindia.com"],
+            ["FirstCry","firstcry.com"],
+            ["Toycra","toycra.com"],
+            ["Smytten Toys","smytten.com"],
+            ["Babyhug","firstcry.com"],
+            ["Mattel","mattel.com"],
+            ["LEGO","lego.com"],
+            ["Hot Wheels","hotwheels.com"],
+            ["Funskool","funskoolindia.com"]
+        ]
+
+    },
+
+
+    "Cleaning Products": {
+
+        description:
+            "Find cleaning products and home care stores.",
+
+        brands:[
+            ["Harpic","harpic.co.in"],
+            ["Lizol","lizol.co.in"],
+            ["Vim","vim.co.in"],
+            ["Domex","domex.co.in"],
+            ["Surf Excel","surfexcel.in"],
+            ["Ariel","ariel.in"],
+            ["Tide","tide.in"],
+            ["Colin","colinindia.com"],
+            ["Dettol","dettol.co.in"],
+            ["Mr. Muscle","mrmuscleclean.com"]
+        ]
+
+    },
+
+
+    "Pharmacy/Medicals": {
+
+        description:
+            "Find pharmacies, medical shops and healthcare stores.",
+
+        brands:[
+            ["Apollo Pharmacy","apollopharmacy.in"],
+            ["MedPlus","medplusmart.com"],
+            ["Netmeds","netmeds.com"],
+            ["Tata 1mg","1mg.com"],
+            ["PharmEasy","pharmeasy.in"],
+            ["Wellness Forever","wellnessforever.com"],
+            ["Guardian Pharmacy","guardian.in"],
+            ["Fortis","fortishealthcare.com"],
+            ["Kauvery","kauveryhospital.com"],
+            ["MGM Healthcare","mgmhealthcare.in"]
+        ]
+
+    },
+
+
+    "Bakery & Cake Shops": {
+
+        description:
+            "Discover bakeries and cake shops.",
+
+        brands:[
+            ["Adyar Ananda Bhavan","aabsweets.com"],
+            ["Hot Breads","hotbreads.com"],
+            ["CakeBee","cakebee.in"],
+            ["The French Loaf","thefrenchloaf.com"],
+            ["Monginis","monginis.net"],
+            ["Winkies","winkies.co.in"],
+            ["Mio Amore","mioamore.com"],
+            ["Bakingo","bakingo.com"],
+            ["Sandy's","sandys.in"],
+            ["Winners Bakery","winnersbakery.com"]
+        ]
+
+    },
+
+
+    "Pet Shops & Vet": {
+
+        description:
+            "Find pet shops and veterinary services.",
+
+        brands:[
+            ["Heads Up For Tails","headsupfortails.com"],
+            ["Just Dogs","justdogsstore.com"],
+            ["Zigly","zigly.com"],
+            ["Petsworld","petsworld.in"],
+            ["Supertails","supertails.com"],
+            ["HUFT","headsupfortails.com"],
+            ["Pet Zone","petzone.com"],
+            ["Royal Canin","royalcanin.com"],
+            ["Drools","drools.com"],
+            ["Pedigree","pedigree.in"]
+        ]
+
+    },
+
+
+    "Solar Panel Shops": {
+
+        description:
+            "Find solar panel dealers and installers.",
+
+        brands:[
+            ["Tata Power Solar","tatapowersolar.com"],
+            ["Waaree","waaree.com"],
+            ["Adani Solar","adanisolar.com"],
+            ["Vikram Solar","vikramsolar.com"],
+            ["Luminous","luminousindia.com"],
+            ["RenewSys","renewsysworld.com"],
+            ["Jakson Solar","jakson.com"],
+            ["Solex","solex.in"],
+            ["Goldi Solar","goldisolar.com"],
+            ["Rayzon Solar","rayzonsolar.com"]
+        ]
+
+    },
+
+
+    "Coaching & Tuition Centers": {
+
+        description:
+            "Find coaching and tuition centres near you.",
+
+        brands:[
+            ["Aakash Institute","aakash.ac.in"],
+            ["ALLEN","allen.in"],
+            ["FIITJEE","fiitjee.com"],
+            ["Vedantu","vedantu.com"],
+            ["BYJU'S","byjus.com"],
+            ["Physics Wallah","pw.live"],
+            ["Narayana","narayanagroup.com"],
+            ["Sri Chaitanya","srichaitanya.net"],
+            ["TIME","time4education.com"],
+            ["Career Launcher","careerlauncher.com"]
+        ]
+
+    },
+
+
+    "Hotels & Resorts": {
+
+        description:
+            "Discover hotels and resorts near you.",
+
+        brands:[
+            ["Taj Hotels","tajhotels.com"],
+            ["ITC Hotels","itchotels.com"],
+            ["The Leela","theleela.com"],
+            ["Marriott","marriott.com"],
+            ["Hyatt","hyatt.com"],
+            ["Radisson","radissonhotels.com"],
+            ["Hilton","hilton.com"],
+            ["Novotel","all.accor.com"],
+            ["Accor","group.accor.com"],
+            ["Lemon Tree Hotels","lemontreehotels.com"]
+        ]
+
+    },
+
+
+    "Packers & Movers": {
+
+        description:
+            "Find packers and movers near you.",
+
+        brands:[
+            ["Agarwal Packers & Movers","agarwalpackers.com"],
+            ["DHL","dhl.com"],
+            ["SafeExpress","safexpress.com"],
+            ["VRL Logistics","vrllogistics.com"],
+            ["TCI","tcil.com"],
+            ["Gati","gati.com"],
+            ["DTDC","dtdc.in"],
+            ["Blue Dart","bluedart.com"],
+            ["Porter","porter.in"],
+            ["NoBroker Packers & Movers","nobroker.in"]
+        ]
+
+    },
+
+      "Wedding Halls / Kalyana Mandapam": {
+
+        description:
+            "Find wedding halls and marriage venues.",
+
+        brands:[
+            ["Sri Krishna Mahal",""],
+            ["Vijaya Mahal",""],
+            ["Raja Annamalai Mandram",""],
+            ["AGS Convention Centre",""],
+            ["MRC Hall",""],
+            ["The Leela Palace","theleela.com"],
+            ["ITC Grand Chola","itchotels.com"],
+            ["Rani Meiyyammai Hall",""],
+            ["MGR Janaki College Hall",""],
+            ["Chennai Convention Centre",""]
+        ]
+
+    },
+
+
+    "Event Decorators": {
+
+        description:
+            "Discover event decorators and decoration services.",
+
+        brands:[
+            ["7Events",""],
+            ["WedMeGood","wedmegood.com"],
+            ["WeddingWire","weddingwire.in"],
+            ["BookEventz","bookeventz.com"],
+            ["Event Capital",""],
+            ["Party Cruisers","partycruisers.in"],
+            ["Dream Decor",""],
+            ["Wedding Bells",""],
+            ["Royal Events",""],
+            ["Celebrations",""]
+        ]
+
+    },
+
+
+    "Wedding Photography": {
+
+        description:
+            "Find wedding photographers near you.",
+
+        brands:[
+            ["WedMeGood","wedmegood.com"],
+            ["WeddingWire","weddingwire.in"],
+            ["The Wedding Story","theweddingstory.com"],
+            ["Cupcake Productions",""],
+            ["Stories by Joseph Radhik","josephradhik.com"],
+            ["PixelStory",""],
+            ["ShutterDown","shutterdown.com"],
+            ["Happyframes",""],
+            ["Studio A",""],
+            ["Wedding Candid",""]
+        ]
+
+    },
+
+
+    "Musical Instruments": {
+
+        description:
+            "Find musical instrument stores.",
+
+        brands:[
+            ["Furtados","furtadosonline.com"],
+            ["Musee Musical",""],
+            ["Yamaha","yamaha.com"],
+            ["Casio","casio.com"],
+            ["Roland","roland.com"],
+            ["Korg","korg.com"],
+            ["Fender","fender.com"],
+            ["Gibson","gibson.com"],
+            ["Pearl","pearldrum.com"],
+            ["Tama","tama.com"]
+        ]
+
+    },
+
+
+    "Gaming Zones": {
+
+        description:
+            "Discover gaming zones and entertainment centres.",
+
+        brands:[
+            ["Timezone","timezonegames.com"],
+            ["Funcity","funcity.in"],
+            ["Smaaash","smaaash.in"],
+            ["Snow Kingdom","snowkingdom.com"],
+            ["VR Chennai","vrchennai.com"],
+            ["Funskool","funskoolindia.com"],
+            ["Hamleys","hamleys.in"],
+            ["Game Point",""],
+            ["Play Arena","playarena.in"],
+            ["Timezone Chennai","timezonegames.com"]
+        ]
+
+    },
+
+
+    "Seeds & Fertilizer Shops": {
+
+        description:
+            "Find seeds and fertilizer shops.",
+
+        brands:[
+            ["Coromandel","coromandel.biz"],
+            ["IFFCO","iffco.in"],
+            ["Kaveri Seed","kaveriseeds.in"],
+            ["Nuziveedu Seeds","nuziveeduseeds.com"],
+            ["Bayer","bayer.com"],
+            ["Syngenta","syngenta.com"],
+            ["UPL","upl-ltd.com"],
+            ["Rallis India","rallis.com"],
+            ["Mahyco","mahyco.com"],
+            ["Adama","adama.com"]
+        ]
+
+    },
+
+
+    "Farm Equipment": {
+
+        description:
+            "Find agricultural and farm equipment dealers.",
+
+        brands:[
+            ["John Deere","deere.com"],
+            ["Mahindra","mahindra.com"],
+            ["Swaraj","swarajtractors.com"],
+            ["Sonalika","sonalika.com"],
+            ["New Holland","newholland.com"],
+            ["TAFE","tafe.com"],
+            ["Kubota","kubota.com"],
+            ["Escorts Kubota","escortskubota.com"],
+            ["VST Tillers","vsttillers.com"],
+            ["Eicher","eichertractors.in"]
+        ]
+
+    },
+
+
+    "Insurance Offices": {
+
+        description:
+            "Find insurance offices and advisors.",
+
+        brands:[
+            ["LIC","licindia.in"],
+            ["SBI Life","sbilife.co.in"],
+            ["HDFC Life","hdfclife.com"],
+            ["ICICI Prudential","iciciprulife.com"],
+            ["Max Life","maxlifeinsurance.com"],
+            ["Bajaj Allianz","bajajallianz.com"],
+            ["Tata AIA","tataaia.com"],
+            ["Aditya Birla Sun Life","adityabirlacapital.com"],
+            ["Star Health","starhealth.in"],
+            ["New India Assurance","newindia.co.in"]
+        ]
+
+    },
+
+
+    "Loan & Finance Companies": {
+
+        description:
+            "Find loan and finance service providers.",
+
+        brands:[
+            ["HDFC Bank","hdfcbank.com"],
+            ["ICICI Bank","icicibank.com"],
+            ["SBI","sbi.co.in"],
+            ["Axis Bank","axisbank.com"],
+            ["Bajaj Finserv","bajajfinserv.in"],
+            ["Tata Capital","tatacapital.com"],
+            ["Muthoot Finance","muthootfinance.com"],
+            ["Manappuram Finance","manappuram.com"],
+            ["Cholamandalam Finance","cholamandalam.com"],
+            ["Shriram Finance","shriramfinance.in"]
+        ]
+
+    },
+
+
+    "Chit Fund Companies": {
+
+        description:
+            "Find chit fund and financial service offices.",
+
+        brands:[
+            ["Shri Ram Chits",""],
+            ["Margadarsi Chit Fund","margadarsi.com"],
+            ["Kapil Chits","kapilchits.com"],
+            ["Sriram Chits",""],
+            ["Kerala State Financial Enterprises","ksfe.com"],
+            ["Sundaram Finance","sundaramfinance.in"],
+            ["Muthoot","muthoot.com"],
+            ["Manappuram","manappuram.com"],
+            ["Cholamandalam","cholamandalam.com"],
+            ["Shriram","shriramfinance.in"]
+        ]
+
+    },
+
+
+    "Play Schools & Kindergarten": {
+
+        description:
+            "Find playschools and kindergarten centres.",
+
+        brands:[
+            ["EuroKids","eurokidsindia.com"],
+            ["Kidzee","kidzee.com"],
+            ["Bachpan","bachpanglobal.com"],
+            ["Hello Kids","hellokids.co.in"],
+            ["Little Millennium","littlemillennium.com"],
+            ["Kangaroo Kids","kangarookids.co.in"],
+            ["Shemrock","shemrock.com"],
+            ["Podar Jumbo Kids","podarjumbokids.com"],
+            ["Orchids","orchidsinternationalschool.com"],
+            ["The Learning Curve",""]
+        ]
+
+    },
+
+
+    "Drawing & Art Classes": {
+
+        description:
+            "Find drawing and art classes near you.",
+
+        brands:[
+            ["Srishti Art Academy",""],
+            ["Kalakshetra","kalakshetra.in"],
+            ["Chennai Art Academy",""],
+            ["Drawspace","drawspace.com"],
+            ["Shankar Art School",""],
+            ["Art World",""],
+            ["Creative Hands",""],
+            ["Art House",""],
+            ["Colors Art Academy",""],
+            ["Little Artists",""]
+        ]
+
+    },
+
+
+    "Dance Classes": {
+
+        description:
+            "Discover dance academies and classes.",
+
+        brands:[
+            ["Shiamak Davar","shiamak.com"],
+            ["Attakkalari","attakkalari.org"],
+            ["Kalakshetra","kalakshetra.in"],
+            ["Natyarangam",""],
+            ["Nrityanjali",""],
+            ["Tanjore Dance Academy",""],
+            ["Nritarutya","nritarutya.com"],
+            ["Danza",""],
+            ["Dance India",""],
+            ["Step2Step",""]
+        ]
+
+    },
+
+
+    "Music Classes": {
+
+        description:
+            "Find music schools and music classes.",
+
+        brands:[
+            ["KM Music Conservatory","kmmc.in"],
+            ["Swarnabhoomi Academy","swarnabhoomi.org"],
+            ["AR Rahman Foundation","arrahmanfoundation.org"],
+            ["Kalakshetra","kalakshetra.in"],
+            ["Yamaha Music School","in.yamaha.com"],
+            ["Tansen Academy",""],
+            ["Bharathi Music School",""],
+            ["Shankar Mahadevan Academy","shankarmahadevanacademy.org"],
+            ["Furtados School of Music","furtadosschoolofmusic.com"],
+            ["Music Academy Chennai","musicacademymadras.in"]
+        ]
+
+    },
+
+
+    "Sports Academy": {
+
+        description:
+            "Find sports academies and training centres.",
+
+        brands:[
+            ["Decathlon","decathlon.in"],
+            ["Sports Authority of India","sportsauthorityofindia.nic.in"],
+            ["FC Madras","fcmadras.com"],
+            ["Chennaiyin FC Academy","chennaiyinfc.com"],
+            ["MCC Cricket Academy",""],
+            ["TAF Academy",""],
+            ["SDAT","sdat.tn.gov.in"],
+            ["Khelo India","kheloindia.gov.in"],
+            ["Bharat Sports Academy",""],
+            ["Chennai Sports Academy",""]
+        ]
+
+    }
+
+};
+
 
 /* =====================================================
+   DEFAULT CATEGORY
+===================================================== */
+
+const defaultCategoryData = {
+
+    description:
+        "Discover shops and businesses near you.",
+
+    brands:[]
+
+};
+
+
+/* =====================================================
+   UPDATE CATEGORY HERO
+===================================================== */
+
+function updateCategoryHero(category){
+
+    const value =
+        String(category || "").trim();
+
+
+    categoryHeroTitle.textContent =
+        value ||
+        "All Shops";
+
+
+    const categoryData =
+        categoryHeroData[value] ||
+        defaultCategoryData;
+
+
+    categoryHeroDescription.textContent =
+        categoryData.description ||
+        "Discover shops and businesses near you.";
+
+
+    renderCategoryHeroBrands(
+        categoryData.brands || []
+    );
+
+}
+
+
+/* =====================================================
+   RENDER CATEGORY HERO BRANDS
+===================================================== */
+
+function renderCategoryHeroBrands(brands){
+
+    if(
+        !brands ||
+        !brands.length
+    ){
+
+        categoryHeroBrands.innerHTML =
+            "";
+
+        return;
+
+    }
+
+
+    categoryHeroBrands.innerHTML =
+        brands
+        .map(
+            function(brand){
+
+                const name =
+                    Array.isArray(brand)
+                    ? brand[0]
+                    : brand;
+
+
+                const domain =
+                    Array.isArray(brand)
+                    ? brand[1]
+                    : "";
+
+
+                if(domain){
+
+                    const logo =
+                        "https://www.google.com/s2/favicons?domain=" +
+                        encodeURIComponent(domain) +
+                        "&sz=128";
+
+
+                    return `
+
+                        <div
+                            class="hero-brand"
+                            title="${escapeHtml(name)}"
+                        >
+
+                            <img
+                                src="${logo}"
+                                alt="${escapeHtml(name)}"
+                                loading="lazy"
+                                onerror="this.style.display='none';"
+                            >
+
+                            <span
+                                class="hero-brand-name"
+                            >
+                                ${escapeHtml(name)}
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                return `
+
+                    <div
+                        class="hero-brand"
+                        title="${escapeHtml(name)}"
+                    >
+
+                        <span
+                            class="hero-brand-name"
+                        >
+                            ${escapeHtml(name)}
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+  /* =====================================================
    SLIDER VARIABLES
 ===================================================== */
 
@@ -784,7 +2516,7 @@ let offers = [];
 
 let currentIndex = 0;
 
-let autoSlide;
+let autoSlide = null;
 
 
 /* =====================================================
@@ -804,123 +2536,224 @@ async function loadShop(){
         shopLocationElement.textContent =
             "";
 
+        categoryHeroTitle.textContent =
+            "Shop Not Found";
+
         showEmpty(
             "Invalid shop link."
         );
 
         return false;
-
     }
 
 
-    const {
-        data: shop,
-        error
-    } =
-    await supabaseClient
-        .from("shops")
-        .select(`
-            id,
-            shop_name,
-            category,
-            address,
-            area,
-            city,
-            shop_image
-        `)
-        .eq(
-            "id",
-            shopId
-        )
-        .maybeSingle();
+    try{
+
+        const {
+            data: shop,
+            error
+        } =
+        await supabaseClient
+            .from("shops")
+            .select(`
+                id,
+                shop_name,
+                category,
+                address,
+                area,
+                city,
+                shop_image
+            `)
+            .eq(
+                "id",
+                shopId
+            )
+            .maybeSingle();
 
 
-    if(error){
+        if(error){
+
+            console.error(
+                "Shop load error:",
+                error
+            );
+
+            shopNameElement.textContent =
+                "Unable to load shop";
+
+            categoryHeroTitle.textContent =
+                "Unable to load shop";
+
+            showEmpty(
+                "Please try again."
+            );
+
+            return false;
+        }
+
+
+        if(!shop){
+
+            shopNameElement.textContent =
+                "Shop Not Found";
+
+            shopCategoryElement.textContent =
+                "";
+
+            shopLocationElement.textContent =
+                "";
+
+            categoryHeroTitle.textContent =
+                "Shop Not Found";
+
+            showEmpty(
+                "This shop could not be found."
+            );
+
+            return false;
+        }
+
+
+        /* =================================================
+           SHOP NAME
+        ================================================= */
+
+        shopNameElement.textContent =
+            shop.shop_name ||
+            "Shop";
+
+
+        /* =================================================
+           CATEGORY
+        ================================================= */
+
+        shopCategoryElement.textContent =
+            shop.category ||
+            "Business";
+
+
+        /* =================================================
+           CATEGORY HERO
+           IMPORTANT:
+           No recursive call here.
+        ================================================= */
+
+        updateCategoryHero(
+            shop.category
+        );
+
+
+        /* =================================================
+           LOCATION
+        ================================================= */
+
+        const locationParts = [
+
+            shop.address,
+
+            shop.area,
+
+            shop.city
+
+        ].filter(Boolean);
+
+
+        if(locationParts.length){
+
+            shopLocationElement.textContent =
+                "📍 " +
+                locationParts.join(
+                    ", "
+                );
+
+        }else{
+
+            shopLocationElement.textContent =
+                "";
+
+        }
+
+
+        /* =================================================
+           SHOP IMAGE
+        ================================================= */
+
+        if(shop.shop_image){
+
+            shopImageElement.src =
+                shop.shop_image;
+
+            shopImageElement.style.display =
+                "block";
+
+        }else{
+
+            shopImageElement.style.display =
+                "block";
+
+            shopImageElement.removeAttribute(
+                "src"
+            );
+
+        }
+
+
+        return true;
+
+    }
+    catch(error){
 
         console.error(
-            "Shop load error:",
+            "Unexpected shop loading error:",
             error
         );
 
         shopNameElement.textContent =
             "Unable to load shop";
 
+        categoryHeroTitle.textContent =
+            "Unable to load shop";
+
         showEmpty(
-            "Please try again."
+            "Something went wrong. Please refresh the page."
         );
 
         return false;
 
     }
 
-
-    if(!shop){
-
-        shopNameElement.textContent =
-            "Shop Not Found";
-
-        shopCategoryElement.textContent =
-            "";
-
-        shopLocationElement.textContent =
-            "";
-
-        showEmpty(
-            "This shop could not be found."
-        );
-
-        return false;
-
-    }
+}
 
 
-    /* SHOP NAME */
+/* =====================================================
+   EMPTY STATE
+===================================================== */
 
-    shopNameElement.textContent =
-        shop.shop_name ||
-        "Shop";
+function showEmpty(text){
 
-
-    /* CATEGORY */
-
-    shopCategoryElement.textContent =
-        shop.category ||
-        "Business";
+    clearInterval(
+        autoSlide
+    );
 
 
-    /* LOCATION */
-
-    const locationParts = [
-        shop.area,
-        shop.city
-    ].filter(Boolean);
+    offerSlider.style.display =
+        "none";
 
 
-    shopLocationElement.textContent =
-        locationParts.length
-        ?
-        "📍 " +
-        locationParts.join(", ")
-        :
+    dotsContainer.innerHTML =
         "";
 
 
-    /* SHOP IMAGE */
-
-    if(shop.shop_image){
-
-        shopImageElement.src =
-            shop.shop_image;
-
-    }else{
-
-        shopImageElement.style.display =
-            "none";
-
-    }
+    offerCounter.textContent =
+        "0 Offers";
 
 
-    return true;
+    emptyBox.style.display =
+        "block";
+
+
+    emptyText.textContent =
+        text;
 
 }
 
@@ -934,47 +2767,118 @@ async function loadOffers(){
     if(!shopId){
 
         return;
-
     }
 
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("shop_offers")
-        .select(`
-            id,
-            shop_id,
-            offer_image,
-            pincode,
-            status,
-            is_active,
-            created_at,
-            expires_at
-        `)
-        .eq(
-            "shop_id",
-            shopId
+    try{
 
-        )
-        .eq(
-            "is_active",
-            true
-        )
-        .order(
-            "created_at",
-            {
-                ascending:false
-            }
-        );
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("shop_offers")
+            .select(`
+                id,
+                shop_id,
+                offer_image,
+                pincode,
+                status,
+                is_active,
+                created_at,
+                expires_at
+            `)
+            .eq(
+                "shop_id",
+                shopId
+            )
+            .eq(
+                "is_active",
+                true
+            )
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
 
 
-    if(error){
+        if(error){
+
+            console.error(
+                "Offers load error:",
+                error
+            );
+
+            showEmpty(
+                "Unable to load current offers."
+            );
+
+            return;
+        }
+
+
+        const now =
+            new Date();
+
+
+        offers =
+            (data || []).filter(
+                function(offer){
+
+                    if(
+                        !offer.expires_at
+                    ){
+
+                        return true;
+                    }
+
+
+                    return new Date(
+                        offer.expires_at
+                    ) > now;
+
+                }
+            );
+
+
+        if(
+            offers.length === 0
+        ){
+
+            showEmpty(
+                "This shop has no approved offers right now."
+            );
+
+            return;
+        }
+
+
+        emptyBox.style.display =
+            "none";
+
+
+        offerSlider.style.display =
+            "block";
+
+
+        offerCounter.textContent =
+            offers.length +
+            (
+                offers.length === 1
+                ? " Offer"
+                : " Offers"
+            );
+
+
+        renderOffers();
+
+    }
+    catch(error){
 
         console.error(
-            "Offers load error:",
+            "Unexpected offers error:",
             error
         );
 
@@ -982,81 +2886,7 @@ async function loadOffers(){
             "Unable to load current offers."
         );
 
-        return;
-
     }
-
-
-    const now =
-        new Date();
-
-
-    offers =
-        (data || []).filter(
-            function(offer){
-
-                if(
-                    !offer.expires_at
-                ){
-
-                    return true;
-
-                }
-
-
-                return new Date(
-                    offer.expires_at
-                ) > now;
-
-            }
-        );
-
-
-    if(
-        offers.length === 0
-    ){
-
-        showEmpty(
-            "This shop has no approved offers right now."
-        );
-
-        return;
-
-    }
-
-
-    emptyBox.style.display =
-        "none";
-
-    offerSlider.style.display =
-        "flex";
-
-
-    renderOffers();
-
-}
-
-
-/* =====================================================
-   EMPTY STATE
-===================================================== */
-
-function showEmpty(text){
-
-    offerSlider.style.display =
-        "none";
-
-    dotsContainer.innerHTML =
-        "";
-
-    slideCount.textContent =
-        "";
-
-    emptyBox.style.display =
-        "block";
-
-    emptyText.textContent =
-        text;
 
 }
 
@@ -1073,19 +2903,34 @@ function renderOffers(){
     dotsContainer.innerHTML =
         "";
 
-    currentIndex = 0;
+    currentIndex =
+        0;
 
 
     offers.forEach(
-        function(offer, index){
+        function(
+            offer,
+            index
+        ){
 
             const slide =
                 document.createElement(
                     "div"
                 );
 
+
             slide.className =
                 "slide";
+
+
+            const frame =
+                document.createElement(
+                    "div"
+                );
+
+
+            frame.className =
+                "poster-frame";
 
 
             const image =
@@ -1093,14 +2938,18 @@ function renderOffers(){
                     "img"
                 );
 
+
             image.className =
                 "poster";
+
 
             image.src =
                 offer.offer_image;
 
+
             image.alt =
                 "Current Offer";
+
 
             image.loading =
                 "lazy";
@@ -1126,9 +2975,28 @@ function renderOffers(){
             );
 
 
-            slide.appendChild(
+            image.addEventListener(
+                "error",
+                function(){
+
+                    console.error(
+                        "Offer image failed:",
+                        offer.offer_image
+                    );
+
+                }
+            );
+
+
+            frame.appendChild(
                 image
             );
+
+
+            slide.appendChild(
+                frame
+            );
+
 
             slides.appendChild(
                 slide
@@ -1140,8 +3008,15 @@ function renderOffers(){
                     "div"
                 );
 
+
             dot.className =
                 "dot";
+
+
+            dot.setAttribute(
+                "aria-label",
+                "Offer " + (index + 1)
+            );
 
 
             dot.addEventListener(
@@ -1173,15 +3048,25 @@ function renderOffers(){
 
 }
 
-  /* =====================================================
+
+/* =====================================================
    UPDATE SLIDER
 ===================================================== */
 
 function updateSlider(){
 
+    if(!offers.length){
+
+        return;
+    }
+
+
     slides.style.transform =
         "translateX(-" +
-        (currentIndex * 100) +
+        (
+            currentIndex *
+            100
+        ) +
         "%)";
 
 
@@ -1192,7 +3077,10 @@ function updateSlider(){
 
 
     dots.forEach(
-        function(dot, index){
+        function(
+            dot,
+            index
+        ){
 
             dot.classList.toggle(
                 "active",
@@ -1203,8 +3091,10 @@ function updateSlider(){
     );
 
 
-    slideCount.textContent =
-        (currentIndex + 1) +
+    offerCounter.textContent =
+        (
+            currentIndex + 1
+        ) +
         " / " +
         offers.length;
 
@@ -1222,7 +3112,6 @@ function nextSlide(){
     ){
 
         return;
-
     }
 
 
@@ -1234,8 +3123,8 @@ function nextSlide(){
         offers.length
     ){
 
-        currentIndex = 0;
-
+        currentIndex =
+            0;
     }
 
 
@@ -1255,7 +3144,6 @@ function previousSlide(){
     ){
 
         return;
-
     }
 
 
@@ -1268,7 +3156,6 @@ function previousSlide(){
 
         currentIndex =
             offers.length - 1;
-
     }
 
 
@@ -1278,7 +3165,7 @@ function previousSlide(){
 
 
 /* =====================================================
-   BUTTONS
+   SLIDER BUTTONS
 ===================================================== */
 
 nextBtn.addEventListener(
@@ -1321,7 +3208,6 @@ function startAutoSlide(){
     ){
 
         return;
-
     }
 
 
@@ -1350,7 +3236,7 @@ function restartAutoSlide(){
 
 
 /* =====================================================
-   UPDATE FULLSCREEN VIEWER
+   FULLSCREEN VIEWER
 ===================================================== */
 
 function updateViewer(){
@@ -1360,7 +3246,6 @@ function updateViewer(){
     ){
 
         return;
-
     }
 
 
@@ -1414,8 +3299,10 @@ function closeViewer(){
         "active"
     );
 
+
     viewerImage.src =
         "";
+
 
     document.body.style.overflow =
         "";
@@ -1428,6 +3315,10 @@ viewerClose.addEventListener(
     closeViewer
 );
 
+
+/* =====================================================
+   CLOSE VIEWER - OUTSIDE
+===================================================== */
 
 viewer.addEventListener(
     "click",
@@ -1446,7 +3337,199 @@ viewer.addEventListener(
 
 
 /* =====================================================
-   KEYBOARD
+   MAIN SLIDER SWIPE
+===================================================== */
+
+let startX = 0;
+
+let endX = 0;
+
+
+slides.addEventListener(
+    "touchstart",
+    function(event){
+
+        if(
+            !event.touches ||
+            !event.touches.length
+        ){
+
+            return;
+        }
+
+
+        startX =
+            event.touches[0].clientX;
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+slides.addEventListener(
+    "touchend",
+    function(event){
+
+        if(
+            !event.changedTouches ||
+            !event.changedTouches.length
+        ){
+
+            return;
+        }
+
+
+        endX =
+            event.changedTouches[0].clientX;
+
+
+        const difference =
+            endX -
+            startX;
+
+
+        if(
+            Math.abs(difference) < 50
+        ){
+
+            return;
+        }
+
+
+        if(
+            difference < 0
+        ){
+
+            nextSlide();
+
+        }else{
+
+            previousSlide();
+
+        }
+
+
+        restartAutoSlide();
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =====================================================
+   FULLSCREEN SWIPE
+===================================================== */
+
+let viewerStartX = 0;
+
+let viewerEndX = 0;
+
+
+viewerImage.addEventListener(
+    "touchstart",
+    function(event){
+
+        if(
+            !event.touches ||
+            !event.touches.length
+        ){
+
+            return;
+        }
+
+
+        viewerStartX =
+            event.touches[0].clientX;
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+viewerImage.addEventListener(
+    "touchend",
+    function(event){
+
+        if(
+            !event.changedTouches ||
+            !event.changedTouches.length
+        ){
+
+            return;
+        }
+
+
+        viewerEndX =
+            event.changedTouches[0].clientX;
+
+
+        const difference =
+            viewerEndX -
+            viewerStartX;
+
+
+        if(
+            Math.abs(difference) < 50
+        ){
+
+            return;
+        }
+
+
+        if(
+            difference < 0
+        ){
+
+            nextSlide();
+
+        }else{
+
+            previousSlide();
+
+        }
+
+
+        updateViewer();
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =====================================================
+   PREVENT IMAGE DRAGGING
+===================================================== */
+
+shopImageElement.addEventListener(
+    "dragstart",
+    function(event){
+
+        event.preventDefault();
+
+    }
+);
+
+
+viewerImage.addEventListener(
+    "dragstart",
+    function(event){
+
+        event.preventDefault();
+
+    }
+);
+
+
+/* =====================================================
+   KEYBOARD CONTROLS
 ===================================================== */
 
 document.addEventListener(
@@ -1460,7 +3543,6 @@ document.addEventListener(
         ){
 
             return;
-
         }
 
 
@@ -1502,139 +3584,6 @@ document.addEventListener(
 
 
 /* =====================================================
-   SWIPE - MAIN SLIDER
-===================================================== */
-
-let startX = 0;
-
-let endX = 0;
-
-
-slides.addEventListener(
-    "touchstart",
-    function(event){
-
-        startX =
-            event.touches[0].clientX;
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-slides.addEventListener(
-    "touchend",
-    function(event){
-
-        endX =
-            event.changedTouches[0].clientX;
-
-
-        const difference =
-            endX - startX;
-
-
-        if(
-            Math.abs(difference) < 50
-        ){
-
-            return;
-
-        }
-
-
-        if(
-            difference < 0
-        ){
-
-            nextSlide();
-
-        }else{
-
-            previousSlide();
-
-        }
-
-
-        restartAutoSlide();
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-/* =====================================================
-   SWIPE - FULLSCREEN
-===================================================== */
-
-let viewerStartX = 0;
-
-let viewerEndX = 0;
-
-
-viewerImage.addEventListener(
-    "touchstart",
-    function(event){
-
-        viewerStartX =
-            event.touches[0].clientX;
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-viewerImage.addEventListener(
-    "touchend",
-    function(event){
-
-        viewerEndX =
-            event.changedTouches[0].clientX;
-
-
-        const difference =
-            viewerEndX -
-            viewerStartX;
-
-
-        if(
-            Math.abs(difference) < 50
-        ){
-
-            return;
-
-        }
-
-
-        if(
-            difference < 0
-        ){
-
-            nextSlide();
-
-        }else{
-
-            previousSlide();
-
-        }
-
-
-        updateViewer();
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-/* =====================================================
    PAGE INITIALIZE
 ===================================================== */
 
@@ -1647,7 +3596,6 @@ viewerImage.addEventListener(
     if(!shopLoaded){
 
         return;
-
     }
 
 
@@ -1658,4 +3606,5 @@ viewerImage.addEventListener(
 </script>
 
 </body>
+
 </html>
