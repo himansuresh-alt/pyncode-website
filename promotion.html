@@ -17,11 +17,19 @@
 
 <title>Promotions | Pyncode</title>
 
+
+<!-- SUPABASE -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
 <style>
 
-/* =========================
-   BASIC
-========================= */
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -29,471 +37,1307 @@
     padding:0;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#faf9f7;
-    color:#171717;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:#f7f9fc;
+
+    color:#151923;
+
+    padding-bottom:88px;
+
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* =====================================================
+   MAIN
+===================================================== */
 
-.header{
-    min-height:72px;
-    background:#fff;
-    border-bottom:1px solid #eee;
+.main{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:0 auto;
+
+    padding:
+        18px 14px 45px;
+
+}
+
+
+/* =====================================================
+   PROMOTION HERO
+===================================================== */
+
+.promo-hero{
+
+    width:100%;
+
+    min-height:255px;
+
+    border-radius:24px;
+
+    padding:
+        30px 18px 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8f4 0%,
+            #ffffff 48%,
+            #fff0eb 100%
+        );
+
+    border:
+        1px solid #f0ddd6;
+
+    box-shadow:
+        0 8px 30px rgba(20,30,50,.06);
+
+    text-align:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:22px;
+
+}
+
+
+/* Decorative circle */
+
+.promo-hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:190px;
+    height:190px;
+
+    border-radius:50%;
+
+    background:
+        rgba(239,96,62,.07);
+
+    right:-75px;
+
+    top:-80px;
+
+}
+
+.promo-hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:140px;
+    height:140px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,180,80,.08);
+
+    left:-70px;
+
+    bottom:-70px;
+
+}
+
+
+.promo-hero-content{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+/* =====================================================
+   HERO ICON
+===================================================== */
+
+.promo-icon{
+
+    font-size:43px;
+
+    line-height:1;
+
+    margin-bottom:10px;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   HERO TITLE
+===================================================== */
+
+.promo-title{
+
+    font-size:
+        clamp(30px,6vw,48px);
+
+    font-weight:900;
+
+    letter-spacing:-2px;
+
+    line-height:1.05;
+
+    margin-bottom:9px;
+
+}
+
+.promo-title .orange{
+
+    color:#ef603e;
+
+}
+
+
+/* =====================================================
+   HERO SUBTITLE
+===================================================== */
+
+.promo-subtitle{
+
+    color:#737985;
+
+    font-size:16px;
+
+    line-height:1.5;
+
+    margin-bottom:5px;
+
+}
+
+.promo-contact{
+
+    font-size:16px;
+
+    font-weight:800;
+
+    color:#171717;
+
+}
+
+.promo-contact span{
+
+    color:#ef603e;
+
+}
+
+
+/* =====================================================
+   POSTER SECTION
+===================================================== */
+
+.poster-section{
+
+    width:100%;
+
+    margin-bottom:26px;
+
+}
+
+
+/* =====================================================
+   SECTION HEADING
+===================================================== */
+
+.section-heading{
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
-    padding:0 20px;
+    margin-bottom:11px;
 
-    position:sticky;
-    top:0;
-    z-index:100;
+    padding:
+        0 3px;
+
 }
 
-.logo{
-    font-size:24px;
+.section-heading h2{
+
+    font-size:23px;
+
     font-weight:900;
-    letter-spacing:-1px;
+
+    letter-spacing:-.6px;
+
 }
 
-.home-button{
-    text-decoration:none;
-    background:#171717;
-    color:#fff;
+.section-heading span{
 
-    border-radius:12px;
+    color:#888;
 
-    padding:10px 16px;
+    font-size:12px;
 
-    font-size:14px;
-    font-weight:800;
-}
+    font-weight:700;
 
-
-/* =========================
-   MAIN
-========================= */
-
-.container{
-    width:100%;
-    max-width:1050px;
-
-    margin:auto;
-
-    padding:35px 15px 60px;
 }
 
 
-/* =========================
-   PAGE TITLE
-========================= */
+/* =====================================================
+   POSTER CAROUSEL
+===================================================== */
 
-.page-title{
-    text-align:center;
-    margin-bottom:30px;
-}
+.poster-carousel{
 
-.page-icon{
-    font-size:38px;
-    margin-bottom:8px;
-}
-
-.page-title h1{
-    font-size:36px;
-    font-weight:900;
-    letter-spacing:-1.5px;
-    margin-bottom:8px;
-}
-
-.page-title p{
-    color:#777;
-    font-size:15px;
-    line-height:1.5;
-}
-
-
-/* =========================
-   CATEGORY GRID
-========================= */
-
-.category-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(5, 1fr);
-
-    gap:12px;
-}
-
-.category-card{
     width:100%;
 
-    min-height:105px;
+    position:relative;
 
-    background:#fff;
+    overflow:hidden;
 
-    border:1px solid #e5e5e5;
+    border-radius:22px;
 
-    border-radius:16px;
+    background:#eef1f5;
 
-    padding:18px 10px;
+    border:
+        1px solid #e3e6eb;
 
-    text-decoration:none;
+    box-shadow:
+        0 8px 28px rgba(20,30,50,.07);
 
-    color:#171717;
+}
+
+
+/* =====================================================
+   POSTER TRACK
+===================================================== */
+
+.poster-track{
 
     display:flex;
-    flex-direction:column;
+
+    width:100%;
+
+    transition:
+        transform .45s cubic-bezier(.4,0,.2,1);
+
+}
+
+
+/* =====================================================
+   POSTER SLIDE
+===================================================== */
+
+.poster-slide{
+
+    min-width:100%;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
     align-items:center;
+
+    background:#eef1f5;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+/* =====================================================
+   POSTER IMAGE
+
+   IMPORTANT:
+   Actual uploaded poster only.
+===================================================== */
+
+.poster-slide img{
+
+    display:block;
+
+    width:100%;
+
+    height:auto;
+
+    max-height:560px;
+
+    object-fit:contain;
+
+    background:#eef1f5;
+
+}
+
+
+/* =====================================================
+   POSTER BUTTONS
+===================================================== */
+
+.poster-btn{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:
+        rgba(20,24,32,.78);
+
+    color:#fff;
+
+    font-size:28px;
+
+    line-height:1;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    z-index:10;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.20);
+
+    backdrop-filter:
+        blur(4px);
+
+}
+
+.poster-btn.prev{
+
+    left:10px;
+
+}
+
+.poster-btn.next{
+
+    right:10px;
+
+}
+
+.poster-btn:active{
+
+    transform:
+        translateY(-50%)
+        scale(.91);
+
+}
+
+
+/* =====================================================
+   POSTER DOTS
+===================================================== */
+
+.poster-dots{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:10px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:6px;
+
+    z-index:12;
+
+}
+
+.poster-dot{
+
+    width:7px;
+
+    height:7px;
+
+    padding:0;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.70);
+
+    box-shadow:
+        0 1px 4px rgba(0,0,0,.20);
+
+    transition:
+        all .25s ease;
+
+}
+
+.poster-dot.active{
+
+    width:19px;
+
+    border-radius:10px;
+
+    background:#ef603e;
+
+}
+
+
+/* =====================================================
+   NO POSTER STATE
+===================================================== */
+
+.no-posters{
+
+    min-height:220px;
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
     justify-content:center;
 
     text-align:center;
 
-    box-shadow:
-        0 4px 16px rgba(0,0,0,.045);
+    padding:30px 20px;
 
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        border-color .2s ease;
+    color:#8b919b;
+
 }
 
-.category-card:hover{
-    transform:translateY(-3px);
+.no-posters-icon{
 
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.08);
-
-    border-color:#ddd;
-}
-
-.category-card:active{
-    transform:scale(.97);
-}
-
-.category-icon{
-    font-size:30px;
+    font-size:38px;
 
     margin-bottom:9px;
 
-    line-height:1;
 }
 
+.no-posters strong{
+
+    color:#555;
+
+    font-size:16px;
+
+    margin-bottom:5px;
+
+}
+
+.no-posters span{
+
+    font-size:12px;
+
+}
+
+
+/* =====================================================
+   CATEGORY SECTION
+===================================================== */
+
+.category-section{
+
+    width:100%;
+
+}
+
+
+.category-title-row{
+
+    display:flex;
+
+    align-items:end;
+
+    justify-content:space-between;
+
+    margin-bottom:14px;
+
+    padding:
+        0 3px;
+
+}
+
+
+.category-title{
+
+    font-size:27px;
+
+    font-weight:900;
+
+    letter-spacing:-.9px;
+
+}
+
+
+.category-caption{
+
+    color:#858b95;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+
+/* =====================================================
+   CATEGORY GRID
+===================================================== */
+
+.category-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:11px;
+
+}
+
+
+/* =====================================================
+   CATEGORY CARD
+===================================================== */
+
+.category-card{
+
+    width:100%;
+
+    min-height:94px;
+
+    padding:
+        13px 11px;
+
+    background:#fff;
+
+    border:
+        1px solid #e3e6ea;
+
+    border-radius:17px;
+
+    text-decoration:none;
+
+    color:#171a20;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    box-shadow:
+        0 4px 16px rgba(20,30,50,.045);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease;
+
+}
+
+
+.category-card:hover{
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 22px rgba(20,30,50,.08);
+
+    border-color:#ddd;
+
+}
+
+
+.category-card:active{
+
+    transform:
+        scale(.97);
+
+}
+
+
+/* =====================================================
+   CATEGORY ICON
+===================================================== */
+
+.category-icon{
+
+    flex:
+        0 0 40px;
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:12px;
+
+    background:#fff4ef;
+
+    border:
+        1px solid #f4ded5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:21px;
+
+    line-height:1;
+
+}
+
+
+/* =====================================================
+   CATEGORY NAME
+===================================================== */
+
 .category-name{
-    font-size:13px;
+
+    font-size:12.5px;
 
     font-weight:800;
 
     line-height:1.25;
-}
 
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer{
-    background:#171717;
-
-    color:#fff;
-
-    text-align:center;
-
-    padding:28px 15px;
-
-    font-size:13px;
-}
-
-.footer-title{
-    font-size:16px;
-    font-weight:800;
-    margin-bottom:6px;
-}
-
-.footer-text{
-    color:#aaa;
-}
-
-
-/* =========================
-   TABLET
-========================= */
-
-@media(max-width:850px){
-
-    .category-grid{
-        grid-template-columns:
-            repeat(4, 1fr);
-    }
+    flex:1;
 
 }
 
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px){
-
-    .header{
-        padding:0 15px;
-    }
-
-    .logo{
-        font-size:21px;
-    }
-
-    .home-button{
-        padding:9px 14px;
-        font-size:13px;
-    }
-
-    .container{
-        padding:
-            28px 12px 45px;
-    }
-
-    .page-title{
-        margin-bottom:25px;
-    }
-
-    .page-title h1{
-        font-size:30px;
-    }
-
-    .page-icon{
-        font-size:34px;
-    }
-
-    .category-grid{
-        grid-template-columns:
-            repeat(2, 1fr);
-
-        gap:10px;
-    }
-
-    .category-card{
-        min-height:105px;
-        padding:17px 8px;
-    }
-
-    .category-icon{
-        font-size:29px;
-    }
-
-    .category-name{
-        font-size:13px;
-    }
-
-}
-
-
-/* =========================
-   SMALL MOBILE
-========================= */
-
-@media(max-width:360px){
-
-    .category-grid{
-        gap:8px;
-    }
-
-    .category-card{
-        min-height:100px;
-        padding:15px 6px;
-    }
-
-    .category-icon{
-        font-size:27px;
-    }
-
-    .category-name{
-        font-size:12px;
-    }
-
-}
-
-  .pyn-text{
-    color:#ef603e;
-}
-
-.code-text{
-    color:#151923;
-}
 
 /* =====================================================
-   FIXED BOTTOM NAVIGATION
+   CATEGORY ARROW
+===================================================== */
+
+.category-arrow{
+
+    color:#a0a4aa;
+
+    font-size:16px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   FIXED BOTTOM NAV
 ===================================================== */
 
 .bottom-nav{
+
     position:fixed;
+
     left:0;
+
     right:0;
+
     bottom:0;
 
     height:78px;
 
     background:#fff;
-    border-top:1px solid #e5e7eb;
+
+    border-top:
+        1px solid #e4e6ea;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-around;
 
     z-index:9999;
 
-    padding:8px 10px;
+    padding:
+        7px 8px;
+
+    box-shadow:
+        0 -5px 20px rgba(0,0,0,.035);
+
 }
 
-/* Bottom navigation items */
 
 .bottom-nav-item{
+
     flex:1;
+
+    height:100%;
+
     text-decoration:none;
+
     color:#777;
 
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
+
     justify-content:center;
 
     gap:4px;
+
 }
 
-/* Icon */
 
 .nav-icon{
-    font-size:23px;
+
+    font-size:22px;
+
     line-height:1;
+
 }
 
-/* Label */
 
 .nav-label{
-    font-size:14px;
-    font-weight:600;
+
+    font-size:13px;
+
+    font-weight:700;
+
 }
 
-/* Active */
 
 .bottom-nav-item.active{
+
     color:#ef5b3f;
+
 }
 
-/* Space for fixed navigation */
 
-body{
-    padding-bottom:90px;
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(min-width:601px){
+
+    .main{
+
+        padding:
+            25px 20px 50px;
+
+    }
+
+
+    .category-grid{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+        gap:12px;
+
+    }
+
+
+    .category-card{
+
+        min-height:100px;
+
+    }
+
+
+    .poster-slide img{
+
+        max-height:620px;
+
+    }
+
 }
-  
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:900px){
+
+    .category-grid{
+
+        grid-template-columns:
+            repeat(4,1fr);
+
+    }
+
+
+    .category-card{
+
+        min-height:105px;
+
+        padding:15px;
+
+    }
+
+
+    .category-name{
+
+        font-size:13px;
+
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:360px){
+
+    .main{
+
+        padding:
+            13px 10px 35px;
+
+    }
+
+
+    .promo-hero{
+
+        min-height:220px;
+
+        padding:
+            22px 13px;
+
+        border-radius:20px;
+
+    }
+
+
+    .promo-icon{
+
+        font-size:36px;
+
+    }
+
+
+    .promo-title{
+
+        font-size:28px;
+
+    }
+
+
+    .promo-subtitle{
+
+        font-size:13px;
+
+    }
+
+
+    .promo-contact{
+
+        font-size:14px;
+
+    }
+
+
+    .section-heading h2{
+
+        font-size:20px;
+
+    }
+
+
+    .category-title{
+
+        font-size:23px;
+
+    }
+
+
+    .category-grid{
+
+        gap:8px;
+
+    }
+
+
+    .category-card{
+
+        min-height:84px;
+
+        padding:
+            10px 7px;
+
+        gap:7px;
+
+    }
+
+
+    .category-icon{
+
+        flex-basis:35px;
+
+        width:35px;
+
+        height:35px;
+
+        font-size:18px;
+
+        border-radius:10px;
+
+    }
+
+
+    .category-name{
+
+        font-size:11.5px;
+
+    }
+
+
+    .category-arrow{
+
+        display:none;
+
+    }
+
+
+    .poster-btn{
+
+        width:36px;
+
+        height:36px;
+
+        font-size:24px;
+
+    }
+
+}
+
 </style>
 
 </head>
 
-
-<body>
-
-
-<!-- =========================
-     HEADER
-========================= -->
-
-<header class="header">
-
-    <div class="logo">
-        <span class="pyn-text">Pyn</span><span class="code-text">code.in</span>
-    </div>
-
-</header>
+  <body>
 
 
-
-<!-- =========================
+<!-- =====================================================
      MAIN
-========================= -->
+===================================================== -->
 
-<main class="container">
+<main class="main">
 
 
-    <!-- PAGE TITLE -->
+    <!-- =================================================
+         1. PROMOTE YOUR BUSINESS
+    ================================================== -->
 
-    <section class="page-title">
+    <section class="promo-hero">
 
-        <div class="page-icon">
-            📢
-        </div>
+        <div class="promo-hero-content">
 
-        <h1 id="promotionAdminTrigger">
-            Promotions
-        </h1>
 
-        <p>
-            <p>
-  <p>
-    Promote Your Business on Pyncode<br>
-    <strong>Call or WhatsApp: 9092035926</strong>
-  </p>
+            <!--
+                5 TAP ADMIN TRIGGER
+                Existing functionality preserved
+            -->
+
+            <div
+                class="promo-icon"
+                id="promotionAdminTrigger"
+            >
+                📢
+            </div>
+
+
+            <h1 class="promo-title">
+
+                Promote Your
+                <span class="orange">
+                    Business
+                </span>
+
+            </h1>
+
+
+            <p class="promo-subtitle">
+
+                Promote Your Business on Pyncode
+
             </p>
-        </p>
+
+
+            <p class="promo-contact">
+
+                Call or WhatsApp:
+                <span>9092035926</span>
+
+            </p>
+
+
+        </div>
 
     </section>
 
 
 
-    <!-- =========================
-         PROMOTION CATEGORIES
-    ========================= -->
+    <!-- =================================================
+         2. UPLOADED PROMOTION POSTERS
+    ================================================== -->
 
-    <div
-        id="categoryGrid"
-        class="category-grid"
-    ></div>
+    <section class="poster-section">
+
+
+        <div class="section-heading">
+
+            <h2>
+                🔥 Featured Promotions
+            </h2>
+
+
+            <span id="posterCount">
+                Loading...
+            </span>
+
+        </div>
+
+
+
+        <div
+            class="poster-carousel"
+            id="posterCarousel"
+        >
+
+
+            <!-- =========================================
+                 POSTER TRACK
+            ========================================== -->
+
+            <div
+                class="poster-track"
+                id="posterTrack"
+            ></div>
+
+
+
+            <!-- =========================================
+                 PREVIOUS
+            ========================================== -->
+
+            <button
+                type="button"
+                class="poster-btn prev"
+                id="posterPrev"
+                aria-label="Previous promotion"
+            >
+                ‹
+            </button>
+
+
+
+            <!-- =========================================
+                 NEXT
+            ========================================== -->
+
+            <button
+                type="button"
+                class="poster-btn next"
+                id="posterNext"
+                aria-label="Next promotion"
+            >
+                ›
+            </button>
+
+
+
+            <!-- =========================================
+                 DOTS
+            ========================================== -->
+
+            <div
+                class="poster-dots"
+                id="posterDots"
+            ></div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         3. PROMOTION CATEGORIES
+    ================================================== -->
+
+    <section class="category-section">
+
+
+        <div class="category-title-row">
+
+
+            <div>
+
+                <h2 class="category-title">
+                    Promotion Categories
+                </h2>
+
+            </div>
+
+
+            <div class="category-caption">
+                Choose a category
+            </div>
+
+
+        </div>
+
+
+
+        <div
+            id="categoryGrid"
+            class="category-grid"
+        ></div>
+
+
+    </section>
 
 
 </main>
 
 
-  <!-- =====================================================
-   FIXED BOTTOM NAVIGATION
+
+<!-- =====================================================
+     FIXED BOTTOM NAVIGATION
 ===================================================== -->
 
 <nav class="bottom-nav">
 
-    <a href="shops.html" class="bottom-nav-item">
-        <span class="nav-icon">🏪</span>
-        <span class="nav-label">Shops</span>
+
+    <a
+        href="shops.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            🏬
+        </span>
+
+        <span class="nav-label">
+            Shops
+        </span>
+
     </a>
 
-    <a href="services.html" class="bottom-nav-item">
-        <span class="nav-icon">🛠️</span>
-        <span class="nav-label">Services</span>
+
+
+    <a
+        href="services.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            🛠️
+        </span>
+
+        <span class="nav-label">
+            Services
+        </span>
+
     </a>
 
-    <a href="category.html" class="bottom-nav-item">
-        <span class="nav-icon">▦</span>
-        <span class="nav-label">Category</span>
+
+
+    <a
+        href="category.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            ▦
+        </span>
+
+        <span class="nav-label">
+            Category
+        </span>
+
     </a>
 
-    <a href="promotion.html" class="bottom-nav-item active">
-        <span class="nav-icon">📣</span>
-        <span class="nav-label">Promotion</span>
+
+
+    <a
+        href="promotion.html"
+        class="bottom-nav-item active"
+    >
+
+        <span class="nav-icon">
+            📣
+        </span>
+
+        <span class="nav-label">
+            Promotion
+        </span>
+
     </a>
+
 
 </nav>
 
+    <script>
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
 
 
-<script>
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
 
-/* =========================================
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+
+/* =====================================================
    PYNCODE PROMOTION CATEGORIES
-========================================= */
+===================================================== */
 
 const categories = [
 
@@ -555,9 +1399,10 @@ const categories = [
 ];
 
 
-/* =========================================
-   CREATE CATEGORY CARDS
-========================================= */
+
+/* =====================================================
+   CATEGORY RENDER
+===================================================== */
 
 const categoryGrid =
     document.getElementById(
@@ -565,51 +1410,749 @@ const categoryGrid =
     );
 
 
-categories.forEach(function(category){
+function renderCategories(){
 
-    const icon =
-        category[0];
-
-    const name =
-        category[1];
+    if(!categoryGrid){
+        return;
+    }
 
 
-    const card =
-        document.createElement("a");
+    categoryGrid.innerHTML = "";
 
 
-    card.className =
-        "category-card";
+    categories.forEach(
+        function(category){
+
+            const icon =
+                category[0];
+
+            const name =
+                category[1];
 
 
-    card.href =
-        "promotion-category.html?category=" +
-        encodeURIComponent(name);
+            const card =
+                document.createElement("a");
 
 
-    card.innerHTML = `
-
-        <div class="category-icon">
-            ${icon}
-        </div>
-
-        <div class="category-name">
-            ${name}
-        </div>
-
-    `;
+            card.className =
+                "category-card";
 
 
-    categoryGrid.appendChild(card);
+            card.href =
+                "promotion-category.html?category=" +
+                encodeURIComponent(name);
 
-});
+
+            card.innerHTML = `
+
+                <div class="category-icon">
+                    ${icon}
+                </div>
+
+                <div class="category-name">
+                    ${name}
+                </div>
+
+                <div class="category-arrow">
+                    →
+                </div>
+
+            `;
+
+
+            categoryGrid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+renderCategories();
 
 
 
-/* =========================================
-   HIDDEN PROMOTION ADMIN LOGIN
-   5 TAPS
-========================================= */
+/* =====================================================
+   POSTER ELEMENTS
+===================================================== */
+
+const posterTrack =
+    document.getElementById(
+        "posterTrack"
+    );
+
+
+const posterDots =
+    document.getElementById(
+        "posterDots"
+    );
+
+
+const posterPrev =
+    document.getElementById(
+        "posterPrev"
+    );
+
+
+const posterNext =
+    document.getElementById(
+        "posterNext"
+    );
+
+
+const posterCount =
+    document.getElementById(
+        "posterCount"
+    );
+
+
+const posterCarousel =
+    document.getElementById(
+        "posterCarousel"
+    );
+
+
+
+/* =====================================================
+   POSTER STATE
+===================================================== */
+
+let promotionPosters = [];
+
+let currentPoster = 0;
+
+let posterTimer = null;
+
+
+
+/* =====================================================
+   LOAD LIVE PROMOTION POSTERS
+===================================================== */
+
+/*
+   IMPORTANT:
+
+   Do NOT use hard-coded poster URLs.
+
+   Posters are loaded directly from:
+
+       promotions
+
+   Only active posters are shown.
+
+   Existing upload system stores:
+
+       category
+       pincode
+       poster_url
+       is_active
+       created_at
+
+*/
+
+async function loadPromotionPosters(){
+
+    try{
+
+        posterCount.textContent =
+            "Loading...";
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+
+                .from("promotions")
+
+                .select(
+                    "id, category, pincode, poster_url, is_active, created_at"
+                )
+
+                .eq(
+                    "is_active",
+                    true
+                )
+
+                .order(
+                    "created_at",
+                    {
+                        ascending:false
+                    }
+                );
+
+
+        if(error){
+
+            console.error(
+                "Promotion loading error:",
+                error
+            );
+
+
+            promotionPosters = [];
+
+            renderPosters();
+
+            return;
+        }
+
+
+        promotionPosters =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+        renderPosters();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Promotion fetch error:",
+            error
+        );
+
+
+        promotionPosters = [];
+
+        renderPosters();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RENDER POSTERS
+===================================================== */
+
+function renderPosters(){
+
+    posterTrack.innerHTML =
+        "";
+
+    posterDots.innerHTML =
+        "";
+
+
+    currentPoster = 0;
+
+
+    /* =================================================
+       NO ACTIVE POSTERS
+    ================================================= */
+
+    if(
+        !promotionPosters ||
+        promotionPosters.length === 0
+    ){
+
+        posterTrack.innerHTML = `
+
+            <div class="poster-slide">
+
+                <div class="no-posters">
+
+                    <div class="no-posters-icon">
+                        📢
+                    </div>
+
+                    <strong>
+                        No Promotions Available
+                    </strong>
+
+                    <span>
+                        New business promotions will appear here.
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        posterPrev.style.display =
+            "none";
+
+        posterNext.style.display =
+            "none";
+
+        posterDots.style.display =
+            "none";
+
+
+        posterCount.textContent =
+            "0 Promotions";
+
+
+        return;
+    }
+
+
+
+    /* =================================================
+       COUNT
+    ================================================= */
+
+    posterCount.textContent =
+        promotionPosters.length +
+        (
+            promotionPosters.length === 1
+                ? " Promotion"
+                : " Promotions"
+        );
+
+
+    posterDots.style.display =
+        "flex";
+
+
+
+    /* =================================================
+       CREATE POSTER SLIDES
+    ================================================= */
+
+    promotionPosters.forEach(
+        function(
+            promotion,
+            index
+        ){
+
+            if(
+                !promotion.poster_url
+            ){
+                return;
+            }
+
+
+            const slide =
+                document.createElement(
+                    "div"
+                );
+
+
+            slide.className =
+                "poster-slide";
+
+
+            const img =
+                document.createElement(
+                    "img"
+                );
+
+
+            img.src =
+                promotion.poster_url;
+
+
+            img.alt =
+                promotion.category
+                    ? promotion.category +
+                      " promotion"
+                    : "Pyncode Promotion";
+
+
+            img.loading =
+                index === 0
+                    ? "eager"
+                    : "lazy";
+
+
+            img.decoding =
+                "async";
+
+
+            /* Prevent broken image from disturbing layout */
+
+            img.onerror =
+                function(){
+
+                    slide.remove();
+
+                };
+
+
+            slide.appendChild(
+                img
+            );
+
+
+            posterTrack.appendChild(
+                slide
+            );
+
+
+
+            /* =========================================
+               DOT
+            ========================================== */
+
+            const dot =
+                document.createElement(
+                    "button"
+                );
+
+
+            dot.type =
+                "button";
+
+
+            dot.className =
+                "poster-dot";
+
+
+            dot.setAttribute(
+                "aria-label",
+                "Show promotion " +
+                (index + 1)
+            );
+
+
+            if(index === 0){
+
+                dot.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            dot.addEventListener(
+                "click",
+                function(){
+
+                    goToPoster(
+                        index
+                    );
+
+                    startPosterAutoSlide();
+
+                }
+            );
+
+
+            posterDots.appendChild(
+                dot
+            );
+
+        }
+    );
+
+
+
+    /* =================================================
+       BUTTON VISIBILITY
+    ================================================= */
+
+    if(
+        promotionPosters.length <= 1
+    ){
+
+        posterPrev.style.display =
+            "none";
+
+        posterNext.style.display =
+            "none";
+
+    }
+
+    else{
+
+        posterPrev.style.display =
+            "flex";
+
+        posterNext.style.display =
+            "flex";
+
+    }
+
+
+
+    /* =================================================
+       START AUTO SLIDE
+    ================================================= */
+
+    startPosterAutoSlide();
+
+}
+
+
+
+/* =====================================================
+   GO TO POSTER
+===================================================== */
+
+function goToPoster(index){
+
+    if(
+        !promotionPosters ||
+        promotionPosters.length === 0
+    ){
+        return;
+    }
+
+
+    currentPoster =
+        index;
+
+
+    if(
+        currentPoster < 0
+    ){
+
+        currentPoster =
+            promotionPosters.length - 1;
+
+    }
+
+
+    if(
+        currentPoster >=
+        promotionPosters.length
+    ){
+
+        currentPoster = 0;
+
+    }
+
+
+    posterTrack.style.transform =
+        "translateX(-" +
+        (currentPoster * 100) +
+        "%)";
+
+
+    const dots =
+        document.querySelectorAll(
+            ".poster-dot"
+        );
+
+
+    dots.forEach(
+        function(
+            dot,
+            index
+        ){
+
+            dot.classList.toggle(
+                "active",
+                index === currentPoster
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+function nextPoster(){
+
+    if(
+        !promotionPosters ||
+        promotionPosters.length <= 1
+    ){
+        return;
+    }
+
+
+    goToPoster(
+        currentPoster + 1
+    );
+
+}
+
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+function previousPoster(){
+
+    if(
+        !promotionPosters ||
+        promotionPosters.length <= 1
+    ){
+        return;
+    }
+
+
+    goToPoster(
+        currentPoster - 1
+    );
+
+}
+
+
+
+/* =====================================================
+   BUTTON EVENTS
+===================================================== */
+
+posterNext.addEventListener(
+    "click",
+    function(){
+
+        nextPoster();
+
+        startPosterAutoSlide();
+
+    }
+);
+
+
+posterPrev.addEventListener(
+    "click",
+    function(){
+
+        previousPoster();
+
+        startPosterAutoSlide();
+
+    }
+);
+
+
+
+/* =====================================================
+   AUTO SLIDE
+===================================================== */
+
+function startPosterAutoSlide(){
+
+    clearInterval(
+        posterTimer
+    );
+
+
+    if(
+        !promotionPosters ||
+        promotionPosters.length <= 1
+    ){
+        return;
+    }
+
+
+    posterTimer =
+        setInterval(
+            function(){
+
+                nextPoster();
+
+            },
+            4500
+        );
+
+}
+
+
+
+/* =====================================================
+   MOBILE SWIPE
+===================================================== */
+
+let touchStartX = 0;
+
+let touchEndX = 0;
+
+
+posterCarousel.addEventListener(
+    "touchstart",
+    function(event){
+
+        touchStartX =
+            event.changedTouches[0]
+                .screenX;
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+posterCarousel.addEventListener(
+    "touchend",
+    function(event){
+
+        touchEndX =
+            event.changedTouches[0]
+                .screenX;
+
+
+        const difference =
+            touchStartX -
+            touchEndX;
+
+
+        if(
+            Math.abs(difference) < 45
+        ){
+            return;
+        }
+
+
+        if(
+            difference > 0
+        ){
+
+            nextPoster();
+
+        }
+
+        else{
+
+            previousPoster();
+
+        }
+
+
+        startPosterAutoSlide();
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+
+/* =====================================================
+   PAUSE AUTO SLIDE WHILE TOUCHING
+===================================================== */
+
+posterCarousel.addEventListener(
+    "touchstart",
+    function(){
+
+        clearInterval(
+            posterTimer
+        );
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+
+/* =====================================================
+   5 TAP ADMIN LOGIN
+===================================================== */
 
 let promotionTapCount = 0;
 
@@ -622,7 +2165,9 @@ const promotionAdminTrigger =
     );
 
 
-if(promotionAdminTrigger){
+if(
+    promotionAdminTrigger
+){
 
     promotionAdminTrigger.addEventListener(
         "click",
@@ -640,7 +2185,8 @@ if(promotionAdminTrigger){
                 setTimeout(
                     function(){
 
-                        promotionTapCount = 0;
+                        promotionTapCount =
+                            0;
 
                     },
                     2000
@@ -651,7 +2197,8 @@ if(promotionAdminTrigger){
                 promotionTapCount >= 5
             ){
 
-                promotionTapCount = 0;
+                promotionTapCount =
+                    0;
 
 
                 window.location.href =
@@ -663,6 +2210,15 @@ if(promotionAdminTrigger){
     );
 
 }
+
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+loadPromotionPosters();
+
 
 </script>
 

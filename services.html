@@ -80,7 +80,7 @@ body{
 }
 </style>
 
-  
+
 <style>
 
 /* =====================================================
@@ -144,6 +144,11 @@ body{
         rgba(20,30,60,.045);
 }
 
+
+/* =====================================================
+   PYNCODE LOGO
+===================================================== */
+
 .logo{
     display:flex;
     align-items:center;
@@ -184,6 +189,28 @@ body{
         0 8px 20px
         rgba(255,90,70,.22);
 }
+
+.logo-mark img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    display:block;
+}
+
+.pyn-text{
+    color:#ff7619;
+}
+
+.code-text{
+    color:#151a28;
+}
+
+
+/* =====================================================
+   HEADER BUTTON
+===================================================== */
 
 .home-btn{
     min-height:44px;
@@ -239,7 +266,8 @@ body{
         0 8px 20px
         rgba(255,90,70,.16);
 }
-  
+
+
 /* =====================================================
    MAIN
 ===================================================== */
@@ -665,18 +693,9 @@ body{
         font-size:20px;
     }
 
-  .pyncode-text{
-    color:#151a28;
-    font-weight:900;
-}
-
-.pyncode-orange{
-    color:#ff7619;
-}
-
     .logo-mark{
-        width:36px;
-        height:36px;
+        width:70px;
+        height:40px;
 
         border-radius:11px;
 
@@ -808,16 +827,16 @@ body{
         font-size:11px;
     }
 
-  .header-actions{
-    gap:6px;
-}
+    .header-actions{
+        gap:6px;
+    }
 
-.list-service-btn{
-    min-height:42px;
-    padding:0 12px;
-    border-radius:11px;
-    font-size:11px;
-}
+    .list-service-btn{
+        min-height:42px;
+        padding:0 12px;
+        border-radius:11px;
+        font-size:11px;
+    }
 
     .service-card{
         font-size:11px;
@@ -839,14 +858,30 @@ body{
 
 <header class="header">
 
-  <a
-    href="index.html"
-    class="logo"
->
-    <span class="pyncode-text">
-        <span class="pyncode-orange">Pyn</span>code.in
-    </span>
-  </a>
+    <a
+        href="index.html"
+        class="logo"
+    >
+
+        <span class="logo-mark">
+
+            <img
+                src="pyncode-logo.png"
+                alt="Pyncode"
+            >
+
+        </span>
+
+
+        <span>
+
+            <span class="pyn-text">
+                Pyn
+            </span><span class="code-text">code.in</span>
+
+        </span>
+
+    </a>
 
 
     <div class="header-actions">
@@ -898,31 +933,79 @@ body{
 
 
 
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
 <nav class="bottom-nav">
 
-    <a href="shops.html" class="bottom-nav-item">
-        <span class="nav-icon">🏪</span>
-        <span class="nav-label">Shops</span>
+    <a
+        href="shops.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            🏬
+        </span>
+
+        <span class="nav-label">
+            Shops
+        </span>
+
     </a>
 
-    <a href="services.html" class="bottom-nav-item active">
-        <span class="nav-icon">🛠️</span>
-        <span class="nav-label">Services</span>
+
+    <a
+        href="services.html"
+        class="bottom-nav-item active"
+    >
+
+        <span class="nav-icon">
+            🛠️
+        </span>
+
+        <span class="nav-label">
+            Services
+        </span>
+
     </a>
 
-    <a href="category.html" class="bottom-nav-item">
-        <span class="nav-icon">▦</span>
-        <span class="nav-label">Category</span>
+
+    <a
+        href="category.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            ▦
+        </span>
+
+        <span class="nav-label">
+            Category
+        </span>
+
     </a>
 
-    <a href="promotion.html" class="bottom-nav-item">
-        <span class="nav-icon">📣</span>
-        <span class="nav-label">Promotion</span>
+
+    <a
+        href="promotion.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            📣
+        </span>
+
+        <span class="nav-label">
+            Promotion
+        </span>
+
     </a>
 
 </nav>
-  
-  <!-- =====================================================
+
+
+<!-- =====================================================
      JAVASCRIPT
 ===================================================== -->
 
@@ -1098,6 +1181,7 @@ const serviceGrid =
         "serviceGrid"
     );
 
+
 /* =====================================================
    RENDER SERVICE CATEGORIES
 ===================================================== */
@@ -1126,11 +1210,12 @@ function renderServices(
                category.html
             */
 
-         let url =
-    "service-category.html?category=" +
-    encodeURIComponent(
-        service.name
-    );
+            let url =
+                "service-category.html?category=" +
+                encodeURIComponent(
+                    service.name
+                );
+
 
             if(pincode){
 
@@ -1180,7 +1265,8 @@ function renderServices(
 
 renderServices();
 
-  /* =====================================================
+
+/* =====================================================
    FINISH
 ===================================================== */
 

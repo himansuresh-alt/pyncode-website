@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -131,6 +132,18 @@
             background:#eaf8ee;
         }
 
+        .shop-icon{
+            background:#eaf2ff;
+        }
+
+        .banner-icon{
+            background:#f2eaff;
+        }
+
+        .upload-icon{
+            background:#e8f7ff;
+        }
+
         .admin-card h2{
             font-size:21px;
             margin-bottom:10px;
@@ -238,287 +251,419 @@
             }
         }
     </style>
+
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header class="header">
 
-        <div class="brand">
-            Visiting Card
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="brand">
+        Visiting Card
+    </div>
+
+    <button
+        type="button"
+        class="logout-btn"
+        id="logoutBtn"
+    >
+        Logout
+    </button>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+    <section class="hero">
+
+        <div class="hero-icon">
+            🔐
         </div>
 
-        <button
-            type="button"
-            class="logout-btn"
-            id="logoutBtn">
-            Logout
-        </button>
+        <h1>
+            Pyncode Admin Dashboard
+        </h1>
 
-    </header>
+        <p>
+            Manage promotions and shop advertisements
+            from one secure admin panel.
+        </p>
+
+    </section>
 
 
-    <!-- MAIN -->
-    <main class="container">
 
-        <section class="hero">
+    <!-- =================================================
+         ADMIN OPTIONS
+    ================================================= -->
 
-            <div class="hero-icon">
-                🔐
+    <section class="cards">
+
+
+        <!-- =========================
+             1. PROMOTION MANAGER
+        ========================== -->
+
+        <div
+            class="admin-card"
+            id="promotionCard"
+        >
+
+            <div class="card-icon promotion-icon">
+                📢
             </div>
 
-            <h1>
-                Pyncode Admin Dashboard
-            </h1>
+            <h2>
+                Promotion Manager
+            </h2>
 
             <p>
-                Manage promotions and shop advertisements
-                from one secure admin panel.
+                Upload, view and manage Pyncode
+                promotional posters by category and pincode.
             </p>
 
-        </section>
+            <button
+                type="button"
+                class="open-btn"
+            >
+                Manage Promotions →
+            </button>
 
-
-        <!-- ADMIN OPTIONS -->
-        <section class="cards">
-
-
-            <!-- PROMOTION MANAGER -->
-            <div
-                class="admin-card"
-                id="promotionCard">
-
-                <div class="card-icon promotion-icon">
-                    📢
-                </div>
-
-                <h2>
-                    Promotion Manager
-                </h2>
-
-                <p>
-                    Upload, view and manage Pyncode
-                    promotional posters by category and pincode.
-                </p>
-
-                <button
-                    type="button"
-                    class="open-btn">
-                    Manage Promotions →
-                </button>
-
-            </div>
-
-
-            <!-- SHOP OFFER APPROVAL -->
-            <div
-                class="admin-card"
-                id="shopOfferCard">
-
-                <div class="card-icon offer-icon">
-                    🔥
-                </div>
-
-                <h2>
-                    Shop Offer Approvals
-                </h2>
-
-                <p>
-                    Review advertisements submitted by
-                    registered Pyncode shop owners.
-                </p>
-
-                <button
-                    type="button"
-                    class="open-btn">
-                    Review Shop Offers →
-                </button>
-
-            </div>
-
-                      <!-- SHOP MANAGEMENT -->
-            <div
-                class="admin-card"
-                id="shopManagementCard">
-
-                <div class="card-icon shop-icon">
-                    🏪
-                </div>
-
-                <h2>
-                    Shop Management
-                </h2>
-
-                <p>
-                    View registered shops and manage
-                    shop listings from the admin panel.
-                </p>
-
-                <button
-                    type="button"
-                    class="open-btn">
-                    Manage Shops →
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <div class="security-note">
-            🔒 Admin access only • Pyncode management panel
         </div>
 
-    </main>
 
 
-    <!-- FOOTER -->
-    <footer class="footer">
+        <!-- =========================
+             2. SHOP OFFER APPROVAL
+        ========================== -->
 
-        <div class="footer-title">
-            Pyncode
+        <div
+            class="admin-card"
+            id="shopOfferCard"
+        >
+
+            <div class="card-icon offer-icon">
+                🔥
+            </div>
+
+            <h2>
+                Shop Offer Approvals
+            </h2>
+
+            <p>
+                Review advertisements submitted by
+                registered Pyncode shop owners.
+            </p>
+
+            <button
+                type="button"
+                class="open-btn"
+            >
+                Review Shop Offers →
+            </button>
+
         </div>
 
-        <div class="footer-subtitle">
-            Pynd Everything Near You
+
+
+        <!-- =========================
+             3. SHOP MANAGEMENT
+        ========================== -->
+
+        <div
+            class="admin-card"
+            id="shopManagementCard"
+        >
+
+            <div class="card-icon shop-icon">
+                🏪
+            </div>
+
+            <h2>
+                Shop Management
+            </h2>
+
+            <p>
+                View registered shops and manage
+                shop listings from the admin panel.
+            </p>
+
+            <button
+                type="button"
+                class="open-btn"
+            >
+                Manage Shops →
+            </button>
+
         </div>
 
-    </footer>
 
 
-    <script>
+        <!-- =========================
+             4. BANNER MANAGER
+        ========================== -->
 
-        /* =========================================
-           SUPABASE CONFIG
-        ========================================= */
+        <div
+            class="admin-card"
+            id="bannerManagerCard"
+        >
 
-        const SUPABASE_URL =
-            "https://mtuspuehsxsjoaxoenen.supabase.co";
+            <div class="card-icon banner-icon">
+                🖼️
+            </div>
 
-        const SUPABASE_KEY =
-            "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+            <h2>
+                Banner Manager
+            </h2>
 
-        const supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_KEY
+            <p>
+                View and manage website banners
+                from the Pyncode admin panel.
+            </p>
+
+            <button
+                type="button"
+                class="open-btn"
+            >
+                Manage Banners →
+            </button>
+
+        </div>
+
+
+
+        <!-- =========================
+             5. BANNER UPLOAD
+        ========================== -->
+
+        <div
+            class="admin-card"
+            id="bannerUploadCard"
+        >
+
+            <div class="card-icon upload-icon">
+                ⬆️
+            </div>
+
+            <h2>
+                Banner Upload
+            </h2>
+
+            <p>
+                Upload a new banner image for
+                your Pyncode website.
+            </p>
+
+            <button
+                type="button"
+                class="open-btn"
+            >
+                Upload Banner →
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+
+    <div class="security-note">
+        🔒 Admin access only • Pyncode management panel
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-title">
+        Pyncode
+    </div>
+
+    <div class="footer-subtitle">
+        Pynd Everything Near You
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   ADMIN ACCESS CHECK
+===================================================== */
+
+async function checkAdminAccess(){
+
+    try{
+
+        const {
+            data: { session },
+            error: sessionError
+        } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+
+        /* NO LOGIN SESSION */
+
+        if(
+            sessionError ||
+            !session
+        ){
+
+            window.location.replace(
+                "promotion-admin-login.html"
             );
 
+            return false;
 
-        /* =========================================
-           ADMIN ACCESS CHECK
-        ========================================= */
-
-        async function checkAdminAccess(){
-
-            try{
-
-                const {
-                    data: { session },
-                    error: sessionError
-                } =
-                    await supabaseClient.auth.getSession();
-
-
-                /* No login session */
-
-                if(sessionError || !session){
-
-                    window.location.replace(
-                        "promotion-admin-login.html"
-                    );
-
-                    return false;
-                }
-
-
-                /* Check admin_users table */
-
-                const {
-                    data: adminUser,
-                    error: adminError
-                } =
-                    await supabaseClient
-                        .from("admin_users")
-                        .select("id")
-                        .eq(
-                            "auth_user_id",
-                            session.user.id
-                        )
-                        .maybeSingle();
-
-
-                /* User is not an admin */
-
-                if(adminError || !adminUser){
-
-                    await supabaseClient.auth.signOut();
-
-                    alert("Admin access required.");
-
-                    window.location.replace(
-                        "promotion-admin-login.html"
-                    );
-
-                    return false;
-                }
-
-
-                return true;
-
-            }catch(error){
-
-                console.error(
-                    "Admin access error:",
-                    error
-                );
-
-                window.location.replace(
-                    "promotion-admin-login.html"
-                );
-
-                return false;
-            }
         }
 
 
-        /* =========================================
-           PROMOTION MANAGER
-        ========================================= */
+        /* CHECK ADMIN USERS TABLE */
 
-        document
-            .getElementById("promotionCard")
-            .addEventListener(
-                "click",
-                function(){
+        const {
+            data: adminUser,
+            error: adminError
+        } =
+        await supabaseClient
+            .from("admin_users")
+            .select("id")
+            .eq(
+                "auth_user_id",
+                session.user.id
+            )
+            .maybeSingle();
 
-                    window.location.href =
-                        "promotion-poster-manager.html";
 
-                }
+        /* NOT ADMIN */
+
+        if(
+            adminError ||
+            !adminUser
+        ){
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+            alert(
+                "Admin access required."
             );
 
 
-        /* =========================================
-           SHOP OFFER APPROVALS
-        ========================================= */
-
-        document
-            .getElementById("shopOfferCard")
-            .addEventListener(
-                "click",
-                function(){
-
-                    window.location.href =
-                        "shop-offer-admin.html";
-
-                }
+            window.location.replace(
+                "promotion-admin-login.html"
             );
 
-   /* =========================================
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+    catch(error){
+
+        console.error(
+            "Admin access error:",
+            error
+        );
+
+
+        window.location.replace(
+            "promotion-admin-login.html"
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   PROMOTION MANAGER
+===================================================== */
+
+document
+    .getElementById("promotionCard")
+    .addEventListener(
+        "click",
+        function(){
+
+            window.location.href =
+                "promotion-poster-manager.html";
+
+        }
+    );
+
+
+
+/* =====================================================
+   SHOP OFFER APPROVALS
+===================================================== */
+
+document
+    .getElementById("shopOfferCard")
+    .addEventListener(
+        "click",
+        function(){
+
+            window.location.href =
+                "shop-offer-admin.html";
+
+        }
+    );
+
+
+
+/* =====================================================
    SHOP MANAGEMENT
-========================================= */
+===================================================== */
 
 document
     .getElementById("shopManagementCard")
@@ -532,52 +677,97 @@ document
         }
     );
 
-        /* =========================================
-           LOGOUT
-        ========================================= */
-
-        document
-            .getElementById("logoutBtn")
-            .addEventListener(
-                "click",
-                async function(){
-
-                    const {
-                        error
-                    } =
-                        await supabaseClient.auth.signOut();
 
 
-                    if(error){
+/* =====================================================
+   BANNER MANAGER
+===================================================== */
 
-                        console.error(
-                            "Logout error:",
-                            error
-                        );
+document
+    .getElementById("bannerManagerCard")
+    .addEventListener(
+        "click",
+        function(){
 
-                        alert(
-                            "Logout failed. Please try again."
-                        );
+            window.location.href =
+                "banner-manager.html";
 
-                        return;
-                    }
+        }
+    );
 
 
-                    window.location.replace(
-                        "promotion-admin-login.html"
-                    );
 
-                }
+/* =====================================================
+   BANNER UPLOAD
+===================================================== */
+
+document
+    .getElementById("bannerUploadCard")
+    .addEventListener(
+        "click",
+        function(){
+
+            window.location.href =
+                "banner-upload.html";
+
+        }
+    );
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+document
+    .getElementById("logoutBtn")
+    .addEventListener(
+        "click",
+        async function(){
+
+            const {
+                error
+            } =
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+            if(error){
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+
+                alert(
+                    "Logout failed. Please try again."
+                );
+
+
+                return;
+
+            }
+
+
+            window.location.replace(
+                "promotion-admin-login.html"
             );
 
+        }
+    );
 
-        /* =========================================
-           START SECURITY CHECK
-        ========================================= */
 
-        checkAdminAccess();
 
-    </script>
+/* =====================================================
+   START SECURITY CHECK
+===================================================== */
+
+checkAdminAccess();
+
+</script>
+
 
 </body>
 </html>

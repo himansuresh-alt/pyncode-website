@@ -16,6 +16,10 @@
 
 <style>
 
+/* =====================================================
+   RESET
+===================================================== */
+
 *{
     margin:0;
     padding:0;
@@ -39,9 +43,9 @@ body{
 }
 
 
-/* =========================
+/* =====================================================
    HEADER
-========================= */
+===================================================== */
 
 .header{
     height:70px;
@@ -72,7 +76,6 @@ body{
 
 .dashboard-btn,
 .logout-btn{
-
     border:0;
 
     color:#fff;
@@ -86,7 +89,6 @@ body{
     font-weight:700;
 
     cursor:pointer;
-
 }
 
 .dashboard-btn{
@@ -107,13 +109,13 @@ body{
 }
 
 
-/* =========================
+/* =====================================================
    MAIN
-========================= */
+===================================================== */
 
 .main{
     width:100%;
-    max-width:800px;
+    max-width:900px;
 
     margin:auto;
 
@@ -134,9 +136,9 @@ h1{
 }
 
 
-/* =========================
+/* =====================================================
    CARD
-========================= */
+===================================================== */
 
 .card{
     background:#fff;
@@ -149,9 +151,100 @@ h1{
 }
 
 
-/* =========================
-   SELECT AREA
-========================= */
+/* =====================================================
+   BANNER TARGET
+===================================================== */
+
+.target-section{
+    background:#fafafa;
+
+    border:1px solid #ddd;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+}
+
+.target-title{
+    font-size:21px;
+    font-weight:800;
+
+    margin-bottom:8px;
+}
+
+.target-text{
+    color:#777;
+    font-size:14px;
+
+    line-height:1.5;
+
+    margin-bottom:25px;
+}
+
+
+/* =====================================================
+   FIELD GROUP
+===================================================== */
+
+.field-group{
+    margin-bottom:20px;
+}
+
+.field-group:last-child{
+    margin-bottom:0;
+}
+
+.field-group label{
+    display:block;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+}
+
+.field-group select,
+.field-group input{
+    width:100%;
+
+    height:50px;
+
+    padding:0 14px;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    background:#fff;
+
+    color:#111;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+.field-group select:focus,
+.field-group input:focus{
+    border-color:#111;
+}
+
+
+/* =====================================================
+   PINCODE
+===================================================== */
+
+#pincode{
+    letter-spacing:1px;
+}
+
+
+/* =====================================================
+   SELECT IMAGE
+===================================================== */
 
 .select-box{
     background:#fafafa;
@@ -167,18 +260,23 @@ h1{
 
 .icon{
     font-size:45px;
+
     margin-bottom:15px;
 }
 
 .select-title{
     font-size:21px;
+
     font-weight:800;
+
     margin-bottom:8px;
 }
 
 .select-text{
     color:#777;
+
     font-size:14px;
+
     margin-bottom:20px;
 }
 
@@ -186,6 +284,7 @@ h1{
     display:inline-block;
 
     background:#111;
+
     color:#fff;
 
     padding:13px 24px;
@@ -202,9 +301,9 @@ h1{
 }
 
 
-/* =========================
+/* =====================================================
    PREVIEW
-========================= */
+===================================================== */
 
 .preview{
     margin-top:20px;
@@ -235,9 +334,9 @@ h1{
 }
 
 
-/* =========================
+/* =====================================================
    UPLOAD BUTTON
-========================= */
+===================================================== */
 
 .upload-btn{
     width:100%;
@@ -245,6 +344,7 @@ h1{
     margin-top:20px;
 
     background:#111;
+
     color:#fff;
 
     border:0;
@@ -267,9 +367,9 @@ h1{
 }
 
 
-/* =========================
+/* =====================================================
    MESSAGE
-========================= */
+===================================================== */
 
 .message{
     display:none;
@@ -302,9 +402,9 @@ h1{
 }
 
 
-/* =========================
+/* =====================================================
    FOOTER
-========================= */
+===================================================== */
 
 .footer{
     background:#111;
@@ -322,25 +422,30 @@ h1{
 
 .footer-title{
     font-size:17px;
+
     font-weight:700;
 }
 
 .footer-text{
     color:#aaa;
+
     font-size:13px;
+
     margin-top:8px;
 }
 
 .footer-copy{
     color:#777;
+
     font-size:12px;
+
     margin-top:18px;
 }
 
 
-/* =========================
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media(max-width:600px){
 
@@ -383,6 +488,10 @@ h1{
         border-radius:17px;
     }
 
+    .target-section{
+        padding:20px;
+    }
+
     .select-box{
         padding:40px 15px;
     }
@@ -397,16 +506,15 @@ h1{
 <body>
 
 
-<!-- =========================
+<!-- =====================================================
      HEADER
-========================= -->
+===================================================== -->
 
 <header class="header">
 
     <div class="logo">
         Visiting Card
     </div>
-
 
     <div class="header-buttons">
 
@@ -417,7 +525,6 @@ h1{
         >
             ← Dashboard
         </button>
-
 
         <button
             type="button"
@@ -432,10 +539,9 @@ h1{
 </header>
 
 
-
-<!-- =========================
+<!-- =====================================================
      MAIN
-========================= -->
+===================================================== -->
 
 <main class="main">
 
@@ -450,8 +556,374 @@ h1{
 
     <div class="card">
 
+              <!-- =================================================
+             BANNER TARGET
+        ================================================= -->
 
-        <!-- SELECT IMAGE -->
+        <div class="target-section">
+
+            <div class="target-title">
+                Banner Target
+            </div>
+
+            <div class="target-text">
+                Select the category and enter the pincode
+                where this banner should appear.
+            </div>
+
+
+            <!-- CATEGORY -->
+
+            <div class="field-group">
+
+                <label for="category">
+                    Category
+                </label>
+
+                <select id="category">
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+
+                    <option value="Home Appliances">
+                        🏠 Home Appliances
+                    </option>
+
+                    <option value="Mobile Showrooms">
+                        📱 Mobile Showrooms
+                    </option>
+
+                    <option value="EV Bike Showrooms">
+                        ⚡ EV Bike Showrooms
+                    </option>
+
+                    <option value="Bike Showrooms">
+                        🏍️ Bike Showrooms
+                    </option>
+
+                    <option value="Car Showrooms">
+                        🚗 Car Showrooms
+                    </option>
+
+                    <option value="Furnitures">
+                        🛋️ Furnitures
+                    </option>
+
+                    <option value="Battery Shops">
+                        🔋 Battery Shops
+                    </option>
+
+
+                    <option value="Men's Clothing">
+                        👔 Men's Clothing
+                    </option>
+
+                    <option value="Women's Clothing">
+                        👗 Women's Clothing
+                    </option>
+
+                    <option value="New Born Babies Shops">
+                        🍼 New Born Babies Shops
+                    </option>
+
+                    <option value="Toys Showrooms">
+                        🧸 Toys Showrooms
+                    </option>
+
+                    <option value="Utensils & Cookware">
+                        🍳 Utensils & Cookware
+                    </option>
+
+                    <option value="Mattress & Bedding">
+                        🛏️ Mattress & Bedding
+                    </option>
+
+
+                    <option value="Ethnic Wear Showroom">
+                        👘 Ethnic Wear Showroom
+                    </option>
+
+                    <option value="Ayurvedic & Herbals">
+                        🌿 Ayurvedic & Herbals
+                    </option>
+
+                    <option value="Nutrition & Supplements">
+                        💪 Nutrition & Supplements
+                    </option>
+
+                    <option value="Electrics & Electronics">
+                        ⚡ Electrics & Electronics
+                    </option>
+
+                    <option value="Hardware">
+                        🔨 Hardware
+                    </option>
+
+                    <option value="Paint Shops">
+                        🎨 Paint Shops
+                    </option>
+
+
+                    <option value="Cleaning Products">
+                        🧹 Cleaning Products
+                    </option>
+
+                    <option value="Pharmacy/Medicals">
+                        💊 Pharmacy/Medicals
+                    </option>
+
+                    <option value="Fitness Equipments">
+                        🏋️ Fitness Equipments
+                    </option>
+
+                    <option value="Building Materials">
+                        🧱 Building Materials
+                    </option>
+
+                    <option value="Books & Stationary">
+                        📚 Books & Stationary
+                    </option>
+
+                    <option value="Garden & Plants">
+                        🌱 Garden & Plants
+                    </option>
+
+                    <option value="Gift Shops">
+                        🎁 Gift Shops
+                    </option>
+
+
+                    <option value="Pooja & Religious Shops">
+                        🪔 Pooja & Religious Shops
+                    </option>
+
+                    <option value="Opticals & Sunglasses">
+                        👓 Opticals & Sunglasses
+                    </option>
+
+                    <option value="Jewellery Showrooms">
+                        💍 Jewellery Showrooms
+                    </option>
+
+                    <option value="Footwares">
+                        👟 Footwares
+                    </option>
+
+                    <option value="Modular Kitchen">
+                        🍽️ Modular Kitchen
+                    </option>
+
+                    <option value="Flooring & Tiles">
+                        🪟 Flooring & Tiles
+                    </option>
+
+
+                    <option value="Printers & Scanners">
+                        🖨️ Printers & Scanners
+                    </option>
+
+                    <option value="Home Theatre & Audio">
+                        🔊 Home Theatre & Audio
+                    </option>
+
+                    <option value="Computers & Laptops">
+                        💻 Computers & Laptops
+                    </option>
+
+                    <option value="CCTV & Security">
+                        📹 CCTV & Security
+                    </option>
+
+                    <option value="Mobile Accessories">
+                        📲 Mobile Accessories
+                    </option>
+
+
+                    <option value="Car Detailing Showrooms">
+                        ✨ Car Detailing Showrooms
+                    </option>
+
+                    <option value="Tyre Shops">
+                        🔄 Tyre Shops
+                    </option>
+
+                    <option value="Bike Service Shops">
+                        🔧 Bike Service Shops
+                    </option>
+
+                    <option value="Car Service Shops">
+                        🔩 Car Service Shops
+                    </option>
+
+                    <option value="Home Appliances Service">
+                        🏠 Home Appliances Service
+                    </option>
+
+
+                    <option value="Cycle Showrooms">
+                        🚲 Cycle Showrooms
+                    </option>
+
+                    <option value="Hospitals">
+                        🏥 Hospitals
+                    </option>
+
+                    <option value="Interior Designers">
+                        🏠 Interior Designers
+                    </option>
+
+                    <option value="Doors & Windows Shops">
+                        🪟 Doors & Windows Shops
+                    </option>
+
+                    <option value="Salon & Spa">
+                        💈 Salon & Spa
+                    </option>
+
+
+                    <option value="Photography Studios">
+                        📸 Photography Studios
+                    </option>
+
+                    <option value="Bakery & Cake Shops">
+                        🎂 Bakery & Cake Shops
+                    </option>
+
+                    <option value="Pet Shops & Vet">
+                        🐾 Pet Shops & Vet
+                    </option>
+
+                    <option value="Solar Panel Shops">
+                        ☀️ Solar Panel Shops
+                    </option>
+
+                    <option value="Coaching & Tuition Centers">
+                        🎓 Coaching & Tuition Centers
+                    </option>
+
+                    <option value="Hotels & Resorts">
+                        🏨 Hotels & Resorts
+                    </option>
+
+
+                    <option value="Wedding Halls / Kalyana Mandapam">
+                        💒 Wedding Halls / Kalyana Mandapam
+                    </option>
+
+                    <option value="Musical Instruments">
+                        🎵 Musical Instruments
+                    </option>
+
+                    <option value="Gaming Zones">
+                        🎮 Gaming Zones
+                    </option>
+
+
+                    <option value="Seeds & Fertilizer Shops">
+                        🌾 Seeds & Fertilizer Shops
+                    </option>
+
+                    <option value="Insurance Offices">
+                        🏦 Insurance Offices
+                    </option>
+
+                    <option value="Loan & Finance Companies">
+                        💰 Loan & Finance Companies
+                    </option>
+
+                    <option value="Play Schools & Kindergarten">
+                        🏫 Play Schools & Kindergarten
+                    </option>
+
+
+                    <option value="Freelancers">
+                        💼 Freelancers
+                    </option>
+
+                    <option value="Franchise Outlets">
+                        🏢 Franchise Outlets
+                    </option>
+
+                    <option value="Real Estate">
+                        🏠 Real Estate
+                    </option>
+
+                    <option value="Used Car & Bikes Dealers">
+                        🚗 Used Car & Bikes Dealers
+                    </option>
+
+                    <option value="Men's/Women's Accessories">
+                        👜 Men's/Women's Accessories
+                    </option>
+
+                    <option value="Sandhai / Market Place">
+                        🛍️ Sandhai / Market Place
+                    </option>
+
+                    <option value="Travel & Tour Services">
+                        ✈️ Travel & Tour Services
+                    </option>
+
+                    <option value="Wedding & Events Services">
+                        💍 Wedding & Events Services
+                    </option>
+
+                    <option value="Digital Marketing Agencies">
+                        📱 Digital Marketing Agencies
+                    </option>
+
+                    <option value="Manpower / Staffing Services">
+                        👥 Manpower / Staffing Services
+                    </option>
+
+                    <option value="Construction & Contractors">
+                        🏗️ Construction & Contractors
+                    </option>
+
+                    <option value="Online Business">
+                        💻 Online Business
+                    </option>
+
+                    <option value="Courier Services">
+                        📦 Courier Services
+                    </option>
+
+                    <option value="Manufacturer & Suppliers">
+                        🏭 Manufacturer & Suppliers
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PINCODE -->
+
+            <div class="field-group">
+
+                <label for="pincode">
+                    Pincode
+                </label>
+
+                <input
+                    type="text"
+                    id="pincode"
+                    placeholder="Enter 6 digit pincode"
+                    inputmode="numeric"
+                    maxlength="6"
+                    autocomplete="postal-code"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SELECT IMAGE
+        ================================================= -->
 
         <div class="select-box">
 
@@ -459,16 +931,13 @@ h1{
                 🖼️
             </div>
 
-
             <div class="select-title">
                 Select Banner Image
             </div>
 
-
             <div class="select-text">
                 Choose an image from your device
             </div>
-
 
             <label
                 for="bannerInput"
@@ -476,7 +945,6 @@ h1{
             >
                 Select Image
             </label>
-
 
             <input
                 type="file"
@@ -487,8 +955,9 @@ h1{
         </div>
 
 
-
-        <!-- PREVIEW -->
+        <!-- =================================================
+             PREVIEW
+        ================================================= -->
 
         <div
             class="preview"
@@ -500,7 +969,6 @@ h1{
                 alt="Banner preview"
             >
 
-
             <div
                 class="file-name"
                 id="fileName"
@@ -509,8 +977,9 @@ h1{
         </div>
 
 
-
-        <!-- UPLOAD -->
+        <!-- =================================================
+             UPLOAD
+        ================================================= -->
 
         <button
             class="upload-btn"
@@ -521,8 +990,9 @@ h1{
         </button>
 
 
-
-        <!-- MESSAGE -->
+        <!-- =================================================
+             MESSAGE
+        ================================================= -->
 
         <div
             class="message"
@@ -534,10 +1004,9 @@ h1{
 </main>
 
 
-
-<!-- =========================
+<!-- =====================================================
      FOOTER
-========================= -->
+===================================================== -->
 
 <footer class="footer">
 
@@ -556,20 +1025,17 @@ h1{
 </footer>
 
 
-
 <script>
 
-/* =====================================================
+  /* =====================================================
    SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
     "https://mtuspuehsxsjoaxoenen.supabase.co";
 
-
 const SUPABASE_KEY =
     "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
-
 
 const supabaseClient =
     supabase.createClient(
@@ -598,40 +1064,44 @@ const input =
         "bannerInput"
     );
 
-
 const preview =
     document.getElementById(
         "preview"
     );
-
 
 const previewImage =
     document.getElementById(
         "previewImage"
     );
 
-
 const fileName =
     document.getElementById(
         "fileName"
     );
-
 
 const uploadBtn =
     document.getElementById(
         "uploadBtn"
     );
 
-
 const message =
     document.getElementById(
         "message"
     );
 
-
 const logoutButton =
     document.getElementById(
         "logoutButton"
+    );
+
+const categoryInput =
+    document.getElementById(
+        "category"
+    );
+
+const pincodeInput =
+    document.getElementById(
+        "pincode"
     );
 
 
@@ -749,6 +1219,24 @@ logoutButton.addEventListener(
 
 
 /* =====================================================
+   PINCODE INPUT
+   NUMBERS ONLY
+===================================================== */
+
+pincodeInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+                .replace(/\D/g,"")
+                .slice(0,6);
+
+    }
+);
+
+
+/* =====================================================
    SELECT IMAGE
 ===================================================== */
 
@@ -824,6 +1312,10 @@ uploadBtn.addEventListener(
             input.files[0];
 
 
+        /* ---------------------------------------------
+           FILE CHECK
+        --------------------------------------------- */
+
         if(!file){
 
             showMessage(
@@ -836,6 +1328,50 @@ uploadBtn.addEventListener(
         }
 
 
+        /* ---------------------------------------------
+           CATEGORY
+        --------------------------------------------- */
+
+        const category =
+            categoryInput.value.trim();
+
+
+        if(!category){
+
+            showMessage(
+                "Please select a category.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           PINCODE
+        --------------------------------------------- */
+
+        const pincode =
+            pincodeInput.value.trim();
+
+
+        if(!/^\d{6}$/.test(pincode)){
+
+            showMessage(
+                "Please enter a valid 6 digit pincode.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           START UPLOAD
+        --------------------------------------------- */
+
         uploadBtn.disabled =
             true;
 
@@ -845,12 +1381,20 @@ uploadBtn.addEventListener(
 
         try{
 
+            /* -----------------------------------------
+               FILE EXTENSION
+            ----------------------------------------- */
+
             const extension =
                 file.name
                     .split(".")
                     .pop()
                     .toLowerCase();
 
+
+            /* -----------------------------------------
+               UNIQUE STORAGE PATH
+            ----------------------------------------- */
 
             const filePath =
                 "banner-" +
@@ -859,7 +1403,9 @@ uploadBtn.addEventListener(
                 extension;
 
 
-            /* STORAGE */
+            /* -----------------------------------------
+               STORAGE UPLOAD
+            ----------------------------------------- */
 
             const storageResult =
                 await supabaseClient
@@ -882,7 +1428,9 @@ uploadBtn.addEventListener(
             }
 
 
-            /* PUBLIC URL */
+            /* -----------------------------------------
+               PUBLIC URL
+            ----------------------------------------- */
 
             const urlResult =
                 supabaseClient
@@ -899,7 +1447,18 @@ uploadBtn.addEventListener(
                     .publicUrl;
 
 
-            /* DATABASE */
+            if(!imageUrl){
+
+                throw new Error(
+                    "Unable to create image URL."
+                );
+
+            }
+
+
+            /* -----------------------------------------
+               DATABASE INSERT
+            ----------------------------------------- */
 
             const databaseResult =
                 await supabaseClient
@@ -911,6 +1470,12 @@ uploadBtn.addEventListener(
 
                         image_url:
                             imageUrl,
+
+                        category:
+                            category,
+
+                        pincode:
+                            pincode,
 
                         is_active:
                             true
@@ -925,18 +1490,31 @@ uploadBtn.addEventListener(
             }
 
 
+            /* -----------------------------------------
+               SUCCESS
+            ----------------------------------------- */
+
             showMessage(
                 "Banner uploaded successfully!",
                 "success"
             );
 
 
+            /* -----------------------------------------
+               RESET FORM
+            ----------------------------------------- */
+
             input.value = "";
 
+            categoryInput.value = "";
+
+            pincodeInput.value = "";
 
             preview.style.display =
                 "none";
 
+            previewImage.src =
+                "";
 
             fileName.textContent =
                 "";
@@ -996,7 +1574,6 @@ function showMessage(
 checkAdmin();
 
 </script>
-
 
 </body>
 
