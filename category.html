@@ -35,7 +35,6 @@ body{
     min-height:100%;
 }
 
-
 /* =====================================================
    BODY
 ===================================================== */
@@ -63,7 +62,6 @@ body{
     flex-direction:column;
 
 }
-
 
 /* =====================================================
    HEADER
@@ -95,7 +93,6 @@ body{
 
 }
 
-
 /* =====================================================
    LOGO
 ===================================================== */
@@ -118,36 +115,13 @@ body{
 
 }
 
-
-.logo-mark{
-
-    width:42px;
-    height:42px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:13px;
-
-    color:#fff;
-
-    font-size:21px;
-    font-weight:900;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff7418,
-            #ff426e
-        );
-
-    box-shadow:
-        0 8px 20px
-        rgba(255,88,70,.23);
-
+.pyn-text{
+    color:#ff5a36;
 }
 
+.code-text{
+    color:#151a28;
+}
 
 /* =====================================================
    HEADER ACTIONS
@@ -160,7 +134,6 @@ body{
     gap:9px;
 
 }
-
 
 /* =====================================================
    PROMOTION BUTTON
@@ -199,7 +172,6 @@ body{
         rgba(255,88,70,.23);
 
 }
-
 
 /* =====================================================
    HOME BUTTON
@@ -243,7 +215,6 @@ body{
 
 }
 
-
 .home-btn:hover{
 
     transform:translateY(-2px);
@@ -253,7 +224,6 @@ body{
         rgba(0,0,0,.17);
 
 }
-
 
 /* =====================================================
    MAIN
@@ -272,7 +242,6 @@ body{
     flex:1;
 
 }
-
 
 /* =====================================================
    CATEGORY HERO
@@ -309,7 +278,6 @@ body{
 
 }
 
-
 .category-hero::after{
 
     content:"";
@@ -333,7 +301,6 @@ body{
 
 }
 
-
 .category-hero-content{
 
     position:relative;
@@ -342,7 +309,6 @@ body{
     max-width:700px;
 
 }
-
 
 .category-label{
 
@@ -362,7 +328,6 @@ body{
 
 }
 
-
 .category-title{
 
     font-size:39px;
@@ -378,7 +343,6 @@ body{
 
 }
 
-
 .category-subtitle{
 
     margin-top:9px;
@@ -389,7 +353,6 @@ body{
     line-height:1.5;
 
 }
-
 
 .result-badge{
 
@@ -422,1381 +385,7 @@ body{
 
 }
 
-
 /* =====================================================
-   PINCODE SEARCH
-===================================================== */
-
-.pincode-search{
-
-    width:100%;
-
-    background:#fff;
-
-    border:
-        1px solid #e0e5ec;
-
-    border-radius:20px;
-
-    padding:18px;
-
-    margin-bottom:28px;
-
-    box-shadow:
-        0 9px 27px
-        rgba(25,40,70,.055);
-
-}
-
-
-.pincode-top{
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    gap:15px;
-
-    margin-bottom:11px;
-
-}
-
-
-.pincode-label{
-
-    display:flex;
-    align-items:center;
-    gap:7px;
-
-    color:#252b38;
-
-    font-size:14px;
-    font-weight:900;
-
-}
-
-
-.search-hint{
-
-    color:#9299a5;
-
-    font-size:12px;
-
-}
-
-
-.pincode-row{
-
-    display:grid;
-
-    grid-template-columns:
-        1fr
-        175px
-        100px;
-
-    gap:10px;
-
-}
-
-
-.pincode-input{
-
-    width:100%;
-    height:52px;
-
-    border:
-        1px solid #dce1e8;
-
-    border-radius:13px;
-
-    padding:
-        0 16px;
-
-    outline:none;
-
-    color:#151a28;
-
-    background:#fafbfd;
-
-    font-family:inherit;
-
-    font-size:15px;
-
-}
-
-
-.pincode-input::placeholder{
-
-    color:#969eaa;
-
-}
-
-
-.pincode-input:focus{
-
-    background:#fff;
-
-    border-color:#ff7045;
-
-    box-shadow:
-        0 0 0 4px
-        rgba(255,112,69,.09);
-
-}
-
-
-/* =====================================================
-   FIND / CLEAR
-===================================================== */
-
-.find-btn{
-
-    height:52px;
-
-    border:0;
-    border-radius:13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff7818,
-            #ff456c
-        );
-
-    color:#fff;
-
-    font-size:14px;
-    font-weight:900;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 7px 17px
-        rgba(255,91,65,.18);
-
-}
-
-
-.clear-btn{
-
-    height:52px;
-
-    border:
-        1px solid #dfe3e8;
-
-    border-radius:13px;
-
-    background:#f0f2f5;
-
-    color:#454c58;
-
-    font-size:13px;
-    font-weight:800;
-
-    cursor:pointer;
-
-}
-
-
-/* =====================================================
-   RESULTS
-===================================================== */
-
-.results-heading{
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    gap:15px;
-
-    margin-bottom:14px;
-
-}
-
-
-.results-title{
-
-    color:#151b29;
-
-    font-size:21px;
-    font-weight:900;
-
-}
-
-
-.results-hint{
-
-    color:#89919f;
-
-    font-size:12px;
-
-}
-
-
-/* =====================================================
-   SHOP LIST
-===================================================== */
-
-.shop-list{
-
-    width:100%;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(
-            2,
-            minmax(0,1fr)
-        );
-
-    gap:16px;
-
-}
-
-
-/* =====================================================
-   SHOP CARD
-===================================================== */
-
-.shop-card{
-
-    position:relative;
-    overflow:hidden;
-
-    background:#fff;
-
-    border:
-        1px solid #e1e6ed;
-
-    border-radius:19px;
-
-    padding:19px;
-
-    box-shadow:
-        0 7px 23px
-        rgba(25,40,70,.055);
-
-}
-
-
-.shop-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    top:0;
-
-    width:4px;
-    height:100%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #ff7818,
-            #ff426e
-        );
-
-}
-
-
-.shop-top{
-
-    position:relative;
-
-    display:flex;
-    align-items:flex-start;
-
-    gap:12px;
-
-    margin-bottom:17px;
-
-}
-
-
-.shop-icon{
-
-    width:92px;
-    height:92px;
-
-    flex-shrink:0;
-
-    overflow:hidden;
-
-    border-radius:14px;
-
-    background:#f2f0ec;
-
-    border:
-        1px solid #e3e0da;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:25px;
-    color:#777;
-
-}
-
-
-.shop-content{
-
-    min-width:0;
-
-}
-
-
-.shop-name{
-
-    color:#151b29;
-
-    font-size:19px;
-    line-height:1.28;
-
-    font-weight:900;
-
-    word-break:break-word;
-
-}
-
-
-.shop-category{
-
-    margin-top:5px;
-
-    color:#7d8797;
-
-    font-size:12px;
-    font-weight:700;
-
-}
-
-
-.shop-location{
-
-    margin-top:6px;
-
-    color:#8a93a1;
-
-    font-size:12px;
-    line-height:1.4;
-
-}
-
-
-/* =====================================================
-   VIEW OFFERS
-===================================================== */
-
-.today-offer-btn{
-
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    text-decoration:none;
-
-    padding:
-        7px 10px;
-
-    min-height:34px;
-
-    border-radius:9px;
-
-    background:#f3f5f8;
-
-    border:
-        1px solid #e1e5eb;
-
-    color:#303744;
-
-    font-size:11px;
-    font-weight:800;
-
-    white-space:nowrap;
-
-    transition:.2s ease;
-
-}
-
-
-.today-offer-btn:hover{
-
-    background:#e9edf2;
-
-    transform:translateY(-1px);
-
-}
-
-
-/* =====================================================
-   SHOP ACTIONS
-===================================================== */
-
-.shop-actions{
-
-    display:grid;
-
-    grid-template-columns:
-        1fr
-        1fr;
-
-    gap:9px;
-
-}
-
-
-.call-btn,
-.whatsapp-btn{
-
-    min-height:47px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:12px;
-
-    text-decoration:none;
-
-    font-size:13px;
-    font-weight:900;
-
-}
-
-
-.call-btn{
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff7818,
-            #ff486b
-        );
-
-    color:#fff;
-
-    box-shadow:
-        0 6px 14px
-        rgba(255,91,65,.16);
-
-}
-
-
-.whatsapp-btn{
-
-    background:#e9faf0;
-
-    color:#128043;
-
-    border:
-        1px solid #cbeed8;
-
-}
-
-
-/* =====================================================
-   CTA
-===================================================== */
-
-.list-shop-cta{
-
-    width:100%;
-
-    margin-top:24px;
-
-    padding:
-        19px 22px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:space-between;
-
-    gap:20px;
-
-    border:
-        1px solid #cfe2ff;
-
-    border-radius:19px;
-
-    background:
-        linear-gradient(
-            110deg,
-            #edf5ff,
-            #f7faff
-        );
-
-}
-
-
-.cta-content{
-
-    display:flex;
-    align-items:center;
-
-    gap:12px;
-
-}
-
-
-.cta-icon{
-
-    width:47px;
-    height:47px;
-
-    flex-shrink:0;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:14px;
-
-    background:#dcecff;
-
-    font-size:22px;
-
-}
-
-
-.cta-title{
-
-    color:#123e76;
-
-    font-size:16px;
-    font-weight:900;
-
-}
-
-
-.cta-text{
-
-    margin-top:4px;
-
-    color:#6b7e98;
-
-    font-size:12px;
-
-}
-
-
-.cta-button{
-
-    min-height:45px;
-
-    padding:
-        0 20px;
-
-    border-radius:12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #1678df,
-            #0866c9
-        );
-
-    color:#fff;
-
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-
-    text-decoration:none;
-
-    font-size:13px;
-    font-weight:900;
-
-    white-space:nowrap;
-
-}
-
-
-/* =====================================================
-   STATES
-===================================================== */
-
-.empty-card,
-.error-card,
-.loading{
-
-    background:#fff;
-
-    border:
-        1px solid #e1e6ed;
-
-    border-radius:19px;
-
-    padding:
-        60px 22px;
-
-    text-align:center;
-
-    grid-column:
-        1 / -1;
-
-    box-shadow:
-        0 7px 22px
-        rgba(25,40,70,.045);
-
-}
-
-
-.empty-icon{
-
-    font-size:38px;
-
-    margin-bottom:12px;
-
-}
-
-
-.empty-title,
-.error-title{
-
-    color:#1a202c;
-
-    font-size:22px;
-
-    font-weight:900;
-
-    margin-bottom:9px;
-
-}
-
-
-.empty-text,
-.error-text{
-
-    color:#7d8694;
-
-    font-size:14px;
-
-    line-height:1.5;
-
-}
-
-
-.loading{
-
-    color:#7e8795;
-
-    font-size:14px;
-
-}
-
-
-/* =====================================================
-   BACK BUTTON
-===================================================== */
-
-.back-btn{
-
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    min-height:44px;
-
-    margin-top:20px;
-
-    padding:
-        0 20px;
-
-    border-radius:11px;
-
-    background:#151a24;
-
-    color:#fff;
-
-    text-decoration:none;
-
-    font-size:13px;
-    font-weight:800;
-
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer{
-
-    width:100%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #101624,
-            #151d30
-        );
-
-    color:#fff;
-
-    padding:
-        32px 4% 21px;
-
-    margin-top:auto;
-
-}
-
-
-.footer-inner{
-
-    width:100%;
-    max-width:1180px;
-
-    margin:0 auto;
-
-    display:grid;
-
-    grid-template-columns:
-        1.2fr
-        1fr
-        auto;
-
-    align-items:center;
-
-    gap:30px;
-
-}
-
-
-.footer-title{
-
-    font-size:21px;
-    font-weight:900;
-
-}
-
-
-.footer-text{
-
-    margin-top:7px;
-
-    color:#aeb6c5;
-
-    font-size:13px;
-    line-height:1.5;
-
-}
-
-
-.footer-links{
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:9px;
-
-    flex-wrap:wrap;
-
-}
-
-
-.footer-links a{
-
-    color:#aeb6c5;
-
-    text-decoration:none;
-
-    font-size:13px;
-
-}
-
-
-.footer-separator{
-
-    color:#4d5668;
-
-}
-
-
-.footer-contact{
-
-    min-width:200px;
-
-    padding-left:27px;
-
-    border-left:
-        1px solid #343d50;
-
-}
-
-
-.footer-ad{
-
-    color:#969faf;
-
-    font-size:12px;
-
-    margin-bottom:5px;
-
-}
-
-
-.footer-contact a{
-
-    display:block;
-
-    color:#fff;
-
-    text-decoration:none;
-
-    font-size:14px;
-    font-weight:800;
-
-}
-
-
-.footer-number{
-
-    color:#ff9369 !important;
-
-    font-size:20px !important;
-
-    margin-top:3px;
-
-}
-
-
-.footer-copy{
-
-    max-width:1180px;
-
-    margin:
-        23px auto 0;
-
-    padding-top:17px;
-
-    border-top:
-        1px solid #2c3446;
-
-    color:#737d91;
-
-    font-size:12px;
-
-    text-align:center;
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:700px){
-
-    .header{
-
-        min-height:68px;
-
-        padding:
-            0 14px;
-
-    }
-
-
-    .logo{
-
-        font-size:20px;
-
-    }
-
-  .pyn-text{
-    color:#ff5a36;
-}
-
-.code-text{
-    color:#151a28;
-}
-
-
-    .logo-mark{
-
-        width:36px;
-        height:36px;
-
-        border-radius:11px;
-
-        font-size:18px;
-
-    }
-
-
-    .header-actions{
-
-        gap:6px;
-
-    }
-
-
-    .create-account-btn{
-
-        min-width:auto;
-
-        height:40px;
-
-        padding:
-            0 10px;
-
-        font-size:11px;
-
-    }
-
-
-    .home-btn{
-
-        min-width:70px;
-
-        height:40px;
-
-        font-size:11px;
-
-    }
-
-
-    .main{
-
-        padding:
-            27px 14px 40px;
-
-    }
-
-
-    .category-hero{
-
-        min-height:auto;
-
-        padding:
-            25px 20px;
-
-        border-radius:20px;
-
-    }
-
-
-    .category-title{
-
-        font-size:30px;
-
-        letter-spacing:-.6px;
-
-    }
-
-
-    .category-subtitle{
-
-        font-size:14px;
-
-    }
-
-
-    .result-badge{
-
-        position:static;
-
-        display:inline-flex;
-
-        margin-top:17px;
-
-        padding:
-            9px 14px;
-
-        font-size:12px;
-
-    }
-
-
-    .pincode-search{
-
-        padding:14px;
-
-        border-radius:17px;
-
-    }
-
-
-    .pincode-top{
-
-        align-items:flex-start;
-
-        flex-direction:column;
-
-        gap:5px;
-
-    }
-
-
-    .search-hint{
-
-        display:none;
-
-    }
-
-
-    .pincode-row{
-
-        grid-template-columns:
-            1fr
-            1fr;
-
-    }
-
-
-    .pincode-input{
-
-        grid-column:
-            1 / -1;
-
-        height:51px;
-
-    }
-
-
-    .find-btn,
-    .clear-btn{
-
-        height:49px;
-
-    }
-
-
-    .results-title{
-
-        font-size:18px;
-
-    }
-
-
-    .results-hint{
-
-        display:none;
-
-    }
-
-
-    .shop-list{
-
-        grid-template-columns:1fr;
-
-        gap:13px;
-
-    }
-
-
-    .shop-card{
-
-        padding:17px;
-
-        border-radius:17px;
-
-    }
-
-
-    .shop-name{
-
-        font-size:18px;
-
-    }
-
-
-    /*
-       IMPORTANT:
-       Call / WhatsApp / View Offers
-       remain in the same action row.
-    */
-
-    .shop-actions{
-
-        display:flex;
-
-        flex-direction:row;
-
-        align-items:center;
-
-        gap:6px;
-
-        width:100%;
-
-        margin-top:12px;
-
-    }
-
-
-    .call-btn,
-.whatsapp-btn{
-
-    flex:0 0 auto;
-    min-width:82px;
-    min-height:34px;
-    border-radius:9px;
-    font-size:11px;
-    padding:0 10px;
-
-}
-
-    .today-offer-btn{
-
-        margin-left:auto;
-
-        flex-shrink:0;
-
-        min-height:38px;
-
-        padding:
-            0 9px;
-
-        border-radius:10px;
-
-        font-size:10px;
-
-    }
-
-
-    .list-shop-cta{
-
-        padding:17px;
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-        gap:15px;
-
-    }
-
-
-    .cta-button{
-
-        width:100%;
-
-    }
-
-
-    .footer{
-
-        padding:
-            28px 18px 21px;
-
-    }
-
-
-    .footer-inner{
-
-        grid-template-columns:1fr;
-
-        gap:21px;
-
-    }
-
-
-    .footer-links{
-
-        justify-content:flex-start;
-
-    }
-
-
-    .footer-contact{
-
-        min-width:0;
-
-        padding:
-            18px 0 0;
-
-        border-left:0;
-
-        border-top:
-            1px solid #343d50;
-
-    }
-
-}
-
-
-/* =====================================================
-   MOBILE SUBTITLE
-===================================================== */
-
-@media(max-width:700px){
-
-    #categorySubtitle{
-
-        display:none !important;
-
-    }
-
-}
-
-  /* =====================================================
-   CATEGORY PINCODE SEARCH
-   SERVICES PAGE STYLE
-===================================================== */
-
-.pincode-search{
-    width:100% !important;
-
-    margin-bottom:32px !important;
-
-    padding:0 !important;
-
-    background:transparent !important;
-
-    border:none !important;
-
-    box-shadow:none !important;
-}
-
-
-.pincode-top{
-    display:none !important;
-}
-
-
-.pincode-label{
-    display:none !important;
-}
-
-
-.search-hint{
-    display:none !important;
-}
-
-
-.pincode-row{
-    width:100%;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-}
-
-
-.pincode-input{
-    flex:1;
-
-    min-width:0;
-
-    height:52px;
-
-    padding:0 16px;
-
-    border:1px solid #dfe4ea;
-
-    border-radius:14px;
-
-    background:#fff;
-
-    color:#151a28;
-
-    font-size:14px;
-
-    outline:none;
-
-    box-shadow:
-        0 5px 17px
-        rgba(25,40,70,.035);
-}
-
-
-.pincode-input:focus{
-    border-color:#ff9b79;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(255,118,25,.10);
-}
-
-
-.find-btn{
-    height:52px;
-
-    padding:0 21px;
-
-    flex-shrink:0;
-
-    border:none;
-
-    border-radius:14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff7619,
-            #ff416d
-        );
-
-    color:#fff;
-
-    font-size:14px;
-
-    font-weight:900;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 8px 20px
-        rgba(255,90,70,.18);
-}
-
-
-.clear-btn{
-    display:none !important;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:700px){
-
-    .pincode-row{
-        gap:8px;
-    }
-
-    .pincode-input{
-        height:48px;
-
-        font-size:13px;
-    }
-
-    .find-btn{
-        height:48px;
-
-        padding:0 16px;
-
-        font-size:13px;
-    }
-
-}
-
-  /* =====================================================
-   PINCODE SEARCH → RESULTS SPACING
-===================================================== */
-
-.pincode-search{
-    margin-bottom:28px !important;
-}
-
-.results-heading{
-    margin-top:24px !important;
-}
-
-  /* =====================================================
    SHOP PROMOTION HERO
 ===================================================== */
 
@@ -1843,34 +432,849 @@ body{
     font-weight:600;
 }
 
+/* =====================================================
+   CATEGORY BANNER SECTION
+===================================================== */
 
-/* MOBILE */
+.category-banner-section{
 
-@media(max-width:700px){
+    width:100%;
 
-    .shop-promo-small{
-        font-size:13px;
-        margin-bottom:8px;
-    }
+    margin-bottom:28px;
 
-    .shop-promo-title{
-        font-size:27px;
-        line-height:1.18;
-    }
+}
 
-    .shop-promo-text{
-        font-size:13px;
-        line-height:1.55;
-    }
+.category-banner-title{
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-bottom:11px;
+
+}
+
+.category-banner-heading{
+
+    color:#151b29;
+
+    font-size:18px;
+    font-weight:900;
+
+}
+
+.category-banner-name{
+
+    color:#8b93a0;
+
+    font-size:12px;
+    font-weight:700;
+
+}
+
+.category-banner-wrap{
+
+    width:100%;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:#edf0f4;
+
+    border:
+        1px solid #dfe4ea;
+
+    box-shadow:
+        0 9px 25px
+        rgba(25,40,70,.055);
+
+}
+
+/* Banner image */
+
+.category-banner-image{
+
+    display:block;
+
+    width:100%;
+
+    height:auto;
+
+    max-height:420px;
+
+    object-fit:cover;
+
+}
+
+/* Empty banner */
+
+.category-banner-empty{
+
+    width:100%;
+
+    min-height:190px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:30px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f7fa,
+            #edf1f5
+        );
+
+}
+
+.category-banner-empty-inner{
+
+    color:#9aa2ae;
+
+}
+
+.category-banner-empty-icon{
+
+    font-size:34px;
+
+    margin-bottom:9px;
+
+}
+
+.category-banner-empty-title{
+
+    font-size:15px;
+
+    font-weight:900;
+
+}
+
+.category-banner-empty-text{
+
+    margin-top:5px;
+
+    font-size:12px;
+
+    color:#a4abb5;
+
+}
+
+/* Multiple banners */
+
+.banner-slider{
+
+    width:100%;
+
+    display:flex;
+
+    overflow-x:auto;
+
+    scroll-snap-type:x mandatory;
+
+    scrollbar-width:none;
+
+}
+
+.banner-slider::-webkit-scrollbar{
+    display:none;
+}
+
+.banner-slide{
+
+    flex:0 0 100%;
+
+    scroll-snap-align:start;
+
+}
+
+.banner-slide img{
+
+    width:100%;
+
+    display:block;
+
+    max-height:420px;
+
+    object-fit:cover;
+
+}
+
+.banner-dots{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:11px;
+
+    display:flex;
+    justify-content:center;
+
+    gap:6px;
+
+    pointer-events:none;
+
+}
+
+.banner-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.72);
+
+    box-shadow:
+        0 1px 4px
+        rgba(0,0,0,.2);
+
+}
+
+.banner-dot.active{
+
+    width:19px;
+
+    border-radius:10px;
+
+    background:#fff;
+
+}
+
+/* =====================================================
+   PINCODE SEARCH
+===================================================== */
+
+.pincode-search{
+
+    width:100% !important;
+
+    margin-bottom:28px !important;
+
+    padding:0 !important;
+
+    background:transparent !important;
+
+    border:none !important;
+
+    box-shadow:none !important;
+
+}
+
+.pincode-top{
+    display:none !important;
+}
+
+.pincode-label{
+    display:none !important;
+}
+
+.search-hint{
+    display:none !important;
+}
+
+.pincode-row{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.pincode-input{
+
+    flex:1;
+
+    min-width:0;
+
+    height:52px;
+
+    padding:0 16px;
+
+    border:
+        1px solid #dfe4ea;
+
+    border-radius:14px;
+
+    background:#fff;
+
+    color:#151a28;
+
+    font-size:14px;
+
+    outline:none;
+
+    box-shadow:
+        0 5px 17px
+        rgba(25,40,70,.035);
+
+}
+
+.pincode-input:focus{
+
+    border-color:#ff9b79;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(255,118,25,.10);
+
+}
+
+.find-btn{
+
+    height:52px;
+
+    padding:0 21px;
+
+    flex-shrink:0;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 20px
+        rgba(255,90,70,.18);
+
+}
+
+.clear-btn{
+    display:none !important;
+}
+
+/* =====================================================
+   RESULTS
+===================================================== */
+
+.results-heading{
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-top:24px !important;
+    margin-bottom:14px;
+
+}
+
+.results-title{
+
+    color:#151b29;
+
+    font-size:21px;
+    font-weight:900;
+
+}
+
+.results-hint{
+
+    color:#89919f;
+
+    font-size:12px;
+
+}
+
+/* =====================================================
+   SHOP LIST
+===================================================== */
+
+.shop-list{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0,1fr)
+        );
+
+    gap:16px;
+
+}
+
+/* =====================================================
+   SHOP CARD
+===================================================== */
+
+.shop-card{
+
+    position:relative;
+    overflow:hidden;
+
+    background:#fff;
+
+    border:
+        1px solid #e1e6ed;
+
+    border-radius:19px;
+
+    padding:19px;
+
+    box-shadow:
+        0 7px 23px
+        rgba(25,40,70,.055);
+
+}
+
+.shop-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:4px;
+    height:100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ff7818,
+            #ff426e
+        );
+
+}
+
+.shop-top{
+
+    position:relative;
+
+    display:flex;
+    align-items:flex-start;
+
+    gap:12px;
+
+    margin-bottom:17px;
+
+}
+
+.shop-icon{
+
+    width:92px;
+    height:92px;
+
+    flex-shrink:0;
+
+    overflow:hidden;
+
+    border-radius:14px;
+
+    background:#f2f0ec;
+
+    border:
+        1px solid #e3e0da;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:25px;
+    color:#777;
+
+}
+
+.shop-content{
+    min-width:0;
+}
+
+.shop-name{
+
+    color:#151b29;
+
+    font-size:19px;
+    line-height:1.28;
+
+    font-weight:900;
+
+    word-break:break-word;
+
+}
+
+.shop-category{
+
+    margin-top:5px;
+
+    color:#7d8797;
+
+    font-size:12px;
+    font-weight:700;
+
+}
+
+.shop-location{
+
+    margin-top:6px;
+
+    color:#8a93a1;
+
+    font-size:12px;
+    line-height:1.4;
 
 }
 
   /* =====================================================
+   VIEW OFFERS
+===================================================== */
+
+.today-offer-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+
+    padding:
+        7px 10px;
+
+    min-height:34px;
+
+    border-radius:9px;
+
+    background:#f3f5f8;
+
+    border:
+        1px solid #e1e5eb;
+
+    color:#303744;
+
+    font-size:11px;
+    font-weight:800;
+
+    white-space:nowrap;
+
+    transition:.2s ease;
+
+}
+
+.today-offer-btn:hover{
+
+    background:#e9edf2;
+
+    transform:translateY(-1px);
+
+}
+
+/* =====================================================
+   SHOP ACTIONS
+===================================================== */
+
+.shop-actions{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:9px;
+
+}
+
+.call-btn,
+.whatsapp-btn{
+
+    min-height:47px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:900;
+
+}
+
+.call-btn{
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7818,
+            #ff486b
+        );
+
+    color:#fff;
+
+    box-shadow:
+        0 6px 14px
+        rgba(255,91,65,.16);
+
+}
+
+.whatsapp-btn{
+
+    background:#e9faf0;
+
+    color:#128043;
+
+    border:
+        1px solid #cbeed8;
+
+}
+
+/* =====================================================
+   CTA
+===================================================== */
+
+.list-shop-cta{
+
+    width:100%;
+
+    margin-top:24px;
+
+    padding:
+        19px 22px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+
+    border:
+        1px solid #cfe2ff;
+
+    border-radius:19px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #edf5ff,
+            #f7faff
+        );
+
+}
+
+.cta-content{
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.cta-icon{
+
+    width:47px;
+    height:47px;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:#dcecff;
+
+    font-size:22px;
+
+}
+
+.cta-title{
+
+    color:#123e76;
+
+    font-size:16px;
+    font-weight:900;
+
+}
+
+.cta-text{
+
+    margin-top:4px;
+
+    color:#6b7e98;
+
+    font-size:12px;
+
+}
+
+.cta-button{
+
+    min-height:45px;
+
+    padding:
+        0 20px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1678df,
+            #0866c9
+        );
+
+    color:#fff;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:900;
+
+    white-space:nowrap;
+
+}
+
+/* =====================================================
+   STATES
+===================================================== */
+
+.empty-card,
+.error-card,
+.loading{
+
+    background:#fff;
+
+    border:
+        1px solid #e1e6ed;
+
+    border-radius:19px;
+
+    padding:
+        60px 22px;
+
+    text-align:center;
+
+    grid-column:
+        1 / -1;
+
+    box-shadow:
+        0 7px 22px
+        rgba(25,40,70,.045);
+
+}
+
+.empty-icon{
+
+    font-size:38px;
+
+    margin-bottom:12px;
+
+}
+
+.empty-title,
+.error-title{
+
+    color:#1a202c;
+
+    font-size:22px;
+
+    font-weight:900;
+
+    margin-bottom:9px;
+
+}
+
+.empty-text,
+.error-text{
+
+    color:#7d8694;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+}
+
+.loading{
+
+    color:#7e8795;
+
+    font-size:14px;
+
+}
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.back-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-height:44px;
+
+    margin-top:20px;
+
+    padding:
+        0 20px;
+
+    border-radius:11px;
+
+    background:#151a24;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:800;
+
+}
+
+/* =====================================================
    FIXED BOTTOM NAVIGATION
 ===================================================== */
 
 .bottom-nav{
+
     position:fixed;
+
     left:0;
     right:0;
     bottom:0;
@@ -1878,59 +1282,441 @@ body{
     height:78px;
 
     background:#fff;
-    border-top:1px solid #e5e7eb;
+
+    border-top:
+        1px solid #e5e7eb;
 
     display:flex;
+
     align-items:center;
     justify-content:space-around;
 
     padding:8px 10px;
 
     z-index:9999;
+
 }
 
-/* Navigation Item */
-
 .bottom-nav-item{
+
     flex:1;
 
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
     justify-content:center;
 
     gap:4px;
 
     text-decoration:none;
+
     color:#777;
 
     min-width:0;
-}
 
-/* Icon */
+}
 
 .nav-icon{
-    font-size:23px;
-    line-height:1;
-}
 
-/* Label */
+    font-size:23px;
+
+    line-height:1;
+
+}
 
 .nav-label{
-    font-size:14px;
-    font-weight:600;
-}
 
-/* Active Navigation */
+    font-size:14px;
+
+    font-weight:600;
+
+}
 
 .bottom-nav-item.active{
+
     color:#ef5b3f;
+
 }
 
-/* Prevent content from being hidden */
-
 body{
+
     padding-bottom:90px;
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+    .header{
+
+        min-height:68px;
+
+        padding:
+            0 14px;
+
+    }
+
+    .logo{
+
+        font-size:20px;
+
+    }
+
+    .logo-mark{
+
+        width:36px;
+        height:36px;
+
+        border-radius:11px;
+
+        font-size:18px;
+
+    }
+
+    .header-actions{
+
+        gap:6px;
+
+    }
+
+    .create-account-btn{
+
+        min-width:auto;
+
+        height:40px;
+
+        padding:
+            0 10px;
+
+        font-size:11px;
+
+    }
+
+    .home-btn{
+
+        min-width:70px;
+
+        height:40px;
+
+        font-size:11px;
+
+    }
+
+    .main{
+
+        padding:
+            27px 14px 40px;
+
+    }
+
+    .category-hero{
+
+        min-height:auto;
+
+        padding:
+            25px 20px;
+
+        border-radius:20px;
+
+    }
+
+    .category-title{
+
+        font-size:30px;
+
+        letter-spacing:-.6px;
+
+    }
+
+    .category-subtitle{
+
+        font-size:14px;
+
+    }
+
+    .result-badge{
+
+        position:static;
+
+        display:inline-flex;
+
+        margin-top:17px;
+
+        padding:
+            9px 14px;
+
+        font-size:12px;
+
+    }
+
+    .shop-promo-small{
+
+        font-size:13px;
+
+        margin-bottom:8px;
+
+    }
+
+    .shop-promo-title{
+
+        font-size:27px;
+
+        line-height:1.18;
+
+    }
+
+    .shop-promo-text{
+
+        font-size:13px;
+
+        line-height:1.55;
+
+    }
+
+    /* =================================================
+       MOBILE BANNER
+    ================================================= */
+
+    .category-banner-section{
+
+        margin-bottom:23px;
+
+    }
+
+    .category-banner-heading{
+
+        font-size:16px;
+
+    }
+
+    .category-banner-name{
+
+        font-size:10px;
+
+    }
+
+    .category-banner-wrap{
+
+        border-radius:16px;
+
+    }
+
+    .category-banner-image{
+
+        max-height:none;
+
+    }
+
+    .banner-slide img{
+
+        max-height:none;
+
+    }
+
+    .category-banner-empty{
+
+        min-height:145px;
+
+        border-radius:16px;
+
+    }
+
+    .category-banner-empty-icon{
+
+        font-size:29px;
+
+    }
+
+    .category-banner-empty-title{
+
+        font-size:13px;
+
+    }
+
+    .category-banner-empty-text{
+
+        font-size:11px;
+
+    }
+
+    /* =================================================
+       MOBILE PINCODE
+    ================================================= */
+
+    .pincode-row{
+
+        gap:8px;
+
+    }
+
+    .pincode-input{
+
+        height:48px;
+
+        font-size:13px;
+
+    }
+
+    .find-btn{
+
+        height:48px;
+
+        padding:
+            0 16px;
+
+        font-size:13px;
+
+    }
+
+    .results-title{
+
+        font-size:18px;
+
+    }
+
+    .results-hint{
+
+        display:none;
+
+    }
+
+    .shop-list{
+
+        grid-template-columns:1fr;
+
+        gap:13px;
+
+    }
+
+    .shop-card{
+
+        padding:17px;
+
+        border-radius:17px;
+
+    }
+
+    .shop-name{
+
+        font-size:18px;
+
+    }
+
+    .shop-actions{
+
+        display:flex;
+
+        flex-direction:row;
+
+        align-items:center;
+
+        gap:6px;
+
+        width:100%;
+
+        margin-top:12px;
+
+    }
+
+    .call-btn,
+    .whatsapp-btn{
+
+        flex:0 0 auto;
+
+        min-width:82px;
+
+        min-height:34px;
+
+        border-radius:9px;
+
+        font-size:11px;
+
+        padding:
+            0 10px;
+
+    }
+
+    .today-offer-btn{
+
+        margin-left:auto;
+
+        flex-shrink:0;
+
+        min-height:38px;
+
+        padding:
+            0 9px;
+
+        border-radius:10px;
+
+        font-size:10px;
+
+    }
+
+    .list-shop-cta{
+
+        padding:17px;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:15px;
+
+    }
+
+    .cta-button{
+
+        width:100%;
+
+    }
+
+    .footer{
+
+        padding:
+            28px 18px 21px;
+
+    }
+
+    .footer-inner{
+
+        grid-template-columns:1fr;
+
+        gap:21px;
+
+    }
+
+    .footer-links{
+
+        justify-content:flex-start;
+
+    }
+
+    .footer-contact{
+
+        min-width:0;
+
+        padding:
+            18px 0 0;
+
+        border-left:0;
+
+        border-top:
+            1px solid #343d50;
+
+    }
+
+    #categorySubtitle{
+
+        display:none !important;
+
+    }
+
 }
 
 </style>
@@ -1945,7 +1731,6 @@ body{
 
 <header class="header">
 
-    <!-- Logo / Hidden Admin Trigger -->
     <a
         href="index.html"
         class="logo"
@@ -1954,24 +1739,20 @@ body{
     >
 
         <span>
-    <span class="pyn-text">Pyn</span><span class="code-text">code.in</span>
+            <span class="pyn-text">Pyn</span><span class="code-text">code.in</span>
         </span>
 
     </a>
 
-
-    <!-- Header Actions -->
     <div class="header-actions">
 
         <a
-    href="shopowner-upload-login.html"
-    class="create-account-btn"
-    id="promotionButton"
->
-    📢 For Promotion
-
+            href="shopowner-upload-login.html"
+            class="create-account-btn"
+            id="promotionButton"
+        >
+            📢 For Promotion
         </a>
-
 
         <button
             type="button"
@@ -1986,7 +1767,6 @@ body{
 </header>
 
 
-
 <!-- =====================================================
      MAIN
 ===================================================== -->
@@ -1994,7 +1774,7 @@ body{
 <main class="main">
 
 
-  <!-- =====================================================
+<!-- =====================================================
      CATEGORY HERO
 ===================================================== -->
 
@@ -2002,41 +1782,48 @@ body{
 
     <div class="category-hero-content">
 
-        <!-- Existing JS elements kept safely -->
         <div
             class="category-label pyncode-hidden"
             aria-hidden="true"
         >
+
             <div class="category-eyebrow">
+
                 <span id="listingTypeLabel">
                     Local Shops
                 </span>
+
             </div>
+
         </div>
 
-
-        <!-- NEW PROMOTIONAL TEXT -->
 
         <div class="shop-promo-content">
 
             <div class="shop-promo-small">
+
                 ✨ உங்கள் கடையும் இங்கே இருக்கட்டும்!
+
             </div>
 
+
             <h1 class="shop-promo-title">
+
                 இன்றே உங்கள் Shop-ஐ
                 <span>FREE-ஆ list பண்ணுங்க!</span>
+
             </h1>
 
+
             <p class="shop-promo-text">
+
                 உங்கள் அருகிலுள்ள customers &amp; neighbours
                 உங்கள் business-ஐ எளிதாக கண்டுபிடிக்கட்டும்.
+
             </p>
 
         </div>
 
-
-        <!-- Existing category elements kept for JavaScript -->
 
         <h1
             class="category-title pyncode-hidden"
@@ -2044,6 +1831,7 @@ body{
         >
             Loading...
         </h1>
+
 
         <p
             class="category-subtitle pyncode-hidden"
@@ -2053,21 +1841,74 @@ body{
         </p>
 
 
-        <!-- EXISTING SHOP COUNT — KEEP -->
-
         <div
             class="result-badge"
             id="resultBadge"
         >
+
             🏪
+
             <span id="resultTypeText">
                 Shops
             </span>
+
         </div>
 
     </div>
 
 </section>
+
+
+<!-- =====================================================
+     CATEGORY BANNER
+     ADMIN → banners TABLE
+     STORAGE → banners BUCKET
+===================================================== -->
+
+<section
+    class="category-banner-section"
+    id="categoryBannerSection"
+>
+
+    <div class="category-banner-title">
+
+        <div class="category-banner-heading">
+            📢 Featured
+        </div>
+
+        <div
+            class="category-banner-name"
+            id="categoryBannerName"
+        >
+            Loading...
+        </div>
+
+    </div>
+
+
+    <div
+        class="category-banner-wrap"
+        id="categoryBannerWrap"
+    >
+
+        <!--
+            JavaScript will load the banner here.
+
+            If category has banners:
+            → banner image(s)
+
+            If category has no banner:
+            → empty banner area
+        -->
+
+        <div class="loading">
+            Loading banner...
+        </div>
+
+    </div>
+
+</section>
+
 
 <!-- =====================================================
      PINCODE SEARCH
@@ -2087,6 +1928,7 @@ body{
             autocomplete="postal-code"
         >
 
+
         <button
             type="button"
             id="findButton"
@@ -2094,6 +1936,7 @@ body{
         >
             🔍 Find Shops
         </button>
+
 
         <button
             type="button"
@@ -2108,94 +1951,88 @@ body{
 </section>
 
 
-  <!-- =================================================
-         RESULTS HEADING
-    ================================================== -->
+<!-- =====================================================
+     RESULTS HEADING
+===================================================== -->
 
-    <div class="results-heading">
+<div class="results-heading">
 
-        <div class="results-title">
-            Available Shops
+    <div class="results-title">
+        Available Shops
+    </div>
+
+
+    <div class="results-hint">
+        📞 Call or WhatsApp directly
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SHOP LIST
+===================================================== -->
+
+<div
+    id="shopList"
+    class="shop-list"
+>
+
+    <div class="loading">
+        Finding local shops...
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     LIST YOUR SHOP / SERVICE CTA
+===================================================== -->
+
+<section class="list-shop-cta">
+
+    <div class="cta-content">
+
+        <div class="cta-icon">
+            🏪
         </div>
 
 
-        <div class="results-hint">
-            📞 Call or WhatsApp directly
+        <div>
+
+            <div
+                class="cta-title"
+                id="ctaTitle"
+            >
+                Can't find your shop?
+            </div>
+
+
+            <div
+                class="cta-text"
+                id="ctaText"
+            >
+                List your shop for free and reach more customers.
+            </div>
+
         </div>
 
     </div>
 
 
-
-    <!-- =================================================
-         SHOP LIST
-    ================================================== -->
-
-    <div
-        id="shopList"
-        class="shop-list"
+    <a
+        href="list-your-shop.html"
+        class="cta-button"
+        id="ctaButton"
     >
+        List Your Shop
+    </a>
 
-        <div class="loading">
-            Finding local shops...
-        </div>
-
-    </div>
-
-
-
-    <!-- =================================================
-         LIST YOUR SHOP / SERVICE CTA
-    ================================================== -->
-
-    <section class="list-shop-cta">
-
-        <div class="cta-content">
-
-            <div class="cta-icon">
-                🏪
-            </div>
-
-
-            <div>
-
-                <div
-                    class="cta-title"
-                    id="ctaTitle"
-                >
-                    Can't find your shop?
-                </div>
-
-
-                <div
-                    class="cta-text"
-                    id="ctaText"
-                >
-                    List your shop for free and reach more customers.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <a
-            href="list-your-shop.html"
-            class="cta-button"
-            id="ctaButton"
-        >
-            List Your Shop
-        </a>
-
-    </section>
+</section>
 
 </main>
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
-<script>
+  <script>
 
 /* =====================================================
    SUPABASE CONNECTION
@@ -2215,47 +2052,99 @@ const supabaseClient =
 
 
 /* =====================================================
+   BANNER SETTINGS
+===================================================== */
+
+const BANNER_BUCKET =
+    "banners";
+
+const BANNER_TABLE =
+    "banners";
+
+
+/* =====================================================
    ELEMENTS
 ===================================================== */
 
 const categoryTitle =
-    document.getElementById("categoryTitle");
+    document.getElementById(
+        "categoryTitle"
+    );
 
 const categorySubtitle =
-    document.getElementById("categorySubtitle");
+    document.getElementById(
+        "categorySubtitle"
+    );
 
 const resultBadge =
-    document.getElementById("resultBadge");
+    document.getElementById(
+        "resultBadge"
+    );
 
 const shopList =
-    document.getElementById("shopList");
+    document.getElementById(
+        "shopList"
+    );
 
 const pincodeInput =
-    document.getElementById("pincodeInput");
+    document.getElementById(
+        "pincodeInput"
+    );
 
 const findButton =
-    document.getElementById("findButton");
+    document.getElementById(
+        "findButton"
+    );
 
 const findButtonText =
-    document.getElementById("findButtonText");
+    document.getElementById(
+        "findButtonText"
+    );
 
 const clearButton =
-    document.getElementById("clearButton");
+    document.getElementById(
+        "clearButton"
+    );
 
 const listingTypeLabel =
-    document.getElementById("listingTypeLabel");
+    document.getElementById(
+        "listingTypeLabel"
+    );
 
 const resultTypeText =
-    document.getElementById("resultTypeText");
+    document.getElementById(
+        "resultTypeText"
+    );
 
 const ctaTitle =
-    document.getElementById("ctaTitle");
+    document.getElementById(
+        "ctaTitle"
+    );
 
 const ctaText =
-    document.getElementById("ctaText");
+    document.getElementById(
+        "ctaText"
+    );
 
 const ctaButton =
-    document.getElementById("ctaButton");
+    document.getElementById(
+        "ctaButton"
+    );
+
+const promotionButton =
+    document.getElementById(
+        "promotionButton"
+    );
+
+const categoryBannerWrap =
+    document.getElementById(
+        "categoryBannerWrap"
+    );
+
+const categoryBannerName =
+    document.getElementById(
+        "categoryBannerName"
+    );
 
 
 /* =====================================================
@@ -2309,6 +2198,7 @@ function getCategory(){
 
         }
 
+
         category =
             category
                 .replace(
@@ -2360,11 +2250,30 @@ function escapeHTML(value){
 
     return String(value)
 
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -2486,6 +2395,7 @@ function showEmpty(
     categoryTitle.textContent =
         category;
 
+
     if(pincode){
 
         categorySubtitle.textContent =
@@ -2508,6 +2418,7 @@ function showEmpty(
 
     }
 
+
     if(resultBadge){
 
         resultBadge.textContent =
@@ -2516,6 +2427,7 @@ function showEmpty(
             : "0 Shops";
 
     }
+
 
     shopList.innerHTML = `
 
@@ -2568,7 +2480,466 @@ function showEmpty(
     `;
 
 }
-  /* =====================================================
+
+    /* =====================================================
+   LOAD CATEGORY BANNERS
+===================================================== */
+
+async function loadCategoryBanners(){
+
+    const category =
+        getCategory();
+
+    if(!category){
+
+        return;
+
+    }
+
+
+    if(categoryBannerName){
+
+        categoryBannerName.textContent =
+            category;
+
+    }
+
+
+    if(!categoryBannerWrap){
+
+        return;
+
+    }
+
+
+    categoryBannerWrap.innerHTML = `
+
+        <div class="loading">
+            Loading banner...
+        </div>
+
+    `;
+
+
+    try{
+
+        /*
+         * IMPORTANT:
+         *
+         * Admin banner upload saves:
+         *
+         * table   = banners
+         * category
+         * image_url
+         * is_active
+         *
+         * We only load banners belonging
+         * to the currently opened category.
+         */
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from(BANNER_TABLE)
+            .select(
+                "id,name,category,image_url,is_active"
+            )
+            .eq(
+                "category",
+                category
+            )
+            .eq(
+                "is_active",
+                true
+            )
+            .order(
+                "id",
+                {
+                    ascending:false
+                }
+            );
+
+
+        if(error){
+
+            console.error(
+                "BANNER LOAD ERROR:",
+                error
+            );
+
+            throw error;
+
+        }
+
+
+        const banners =
+            (data || [])
+                .filter(function(banner){
+
+                    return (
+                        banner &&
+                        banner.image_url
+                    );
+
+                });
+
+
+        /* =================================================
+           NO BANNER
+        ================================================= */
+
+        if(
+            banners.length === 0
+        ){
+
+            categoryBannerWrap.innerHTML = `
+
+                <div
+                    class="category-banner-empty"
+                >
+
+                    <div
+                        class="category-banner-empty-inner"
+                    >
+
+                        <div
+                            class="category-banner-empty-icon"
+                        >
+                            🖼️
+                        </div>
+
+                        <div
+                            class="category-banner-empty-title"
+                        >
+                            Banner coming soon
+                        </div>
+
+                        <div
+                            class="category-banner-empty-text"
+                        >
+                            No banner available for this category yet.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        /* =================================================
+           SINGLE BANNER
+        ================================================= */
+
+        if(
+            banners.length === 1
+        ){
+
+            const banner =
+                banners[0];
+
+            categoryBannerWrap.innerHTML = `
+
+                <img
+                    class="category-banner-image"
+                    src="${escapeHTML(
+                        banner.image_url
+                    )}"
+                    alt="${escapeHTML(
+                        category
+                    )} banner"
+                    loading="eager"
+                >
+
+            `;
+
+            return;
+
+        }
+
+
+        /* =================================================
+           MULTIPLE BANNERS
+        ================================================= */
+
+        const slides =
+            banners
+                .map(function(banner){
+
+                    return `
+
+                        <div
+                            class="banner-slide"
+                        >
+
+                            <img
+                                src="${escapeHTML(
+                                    banner.image_url
+                                )}"
+                                alt="${escapeHTML(
+                                    category
+                                )} banner"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+                    `;
+
+                })
+                .join("");
+
+
+        const dots =
+            banners
+                .map(function(){
+
+                    return `
+
+                        <span
+                            class="banner-dot"
+                        ></span>
+
+                    `;
+
+                })
+                .join("");
+
+
+        categoryBannerWrap.innerHTML = `
+
+            <div
+                class="banner-slider"
+                id="bannerSlider"
+            >
+
+                ${slides}
+
+            </div>
+
+
+            <div
+                class="banner-dots"
+                id="bannerDots"
+            >
+
+                ${dots}
+
+            </div>
+
+        `;
+
+
+        setupBannerSlider();
+
+    }
+    catch(error){
+
+        console.error(
+            "CATEGORY BANNER ERROR:",
+            error
+        );
+
+
+        /*
+         * Banner failure must NOT
+         * break shop loading.
+         */
+
+        categoryBannerWrap.innerHTML = `
+
+            <div
+                class="category-banner-empty"
+            >
+
+                <div
+                    class="category-banner-empty-inner"
+                >
+
+                    <div
+                        class="category-banner-empty-icon"
+                    >
+                        🖼️
+                    </div>
+
+                    <div
+                        class="category-banner-empty-title"
+                    >
+                        Banner unavailable
+                    </div>
+
+                    <div
+                        class="category-banner-empty-text"
+                    >
+                        Please check again later.
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   BANNER SLIDER
+===================================================== */
+
+function setupBannerSlider(){
+
+    const slider =
+        document.getElementById(
+            "bannerSlider"
+        );
+
+    const dots =
+        document.querySelectorAll(
+            "#bannerDots .banner-dot"
+        );
+
+
+    if(
+        !slider ||
+        !dots.length
+    ){
+
+        return;
+
+    }
+
+
+    function updateDots(){
+
+        const width =
+            slider.clientWidth;
+
+        if(!width){
+
+            return;
+
+        }
+
+
+        const index =
+            Math.round(
+                slider.scrollLeft /
+                width
+            );
+
+
+        dots.forEach(
+            function(dot,i){
+
+                dot.classList.toggle(
+                    "active",
+                    i === index
+                );
+
+            }
+        );
+
+    }
+
+
+    dots[0].classList.add(
+        "active"
+    );
+
+
+    slider.addEventListener(
+        "scroll",
+        updateDots,
+        {
+            passive:true
+        }
+    );
+
+
+    /*
+     * Auto slide only when
+     * multiple banners exist.
+     */
+
+    let autoSlide =
+        setInterval(
+            function(){
+
+                if(
+                    document.hidden
+                ){
+
+                    return;
+
+                }
+
+
+                const width =
+                    slider.clientWidth;
+
+                if(!width){
+
+                    return;
+
+                }
+
+
+                const maxScroll =
+                    slider.scrollWidth -
+                    slider.clientWidth;
+
+
+                if(
+                    slider.scrollLeft >=
+                    maxScroll - 5
+                ){
+
+                    slider.scrollTo({
+                        left:0,
+                        behavior:"smooth"
+                    });
+
+                }
+                else{
+
+                    slider.scrollBy({
+                        left:width,
+                        behavior:"smooth"
+                    });
+
+                }
+
+            },
+            5000
+        );
+
+
+    slider.addEventListener(
+        "touchstart",
+        function(){
+
+            clearInterval(
+                autoSlide
+            );
+
+        },
+        {
+            passive:true
+        }
+    );
+
+}
+
+    /* =====================================================
    CREATE SHOP CARD
 ===================================================== */
 
@@ -2579,31 +2950,37 @@ function createShopCard(shop){
             shop.shop_name
         );
 
+
     const category =
         escapeHTML(
             shop.category
         );
+
 
     const area =
         escapeHTML(
             shop.area
         );
 
+
     const city =
         escapeHTML(
             shop.city
         );
+
 
     const mobile =
         cleanMobile(
             shop.mobile
         );
 
-   const whatsapp =
-    cleanWhatsApp(
-        shop.whatsapp ||
-        shop.mobile
-    );
+
+    const whatsapp =
+        cleanWhatsApp(
+            shop.whatsapp ||
+            shop.mobile
+        );
+
 
     const shopImage =
         shop.shop_image || "";
@@ -2615,7 +2992,11 @@ function createShopCard(shop){
 
     let locationText = "";
 
-    if(area && city){
+
+    if(
+        area &&
+        city
+    ){
 
         locationText =
             "📍 " +
@@ -2654,10 +3035,10 @@ function createShopCard(shop){
 
     /* =================================================
        CALL BUTTON
-       PRESERVED
     ================================================= */
 
     let callButton = "";
+
 
     if(mobile){
 
@@ -2694,10 +3075,10 @@ function createShopCard(shop){
 
     /* =================================================
        WHATSAPP BUTTON
-       PRESERVED
     ================================================= */
 
     let whatsappButton = "";
+
 
     if(whatsapp){
 
@@ -2735,26 +3116,30 @@ function createShopCard(shop){
 
 
     /* =================================================
-       VIEW OFFERS BUTTON
-       PRESERVED
+       VIEW OFFERS
+       EXISTING MAPPING PRESERVED
     ================================================= */
 
     const todayOfferButton =
-    getListingType() === "shop"
-        ? `
+        getListingType() === "shop"
+        ?
+        `
             <a
-                href="category-shop-current-offer.html?shop_id=${shop.id}"
+                href="category-shop-current-offer.html?shop_id=${encodeURIComponent(
+                    shop.id
+                )}"
                 class="today-offer-btn"
             >
                 🔥 View Offers
             </a>
-          `
-        : "";
+        `
+        :
+        "";
 
 
     /* =================================================
        SHOP CARD
-===================================================== */
+    ================================================= */
 
     return `
 
@@ -2769,7 +3154,9 @@ function createShopCard(shop){
                         ?
                         `
                         <img
-                            src="${escapeHTML(shopImage)}"
+                            src="${escapeHTML(
+                                shopImage
+                            )}"
                             alt="${shopName || "Shop"}"
                             style="
                                 width:100%;
@@ -2820,11 +3207,6 @@ function createShopCard(shop){
             </div>
 
 
-            <!-- =========================================
-                 CALL / WHATSAPP / VIEW OFFERS
-                 LINKS PRESERVED
-            ========================================== -->
-
             <div class="shop-actions">
 
                 ${callButton}
@@ -2834,7 +3216,6 @@ function createShopCard(shop){
                 ${todayOfferButton}
 
             </div>
-
 
         </article>
 
@@ -2852,25 +3233,32 @@ async function loadShops(){
     const category =
         getCategory();
 
+
     const listingType =
         getListingType();
 
-  const promotionButton =
-    document.getElementById("promotionButton");
 
-if(promotionButton){
-    promotionButton.style.display =
-        listingType === "shop"
+    /* =================================================
+       PROMOTION BUTTON
+    ================================================= */
+
+    if(promotionButton){
+
+        promotionButton.style.display =
+            listingType === "shop"
             ? ""
             : "none";
-}
+
+    }
 
 
     /* =================================================
-       UPDATE PAGE TEXT
+       PAGE TYPE
     ================================================= */
 
-    if(listingType === "service"){
+    if(
+        listingType === "service"
+    ){
 
         if(listingTypeLabel){
 
@@ -2879,12 +3267,14 @@ if(promotionButton){
 
         }
 
+
         if(resultTypeText){
 
             resultTypeText.textContent =
                 "Services";
 
         }
+
 
         if(findButtonText){
 
@@ -2893,6 +3283,15 @@ if(promotionButton){
 
         }
 
+
+        if(findButton){
+
+            findButton.innerHTML =
+                "🔍 Find Services";
+
+        }
+
+
         if(ctaTitle){
 
             ctaTitle.textContent =
@@ -2900,12 +3299,14 @@ if(promotionButton){
 
         }
 
+
         if(ctaText){
 
             ctaText.textContent =
                 "List your service for free and reach more customers.";
 
         }
+
 
         if(ctaButton){
 
@@ -2927,12 +3328,14 @@ if(promotionButton){
 
         }
 
+
         if(resultTypeText){
 
             resultTypeText.textContent =
                 "Shops";
 
         }
+
 
         if(findButtonText){
 
@@ -2941,6 +3344,15 @@ if(promotionButton){
 
         }
 
+
+        if(findButton){
+
+            findButton.innerHTML =
+                "🔍 Find Shops";
+
+        }
+
+
         if(ctaTitle){
 
             ctaTitle.textContent =
@@ -2948,12 +3360,14 @@ if(promotionButton){
 
         }
 
+
         if(ctaText){
 
             ctaText.textContent =
                 "List your shop for free and reach more customers.";
 
         }
+
 
         if(ctaButton){
 
@@ -2995,6 +3409,17 @@ if(promotionButton){
     }
 
 
+    /*
+     * Banner loading is intentionally
+     * independent from shops.
+     *
+     * So if banner has an error,
+     * shop page still works.
+     */
+
+    loadCategoryBanners();
+
+
     /* =================================================
        GET PINCODE
     ================================================= */
@@ -3020,12 +3445,14 @@ if(promotionButton){
             categorySubtitle.textContent =
                 "Please enter a valid 6 digit pincode.";
 
+
             if(resultBadge){
 
                 resultBadge.textContent =
                     "Invalid Pincode";
 
             }
+
 
             shopList.innerHTML = `
 
@@ -3072,9 +3499,8 @@ if(promotionButton){
 
     `;
 
-
-    /* =================================================
-       SUPABASE QUERY
+      /* =================================================
+       SUPABASE SHOP QUERY
     ================================================= */
 
     let query =
@@ -3095,7 +3521,7 @@ if(promotionButton){
                 shop_image,
                 listing_type
             `)
-            .ilike(
+            .eq(
                 "category",
                 category
             )
@@ -3305,7 +3731,8 @@ if(promotionButton){
 
 }
 
-  /* =====================================================
+
+/* =====================================================
    FIND SHOPS / SERVICES
 ===================================================== */
 
@@ -3323,7 +3750,6 @@ if(findButton){
 
             /* -------------------------------------------
                EMPTY PINCODE
-               Show all listings in selected category
             ------------------------------------------- */
 
             if(!pincode){
@@ -3426,12 +3852,6 @@ if(clearButton){
 
             }
 
-
-            /*
-             * Reload all listings
-             * from selected category.
-             */
-
             loadShops();
 
         }
@@ -3470,8 +3890,7 @@ if(pincodeInput){
 
 }
 
-
-/* =====================================================
+    /* =====================================================
    HIDDEN ADMIN ACCESS
    5 TAPS ON PYNCODE LOGO
 ===================================================== */
@@ -3495,11 +3914,10 @@ const ADMIN_TAP_TIMEOUT = 2000;
 function handleAdminTap(event){
 
     /*
-     * First normal click:
-     * Keep Home navigation working.
+     * Normal click still goes
+     * to Home.
      *
-     * Admin access is triggered only
-     * after 5 taps.
+     * 5 taps opens admin login.
      */
 
     adminTapCount++;
@@ -3564,22 +3982,33 @@ if(adminTrigger){
 const initialCategory =
     getCategory();
 
+
 if(!initialCategory){
 
-    window.location.href = "index.html";
+    window.location.href =
+        "index.html";
 
 }
 else{
 
-    loadShops();
+    /*
+     * First load banners.
+     *
+     * Then existing shop
+     * functionality continues.
+     */
 
+    loadShops();
 
 }
 
 </script>
 
-  <!-- =====================================================
-   FIXED BOTTOM NAVIGATION
+
+
+
+<!-- =====================================================
+     FIXED BOTTOM NAVIGATION
 ===================================================== -->
 
 <nav class="bottom-nav">
@@ -3588,35 +4017,67 @@ else{
         href="shops.html"
         class="bottom-nav-item"
     >
-        <span class="nav-icon">🏪</span>
-        <span class="nav-label">Shops</span>
+
+        <span class="nav-icon">
+            🏪
+        </span>
+
+        <span class="nav-label">
+            Shops
+        </span>
+
     </a>
+
 
     <a
         href="services.html"
         class="bottom-nav-item"
     >
-        <span class="nav-icon">🛠️</span>
-        <span class="nav-label">Services</span>
+
+        <span class="nav-icon">
+            🛠️
+        </span>
+
+        <span class="nav-label">
+            Services
+        </span>
+
     </a>
+
 
     <a
         href="index.html"
-        class="bottom-nav-item"
+        class="bottom-nav-item active"
     >
-        <span class="nav-icon">▦</span>
-        <span class="nav-label">Category</span>
+
+        <span class="nav-icon">
+            ▦
+        </span>
+
+        <span class="nav-label">
+            category
+        </span>
+
     </a>
+
 
     <a
         href="promotion.html"
         class="bottom-nav-item"
     >
-        <span class="nav-icon">📣</span>
-        <span class="nav-label">Promotion</span>
+
+        <span class="nav-icon">
+            📣
+        </span>
+
+        <span class="nav-label">
+            Promotion
+        </span>
+
     </a>
 
 </nav>
+
 
 </body>
 

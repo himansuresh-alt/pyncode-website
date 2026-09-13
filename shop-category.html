@@ -1706,7 +1706,7 @@ body{
 
 </header>
 
-
+  <body>
 
 <!-- =====================================================
      MAIN
@@ -1799,6 +1799,75 @@ body{
                 Shops
             </span>
         </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     BANNER SECTION
+     NEW
+===================================================== -->
+
+<section
+    class="banner-section"
+    id="bannerSection"
+    aria-label="Advertisements"
+>
+
+    <div class="banner-box">
+
+
+        <!-- Banner slider -->
+
+        <div
+            class="banner-slider"
+            id="bannerSlider"
+        >
+
+            <div class="banner-loading" id="bannerLoading">
+
+                Loading banners...
+
+            </div>
+
+        </div>
+
+
+        <!-- Previous -->
+
+        <button
+            type="button"
+            class="banner-arrow banner-prev"
+            id="bannerPrev"
+            aria-label="Previous banner"
+            style="display:none;"
+        >
+            ‹
+        </button>
+
+
+        <!-- Next -->
+
+        <button
+            type="button"
+            class="banner-arrow banner-next"
+            id="bannerNext"
+            aria-label="Next banner"
+            style="display:none;"
+        >
+            ›
+        </button>
+
+
+        <!-- Dots -->
+
+        <div
+            class="banner-dots"
+            id="bannerDots"
+        ></div>
 
     </div>
 
@@ -2004,7 +2073,7 @@ body{
             </div>
 
 
-        <a href="tel:9092035926">
+            <a href="tel:9092035926">
                 Call or WhatsApp
             </a>
 
@@ -2032,7 +2101,7 @@ body{
 
 </footer>
 
-  <script>
+    <script>
 
 /* =====================================================
    SUPABASE
@@ -2043,7 +2112,6 @@ const SUPABASE_URL =
 
 const SUPABASE_KEY =
     "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
-
 
 const supabaseClient =
     window.supabase.createClient(
@@ -2126,7 +2194,9 @@ if(adminTrigger){
 
             adminTapCount++;
 
-            clearTimeout(adminTapTimer);
+            clearTimeout(
+                adminTapTimer
+            );
 
             adminTapTimer =
                 setTimeout(
@@ -2184,7 +2254,7 @@ async function loadShops(){
 
 
     /* ---------------------------------------------
-       Update hidden compatibility fields
+       Hidden compatibility fields
     --------------------------------------------- */
 
     if(categoryTitle){
@@ -2214,16 +2284,8 @@ async function loadShops(){
     }
 
 
-    if(resultTypeText){
-
-        resultTypeText.textContent =
-            "Shops";
-
-    }
-
-
     /* ---------------------------------------------
-       Loading state
+       Loading
     --------------------------------------------- */
 
     shopList.innerHTML = `
@@ -2267,7 +2329,7 @@ async function loadShops(){
 
 
         /* -----------------------------------------
-           Category filter
+           CATEGORY FILTER
         ----------------------------------------- */
 
         if(category){
@@ -2290,7 +2352,7 @@ async function loadShops(){
         if(error){
 
             console.error(
-                "Shop loading error:",
+                "SHOP LOADING ERROR:",
                 error
             );
 
@@ -2318,7 +2380,7 @@ async function loadShops(){
     catch(error){
 
         console.error(
-            "Unexpected shop loading error:",
+            "UNEXPECTED SHOP ERROR:",
             error
         );
 
@@ -2346,17 +2408,13 @@ function renderShops(
     }
 
 
-    /* ---------------------------------------------
-       Result count
-    --------------------------------------------- */
-
     updateResultCount(
         shops.length
     );
 
 
     /* ---------------------------------------------
-       Empty state
+       EMPTY
     --------------------------------------------- */
 
     if(shops.length === 0){
@@ -2393,7 +2451,7 @@ function renderShops(
 
 
     /* ---------------------------------------------
-       Create cards
+       SHOP CARDS
     --------------------------------------------- */
 
     shopList.innerHTML =
@@ -2432,13 +2490,6 @@ function createShopCard(
     const ownerName =
         escapeHtml(
             shop.owner_name ||
-            ""
-        );
-
-
-    const address =
-        escapeHtml(
-            shop.address ||
             ""
         );
 
@@ -2485,6 +2536,10 @@ function createShopCard(
             : "";
 
 
+    /* ---------------------------------------------
+       LOCATION
+    --------------------------------------------- */
+
     let locationText = "";
 
 
@@ -2516,6 +2571,10 @@ function createShopCard(
     }
 
 
+    /* ---------------------------------------------
+       IMAGE
+    --------------------------------------------- */
+
     const imageHtml =
         image
             ? `
@@ -2537,6 +2596,10 @@ function createShopCard(
               `;
 
 
+    /* ---------------------------------------------
+       OWNER
+    --------------------------------------------- */
+
     const ownerHtml =
         ownerName
             ? `
@@ -2547,6 +2610,10 @@ function createShopCard(
             : "";
 
 
+    /* ---------------------------------------------
+       LOCATION HTML
+    --------------------------------------------- */
+
     const locationHtml =
         locationText
             ? `
@@ -2556,6 +2623,10 @@ function createShopCard(
               `
             : "";
 
+
+    /* ---------------------------------------------
+       CARD
+    --------------------------------------------- */
 
     return `
 
@@ -2597,7 +2668,6 @@ function createShopCard(
 
 
             <div class="shop-actions">
-
 
                 ${
                     mobile
@@ -2656,7 +2726,6 @@ function createShopCard(
                     🏷️ View Offers
                 </a>
 
-
             </div>
 
         </article>
@@ -2679,12 +2748,19 @@ function searchByPincode(){
 
 
     /* ---------------------------------------------
-       Empty pincode
+       EMPTY
     --------------------------------------------- */
 
     if(!pincode){
 
         currentPincode = "";
+
+        if(clearButton){
+
+            clearButton.style.display =
+                "none";
+
+        }
 
         renderShops(
             allShops
@@ -2696,7 +2772,7 @@ function searchByPincode(){
 
 
     /* ---------------------------------------------
-       Validate pincode
+       VALIDATION
     --------------------------------------------- */
 
     if(!/^\d{6}$/.test(pincode)){
@@ -2830,21 +2906,13 @@ function updateResultCount(
             : 0;
 
 
-    if(resultTypeText){
-
-        resultTypeText.textContent =
-            safeCount === 1
-                ? "Shop"
-                : "Shops";
-
-    }
-
-
     resultBadge.innerHTML = `
         🏪
-        <span id="resultTypeText">
+        <span>
             ${safeCount}
-            ${safeCount === 1 ? "Shop" : "Shops"}
+            ${safeCount === 1
+                ? "Shop"
+                : "Shops"}
             Found
         </span>
     `;
@@ -2857,7 +2925,7 @@ function updateResultCount(
 ===================================================== */
 
 function showError(
-    message
+    errorMessage
 ){
 
     shopList.innerHTML = `
@@ -2873,7 +2941,7 @@ function showError(
             </div>
 
             <div class="error-text">
-                ${escapeHtml(message)}
+                ${escapeHtml(errorMessage)}
             </div>
 
         </div>
@@ -2903,7 +2971,10 @@ function normalizePhone(
 
     let digits =
         String(value)
-            .replace(/\D/g,"");
+            .replace(
+                /\D/g,
+                ""
+            );
 
 
     if(
@@ -2993,8 +3064,14 @@ if(pincodeInput){
 
             this.value =
                 this.value
-                    .replace(/\D/g,"")
-                    .slice(0,6);
+                    .replace(
+                        /\D/g,
+                        ""
+                    )
+                    .slice(
+                        0,
+                        6
+                    );
 
         }
     );
@@ -3055,8 +3132,12 @@ if(clearButton){
 
 loadShops();
 
+    </script>
 
-</script>
+    <!-- =====================================================
+     END OF PAGE SCRIPT
+===================================================== -->
 
 </body>
+  
 </html>
