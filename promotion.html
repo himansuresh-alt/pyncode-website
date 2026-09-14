@@ -1044,6 +1044,43 @@ body{
 
 }
 
+    /* =====================================================
+   MOBILE STABILITY FIX
+===================================================== */
+
+html{
+    width:100%;
+    max-width:100%;
+    overflow-x:clip;
+}
+
+body{
+    width:100%;
+    max-width:100%;
+    overflow-x:clip;
+}
+
+/* Fixed navigation - stable on mobile */
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+
+    width:auto;
+    max-width:none;
+
+    height:78px;
+
+    transform:none;
+    -webkit-transform:none;
+    will-change:auto;
+
+    z-index:99999;
+
+    box-sizing:border-box;
+}
+
 </style>
 
 </head>

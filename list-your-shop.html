@@ -665,7 +665,7 @@ main{
                 >
 
                 <small style="display:block;margin-top:6px;color:#777;">
-                    Upload your shop photo (JPG or PNG, max 5MB)
+                    Upload your shop photo (JPG or PNG, 200KB - 500KB)
                 </small>
 
                 <div id="shopImagePreview"></div>
@@ -1079,17 +1079,33 @@ shopForm.addEventListener(
             if(shopImageFile){
 
 
-                /* FILE SIZE CHECK - MAX 5MB */
+                /* FILE SIZE CHECK - 200KB TO 500KB */
 
-                if(
-                    shopImageFile.size >
-                    5 * 1024 * 1024
-                ){
+const minSize =
+    200 * 1024;
 
-                    throw new Error(
-                        "Shop photo must be less than 5MB."
-                    );
-                }
+const maxSize =
+    500 * 1024;
+
+if(
+    shopImageFile.size < minSize
+){
+
+    throw new Error(
+        "Shop photo must be at least 200KB."
+    );
+
+}
+
+if(
+    shopImageFile.size > maxSize
+){
+
+    throw new Error(
+        "Shop photo must be 500KB or less."
+    );
+
+}
 
 
                 /* FILE TYPE CHECK */
