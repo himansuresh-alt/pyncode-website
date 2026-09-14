@@ -115,8 +115,6 @@ body{
 }
 
 
-/* Decorative circle */
-
 .promo-hero::before{
 
     content:"";
@@ -364,9 +362,6 @@ body{
 
 /* =====================================================
    POSTER IMAGE
-
-   IMPORTANT:
-   Actual uploaded poster only.
 ===================================================== */
 
 .poster-slide img{
@@ -616,17 +611,37 @@ body{
 
 
 /* =====================================================
-   CATEGORY GRID
+   CATEGORY HORIZONTAL SCROLL
 ===================================================== */
 
 .category-grid{
 
-    display:grid;
+    width:100%;
 
-    grid-template-columns:
-        repeat(2,1fr);
+    display:flex;
 
-    gap:11px;
+    gap:12px;
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
+    padding:
+        2px 3px 12px;
+
+    scroll-behavior:smooth;
+
+    scroll-snap-type:x mandatory;
+
+    -webkit-overflow-scrolling:touch;
+
+    scrollbar-width:none;
+
+}
+
+.category-grid::-webkit-scrollbar{
+
+    display:none;
 
 }
 
@@ -637,12 +652,14 @@ body{
 
 .category-card{
 
-    width:100%;
+    flex:
+        0 0 175px;
 
-    min-height:94px;
+    width:175px;
 
-    padding:
-        13px 11px;
+    min-height:105px;
+
+    padding:14px;
 
     background:#fff;
 
@@ -657,12 +674,18 @@ body{
 
     display:flex;
 
-    align-items:center;
+    flex-direction:column;
 
-    gap:10px;
+    align-items:flex-start;
+
+    justify-content:center;
+
+    gap:8px;
 
     box-shadow:
         0 4px 16px rgba(20,30,50,.045);
+
+    scroll-snap-align:start;
 
     transition:
         transform .18s ease,
@@ -699,12 +722,11 @@ body{
 
 .category-icon{
 
-    flex:
-        0 0 40px;
+    flex:none;
 
-    width:40px;
+    width:42px;
 
-    height:40px;
+    height:42px;
 
     border-radius:12px;
 
@@ -719,7 +741,7 @@ body{
 
     justify-content:center;
 
-    font-size:21px;
+    font-size:22px;
 
     line-height:1;
 
@@ -732,13 +754,13 @@ body{
 
 .category-name{
 
-    font-size:12.5px;
+    font-size:13px;
 
     font-weight:800;
 
     line-height:1.25;
 
-    flex:1;
+    width:100%;
 
 }
 
@@ -749,11 +771,7 @@ body{
 
 .category-arrow{
 
-    color:#a0a4aa;
-
-    font-size:16px;
-
-    font-weight:700;
+    display:none;
 
 }
 
@@ -860,15 +878,17 @@ body{
 
     .category-grid{
 
-        grid-template-columns:
-            repeat(3,1fr);
-
-        gap:12px;
+        gap:14px;
 
     }
 
 
     .category-card{
+
+        flex:
+            0 0 180px;
+
+        width:180px;
 
         min-height:100px;
 
@@ -892,13 +912,17 @@ body{
 
     .category-grid{
 
-        grid-template-columns:
-            repeat(4,1fr);
+        gap:14px;
 
     }
 
 
     .category-card{
+
+        flex:
+            0 0 185px;
+
+        width:185px;
 
         min-height:105px;
 
@@ -988,15 +1012,24 @@ body{
 
         gap:8px;
 
+        padding-left:2px;
+
+        padding-right:2px;
+
     }
 
 
     .category-card{
 
-        min-height:84px;
+        flex:
+            0 0 155px;
+
+        width:155px;
+
+        min-height:96px;
 
         padding:
-            10px 7px;
+            11px 10px;
 
         gap:7px;
 
@@ -1005,11 +1038,9 @@ body{
 
     .category-icon{
 
-        flex-basis:35px;
+        width:36px;
 
-        width:35px;
-
-        height:35px;
+        height:36px;
 
         font-size:18px;
 
@@ -1044,48 +1075,68 @@ body{
 
 }
 
-    /* =====================================================
+
+/* =====================================================
    MOBILE STABILITY FIX
 ===================================================== */
 
 html{
+
     width:100%;
+
     max-width:100%;
+
     overflow-x:clip;
+
 }
 
 body{
+
     width:100%;
+
     max-width:100%;
+
     overflow-x:clip;
+
 }
 
+
 /* Fixed navigation - stable on mobile */
+
 .bottom-nav{
+
     position:fixed;
+
     left:0;
+
     right:0;
+
     bottom:0;
 
     width:auto;
+
     max-width:none;
 
     height:78px;
 
     transform:none;
+
     -webkit-transform:none;
+
     will-change:auto;
 
     z-index:99999;
 
     box-sizing:border-box;
+
 }
 
 </style>
 
 </head>
 
-  <body>
+
+<body>
 
 
 <!-- =====================================================
@@ -1176,9 +1227,7 @@ body{
         >
 
 
-            <!-- =========================================
-                 POSTER TRACK
-            ========================================== -->
+            <!-- POSTER TRACK -->
 
             <div
                 class="poster-track"
@@ -1187,9 +1236,7 @@ body{
 
 
 
-            <!-- =========================================
-                 PREVIOUS
-            ========================================== -->
+            <!-- PREVIOUS -->
 
             <button
                 type="button"
@@ -1202,9 +1249,7 @@ body{
 
 
 
-            <!-- =========================================
-                 NEXT
-            ========================================== -->
+            <!-- NEXT -->
 
             <button
                 type="button"
@@ -1217,9 +1262,7 @@ body{
 
 
 
-            <!-- =========================================
-                 DOTS
-            ========================================== -->
+            <!-- DOTS -->
 
             <div
                 class="poster-dots"
@@ -1253,7 +1296,7 @@ body{
 
 
             <div class="category-caption">
-                Choose a category
+                Swipe to explore →
             </div>
 
 
@@ -1350,7 +1393,7 @@ body{
 
 </nav>
 
-    <script>
+  <script>
 
 /* =====================================================
    SUPABASE
@@ -1369,6 +1412,7 @@ const supabaseClient =
         SUPABASE_URL,
         SUPABASE_KEY
     );
+
 
 
 
@@ -1435,8 +1479,6 @@ const categories = [
 
 ];
 
-
-
 /* =====================================================
    CATEGORY RENDER
 ===================================================== */
@@ -1450,11 +1492,14 @@ const categoryGrid =
 function renderCategories(){
 
     if(!categoryGrid){
+
         return;
+
     }
 
 
-    categoryGrid.innerHTML = "";
+    categoryGrid.innerHTML =
+        "";
 
 
     categories.forEach(
@@ -1468,7 +1513,9 @@ function renderCategories(){
 
 
             const card =
-                document.createElement("a");
+                document.createElement(
+                    "a"
+                );
 
 
             card.className =
@@ -1477,7 +1524,9 @@ function renderCategories(){
 
             card.href =
                 "promotion-category.html?category=" +
-                encodeURIComponent(name);
+                encodeURIComponent(
+                    name
+                );
 
 
             card.innerHTML = `
@@ -1509,6 +1558,123 @@ function renderCategories(){
 
 renderCategories();
 
+/* =====================================================
+   AUTOMATIC CATEGORY HORIZONTAL SCROLL
+===================================================== */
+
+const categoryScroll =
+    document.getElementById("categoryGrid");
+
+let categoryAutoScrollTimer = null;
+
+
+/* Start automatic scrolling */
+
+function startCategoryAutoScroll(){
+
+    if(!categoryScroll){
+        return;
+    }
+
+    clearInterval(categoryAutoScrollTimer);
+
+    categoryAutoScrollTimer = setInterval(function(){
+
+        const maxScroll =
+            categoryScroll.scrollWidth -
+            categoryScroll.clientWidth;
+
+
+        /* Nothing to scroll */
+
+        if(maxScroll <= 5){
+            return;
+        }
+
+
+        /* Scroll to next position */
+
+        const current =
+            categoryScroll.scrollLeft;
+
+
+        const next =
+            current + 190;
+
+
+        if(next >= maxScroll - 5){
+
+            /* Start again from beginning */
+
+            categoryScroll.scrollTo({
+                left:0,
+                behavior:"smooth"
+            });
+
+        }
+        else{
+
+            categoryScroll.scrollTo({
+                left:next,
+                behavior:"smooth"
+            });
+
+        }
+
+    }, 2500);
+
+}
+
+
+/* =====================================================
+   PAUSE WHILE USER TOUCHES
+===================================================== */
+
+categoryScroll.addEventListener(
+    "touchstart",
+    function(){
+
+        clearInterval(
+            categoryAutoScrollTimer
+        );
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =====================================================
+   RESUME AFTER USER STOPS TOUCHING
+===================================================== */
+
+categoryScroll.addEventListener(
+    "touchend",
+    function(){
+
+        setTimeout(function(){
+
+            startCategoryAutoScroll();
+
+        },1000);
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+setTimeout(function(){
+
+    startCategoryAutoScroll();
+
+},1000);
 
 
 /* =====================================================
@@ -1568,27 +1734,6 @@ let posterTimer = null;
    LOAD LIVE PROMOTION POSTERS
 ===================================================== */
 
-/*
-   IMPORTANT:
-
-   Do NOT use hard-coded poster URLs.
-
-   Posters are loaded directly from:
-
-       promotions
-
-   Only active posters are shown.
-
-   Existing upload system stores:
-
-       category
-       pincode
-       poster_url
-       is_active
-       created_at
-
-*/
-
 async function loadPromotionPosters(){
 
     try{
@@ -1635,6 +1780,7 @@ async function loadPromotionPosters(){
             renderPosters();
 
             return;
+
         }
 
 
@@ -1682,6 +1828,7 @@ function renderPosters(){
     currentPoster = 0;
 
 
+
     /* =================================================
        NO ACTIVE POSTERS
     ================================================= */
@@ -1719,8 +1866,10 @@ function renderPosters(){
         posterPrev.style.display =
             "none";
 
+
         posterNext.style.display =
             "none";
+
 
         posterDots.style.display =
             "none";
@@ -1731,6 +1880,7 @@ function renderPosters(){
 
 
         return;
+
     }
 
 
@@ -1766,7 +1916,9 @@ function renderPosters(){
             if(
                 !promotion.poster_url
             ){
+
                 return;
+
             }
 
 
@@ -1807,7 +1959,10 @@ function renderPosters(){
                 "async";
 
 
-            /* Prevent broken image from disturbing layout */
+            /*
+               Prevent broken image
+               from disturbing layout.
+            */
 
             img.onerror =
                 function(){
@@ -1896,6 +2051,7 @@ function renderPosters(){
         posterPrev.style.display =
             "none";
 
+
         posterNext.style.display =
             "none";
 
@@ -1905,6 +2061,7 @@ function renderPosters(){
 
         posterPrev.style.display =
             "flex";
+
 
         posterNext.style.display =
             "flex";
@@ -1933,7 +2090,9 @@ function goToPoster(index){
         !promotionPosters ||
         promotionPosters.length === 0
     ){
+
         return;
+
     }
 
 
@@ -1956,14 +2115,17 @@ function goToPoster(index){
         promotionPosters.length
     ){
 
-        currentPoster = 0;
+        currentPoster =
+            0;
 
     }
 
 
     posterTrack.style.transform =
         "translateX(-" +
-        (currentPoster * 100) +
+        (
+            currentPoster * 100
+        ) +
         "%)";
 
 
@@ -2001,7 +2163,9 @@ function nextPoster(){
         !promotionPosters ||
         promotionPosters.length <= 1
     ){
+
         return;
+
     }
 
 
@@ -2023,7 +2187,9 @@ function previousPoster(){
         !promotionPosters ||
         promotionPosters.length <= 1
     ){
+
         return;
+
     }
 
 
@@ -2079,7 +2245,9 @@ function startPosterAutoSlide(){
         !promotionPosters ||
         promotionPosters.length <= 1
     ){
+
         return;
+
     }
 
 
@@ -2095,9 +2263,7 @@ function startPosterAutoSlide(){
 
 }
 
-
-
-/* =====================================================
+    /* =====================================================
    MOBILE SWIPE
 ===================================================== */
 
@@ -2138,7 +2304,9 @@ posterCarousel.addEventListener(
         if(
             Math.abs(difference) < 45
         ){
+
             return;
+
         }
 
 
