@@ -192,6 +192,22 @@ main{
 }
 
 
+/* IMAGE PREVIEW */
+
+#shopImagePreview{
+    margin-top:12px;
+}
+
+#shopImagePreview img{
+    width:100%;
+    max-width:300px;
+    height:180px;
+    object-fit:cover;
+    border-radius:12px;
+    display:block;
+}
+
+
 /* FOOTER */
 
 .footer{
@@ -359,7 +375,6 @@ main{
 
 <body>
 
-
 <header>
 
     <div class="logo">
@@ -375,8 +390,7 @@ main{
 
 </header>
 
-
-<main>
+    <main>
 
     <h1 class="page-title">
         List Your Shop
@@ -389,7 +403,6 @@ main{
     <div class="form-card">
 
         <form id="shopForm">
-
 
             <div class="form-group">
 
@@ -422,91 +435,92 @@ main{
                         Select Category
                     </option>
 
-                  <option value="Home Appliances">Home Appliances</option>
-<option value="Mobile Showrooms">Mobile Showrooms</option>
-<option value="EV Bike Showrooms">EV Bike Showrooms</option>
-<option value="Bike Showrooms">Bike Showrooms</option>
-<option value="Car Showrooms">Car Showrooms</option>
-<option value="Furnitures">Furnitures</option>
-<option value="Battery Shops">Battery Shops</option>
+                    <option value="Home Appliances">Home Appliances</option>
+                    <option value="Mobile Showrooms">Mobile Showrooms</option>
+                    <option value="EV Bike Showrooms">EV Bike Showrooms</option>
+                    <option value="Bike Showrooms">Bike Showrooms</option>
+                    <option value="Car Showrooms">Car Showrooms</option>
+                    <option value="Furnitures">Furnitures</option>
+                    <option value="Battery Shops">Battery Shops</option>
 
-<option value="Men's Clothing">Men's Clothing</option>
-<option value="Women's Clothing">Women's Clothing</option>
-<option value="New Born Babies Shops">New Born Babies Shops</option>
-<option value="Toys Showrooms">Toys Showrooms</option>
-<option value="Utensils & Cookware">Utensils & Cookware</option>
-<option value="Mattress & Bedding">Mattress & Bedding</option>
+                    <option value="Men's Clothing">Men's Clothing</option>
+                    <option value="Women's Clothing">Women's Clothing</option>
+                    <option value="New Born Babies Shops">New Born Babies Shops</option>
+                    <option value="Toys Showrooms">Toys Showrooms</option>
+                    <option value="Utensils & Cookware">Utensils & Cookware</option>
+                    <option value="Mattress & Bedding">Mattress & Bedding</option>
 
-<option value="Ethnic Wear Showroom">Ethnic Wear Showroom</option>
-<option value="Ayurvedic & Herbals">Ayurvedic & Herbals</option>
-<option value="Nutrition & Supplements">Nutrition & Supplements</option>
-<option value="Electrics & Electronics">Electrics & Electronics</option>
-<option value="Hardware">Hardware</option>
-<option value="Paint Shops">Paint Shops</option>
+                    <option value="Ethnic Wear Showroom">Ethnic Wear Showroom</option>
+                    <option value="Ayurvedic & Herbals">Ayurvedic & Herbals</option>
+                    <option value="Nutrition & Supplements">Nutrition & Supplements</option>
+                    <option value="Electrics & Electronics">Electrics & Electronics</option>
+                    <option value="Hardware">Hardware</option>
+                    <option value="Paint Shops">Paint Shops</option>
 
-<option value="Cleaning Products">Cleaning Products</option>
-<option value="Pharmacy/Medicals">Pharmacy/Medicals</option>
-<option value="Fitness Equipments">Fitness Equipments</option>
-<option value="Building Materials">Building Materials</option>
-<option value="Books & Stationary">Books & Stationary</option>
-<option value="Garden & Plants">Garden & Plants</option>
-<option value="Gift Shops">Gift Shops</option>
+                    <option value="Cleaning Products">Cleaning Products</option>
+                    <option value="Pharmacy/Medicals">Pharmacy/Medicals</option>
+                    <option value="Fitness Equipments">Fitness Equipments</option>
+                    <option value="Building Materials">Building Materials</option>
+                    <option value="Books & Stationary">Books & Stationary</option>
+                    <option value="Garden & Plants">Garden & Plants</option>
+                    <option value="Gift Shops">Gift Shops</option>
 
-<option value="Pooja & Religious Shops">Pooja & Religious Shops</option>
-<option value="Opticals & Sunglasses">Opticals & Sunglasses</option>
-<option value="Jewellery Showrooms">Jewellery Showrooms</option>
-<option value="Footwares">Footwares</option>
-<option value="Modular Kitchen">Modular Kitchen</option>
-<option value="Flooring & Tiles">Flooring & Tiles</option>
+                    <option value="Pooja & Religious Shops">Pooja & Religious Shops</option>
+                    <option value="Opticals & Sunglasses">Opticals & Sunglasses</option>
+                    <option value="Jewellery Showrooms">Jewellery Showrooms</option>
+                    <option value="Footwares">Footwares</option>
+                    <option value="Modular Kitchen">Modular Kitchen</option>
+                    <option value="Flooring & Tiles">Flooring & Tiles</option>
 
-<option value="Printers & Scanners">Printers & Scanners</option>
-<option value="Home Theatre & Audio">Home Theatre & Audio</option>
-<option value="Computers & Laptops">Computers & Laptops</option>
-<option value="CCTV & Security">CCTV & Security</option>
-<option value="Mobile Accessories">Mobile Accessories</option>
+                    <option value="Printers & Scanners">Printers & Scanners</option>
+                    <option value="Home Theatre & Audio">Home Theatre & Audio</option>
+                    <option value="Computers & Laptops">Computers & Laptops</option>
+                    <option value="CCTV & Security">CCTV & Security</option>
+                    <option value="Mobile Accessories">Mobile Accessories</option>
 
-<option value="Car Detailing Showrooms">Car Detailing Showrooms</option>
-<option value="Tyre Shops">Tyre Shops</option>
-<option value="Bike Service Shops">Bike Service Shops</option>
-<option value="Car Service Shops">Car Service Shops</option>
-<option value="Home Appliances Service">Home Appliances Service</option>
+                    <option value="Car Detailing Showrooms">Car Detailing Showrooms</option>
+                    <option value="Tyre Shops">Tyre Shops</option>
+                    <option value="Bike Service Shops">Bike Service Shops</option>
+                    <option value="Car Service Shops">Car Service Shops</option>
+                    <option value="Home Appliances Service">Home Appliances Service</option>
 
-<option value="Cycle Showrooms">Cycle Showrooms</option>
-<option value="Hospitals">Hospitals</option>
-<option value="Interior Designers">Interior Designers</option>
-<option value="Doors & Windows Shops">Doors & Windows Shops</option>
-<option value="Salon & Spa">Salon & Spa</option>
+                    <option value="Cycle Showrooms">Cycle Showrooms</option>
+                    <option value="Hospitals">Hospitals</option>
+                    <option value="Interior Designers">Interior Designers</option>
+                    <option value="Doors & Windows Shops">Doors & Windows Shops</option>
+                    <option value="Salon & Spa">Salon & Spa</option>
 
-<option value="Photography Studios">Photography Studios</option>
-<option value="Bakery & Cake Shops">Bakery & Cake Shops</option>
-<option value="Pet Shops & Vet">Pet Shops & Vet</option>
-<option value="Solar Panel Shops">Solar Panel Shops</option>
-<option value="Coaching & Tuition Centers">Coaching & Tuition Centers</option>
-<option value="Hotels & Resorts">Hotels & Resorts</option>
+                    <option value="Photography Studios">Photography Studios</option>
+                    <option value="Bakery & Cake Shops">Bakery & Cake Shops</option>
+                    <option value="Pet Shops & Vet">Pet Shops & Vet</option>
+                    <option value="Solar Panel Shops">Solar Panel Shops</option>
+                    <option value="Coaching & Tuition Centers">Coaching & Tuition Centers</option>
+                    <option value="Hotels & Resorts">Hotels & Resorts</option>
 
-<option value="Wedding Halls / Kalyana Mandapam">Wedding Halls / Kalyana Mandapam</option>
-<option value="Musical Instruments">Musical Instruments</option>
-<option value="Gaming Zones">Gaming Zones</option>
+                    <option value="Wedding Halls / Kalyana Mandapam">Wedding Halls / Kalyana Mandapam</option>
+                    <option value="Musical Instruments">Musical Instruments</option>
+                    <option value="Gaming Zones">Gaming Zones</option>
 
-<option value="Seeds & Fertilizer Shops">Seeds & Fertilizer Shops</option>
-<option value="Insurance Offices">Insurance Offices</option>
-<option value="Loan & Finance Companies">Loan & Finance Companies</option>
-<option value="Play Schools & Kindergarten">Play Schools & Kindergarten</option>
+                    <option value="Seeds & Fertilizer Shops">Seeds & Fertilizer Shops</option>
+                    <option value="Insurance Offices">Insurance Offices</option>
+                    <option value="Loan & Finance Companies">Loan & Finance Companies</option>
+                    <option value="Play Schools & Kindergarten">Play Schools & Kindergarten</option>
 
-<option value="Freelancers">Freelancers</option>
-<option value="Franchise Outlets">Franchise Outlets</option>
-<option value="Real Estate">Real Estate</option>
-<option value="Used Car & Bikes Dealers">Used Car & Bikes Dealers</option>
-<option value="Men's/Women's Accessories">Men's/Women's Accessories</option>
-<option value="Sandhai / Market Place">Sandhai / Market Place</option>
-<option value="Travel & Tour Services">Travel & Tour Services</option>
-<option value="Wedding & Events Services">Wedding & Events Services</option>
-<option value="Digital Marketing Agencies">Digital Marketing Agencies</option>
-<option value="Manpower / Staffing Services">Manpower / Staffing Services</option>
-<option value="Construction & Contractors">Construction & Contractors</option>
-<option value="Online Business">Online Business</option>
-<option value="Courier Services">Courier Services</option>
-<option value="Manufacturer & Suppliers">Manufacturer & Suppliers</option>
+                    <option value="Freelancers">Freelancers</option>
+                    <option value="Franchise Outlets">Franchise Outlets</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Used Car & Bikes Dealers">Used Car & Bikes Dealers</option>
+                    <option value="Men's/Women's Accessories">Men's/Women's Accessories</option>
+                    <option value="Sandhai / Market Place">Sandhai / Market Place</option>
+                    <option value="Travel & Tour Services">Travel & Tour Services</option>
+                    <option value="Wedding & Events Services">Wedding & Events Services</option>
+                    <option value="Digital Marketing Agencies">Digital Marketing Agencies</option>
+                    <option value="Manpower / Staffing Services">Manpower / Staffing Services</option>
+                    <option value="Construction & Contractors">Construction & Contractors</option>
+                    <option value="Online Business">Online Business</option>
+                    <option value="Courier Services">Courier Services</option>
+                    <option value="Manufacturer & Suppliers">Manufacturer & Suppliers</option>
+
                 </select>
 
             </div>
@@ -665,7 +679,7 @@ main{
                 >
 
                 <small style="display:block;margin-top:6px;color:#777;">
-                    Upload your shop photo (JPG or PNG, 200KB - 500KB)
+                    Upload your shop photo (JPG or PNG). Image will be automatically compressed to 500KB or less.
                 </small>
 
                 <div id="shopImagePreview"></div>
@@ -686,7 +700,6 @@ main{
                 id="message"
                 class="message"
             ></div>
-
 
         </form>
 
@@ -767,7 +780,7 @@ main{
 
 </footer>
 
-  <script>
+    <script>
 
 /* =========================
    SUPABASE CONFIG
@@ -808,36 +821,448 @@ const shopImagePreview =
 
 
 /* =========================
+   SHOP IMAGE AUTO COMPRESSOR
+
+   Original image:
+   JPG / PNG
+
+   Final upload:
+   JPEG
+
+   Target:
+   Maximum 500KB
+========================= */
+
+async function compressShopImage(file){
+
+    const MAX_SIZE =
+        500 * 1024;
+
+
+    return new Promise((resolve, reject) => {
+
+        const img =
+            new Image();
+
+        const objectUrl =
+            URL.createObjectURL(file);
+
+
+        img.onload = async function(){
+
+            URL.revokeObjectURL(
+                objectUrl
+            );
+
+
+            try{
+
+                /* =========================
+                   MAX DIMENSION
+                ========================= */
+
+                const MAX_WIDTH =
+                    1600;
+
+                const MAX_HEIGHT =
+                    1600;
+
+
+                let width =
+                    img.width;
+
+                let height =
+                    img.height;
+
+
+                if(
+                    width > MAX_WIDTH ||
+                    height > MAX_HEIGHT
+                ){
+
+                    const ratio =
+                        Math.min(
+                            MAX_WIDTH / width,
+                            MAX_HEIGHT / height
+                        );
+
+
+                    width =
+                        Math.round(
+                            width * ratio
+                        );
+
+
+                    height =
+                        Math.round(
+                            height * ratio
+                        );
+
+                }
+
+
+                /* =========================
+                   CREATE CANVAS
+                ========================= */
+
+                const canvas =
+                    document.createElement(
+                        "canvas"
+                    );
+
+
+                canvas.width =
+                    width;
+
+                canvas.height =
+                    height;
+
+
+                const ctx =
+                    canvas.getContext(
+                        "2d"
+                    );
+
+
+                ctx.drawImage(
+                    img,
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+
+                /* =========================
+                   CREATE JPEG BLOB
+                ========================= */
+
+                function createBlob(
+                    quality
+                ){
+
+                    return new Promise(
+                        function(resolveBlob){
+
+                            canvas.toBlob(
+                                function(blob){
+
+                                    resolveBlob(
+                                        blob
+                                    );
+
+                                },
+                                "image/jpeg",
+                                quality
+                            );
+
+                        }
+                    );
+
+                }
+
+
+                /* =========================
+                   START QUALITY
+                ========================= */
+
+                let quality =
+                    0.85;
+
+
+                let blob =
+                    await createBlob(
+                        quality
+                    );
+
+
+                /* =========================
+                   REDUCE QUALITY
+                   UNTIL <= 500KB
+                ========================= */
+
+                while(
+                    blob &&
+                    blob.size > MAX_SIZE &&
+                    quality > 0.30
+                ){
+
+                    quality -=
+                        0.05;
+
+
+                    blob =
+                        await createBlob(
+                            quality
+                        );
+
+                }
+
+
+                /* =========================
+                   IF STILL ABOVE 500KB
+
+                   Reduce dimensions
+                ========================= */
+
+                let currentWidth =
+                    width;
+
+                let currentHeight =
+                    height;
+
+
+                while(
+                    blob &&
+                    blob.size > MAX_SIZE &&
+                    currentWidth > 800
+                ){
+
+                    currentWidth =
+                        Math.round(
+                            currentWidth * 0.85
+                        );
+
+
+                    currentHeight =
+                        Math.round(
+                            currentHeight * 0.85
+                        );
+
+
+                    canvas.width =
+                        currentWidth;
+
+                    canvas.height =
+                        currentHeight;
+
+
+                    ctx.clearRect(
+                        0,
+                        0,
+                        currentWidth,
+                        currentHeight
+                    );
+
+
+                    ctx.drawImage(
+                        img,
+                        0,
+                        0,
+                        currentWidth,
+                        currentHeight
+                    );
+
+
+                    quality =
+                        0.75;
+
+
+                    blob =
+                        await createBlob(
+                            quality
+                        );
+
+
+                    while(
+                        blob &&
+                        blob.size > MAX_SIZE &&
+                        quality > 0.30
+                    ){
+
+                        quality -=
+                            0.05;
+
+
+                        blob =
+                            await createBlob(
+                                quality
+                            );
+
+                    }
+
+                }
+
+
+                /* =========================
+                   FINAL CHECK
+                ========================= */
+
+                if(!blob){
+
+                    throw new Error(
+                        "Image compression failed."
+                    );
+
+                }
+
+
+                if(
+                    blob.size > MAX_SIZE
+                ){
+
+                    throw new Error(
+                        "Unable to compress image below 500KB. Please choose another image."
+                    );
+
+                }
+
+
+                /* =========================
+                   CREATE FINAL FILE
+                ========================= */
+
+                const compressedFile =
+                    new File(
+                        [
+                            blob
+                        ],
+                        "shop-image-" +
+                        Date.now() +
+                        ".jpg",
+                        {
+                            type:
+                                "image/jpeg",
+
+                            lastModified:
+                                Date.now()
+                        }
+                    );
+
+
+                /* =========================
+                   CONSOLE INFORMATION
+                ========================= */
+
+                console.log(
+                    "Original image:",
+                    (
+                        file.size / 1024
+                    ).toFixed(1),
+                    "KB"
+                );
+
+
+                console.log(
+                    "Compressed image:",
+                    (
+                        compressedFile.size / 1024
+                    ).toFixed(1),
+                    "KB"
+                );
+
+
+                resolve(
+                    compressedFile
+                );
+
+            }
+            catch(error){
+
+                reject(
+                    error
+                );
+
+            }
+
+        };
+
+
+        img.onerror =
+            function(){
+
+                URL.revokeObjectURL(
+                    objectUrl
+                );
+
+
+                reject(
+                    new Error(
+                        "Unable to read the selected image."
+                    )
+                );
+
+            };
+
+
+        img.src =
+            objectUrl;
+
+    });
+
+}
+
+
+/* =========================
    SHOP IMAGE PREVIEW
 ========================= */
 
 shopImageInput.addEventListener(
     "change",
-    function(){
+    async function(){
 
-        shopImagePreview.innerHTML = "";
+        shopImagePreview.innerHTML =
+            "";
+
 
         const file =
             this.files[0];
 
+
         if(!file){
+
             return;
+
         }
 
+
+        /* =========================
+           CHECK IMAGE TYPE
+        ========================= */
+
+        if(
+            ![
+                "image/jpeg",
+                "image/png",
+                "image/jpg"
+            ].includes(
+                file.type
+            )
+        ){
+
+            message.textContent =
+                "Please select a JPG or PNG image.";
+
+            message.className =
+                "message error";
+
+            this.value =
+                "";
+
+            return;
+
+        }
+
+
+        /* =========================
+           PREVIEW ORIGINAL IMAGE
+        ========================= */
+
         const image =
-            document.createElement("img");
+            document.createElement(
+                "img"
+            );
+
 
         image.src =
-            URL.createObjectURL(file);
+            URL.createObjectURL(
+                file
+            );
 
-        image.style.width = "100%";
-        image.style.maxWidth = "300px";
-        image.style.height = "180px";
-        image.style.objectFit = "cover";
-        image.style.borderRadius = "12px";
-        image.style.marginTop = "12px";
 
-        shopImagePreview.appendChild(image);
+        shopImagePreview.appendChild(
+            image
+        );
 
     }
 );
@@ -848,7 +1273,9 @@ shopImageInput.addEventListener(
 ========================= */
 
 const pincodeInput =
-    document.getElementById("pincode");
+    document.getElementById(
+        "pincode"
+    );
 
 
 pincodeInput.addEventListener(
@@ -857,8 +1284,72 @@ pincodeInput.addEventListener(
 
         this.value =
             this.value
-            .replace(/[^0-9]/g,"")
-            .slice(0,6);
+            .replace(
+                /[^0-9]/g,
+                ""
+            )
+            .slice(
+                0,
+                6
+            );
+
+    }
+);
+
+
+/* =========================
+   MOBILE INPUT
+========================= */
+
+const mobileInput =
+    document.getElementById(
+        "mobile"
+    );
+
+
+mobileInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+            .replace(
+                /[^0-9]/g,
+                ""
+            )
+            .slice(
+                0,
+                10
+            );
+
+    }
+);
+
+
+/* =========================
+   WHATSAPP INPUT
+========================= */
+
+const whatsappInput =
+    document.getElementById(
+        "whattapp"
+    );
+
+
+whatsappInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value
+            .replace(
+                /[^0-9]/g,
+                ""
+            )
+            .slice(
+                0,
+                10
+            );
 
     }
 );
@@ -875,7 +1366,8 @@ shopForm.addEventListener(
         event.preventDefault();
 
 
-        message.textContent = "";
+        message.textContent =
+            "";
 
         message.className =
             "message";
@@ -883,6 +1375,7 @@ shopForm.addEventListener(
 
         submitButton.disabled =
             true;
+
 
         submitButton.textContent =
             "Submitting...";
@@ -894,71 +1387,90 @@ shopForm.addEventListener(
 
         const shopName =
             document
-            .getElementById("shopName")
+            .getElementById(
+                "shopName"
+            )
             .value
             .trim();
 
 
-
         const category =
             document
-            .getElementById("category")
+            .getElementById(
+                "category"
+            )
             .value
             .trim();
 
 
         const ownerName =
             document
-            .getElementById("ownerName")
+            .getElementById(
+                "ownerName"
+            )
             .value
             .trim();
 
 
         const mobile =
             document
-            .getElementById("mobile")
+            .getElementById(
+                "mobile"
+            )
             .value
             .trim();
 
 
         const whatsapp =
             document
-            .getElementById("whattapp")
+            .getElementById(
+                "whattapp"
+            )
             .value
             .trim();
 
 
         const address =
             document
-            .getElementById("address")
+            .getElementById(
+                "address"
+            )
             .value
             .trim();
 
 
         const area =
             document
-            .getElementById("area")
+            .getElementById(
+                "area"
+            )
             .value
             .trim();
 
 
         const city =
             document
-            .getElementById("city")
+            .getElementById(
+                "city"
+            )
             .value
             .trim();
 
 
         const pincode =
             document
-            .getElementById("pincode")
+            .getElementById(
+                "pincode"
+            )
             .value
             .trim();
 
 
         const description =
             document
-            .getElementById("description")
+            .getElementById(
+                "description"
+            )
             .value
             .trim();
 
@@ -990,6 +1502,7 @@ shopForm.addEventListener(
                 "Submit Your Shop";
 
             return;
+
         }
 
 
@@ -1021,6 +1534,7 @@ shopForm.addEventListener(
                 "Submit Your Shop";
 
             return;
+
         }
 
 
@@ -1052,77 +1566,120 @@ shopForm.addEventListener(
                 "Submit Your Shop";
 
             return;
+
         }
 
 
-        /*
-        Keep track of uploaded image.
+        /* =========================
+           FINAL COMPRESSED FILE
+        ========================= */
 
-        If database insert fails after
-        image upload, the unused image
-        will be removed from storage.
-        */
-
-        let uploadedFileName = null;
+        let finalShopImageFile =
+            null;
 
 
-        try{
+        /* =========================
+           COMPRESS IMAGE
+        ========================= */
 
+        if(shopImageFile){
+
+            try{
+
+                message.textContent =
+                    "Compressing shop image...";
+
+                message.className =
+                    "message";
+
+
+                finalShopImageFile =
+                    await compressShopImage(
+                        shopImageFile
+                    );
+
+
+                message.textContent =
+                    "Image compressed successfully. Submitting...";
+
+            }
+            catch(error){
+
+                message.textContent =
+                    error.message ||
+                    "Image compression failed.";
+
+                message.className =
+                    "message error";
+
+
+                submitButton.disabled =
+                    false;
+
+
+                submitButton.textContent =
+                    "Submit Your Shop";
+
+
+                return;
+
+            }
+
+        }
+
+
+        /* =========================
+           UPLOADED FILE TRACKER
+        ========================= */
+
+        let uploadedFileName =
+            null;
+
+                try{
 
             /* =========================
                SHOP PHOTO UPLOAD
             ========================= */
 
-            let shopImageUrl = "";
+            let shopImageUrl =
+                "";
 
 
-            if(shopImageFile){
+            if(finalShopImageFile){
 
+                /* =========================
+                   FINAL FILE SIZE CHECK
+                ========================= */
 
-                /* FILE SIZE CHECK - 200KB TO 500KB */
+                const maxSize =
+                    500 * 1024;
 
-const minSize =
-    200 * 1024;
-
-const maxSize =
-    500 * 1024;
-
-if(
-    shopImageFile.size < minSize
-){
-
-    throw new Error(
-        "Shop photo must be at least 200KB."
-    );
-
-}
-
-if(
-    shopImageFile.size > maxSize
-){
-
-    throw new Error(
-        "Shop photo must be 500KB or less."
-    );
-
-}
-
-
-                /* FILE TYPE CHECK */
 
                 if(
-                    ![
-                        "image/jpeg",
-                        "image/png",
-                        "image/jpg"
-                    ].includes(
-                        shopImageFile.type
-                    )
+                    finalShopImageFile.size >
+                    maxSize
                 ){
 
                     throw new Error(
-                        "Please upload JPG or PNG image."
+                        "Compressed image is still above 500KB. Please choose another image."
                     );
+
+                }
+
+
+                /* =========================
+                   FINAL FILE TYPE
+                ========================= */
+
+                if(
+                    finalShopImageFile.type !==
+                    "image/jpeg"
+                ){
+
+                    throw new Error(
+                        "Compressed image format is invalid."
+                    );
+
                 }
 
 
@@ -1130,21 +1687,16 @@ if(
                    UNIQUE FILE NAME
                 ========================= */
 
-                const fileExtension =
-                    shopImageFile.name
-                    .split(".")
-                    .pop()
-                    .toLowerCase();
-
-
                 const fileName =
                     Date.now() +
                     "-" +
                     Math.random()
                         .toString(36)
-                        .substring(2,8) +
-                    "." +
-                    fileExtension;
+                        .substring(
+                            2,
+                            8
+                        ) +
+                    ".jpg";
 
 
                 uploadedFileName =
@@ -1152,18 +1704,21 @@ if(
 
 
                 /* =========================
-                   UPLOAD TO SUPABASE
+                   UPLOAD COMPRESSED IMAGE
                 ========================= */
 
                 const {
-                    error: uploadError
+                    error:
+                        uploadError
                 } =
                     await supabaseClient
                     .storage
-                    .from("shop-images")
+                    .from(
+                        "shop-images"
+                    )
                     .upload(
                         fileName,
-                        shopImageFile,
+                        finalShopImageFile,
                         {
                             cacheControl:
                                 "3600",
@@ -1181,10 +1736,12 @@ if(
                         uploadError
                     );
 
+
                     throw new Error(
                         uploadError.message ||
                         "Shop photo upload failed."
                     );
+
                 }
 
 
@@ -1198,7 +1755,9 @@ if(
                 } =
                     supabaseClient
                     .storage
-                    .from("shop-images")
+                    .from(
+                        "shop-images"
+                    )
                     .getPublicUrl(
                         fileName
                     );
@@ -1212,6 +1771,7 @@ if(
                     throw new Error(
                         "Could not create shop photo URL."
                     );
+
                 }
 
 
@@ -1222,7 +1782,7 @@ if(
 
 
             /* =========================
-               SUPABASE INSERT
+               SUPABASE DATABASE INSERT
             ========================= */
 
             const {
@@ -1230,7 +1790,9 @@ if(
                 error
             } =
                 await supabaseClient
-                .from("shops")
+                .from(
+                    "shops"
+                )
                 .insert([
                     {
 
@@ -1238,7 +1800,7 @@ if(
                             shopName,
 
                         listing_type:
-                             "shop",
+                            "shop",
 
                         category:
                             category,
@@ -1286,6 +1848,7 @@ if(
                     error
                 );
 
+
                 throw new Error(
                     error.message ||
                     "Shop could not be submitted."
@@ -1300,6 +1863,7 @@ if(
 
             message.textContent =
                 "Shop submitted successfully!";
+
 
             message.className =
                 "message success";
@@ -1316,28 +1880,23 @@ if(
                 "Submitted ✓";
 
 
+            /* =========================
+               REDIRECT
+            ========================= */
+
             setTimeout(
                 function(){
 
-                    submitButton.disabled =
-                        false;
-
-                    submitButton.textContent =
-                        "Submit Your Shop";
+                    window.location.href =
+                        "category.html?category=" +
+                        encodeURIComponent(
+                            category
+                        ) +
+                        "&listingType=shop";
 
                 },
-                2500
+                1200
             );
-
-          setTimeout(function(){
-
-    window.location.href =
-        "category.html?category=" +
-        encodeURIComponent(category) +
-        "&listingType=shop";
-
-}, 1200);
-
 
         }
 
@@ -1354,11 +1913,10 @@ if(
             );
 
 
-            /*
-            If image upload succeeded but
-            database insert failed, remove
-            the unused image.
-            */
+            /* =========================
+               REMOVE UNUSED IMAGE
+               IF DATABASE INSERT FAILED
+            ========================= */
 
             if(uploadedFileName){
 
@@ -1368,7 +1926,9 @@ if(
                 } =
                     await supabaseClient
                     .storage
-                    .from("shop-images")
+                    .from(
+                        "shop-images"
+                    )
                     .remove([
                         uploadedFileName
                     ]);
@@ -1413,3 +1973,5 @@ if(
 </body>
 
 </html>
+
+    
