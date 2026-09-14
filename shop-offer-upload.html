@@ -1038,38 +1038,72 @@ posterInput.addEventListener(
 
         }
 
-
         /* ================================
-           FILE SIZE CHECK
-        ================================= */
+   FILE SIZE CHECK
+   Allowed: 200 KB - 500 KB
+================================= */
 
-        const maxSize =
-            10 * 1024 * 1024;
+const MIN_FILE_SIZE =
+    200 * 1024;
+
+const MAX_FILE_SIZE =
+    500 * 1024;
 
 
-        if(file.size > maxSize){
+/* ================================
+   TOO SMALL
+================================= */
 
-            posterInput.value =
-                "";
+if(file.size < MIN_FILE_SIZE){
 
-            selectedFile =
-                null;
+    posterInput.value =
+        "";
 
-            previewBox.style.display =
-                "none";
+    selectedFile =
+        null;
 
-            uploadBtn.disabled =
-                true;
+    previewBox.style.display =
+        "none";
 
-            showMessage(
-                "Image is larger than 10 MB. Please choose a smaller poster.",
-                "error"
-            );
+    uploadBtn.disabled =
+        true;
 
-            return;
+    showMessage(
+        "Image size is too small. Please choose an image between 200 KB and 500 KB.",
+        "error"
+    );
 
-        }
+    return;
 
+}
+
+
+/* ================================
+   TOO LARGE
+================================= */
+
+if(file.size > MAX_FILE_SIZE){
+
+    posterInput.value =
+        "";
+
+    selectedFile =
+        null;
+
+    previewBox.style.display =
+        "none";
+
+    uploadBtn.disabled =
+        true;
+
+    showMessage(
+        "Image is too large. Please choose an image between 200 KB and 500 KB.",
+        "error"
+    );
+
+    return;
+
+}
 
         /* ================================
            STORE SELECTED FILE
