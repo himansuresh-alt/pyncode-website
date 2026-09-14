@@ -3154,17 +3154,19 @@ function createShopCard(shop){
                         ?
                         `
                         <img
-                            src="${escapeHTML(
-                                shopImage
-                            )}"
-                            alt="${shopName || "Shop"}"
-                            style="
-                                width:100%;
-                                height:100%;
-                                object-fit:cover;
-                                border-radius:14px;
-                            "
-                        >
+    src="${escapeHTML(
+        shopImage
+    )}"
+    alt="${shopName || "Shop"}"
+    loading="lazy"
+    decoding="async"
+    style="
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        border-radius:14px;
+    "
+>
                         `
                         :
                         `
