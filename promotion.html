@@ -18,7 +18,9 @@
 <title>Promotions | Pyncode</title>
 
 
-<!-- SUPABASE -->
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
@@ -39,6 +41,9 @@
 
 html{
     scroll-behavior:smooth;
+    width:100%;
+    max-width:100%;
+    overflow-x:clip;
 }
 
 body{
@@ -48,12 +53,85 @@ body{
         Helvetica,
         sans-serif;
 
-    background:#f7f9fc;
+    background:#faf9f7;
 
+    color:#171717;
+
+    width:100%;
+    max-width:100%;
+
+    overflow-x:clip;
+
+    padding-bottom:90px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    min-height:72px;
+
+    background:#fff;
+
+    border-bottom:
+        1px solid #eee;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+        0 20px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+}
+
+
+.logo{
+
+    font-size:24px;
+
+    font-weight:900;
+
+    letter-spacing:-1px;
+}
+
+
+.pyn-text{
+    color:#ef603e;
+}
+
+
+.code-text{
     color:#151923;
+}
 
-    padding-bottom:88px;
 
+.home-button{
+
+    text-decoration:none;
+
+    background:#171717;
+
+    color:#fff;
+
+    border-radius:12px;
+
+    padding:
+        10px 16px;
+
+    font-size:14px;
+
+    font-weight:800;
 }
 
 
@@ -61,7 +139,7 @@ body{
    MAIN
 ===================================================== */
 
-.main{
+.container{
 
     width:100%;
 
@@ -70,8 +148,7 @@ body{
     margin:0 auto;
 
     padding:
-        18px 14px 45px;
-
+        28px 14px 55px;
 }
 
 
@@ -83,7 +160,7 @@ body{
 
     width:100%;
 
-    min-height:255px;
+    min-height:240px;
 
     border-radius:24px;
 
@@ -102,7 +179,8 @@ body{
         1px solid #f0ddd6;
 
     box-shadow:
-        0 8px 30px rgba(20,30,50,.06);
+        0 8px 30px
+        rgba(20,30,50,.06);
 
     text-align:center;
 
@@ -111,7 +189,6 @@ body{
     overflow:hidden;
 
     margin-bottom:22px;
-
 }
 
 
@@ -132,8 +209,8 @@ body{
     right:-75px;
 
     top:-80px;
-
 }
+
 
 .promo-hero::after{
 
@@ -152,7 +229,6 @@ body{
     left:-70px;
 
     bottom:-70px;
-
 }
 
 
@@ -161,12 +237,11 @@ body{
     position:relative;
 
     z-index:2;
-
 }
 
 
 /* =====================================================
-   HERO ICON
+   ADMIN TRIGGER
 ===================================================== */
 
 .promo-icon{
@@ -179,6 +254,7 @@ body{
 
     cursor:pointer;
 
+    user-select:none;
 }
 
 
@@ -198,13 +274,12 @@ body{
     line-height:1.05;
 
     margin-bottom:9px;
-
 }
+
 
 .promo-title .orange{
 
     color:#ef603e;
-
 }
 
 
@@ -221,8 +296,8 @@ body{
     line-height:1.5;
 
     margin-bottom:5px;
-
 }
+
 
 .promo-contact{
 
@@ -231,344 +306,24 @@ body{
     font-weight:800;
 
     color:#171717;
-
 }
+
 
 .promo-contact span{
 
     color:#ef603e;
-
 }
 
 
 /* =====================================================
-   POSTER SECTION
-===================================================== */
-
-.poster-section{
-
-    width:100%;
-
-    margin-bottom:26px;
-
-}
-
-
-/* =====================================================
-   SECTION HEADING
-===================================================== */
-
-.section-heading{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    margin-bottom:11px;
-
-    padding:
-        0 3px;
-
-}
-
-.section-heading h2{
-
-    font-size:23px;
-
-    font-weight:900;
-
-    letter-spacing:-.6px;
-
-}
-
-.section-heading span{
-
-    color:#888;
-
-    font-size:12px;
-
-    font-weight:700;
-
-}
-
-
-/* =====================================================
-   POSTER CAROUSEL
-===================================================== */
-
-.poster-carousel{
-
-    width:100%;
-
-    position:relative;
-
-    overflow:hidden;
-
-    border-radius:22px;
-
-    background:#eef1f5;
-
-    border:
-        1px solid #e3e6eb;
-
-    box-shadow:
-        0 8px 28px rgba(20,30,50,.07);
-
-}
-
-
-/* =====================================================
-   POSTER TRACK
-===================================================== */
-
-.poster-track{
-
-    display:flex;
-
-    width:100%;
-
-    transition:
-        transform .45s cubic-bezier(.4,0,.2,1);
-
-}
-
-
-/* =====================================================
-   POSTER SLIDE
-===================================================== */
-
-.poster-slide{
-
-    min-width:100%;
-
-    width:100%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:#eef1f5;
-
-    position:relative;
-
-    overflow:hidden;
-
-}
-
-
-/* =====================================================
-   POSTER IMAGE
-===================================================== */
-
-.poster-slide img{
-
-    display:block;
-
-    width:100%;
-
-    height:auto;
-
-    max-height:560px;
-
-    object-fit:contain;
-
-    background:#eef1f5;
-
-}
-
-
-/* =====================================================
-   POSTER BUTTONS
-===================================================== */
-
-.poster-btn{
-
-    position:absolute;
-
-    top:50%;
-
-    transform:
-        translateY(-50%);
-
-    width:42px;
-
-    height:42px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:
-        rgba(20,24,32,.78);
-
-    color:#fff;
-
-    font-size:28px;
-
-    line-height:1;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    cursor:pointer;
-
-    z-index:10;
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,.20);
-
-    backdrop-filter:
-        blur(4px);
-
-}
-
-.poster-btn.prev{
-
-    left:10px;
-
-}
-
-.poster-btn.next{
-
-    right:10px;
-
-}
-
-.poster-btn:active{
-
-    transform:
-        translateY(-50%)
-        scale(.91);
-
-}
-
-
-/* =====================================================
-   POSTER DOTS
-===================================================== */
-
-.poster-dots{
-
-    position:absolute;
-
-    left:0;
-
-    right:0;
-
-    bottom:10px;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:6px;
-
-    z-index:12;
-
-}
-
-.poster-dot{
-
-    width:7px;
-
-    height:7px;
-
-    padding:0;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:
-        rgba(255,255,255,.70);
-
-    box-shadow:
-        0 1px 4px rgba(0,0,0,.20);
-
-    transition:
-        all .25s ease;
-
-}
-
-.poster-dot.active{
-
-    width:19px;
-
-    border-radius:10px;
-
-    background:#ef603e;
-
-}
-
-
-/* =====================================================
-   NO POSTER STATE
-===================================================== */
-
-.no-posters{
-
-    min-height:220px;
-
-    width:100%;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    text-align:center;
-
-    padding:30px 20px;
-
-    color:#8b919b;
-
-}
-
-.no-posters-icon{
-
-    font-size:38px;
-
-    margin-bottom:9px;
-
-}
-
-.no-posters strong{
-
-    color:#555;
-
-    font-size:16px;
-
-    margin-bottom:5px;
-
-}
-
-.no-posters span{
-
-    font-size:12px;
-
-}
-
-
-/* =====================================================
-   CATEGORY SECTION
+   PROMOTION CATEGORY NAVIGATION
 ===================================================== */
 
 .category-section{
 
     width:100%;
 
+    margin-bottom:30px;
 }
 
 
@@ -580,11 +335,12 @@ body{
 
     justify-content:space-between;
 
+    gap:10px;
+
     margin-bottom:14px;
 
     padding:
         0 3px;
-
 }
 
 
@@ -595,7 +351,6 @@ body{
     font-weight:900;
 
     letter-spacing:-.9px;
-
 }
 
 
@@ -607,6 +362,7 @@ body{
 
     font-weight:600;
 
+    white-space:nowrap;
 }
 
 
@@ -629,20 +385,29 @@ body{
     padding:
         2px 3px 12px;
 
+    scrollbar-width:none;
+
+    -webkit-overflow-scrolling:touch;
+
     scroll-behavior:smooth;
 
     scroll-snap-type:x mandatory;
 
-    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
 
-    scrollbar-width:none;
+    touch-action:auto;
 
+    cursor:grab;
 }
 
+
+.category-grid:active{
+    cursor:grabbing;
+}
+
+
 .category-grid::-webkit-scrollbar{
-
     display:none;
-
 }
 
 
@@ -683,7 +448,8 @@ body{
     gap:8px;
 
     box-shadow:
-        0 4px 16px rgba(20,30,50,.045);
+        0 4px 16px
+        rgba(20,30,50,.045);
 
     scroll-snap-align:start;
 
@@ -691,7 +457,6 @@ body{
         transform .18s ease,
         box-shadow .18s ease,
         border-color .18s ease;
-
 }
 
 
@@ -701,10 +466,10 @@ body{
         translateY(-2px);
 
     box-shadow:
-        0 8px 22px rgba(20,30,50,.08);
+        0 8px 22px
+        rgba(20,30,50,.08);
 
     border-color:#ddd;
-
 }
 
 
@@ -712,7 +477,6 @@ body{
 
     transform:
         scale(.97);
-
 }
 
 
@@ -744,7 +508,6 @@ body{
     font-size:22px;
 
     line-height:1;
-
 }
 
 
@@ -761,68 +524,126 @@ body{
     line-height:1.25;
 
     width:100%;
-
 }
 
 
 /* =====================================================
-   CATEGORY ARROW
+   ALL PROMOTIONS
 ===================================================== */
 
-.category-arrow{
+.all-promotion-section{
 
-    display:none;
+    width:100%;
 
+    margin-bottom:34px;
 }
 
 
-/* =====================================================
-   FIXED BOTTOM NAV
-===================================================== */
-
-.bottom-nav{
-
-    position:fixed;
-
-    left:0;
-
-    right:0;
-
-    bottom:0;
-
-    height:78px;
-
-    background:#fff;
-
-    border-top:
-        1px solid #e4e6ea;
+.feed-heading{
 
     display:flex;
 
     align-items:center;
 
-    justify-content:space-around;
+    justify-content:space-between;
 
-    z-index:9999;
+    gap:10px;
+
+    margin-bottom:12px;
 
     padding:
-        7px 8px;
-
-    box-shadow:
-        0 -5px 20px rgba(0,0,0,.035);
-
+        0 3px;
 }
 
 
-.bottom-nav-item{
+.feed-heading-left{
 
-    flex:1;
+    display:flex;
 
-    height:100%;
+    align-items:center;
 
-    text-decoration:none;
+    gap:8px;
+}
 
-    color:#777;
+
+.feed-heading-icon{
+
+    font-size:22px;
+}
+
+
+.feed-heading-title{
+
+    font-size:22px;
+
+    font-weight:900;
+
+    letter-spacing:-.6px;
+}
+
+
+.feed-count{
+
+    color:#8a8f98;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+
+/* =====================================================
+   ALL POSTER ROW
+===================================================== */
+
+.all-poster-row{
+
+    width:100%;
+
+    display:flex;
+
+    gap:12px;
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
+    padding:
+        2px 3px 12px;
+
+    scrollbar-width:none;
+
+    -webkit-overflow-scrolling:touch;
+
+    scroll-behavior:smooth;
+
+    overscroll-behavior-x:contain;
+
+    touch-action:auto;
+}
+
+
+.all-poster-row::-webkit-scrollbar{
+    display:none;
+}
+
+
+/* =====================================================
+   ALL POSTER EMPTY
+===================================================== */
+
+.all-poster-empty{
+
+    width:100%;
+
+    min-height:180px;
+
+    border-radius:18px;
+
+    background:#fff;
+
+    border:
+        1px solid #e2e5e9;
 
     display:flex;
 
@@ -832,33 +653,277 @@ body{
 
     justify-content:center;
 
-    gap:4px;
+    text-align:center;
 
+    padding:30px 20px;
+
+    color:#8b919b;
 }
 
 
-.nav-icon{
+.all-poster-empty-icon{
 
-    font-size:22px;
+    font-size:40px;
 
-    line-height:1;
-
+    margin-bottom:9px;
 }
 
 
-.nav-label{
+.all-poster-empty strong{
 
-    font-size:13px;
+    color:#555;
 
-    font-weight:700;
-
+    font-size:16px;
 }
 
 
-.bottom-nav-item.active{
+.all-poster-empty span{
 
-    color:#ef5b3f;
+    margin-top:5px;
 
+    font-size:12px;
+}
+
+
+/* =====================================================
+   POSTER CARD
+===================================================== */
+
+.poster-card{
+
+    flex:
+        0 0 190px;
+
+    width:190px;
+
+    border-radius:17px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    border:
+        1px solid #e2e5e9;
+
+    box-shadow:
+        0 5px 18px
+        rgba(20,30,50,.055);
+
+    position:relative;
+
+    scroll-snap-align:start;
+
+    user-select:none;
+}
+
+
+/* =====================================================
+   POSTER IMAGE
+   NOT CLICKABLE
+===================================================== */
+
+.poster-card-image{
+
+    display:block;
+
+    width:100%;
+
+    height:285px;
+
+    object-fit:cover;
+
+    background:#eef1f5;
+
+    pointer-events:none;
+
+    user-select:none;
+}
+
+
+/* =====================================================
+   POSTER CARD FOOTER
+===================================================== */
+
+.poster-card-footer{
+
+    padding:
+        9px 10px 10px;
+
+    background:#fff;
+}
+
+
+.poster-card-category{
+
+    color:#ef603e;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+
+.poster-card-date{
+
+    margin-top:3px;
+
+    color:#8c929c;
+
+    font-size:10px;
+
+    font-weight:600;
+}
+
+
+/* =====================================================
+   CATEGORY-WISE POSTER FEED
+===================================================== */
+
+.category-poster-feed{
+
+    width:100%;
+}
+
+
+/* =====================================================
+   CATEGORY POSTER SECTION
+===================================================== */
+
+.poster-category-section{
+
+    width:100%;
+
+    margin-bottom:31px;
+}
+
+
+/* =====================================================
+   CATEGORY HEADER
+===================================================== */
+
+.poster-category-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:11px;
+
+    padding:
+        0 3px;
+}
+
+
+.poster-category-name{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    min-width:0;
+}
+
+
+.poster-category-icon{
+
+    width:34px;
+
+    height:34px;
+
+    flex:0 0 34px;
+
+    border-radius:10px;
+
+    background:#fff4ef;
+
+    border:
+        1px solid #f2ddd5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:18px;
+}
+
+
+.poster-category-title{
+
+    font-size:19px;
+
+    font-weight:900;
+
+    line-height:1.2;
+
+    letter-spacing:-.4px;
+
+    word-break:break-word;
+}
+
+
+.poster-category-link{
+
+    flex:0 0 auto;
+
+    text-decoration:none;
+
+    color:#ef603e;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+/* =====================================================
+   CATEGORY POSTER ROW
+===================================================== */
+
+.poster-row{
+
+    width:100%;
+
+    display:flex;
+
+    gap:12px;
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
+    padding:
+        2px 3px 12px;
+
+    scrollbar-width:none;
+
+    -webkit-overflow-scrolling:touch;
+
+    scroll-behavior:smooth;
+
+    overscroll-behavior-x:contain;
+
+    touch-action:pan-x;
+}
+
+
+.poster-row::-webkit-scrollbar{
+    display:none;
 }
 
 
@@ -868,37 +933,40 @@ body{
 
 @media(min-width:601px){
 
-    .main{
+    .container{
 
         padding:
-            25px 20px 50px;
-
+            32px 20px 60px;
     }
 
 
     .category-grid{
 
         gap:14px;
-
     }
 
 
     .category-card{
 
         flex:
-            0 0 180px;
+            0 0 185px;
 
-        width:180px;
-
-        min-height:100px;
-
+        width:185px;
     }
 
 
-    .poster-slide img{
+    .poster-card{
 
-        max-height:620px;
+        flex:
+            0 0 205px;
 
+        width:205px;
+    }
+
+
+    .poster-card-image{
+
+        height:305px;
     }
 
 }
@@ -910,47 +978,84 @@ body{
 
 @media(min-width:900px){
 
+    .container{
+
+        padding:
+            35px 20px 65px;
+    }
+
+
     .category-grid{
 
         gap:14px;
-
     }
 
 
     .category-card{
 
         flex:
-            0 0 185px;
+            0 0 195px;
 
-        width:185px;
+        width:195px;
 
-        min-height:105px;
-
-        padding:15px;
-
+        min-height:108px;
     }
 
 
-    .category-name{
+    .poster-card{
 
-        font-size:13px;
+        flex:
+            0 0 220px;
 
+        width:220px;
+    }
+
+
+    .poster-card-image{
+
+        height:330px;
+    }
+
+
+    .poster-category-title{
+
+        font-size:20px;
     }
 
 }
 
-
-/* =====================================================
+  /* =====================================================
    SMALL MOBILE
 ===================================================== */
 
 @media(max-width:360px){
 
-    .main{
+    .header{
 
         padding:
-            13px 10px 35px;
+            0 13px;
+    }
 
+
+    .logo{
+
+        font-size:21px;
+    }
+
+
+    .home-button{
+
+        padding:
+            9px 13px;
+
+        font-size:13px;
+    }
+
+
+    .container{
+
+        padding:
+            22px 10px 45px;
     }
 
 
@@ -959,52 +1064,45 @@ body{
         min-height:220px;
 
         padding:
-            22px 13px;
+            23px 13px;
 
         border-radius:20px;
-
     }
 
 
     .promo-icon{
 
         font-size:36px;
-
     }
 
 
     .promo-title{
 
         font-size:28px;
-
     }
 
 
     .promo-subtitle{
 
         font-size:13px;
-
     }
 
 
     .promo-contact{
 
         font-size:14px;
-
-    }
-
-
-    .section-heading h2{
-
-        font-size:20px;
-
     }
 
 
     .category-title{
 
         font-size:23px;
+    }
 
+
+    .category-caption{
+
+        font-size:10px;
     }
 
 
@@ -1015,7 +1113,6 @@ body{
         padding-left:2px;
 
         padding-right:2px;
-
     }
 
 
@@ -1032,7 +1129,6 @@ body{
             11px 10px;
 
         gap:7px;
-
     }
 
 
@@ -1045,91 +1141,227 @@ body{
         font-size:18px;
 
         border-radius:10px;
-
     }
 
 
     .category-name{
 
         font-size:11.5px;
-
     }
 
 
-    .category-arrow{
+    .feed-heading-title{
 
-        display:none;
-
+        font-size:20px;
     }
 
 
-    .poster-btn{
+    .poster-category-title{
 
-        width:36px;
+        font-size:17px;
+    }
 
-        height:36px;
 
-        font-size:24px;
+    .poster-category-icon{
 
+        width:31px;
+
+        height:31px;
+
+        flex-basis:31px;
+
+        font-size:17px;
+    }
+
+
+    .all-poster-row,
+    .poster-row{
+
+        gap:9px;
+
+        padding-left:2px;
+
+        padding-right:2px;
+    }
+
+
+    .poster-card{
+
+        flex:
+            0 0 155px;
+
+        width:155px;
+
+        border-radius:15px;
+    }
+
+
+    .poster-card-image{
+
+        height:235px;
+    }
+
+
+    .poster-card-footer{
+
+        padding:
+            8px;
+    }
+
+
+    .nav-label{
+
+        font-size:12px;
     }
 
 }
 
 
 /* =====================================================
-   MOBILE STABILITY FIX
+   REDUCED MOTION
 ===================================================== */
 
-html{
+@media(prefers-reduced-motion:reduce){
 
-    width:100%;
+    html{
 
-    max-width:100%;
+        scroll-behavior:auto;
+    }
 
-    overflow-x:clip;
+
+    .category-grid,
+    .all-poster-row,
+    .poster-row{
+
+        scroll-behavior:auto;
+    }
 
 }
 
+  /* =====================================================
+   MOBILE VERTICAL PAGE SCROLL FIX
+===================================================== */
+
+html,
 body{
-
     width:100%;
-
     max-width:100%;
-
-    overflow-x:clip;
-
+    overflow-x:hidden;
+    overflow-y:auto;
 }
 
+.category-grid,
+.poster-row{
+    touch-action:auto;
+    -webkit-overflow-scrolling:touch;
+}
 
-/* Fixed navigation - stable on mobile */
+/* Poster image should NOT open on touch */
+.poster-card-link,
+.featured-poster-link{
+    cursor:default;
+    -webkit-tap-highlight-color:transparent;
+}
+
+/* Fixed bottom navigation */
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:78px;
+    z-index:99999;
+}
+
+  /* =====================================================
+   FIXED BOTTOM NAVIGATION
+===================================================== */
 
 .bottom-nav{
+    position:fixed !important;
 
-    position:fixed;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
 
-    left:0;
+    width:100% !important;
+    height:78px !important;
 
-    right:0;
+    background:#ffffff !important;
 
-    bottom:0;
+    border-top:1px solid #e4e6ea !important;
 
-    width:auto;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-around !important;
 
-    max-width:none;
+    z-index:999999 !important;
 
-    height:78px;
+    padding:7px 8px !important;
 
-    transform:none;
-
-    -webkit-transform:none;
-
-    will-change:auto;
-
-    z-index:99999;
-
-    box-sizing:border-box;
-
+    box-shadow:
+        0 -5px 20px
+        rgba(0,0,0,.06) !important;
 }
+
+.bottom-nav-item{
+    flex:1 !important;
+
+    height:100% !important;
+
+    text-decoration:none !important;
+
+    color:#777 !important;
+
+    display:flex !important;
+    flex-direction:column !important;
+
+    align-items:center !important;
+    justify-content:center !important;
+
+    gap:4px !important;
+}
+
+.bottom-nav-item .nav-icon{
+    font-size:22px !important;
+    line-height:1 !important;
+}
+
+.bottom-nav-item .nav-label{
+    font-size:13px !important;
+    font-weight:700 !important;
+}
+
+.bottom-nav-item.active{
+    color:#ef5b3f !important;
+}
+
+
+/* Prevent page content from hiding behind nav */
+
+body{
+    padding-bottom:95px !important;
+}
+
+
+/* Mobile */
+
+@media(max-width:600px){
+
+    .bottom-nav{
+        height:76px !important;
+    }
+
+    .bottom-nav-item .nav-icon{
+        font-size:21px !important;
+    }
+
+    .bottom-nav-item .nav-label{
+        font-size:12px !important;
+    }
+
+  }
 
 </style>
 
@@ -1139,15 +1371,17 @@ body{
 <body>
 
 
+
+
 <!-- =====================================================
      MAIN
 ===================================================== -->
 
-<main class="main">
+<main class="container">
 
 
     <!-- =================================================
-         1. PROMOTE YOUR BUSINESS
+         1. PROMOTE YOUR BUSINESS HERO
     ================================================== -->
 
     <section class="promo-hero">
@@ -1155,14 +1389,12 @@ body{
         <div class="promo-hero-content">
 
 
-            <!--
-                5 TAP ADMIN TRIGGER
-                Existing functionality preserved
-            -->
+            <!-- 5 TAP ADMIN TRIGGER -->
 
             <div
                 class="promo-icon"
                 id="promotionAdminTrigger"
+                aria-label="Promotions"
             >
                 📢
             </div>
@@ -1188,7 +1420,9 @@ body{
             <p class="promo-contact">
 
                 Call or WhatsApp:
-                <span>9092035926</span>
+                <span>
+                    9092035926
+                </span>
 
             </p>
 
@@ -1200,91 +1434,13 @@ body{
 
 
     <!-- =================================================
-         2. UPLOADED PROMOTION POSTERS
-    ================================================== -->
-
-    <section class="poster-section">
-
-
-        <div class="section-heading">
-
-            <h2>
-                🔥 Featured Promotions
-            </h2>
-
-
-            <span id="posterCount">
-                Loading...
-            </span>
-
-        </div>
-
-
-
-        <div
-            class="poster-carousel"
-            id="posterCarousel"
-        >
-
-
-            <!-- POSTER TRACK -->
-
-            <div
-                class="poster-track"
-                id="posterTrack"
-            ></div>
-
-
-
-            <!-- PREVIOUS -->
-
-            <button
-                type="button"
-                class="poster-btn prev"
-                id="posterPrev"
-                aria-label="Previous promotion"
-            >
-                ‹
-            </button>
-
-
-
-            <!-- NEXT -->
-
-            <button
-                type="button"
-                class="poster-btn next"
-                id="posterNext"
-                aria-label="Next promotion"
-            >
-                ›
-            </button>
-
-
-
-            <!-- DOTS -->
-
-            <div
-                class="poster-dots"
-                id="posterDots"
-            ></div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         3. PROMOTION CATEGORIES
+         2. PROMOTION CATEGORIES
     ================================================== -->
 
     <section class="category-section">
 
 
         <div class="category-title-row">
-
 
             <div>
 
@@ -1296,12 +1452,10 @@ body{
 
 
             <div class="category-caption">
-                Swipe to explore →
+                Auto Swipe →
             </div>
 
-
         </div>
-
 
 
         <div
@@ -1313,12 +1467,85 @@ body{
     </section>
 
 
+
+    <!-- =================================================
+         3. ALL PROMOTIONS
+         
+         ANY CATEGORY POSTER UPLOADED WILL
+         APPEAR HERE.
+    ================================================== -->
+
+    <section class="all-promotion-section">
+
+
+        <div class="feed-heading">
+
+            <div class="feed-heading-left">
+
+                <div class="feed-heading-icon">
+                    📢
+                </div>
+
+                <h2 class="feed-heading-title">
+                    All Promotions
+                </h2>
+
+            </div>
+
+
+            <span
+                class="feed-count"
+                id="posterCount"
+            >
+                Loading...
+            </span>
+
+        </div>
+
+
+        <div
+            id="allPosterRow"
+            class="all-poster-row"
+        >
+
+            <div class="all-poster-empty">
+
+                <div class="all-poster-empty-icon">
+                    📢
+                </div>
+
+                <strong>
+                    Loading Promotions...
+                </strong>
+
+                <span>
+                    Please wait
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         4. CATEGORY-WISE POSTER FEED
+    ================================================== -->
+
+    <section
+        class="category-poster-feed"
+        id="categoryPosterFeed"
+    ></section>
+
+
 </main>
 
 
 
 <!-- =====================================================
-     FIXED BOTTOM NAVIGATION
+     BOTTOM NAVIGATION
 ===================================================== -->
 
 <nav class="bottom-nav">
@@ -1330,7 +1557,7 @@ body{
     >
 
         <span class="nav-icon">
-            🏬
+            🏪
         </span>
 
         <span class="nav-label">
@@ -1393,7 +1620,10 @@ body{
 
 </nav>
 
-  <script>
+
+
+<script>
+
 
 /* =====================================================
    SUPABASE
@@ -1412,8 +1642,6 @@ const supabaseClient =
         SUPABASE_URL,
         SUPABASE_KEY
     );
-
-
 
 
 /* =====================================================
@@ -1480,9 +1708,8 @@ const categories = [
 ];
 
 
-
 /* =====================================================
-   CATEGORY RENDER
+   DOM ELEMENTS
 ===================================================== */
 
 const categoryGrid =
@@ -1490,6 +1717,47 @@ const categoryGrid =
         "categoryGrid"
     );
 
+
+const allPosterRow =
+    document.getElementById(
+        "allPosterRow"
+    );
+
+
+const categoryPosterFeed =
+    document.getElementById(
+        "categoryPosterFeed"
+    );
+
+
+const posterCount =
+    document.getElementById(
+        "posterCount"
+    );
+
+
+/* =====================================================
+   CATEGORY ICON LOOKUP
+===================================================== */
+
+const categoryIconMap =
+    new Map(
+        categories.map(
+            function(category){
+
+                return [
+                    category[1],
+                    category[0]
+                ];
+
+            }
+        )
+    );
+
+
+/* =====================================================
+   CATEGORY RENDER
+===================================================== */
 
 function renderCategories(){
 
@@ -1541,10 +1809,6 @@ function renderCategories(){
                     ${name}
                 </div>
 
-                <div class="category-arrow">
-                    →
-                </div>
-
             `;
 
 
@@ -1560,189 +1824,395 @@ function renderCategories(){
 
 renderCategories();
 
-/* =====================================================
-   AUTOMATIC CATEGORY HORIZONTAL SCROLL
+  /* =====================================================
+   CATEGORY AUTO SCROLL
 ===================================================== */
 
-const categoryScroll =
-    document.getElementById("categoryGrid");
-
-let categoryAutoScrollTimer = null;
+let categoryAutoTimer =
+    null;
 
 
-/* Start automatic scrolling */
+let categoryUserTouching =
+    false;
+
+
+let categoryUserInteracting =
+    false;
+
+
+/* =====================================================
+   START CATEGORY AUTO SCROLL
+===================================================== */
 
 function startCategoryAutoScroll(){
 
-    if(!categoryScroll){
+    if(!categoryGrid){
+
         return;
+
     }
 
-    clearInterval(categoryAutoScrollTimer);
 
-    categoryAutoScrollTimer = setInterval(function(){
-
-        const maxScroll =
-            categoryScroll.scrollWidth -
-            categoryScroll.clientWidth;
+    clearInterval(
+        categoryAutoTimer
+    );
 
 
-        /* Nothing to scroll */
+    categoryAutoTimer =
+        setInterval(
+            function(){
 
-        if(maxScroll <= 5){
-            return;
-        }
+                if(
+                    categoryUserTouching ||
+                    categoryUserInteracting
+                ){
 
+                    return;
 
-        /* Scroll to next position */
-
-        const current =
-            categoryScroll.scrollLeft;
-
-
-        const next =
-            current + 190;
+                }
 
 
-        if(next >= maxScroll - 5){
+                const maxScroll =
+                    categoryGrid.scrollWidth -
+                    categoryGrid.clientWidth;
 
-            /* Start again from beginning */
 
-            categoryScroll.scrollTo({
-                left:0,
-                behavior:"smooth"
-            });
+                if(
+                    maxScroll <= 5
+                ){
 
-        }
-        else{
+                    return;
 
-            categoryScroll.scrollTo({
-                left:next,
-                behavior:"smooth"
-            });
+                }
 
-        }
 
-    }, 2500);
+                const current =
+                    categoryGrid.scrollLeft;
+
+
+                const step =
+                    window.innerWidth <= 360
+                        ? 163
+                        : 187;
+
+
+                const next =
+                    current + step;
+
+
+                if(
+                    next >=
+                    maxScroll - 5
+                ){
+
+                    categoryGrid.scrollTo({
+
+                        left:0,
+
+                        behavior:"smooth"
+
+                    });
+
+                }
+
+                else{
+
+                    categoryGrid.scrollTo({
+
+                        left:next,
+
+                        behavior:"smooth"
+
+                    });
+
+                }
+
+            },
+
+            2300
+        );
 
 }
 
 
 /* =====================================================
-   PAUSE WHILE USER TOUCHES
+   STOP CATEGORY AUTO SCROLL
 ===================================================== */
 
-categoryScroll.addEventListener(
-    "touchstart",
+function stopCategoryAutoScroll(){
+
+    clearInterval(
+        categoryAutoTimer
+    );
+
+}
+
+
+/* =====================================================
+   CATEGORY TOUCH CONTROL
+===================================================== */
+
+if(categoryGrid){
+
+    categoryGrid.addEventListener(
+        "touchstart",
+        function(){
+
+            categoryUserTouching =
+                true;
+
+            stopCategoryAutoScroll();
+
+        },
+        {
+            passive:true
+        }
+    );
+
+
+    categoryGrid.addEventListener(
+        "touchend",
+        function(){
+
+            categoryUserTouching =
+                false;
+
+
+            setTimeout(
+                function(){
+
+                    startCategoryAutoScroll();
+
+                },
+                1000
+            );
+
+        },
+        {
+            passive:true
+        }
+    );
+
+
+    categoryGrid.addEventListener(
+        "touchcancel",
+        function(){
+
+            categoryUserTouching =
+                false;
+
+
+            setTimeout(
+                function(){
+
+                    startCategoryAutoScroll();
+
+                },
+                1000
+            );
+
+        },
+        {
+            passive:true
+        }
+    );
+
+
+    categoryGrid.addEventListener(
+        "mouseenter",
+        function(){
+
+            categoryUserInteracting =
+                true;
+
+        }
+    );
+
+
+    categoryGrid.addEventListener(
+        "mouseleave",
+        function(){
+
+            categoryUserInteracting =
+                false;
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   START CATEGORY AUTO SCROLL
+===================================================== */
+
+setTimeout(
     function(){
 
-        clearInterval(
-            categoryAutoScrollTimer
-        );
+        startCategoryAutoScroll();
 
     },
-    {
-        passive:true
-    }
+    800
 );
 
 
 /* =====================================================
-   RESUME AFTER USER STOPS TOUCHING
-===================================================== */
-
-categoryScroll.addEventListener(
-    "touchend",
-    function(){
-
-        setTimeout(function(){
-
-            startCategoryAutoScroll();
-
-        },1000);
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-/* =====================================================
-   START
-===================================================== */
-
-setTimeout(function(){
-
-    startCategoryAutoScroll();
-
-},1000);
-
-
-/* =====================================================
-   POSTER ELEMENTS
-===================================================== */
-
-const posterTrack =
-    document.getElementById(
-        "posterTrack"
-    );
-
-
-const posterDots =
-    document.getElementById(
-        "posterDots"
-    );
-
-
-const posterPrev =
-    document.getElementById(
-        "posterPrev"
-    );
-
-
-const posterNext =
-    document.getElementById(
-        "posterNext"
-    );
-
-
-const posterCount =
-    document.getElementById(
-        "posterCount"
-    );
-
-
-const posterCarousel =
-    document.getElementById(
-        "posterCarousel"
-    );
-
-
-
-/* =====================================================
-   POSTER STATE
+   PROMOTION DATA
 ===================================================== */
 
 let promotionPosters = [];
 
-let currentPoster = 0;
 
-let posterTimer = null;
+/* =====================================================
+   NORMALIZE CATEGORY
+===================================================== */
 
+function normalizeCategory(
+    value
+){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .trim()
+        .replace(/\s+/g," ")
+        .toLowerCase();
+
+}
 
 
 /* =====================================================
-   LOAD LIVE PROMOTION POSTERS
+   CATEGORY DISPLAY NAME
+===================================================== */
+
+function getCategoryDisplayName(
+    promotionCategory
+){
+
+    const normalized =
+        normalizeCategory(
+            promotionCategory
+        );
+
+
+    if(!normalized){
+
+        return "Other Promotions";
+
+    }
+
+
+    for(
+        const category
+        of categories
+    ){
+
+        if(
+            normalizeCategory(
+                category[1]
+            ) === normalized
+        ){
+
+            return category[1];
+
+        }
+
+    }
+
+
+    return String(
+        promotionCategory
+    ).trim();
+
+}
+
+
+/* =====================================================
+   CATEGORY ICON
+===================================================== */
+
+function getCategoryIcon(
+    categoryName
+){
+
+    return (
+        categoryIconMap.get(
+            categoryName
+        )
+        ||
+        "📢"
+    );
+
+}
+
+
+/* =====================================================
+   DATE FORMAT
+===================================================== */
+
+function formatPromotionDate(
+    dateValue
+){
+
+    if(!dateValue){
+
+        return "";
+
+    }
+
+
+    const date =
+        new Date(
+            dateValue
+        );
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "";
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   LOAD LIVE PROMOTIONS
 ===================================================== */
 
 async function loadPromotionPosters(){
 
-    try{
+    if(posterCount){
 
         posterCount.textContent =
             "Loading...";
 
+    }
+
+
+    try{
 
         const {
             data,
@@ -1750,7 +2220,9 @@ async function loadPromotionPosters(){
         } =
             await supabaseClient
 
-                .from("promotions")
+                .from(
+                    "promotions"
+                )
 
                 .select(
                     "id, category, pincode, poster_url, is_active, created_at"
@@ -1777,9 +2249,12 @@ async function loadPromotionPosters(){
             );
 
 
-            promotionPosters = [];
+            promotionPosters =
+                [];
 
-            renderPosters();
+
+            renderPromotionFeed();
+
 
             return;
 
@@ -1788,11 +2263,20 @@ async function loadPromotionPosters(){
 
         promotionPosters =
             Array.isArray(data)
-                ? data
+                ? data.filter(
+                    function(item){
+
+                        return (
+                            item &&
+                            item.poster_url
+                        );
+
+                    }
+                )
                 : [];
 
 
-        renderPosters();
+        renderPromotionFeed();
 
     }
 
@@ -1804,81 +2288,79 @@ async function loadPromotionPosters(){
         );
 
 
-        promotionPosters = [];
+        promotionPosters =
+            [];
 
-        renderPosters();
+
+        renderPromotionFeed();
 
     }
 
 }
 
 
-
 /* =====================================================
-   RENDER POSTERS
+   RENDER COMPLETE PROMOTION FEED
 ===================================================== */
 
-function renderPosters(){
+function renderPromotionFeed(){
 
-    posterTrack.innerHTML =
+    renderAllPromotions();
+
+    renderCategoryPosterFeed();
+
+}
+
+
+/* =====================================================
+   RENDER ALL PROMOTIONS
+===================================================== */
+
+function renderAllPromotions(){
+
+    if(!allPosterRow){
+
+        return;
+
+    }
+
+
+    allPosterRow.innerHTML =
         "";
 
-    posterDots.innerHTML =
-        "";
-
-
-    currentPoster = 0;
-
-
-
-    /* =================================================
-       NO ACTIVE POSTERS
-    ================================================= */
 
     if(
         !promotionPosters ||
         promotionPosters.length === 0
     ){
 
-        posterTrack.innerHTML = `
+        allPosterRow.innerHTML = `
 
-            <div class="poster-slide">
+            <div class="all-poster-empty">
 
-                <div class="no-posters">
-
-                    <div class="no-posters-icon">
-                        📢
-                    </div>
-
-                    <strong>
-                        No Promotions Available
-                    </strong>
-
-                    <span>
-                        New business promotions will appear here.
-                    </span>
-
+                <div class="all-poster-empty-icon">
+                    📢
                 </div>
+
+                <strong>
+                    No Promotions Available
+                </strong>
+
+                <span>
+                    New business promotions will appear here.
+                </span>
 
             </div>
 
         `;
 
 
-        posterPrev.style.display =
-            "none";
+        if(posterCount){
 
+            posterCount.textContent =
+                "0 Promotions";
 
-        posterNext.style.display =
-            "none";
-
-
-        posterDots.style.display =
-            "none";
-
-
-        posterCount.textContent =
-            "0 Promotions";
+        }
 
 
         return;
@@ -1886,28 +2368,34 @@ function renderPosters(){
     }
 
 
+    if(posterCount){
 
-    /* =================================================
-       COUNT
-    ================================================= */
+        posterCount.textContent =
+            promotionPosters.length +
+            (
+                promotionPosters.length === 1
+                    ? " Promotion"
+                    : " Promotions"
+            );
 
-    posterCount.textContent =
-        promotionPosters.length +
-        (
-            promotionPosters.length === 1
-                ? " Promotion"
-                : " Promotions"
-        );
-
-
-    posterDots.style.display =
-        "flex";
+    }
 
 
+    /*
+       IMPORTANT:
 
-    /* =================================================
-       CREATE POSTER SLIDES
-    ================================================= */
+       All active posters are shown here.
+       Category does NOT matter.
+
+       Example:
+
+       Real Estate poster
+       Mobile Showroom poster
+       Jewellery poster
+       Restaurant poster
+
+       Everything appears in All Promotions.
+    */
 
     promotionPosters.forEach(
         function(
@@ -1915,7 +2403,52 @@ function renderPosters(){
             index
         ){
 
+            const card =
+                createPosterCard(
+                    promotion,
+                    index
+                );
+
+
+            allPosterRow.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    /*
+       Setup auto swipe after
+       browser calculates widths.
+    */
+
+    requestAnimationFrame(
+        function(){
+
+            setupAllPosterAutoScroll();
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   GROUP PROMOTIONS BY CATEGORY
+===================================================== */
+
+function groupPromotionsByCategory(){
+
+    const groups =
+        new Map();
+
+
+    promotionPosters.forEach(
+        function(promotion){
+
             if(
+                !promotion ||
                 !promotion.poster_url
             ){
 
@@ -1924,446 +2457,856 @@ function renderPosters(){
             }
 
 
-            const slide =
-                document.createElement(
-                    "div"
+            const displayName =
+                getCategoryDisplayName(
+                    promotion.category
                 );
 
 
-            slide.className =
-                "poster-slide";
-
-
-            const img =
-                document.createElement(
-                    "img"
+            const key =
+                normalizeCategory(
+                    displayName
                 );
 
 
-            img.src =
-                promotion.poster_url;
+            if(
+                !groups.has(key)
+            ){
 
+                groups.set(
+                    key,
+                    {
+                        name:
+                            displayName,
 
-            img.alt =
-                promotion.category
-                    ? promotion.category +
-                      " promotion"
-                    : "Pyncode Promotion";
+                        icon:
+                            getCategoryIcon(
+                                displayName
+                            ),
 
-
-            img.loading =
-                index === 0
-                    ? "eager"
-                    : "lazy";
-
-
-            img.decoding =
-                "async";
-
-
-            /*
-               Prevent broken image
-               from disturbing layout.
-            */
-
-            img.onerror =
-                function(){
-
-                    slide.remove();
-
-                };
-
-
-            slide.appendChild(
-                img
-            );
-
-
-            posterTrack.appendChild(
-                slide
-            );
-
-
-
-            /* =========================================
-               DOT
-            ========================================== */
-
-            const dot =
-                document.createElement(
-                    "button"
-                );
-
-
-            dot.type =
-                "button";
-
-
-            dot.className =
-                "poster-dot";
-
-
-            dot.setAttribute(
-                "aria-label",
-                "Show promotion " +
-                (index + 1)
-            );
-
-
-            if(index === 0){
-
-                dot.classList.add(
-                    "active"
+                        posters:[]
+                    }
                 );
 
             }
 
 
-            dot.addEventListener(
-                "click",
+            groups
+                .get(key)
+                .posters
+                .push(
+                    promotion
+                );
+
+        }
+    );
+
+
+    return Array.from(
+        groups.values()
+    );
+
+}
+
+
+/* =====================================================
+   RENDER CATEGORY POSTER FEED
+===================================================== */
+
+function renderCategoryPosterFeed(){
+
+    if(!categoryPosterFeed){
+
+        return;
+
+    }
+
+
+    categoryPosterFeed.innerHTML =
+        "";
+
+
+    const groups =
+        groupPromotionsByCategory();
+
+
+    if(
+        groups.length === 0
+    ){
+
+        return;
+
+    }
+
+
+    groups.forEach(
+        function(group){
+
+            const section =
+                createCategoryPosterSection(
+                    group
+                );
+
+
+            categoryPosterFeed.appendChild(
+                section
+            );
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        function(){
+
+            setupPosterRowAutoScroll();
+
+        }
+    );
+
+}
+
+/* =====================================================
+   CREATE CATEGORY POSTER SECTION
+===================================================== */
+
+function createCategoryPosterSection(
+    group
+){
+
+    const section =
+        document.createElement(
+            "section"
+        );
+
+
+    section.className =
+        "poster-category-section";
+
+
+    const header =
+        document.createElement(
+            "div"
+        );
+
+
+    header.className =
+        "poster-category-header";
+
+
+    const categoryName =
+        document.createElement(
+            "div"
+        );
+
+
+    categoryName.className =
+        "poster-category-name";
+
+
+    const icon =
+        document.createElement(
+            "div"
+        );
+
+
+    icon.className =
+        "poster-category-icon";
+
+
+    icon.textContent =
+        group.icon;
+
+
+    const title =
+        document.createElement(
+            "h2"
+        );
+
+
+    title.className =
+        "poster-category-title";
+
+
+    title.textContent =
+        group.name;
+
+
+    categoryName.appendChild(
+        icon
+    );
+
+
+    categoryName.appendChild(
+        title
+    );
+
+
+    const viewAll =
+        document.createElement(
+            "a"
+        );
+
+
+    viewAll.className =
+        "poster-category-link";
+
+
+    viewAll.href =
+        "promotion-category.html?category=" +
+        encodeURIComponent(
+            group.name
+        );
+
+
+    viewAll.textContent =
+        "See all →";
+
+
+    header.appendChild(
+        categoryName
+    );
+
+
+    header.appendChild(
+        viewAll
+    );
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "poster-row";
+
+
+    row.dataset.category =
+        group.name;
+
+
+    group.posters.forEach(
+        function(
+            promotion,
+            index
+        ){
+
+            const card =
+                createPosterCard(
+                    promotion,
+                    index
+                );
+
+
+            row.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    section.appendChild(
+        header
+    );
+
+
+    section.appendChild(
+        row
+    );
+
+
+    return section;
+
+}
+
+  /* =====================================================
+   CREATE POSTER CARD
+===================================================== */
+
+function createPosterCard(
+    promotion,
+    index
+){
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "poster-card";
+
+
+    /*
+       IMPORTANT:
+
+       There is NO <a> tag here.
+
+       So touching the image will NOT:
+       - open image
+       - open new tab
+       - open poster URL
+
+       User can simply swipe the poster row.
+
+       "See all →" is the only clickable
+       navigation for category posters.
+    */
+
+
+    const image =
+        document.createElement(
+            "img"
+        );
+
+
+    image.className =
+        "poster-card-image";
+
+
+    image.src =
+        promotion.poster_url;
+
+
+    image.alt =
+        (
+            promotion.category
+                ? promotion.category
+                : "Pyncode Promotion"
+        ) +
+        " poster";
+
+
+    image.loading =
+        index === 0
+            ? "eager"
+            : "lazy";
+
+
+    image.decoding =
+        "async";
+
+
+    image.draggable =
+        false;
+
+
+    image.onerror =
+        function(){
+
+            card.remove();
+
+        };
+
+
+    card.appendChild(
+        image
+    );
+
+
+    const footer =
+        document.createElement(
+            "div"
+        );
+
+
+    footer.className =
+        "poster-card-footer";
+
+
+    const category =
+        document.createElement(
+            "div"
+        );
+
+
+    category.className =
+        "poster-card-category";
+
+
+    category.textContent =
+        getCategoryDisplayName(
+            promotion.category
+        );
+
+
+    footer.appendChild(
+        category
+    );
+
+
+    const dateText =
+        formatPromotionDate(
+            promotion.created_at
+        );
+
+
+    if(dateText){
+
+        const date =
+            document.createElement(
+                "div"
+            );
+
+
+        date.className =
+            "poster-card-date";
+
+
+        date.textContent =
+            dateText;
+
+
+        footer.appendChild(
+            date
+        );
+
+    }
+
+
+    card.appendChild(
+        footer
+    );
+
+
+    return card;
+
+}
+
+
+/* =====================================================
+   ALL PROMOTIONS AUTO SCROLL
+===================================================== */
+
+let allPosterTimer =
+    null;
+
+
+let allPosterTouching =
+    false;
+
+
+let allPosterMouseInside =
+    false;
+
+
+/* =====================================================
+   STOP ALL PROMOTIONS AUTO SCROLL
+===================================================== */
+
+function stopAllPosterAutoScroll(){
+
+    clearInterval(
+        allPosterTimer
+    );
+
+
+    allPosterTimer =
+        null;
+
+}
+
+
+/* =====================================================
+   SETUP ALL PROMOTIONS AUTO SCROLL
+===================================================== */
+
+function setupAllPosterAutoScroll(){
+
+    if(!allPosterRow){
+
+        return;
+
+    }
+
+
+    stopAllPosterAutoScroll();
+
+
+    if(
+        allPosterRow.scrollWidth <=
+        allPosterRow.clientWidth + 5
+    ){
+
+        return;
+
+    }
+
+
+    allPosterRow.ontouchstart =
+        function(){
+
+            allPosterTouching =
+                true;
+
+            stopAllPosterAutoScroll();
+
+        };
+
+
+    allPosterRow.ontouchend =
+        function(){
+
+            allPosterTouching =
+                false;
+
+
+            setTimeout(
                 function(){
 
-                    goToPoster(
-                        index
-                    );
+                    setupAllPosterAutoScroll();
 
-                    startPosterAutoSlide();
+                },
+                1000
+            );
+
+        };
+
+
+    allPosterRow.ontouchcancel =
+        function(){
+
+            allPosterTouching =
+                false;
+
+
+            setTimeout(
+                function(){
+
+                    setupAllPosterAutoScroll();
+
+                },
+                1000
+            );
+
+        };
+
+
+    allPosterRow.onmouseenter =
+        function(){
+
+            allPosterMouseInside =
+                true;
+
+        };
+
+
+    allPosterRow.onmouseleave =
+        function(){
+
+            allPosterMouseInside =
+                false;
+
+        };
+
+
+    allPosterTimer =
+        setInterval(
+            function(){
+
+                if(
+                    allPosterTouching ||
+                    allPosterMouseInside
+                ){
+
+                    return;
+
+                }
+
+
+                const maxScroll =
+                    allPosterRow.scrollWidth -
+                    allPosterRow.clientWidth;
+
+
+                if(
+                    maxScroll <= 5
+                ){
+
+                    return;
+
+                }
+
+
+                const current =
+                    allPosterRow.scrollLeft;
+
+
+                const step =
+                    window.innerWidth <= 360
+                        ? 164
+                        : 200;
+
+
+                const next =
+                    current + step;
+
+
+                if(
+                    next >=
+                    maxScroll - 5
+                ){
+
+                    allPosterRow.scrollTo({
+
+                        left:0,
+
+                        behavior:"smooth"
+
+                    });
+
+                }
+
+                else{
+
+                    allPosterRow.scrollTo({
+
+                        left:next,
+
+                        behavior:"smooth"
+
+                    });
+
+                }
+
+            },
+
+            2800
+        );
+
+}
+
+
+/* =====================================================
+   CATEGORY POSTER ROW AUTO SCROLL
+===================================================== */
+
+let posterRowTimers =
+    [];
+
+
+/* =====================================================
+   STOP CATEGORY POSTER TIMERS
+===================================================== */
+
+function stopPosterRowAutoScroll(){
+
+    posterRowTimers.forEach(
+        function(timer){
+
+            clearInterval(
+                timer
+            );
+
+        }
+    );
+
+
+    posterRowTimers =
+        [];
+
+}
+
+
+/* =====================================================
+   START CATEGORY POSTER AUTO SCROLL
+===================================================== */
+
+function setupPosterRowAutoScroll(){
+
+    stopPosterRowAutoScroll();
+
+
+    const rows =
+        document.querySelectorAll(
+            ".poster-row"
+        );
+
+
+    rows.forEach(
+        function(row){
+
+            if(
+                row.scrollWidth <=
+                row.clientWidth + 5
+            ){
+
+                return;
+
+            }
+
+
+            let userTouching =
+                false;
+
+
+            let mouseInside =
+                false;
+
+
+            row.addEventListener(
+                "touchstart",
+                function(){
+
+                    userTouching =
+                        true;
+
+                },
+                {
+                    passive:true
+                }
+            );
+
+
+            row.addEventListener(
+                "touchend",
+                function(){
+
+                    userTouching =
+                        false;
+
+                },
+                {
+                    passive:true
+                }
+            );
+
+
+            row.addEventListener(
+                "touchcancel",
+                function(){
+
+                    userTouching =
+                        false;
+
+                },
+                {
+                    passive:true
+                }
+            );
+
+
+            row.addEventListener(
+                "mouseenter",
+                function(){
+
+                    mouseInside =
+                        true;
 
                 }
             );
 
 
-            posterDots.appendChild(
-                dot
+            row.addEventListener(
+                "mouseleave",
+                function(){
+
+                    mouseInside =
+                        false;
+
+                }
             );
 
-        }
-    );
+
+            const timer =
+                setInterval(
+                    function(){
+
+                        if(
+                            userTouching ||
+                            mouseInside
+                        ){
+
+                            return;
+
+                        }
 
 
-
-    /* =================================================
-       BUTTON VISIBILITY
-    ================================================= */
-
-    if(
-        promotionPosters.length <= 1
-    ){
-
-        posterPrev.style.display =
-            "none";
+                        const maxScroll =
+                            row.scrollWidth -
+                            row.clientWidth;
 
 
-        posterNext.style.display =
-            "none";
+                        if(
+                            maxScroll <= 5
+                        ){
 
-    }
+                            return;
 
-    else{
-
-        posterPrev.style.display =
-            "flex";
+                        }
 
 
-        posterNext.style.display =
-            "flex";
-
-    }
+                        const current =
+                            row.scrollLeft;
 
 
-
-    /* =================================================
-       START AUTO SLIDE
-    ================================================= */
-
-    startPosterAutoSlide();
-
-}
+                        const step =
+                            window.innerWidth <= 360
+                                ? 164
+                                : 200;
 
 
-
-/* =====================================================
-   GO TO POSTER
-===================================================== */
-
-function goToPoster(index){
-
-    if(
-        !promotionPosters ||
-        promotionPosters.length === 0
-    ){
-
-        return;
-
-    }
+                        const next =
+                            current + step;
 
 
-    currentPoster =
-        index;
+                        if(
+                            next >=
+                            maxScroll - 5
+                        ){
+
+                            row.scrollTo({
+
+                                left:0,
+
+                                behavior:"smooth"
+
+                            });
+
+                        }
+
+                        else{
+
+                            row.scrollTo({
+
+                                left:next,
+
+                                behavior:"smooth"
+
+                            });
+
+                        }
+
+                    },
+
+                    2800
+                );
 
 
-    if(
-        currentPoster < 0
-    ){
-
-        currentPoster =
-            promotionPosters.length - 1;
-
-    }
-
-
-    if(
-        currentPoster >=
-        promotionPosters.length
-    ){
-
-        currentPoster =
-            0;
-
-    }
-
-
-    posterTrack.style.transform =
-        "translateX(-" +
-        (
-            currentPoster * 100
-        ) +
-        "%)";
-
-
-    const dots =
-        document.querySelectorAll(
-            ".poster-dot"
-        );
-
-
-    dots.forEach(
-        function(
-            dot,
-            index
-        ){
-
-            dot.classList.toggle(
-                "active",
-                index === currentPoster
+            posterRowTimers.push(
+                timer
             );
 
         }
     );
 
 }
-
-
-
-/* =====================================================
-   NEXT
-===================================================== */
-
-function nextPoster(){
-
-    if(
-        !promotionPosters ||
-        promotionPosters.length <= 1
-    ){
-
-        return;
-
-    }
-
-
-    goToPoster(
-        currentPoster + 1
-    );
-
-}
-
-
-
-/* =====================================================
-   PREVIOUS
-===================================================== */
-
-function previousPoster(){
-
-    if(
-        !promotionPosters ||
-        promotionPosters.length <= 1
-    ){
-
-        return;
-
-    }
-
-
-    goToPoster(
-        currentPoster - 1
-    );
-
-}
-
-
-
-/* =====================================================
-   BUTTON EVENTS
-===================================================== */
-
-posterNext.addEventListener(
-    "click",
-    function(){
-
-        nextPoster();
-
-        startPosterAutoSlide();
-
-    }
-);
-
-
-posterPrev.addEventListener(
-    "click",
-    function(){
-
-        previousPoster();
-
-        startPosterAutoSlide();
-
-    }
-);
-
-
-
-/* =====================================================
-   AUTO SLIDE
-===================================================== */
-
-function startPosterAutoSlide(){
-
-    clearInterval(
-        posterTimer
-    );
-
-
-    if(
-        !promotionPosters ||
-        promotionPosters.length <= 1
-    ){
-
-        return;
-
-    }
-
-
-    posterTimer =
-        setInterval(
-            function(){
-
-                nextPoster();
-
-            },
-            4500
-        );
-
-}
-
-    /* =====================================================
-   MOBILE SWIPE
-===================================================== */
-
-let touchStartX = 0;
-
-let touchEndX = 0;
-
-
-posterCarousel.addEventListener(
-    "touchstart",
-    function(event){
-
-        touchStartX =
-            event.changedTouches[0]
-                .screenX;
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-posterCarousel.addEventListener(
-    "touchend",
-    function(event){
-
-        touchEndX =
-            event.changedTouches[0]
-                .screenX;
-
-
-        const difference =
-            touchStartX -
-            touchEndX;
-
-
-        if(
-            Math.abs(difference) < 45
-        ){
-
-            return;
-
-        }
-
-
-        if(
-            difference > 0
-        ){
-
-            nextPoster();
-
-        }
-
-        else{
-
-            previousPoster();
-
-        }
-
-
-        startPosterAutoSlide();
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-
-/* =====================================================
-   PAUSE AUTO SLIDE WHILE TOUCHING
-===================================================== */
-
-posterCarousel.addEventListener(
-    "touchstart",
-    function(){
-
-        clearInterval(
-            posterTimer
-        );
-
-    },
-    {
-        passive:true
-    }
-);
-
 
 
 /* =====================================================
    5 TAP ADMIN LOGIN
 ===================================================== */
 
-let promotionTapCount = 0;
+let promotionTapCount =
+    0;
 
-let promotionTapTimer = null;
+
+let promotionTapTimer =
+    null;
 
 
 const promotionAdminTrigger =
@@ -2418,6 +3361,82 @@ if(
 
 }
 
+
+/* =====================================================
+   PAGE VISIBILITY
+===================================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            document.hidden
+        ){
+
+            stopCategoryAutoScroll();
+
+            stopAllPosterAutoScroll();
+
+            stopPosterRowAutoScroll();
+
+        }
+
+        else{
+
+            startCategoryAutoScroll();
+
+
+            setTimeout(
+                function(){
+
+                    setupAllPosterAutoScroll();
+
+                    setupPosterRowAutoScroll();
+
+                },
+                500
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   RESIZE
+===================================================== */
+
+let resizeTimer =
+    null;
+
+
+window.addEventListener(
+    "resize",
+    function(){
+
+        clearTimeout(
+            resizeTimer
+        );
+
+
+        resizeTimer =
+            setTimeout(
+                function(){
+
+                    startCategoryAutoScroll();
+
+                    setupAllPosterAutoScroll();
+
+                    setupPosterRowAutoScroll();
+
+                },
+                350
+            );
+
+    }
+);
 
 
 /* =====================================================
