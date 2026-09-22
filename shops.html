@@ -259,15 +259,14 @@ body{
 ===================================================== */
 
 .main{
-
     width:100%;
-
     max-width:1200px;
 
     margin:0 auto;
 
+    padding:
+        38px 4% 100px;
 }
-
 
 /* =====================================================
    CATEGORY HERO
@@ -1511,51 +1510,44 @@ body{
 }
 
   /* =====================================================
-   BOTTOM NAVIGATION
+   FIXED BOTTOM NAVIGATION — PYNCODE STYLE
 ===================================================== */
 
 .bottom-nav{
-
     position:fixed;
 
-    left:0;
-
-    right:0;
-
-    bottom:0;
+    left:10px;
+    right:10px;
+    bottom:10px;
 
     height:68px;
 
-    background:
-        rgba(255,255,255,.97);
+    background:#151d30;
 
-    border-top:
-        1px solid #e5e8ee;
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
 
     display:flex;
 
-    align-items:stretch;
+    align-items:center;
 
     justify-content:space-around;
+
+    padding:6px;
 
     z-index:9998;
 
     box-shadow:
-        0 -5px 20px
-        rgba(20,30,60,.08);
-
-    backdrop-filter:
-        blur(12px);
-
-    -webkit-backdrop-filter:
-        blur(12px);
-
+        0 8px 28px
+        rgba(10,20,40,.20);
 }
 
 
 .bottom-nav-item{
-
     flex:1;
+
+    height:56px;
 
     display:flex;
 
@@ -1567,186 +1559,82 @@ body{
 
     gap:4px;
 
+    border-radius:18px;
+
     text-decoration:none;
 
-    color:#7d8492;
+    color:#aeb6c5;
 
     font-size:11px;
 
     font-weight:800;
 
     transition:
+        background .2s ease,
         color .2s ease,
         transform .15s ease;
-
 }
 
 
 .bottom-nav-item .nav-icon{
-
-    font-size:22px;
+    font-size:21px;
 
     line-height:1;
-
 }
 
 
 .bottom-nav-item .nav-label{
-
     line-height:1.2;
-
 }
 
 
 .bottom-nav-item.active{
+    background:#ffffff;
 
-    color:#ef603e;
+    color:#151a28;
 
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,.08);
 }
 
 
 .bottom-nav-item:active{
-
-    transform:
-        scale(.94);
-
+    transform:scale(.95);
 }
 
 
 /* =====================================================
-   MOBILE SHOP GRID
+   MOBILE
 ===================================================== */
 
-@media(max-width:900px){
-
-    .shop-grid{
-
-        grid-template-columns:
-            repeat(
-                2,
-                minmax(0,1fr)
-            );
-
-    }
-
-}
-
-
-@media(max-width:600px){
-
-    .shop-section{
-
-        margin:
-            21px 16px 0;
-
-    }
-
-
-    .shop-list-header{
-
-        margin-bottom:11px;
-
-    }
-
-
-    .shop-list-title{
-
-        font-size:20px;
-
-    }
-
-
-    .shop-grid{
-
-        grid-template-columns:
-            1fr;
-
-        gap:11px;
-
-    }
-
-
-    .shop-card{
-
-        border-radius:16px;
-
-    }
-
-
-    .shop-image-wrap{
-
-        height:190px;
-
-    }
-
-
-    .shop-card-body{
-
-        padding:13px;
-
-    }
-
-
-    .shop-name{
-
-        font-size:15px;
-
-    }
-
+@media(max-width:700px){
 
     .bottom-nav{
+        left:10px;
+        right:10px;
+        bottom:10px;
 
-        height:64px;
+        height:68px;
 
+        border-radius:24px;
+
+        padding:6px;
     }
-
 
     .bottom-nav-item{
+        height:56px;
+
+        border-radius:18px;
 
         font-size:10px;
-
     }
-
 
     .bottom-nav-item .nav-icon{
-
-        font-size:20px;
-
+        font-size:21px;
     }
 
 }
-
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media(max-width:400px){
-
-    .shop-image-wrap{
-
-        height:175px;
-
-    }
-
-
-    .shop-actions{
-
-        gap:6px;
-
-    }
-
-
-    .shop-action{
-
-        height:36px;
-
-        font-size:10px;
-
-    }
-
-}
-
 
 /* =====================================================
    OFFERS ACTION
@@ -2101,12 +1989,17 @@ body{
    FIXED BOTTOM NAVIGATION
 ===================================================== -->
 
+<!-- =====================================================
+     FIXED BOTTOM NAVIGATION
+===================================================== -->
+
 <nav class="bottom-nav">
 
     <a
         href="shops.html"
-        class="bottom-nav-item active"
+        class="bottom-nav-item"
     >
+
         <span class="nav-icon">
             🏬
         </span>
@@ -2114,6 +2007,7 @@ body{
         <span class="nav-label">
             Shops
         </span>
+
     </a>
 
 
@@ -2121,6 +2015,7 @@ body{
         href="services.html"
         class="bottom-nav-item"
     >
+
         <span class="nav-icon">
             🛠️
         </span>
@@ -2128,13 +2023,15 @@ body{
         <span class="nav-label">
             Services
         </span>
+
     </a>
 
 
     <a
-        href="category.html"
-        class="bottom-nav-item"
+        href="index.html"
+        class="bottom-nav-item active"
     >
+
         <span class="nav-icon">
             ▦
         </span>
@@ -2142,6 +2039,7 @@ body{
         <span class="nav-label">
             Category
         </span>
+
     </a>
 
 
@@ -2149,13 +2047,33 @@ body{
         href="promotion.html"
         class="bottom-nav-item"
     >
+
         <span class="nav-icon">
-            📣
+            📢
         </span>
 
         <span class="nav-label">
             Promotion
         </span>
+
+    </a>
+
+
+    <!-- PLANNER -->
+
+    <a
+        href="planner.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            📋
+        </span>
+
+        <span class="nav-label">
+            Planner
+        </span>
+
     </a>
 
 </nav>
@@ -4350,6 +4268,48 @@ async function initialize(){
 initialize();
 
   </script>
+
+  <script>
+/* =====================================================
+   AUTO ACTIVE FIXED NAVIGATION
+===================================================== */
+
+const currentPage =
+    window.location.pathname
+        .split("/")
+        .pop()
+        .toLowerCase();
+
+document
+    .querySelectorAll(".bottom-nav-item")
+    .forEach(function(item){
+
+        item.classList.remove("active");
+
+        const link =
+            item.getAttribute("href");
+
+        if(!link){
+            return;
+        }
+
+        const linkPage =
+            link
+                .split("?")[0]
+                .split("#")[0]
+                .toLowerCase();
+
+        if(
+            linkPage === currentPage
+        ){
+
+            item.classList.add("active");
+
+        }
+
+    });
+  </script>
+  
   
 </body>
   

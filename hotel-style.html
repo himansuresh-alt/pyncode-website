@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#fffaf4"
+>
+
+<title>Hotel Style Food | Pyncode Planner</title>
+
+<style>
+
+/* =====================================================
+   ROOT
+===================================================== */
+
+:root{
+
+    --bg:#fffaf4;
+    --card:#ffffff;
+    --text:#29231f;
+    --muted:#756d67;
+    --primary:#e85d04;
+    --primary-light:#fff0df;
+    --border:#eee2d7;
+
+    --shadow:
+        0 8px 28px rgba(70,40,15,.08);
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+
+body{
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    line-height:1.5;
+
+}
+
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+button,
+input{
+
+    font:inherit;
+
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:14px;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:15px 17px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:15px;
+
+}
+
+
+.header-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.back-btn{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+
+.brand{
+
+    text-align:right;
+
+}
+
+
+.brand-title{
+
+    font-size:16px;
+
+    font-weight:800;
+
+}
+
+
+.brand-subtitle{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:1px;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0df,
+            #fff8f0
+        );
+
+    border:1px solid #f5ddc8;
+
+    border-radius:25px;
+
+    padding:27px 18px;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+
+.hero-icon{
+
+    font-size:44px;
+
+    margin-bottom:7px;
+
+}
+
+
+.hero h1{
+
+    font-size:28px;
+
+    line-height:1.15;
+
+    margin-bottom:8px;
+
+}
+
+
+.hero h1 span{
+
+    color:var(--primary);
+
+}
+
+
+.hero p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.6;
+
+}
+
+
+.hero-note{
+
+    display:inline-block;
+
+    margin-top:13px;
+
+    padding:7px 12px;
+
+    border-radius:30px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    color:var(--primary);
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   MAIN SEARCH
+===================================================== */
+
+.main-search{
+
+    max-width:650px;
+
+    margin:18px auto 0;
+
+}
+
+
+.main-search input{
+
+    width:100%;
+
+    height:46px;
+
+    border:1px solid #ddd;
+
+    border-radius:24px;
+
+    padding:0 18px;
+
+    outline:none;
+
+    background:#fff;
+
+    font-size:14px;
+
+}
+
+
+.main-search input:focus{
+
+    border-color:#e8b98e;
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section{
+
+    margin-bottom:25px;
+
+}
+
+
+.section-head{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:12px;
+
+}
+
+
+.section-head h2{
+
+    font-size:19px;
+
+}
+
+
+.section-head small{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+/* =====================================================
+   CATEGORY GRID
+===================================================== */
+
+.category-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:11px;
+
+}
+
+
+.category-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:14px;
+
+    min-height:83px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 18px rgba(70,40,15,.04);
+
+    transition:.15s;
+
+}
+
+
+.category-card:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#efc49e;
+
+}
+
+
+.category-card:active{
+
+    transform:scale(.98);
+
+}
+
+
+.category-icon{
+
+    width:45px;
+
+    height:45px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--primary-light);
+
+    border-radius:14px;
+
+    font-size:24px;
+
+}
+
+
+.category-info{
+
+    min-width:0;
+
+}
+
+
+.category-info h3{
+
+    font-size:14px;
+
+    line-height:1.3;
+
+    margin-bottom:2px;
+
+}
+
+
+.category-info p{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    line-height:1.35;
+
+}
+
+
+.category-arrow{
+
+    margin-left:auto;
+
+    color:#aaa;
+
+    font-size:21px;
+
+}
+
+
+/* =====================================================
+   SOURCE MENU
+===================================================== */
+
+.source-menu{
+
+    display:none;
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:9999;
+
+    display:none;
+
+    align-items:flex-end;
+
+}
+
+
+.popup.show{
+
+    display:flex;
+
+}
+
+
+.popup-box{
+
+    width:100%;
+
+    max-height:90vh;
+
+    background:#fffaf5;
+
+    border-radius:23px 23px 0 0;
+
+    overflow:hidden;
+
+    animation:slideUp .2s ease;
+
+}
+
+
+@keyframes slideUp{
+
+    from{
+
+        transform:translateY(100%);
+
+    }
+
+    to{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+.popup-header{
+
+    background:#fff0df;
+
+    padding:15px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:2;
+
+}
+
+
+.popup-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.popup-title{
+
+    font-size:18px;
+
+    font-weight:800;
+
+}
+
+
+.popup-close{
+
+    width:37px;
+
+    height:37px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+}
+
+
+.popup-search{
+
+    margin-top:10px;
+
+}
+
+
+.popup-search input{
+
+    width:100%;
+
+    height:44px;
+
+    border:1px solid #ddd;
+
+    border-radius:23px;
+
+    padding:0 16px;
+
+    outline:none;
+
+    background:#fff;
+
+    font-size:14px;
+
+}
+
+
+.popup-content{
+
+    max-height:72vh;
+
+    overflow-y:auto;
+
+    padding:14px 15px 30px;
+
+}
+
+
+.popup-item{
+
+    background:#fff;
+
+    border:1px solid #eee;
+
+    border-radius:12px;
+
+    padding:12px 13px;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    text-align:center;
+
+    padding:25px 10px 35px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+.footer strong{
+
+    color:var(--primary);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+    .container{
+
+        padding:11px;
+
+    }
+
+
+    .category-grid{
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:9px;
+
+    }
+
+
+    .category-card{
+
+        padding:12px;
+
+        min-height:79px;
+
+        gap:8px;
+
+        border-radius:16px;
+
+    }
+
+
+    .category-icon{
+
+        width:39px;
+
+        height:39px;
+
+        font-size:21px;
+
+        border-radius:12px;
+
+    }
+
+
+    .category-info h3{
+
+        font-size:12.5px;
+
+    }
+
+
+    .category-info p{
+
+        font-size:9.5px;
+
+    }
+
+
+    .category-arrow{
+
+        font-size:18px;
+
+    }
+
+
+    .hero h1{
+
+        font-size:25px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- =================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-top">
+
+        <a
+            href="innaiku-enna-samayal.html"
+            class="back-btn"
+        >
+            ← Samayal Home
+        </a>
+
+        <div class="brand">
+
+            <div class="brand-title">
+                🏨 Hotel Style
+            </div>
+
+            <div class="brand-subtitle">
+                Pyncode Planner
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-icon">
+        🏨
+    </div>
+
+    <h1>
+        Hotel Style <span>Food</span>
+    </h1>
+
+    <p>
+        Hotel-la commonly கிடைக்கும்
+        breakfast, starters, main course,
+        biryani, tandoor, fast food,
+        beverages & desserts.
+    </p>
+
+    <div class="hero-note">
+        🍽️ Complete Hotel Menu
+    </div>
+
+
+    <div class="main-search">
+
+        <input
+            id="mainSearch"
+            type="search"
+            placeholder="உதா: dosa, biryani, paneer..."
+            autocomplete="off"
+        >
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     CATEGORIES
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <h2>
+            🍽️ Hotel Menu
+        </h2>
+
+        <small>
+            Category select pannunga
+        </small>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="categoryGrid"
+    >
+
+
+        <!-- 01 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('hotel-breakfast')"
+        >
+
+            <div class="category-icon">
+                🍳
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Hotel Breakfast
+                </h3>
+
+                <p>
+                    Tiffin & breakfast
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 02 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('south-hotel')"
+        >
+
+            <div class="category-icon">
+                🥘
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    South Indian Hotel
+                </h3>
+
+                <p>
+                    South Indian favourites
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 03 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('north-hotel')"
+        >
+
+            <div class="category-icon">
+                🫓
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    North Indian Hotel
+                </h3>
+
+                <p>
+                    Roti, paneer & curries
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 04 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('tandoor')"
+        >
+
+            <div class="category-icon">
+                🔥
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Tandoor
+                </h3>
+
+                <p>
+                    Tandoori & kebabs
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 05 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('soups')"
+        >
+
+            <div class="category-icon">
+                🥣
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Soups
+                </h3>
+
+                <p>
+                    Veg & non-veg soups
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 06 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('veg-starters')"
+        >
+
+            <div class="category-icon">
+                🥗
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Veg Starters
+                </h3>
+
+                <p>
+                    Vegetarian starters
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 07 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('chicken-starters')"
+        >
+
+            <div class="category-icon">
+                🍗
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Chicken Starters
+                </h3>
+
+                <p>
+                    Chicken starters
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 08 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('seafood-starters')"
+        >
+
+            <div class="category-icon">
+                🐟
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Fish & Seafood Starters
+                </h3>
+
+                <p>
+                    Seafood starters
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 09 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('veg-main')"
+        >
+
+            <div class="category-icon">
+                🥬
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Veg Main Course
+                </h3>
+
+                <p>
+                    Vegetarian gravies
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 10 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('paneer-specials')"
+        >
+
+            <div class="category-icon">
+                🧀
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Paneer Specials
+                </h3>
+
+                <p>
+                    Paneer varieties
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 11 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('chicken-main')"
+        >
+
+            <div class="category-icon">
+                🍗
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Chicken Main Course
+                </h3>
+
+                <p>
+                    Chicken gravies & specials
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 12 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('mutton-main')"
+        >
+
+            <div class="category-icon">
+                🐐
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Mutton Main Course
+                </h3>
+
+                <p>
+                    Mutton gravies & specials
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 13 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('fish-main')"
+        >
+
+            <div class="category-icon">
+                🐟
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Fish & Seafood Main
+                </h3>
+
+                <p>
+                    Fish, prawns & seafood
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 14 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('egg-specials')"
+        >
+
+            <div class="category-icon">
+                🥚
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Egg Specials
+                </h3>
+
+                <p>
+                    Egg varieties
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 15 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('fried-rice-noodles')"
+        >
+
+            <div class="category-icon">
+                🍜
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Fried Rice & Noodles
+                </h3>
+
+                <p>
+                    Indo-Chinese favourites
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 16 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('biryani')"
+        >
+
+            <div class="category-icon">
+                🍛
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Biryani
+                </h3>
+
+                <p>
+                    Veg & non-veg biryani
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 17 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('rice-varieties')"
+        >
+
+            <div class="category-icon">
+                🍚
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Rice Varieties
+                </h3>
+
+                <p>
+                    Rice & variety rice
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 18 -->
+
+        <div
+            class="category-card"
+            onclick="openMenu('breads')"
+        >
+
+            <div class="category-icon">
+                🫓
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Roti / Naan / Paratha
+                </h3>
+
+                <p>
+                    Indian breads
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+  <!-- =====================================================
+     SOURCE MENUS
+===================================================== -->
+
+
+<section class="source-menu" id="hotel-breakfast">
+
+    <div class="menu-item">Idli</div>
+    <div class="menu-item">Mini Idli</div>
+    <div class="menu-item">Ghee Idli</div>
+    <div class="menu-item">Kanchipuram Idli</div>
+    <div class="menu-item">Medhu Vada</div>
+    <div class="menu-item">Sambar Vada</div>
+    <div class="menu-item">Dahi Vada</div>
+    <div class="menu-item">Plain Dosa</div>
+    <div class="menu-item">Masala Dosa</div>
+    <div class="menu-item">Ghee Roast Dosa</div>
+    <div class="menu-item">Paper Roast</div>
+    <div class="menu-item">Onion Dosa</div>
+    <div class="menu-item">Paneer Dosa</div>
+    <div class="menu-item">Mysore Masala Dosa</div>
+    <div class="menu-item">Rava Dosa</div>
+    <div class="menu-item">Onion Rava Dosa</div>
+    <div class="menu-item">Set Dosa</div>
+    <div class="menu-item">Uthappam</div>
+    <div class="menu-item">Onion Uthappam</div>
+    <div class="menu-item">Podi Uthappam</div>
+    <div class="menu-item">Pongal</div>
+    <div class="menu-item">Ghee Pongal</div>
+    <div class="menu-item">Ven Pongal</div>
+    <div class="menu-item">Poori Masala</div>
+    <div class="menu-item">Chole Poori</div>
+    <div class="menu-item">Chapati Kurma</div>
+    <div class="menu-item">Parotta Kurma</div>
+    <div class="menu-item">Upma</div>
+    <div class="menu-item">Rava Upma</div>
+    <div class="menu-item">Vegetable Upma</div>
+    <div class="menu-item">Kesari</div>
+    <div class="menu-item">Puttu</div>
+    <div class="menu-item">Appam</div>
+
+</section>
+
+
+<section class="source-menu" id="south-hotel">
+
+    <div class="menu-item">Idli Sambar</div>
+    <div class="menu-item">Idli Vada</div>
+    <div class="menu-item">Dosa Sambar</div>
+    <div class="menu-item">Masala Dosa</div>
+    <div class="menu-item">Ghee Roast</div>
+    <div class="menu-item">Onion Dosa</div>
+    <div class="menu-item">Rava Dosa</div>
+    <div class="menu-item">Podi Dosa</div>
+    <div class="menu-item">Mysore Masala Dosa</div>
+    <div class="menu-item">Uthappam</div>
+    <div class="menu-item">Pongal</div>
+    <div class="menu-item">Poori Masala</div>
+    <div class="menu-item">Chapati Kurma</div>
+    <div class="menu-item">Parotta Kurma</div>
+    <div class="menu-item">South Indian Meals</div>
+    <div class="menu-item">Mini Meals</div>
+    <div class="menu-item">Full Meals</div>
+    <div class="menu-item">Sambar Rice</div>
+    <div class="menu-item">Curd Rice</div>
+    <div class="menu-item">Lemon Rice</div>
+    <div class="menu-item">Tomato Rice</div>
+    <div class="menu-item">Tamarind Rice</div>
+    <div class="menu-item">Vegetable Rice</div>
+    <div class="menu-item">Kothu Parotta</div>
+    <div class="menu-item">Chicken Kothu Parotta</div>
+    <div class="menu-item">Egg Kothu Parotta</div>
+    <div class="menu-item">Fish Curry Meals</div>
+    <div class="menu-item">Chicken Meals</div>
+    <div class="menu-item">Mutton Meals</div>
+
+</section>
+
+
+<section class="source-menu" id="north-hotel">
+
+    <div class="menu-item">Roti</div>
+    <div class="menu-item">Tandoori Roti</div>
+    <div class="menu-item">Butter Roti</div>
+    <div class="menu-item">Plain Naan</div>
+    <div class="menu-item">Butter Naan</div>
+    <div class="menu-item">Garlic Naan</div>
+    <div class="menu-item">Cheese Naan</div>
+    <div class="menu-item">Aloo Paratha</div>
+    <div class="menu-item">Paneer Paratha</div>
+    <div class="menu-item">Lachha Paratha</div>
+    <div class="menu-item">Paneer Butter Masala</div>
+    <div class="menu-item">Shahi Paneer</div>
+    <div class="menu-item">Kadai Paneer</div>
+    <div class="menu-item">Palak Paneer</div>
+    <div class="menu-item">Dal Tadka</div>
+    <div class="menu-item">Dal Makhani</div>
+    <div class="menu-item">Rajma Masala</div>
+    <div class="menu-item">Chole Masala</div>
+    <div class="menu-item">Butter Chicken</div>
+    <div class="menu-item">Kadai Chicken</div>
+    <div class="menu-item">Chicken Tikka Masala</div>
+    <div class="menu-item">Mutton Masala</div>
+    <div class="menu-item">Rogan Josh</div>
+    <div class="menu-item">Jeera Rice</div>
+    <div class="menu-item">Peas Pulao</div>
+    <div class="menu-item">Vegetable Pulao</div>
+
+</section>
+
+
+<section class="source-menu" id="tandoor">
+
+    <div class="menu-item">Tandoori Chicken</div>
+    <div class="menu-item">Chicken Tikka</div>
+    <div class="menu-item">Chicken Malai Tikka</div>
+    <div class="menu-item">Chicken Reshmi Kebab</div>
+    <div class="menu-item">Chicken Seekh Kebab</div>
+    <div class="menu-item">Mutton Seekh Kebab</div>
+    <div class="menu-item">Shami Kebab</div>
+    <div class="menu-item">Galouti Kebab</div>
+    <div class="menu-item">Tandoori Fish</div>
+    <div class="menu-item">Tandoori Prawns</div>
+    <div class="menu-item">Paneer Tikka</div>
+    <div class="menu-item">Malai Paneer Tikka</div>
+    <div class="menu-item">Achari Paneer Tikka</div>
+    <div class="menu-item">Tandoori Mushroom</div>
+    <div class="menu-item">Tandoori Aloo</div>
+    <div class="menu-item">Tandoori Gobi</div>
+    <div class="menu-item">Hara Bhara Kebab</div>
+
+</section>
+
+
+<section class="source-menu" id="soups">
+
+    <div class="menu-item">Sweet Corn Soup</div>
+    <div class="menu-item">Vegetable Clear Soup</div>
+    <div class="menu-item">Vegetable Manchow Soup</div>
+    <div class="menu-item">Hot & Sour Vegetable Soup</div>
+    <div class="menu-item">Tomato Soup</div>
+    <div class="menu-item">Mushroom Soup</div>
+    <div class="menu-item">Palak Soup</div>
+    <div class="menu-item">Lemon Coriander Soup</div>
+    <div class="menu-item">Chicken Clear Soup</div>
+    <div class="menu-item">Chicken Sweet Corn Soup</div>
+    <div class="menu-item">Chicken Manchow Soup</div>
+    <div class="menu-item">Chicken Hot & Sour Soup</div>
+    <div class="menu-item">Chicken Lemon Coriander Soup</div>
+    <div class="menu-item">Mutton Soup</div>
+    <div class="menu-item">Seafood Soup</div>
+
+</section>
+
+
+<section class="source-menu" id="veg-starters">
+
+    <div class="menu-item">Gobi 65</div>
+    <div class="menu-item">Gobi Manchurian</div>
+    <div class="menu-item">Paneer 65</div>
+    <div class="menu-item">Paneer Tikka</div>
+    <div class="menu-item">Paneer Pakoda</div>
+    <div class="menu-item">Chilli Paneer</div>
+    <div class="menu-item">Mushroom 65</div>
+    <div class="menu-item">Mushroom Pepper Fry</div>
+    <div class="menu-item">Mushroom Manchurian</div>
+    <div class="menu-item">Baby Corn 65</div>
+    <div class="menu-item">Baby Corn Manchurian</div>
+    <div class="menu-item">Baby Corn Pepper Fry</div>
+    <div class="menu-item">Crispy Corn</div>
+    <div class="menu-item">Veg Spring Roll</div>
+    <div class="menu-item">Vegetable Cutlet</div>
+    <div class="menu-item">French Fries</div>
+    <div class="menu-item">Masala Fries</div>
+    <div class="menu-item">Hara Bhara Kebab</div>
+    <div class="menu-item">Veg Seekh Kebab</div>
+    <div class="menu-item">Crispy Vegetables</div>
+
+</section>
+
+
+<section class="source-menu" id="chicken-starters">
+
+    <div class="menu-item">Chicken 65</div>
+    <div class="menu-item">Chicken 555</div>
+    <div class="menu-item">Chicken 777</div>
+    <div class="menu-item">Chicken Lollipop</div>
+    <div class="menu-item">Chicken Wings</div>
+    <div class="menu-item">Chicken Pepper Fry</div>
+    <div class="menu-item">Chicken Chukka</div>
+    <div class="menu-item">Chicken Pakoda</div>
+    <div class="menu-item">Chilli Chicken</div>
+    <div class="menu-item">Chicken Manchurian</div>
+    <div class="menu-item">Chicken Dragon</div>
+    <div class="menu-item">Chicken Tikka</div>
+    <div class="menu-item">Chicken Malai Tikka</div>
+    <div class="menu-item">Chicken Reshmi Kebab</div>
+    <div class="menu-item">Chicken Seekh Kebab</div>
+    <div class="menu-item">Tandoori Chicken</div>
+    <div class="menu-item">Chicken Majestic</div>
+    <div class="menu-item">Chicken Fry</div>
+    <div class="menu-item">Chicken Roast</div>
+    <div class="menu-item">Chicken Ghee Roast</div>
+
+</section>
+
+
+<section class="source-menu" id="seafood-starters">
+
+    <div class="menu-item">Fish Fry</div>
+    <div class="menu-item">Fish 65</div>
+    <div class="menu-item">Fish Finger</div>
+    <div class="menu-item">Fish Tikka</div>
+    <div class="menu-item">Fish Pepper Fry</div>
+    <div class="menu-item">Chilli Fish</div>
+    <div class="menu-item">Fish Manchurian</div>
+    <div class="menu-item">Prawn 65</div>
+    <div class="menu-item">Prawn Fry</div>
+    <div class="menu-item">Prawn Pepper Fry</div>
+    <div class="menu-item">Chilli Prawn</div>
+    <div class="menu-item">Prawn Manchurian</div>
+    <div class="menu-item">Prawn Tempura</div>
+    <div class="menu-item">Squid Fry</div>
+    <div class="menu-item">Calamari Fry</div>
+    <div class="menu-item">Crab Fry</div>
+    <div class="menu-item">Crab 65</div>
+
+</section>
+
+
+<section class="source-menu" id="veg-main">
+
+    <div class="menu-item">Mixed Vegetable Curry</div>
+    <div class="menu-item">Vegetable Kurma</div>
+    <div class="menu-item">Vegetable Kolhapuri</div>
+    <div class="menu-item">Kadai Vegetable</div>
+    <div class="menu-item">Veg Handi</div>
+    <div class="menu-item">Veg Jalfrezi</div>
+    <div class="menu-item">Aloo Gobi</div>
+    <div class="menu-item">Aloo Matar</div>
+    <div class="menu-item">Aloo Jeera</div>
+    <div class="menu-item">Bhindi Masala</div>
+    <div class="menu-item">Baingan Masala</div>
+    <div class="menu-item">Palak Corn</div>
+    <div class="menu-item">Mushroom Masala</div>
+    <div class="menu-item">Mushroom Do Pyaza</div>
+    <div class="menu-item">Chana Masala</div>
+    <div class="menu-item">Rajma Masala</div>
+    <div class="menu-item">Dal Tadka</div>
+    <div class="menu-item">Dal Fry</div>
+    <div class="menu-item">Dal Makhani</div>
+    <div class="menu-item">Kadhi Pakora</div>
+    <div class="menu-item">Malai Kofta</div>
+    <div class="menu-item">Veg Kofta Curry</div>
+    <div class="menu-item">Navratan Korma</div>
+
+</section>
+
+
+<section class="source-menu" id="paneer-specials">
+
+    <div class="menu-item">Paneer Butter Masala</div>
+    <div class="menu-item">Shahi Paneer</div>
+    <div class="menu-item">Kadai Paneer</div>
+    <div class="menu-item">Palak Paneer</div>
+    <div class="menu-item">Matar Paneer</div>
+    <div class="menu-item">Paneer Lababdar</div>
+    <div class="menu-item">Paneer Do Pyaza</div>
+    <div class="menu-item">Paneer Korma</div>
+    <div class="menu-item">Paneer Handi</div>
+    <div class="menu-item">Paneer Kolhapuri</div>
+    <div class="menu-item">Achari Paneer</div>
+    <div class="menu-item">Paneer Makhani</div>
+    <div class="menu-item">Paneer Bhurji</div>
+    <div class="menu-item">Paneer Tikka Masala</div>
+    <div class="menu-item">Paneer Tikka</div>
+    <div class="menu-item">Malai Paneer Tikka</div>
+    <div class="menu-item">Chilli Paneer</div>
+    <div class="menu-item">Paneer 65</div>
+    <div class="menu-item">Paneer Pakoda</div>
+
+</section>
+
+  <section class="source-menu" id="chicken-main">
+
+    <div class="menu-item">Butter Chicken</div>
+    <div class="menu-item">Chicken Curry</div>
+    <div class="menu-item">Chicken Gravy</div>
+    <div class="menu-item">Chicken Masala</div>
+    <div class="menu-item">Kadai Chicken</div>
+    <div class="menu-item">Chicken Tikka Masala</div>
+    <div class="menu-item">Chicken Handi</div>
+    <div class="menu-item">Chicken Do Pyaza</div>
+    <div class="menu-item">Chicken Korma</div>
+    <div class="menu-item">Chicken Mughlai</div>
+    <div class="menu-item">Chicken Lababdar</div>
+    <div class="menu-item">Chicken Chettinad</div>
+    <div class="menu-item">Chicken Pepper Masala</div>
+    <div class="menu-item">Chicken Chukka</div>
+    <div class="menu-item">Chicken Sukka</div>
+    <div class="menu-item">Chicken Roast</div>
+    <div class="menu-item">Chicken Ghee Roast</div>
+    <div class="menu-item">Chicken Pallipalayam</div>
+    <div class="menu-item">Chicken Manchurian</div>
+    <div class="menu-item">Chilli Chicken</div>
+    <div class="menu-item">Chicken Tikka</div>
+    <div class="menu-item">Tandoori Chicken</div>
+    <div class="menu-item">Chicken Biryani</div>
+
+</section>
+
+
+<section class="source-menu" id="mutton-main">
+
+    <div class="menu-item">Mutton Curry</div>
+    <div class="menu-item">Mutton Gravy</div>
+    <div class="menu-item">Mutton Masala</div>
+    <div class="menu-item">Mutton Chukka</div>
+    <div class="menu-item">Mutton Sukka</div>
+    <div class="menu-item">Mutton Pepper</div>
+    <div class="menu-item">Mutton Kola</div>
+    <div class="menu-item">Mutton Keema</div>
+    <div class="menu-item">Mutton Korma</div>
+    <div class="menu-item">Mutton Handi</div>
+    <div class="menu-item">Mutton Rogan Josh</div>
+    <div class="menu-item">Mutton Do Pyaza</div>
+    <div class="menu-item">Mutton Fry</div>
+    <div class="menu-item">Mutton Roast</div>
+    <div class="menu-item">Mutton Biryani</div>
+    <div class="menu-item">Mutton Chukka Biryani</div>
+    <div class="menu-item">Mutton Kebab</div>
+    <div class="menu-item">Mutton Seekh Kebab</div>
+
+</section>
+
+
+<section class="source-menu" id="fish-main">
+
+    <div class="menu-item">Fish Curry</div>
+    <div class="menu-item">Fish Gravy</div>
+    <div class="menu-item">Fish Masala</div>
+    <div class="menu-item">Fish Fry</div>
+    <div class="menu-item">Fish Pepper Fry</div>
+    <div class="menu-item">Fish Tawa Fry</div>
+    <div class="menu-item">Fish Tikka</div>
+    <div class="menu-item">Tandoori Fish</div>
+    <div class="menu-item">Chilli Fish</div>
+    <div class="menu-item">Fish Manchurian</div>
+    <div class="menu-item">Prawn Curry</div>
+    <div class="menu-item">Prawn Masala</div>
+    <div class="menu-item">Prawn Fry</div>
+    <div class="menu-item">Prawn Pepper Fry</div>
+    <div class="menu-item">Prawn Tawa Fry</div>
+    <div class="menu-item">Chilli Prawn</div>
+    <div class="menu-item">Prawn Biryani</div>
+    <div class="menu-item">Crab Curry</div>
+    <div class="menu-item">Crab Masala</div>
+    <div class="menu-item">Crab Fry</div>
+    <div class="menu-item">Squid Fry</div>
+    <div class="menu-item">Calamari Fry</div>
+
+</section>
+
+
+<section class="source-menu" id="egg-specials">
+
+    <div class="menu-item">Egg Curry</div>
+    <div class="menu-item">Egg Masala</div>
+    <div class="menu-item">Egg Gravy</div>
+    <div class="menu-item">Egg Bhurji</div>
+    <div class="menu-item">Egg Podimas</div>
+    <div class="menu-item">Egg Pepper Fry</div>
+    <div class="menu-item">Egg 65</div>
+    <div class="menu-item">Chilli Egg</div>
+    <div class="menu-item">Egg Manchurian</div>
+    <div class="menu-item">Masala Omelette</div>
+    <div class="menu-item">Plain Omelette</div>
+    <div class="menu-item">Cheese Omelette</div>
+    <div class="menu-item">Egg Tawa Masala</div>
+    <div class="menu-item">Egg Korma</div>
+    <div class="menu-item">Egg Do Pyaza</div>
+    <div class="menu-item">Egg Biryani</div>
+    <div class="menu-item">Egg Fried Rice</div>
+    <div class="menu-item">Boiled Egg</div>
+
+</section>
+
+
+<section class="source-menu" id="fried-rice-noodles">
+
+    <div class="menu-item">Veg Fried Rice</div>
+    <div class="menu-item">Egg Fried Rice</div>
+    <div class="menu-item">Chicken Fried Rice</div>
+    <div class="menu-item">Schezwan Veg Fried Rice</div>
+    <div class="menu-item">Schezwan Egg Fried Rice</div>
+    <div class="menu-item">Schezwan Chicken Fried Rice</div>
+    <div class="menu-item">Paneer Fried Rice</div>
+    <div class="menu-item">Mushroom Fried Rice</div>
+    <div class="menu-item">Mixed Fried Rice</div>
+    <div class="menu-item">Veg Noodles</div>
+    <div class="menu-item">Egg Noodles</div>
+    <div class="menu-item">Chicken Noodles</div>
+    <div class="menu-item">Schezwan Veg Noodles</div>
+    <div class="menu-item">Schezwan Egg Noodles</div>
+    <div class="menu-item">Schezwan Chicken Noodles</div>
+    <div class="menu-item">Hakka Noodles</div>
+    <div class="menu-item">Chilli Garlic Noodles</div>
+    <div class="menu-item">Mixed Noodles</div>
+    <div class="menu-item">Singapore Noodles</div>
+    <div class="menu-item">American Chopsuey</div>
+    <div class="menu-item">Chinese Chopsuey</div>
+
+</section>
+
+
+<section class="source-menu" id="biryani">
+
+    <div class="menu-item">Chicken Biryani</div>
+    <div class="menu-item">Mutton Biryani</div>
+    <div class="menu-item">Egg Biryani</div>
+    <div class="menu-item">Fish Biryani</div>
+    <div class="menu-item">Prawn Biryani</div>
+    <div class="menu-item">Veg Biryani</div>
+    <div class="menu-item">Paneer Biryani</div>
+    <div class="menu-item">Mushroom Biryani</div>
+    <div class="menu-item">Hyderabadi Chicken Biryani</div>
+    <div class="menu-item">Hyderabadi Mutton Biryani</div>
+    <div class="menu-item">Dum Biryani</div>
+    <div class="menu-item">Mughlai Biryani</div>
+    <div class="menu-item">Lucknowi Biryani</div>
+    <div class="menu-item">Ambur Biryani</div>
+    <div class="menu-item">Dindigul Biryani</div>
+    <div class="menu-item">Kolkata Biryani</div>
+    <div class="menu-item">Jeera Rice Biryani</div>
+    <div class="menu-item">Family Pack Biryani</div>
+
+</section>
+
+
+<section class="source-menu" id="rice-varieties">
+
+    <div class="menu-item">Plain Rice</div>
+    <div class="menu-item">Steamed Rice</div>
+    <div class="menu-item">Jeera Rice</div>
+    <div class="menu-item">Ghee Rice</div>
+    <div class="menu-item">Veg Pulao</div>
+    <div class="menu-item">Peas Pulao</div>
+    <div class="menu-item">Matar Pulao</div>
+    <div class="menu-item">Kashmiri Pulao</div>
+    <div class="menu-item">Paneer Pulao</div>
+    <div class="menu-item">Mushroom Pulao</div>
+    <div class="menu-item">Veg Rice</div>
+    <div class="menu-item">Sambar Rice</div>
+    <div class="menu-item">Curd Rice</div>
+    <div class="menu-item">Lemon Rice</div>
+    <div class="menu-item">Tomato Rice</div>
+    <div class="menu-item">Tamarind Rice</div>
+    <div class="menu-item">Coconut Rice</div>
+    <div class="menu-item">Mint Rice</div>
+    <div class="menu-item">Coriander Rice</div>
+
+</section>
+
+
+<section class="source-menu" id="breads">
+
+    <div class="menu-item">Chapati</div>
+    <div class="menu-item">Phulka</div>
+    <div class="menu-item">Tandoori Roti</div>
+    <div class="menu-item">Butter Roti</div>
+    <div class="menu-item">Plain Naan</div>
+    <div class="menu-item">Butter Naan</div>
+    <div class="menu-item">Garlic Naan</div>
+    <div class="menu-item">Cheese Naan</div>
+    <div class="menu-item">Kashmiri Naan</div>
+    <div class="menu-item">Stuffed Naan</div>
+    <div class="menu-item">Rumali Roti</div>
+    <div class="menu-item">Missi Roti</div>
+    <div class="menu-item">Lachha Paratha</div>
+    <div class="menu-item">Aloo Paratha</div>
+    <div class="menu-item">Paneer Paratha</div>
+    <div class="menu-item">Methi Paratha</div>
+    <div class="menu-item">Pudina Paratha</div>
+    <div class="menu-item">Malabar Parotta</div>
+    <div class="menu-item">Kerala Parotta</div>
+    <div class="menu-item">Wheat Parotta</div>
+
+</section>
+
+
+<!-- NEXT SOURCE MENUS CONTINUE IN PART 4 -->
+
+  <section class="source-menu" id="salads-sides">
+
+    <div class="menu-item">Green Salad</div>
+    <div class="menu-item">Onion Salad</div>
+    <div class="menu-item">Cucumber Salad</div>
+    <div class="menu-item">Mixed Salad</div>
+    <div class="menu-item">Kachumber Salad</div>
+    <div class="menu-item">Russian Salad</div>
+    <div class="menu-item">Boondi Raita</div>
+    <div class="menu-item">Cucumber Raita</div>
+    <div class="menu-item">Onion Raita</div>
+    <div class="menu-item">Mint Raita</div>
+    <div class="menu-item">Pineapple Raita</div>
+    <div class="menu-item">Plain Curd</div>
+    <div class="menu-item">Green Chutney</div>
+    <div class="menu-item">Mint Chutney</div>
+    <div class="menu-item">Tomato Chutney</div>
+    <div class="menu-item">Pickle</div>
+    <div class="menu-item">Papad</div>
+    <div class="menu-item">Masala Papad</div>
+
+</section>
+
+
+<section class="source-menu" id="hotel-meals">
+
+    <div class="menu-item">South Indian Meals</div>
+    <div class="menu-item">North Indian Thali</div>
+    <div class="menu-item">Veg Meals</div>
+    <div class="menu-item">Mini Meals</div>
+    <div class="menu-item">Full Meals</div>
+    <div class="menu-item">Special Meals</div>
+    <div class="menu-item">Unlimited Meals</div>
+    <div class="menu-item">Veg Thali</div>
+    <div class="menu-item">Chicken Meals</div>
+    <div class="menu-item">Mutton Meals</div>
+    <div class="menu-item">Fish Meals</div>
+    <div class="menu-item">Seafood Meals</div>
+    <div class="menu-item">Business Lunch</div>
+    <div class="menu-item">Executive Lunch</div>
+    <div class="menu-item">Family Meal</div>
+
+</section>
+
+
+<section class="source-menu" id="sandwich-fast">
+
+    <div class="menu-item">Veg Sandwich</div>
+    <div class="menu-item">Grilled Sandwich</div>
+    <div class="menu-item">Cheese Sandwich</div>
+    <div class="menu-item">Paneer Sandwich</div>
+    <div class="menu-item">Chicken Sandwich</div>
+    <div class="menu-item">Club Sandwich</div>
+    <div class="menu-item">Veg Burger</div>
+    <div class="menu-item">Cheese Burger</div>
+    <div class="menu-item">Chicken Burger</div>
+    <div class="menu-item">French Fries</div>
+    <div class="menu-item">Peri Peri Fries</div>
+    <div class="menu-item">Veg Roll</div>
+    <div class="menu-item">Chicken Roll</div>
+    <div class="menu-item">Paneer Roll</div>
+    <div class="menu-item">Veg Wrap</div>
+    <div class="menu-item">Chicken Wrap</div>
+    <div class="menu-item">Chicken Shawarma</div>
+    <div class="menu-item">Paneer Wrap</div>
+
+</section>
+
+
+<section class="source-menu" id="pizza-pasta">
+
+    <div class="menu-item">Margherita Pizza</div>
+    <div class="menu-item">Cheese Pizza</div>
+    <div class="menu-item">Veg Pizza</div>
+    <div class="menu-item">Paneer Pizza</div>
+    <div class="menu-item">Mushroom Pizza</div>
+    <div class="menu-item">Chicken Pizza</div>
+    <div class="menu-item">Chicken Tikka Pizza</div>
+    <div class="menu-item">Farmhouse Pizza</div>
+    <div class="menu-item">Penne Pasta</div>
+    <div class="menu-item">White Sauce Pasta</div>
+    <div class="menu-item">Red Sauce Pasta</div>
+    <div class="menu-item">Arrabbiata Pasta</div>
+    <div class="menu-item">Alfredo Pasta</div>
+    <div class="menu-item">Veg Pasta</div>
+    <div class="menu-item">Chicken Pasta</div>
+
+</section>
+
+
+<section class="source-menu" id="fresh-juice">
+
+    <div class="menu-item">Fresh Lime Juice</div>
+    <div class="menu-item">Sweet Lime Juice</div>
+    <div class="menu-item">Orange Juice</div>
+    <div class="menu-item">Watermelon Juice</div>
+    <div class="menu-item">Pineapple Juice</div>
+    <div class="menu-item">Mosambi Juice</div>
+    <div class="menu-item">Grape Juice</div>
+    <div class="menu-item">Apple Juice</div>
+    <div class="menu-item">Carrot Juice</div>
+    <div class="menu-item">Beetroot Juice</div>
+    <div class="menu-item">Lemon Mint Juice</div>
+    <div class="menu-item">Fruit Punch</div>
+    <div class="menu-item">Fresh Lime Soda</div>
+    <div class="menu-item">Mint Lime Soda</div>
+    <div class="menu-item">Tender Coconut</div>
+
+</section>
+
+
+<section class="source-menu" id="milkshakes-lassi">
+
+    <div class="menu-item">Vanilla Milkshake</div>
+    <div class="menu-item">Chocolate Milkshake</div>
+    <div class="menu-item">Strawberry Milkshake</div>
+    <div class="menu-item">Mango Milkshake</div>
+    <div class="menu-item">Banana Milkshake</div>
+    <div class="menu-item">Oreo Milkshake</div>
+    <div class="menu-item">Cold Coffee</div>
+    <div class="menu-item">Frappe</div>
+    <div class="menu-item">Sweet Lassi</div>
+    <div class="menu-item">Salt Lassi</div>
+    <div class="menu-item">Mango Lassi</div>
+    <div class="menu-item">Rose Lassi</div>
+    <div class="menu-item">Masala Chaas</div>
+    <div class="menu-item">Badam Milk</div>
+    <div class="menu-item">Rose Milk</div>
+
+</section>
+
+
+<section class="source-menu" id="desserts">
+
+    <div class="menu-item">Gulab Jamun</div>
+    <div class="menu-item">Jalebi</div>
+    <div class="menu-item">Rasmalai</div>
+    <div class="menu-item">Rasgulla</div>
+    <div class="menu-item">Kulfi</div>
+    <div class="menu-item">Kesar Kulfi</div>
+    <div class="menu-item">Malai Kulfi</div>
+    <div class="menu-item">Ice Cream</div>
+    <div class="menu-item">Vanilla Ice Cream</div>
+    <div class="menu-item">Chocolate Ice Cream</div>
+    <div class="menu-item">Strawberry Ice Cream</div>
+    <div class="menu-item">Fruit Salad</div>
+    <div class="menu-item">Fruit Salad with Ice Cream</div>
+    <div class="menu-item">Falooda</div>
+    <div class="menu-item">Brownie</div>
+    <div class="menu-item">Brownie with Ice Cream</div>
+    <div class="menu-item">Carrot Halwa</div>
+    <div class="menu-item">Kesari</div>
+    <div class="menu-item">Kheer</div>
+    <div class="menu-item">Phirni</div>
+
+</section>
+
+
+<section class="source-menu" id="tea-coffee">
+
+    <div class="menu-item">Tea</div>
+    <div class="menu-item">Milk Tea</div>
+    <div class="menu-item">Black Tea</div>
+    <div class="menu-item">Ginger Tea</div>
+    <div class="menu-item">Cardamom Tea</div>
+    <div class="menu-item">Masala Tea</div>
+    <div class="menu-item">Green Tea</div>
+    <div class="menu-item">Lemon Tea</div>
+    <div class="menu-item">Coffee</div>
+    <div class="menu-item">Filter Coffee</div>
+    <div class="menu-item">Black Coffee</div>
+    <div class="menu-item">Cappuccino</div>
+    <div class="menu-item">Latte</div>
+    <div class="menu-item">Espresso</div>
+    <div class="menu-item">Cold Coffee</div>
+
+</section>
+
+
+<section class="source-menu" id="dinner-specials">
+
+    <div class="menu-item">Special Veg Dinner</div>
+    <div class="menu-item">Special Chicken Dinner</div>
+    <div class="menu-item">Special Mutton Dinner</div>
+    <div class="menu-item">Special Fish Dinner</div>
+    <div class="menu-item">North Indian Dinner</div>
+    <div class="menu-item">South Indian Dinner</div>
+    <div class="menu-item">Tandoori Dinner</div>
+    <div class="menu-item">Biryani Dinner</div>
+    <div class="menu-item">Family Dinner</div>
+    <div class="menu-item">Dinner Thali</div>
+    <div class="menu-item">Chapati + Veg Curry</div>
+    <div class="menu-item">Naan + Paneer Curry</div>
+    <div class="menu-item">Parotta + Chicken Curry</div>
+    <div class="menu-item">Rice + Chicken Curry</div>
+
+</section>
+
+
+<section class="source-menu" id="chef-special">
+
+    <div class="menu-item">Chef Special Chicken</div>
+    <div class="menu-item">Chef Special Mutton</div>
+    <div class="menu-item">Chef Special Fish</div>
+    <div class="menu-item">Chef Special Prawns</div>
+    <div class="menu-item">Chef Special Paneer</div>
+    <div class="menu-item">Chef Special Veg</div>
+    <div class="menu-item">Hotel Special Biryani</div>
+    <div class="menu-item">Hotel Special Fried Rice</div>
+    <div class="menu-item">Hotel Special Noodles</div>
+    <div class="menu-item">Hotel Special Tandoori</div>
+
+</section>
+
+
+<!-- =====================================================
+     POPUP
+===================================================== -->
+
+<div
+    class="popup"
+    id="menuPopup"
+>
+
+    <div class="popup-box">
+
+        <div class="popup-header">
+
+            <div class="popup-top">
+
+                <div
+                    class="popup-title"
+                    id="popupTitle"
+                >
+                    Hotel Menu
+                </div>
+
+                <button
+                    type="button"
+                    class="popup-close"
+                    id="popupClose"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="popup-search">
+
+                <input
+                    id="popupSearch"
+                    type="search"
+                    placeholder="இந்த menu-ல் தேடுங்கள்..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="popup-content"
+            id="popupList"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<footer class="footer">
+
+    <strong>Pyncode.in</strong>
+
+    <br>
+
+    Hotel Style Food 🍽️
+
+    <br><br>
+
+    Breakfast • Starters • Main Course •
+    Biryani • Tandoor • Desserts
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   CATEGORY DATA
+===================================================== */
+
+const categories = [
+
+    {
+        id:"hotel-breakfast",
+        title:"🍳 Hotel Breakfast"
+    },
+
+    {
+        id:"south-hotel",
+        title:"🥘 South Indian Hotel"
+    },
+
+    {
+        id:"north-hotel",
+        title:"🫓 North Indian Hotel"
+    },
+
+    {
+        id:"tandoor",
+        title:"🔥 Tandoor"
+    },
+
+    {
+        id:"soups",
+        title:"🥣 Soups"
+    },
+
+    {
+        id:"veg-starters",
+        title:"🥗 Veg Starters"
+    },
+
+    {
+        id:"chicken-starters",
+        title:"🍗 Chicken Starters"
+    },
+
+    {
+        id:"seafood-starters",
+        title:"🐟 Fish & Seafood Starters"
+    },
+
+    {
+        id:"veg-main",
+        title:"🥬 Veg Main Course"
+    },
+
+    {
+        id:"paneer-specials",
+        title:"🧀 Paneer Specials"
+    },
+
+    {
+        id:"chicken-main",
+        title:"🍗 Chicken Main Course"
+    },
+
+    {
+        id:"mutton-main",
+        title:"🐐 Mutton Main Course"
+    },
+
+    {
+        id:"fish-main",
+        title:"🐟 Fish & Seafood Main"
+    },
+
+    {
+        id:"egg-specials",
+        title:"🥚 Egg Specials"
+    },
+
+    {
+        id:"fried-rice-noodles",
+        title:"🍜 Fried Rice & Noodles"
+    },
+
+    {
+        id:"biryani",
+        title:"🍛 Biryani"
+    },
+
+    {
+        id:"rice-varieties",
+        title:"🍚 Rice Varieties"
+    },
+
+    {
+        id:"breads",
+        title:"🫓 Roti / Naan / Paratha"
+    },
+
+    {
+        id:"salads-sides",
+        title:"🥗 Salads & Sides"
+    },
+
+    {
+        id:"hotel-meals",
+        title:"🍱 Hotel Meals & Thali"
+    },
+
+    {
+        id:"sandwich-fast",
+        title:"🥪 Sandwich & Fast Food"
+    },
+
+    {
+        id:"pizza-pasta",
+        title:"🍕 Pizza & Pasta"
+    },
+
+    {
+        id:"fresh-juice",
+        title:"🥤 Fresh Juice & Beverages"
+    },
+
+    {
+        id:"milkshakes-lassi",
+        title:"🥛 Milkshakes & Lassi"
+    },
+
+    {
+        id:"desserts",
+        title:"🍨 Ice Cream & Desserts"
+    },
+
+    {
+        id:"tea-coffee",
+        title:"☕ Tea & Coffee"
+    },
+
+    {
+        id:"dinner-specials",
+        title:"🌙 Dinner Specials"
+    },
+
+    {
+        id:"chef-special",
+        title:"⭐ Hotel Special / Chef Special"
+    }
+
+];
+
+
+const menuPopup =
+    document.getElementById("menuPopup");
+
+const popupTitle =
+    document.getElementById("popupTitle");
+
+const popupList =
+    document.getElementById("popupList");
+
+const popupSearch =
+    document.getElementById("popupSearch");
+
+const popupClose =
+    document.getElementById("popupClose");
+
+const mainSearch =
+    document.getElementById("mainSearch");
+
+
+/* =====================================================
+   OPEN MENU
+===================================================== */
+
+function openMenu(categoryId){
+
+    const category =
+        categories.find(function(item){
+
+            return item.id === categoryId;
+
+        });
+
+
+    const source =
+        document.getElementById(categoryId);
+
+
+    if(!category || !source){
+
+        return;
+
+    }
+
+
+    popupTitle.textContent =
+        category.title;
+
+
+    popupList.innerHTML = "";
+
+
+    const items =
+        source.querySelectorAll(".menu-item");
+
+
+    items.forEach(function(item){
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "popup-item";
+
+        div.textContent =
+            item.textContent;
+
+        popupList.appendChild(div);
+
+    });
+
+
+    popupSearch.value = "";
+
+
+    menuPopup.classList.add("show");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    /*
+       DO NOT focus popupSearch here.
+
+       Mobile keyboard should remain closed
+       until user manually taps the search box.
+    */
+
+}
+
+
+/* =====================================================
+   CLOSE
+===================================================== */
+
+function closeMenu(){
+
+    menuPopup.classList.remove("show");
+
+    document.body.style.overflow =
+        "";
+
+    popupSearch.value = "";
+
+}
+
+
+popupClose.addEventListener(
+    "click",
+    closeMenu
+);
+
+
+/* =====================================================
+   OUTSIDE TAP
+===================================================== */
+
+menuPopup.addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === menuPopup){
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   POPUP SEARCH
+===================================================== */
+
+popupSearch.addEventListener(
+    "input",
+    function(){
+
+        const keyword =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        const items =
+            popupList.querySelectorAll(
+                ".popup-item"
+            );
+
+
+        items.forEach(function(item){
+
+            const text =
+                item.textContent.toLowerCase();
+
+
+            if(
+                keyword === "" ||
+                text.includes(keyword)
+            ){
+
+                item.style.display = "";
+
+            }else{
+
+                item.style.display = "none";
+
+            }
+
+        });
+
+    }
+);
+
+
+/* =====================================================
+   MAIN SEARCH
+===================================================== */
+
+mainSearch.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key !== "Enter"){
+
+            return;
+
+        }
+
+
+        const keyword =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        if(!keyword){
+
+            return;
+
+        }
+
+
+        const found =
+            categories.find(function(category){
+
+                const source =
+                    document.getElementById(
+                        category.id
+                    );
+
+
+                if(!source){
+
+                    return false;
+
+                }
+
+
+                const text = (
+
+                    category.title +
+                    " " +
+                    source.textContent
+
+                ).toLowerCase();
+
+
+                return text.includes(keyword);
+
+            });
+
+
+        if(found){
+
+            openMenu(found.id);
+
+        }else{
+
+            alert(
+                "இந்த dish / category கிடைக்கவில்லை."
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</div>
+
+</body>
+
+</html>

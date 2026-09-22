@@ -136,6 +136,10 @@
             background:#eaf2ff;
         }
 
+      .planner-shop-icon{
+    background:#fff3e8;
+      }
+
         .banner-icon{
             background:#f2eaff;
         }
@@ -408,6 +412,37 @@
 
         </div>
 
+      <!-- =========================
+     PLANNER SHOP MANAGEMENT
+========================== -->
+
+<div
+    class="admin-card"
+    id="plannerShopManagementCard"
+>
+
+    <div class="card-icon planner-shop-icon">
+        📋
+    </div>
+
+    <h2>
+        Planner Shop Management
+    </h2>
+
+    <p>
+        View and manage businesses registered
+        through Pyncode Planner.
+    </p>
+
+    <button
+        type="button"
+        class="open-btn"
+    >
+        Manage Planner Shops →
+    </button>
+
+</div>
+
 
 
         <!-- =========================
@@ -677,6 +712,21 @@ document
         }
     );
 
+/* =====================================================
+   PLANNER SHOP MANAGEMENT
+===================================================== */
+
+document
+    .getElementById("plannerShopManagementCard")
+    .addEventListener(
+        "click",
+        function(){
+
+            window.location.href =
+                "planner-shop-management.html";
+
+        }
+    );
 
 
 /* =====================================================

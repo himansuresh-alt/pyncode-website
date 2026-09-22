@@ -1,0 +1,2418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#fff8f0"
+>
+
+<title>
+    South Indian Food | Pyncode Planner
+</title>
+
+<style>
+
+/* =====================================================
+   ROOT
+===================================================== */
+
+:root{
+
+    --bg:#fffaf5;
+
+    --card:#ffffff;
+
+    --text:#29231f;
+
+    --muted:#756d67;
+
+    --primary:#e85d04;
+
+    --primary-light:#fff0df;
+
+    --border:#eee2d7;
+
+    --shadow:
+        0 8px 28px rgba(70,40,15,.08);
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+
+body{
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    line-height:1.5;
+
+}
+
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+button,
+input{
+    font:inherit;
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:14px;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:15px 17px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:15px;
+
+}
+
+
+.header-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.back-btn{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+
+.brand{
+
+    text-align:right;
+
+}
+
+
+.brand-title{
+
+    font-size:16px;
+
+    font-weight:800;
+
+}
+
+
+.brand-subtitle{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:1px;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0df,
+            #fff8f0
+        );
+
+    border:1px solid #f5ddc8;
+
+    border-radius:25px;
+
+    padding:27px 18px;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+
+.hero-icon{
+
+    font-size:44px;
+
+    margin-bottom:7px;
+
+}
+
+
+.hero h1{
+
+    font-size:28px;
+
+    line-height:1.15;
+
+    margin-bottom:8px;
+
+}
+
+
+.hero h1 span{
+
+    color:var(--primary);
+
+}
+
+
+.hero p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.6;
+
+}
+
+
+.hero-note{
+
+    display:inline-block;
+
+    margin-top:13px;
+
+    padding:7px 12px;
+
+    border-radius:30px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    color:var(--primary);
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   MAIN SEARCH
+===================================================== */
+
+.main-search{
+
+    max-width:650px;
+
+    margin:18px auto 0;
+
+}
+
+
+.main-search input{
+
+    width:100%;
+
+    height:46px;
+
+    border:1px solid #ddd;
+
+    border-radius:24px;
+
+    padding:0 18px;
+
+    outline:none;
+
+    background:#fff;
+
+    font-size:14px;
+
+}
+
+
+.main-search input:focus{
+
+    border-color:#e8b98e;
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section{
+
+    margin-bottom:25px;
+
+}
+
+
+.section-head{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:12px;
+
+}
+
+
+.section-head h2{
+
+    font-size:19px;
+
+}
+
+
+.section-head small{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+/* =====================================================
+   CATEGORY GRID
+===================================================== */
+
+.category-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:11px;
+
+}
+
+
+.category-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:14px;
+
+    min-height:83px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 18px rgba(70,40,15,.04);
+
+    transition:.15s;
+
+}
+
+
+.category-card:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#efc49e;
+
+}
+
+
+.category-card:active{
+
+    transform:scale(.98);
+
+}
+
+
+.category-icon{
+
+    width:45px;
+
+    height:45px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--primary-light);
+
+    border-radius:14px;
+
+    font-size:24px;
+
+}
+
+
+.category-info{
+
+    min-width:0;
+
+}
+
+
+.category-info h3{
+
+    font-size:14px;
+
+    line-height:1.3;
+
+    margin-bottom:2px;
+
+}
+
+
+.category-info p{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    line-height:1.35;
+
+}
+
+
+.category-arrow{
+
+    margin-left:auto;
+
+    color:#aaa;
+
+    font-size:21px;
+
+}
+
+
+/* =====================================================
+   HIDDEN SOURCE MENU
+===================================================== */
+
+.source-menu{
+
+    display:none;
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:9999;
+
+    display:none;
+
+    align-items:flex-end;
+
+}
+
+
+.popup.show{
+
+    display:flex;
+
+}
+
+
+.popup-box{
+
+    width:100%;
+
+    max-height:90vh;
+
+    background:#fffaf5;
+
+    border-radius:23px 23px 0 0;
+
+    overflow:hidden;
+
+    animation:slideUp .2s ease;
+
+}
+
+
+@keyframes slideUp{
+
+    from{
+        transform:translateY(100%);
+    }
+
+    to{
+        transform:translateY(0);
+    }
+
+}
+
+
+.popup-header{
+
+    background:#fff0df;
+
+    padding:15px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:2;
+
+}
+
+
+.popup-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.popup-title{
+
+    font-size:18px;
+
+    font-weight:800;
+
+}
+
+
+.popup-close{
+
+    width:37px;
+
+    height:37px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+}
+
+
+.popup-search{
+
+    margin-top:10px;
+
+}
+
+
+.popup-search input{
+
+    width:100%;
+
+    height:44px;
+
+    border:1px solid #ddd;
+
+    border-radius:23px;
+
+    padding:0 16px;
+
+    outline:none;
+
+    background:#fff;
+
+    font-size:14px;
+
+}
+
+
+.popup-content{
+
+    max-height:72vh;
+
+    overflow-y:auto;
+
+    padding:14px 15px 30px;
+
+}
+
+
+.popup-item{
+
+    background:#fff;
+
+    border:1px solid #eee;
+
+    border-radius:12px;
+
+    padding:12px 13px;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    text-align:center;
+
+    padding:25px 10px 35px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+.footer strong{
+
+    color:var(--primary);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+    .container{
+
+        padding:11px;
+
+    }
+
+
+    .category-grid{
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:9px;
+
+    }
+
+
+    .category-card{
+
+        padding:12px;
+
+        min-height:79px;
+
+        gap:8px;
+
+        border-radius:16px;
+
+    }
+
+
+    .category-icon{
+
+        width:39px;
+
+        height:39px;
+
+        font-size:21px;
+
+        border-radius:12px;
+
+    }
+
+
+    .category-info h3{
+
+        font-size:12.5px;
+
+    }
+
+
+    .category-info p{
+
+        font-size:9.5px;
+
+    }
+
+
+    .category-arrow{
+
+        font-size:18px;
+
+    }
+
+
+    .hero h1{
+
+        font-size:25px;
+
+    }
+
+}
+
+
+/* =====================================================
+   END CSS
+===================================================== */
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- =================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-top">
+
+        <a
+            href="innaiku-enna-samayal.html"
+            class="back-btn"
+        >
+            ← Samayal Home
+        </a>
+
+        <div class="brand">
+
+            <div class="brand-title">
+                🌿 South Indian
+            </div>
+
+            <div class="brand-subtitle">
+                Pyncode Planner
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-icon">
+        🌿
+    </div>
+
+    <h1>
+        South Indian <span>Food</span>
+    </h1>
+
+    <p>
+        Tamil Nadu, Kerala, Karnataka,
+        Andhra Pradesh & Telangana
+        food varieties.
+    </p>
+
+    <div class="hero-note">
+        🍚 Complete South Indian Menu
+    </div>
+
+
+    <div class="main-search">
+
+        <input
+            id="mainSearch"
+            type="search"
+            placeholder="உதா: dosa, pongal, Kerala..."
+            autocomplete="off"
+        >
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     CATEGORIES
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <h2>
+            🍽️ Explore Menu
+        </h2>
+
+        <small>
+            Category select pannunga
+        </small>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="categoryGrid"
+    >
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('breakfast')"
+        >
+
+            <div class="category-icon">
+                🍳
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Breakfast & Tiffin
+                </h3>
+
+                <p>
+                    Morning favourites
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('dosa')"
+        >
+
+            <div class="category-icon">
+                🥞
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Dosa Varieties
+                </h3>
+
+                <p>
+                    Dosa & special dosa
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('idli-vada')"
+        >
+
+            <div class="category-icon">
+                🍘
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Idli • Vada • Uttapam
+                </h3>
+
+                <p>
+                    Tiffin varieties
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('pongal-upma')"
+        >
+
+            <div class="category-icon">
+                🍲
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Pongal & Upma
+                </h3>
+
+                <p>
+                    Traditional tiffin
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('rice')"
+        >
+
+            <div class="category-icon">
+                🍚
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Variety Rice
+                </h3>
+
+                <p>
+                    Lemon, tomato, curd & more
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('meals')"
+        >
+
+            <div class="category-icon">
+                🍱
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    South Indian Meals
+                </h3>
+
+                <p>
+                    Full meals & thali
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('sambar-rasam')"
+        >
+
+            <div class="category-icon">
+                🥣
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Sambar • Rasam • Kuzhambu
+                </h3>
+
+                <p>
+                    Main gravies
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('veg-side')"
+        >
+
+            <div class="category-icon">
+                🥬
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Veg Sides
+                </h3>
+
+                <p>
+                    Poriyal, kootu & avial
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('chutney')"
+        >
+
+            <div class="category-icon">
+                🥥
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Chutney & Podi
+                </h3>
+
+                <p>
+                    Side dishes
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('kerala')"
+        >
+
+            <div class="category-icon">
+                🌴
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Kerala
+                </h3>
+
+                <p>
+                    Kerala special dishes
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('karnataka')"
+        >
+
+            <div class="category-icon">
+                🌾
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Karnataka
+                </h3>
+
+                <p>
+                    Udupi & Karnataka food
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('andhra')"
+        >
+
+            <div class="category-icon">
+                🌶️
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Andhra & Telangana
+                </h3>
+
+                <p>
+                    Regional special dishes
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('nonveg')"
+        >
+
+            <div class="category-icon">
+                🍗
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    South Indian Non-Veg
+                </h3>
+
+                <p>
+                    Regional non-veg dishes
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('snacks')"
+        >
+
+            <div class="category-icon">
+                🍘
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Snacks
+                </h3>
+
+                <p>
+                    South Indian snacks
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('sweets')"
+        >
+
+            <div class="category-icon">
+                🍮
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Sweets & Desserts
+                </h3>
+
+                <p>
+                    Traditional sweets
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('drinks')"
+        >
+
+            <div class="category-icon">
+                ☕
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Drinks
+                </h3>
+
+                <p>
+                    Coffee, tea & traditional drinks
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('traditional')"
+        >
+
+            <div class="category-icon">
+                🍃
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Traditional & Festival
+                </h3>
+
+                <p>
+                    Traditional special menu
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('millet')"
+        >
+
+            <div class="category-icon">
+                🌾
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Millet & Traditional Grains
+                </h3>
+
+                <p>
+                    Ragi, kambu, thinai & more
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+  <!-- =====================================================
+     SOURCE MENUS
+===================================================== -->
+
+<section class="source-menu" id="breakfast">
+
+    <div class="menu-item">Idli</div>
+    <div class="menu-item">Mini Idli</div>
+    <div class="menu-item">Kanchipuram Idli</div>
+    <div class="menu-item">Thatte Idli</div>
+    <div class="menu-item">Rava Idli</div>
+    <div class="menu-item">Dosa</div>
+    <div class="menu-item">Masala Dosa</div>
+    <div class="menu-item">Pongal</div>
+    <div class="menu-item">Ven Pongal</div>
+    <div class="menu-item">Rava Upma</div>
+    <div class="menu-item">Vegetable Upma</div>
+    <div class="menu-item">Semiya Upma</div>
+    <div class="menu-item">Poori Masala</div>
+    <div class="menu-item">Chapati Kurma</div>
+    <div class="menu-item">Pesarattu</div>
+    <div class="menu-item">Adai</div>
+    <div class="menu-item">Uthappam</div>
+    <div class="menu-item">Medu Vada</div>
+    <div class="menu-item">Sambar Vada</div>
+    <div class="menu-item">Thayir Vada</div>
+    <div class="menu-item">Kuzhi Paniyaram</div>
+    <div class="menu-item">Appam</div>
+    <div class="menu-item">Puttu</div>
+    <div class="menu-item">Idiyappam</div>
+    <div class="menu-item">Neer Dosa</div>
+    <div class="menu-item">Mangalore Buns</div>
+
+</section>
+
+
+<section class="source-menu" id="dosa">
+
+    <div class="menu-item">Plain Dosa</div>
+    <div class="menu-item">Masala Dosa</div>
+    <div class="menu-item">Ghee Dosa</div>
+    <div class="menu-item">Ghee Roast Dosa</div>
+    <div class="menu-item">Paper Roast</div>
+    <div class="menu-item">Paper Dosa</div>
+    <div class="menu-item">Onion Dosa</div>
+    <div class="menu-item">Podi Dosa</div>
+    <div class="menu-item">Milagai Podi Dosa</div>
+    <div class="menu-item">Garlic Dosa</div>
+    <div class="menu-item">Mysore Masala Dosa</div>
+    <div class="menu-item">Mysore Plain Dosa</div>
+    <div class="menu-item">Rava Dosa</div>
+    <div class="menu-item">Onion Rava Dosa</div>
+    <div class="menu-item">Masala Rava Dosa</div>
+    <div class="menu-item">Set Dosa</div>
+    <div class="menu-item">Neer Dosa</div>
+    <div class="menu-item">Ragi Dosa</div>
+    <div class="menu-item">Kambu Dosa</div>
+    <div class="menu-item">Thinai Dosa</div>
+    <div class="menu-item">Kuthiraivali Dosa</div>
+    <div class="menu-item">Adai Dosa</div>
+    <div class="menu-item">Pesarattu</div>
+    <div class="menu-item">Upma Pesarattu</div>
+    <div class="menu-item">Onion Pesarattu</div>
+    <div class="menu-item">Egg Dosa</div>
+    <div class="menu-item">Paneer Dosa</div>
+    <div class="menu-item">Mushroom Dosa</div>
+    <div class="menu-item">Vegetable Dosa</div>
+    <div class="menu-item">Cheese Dosa</div>
+    <div class="menu-item">Spring Onion Dosa</div>
+
+</section>
+
+
+<section class="source-menu" id="idli-vada">
+
+    <div class="menu-item">Idli</div>
+    <div class="menu-item">Mini Idli</div>
+    <div class="menu-item">Kanchipuram Idli</div>
+    <div class="menu-item">Thatte Idli</div>
+    <div class="menu-item">Rava Idli</div>
+    <div class="menu-item">Mallige Idli</div>
+    <div class="menu-item">Podi Idli</div>
+    <div class="menu-item">Sambar Idli</div>
+    <div class="menu-item">Fried Idli</div>
+    <div class="menu-item">Chilli Idli</div>
+    <div class="menu-item">Tawa Idli</div>
+    <div class="menu-item">Medu Vada</div>
+    <div class="menu-item">Sambar Vada</div>
+    <div class="menu-item">Rasam Vada</div>
+    <div class="menu-item">Thayir Vada</div>
+    <div class="menu-item">Masala Vada</div>
+    <div class="menu-item">Paruppu Vada</div>
+    <div class="menu-item">Keerai Vada</div>
+    <div class="menu-item">Onion Vada</div>
+    <div class="menu-item">Bonda</div>
+    <div class="menu-item">Mysore Bonda</div>
+    <div class="menu-item">Uzhunnu Vada</div>
+    <div class="menu-item">Onion Uthappam</div>
+    <div class="menu-item">Tomato Uthappam</div>
+    <div class="menu-item">Podi Uthappam</div>
+    <div class="menu-item">Vegetable Uthappam</div>
+    <div class="menu-item">Cheese Uthappam</div>
+
+</section>
+
+
+<section class="source-menu" id="pongal-upma">
+
+    <div class="menu-item">Ven Pongal</div>
+    <div class="menu-item">Millet Pongal</div>
+    <div class="menu-item">Rava Pongal</div>
+    <div class="menu-item">Sweet Pongal</div>
+    <div class="menu-item">Sakkarai Pongal</div>
+    <div class="menu-item">Puli Pongal</div>
+    <div class="menu-item">Rava Upma</div>
+    <div class="menu-item">Vegetable Upma</div>
+    <div class="menu-item">Semiya Upma</div>
+    <div class="menu-item">Aval Upma</div>
+    <div class="menu-item">Bread Upma</div>
+    <div class="menu-item">Oats Upma</div>
+    <div class="menu-item">Millet Upma</div>
+    <div class="menu-item">Kambu Upma</div>
+    <div class="menu-item">Ragi Upma</div>
+    <div class="menu-item">Broken Wheat Upma</div>
+
+</section>
+
+
+<section class="source-menu" id="rice">
+
+    <div class="menu-item">Steamed Rice</div>
+    <div class="menu-item">White Rice</div>
+    <div class="menu-item">Brown Rice</div>
+    <div class="menu-item">Lemon Rice</div>
+    <div class="menu-item">Tamarind Rice</div>
+    <div class="menu-item">Puliyodarai</div>
+    <div class="menu-item">Tomato Rice</div>
+    <div class="menu-item">Coconut Rice</div>
+    <div class="menu-item">Curd Rice</div>
+    <div class="menu-item">Mango Rice</div>
+    <div class="menu-item">Mint Rice</div>
+    <div class="menu-item">Coriander Rice</div>
+    <div class="menu-item">Sesame Rice</div>
+    <div class="menu-item">Curry Leaf Rice</div>
+    <div class="menu-item">Garlic Rice</div>
+    <div class="menu-item">Vegetable Rice</div>
+    <div class="menu-item">Peas Rice</div>
+    <div class="menu-item">Carrot Rice</div>
+    <div class="menu-item">Capsicum Rice</div>
+    <div class="menu-item">Mushroom Rice</div>
+    <div class="menu-item">Sambar Rice</div>
+    <div class="menu-item">Rasam Rice</div>
+    <div class="menu-item">Kootu Rice</div>
+    <div class="menu-item">Keerai Rice</div>
+
+</section>
+
+
+<section class="source-menu" id="meals">
+
+    <div class="menu-item">South Indian Meals</div>
+    <div class="menu-item">Tamil Nadu Meals</div>
+    <div class="menu-item">Mini Meals</div>
+    <div class="menu-item">Full Meals</div>
+    <div class="menu-item">Veg Meals</div>
+    <div class="menu-item">Banana Leaf Meals</div>
+    <div class="menu-item">Thali Meals</div>
+    <div class="menu-item">Andhra Meals</div>
+    <div class="menu-item">Karnataka Oota</div>
+    <div class="menu-item">Kerala Sadya</div>
+    <div class="menu-item">Udupi Meals</div>
+    <div class="menu-item">Chettinad Meals</div>
+    <div class="menu-item">Festival Meals</div>
+    <div class="menu-item">Temple Style Meals</div>
+    <div class="menu-item">Wedding Meals</div>
+    <div class="menu-item">Special Veg Thali</div>
+
+</section>
+
+  <section class="source-menu" id="sambar-rasam">
+
+    <div class="menu-item">Sambar</div>
+    <div class="menu-item">Tiffin Sambar</div>
+    <div class="menu-item">Arachuvitta Sambar</div>
+    <div class="menu-item">Drumstick Sambar</div>
+    <div class="menu-item">Onion Sambar</div>
+    <div class="menu-item">Brinjal Sambar</div>
+    <div class="menu-item">Radish Sambar</div>
+    <div class="menu-item">Pumpkin Sambar</div>
+    <div class="menu-item">Mixed Vegetable Sambar</div>
+    <div class="menu-item">Keerai Sambar</div>
+    <div class="menu-item">Rasam</div>
+    <div class="menu-item">Tomato Rasam</div>
+    <div class="menu-item">Pepper Rasam</div>
+    <div class="menu-item">Garlic Rasam</div>
+    <div class="menu-item">Lemon Rasam</div>
+    <div class="menu-item">Pineapple Rasam</div>
+    <div class="menu-item">Mysore Rasam</div>
+    <div class="menu-item">Jeera Rasam</div>
+    <div class="menu-item">Paruppu Rasam</div>
+    <div class="menu-item">Milagu Rasam</div>
+    <div class="menu-item">Mor Kuzhambu</div>
+    <div class="menu-item">Vatha Kuzhambu</div>
+    <div class="menu-item">Puli Kuzhambu</div>
+    <div class="menu-item">Kara Kuzhambu</div>
+    <div class="menu-item">Ennai Kathirikai Kuzhambu</div>
+    <div class="menu-item">Poosanikai Kuzhambu</div>
+    <div class="menu-item">Vendakkai Kuzhambu</div>
+    <div class="menu-item">Kathirikai Kuzhambu</div>
+
+</section>
+
+
+<section class="source-menu" id="veg-side">
+
+    <div class="menu-item">Beans Poriyal</div>
+    <div class="menu-item">Carrot Beans Poriyal</div>
+    <div class="menu-item">Cabbage Poriyal</div>
+    <div class="menu-item">Beetroot Poriyal</div>
+    <div class="menu-item">Potato Curry</div>
+    <div class="menu-item">Potato Fry</div>
+    <div class="menu-item">Brinjal Fry</div>
+    <div class="menu-item">Vendakkai Fry</div>
+    <div class="menu-item">Cauliflower Fry</div>
+    <div class="menu-item">Raw Banana Fry</div>
+    <div class="menu-item">Yam Fry</div>
+    <div class="menu-item">Seppankizhangu Roast</div>
+    <div class="menu-item">Chow Chow Kootu</div>
+    <div class="menu-item">Sorakkai Kootu</div>
+    <div class="menu-item">Poosanikai Kootu</div>
+    <div class="menu-item">Keerai Kootu</div>
+    <div class="menu-item">Mixed Vegetable Kootu</div>
+    <div class="menu-item">Avial</div>
+    <div class="menu-item">Vegetable Kurma</div>
+    <div class="menu-item">Mixed Vegetable Curry</div>
+    <div class="menu-item">Keerai Masiyal</div>
+    <div class="menu-item">Keerai Poriyal</div>
+    <div class="menu-item">Paruppu Usili</div>
+    <div class="menu-item">Kathirikai Pitla</div>
+    <div class="menu-item">Kara Poriyal</div>
+    <div class="menu-item">Pachadi</div>
+    <div class="menu-item">Kosambari</div>
+
+</section>
+
+
+<section class="source-menu" id="chutney">
+
+    <div class="menu-item">Coconut Chutney</div>
+    <div class="menu-item">Tomato Chutney</div>
+    <div class="menu-item">Onion Chutney</div>
+    <div class="menu-item">Mint Chutney</div>
+    <div class="menu-item">Coriander Chutney</div>
+    <div class="menu-item">Peanut Chutney</div>
+    <div class="menu-item">Garlic Chutney</div>
+    <div class="menu-item">Red Chutney</div>
+    <div class="menu-item">Green Chutney</div>
+    <div class="menu-item">Ginger Chutney</div>
+    <div class="menu-item">Curry Leaf Chutney</div>
+    <div class="menu-item">Pudina Chutney</div>
+    <div class="menu-item">Brinjal Chutney</div>
+    <div class="menu-item">Capsicum Chutney</div>
+    <div class="menu-item">Pottukadalai Chutney</div>
+    <div class="menu-item">Kara Chutney</div>
+    <div class="menu-item">Idli Podi</div>
+    <div class="menu-item">Milagai Podi</div>
+    <div class="menu-item">Curry Leaf Podi</div>
+    <div class="menu-item">Paruppu Podi</div>
+    <div class="menu-item">Ellu Podi</div>
+    <div class="menu-item">Kollu Podi</div>
+    <div class="menu-item">Garlic Podi</div>
+
+</section>
+
+
+<section class="source-menu" id="kerala">
+
+    <div class="menu-item">Kerala Sadya</div>
+    <div class="menu-item">Appam</div>
+    <div class="menu-item">Palappam</div>
+    <div class="menu-item">Idiyappam</div>
+    <div class="menu-item">Puttu</div>
+    <div class="menu-item">Puttu & Kadala Curry</div>
+    <div class="menu-item">Kerala Parotta</div>
+    <div class="menu-item">Malabar Parotta</div>
+    <div class="menu-item">Pathiri</div>
+    <div class="menu-item">Neer Dosa</div>
+    <div class="menu-item">Kerala Vegetable Stew</div>
+    <div class="menu-item">Kadala Curry</div>
+    <div class="menu-item">Avial</div>
+    <div class="menu-item">Thoran</div>
+    <div class="menu-item">Olan</div>
+    <div class="menu-item">Erissery</div>
+    <div class="menu-item">Kalan</div>
+    <div class="menu-item">Theeyal</div>
+    <div class="menu-item">Pachadi</div>
+    <div class="menu-item">Kichadi</div>
+    <div class="menu-item">Inji Curry</div>
+    <div class="menu-item">Kerala Sambar</div>
+    <div class="menu-item">Kerala Rasam</div>
+    <div class="menu-item">Kerala Fish Curry</div>
+    <div class="menu-item">Fish Moilee</div>
+    <div class="menu-item">Karimeen Pollichathu</div>
+    <div class="menu-item">Kerala Chicken Curry</div>
+    <div class="menu-item">Chicken Stew</div>
+    <div class="menu-item">Kerala Beef Fry</div>
+    <div class="menu-item">Malabar Biryani</div>
+    <div class="menu-item">Thalassery Biryani</div>
+    <div class="menu-item">Banana Fry</div>
+    <div class="menu-item">Pazham Pori</div>
+    <div class="menu-item">Unniyappam</div>
+    <div class="menu-item">Palada Payasam</div>
+
+</section>
+
+
+<section class="source-menu" id="karnataka">
+
+    <div class="menu-item">Bisi Bele Bath</div>
+    <div class="menu-item">Bisibele Bath</div>
+    <div class="menu-item">Vangi Bath</div>
+    <div class="menu-item">Puliyogare</div>
+    <div class="menu-item">Curd Rice</div>
+    <div class="menu-item">Chitranna</div>
+    <div class="menu-item">Lemon Rice</div>
+    <div class="menu-item">Rava Idli</div>
+    <div class="menu-item">Thatte Idli</div>
+    <div class="menu-item">Maddur Vada</div>
+    <div class="menu-item">Mysore Bonda</div>
+    <div class="menu-item">Mysore Masala Dosa</div>
+    <div class="menu-item">Set Dosa</div>
+    <div class="menu-item">Davangere Benne Dosa</div>
+    <div class="menu-item">Neer Dosa</div>
+    <div class="menu-item">Ragi Mudde</div>
+    <div class="menu-item">Ragi Rotti</div>
+    <div class="menu-item">Akki Rotti</div>
+    <div class="menu-item">Jowar Rotti</div>
+    <div class="menu-item">Jolada Rotti</div>
+    <div class="menu-item">Kosambari</div>
+    <div class="menu-item">Udupi Sambar</div>
+    <div class="menu-item">Udupi Rasam</div>
+    <div class="menu-item">Udupi Vegetable Kurma</div>
+    <div class="menu-item">Gojju</div>
+    <div class="menu-item">Ennegayi</div>
+    <div class="menu-item">Mangalore Buns</div>
+    <div class="menu-item">Mangalore Bajji</div>
+    <div class="menu-item">Obbattu</div>
+    <div class="menu-item">Holige</div>
+    <div class="menu-item">Kesari Bath</div>
+    <div class="menu-item">Mysore Pak</div>
+
+</section>
+
+  <section class="source-menu" id="andhra">
+
+    <div class="menu-item">Andhra Meals</div>
+    <div class="menu-item">Andhra Bhojanam</div>
+    <div class="menu-item">Pesarattu</div>
+    <div class="menu-item">Upma Pesarattu</div>
+    <div class="menu-item">MLA Pesarattu</div>
+    <div class="menu-item">Punugulu</div>
+    <div class="menu-item">Garelu</div>
+    <div class="menu-item">Andhra Upma</div>
+    <div class="menu-item">Pulihora</div>
+    <div class="menu-item">Tomato Rice</div>
+    <div class="menu-item">Gongura Rice</div>
+    <div class="menu-item">Gongura Pachadi</div>
+    <div class="menu-item">Avakaya</div>
+    <div class="menu-item">Gongura Mutton</div>
+    <div class="menu-item">Andhra Chicken Curry</div>
+    <div class="menu-item">Andhra Chicken Fry</div>
+    <div class="menu-item">Chicken Pulusu</div>
+    <div class="menu-item">Andhra Fish Curry</div>
+    <div class="menu-item">Royyala Iguru</div>
+    <div class="menu-item">Royyala Vepudu</div>
+    <div class="menu-item">Andhra Mutton Curry</div>
+    <div class="menu-item">Kodi Vepudu</div>
+    <div class="menu-item">Natu Kodi Pulusu</div>
+    <div class="menu-item">Andhra Egg Curry</div>
+    <div class="menu-item">Hyderabadi Biryani</div>
+    <div class="menu-item">Chicken Biryani</div>
+    <div class="menu-item">Mutton Biryani</div>
+    <div class="menu-item">Mirchi Bajji</div>
+    <div class="menu-item">Mirapakaya Bajji</div>
+    <div class="menu-item">Gongura Pachadi</div>
+    <div class="menu-item">Bobbatlu</div>
+    <div class="menu-item">Pootharekulu</div>
+
+</section>
+
+
+<section class="source-menu" id="nonveg">
+
+    <div class="menu-item">Chicken Chettinad</div>
+    <div class="menu-item">Chicken Kuzhambu</div>
+    <div class="menu-item">Naatu Kozhi Kuzhambu</div>
+    <div class="menu-item">Naatu Kozhi Fry</div>
+    <div class="menu-item">Pallipalayam Chicken</div>
+    <div class="menu-item">Chicken Chinthamani</div>
+    <div class="menu-item">Chicken Sukka</div>
+    <div class="menu-item">Chicken Chukka</div>
+    <div class="menu-item">Chicken Varuval</div>
+    <div class="menu-item">Chicken Pepper</div>
+    <div class="menu-item">Chicken 65</div>
+    <div class="menu-item">Chicken Biryani</div>
+    <div class="menu-item">Mutton Chukka</div>
+    <div class="menu-item">Mutton Sukka</div>
+    <div class="menu-item">Mutton Kuzhambu</div>
+    <div class="menu-item">Mutton Curry</div>
+    <div class="menu-item">Mutton Biryani</div>
+    <div class="menu-item">Fish Kuzhambu</div>
+    <div class="menu-item">Fish Curry</div>
+    <div class="menu-item">Fish Fry</div>
+    <div class="menu-item">Fish Pepper Fry</div>
+    <div class="menu-item">Prawn Curry</div>
+    <div class="menu-item">Prawn Masala</div>
+    <div class="menu-item">Prawn Fry</div>
+    <div class="menu-item">Crab Curry</div>
+    <div class="menu-item">Crab Masala</div>
+    <div class="menu-item">Squid Fry</div>
+    <div class="menu-item">Egg Curry</div>
+    <div class="menu-item">Egg Masala</div>
+    <div class="menu-item">Egg Podimas</div>
+    <div class="menu-item">Kerala Fish Curry</div>
+    <div class="menu-item">Karimeen Pollichathu</div>
+    <div class="menu-item">Fish Moilee</div>
+    <div class="menu-item">Malabar Chicken</div>
+    <div class="menu-item">Malabar Biryani</div>
+    <div class="menu-item">Thalassery Biryani</div>
+
+</section>
+
+
+<section class="source-menu" id="snacks">
+
+    <div class="menu-item">Medu Vada</div>
+    <div class="menu-item">Masala Vada</div>
+    <div class="menu-item">Paruppu Vada</div>
+    <div class="menu-item">Keerai Vada</div>
+    <div class="menu-item">Onion Vada</div>
+    <div class="menu-item">Bajji</div>
+    <div class="menu-item">Milagai Bajji</div>
+    <div class="menu-item">Onion Bajji</div>
+    <div class="menu-item">Potato Bajji</div>
+    <div class="menu-item">Banana Bajji</div>
+    <div class="menu-item">Mysore Bonda</div>
+    <div class="menu-item">Mangalore Bajji</div>
+    <div class="menu-item">Punugulu</div>
+    <div class="menu-item">Kuzhi Paniyaram</div>
+    <div class="menu-item">Kara Paniyaram</div>
+    <div class="menu-item">Sweet Paniyaram</div>
+    <div class="menu-item">Maddur Vada</div>
+    <div class="menu-item">Pazham Pori</div>
+    <div class="menu-item">Unniyappam</div>
+    <div class="menu-item">Sukhiyan</div>
+    <div class="menu-item">Banana Chips</div>
+    <div class="menu-item">Tapioca Chips</div>
+    <div class="menu-item">Murukku</div>
+    <div class="menu-item">Thattai</div>
+    <div class="menu-item">Seedai</div>
+    <div class="menu-item">Nippattu</div>
+    <div class="menu-item">Ribbon Pakoda</div>
+    <div class="menu-item">Mixture</div>
+    <div class="menu-item">Kara Boondi</div>
+
+</section>
+
+
+<section class="source-menu" id="sweets">
+
+    <div class="menu-item">Sakkarai Pongal</div>
+    <div class="menu-item">Kesari</div>
+    <div class="menu-item">Kesari Bath</div>
+    <div class="menu-item">Mysore Pak</div>
+    <div class="menu-item">Mysore Pak Soft</div>
+    <div class="menu-item">Paal Payasam</div>
+    <div class="menu-item">Semiya Payasam</div>
+    <div class="menu-item">Paruppu Payasam</div>
+    <div class="menu-item">Palada Payasam</div>
+    <div class="menu-item">Ada Pradhaman</div>
+    <div class="menu-item">Pineapple Kesari</div>
+    <div class="menu-item">Bread Halwa</div>
+    <div class="menu-item">Ashoka Halwa</div>
+    <div class="menu-item">Tirunelveli Halwa</div>
+    <div class="menu-item">Sooji Halwa</div>
+    <div class="menu-item">Banana Halwa</div>
+    <div class="menu-item">Unniyappam</div>
+    <div class="menu-item">Sukhiyan</div>
+    <div class="menu-item">Obbattu</div>
+    <div class="menu-item">Holige</div>
+    <div class="menu-item">Bobbatlu</div>
+    <div class="menu-item">Pootharekulu</div>
+    <div class="menu-item">Akkaravadisal</div>
+    <div class="menu-item">Adhirasam</div>
+    <div class="menu-item">Paniyaram Sweet</div>
+    <div class="menu-item">Kozhukattai Sweet</div>
+    <div class="menu-item">Paal Kozhukattai</div>
+
+</section>
+
+
+<section class="source-menu" id="drinks">
+
+    <div class="menu-item">South Indian Filter Coffee</div>
+    <div class="menu-item">Filter Coffee</div>
+    <div class="menu-item">Degree Coffee</div>
+    <div class="menu-item">Madras Filter Coffee</div>
+    <div class="menu-item">South Indian Tea</div>
+    <div class="menu-item">Masala Tea</div>
+    <div class="menu-item">Ginger Tea</div>
+    <div class="menu-item">Cardamom Tea</div>
+    <div class="menu-item">Sukku Coffee</div>
+    <div class="menu-item">Sukku Malli Coffee</div>
+    <div class="menu-item">Neer Mor</div>
+    <div class="menu-item">Masala Buttermilk</div>
+    <div class="menu-item">Panakam</div>
+    <div class="menu-item">Nannari Sarbath</div>
+    <div class="menu-item">Rose Milk</div>
+    <div class="menu-item">Badam Milk</div>
+    <div class="menu-item">Ragi Malt</div>
+    <div class="menu-item">Kambu Koozh</div>
+    <div class="menu-item">Ragi Koozh</div>
+    <div class="menu-item">Neeragaram</div>
+    <div class="menu-item">Fresh Coconut Water</div>
+
+</section>
+
+
+<section class="source-menu" id="traditional">
+
+    <div class="menu-item">Tamil Traditional Meals</div>
+    <div class="menu-item">Banana Leaf Meals</div>
+    <div class="menu-item">Wedding Sappadu</div>
+    <div class="menu-item">Festival Sappadu</div>
+    <div class="menu-item">Temple Food</div>
+    <div class="menu-item">Aadi Perukku Menu</div>
+    <div class="menu-item">Pongal Festival Menu</div>
+    <div class="menu-item">Karthigai Deepam Menu</div>
+    <div class="menu-item">Navaratri Sundal</div>
+    <div class="menu-item">Pooja Food</div>
+    <div class="menu-item">Kozhukattai</div>
+    <div class="menu-item">Modakam</div>
+    <div class="menu-item">Sundal</div>
+    <div class="menu-item">Paniyaram</div>
+    <div class="menu-item">Adai Avial</div>
+    <div class="menu-item">Kootanchoru</div>
+    <div class="menu-item">Kuzhambu Sadam</div>
+    <div class="menu-item">Kambu Koozh</div>
+    <div class="menu-item">Ragi Koozh</div>
+    <div class="menu-item">Neeragaram</div>
+    <div class="menu-item">Millet Pongal</div>
+    <div class="menu-item">Millet Adai</div>
+
+</section>
+
+
+<section class="source-menu" id="millet">
+
+    <div class="menu-item">Ragi Dosa</div>
+    <div class="menu-item">Ragi Idli</div>
+    <div class="menu-item">Ragi Rotti</div>
+    <div class="menu-item">Ragi Mudde</div>
+    <div class="menu-item">Ragi Kali</div>
+    <div class="menu-item">Ragi Koozh</div>
+    <div class="menu-item">Ragi Upma</div>
+    <div class="menu-item">Kambu Dosa</div>
+    <div class="menu-item">Kambu Koozh</div>
+    <div class="menu-item">Kambu Upma</div>
+    <div class="menu-item">Thinai Pongal</div>
+    <div class="menu-item">Thinai Dosa</div>
+    <div class="menu-item">Thinai Upma</div>
+    <div class="menu-item">Thinai Adai</div>
+    <div class="menu-item">Samai Pongal</div>
+    <div class="menu-item">Samai Upma</div>
+    <div class="menu-item">Samai Dosa</div>
+    <div class="menu-item">Kuthiraivali Pongal</div>
+    <div class="menu-item">Kuthiraivali Upma</div>
+    <div class="menu-item">Kuthiraivali Dosa</div>
+    <div class="menu-item">Varagu Pongal</div>
+    <div class="menu-item">Varagu Upma</div>
+    <div class="menu-item">Millet Idli</div>
+    <div class="menu-item">Millet Adai</div>
+
+</section>
+
+
+<!-- =====================================================
+     POPUP
+===================================================== -->
+
+<div
+    class="popup"
+    id="menuPopup"
+>
+
+    <div class="popup-box">
+
+        <div class="popup-header">
+
+            <div class="popup-top">
+
+                <div
+                    class="popup-title"
+                    id="popupTitle"
+                >
+                    South Indian Menu
+                </div>
+
+                <button
+                    type="button"
+                    class="popup-close"
+                    id="popupClose"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="popup-search">
+
+                <input
+                    id="popupSearch"
+                    type="search"
+                    placeholder="இந்த menu-ல் தேடுங்கள்..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="popup-content"
+            id="popupList"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<footer class="footer">
+
+    <strong>
+        Pyncode.in
+    </strong>
+
+    <br>
+
+    South Indian Food 🌿
+
+    <br><br>
+
+    Tamil Nadu • Kerala • Karnataka •
+    Andhra Pradesh • Telangana
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   CATEGORY DATA
+===================================================== */
+
+const categories = [
+
+    {
+        id:"breakfast",
+        title:"🍳 Breakfast & Tiffin"
+    },
+
+    {
+        id:"dosa",
+        title:"🥞 Dosa Varieties"
+    },
+
+    {
+        id:"idli-vada",
+        title:"🍘 Idli • Vada • Uttapam"
+    },
+
+    {
+        id:"pongal-upma",
+        title:"🍲 Pongal & Upma"
+    },
+
+    {
+        id:"rice",
+        title:"🍚 Variety Rice"
+    },
+
+    {
+        id:"meals",
+        title:"🍱 South Indian Meals"
+    },
+
+    {
+        id:"sambar-rasam",
+        title:"🥣 Sambar • Rasam • Kuzhambu"
+    },
+
+    {
+        id:"veg-side",
+        title:"🥬 Veg Sides"
+    },
+
+    {
+        id:"chutney",
+        title:"🥥 Chutney & Podi"
+    },
+
+    {
+        id:"kerala",
+        title:"🌴 Kerala"
+    },
+
+    {
+        id:"karnataka",
+        title:"🌾 Karnataka"
+    },
+
+    {
+        id:"andhra",
+        title:"🌶️ Andhra & Telangana"
+    },
+
+    {
+        id:"nonveg",
+        title:"🍗 South Indian Non-Veg"
+    },
+
+    {
+        id:"snacks",
+        title:"🍘 Snacks"
+    },
+
+    {
+        id:"sweets",
+        title:"🍮 Sweets & Desserts"
+    },
+
+    {
+        id:"drinks",
+        title:"☕ Drinks"
+    },
+
+    {
+        id:"traditional",
+        title:"🍃 Traditional & Festival"
+    },
+
+    {
+        id:"millet",
+        title:"🌾 Millet & Traditional Grains"
+    }
+
+];
+
+
+const menuPopup =
+    document.getElementById("menuPopup");
+
+const popupTitle =
+    document.getElementById("popupTitle");
+
+const popupList =
+    document.getElementById("popupList");
+
+const popupSearch =
+    document.getElementById("popupSearch");
+
+const popupClose =
+    document.getElementById("popupClose");
+
+const mainSearch =
+    document.getElementById("mainSearch");
+
+
+/* =====================================================
+   OPEN MENU
+===================================================== */
+
+function openMenu(categoryId){
+
+    const category =
+        categories.find(function(item){
+
+            return item.id === categoryId;
+
+        });
+
+
+    const source =
+        document.getElementById(categoryId);
+
+
+    if(!category || !source){
+
+        return;
+
+    }
+
+
+    popupTitle.textContent =
+        category.title;
+
+
+    popupList.innerHTML = "";
+
+
+    const items =
+        source.querySelectorAll(".menu-item");
+
+
+    items.forEach(function(item){
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "popup-item";
+
+        div.textContent =
+            item.textContent;
+
+        popupList.appendChild(div);
+
+    });
+
+
+    popupSearch.value = "";
+
+
+    menuPopup.classList.add("show");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    /*
+       IMPORTANT:
+       Search input is NOT focused here.
+       Mobile keyboard will NOT open automatically.
+    */
+
+}
+
+
+/* =====================================================
+   CLOSE MENU
+===================================================== */
+
+function closeMenu(){
+
+    menuPopup.classList.remove("show");
+
+    document.body.style.overflow =
+        "";
+
+    popupSearch.value = "";
+
+}
+
+
+popupClose.addEventListener(
+    "click",
+    closeMenu
+);
+
+
+/* =====================================================
+   OUTSIDE CLICK
+===================================================== */
+
+menuPopup.addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === menuPopup){
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   POPUP SEARCH
+===================================================== */
+
+popupSearch.addEventListener(
+    "input",
+    function(){
+
+        const keyword =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        const items =
+            popupList.querySelectorAll(
+                ".popup-item"
+            );
+
+
+        items.forEach(function(item){
+
+            const text =
+                item.textContent.toLowerCase();
+
+
+            if(
+                keyword === "" ||
+                text.includes(keyword)
+            ){
+
+                item.style.display =
+                    "";
+
+            }else{
+
+                item.style.display =
+                    "none";
+
+            }
+
+        });
+
+    }
+);
+
+
+/* =====================================================
+   MAIN SEARCH
+===================================================== */
+
+mainSearch.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key !== "Enter"){
+
+            return;
+
+        }
+
+
+        const keyword =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        if(!keyword){
+
+            return;
+
+        }
+
+
+        const found =
+            categories.find(function(category){
+
+                const source =
+                    document.getElementById(
+                        category.id
+                    );
+
+
+                if(!source){
+
+                    return false;
+
+                }
+
+
+                const text = (
+
+                    category.title +
+                    " " +
+                    source.textContent
+
+                ).toLowerCase();
+
+
+                return text.includes(keyword);
+
+            });
+
+
+        if(found){
+
+            openMenu(found.id);
+
+        }else{
+
+            alert(
+                "இந்த dish / category கிடைக்கவில்லை."
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</div>
+
+</body>
+
+</html>

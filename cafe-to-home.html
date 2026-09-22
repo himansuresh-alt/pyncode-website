@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Cafe to Home | Pyncode Planner</title>
+
+<style>
+
+:root{
+  --bg:#fffaf5;
+  --card:#ffffff;
+  --text:#29231f;
+  --muted:#756d67;
+  --primary:#e85d04;
+  --primary-light:#fff0df;
+  --border:#eee2d7;
+  --shadow:0 8px 24px rgba(80,45,20,.08);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.container{
+  width:100%;
+  max-width:900px;
+  margin:auto;
+  padding:0 16px 40px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+  background:#fff;
+}
+
+.header-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.back-btn{
+  display:inline-flex;
+  align-items:center;
+  padding:9px 13px;
+  background:var(--primary-light);
+  color:var(--primary);
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.brand{
+  text-align:right;
+}
+
+.brand-title{
+  font-size:17px;
+  font-weight:800;
+}
+
+.brand-subtitle{
+  font-size:11px;
+  color:var(--muted);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  margin:20px 0;
+  padding:24px 18px;
+  text-align:center;
+  background:linear-gradient(
+    135deg,
+    #fff0df,
+    #fff8f0
+  );
+  border:1px solid var(--border);
+  border-radius:22px;
+}
+
+.hero-icon{
+  font-size:46px;
+  margin-bottom:8px;
+}
+
+.hero h1{
+  font-size:30px;
+  margin-bottom:5px;
+}
+
+.hero h1 span{
+  color:var(--primary);
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:14px;
+  max-width:680px;
+  margin:0 auto;
+}
+
+.hero-note{
+  display:inline-block;
+  margin-top:13px;
+  padding:7px 12px;
+  border-radius:20px;
+  background:#fff;
+  color:var(--primary);
+  font-size:12px;
+  font-weight:700;
+  border:1px solid var(--border);
+}
+
+
+/* =========================
+   MAIN SEARCH
+========================= */
+
+.main-search{
+  margin-top:18px;
+}
+
+.main-search input{
+  width:100%;
+  border:1px solid var(--border);
+  background:#fff;
+  padding:14px 16px;
+  border-radius:14px;
+  outline:none;
+  font-size:14px;
+}
+
+.main-search input:focus{
+  border-color:var(--primary);
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+  margin-top:24px;
+}
+
+.section-head{
+  margin-bottom:12px;
+}
+
+.section-head h2{
+  font-size:20px;
+}
+
+.section-head p{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+
+/* =========================
+   CATEGORY GRID
+========================= */
+
+.category-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.category-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-height:82px;
+  padding:14px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  transition:.15s;
+}
+
+.category-card:active{
+  transform:scale(.98);
+}
+
+.category-icon{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--primary-light);
+  border-radius:13px;
+  font-size:23px;
+}
+
+.category-info{
+  min-width:0;
+  flex:1;
+}
+
+.category-info strong{
+  display:block;
+  font-size:14px;
+}
+
+.category-info span{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.category-arrow{
+  color:var(--primary);
+  font-size:18px;
+  font-weight:bold;
+}
+
+
+/* =========================
+   SOURCE MENUS
+========================= */
+
+.source-menu{
+  display:none;
+}
+
+
+/* =========================
+   POPUP
+========================= */
+
+.popup{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:none;
+  align-items:flex-end;
+  background:rgba(0,0,0,.45);
+}
+
+.popup.show{
+  display:flex;
+}
+
+.popup-box{
+  width:100%;
+  max-height:88vh;
+  background:#fff;
+  border-radius:22px 22px 0 0;
+  overflow:hidden;
+  animation:slideUp .2s ease;
+}
+
+@keyframes slideUp{
+
+  from{
+    transform:translateY(100%);
+  }
+
+  to{
+    transform:translateY(0);
+  }
+
+}
+
+.popup-header{
+  padding:15px;
+  background:var(--primary-light);
+  border-bottom:1px solid var(--border);
+}
+
+.popup-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.popup-title{
+  font-size:18px;
+  font-weight:800;
+}
+
+.popup-close{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  color:#555;
+  font-size:25px;
+  cursor:pointer;
+}
+
+.popup-search{
+  margin-top:11px;
+}
+
+.popup-search input{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  outline:none;
+  background:#fff;
+}
+
+.popup-search input:focus{
+  border-color:var(--primary);
+}
+
+.popup-content{
+  max-height:65vh;
+  overflow-y:auto;
+  padding:13px 15px 25px;
+}
+
+.popup-item{
+  padding:13px 12px;
+  margin-bottom:8px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fffaf5;
+  font-size:14px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+  margin-top:30px;
+  padding:25px 10px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+  .container{
+    padding-left:13px;
+    padding-right:13px;
+  }
+
+  .hero{
+    padding:21px 14px;
+  }
+
+  .hero h1{
+    font-size:26px;
+  }
+
+  .category-grid{
+    gap:9px;
+  }
+
+  .category-card{
+    padding:12px 10px;
+    min-height:78px;
+  }
+
+  .category-icon{
+    width:40px;
+    height:40px;
+    flex-basis:40px;
+    font-size:21px;
+  }
+
+  .category-info strong{
+    font-size:13px;
+  }
+
+}
+
+@media(max-width:360px){
+
+  .category-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+<header class="header" id="cafeHeader">
+
+  <div class="header-top">
+
+    <a
+      href="innaiku-enna-samayal.html"
+      class="back-btn"
+    >
+      ← Samayal Home
+    </a>
+
+    <div class="brand">
+
+      <div class="brand-title">
+        ☕ Cafe to Home
+      </div>
+
+      <div class="brand-subtitle">
+        Pyncode Planner
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<section class="hero" id="cafeHero">
+
+  <div class="hero-icon">
+    ☕
+  </div>
+
+  <h1>
+    Cafe <span>to Home</span>
+  </h1>
+
+  <p>
+    Café மாதிரி tea, coffee, shakes, sandwiches,
+    pasta, pizza, snacks, breakfast, desserts
+    எல்லாமே வீட்டிலேயே செய்ய உதவும் complete menu.
+  </p>
+
+  <div class="hero-note">
+    ☕ Complete Cafe Style Menu
+  </div>
+
+  <div class="main-search">
+
+    <input
+      id="mainSearch"
+      type="search"
+      placeholder="உதா: cold coffee, sandwich, pasta..."
+      autocomplete="off"
+    >
+
+  </div>
+
+</section>
+
+
+<section class="section">
+
+  <div class="section-head">
+
+    <h2>
+      ☕ Cafe Menu Categories
+    </h2>
+
+    <p>
+      Category-ஐ touch செய்து அந்த menu மட்டும் பார்க்கலாம்
+    </p>
+
+  </div>
+
+
+  <div class="category-grid" id="categoryGrid">
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('tea-coffee')"
+    >
+
+      <div class="category-icon">
+        ☕
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Tea & Coffee
+        </strong>
+
+        <span>
+          Hot tea, coffee & cafe classics
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('cold-coffee')"
+    >
+
+      <div class="category-icon">
+        🧋
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Cold Coffee & Frappe
+        </strong>
+
+        <span>
+          Cold coffee, frappe & iced drinks
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('coolers')"
+    >
+
+      <div class="category-icon">
+        🥤
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Coolers & Mojito
+        </strong>
+
+        <span>
+          Refreshing homemade coolers
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('milkshakes')"
+    >
+
+      <div class="category-icon">
+        🥛
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Milkshakes
+        </strong>
+
+        <span>
+          Chocolate, fruit & special shakes
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('sandwich')"
+    >
+
+      <div class="category-icon">
+        🥪
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Sandwich
+        </strong>
+
+        <span>
+          Grilled, cheese & loaded sandwiches
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('burgers')"
+    >
+
+      <div class="category-icon">
+        🍔
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Burgers
+        </strong>
+
+        <span>
+          Veg, paneer & chicken burgers
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('pasta')"
+    >
+
+      <div class="category-icon">
+        🍝
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Pasta
+        </strong>
+
+        <span>
+          White, red, pink & creamy pasta
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('pizza')"
+    >
+
+      <div class="category-icon">
+        🍕
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Pizza
+        </strong>
+
+        <span>
+          Veg, paneer & chicken pizza
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('fries-starters')"
+    >
+
+      <div class="category-icon">
+        🍟
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Fries & Starters
+        </strong>
+
+        <span>
+          Fries, nuggets & quick bites
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('wraps-rolls')"
+    >
+
+      <div class="category-icon">
+        🌯
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Wraps & Rolls
+        </strong>
+
+        <span>
+          Veg, paneer, egg & chicken
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('pancakes-waffles')"
+    >
+
+      <div class="category-icon">
+        🥞
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Pancakes & Waffles
+        </strong>
+
+        <span>
+          Café-style sweet treats
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('bakery-bites')"
+    >
+
+      <div class="category-icon">
+        🥐
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Bakery & Bites
+        </strong>
+
+        <span>
+          Toast, buns, croissants & baked snacks
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('cakes-desserts')"
+    >
+
+      <div class="category-icon">
+        🍰
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Cakes & Desserts
+        </strong>
+
+        <span>
+          Brownies, cakes & sweet treats
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('ice-cream')"
+    >
+
+      <div class="category-icon">
+        🍨
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Ice Cream
+        </strong>
+
+        <span>
+          Sundaes & ice cream treats
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('cafe-breakfast')"
+    >
+
+      <div class="category-icon">
+        🍳
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Cafe Breakfast
+        </strong>
+
+        <span>
+          Omelette, toast & breakfast bowls
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('healthy-cafe')"
+    >
+
+      <div class="category-icon">
+        🥗
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Healthy Cafe
+        </strong>
+
+        <span>
+          Light & wholesome cafe options
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('chicken-cafe')"
+    >
+
+      <div class="category-icon">
+        🍗
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Chicken Cafe
+        </strong>
+
+        <span>
+          Chicken sandwiches, wraps & snacks
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('egg-cafe')"
+    >
+
+      <div class="category-icon">
+        🍳
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Egg Cafe
+        </strong>
+
+        <span>
+          Egg toast, rolls & quick meals
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('combos')"
+    >
+
+      <div class="category-icon">
+        🍱
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Cafe Combos
+        </strong>
+
+        <span>
+          Food + drink combinations
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+    <div
+      class="category-card"
+      onclick="openMenu('specials')"
+    >
+
+      <div class="category-icon">
+        ⭐
+      </div>
+
+      <div class="category-info">
+
+        <strong>
+          Cafe Specials
+        </strong>
+
+        <span>
+          Special homemade cafe creations
+        </span>
+
+      </div>
+
+      <div class="category-arrow">
+        ›
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+  <!-- =====================================================
+     CAFE TO HOME
+     PART 2 / 4
+     SOURCE MENUS
+===================================================== -->
+
+<section class="source-menu" id="tea-coffee">
+
+  <div class="menu-item">Tea</div>
+  <div class="menu-item">Milk Tea</div>
+  <div class="menu-item">Masala Tea</div>
+  <div class="menu-item">Ginger Tea</div>
+  <div class="menu-item">Cardamom Tea</div>
+  <div class="menu-item">Lemon Tea</div>
+  <div class="menu-item">Green Tea</div>
+  <div class="menu-item">Black Tea</div>
+  <div class="menu-item">Honey Lemon Tea</div>
+  <div class="menu-item">Filter Coffee</div>
+  <div class="menu-item">South Indian Filter Coffee</div>
+  <div class="menu-item">Black Coffee</div>
+  <div class="menu-item">Espresso</div>
+  <div class="menu-item">Americano</div>
+  <div class="menu-item">Cappuccino</div>
+  <div class="menu-item">Cafe Latte</div>
+  <div class="menu-item">Cafe Mocha</div>
+  <div class="menu-item">Caramel Coffee</div>
+  <div class="menu-item">Hot Chocolate</div>
+  <div class="menu-item">White Hot Chocolate</div>
+
+</section>
+
+
+<section class="source-menu" id="cold-coffee">
+
+  <div class="menu-item">Classic Cold Coffee</div>
+  <div class="menu-item">Iced Coffee</div>
+  <div class="menu-item">Cold Coffee with Ice Cream</div>
+  <div class="menu-item">Chocolate Cold Coffee</div>
+  <div class="menu-item">Caramel Cold Coffee</div>
+  <div class="menu-item">Vanilla Cold Coffee</div>
+  <div class="menu-item">Hazelnut Cold Coffee</div>
+  <div class="menu-item">Mocha Cold Coffee</div>
+  <div class="menu-item">Brownie Cold Coffee</div>
+  <div class="menu-item">Coffee Frappe</div>
+  <div class="menu-item">Mocha Frappe</div>
+  <div class="menu-item">Caramel Frappe</div>
+  <div class="menu-item">Vanilla Frappe</div>
+  <div class="menu-item">Hazelnut Frappe</div>
+  <div class="menu-item">Nutella Frappe</div>
+  <div class="menu-item">Oreo Frappe</div>
+  <div class="menu-item">Chocolate Frappe</div>
+  <div class="menu-item">Double Chocolate Frappe</div>
+
+</section>
+
+
+<section class="source-menu" id="coolers">
+
+  <div class="menu-item">Fresh Lime Soda</div>
+  <div class="menu-item">Sweet Lime Soda</div>
+  <div class="menu-item">Salt Lime Soda</div>
+  <div class="menu-item">Sweet & Salt Lime Soda</div>
+  <div class="menu-item">Lemon Mint Cooler</div>
+  <div class="menu-item">Green Apple Cooler</div>
+  <div class="menu-item">Watermelon Cooler</div>
+  <div class="menu-item">Strawberry Cooler</div>
+  <div class="menu-item">Blue Lagoon</div>
+  <div class="menu-item">Virgin Mojito</div>
+  <div class="menu-item">Mint Mojito</div>
+  <div class="menu-item">Strawberry Mojito</div>
+  <div class="menu-item">Watermelon Mojito</div>
+  <div class="menu-item">Green Apple Mojito</div>
+  <div class="menu-item">Peach Iced Tea</div>
+  <div class="menu-item">Lemon Iced Tea</div>
+  <div class="menu-item">Fresh Orange Juice</div>
+  <div class="menu-item">Watermelon Juice</div>
+  <div class="menu-item">Pineapple Juice</div>
+  <div class="menu-item">Mixed Fruit Juice</div>
+
+</section>
+
+
+<section class="source-menu" id="milkshakes">
+
+  <div class="menu-item">Vanilla Milkshake</div>
+  <div class="menu-item">Chocolate Milkshake</div>
+  <div class="menu-item">Strawberry Milkshake</div>
+  <div class="menu-item">Mango Milkshake</div>
+  <div class="menu-item">Banana Milkshake</div>
+  <div class="menu-item">Butterscotch Milkshake</div>
+  <div class="menu-item">Pineapple Milkshake</div>
+  <div class="menu-item">Chikoo Milkshake</div>
+  <div class="menu-item">Dry Fruit Milkshake</div>
+  <div class="menu-item">Kaju Milkshake</div>
+  <div class="menu-item">Badam Milkshake</div>
+  <div class="menu-item">Anjeer Milkshake</div>
+  <div class="menu-item">Oreo Milkshake</div>
+  <div class="menu-item">KitKat Milkshake</div>
+  <div class="menu-item">Nutella Milkshake</div>
+  <div class="menu-item">Brownie Milkshake</div>
+  <div class="menu-item">Chocolate Chip Milkshake</div>
+  <div class="menu-item">Peanut Butter Milkshake</div>
+  <div class="menu-item">Mixed Fruit Shake</div>
+
+</section>
+
+
+<section class="source-menu" id="sandwich">
+
+  <div class="menu-item">Veg Sandwich</div>
+  <div class="menu-item">Veg Cheese Sandwich</div>
+  <div class="menu-item">Grilled Veg Sandwich</div>
+  <div class="menu-item">Grilled Cheese Sandwich</div>
+  <div class="menu-item">Bombay Sandwich</div>
+  <div class="menu-item">Masala Sandwich</div>
+  <div class="menu-item">Corn Cheese Sandwich</div>
+  <div class="menu-item">Cheese Chilli Toast</div>
+  <div class="menu-item">Paneer Sandwich</div>
+  <div class="menu-item">Paneer Tikka Sandwich</div>
+  <div class="menu-item">Mushroom Sandwich</div>
+  <div class="menu-item">Club Sandwich</div>
+  <div class="menu-item">Mexican Sandwich</div>
+  <div class="menu-item">Peri Peri Sandwich</div>
+  <div class="menu-item">Chicken Sandwich</div>
+  <div class="menu-item">Grilled Chicken Sandwich</div>
+  <div class="menu-item">Chicken Cheese Sandwich</div>
+  <div class="menu-item">Chicken Tikka Sandwich</div>
+  <div class="menu-item">Chicken Mayo Sandwich</div>
+  <div class="menu-item">Chicken Club Sandwich</div>
+  <div class="menu-item">Egg Sandwich</div>
+  <div class="menu-item">Egg Cheese Sandwich</div>
+  <div class="menu-item">Chocolate Sandwich</div>
+  <div class="menu-item">Nutella Sandwich</div>
+
+</section>
+
+
+<section class="source-menu" id="burgers">
+
+  <div class="menu-item">Classic Veg Burger</div>
+  <div class="menu-item">Veg Cheese Burger</div>
+  <div class="menu-item">Crispy Veg Burger</div>
+  <div class="menu-item">Aloo Tikki Burger</div>
+  <div class="menu-item">Paneer Burger</div>
+  <div class="menu-item">Paneer Cheese Burger</div>
+  <div class="menu-item">Mushroom Burger</div>
+  <div class="menu-item">Mexican Veg Burger</div>
+  <div class="menu-item">Peri Peri Veg Burger</div>
+  <div class="menu-item">Chicken Burger</div>
+  <div class="menu-item">Chicken Cheese Burger</div>
+  <div class="menu-item">Crispy Chicken Burger</div>
+  <div class="menu-item">Chicken Tikka Burger</div>
+  <div class="menu-item">Chicken Peri Peri Burger</div>
+  <div class="menu-item">Chicken BBQ Burger</div>
+  <div class="menu-item">Chicken Zinger Burger</div>
+  <div class="menu-item">Double Chicken Burger</div>
+  <div class="menu-item">Egg Burger</div>
+  <div class="menu-item">Egg Cheese Burger</div>
+  <div class="menu-item">Loaded Cheese Burger</div>
+
+</section>
+
+
+<section class="source-menu" id="pasta">
+
+  <div class="menu-item">Veg Pasta</div>
+  <div class="menu-item">White Sauce Pasta</div>
+  <div class="menu-item">Red Sauce Pasta</div>
+  <div class="menu-item">Pink Sauce Pasta</div>
+  <div class="menu-item">Mixed Sauce Pasta</div>
+  <div class="menu-item">Arrabbiata Pasta</div>
+  <div class="menu-item">Alfredo Pasta</div>
+  <div class="menu-item">Cheesy Pasta</div>
+  <div class="menu-item">Mac & Cheese</div>
+  <div class="menu-item">Mushroom Pasta</div>
+  <div class="menu-item">Paneer Pasta</div>
+  <div class="menu-item">Tandoori Pasta</div>
+  <div class="menu-item">Mexican Pasta</div>
+  <div class="menu-item">Chicken Pasta</div>
+  <div class="menu-item">Chicken White Sauce Pasta</div>
+  <div class="menu-item">Chicken Red Sauce Pasta</div>
+  <div class="menu-item">Chicken Pink Sauce Pasta</div>
+  <div class="menu-item">Chicken Tandoori Pasta</div>
+  <div class="menu-item">Chicken Cheese Pasta</div>
+
+</section>
+
+
+<section class="source-menu" id="pizza">
+
+  <div class="menu-item">Margherita Pizza</div>
+  <div class="menu-item">Cheese Pizza</div>
+  <div class="menu-item">Corn Pizza</div>
+  <div class="menu-item">Onion Pizza</div>
+  <div class="menu-item">Capsicum Pizza</div>
+  <div class="menu-item">Onion Capsicum Pizza</div>
+  <div class="menu-item">Veg Loaded Pizza</div>
+  <div class="menu-item">Farmhouse Pizza</div>
+  <div class="menu-item">Paneer Pizza</div>
+  <div class="menu-item">Paneer Tikka Pizza</div>
+  <div class="menu-item">Mushroom Pizza</div>
+  <div class="menu-item">Mexican Pizza</div>
+  <div class="menu-item">Peri Peri Pizza</div>
+  <div class="menu-item">Chicken Pizza</div>
+  <div class="menu-item">Chicken Tikka Pizza</div>
+  <div class="menu-item">Chicken BBQ Pizza</div>
+  <div class="menu-item">Chicken Peri Peri Pizza</div>
+  <div class="menu-item">Chicken Cheese Pizza</div>
+  <div class="menu-item">Stuffed Crust Pizza</div>
+  <div class="menu-item">Pizza Pocket</div>
+
+</section>
+
+  <!-- =====================================================
+     SOURCE MENUS — PART 3
+===================================================== -->
+
+<section class="source-menu" id="fries-starters">
+
+  <div class="menu-item">Salted French Fries</div>
+  <div class="menu-item">Peri Peri Fries</div>
+  <div class="menu-item">Masala Fries</div>
+  <div class="menu-item">Cheese Fries</div>
+  <div class="menu-item">Cheese Peri Peri Fries</div>
+  <div class="menu-item">Loaded Fries</div>
+  <div class="menu-item">Garlic Fries</div>
+  <div class="menu-item">Potato Wedges</div>
+  <div class="menu-item">Cheesy Potato Wedges</div>
+  <div class="menu-item">Onion Rings</div>
+  <div class="menu-item">Hash Browns</div>
+  <div class="menu-item">Veg Nuggets</div>
+  <div class="menu-item">Chicken Nuggets</div>
+  <div class="menu-item">Chicken Popcorn</div>
+  <div class="menu-item">Chicken Strips</div>
+  <div class="menu-item">Chicken Wings</div>
+  <div class="menu-item">Veg Spring Roll</div>
+  <div class="menu-item">Chicken Spring Roll</div>
+  <div class="menu-item">Cheese Balls</div>
+  <div class="menu-item">Corn Cheese Balls</div>
+
+</section>
+
+
+<section class="source-menu" id="wraps-rolls">
+
+  <div class="menu-item">Veg Wrap</div>
+  <div class="menu-item">Veg Roll</div>
+  <div class="menu-item">Paneer Wrap</div>
+  <div class="menu-item">Paneer Tikka Wrap</div>
+  <div class="menu-item">Paneer Roll</div>
+  <div class="menu-item">Mexican Veg Wrap</div>
+  <div class="menu-item">Peri Peri Veg Wrap</div>
+  <div class="menu-item">Egg Wrap</div>
+  <div class="menu-item">Egg Cheese Wrap</div>
+  <div class="menu-item">Egg Roll</div>
+  <div class="menu-item">Egg Frankie</div>
+  <div class="menu-item">Chicken Wrap</div>
+  <div class="menu-item">Chicken Tikka Wrap</div>
+  <div class="menu-item">Chicken Cheese Wrap</div>
+  <div class="menu-item">Chicken Peri Peri Wrap</div>
+  <div class="menu-item">Chicken BBQ Wrap</div>
+  <div class="menu-item">Chicken Mayo Wrap</div>
+  <div class="menu-item">Chicken Frankie</div>
+  <div class="menu-item">Chicken Kathi Roll</div>
+  <div class="menu-item">Chicken Shawarma Roll</div>
+
+</section>
+
+
+<section class="source-menu" id="pancakes-waffles">
+
+  <div class="menu-item">Classic Pancakes</div>
+  <div class="menu-item">Chocolate Pancakes</div>
+  <div class="menu-item">Banana Pancakes</div>
+  <div class="menu-item">Strawberry Pancakes</div>
+  <div class="menu-item">Blueberry Pancakes</div>
+  <div class="menu-item">Nutella Pancakes</div>
+  <div class="menu-item">Honey Pancakes</div>
+  <div class="menu-item">Chocolate Waffles</div>
+  <div class="menu-item">Belgian Waffles</div>
+  <div class="menu-item">Honey Waffles</div>
+  <div class="menu-item">White Chocolate Waffles</div>
+  <div class="menu-item">Dark Chocolate Waffles</div>
+  <div class="menu-item">Nutella Waffles</div>
+  <div class="menu-item">Oreo Waffles</div>
+  <div class="menu-item">KitKat Waffles</div>
+  <div class="menu-item">Strawberry Waffles</div>
+  <div class="menu-item">Mango Waffles</div>
+  <div class="menu-item">Red Velvet Waffles</div>
+  <div class="menu-item">Ice Cream Waffles</div>
+  <div class="menu-item">Bubble Waffles</div>
+
+</section>
+
+
+<section class="source-menu" id="bakery-bites">
+
+  <div class="menu-item">Butter Bun</div>
+  <div class="menu-item">Jam Bun</div>
+  <div class="menu-item">Butter Jam Bun</div>
+  <div class="menu-item">Nutella Bun</div>
+  <div class="menu-item">Peanut Butter Bun</div>
+  <div class="menu-item">Veg Puff</div>
+  <div class="menu-item">Paneer Puff</div>
+  <div class="menu-item">Egg Puff</div>
+  <div class="menu-item">Chicken Puff</div>
+  <div class="menu-item">Cheese Puff</div>
+  <div class="menu-item">Croissant</div>
+  <div class="menu-item">Chocolate Croissant</div>
+  <div class="menu-item">Garlic Bread</div>
+  <div class="menu-item">Cheese Garlic Bread</div>
+  <div class="menu-item">Garlic Bread Sticks</div>
+  <div class="menu-item">Cheese Toast</div>
+  <div class="menu-item">Bruschetta</div>
+  <div class="menu-item">Banana Bread</div>
+  <div class="menu-item">Muffin</div>
+  <div class="menu-item">Chocolate Muffin</div>
+
+</section>
+
+
+<section class="source-menu" id="cakes-desserts">
+
+  <div class="menu-item">Chocolate Cake</div>
+  <div class="menu-item">Vanilla Cake</div>
+  <div class="menu-item">Red Velvet Cake</div>
+  <div class="menu-item">Black Forest Cake</div>
+  <div class="menu-item">White Forest Cake</div>
+  <div class="menu-item">Cheesecake</div>
+  <div class="menu-item">Chocolate Brownie</div>
+  <div class="menu-item">Walnut Brownie</div>
+  <div class="menu-item">Brownie with Ice Cream</div>
+  <div class="menu-item">Chocolate Lava Cake</div>
+  <div class="menu-item">Cookie</div>
+  <div class="menu-item">Chocolate Chip Cookie</div>
+  <div class="menu-item">Donut</div>
+  <div class="menu-item">Chocolate Donut</div>
+  <div class="menu-item">Cupcake</div>
+  <div class="menu-item">Chocolate Cupcake</div>
+  <div class="menu-item">Pastry</div>
+  <div class="menu-item">Chocolate Pastry</div>
+  <div class="menu-item">Fruit Pastry</div>
+
+</section>
+
+
+<section class="source-menu" id="ice-cream">
+
+  <div class="menu-item">Vanilla Ice Cream</div>
+  <div class="menu-item">Chocolate Ice Cream</div>
+  <div class="menu-item">Strawberry Ice Cream</div>
+  <div class="menu-item">Mango Ice Cream</div>
+  <div class="menu-item">Butterscotch Ice Cream</div>
+  <div class="menu-item">Pistachio Ice Cream</div>
+  <div class="menu-item">American Nuts Ice Cream</div>
+  <div class="menu-item">Belgian Chocolate Ice Cream</div>
+  <div class="menu-item">Brownie Ice Cream</div>
+  <div class="menu-item">Chocolate Sundae</div>
+  <div class="menu-item">Fruit Sundae</div>
+  <div class="menu-item">Brownie Sundae</div>
+  <div class="menu-item">Cookie Sundae</div>
+  <div class="menu-item">Ice Cream Float</div>
+  <div class="menu-item">Waffle with Ice Cream</div>
+  <div class="menu-item">Pancake with Ice Cream</div>
+
+</section>
+
+
+<section class="source-menu" id="cafe-breakfast">
+
+  <div class="menu-item">Masala Omelette</div>
+  <div class="menu-item">Cheese Omelette</div>
+  <div class="menu-item">Mushroom Omelette</div>
+  <div class="menu-item">Egg Toast</div>
+  <div class="menu-item">Cheese Toast</div>
+  <div class="menu-item">French Toast</div>
+  <div class="menu-item">Nutella French Toast</div>
+  <div class="menu-item">Avocado Toast</div>
+  <div class="menu-item">Veg Grilled Sandwich</div>
+  <div class="menu-item">Egg Sandwich</div>
+  <div class="menu-item">Pancakes</div>
+  <div class="menu-item">Waffles</div>
+  <div class="menu-item">Granola Bowl</div>
+  <div class="menu-item">Fruit Bowl</div>
+  <div class="menu-item">Yogurt Fruit Bowl</div>
+  <div class="menu-item">Oats Bowl</div>
+  <div class="menu-item">Poha</div>
+  <div class="menu-item">Upma</div>
+
+</section>
+
+
+<section class="source-menu" id="healthy-cafe">
+
+  <div class="menu-item">Fruit Bowl</div>
+  <div class="menu-item">Yogurt Fruit Bowl</div>
+  <div class="menu-item">Granola Bowl</div>
+  <div class="menu-item">Oats Bowl</div>
+  <div class="menu-item">Overnight Oats</div>
+  <div class="menu-item">Vegetable Sandwich</div>
+  <div class="menu-item">Grilled Vegetable Sandwich</div>
+  <div class="menu-item">Paneer Sandwich</div>
+  <div class="menu-item">Vegetable Wrap</div>
+  <div class="menu-item">Paneer Wrap</div>
+  <div class="menu-item">Fresh Fruit Smoothie</div>
+  <div class="menu-item">Banana Smoothie</div>
+  <div class="menu-item">Berry Smoothie</div>
+  <div class="menu-item">Fresh Lime Cooler</div>
+  <div class="menu-item">Green Salad</div>
+  <div class="menu-item">Sprout Salad</div>
+
+</section>
+
+  <!-- =====================================================
+     SOURCE MENUS — PART 4
+===================================================== -->
+
+<section class="source-menu" id="chicken-cafe">
+
+  <div class="menu-item">Chicken Grilled Sandwich</div>
+  <div class="menu-item">Chicken Cheese Sandwich</div>
+  <div class="menu-item">Chicken Club Sandwich</div>
+  <div class="menu-item">Chicken Tikka Sandwich</div>
+  <div class="menu-item">Chicken Burger</div>
+  <div class="menu-item">Chicken Cheese Burger</div>
+  <div class="menu-item">Chicken Wrap</div>
+  <div class="menu-item">Chicken Tikka Wrap</div>
+  <div class="menu-item">Chicken Roll</div>
+  <div class="menu-item">Chicken Frankie</div>
+  <div class="menu-item">Chicken Pasta</div>
+  <div class="menu-item">Chicken White Sauce Pasta</div>
+  <div class="menu-item">Chicken Pizza</div>
+  <div class="menu-item">Chicken Tikka Pizza</div>
+  <div class="menu-item">Chicken Nuggets</div>
+  <div class="menu-item">Chicken Popcorn</div>
+  <div class="menu-item">Chicken Strips</div>
+  <div class="menu-item">Chicken Wings</div>
+  <div class="menu-item">Chicken Momos</div>
+  <div class="menu-item">Chicken Shawarma</div>
+
+</section>
+
+
+<section class="source-menu" id="egg-cafe">
+
+  <div class="menu-item">Masala Omelette</div>
+  <div class="menu-item">Cheese Omelette</div>
+  <div class="menu-item">Egg Toast</div>
+  <div class="menu-item">Cheese Egg Toast</div>
+  <div class="menu-item">Egg Sandwich</div>
+  <div class="menu-item">Egg Cheese Sandwich</div>
+  <div class="menu-item">Egg Burger</div>
+  <div class="menu-item">Egg Cheese Burger</div>
+  <div class="menu-item">Egg Wrap</div>
+  <div class="menu-item">Egg Roll</div>
+  <div class="menu-item">Egg Frankie</div>
+  <div class="menu-item">Egg Maggi</div>
+  <div class="menu-item">Egg Noodles</div>
+  <div class="menu-item">Egg Fried Rice</div>
+  <div class="menu-item">Egg Pizza</div>
+  <div class="menu-item">French Toast</div>
+
+</section>
+
+
+<section class="source-menu" id="combos">
+
+  <div class="menu-item">Tea + Veg Sandwich</div>
+  <div class="menu-item">Coffee + Veg Sandwich</div>
+  <div class="menu-item">Cold Coffee + Sandwich</div>
+  <div class="menu-item">Burger + Fries + Drink</div>
+  <div class="menu-item">Pizza + Drink</div>
+  <div class="menu-item">Pizza + Garlic Bread + Drink</div>
+  <div class="menu-item">Pasta + Garlic Bread + Drink</div>
+  <div class="menu-item">Sandwich + Fries + Drink</div>
+  <div class="menu-item">Wrap + Fries + Drink</div>
+  <div class="menu-item">Momos + Drink</div>
+  <div class="menu-item">Waffle + Cold Coffee</div>
+  <div class="menu-item">Brownie + Ice Cream</div>
+  <div class="menu-item">Pancake + Milkshake</div>
+  <div class="menu-item">Breakfast Combo</div>
+  <div class="menu-item">Cafe Family Combo</div>
+
+</section>
+
+
+<section class="source-menu" id="specials">
+
+  <div class="menu-item">Cafe Special Burger</div>
+  <div class="menu-item">Loaded Cheese Burger</div>
+  <div class="menu-item">Cafe Special Sandwich</div>
+  <div class="menu-item">Cafe Special Pasta</div>
+  <div class="menu-item">Cafe Special Pizza</div>
+  <div class="menu-item">Loaded Cheese Fries</div>
+  <div class="menu-item">Special Chicken Wrap</div>
+  <div class="menu-item">Special Chicken Sandwich</div>
+  <div class="menu-item">Special Cold Coffee</div>
+  <div class="menu-item">Special Frappe</div>
+  <div class="menu-item">Special Milkshake</div>
+  <div class="menu-item">Special Mojito</div>
+  <div class="menu-item">Special Waffle</div>
+  <div class="menu-item">Special Pancake</div>
+  <div class="menu-item">Special Brownie</div>
+  <div class="menu-item">Special Cafe Combo</div>
+
+</section>
+
+
+<!-- =====================================================
+     POPUP
+===================================================== -->
+
+<div
+  class="popup"
+  id="menuPopup"
+>
+
+  <div class="popup-box">
+
+    <div class="popup-header">
+
+      <div class="popup-top">
+
+        <div
+          class="popup-title"
+          id="popupTitle"
+        >
+          Cafe Menu
+        </div>
+
+        <button
+          type="button"
+          class="popup-close"
+          id="popupClose"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="popup-search">
+
+        <input
+          id="popupSearch"
+          type="search"
+          placeholder="இந்த menu-ல் தேடுங்கள்..."
+          autocomplete="off"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="popup-content"
+      id="popupList"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<footer class="footer">
+
+  <strong>Pyncode.in</strong>
+
+  <br>
+
+  Cafe to Home ☕
+
+  <br><br>
+
+  Tea • Coffee • Shakes • Sandwich • Pasta
+  <br>
+  Pizza • Waffles • Snacks • Desserts
+
+</footer>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   CATEGORY DATA
+===================================================== */
+
+const categories = [
+
+  {
+    id:"tea-coffee",
+    title:"☕ Tea & Coffee"
+  },
+
+  {
+    id:"cold-coffee",
+    title:"🧋 Cold Coffee & Frappe"
+  },
+
+  {
+    id:"coolers",
+    title:"🥤 Coolers & Mojito"
+  },
+
+  {
+    id:"milkshakes",
+    title:"🥛 Milkshakes"
+  },
+
+  {
+    id:"sandwich",
+    title:"🥪 Sandwich"
+  },
+
+  {
+    id:"burgers",
+    title:"🍔 Burgers"
+  },
+
+  {
+    id:"pasta",
+    title:"🍝 Pasta"
+  },
+
+  {
+    id:"pizza",
+    title:"🍕 Pizza"
+  },
+
+  {
+    id:"fries-starters",
+    title:"🍟 Fries & Starters"
+  },
+
+  {
+    id:"wraps-rolls",
+    title:"🌯 Wraps & Rolls"
+  },
+
+  {
+    id:"pancakes-waffles",
+    title:"🥞 Pancakes & Waffles"
+  },
+
+  {
+    id:"bakery-bites",
+    title:"🥐 Bakery & Bites"
+  },
+
+  {
+    id:"cakes-desserts",
+    title:"🍰 Cakes & Desserts"
+  },
+
+  {
+    id:"ice-cream",
+    title:"🍨 Ice Cream"
+  },
+
+  {
+    id:"cafe-breakfast",
+    title:"🍳 Cafe Breakfast"
+  },
+
+  {
+    id:"healthy-cafe",
+    title:"🥗 Healthy Cafe"
+  },
+
+  {
+    id:"chicken-cafe",
+    title:"🍗 Chicken Cafe"
+  },
+
+  {
+    id:"egg-cafe",
+    title:"🍳 Egg Cafe"
+  },
+
+  {
+    id:"combos",
+    title:"🍱 Cafe Combos"
+  },
+
+  {
+    id:"specials",
+    title:"⭐ Cafe Specials"
+  }
+
+];
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const menuPopup =
+  document.getElementById("menuPopup");
+
+const popupTitle =
+  document.getElementById("popupTitle");
+
+const popupList =
+  document.getElementById("popupList");
+
+const popupSearch =
+  document.getElementById("popupSearch");
+
+const popupClose =
+  document.getElementById("popupClose");
+
+const mainSearch =
+  document.getElementById("mainSearch");
+
+
+/* =====================================================
+   OPEN MENU
+===================================================== */
+
+function openMenu(categoryId){
+
+  const category =
+    categories.find(function(item){
+
+      return item.id === categoryId;
+
+    });
+
+
+  const source =
+    document.getElementById(categoryId);
+
+
+  if(!category || !source){
+
+    return;
+
+  }
+
+
+  popupTitle.textContent =
+    category.title;
+
+
+  popupList.innerHTML = "";
+
+
+  const items =
+    source.querySelectorAll(
+      ".menu-item"
+    );
+
+
+  items.forEach(function(item){
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "popup-item";
+
+    div.textContent =
+      item.textContent;
+
+    popupList.appendChild(div);
+
+  });
+
+
+  popupSearch.value = "";
+
+
+  menuPopup.classList.add("show");
+
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  /*
+    IMPORTANT:
+    popupSearch.focus() இங்கே இல்லை.
+
+    Category open செய்தவுடன்
+    mobile keyboard auto-open ஆகாது.
+  */
+
+}
+
+
+/* =====================================================
+   CLOSE MENU
+===================================================== */
+
+function closeMenu(){
+
+  menuPopup.classList.remove("show");
+
+  document.body.style.overflow = "";
+
+  popupSearch.value = "";
+
+}
+
+
+/* =====================================================
+   CLOSE BUTTON
+===================================================== */
+
+popupClose.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+/* =====================================================
+   OUTSIDE TAP
+===================================================== */
+
+menuPopup.addEventListener(
+  "click",
+  function(event){
+
+    if(event.target === menuPopup){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Escape"){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   POPUP SEARCH
+===================================================== */
+
+popupSearch.addEventListener(
+  "input",
+  function(){
+
+    const keyword =
+      this.value
+      .trim()
+      .toLowerCase();
+
+
+    const items =
+      popupList.querySelectorAll(
+        ".popup-item"
+      );
+
+
+    items.forEach(function(item){
+
+      const text =
+        item.textContent.toLowerCase();
+
+
+      if(
+        keyword === "" ||
+        text.includes(keyword)
+      ){
+
+        item.style.display = "";
+
+      }else{
+
+        item.style.display = "none";
+
+      }
+
+    });
+
+  }
+);
+
+
+/* =====================================================
+   MAIN SEARCH
+   ENTER ONLY
+===================================================== */
+
+mainSearch.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key !== "Enter"){
+
+      return;
+
+    }
+
+
+    const keyword =
+      this.value
+      .trim()
+      .toLowerCase();
+
+
+    if(!keyword){
+
+      return;
+
+    }
+
+
+    const found =
+      categories.find(
+        function(category){
+
+          const source =
+            document.getElementById(
+              category.id
+            );
+
+
+          if(!source){
+
+            return false;
+
+          }
+
+
+          const text = (
+
+            category.title +
+            " " +
+            source.textContent
+
+          ).toLowerCase();
+
+
+          return text.includes(keyword);
+
+        }
+      );
+
+
+    if(found){
+
+      openMenu(found.id);
+
+    }else{
+
+      alert(
+        "இந்த dish / category கிடைக்கவில்லை."
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>

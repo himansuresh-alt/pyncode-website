@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quick Food Menu | Pyncode Planner</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#fffaf4;
+  color:#2b211b;
+}
+
+body.no-scroll{
+  overflow:hidden;
+}
+
+.topbar{
+  background:#ffffff;
+  border-bottom:1px solid #eadfd4;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.topbar-inner{
+  max-width:900px;
+  margin:auto;
+  min-height:64px;
+  padding:10px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.home-btn{
+  text-decoration:none;
+  color:#6b4328;
+  background:#fff3e5;
+  border:1px solid #f0ddc8;
+  padding:10px 13px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.brand-box{
+  text-align:right;
+}
+
+.brand-title{
+  font-size:17px;
+  font-weight:800;
+  color:#3b271a;
+}
+
+.brand-subtitle{
+  font-size:11px;
+  color:#9a806d;
+  margin-top:2px;
+}
+
+.hero{
+  max-width:900px;
+  margin:auto;
+  padding:25px 15px 18px;
+}
+
+.hero-icon{
+  font-size:34px;
+  margin-bottom:8px;
+}
+
+.hero h1{
+  font-size:28px;
+  line-height:1.15;
+  margin-bottom:7px;
+}
+
+.hero p{
+  font-size:13px;
+  line-height:1.6;
+  color:#806e60;
+  max-width:680px;
+}
+
+.main-search{
+  margin-top:18px;
+}
+
+.main-search input{
+  width:100%;
+  border:1px solid #ead9c8;
+  background:#ffffff;
+  border-radius:14px;
+  padding:14px 15px;
+  font-size:14px;
+  outline:none;
+  box-shadow:0 3px 12px rgba(90,60,30,.05);
+}
+
+.main-search input:focus{
+  border-color:#d99d62;
+}
+
+.categories{
+  max-width:900px;
+  margin:auto;
+  padding:8px 15px 30px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:11px;
+}
+
+.category-card{
+  background:#ffffff;
+  border:1px solid #eadfd4;
+  border-radius:16px;
+  padding:15px 13px;
+  cursor:pointer;
+  transition:.15s;
+  box-shadow:0 3px 12px rgba(70,45,25,.04);
+}
+
+.category-card:active{
+  transform:scale(.98);
+}
+
+.category-icon{
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.category-title{
+  font-size:14px;
+  font-weight:800;
+  color:#332219;
+}
+
+.category-desc{
+  font-size:11px;
+  color:#917b69;
+  margin-top:5px;
+  line-height:1.4;
+}
+
+.source-menu{
+  display:none;
+}
+
+.menu-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.menu-item{
+  background:#ffffff;
+  border:1px solid #eadfd4;
+  border-radius:12px;
+  padding:11px 10px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(30,20,12,.45);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:100;
+}
+
+.popup-overlay.active{
+  display:flex;
+}
+
+.menu-popup{
+  width:100%;
+  max-width:700px;
+  max-height:88vh;
+  background:#fffaf4;
+  border-radius:22px 22px 0 0;
+  overflow:hidden;
+  box-shadow:0 -8px 30px rgba(0,0,0,.18);
+}
+
+.popup-header{
+  background:#fff0df;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.popup-header-left{
+  min-width:0;
+}
+
+.popup-title{
+  font-size:17px;
+  font-weight:800;
+  color:#382519;
+}
+
+.popup-subtitle{
+  font-size:11px;
+  color:#947967;
+  margin-top:3px;
+}
+
+.popup-close{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#ffffff;
+  color:#68452e;
+  font-size:17px;
+  cursor:pointer;
+}
+
+.popup-search{
+  padding:12px 15px 5px;
+  background:#fffaf4;
+}
+
+.popup-search input{
+  width:100%;
+  border:1px solid #ead9c8;
+  background:#ffffff;
+  border-radius:13px;
+  padding:13px 14px;
+  font-size:14px;
+  outline:none;
+}
+
+.popup-list{
+  padding:10px 15px 20px;
+  overflow-y:auto;
+  max-height:65vh;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.popup-item{
+  background:#ffffff;
+  border:1px solid #eadfd4;
+  border-radius:12px;
+  padding:11px 10px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.no-result{
+  grid-column:1/-1;
+  text-align:center;
+  padding:30px 10px;
+  color:#947967;
+  font-size:13px;
+}
+
+.footer{
+  text-align:center;
+  padding:25px 15px 35px;
+  color:#927d6c;
+  font-size:11px;
+  line-height:1.7;
+}
+
+.footer strong{
+  color:#68452e;
+  font-size:13px;
+}
+
+@media(min-width:700px){
+
+  .categories{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .popup-list{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+
+  <div class="topbar-inner">
+
+    <a href="innaiku-enna-samayal.html" class="home-btn">
+      ← Samayal Home
+    </a>
+
+    <div class="brand-box">
+      <div class="brand-title">⚡ Quick Food</div>
+      <div class="brand-subtitle">Pyncode Planner</div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<section class="hero">
+
+  <div class="hero-icon">⚡</div>
+
+  <h1>Quick Food Menu</h1>
+
+  <p>
+    Time illa, pasikkudhu, seekiram food venum-na
+    easy-aa prepare panna homemade quick food ideas.
+  </p>
+
+  <div class="main-search">
+
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Quick food search pannunga..."
+      autocomplete="off"
+    >
+
+  </div>
+
+</section>
+
+
+<div class="categories" id="categories"></div>
+
+
+<!-- 5 MINUTE -->
+
+<div class="source-menu" id="five-minute">
+
+  <div class="menu-list">
+
+    <div class="menu-item">⚡ Omelette</div>
+    <div class="menu-item">⚡ Boiled Egg</div>
+    <div class="menu-item">⚡ Egg Bhurji</div>
+    <div class="menu-item">⚡ Bread Omelette</div>
+    <div class="menu-item">⚡ Egg Sandwich</div>
+    <div class="menu-item">⚡ Banana & Curd</div>
+    <div class="menu-item">⚡ Fruit Bowl</div>
+    <div class="menu-item">⚡ Curd Rice</div>
+    <div class="menu-item">⚡ Lemon Rice</div>
+    <div class="menu-item">⚡ Boiled Corn</div>
+    <div class="menu-item">⚡ Roasted Peanuts</div>
+    <div class="menu-item">⚡ Homemade Buttermilk</div>
+
+  </div>
+
+</div>
+
+
+<!-- 10 MINUTE -->
+
+<div class="source-menu" id="ten-minute">
+
+  <div class="menu-list">
+
+    <div class="menu-item">⏱️ Vegetable Sandwich</div>
+    <div class="menu-item">⏱️ Egg Sandwich</div>
+    <div class="menu-item">⏱️ Paneer Sandwich</div>
+    <div class="menu-item">⏱️ Bread Omelette</div>
+    <div class="menu-item">⏱️ Vegetable Upma</div>
+    <div class="menu-item">⏱️ Oats Upma</div>
+    <div class="menu-item">⏱️ Banana Oats</div>
+    <div class="menu-item">⏱️ Egg Rice</div>
+    <div class="menu-item">⏱️ Lemon Rice</div>
+    <div class="menu-item">⏱️ Tomato Rice</div>
+    <div class="menu-item">⏱️ Curd Rice</div>
+    <div class="menu-item">⏱️ Vegetable Paniyaram</div>
+    <div class="menu-item">⏱️ Fruit Bowl</div>
+    <div class="menu-item">⏱️ Sprouts Salad</div>
+
+  </div>
+
+</div>
+
+
+<!-- EGG QUICK -->
+
+<div class="source-menu" id="egg-quick">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥚 Boiled Egg</div>
+    <div class="menu-item">🥚 Omelette</div>
+    <div class="menu-item">🥚 Masala Omelette</div>
+    <div class="menu-item">🥚 Onion Omelette</div>
+    <div class="menu-item">🥚 Egg Bhurji</div>
+    <div class="menu-item">🥚 Egg Podimas</div>
+    <div class="menu-item">🥚 Egg Sandwich</div>
+    <div class="menu-item">🥚 Bread Omelette</div>
+    <div class="menu-item">🥚 Egg Rice</div>
+    <div class="menu-item">🥚 Egg Dosa</div>
+    <div class="menu-item">🥚 Egg Chapati Roll</div>
+    <div class="menu-item">🥚 Egg Pulao</div>
+
+  </div>
+
+</div>
+
+
+<!-- QUICK RICE -->
+
+<div class="source-menu" id="quick-rice">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍚 Lemon Rice</div>
+    <div class="menu-item">🍚 Tomato Rice</div>
+    <div class="menu-item">🍚 Coconut Rice</div>
+    <div class="menu-item">🍚 Curd Rice</div>
+    <div class="menu-item">🍚 Vegetable Rice</div>
+    <div class="menu-item">🍚 Egg Rice</div>
+    <div class="menu-item">🍚 Chicken Rice</div>
+    <div class="menu-item">🍚 Paneer Rice</div>
+    <div class="menu-item">🍚 Dal Rice</div>
+    <div class="menu-item">🍚 Vegetable Pulao</div>
+    <div class="menu-item">🍚 Egg Pulao</div>
+    <div class="menu-item">🍚 Vegetable Khichdi</div>
+
+  </div>
+
+</div>
+
+  <!-- QUICK BREAD -->
+
+<div class="source-menu" id="quick-bread">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍞 Bread Omelette</div>
+    <div class="menu-item">🍞 Egg Sandwich</div>
+    <div class="menu-item">🍞 Vegetable Sandwich</div>
+    <div class="menu-item">🍞 Paneer Sandwich</div>
+    <div class="menu-item">🍞 Chicken Sandwich</div>
+    <div class="menu-item">🍞 Egg Toast</div>
+    <div class="menu-item">🍞 Vegetable Toast</div>
+    <div class="menu-item">🍞 Banana Toast</div>
+    <div class="menu-item">🍞 Peanut Butter Toast</div>
+    <div class="menu-item">🍞 Homemade Paneer Toast</div>
+    <div class="menu-item">🍞 Chapati Roll</div>
+    <div class="menu-item">🍞 Egg Chapati Roll</div>
+
+  </div>
+
+</div>
+
+
+<!-- QUICK NOODLES -->
+
+<div class="source-menu" id="quick-noodles">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍜 Vegetable Noodles</div>
+    <div class="menu-item">🍜 Egg Noodles</div>
+    <div class="menu-item">🍜 Chicken Noodles</div>
+    <div class="menu-item">🍜 Paneer Noodles</div>
+    <div class="menu-item">🍜 Vegetable Hakka Noodles</div>
+    <div class="menu-item">🍜 Egg Hakka Noodles</div>
+    <div class="menu-item">🍜 Chicken Hakka Noodles</div>
+    <div class="menu-item">🍜 Homemade Vegetable Noodles</div>
+    <div class="menu-item">🍜 Homemade Egg Noodles</div>
+
+  </div>
+
+</div>
+
+
+<!-- QUICK TIFFIN -->
+
+<div class="source-menu" id="quick-tiffin">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥣 Idli</div>
+    <div class="menu-item">🥣 Mini Idli</div>
+    <div class="menu-item">🥞 Dosa</div>
+    <div class="menu-item">🥞 Mini Dosa</div>
+    <div class="menu-item">🥞 Podi Dosa</div>
+    <div class="menu-item">🥞 Egg Dosa</div>
+    <div class="menu-item">🥞 Vegetable Dosa</div>
+    <div class="menu-item">🍚 Pongal</div>
+    <div class="menu-item">🥣 Upma</div>
+    <div class="menu-item">🥣 Oats Upma</div>
+    <div class="menu-item">🍲 Adai</div>
+    <div class="menu-item">🥞 Paniyaram</div>
+    <div class="menu-item">🥕 Vegetable Paniyaram</div>
+
+  </div>
+
+</div>
+
+
+<!-- QUICK HEALTHY -->
+
+<div class="source-menu" id="quick-healthy">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🌱 Fruit Bowl</div>
+    <div class="menu-item">🌱 Curd & Fruit Bowl</div>
+    <div class="menu-item">🌱 Sprouts Salad</div>
+    <div class="menu-item">🌱 Vegetable Salad</div>
+    <div class="menu-item">🌱 Boiled Corn</div>
+    <div class="menu-item">🌱 Sweet Potato</div>
+    <div class="menu-item">🌱 Boiled Egg</div>
+    <div class="menu-item">🌱 Egg Omelette</div>
+    <div class="menu-item">🌱 Oats Porridge</div>
+    <div class="menu-item">🌱 Ragi Porridge</div>
+    <div class="menu-item">🌱 Millet Upma</div>
+    <div class="menu-item">🌱 Vegetable Upma</div>
+    <div class="menu-item">🌱 Vegetable Khichdi</div>
+    <div class="menu-item">🌱 Dal Khichdi</div>
+
+  </div>
+
+</div>
+
+
+<!-- QUICK KIDS -->
+
+<div class="source-menu" id="quick-kids">
+
+  <div class="menu-list">
+
+    <div class="menu-item">👶 Mini Idli</div>
+    <div class="menu-item">👶 Mini Dosa</div>
+    <div class="menu-item">👶 Ghee Dosa</div>
+    <div class="menu-item">👶 Vegetable Dosa</div>
+    <div class="menu-item">👶 Mini Pongal</div>
+    <div class="menu-item">👶 Vegetable Paniyaram</div>
+    <div class="menu-item">👶 Egg Omelette</div>
+    <div class="menu-item">👶 Egg Sandwich</div>
+    <div class="menu-item">👶 Vegetable Sandwich</div>
+    <div class="menu-item">👶 Banana & Curd</div>
+    <div class="menu-item">👶 Fruit Bowl</div>
+    <div class="menu-item">👶 Boiled Corn</div>
+    <div class="menu-item">👶 Sweet Potato</div>
+    <div class="menu-item">👶 Homemade Oats</div>
+
+  </div>
+
+</div>
+
+  <!-- QUICK GYM -->
+
+<div class="source-menu" id="quick-gym">
+
+  <div class="menu-list">
+
+    <div class="menu-item">💪 Egg Omelette & Vegetables</div>
+    <div class="menu-item">💪 Boiled Egg & Banana</div>
+    <div class="menu-item">💪 Oats & Banana</div>
+    <div class="menu-item">💪 Oats & Homemade Curd</div>
+    <div class="menu-item">💪 Egg Rice</div>
+    <div class="menu-item">💪 Chicken Rice</div>
+    <div class="menu-item">💪 Paneer Rice</div>
+    <div class="menu-item">💪 Dal Rice</div>
+    <div class="menu-item">💪 Chicken Chapati Roll</div>
+    <div class="menu-item">💪 Egg Chapati Roll</div>
+    <div class="menu-item">💪 Sprouts Bowl</div>
+    <div class="menu-item">💪 Chana Bowl</div>
+    <div class="menu-item">💪 Homemade Curd & Fruit</div>
+    <div class="menu-item">💪 Homemade Buttermilk</div>
+
+  </div>
+
+</div>
+
+
+<!-- QUICK DINNER -->
+
+<div class="source-menu" id="quick-dinner">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🌙 Dosa</div>
+    <div class="menu-item">🌙 Idli</div>
+    <div class="menu-item">🌙 Vegetable Upma</div>
+    <div class="menu-item">🌙 Egg Omelette</div>
+    <div class="menu-item">🌙 Egg Dosa</div>
+    <div class="menu-item">🌙 Chapati & Dal</div>
+    <div class="menu-item">🌙 Chapati & Egg</div>
+    <div class="menu-item">🌙 Vegetable Sandwich</div>
+    <div class="menu-item">🌙 Egg Sandwich</div>
+    <div class="menu-item">🌙 Vegetable Khichdi</div>
+    <div class="menu-item">🌙 Dal Khichdi</div>
+    <div class="menu-item">🌙 Curd Rice</div>
+    <div class="menu-item">🌙 Vegetable Soup</div>
+
+  </div>
+
+</div>
+
+
+<!-- QUICK BREAKFAST -->
+
+<div class="source-menu" id="quick-breakfast">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🌅 Idli</div>
+    <div class="menu-item">🌅 Mini Idli</div>
+    <div class="menu-item">🌅 Dosa</div>
+    <div class="menu-item">🌅 Mini Dosa</div>
+    <div class="menu-item">🌅 Podi Dosa</div>
+    <div class="menu-item">🌅 Egg Dosa</div>
+    <div class="menu-item">🌅 Omelette</div>
+    <div class="menu-item">🌅 Bread Omelette</div>
+    <div class="menu-item">🌅 Oats</div>
+    <div class="menu-item">🌅 Banana Oats</div>
+    <div class="menu-item">🌅 Upma</div>
+    <div class="menu-item">🌅 Paniyaram</div>
+    <div class="menu-item">🌅 Fruit Bowl</div>
+
+  </div>
+
+</div>
+
+
+<!-- HOME INGREDIENTS -->
+
+<div class="source-menu" id="home-ingredients">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🏠 Rice + Egg → Egg Rice</div>
+    <div class="menu-item">🏠 Rice + Curd → Curd Rice</div>
+    <div class="menu-item">🏠 Rice + Lemon → Lemon Rice</div>
+    <div class="menu-item">🏠 Rice + Tomato → Tomato Rice</div>
+    <div class="menu-item">🏠 Rice + Dal → Dal Rice</div>
+    <div class="menu-item">🏠 Egg + Bread → Bread Omelette</div>
+    <div class="menu-item">🏠 Egg + Chapati → Egg Roll</div>
+    <div class="menu-item">🏠 Banana + Oats → Banana Oats</div>
+    <div class="menu-item">🏠 Curd + Fruit → Fruit Bowl</div>
+    <div class="menu-item">🏠 Vegetable + Rice → Vegetable Rice</div>
+    <div class="menu-item">🏠 Chapati + Vegetable → Vegetable Roll</div>
+    <div class="menu-item">🏠 Dal + Rice → Dal Khichdi</div>
+
+  </div>
+
+</div>
+
+
+<!-- BUDGET QUICK -->
+
+<div class="source-menu" id="budget-quick">
+
+  <div class="menu-list">
+
+    <div class="menu-item">💰 Idli</div>
+    <div class="menu-item">💰 Dosa</div>
+    <div class="menu-item">💰 Upma</div>
+    <div class="menu-item">💰 Pongal</div>
+    <div class="menu-item">💰 Paniyaram</div>
+    <div class="menu-item">💰 Adai</div>
+    <div class="menu-item">💰 Lemon Rice</div>
+    <div class="menu-item">💰 Tomato Rice</div>
+    <div class="menu-item">💰 Curd Rice</div>
+    <div class="menu-item">💰 Dal Rice</div>
+    <div class="menu-item">💰 Egg Rice</div>
+    <div class="menu-item">💰 Boiled Egg</div>
+    <div class="menu-item">💰 Banana</div>
+    <div class="menu-item">💰 Boiled Corn</div>
+
+  </div>
+
+</div>
+
+
+<!-- EMERGENCY FOOD -->
+
+<div class="source-menu" id="emergency-food">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🆘 Rice + Egg → Egg Rice</div>
+    <div class="menu-item">🆘 Rice + Curd → Curd Rice</div>
+    <div class="menu-item">🆘 Rice + Lemon → Lemon Rice</div>
+    <div class="menu-item">🆘 Rice + Tomato → Tomato Rice</div>
+    <div class="menu-item">🆘 Rice + Dal → Dal Rice</div>
+    <div class="menu-item">🆘 Bread + Egg → Bread Omelette</div>
+    <div class="menu-item">🆘 Bread + Vegetable → Sandwich</div>
+    <div class="menu-item">🆘 Chapati + Egg → Egg Roll</div>
+    <div class="menu-item">🆘 Banana + Oats → Banana Oats</div>
+    <div class="menu-item">🆘 Curd + Fruit → Fruit Bowl</div>
+    <div class="menu-item">🆘 Potato + Egg → Potato Egg Mix</div>
+    <div class="menu-item">🆘 Vegetable + Rice → Vegetable Rice</div>
+
+  </div>
+
+</div>
+
+  <!-- POPUP -->
+
+<div class="popup-overlay" id="menuPopup">
+
+  <div class="menu-popup">
+
+    <div class="popup-header">
+
+      <div class="popup-header-left">
+
+        <div class="popup-title" id="popupTitle">
+          ⚡ Quick Food
+        </div>
+
+        <div class="popup-subtitle">
+          Full menu
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="popup-close"
+        id="popupClose"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <div class="popup-search">
+
+      <input
+        type="search"
+        id="popupSearch"
+        placeholder="Indha menu-la search pannunga..."
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <div
+      class="popup-list"
+      id="popupList"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+  <strong>⚡ Innaiku Enna Samayal?</strong><br>
+
+  Time illa-na quick-aa
+  food menu choose pannunga.
+
+  <br><br>
+
+  <a
+    href="innaiku-enna-samayal.html"
+    class="home-btn"
+  >
+    ← Samayal Home
+  </a>
+
+  <br><br>
+
+  © Pyncode Planner
+
+</div>
+
+
+<script>
+
+const categories = [
+
+  {
+    id:"five-minute",
+    icon:"⚡",
+    title:"5 Minute Food",
+    desc:"Very quick homemade food"
+  },
+
+  {
+    id:"ten-minute",
+    icon:"⏱️",
+    title:"10 Minute Food",
+    desc:"Fast everyday food"
+  },
+
+  {
+    id:"egg-quick",
+    icon:"🥚",
+    title:"Egg Quick Meals",
+    desc:"Quick egg-based food"
+  },
+
+  {
+    id:"quick-rice",
+    icon:"🍚",
+    title:"Quick Rice",
+    desc:"Easy rice varieties"
+  },
+
+  {
+    id:"quick-bread",
+    icon:"🍞",
+    title:"Quick Bread",
+    desc:"Fast bread meals"
+  },
+
+  {
+    id:"quick-noodles",
+    icon:"🍜",
+    title:"Quick Noodles",
+    desc:"Homemade noodle ideas"
+  },
+
+  {
+    id:"quick-tiffin",
+    icon:"🥞",
+    title:"Quick Tiffin",
+    desc:"Fast breakfast & tiffin"
+  },
+
+  {
+    id:"quick-healthy",
+    icon:"🌱",
+    title:"Quick Healthy",
+    desc:"Simple healthy food"
+  },
+
+  {
+    id:"quick-kids",
+    icon:"👶",
+    title:"Quick Kids Food",
+    desc:"Child-friendly quick food"
+  },
+
+  {
+    id:"quick-gym",
+    icon:"💪",
+    title:"Quick Gym Food",
+    desc:"Quick balanced gym meals"
+  },
+
+  {
+    id:"quick-dinner",
+    icon:"🌙",
+    title:"Quick Dinner",
+    desc:"Easy dinner ideas"
+  },
+
+  {
+    id:"quick-breakfast",
+    icon:"🌅",
+    title:"Quick Breakfast",
+    desc:"Fast morning food"
+  },
+
+  {
+    id:"home-ingredients",
+    icon:"🏠",
+    title:"Home Ingredients",
+    desc:"Use what is already at home"
+  },
+
+  {
+    id:"budget-quick",
+    icon:"💰",
+    title:"Budget Quick Food",
+    desc:"Affordable quick meals"
+  },
+
+  {
+    id:"emergency-food",
+    icon:"🆘",
+    title:"Emergency Food",
+    desc:"Veetla irukkuradha vechu"
+  }
+
+];
+
+
+const categoriesBox =
+  document.getElementById("categories");
+
+const menuPopup =
+  document.getElementById("menuPopup");
+
+const popupTitle =
+  document.getElementById("popupTitle");
+
+const popupList =
+  document.getElementById("popupList");
+
+const popupSearch =
+  document.getElementById("popupSearch");
+
+const popupClose =
+  document.getElementById("popupClose");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+
+/* CREATE CATEGORY CARDS */
+
+categories.forEach(function(category){
+
+  const card =
+    document.createElement("div");
+
+  card.className =
+    "category-card";
+
+  card.innerHTML = `
+
+    <div class="category-icon">
+      ${category.icon}
+    </div>
+
+    <div class="category-title">
+      ${category.title}
+    </div>
+
+    <div class="category-desc">
+      ${category.desc}
+    </div>
+
+  `;
+
+  card.addEventListener(
+    "click",
+    function(){
+
+      openMenu(category.id);
+
+    }
+  );
+
+  categoriesBox.appendChild(card);
+
+});
+
+
+/* OPEN MENU */
+
+function openMenu(categoryId){
+
+  const source =
+    document.getElementById(categoryId);
+
+  if(!source){
+    return;
+  }
+
+
+  const category =
+    categories.find(
+      function(item){
+
+        return item.id === categoryId;
+
+      }
+    );
+
+
+  if(category){
+
+    popupTitle.textContent =
+      category.icon + " " +
+      category.title;
+
+  }
+
+
+  popupList.innerHTML = "";
+
+
+  const items =
+    source.querySelectorAll(
+      ".menu-item"
+    );
+
+
+  items.forEach(function(item){
+
+    const popupItem =
+      document.createElement("div");
+
+    popupItem.className =
+      "popup-item";
+
+    popupItem.textContent =
+      item.textContent;
+
+    popupList.appendChild(
+      popupItem
+    );
+
+  });
+
+
+  popupSearch.value = "";
+
+  menuPopup.classList.add("active");
+
+  document.body.classList.add("no-scroll");
+
+  /*
+    IMPORTANT:
+    popupSearch.focus() intentionally
+    not used.
+    So mobile keyboard will not
+    open automatically.
+  */
+
+}
+
+
+/* CLOSE */
+
+function closeMenu(){
+
+  menuPopup.classList.remove("active");
+
+  document.body.classList.remove("no-scroll");
+
+}
+
+
+popupClose.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+/* OUTSIDE CLICK */
+
+menuPopup.addEventListener(
+  "click",
+  function(event){
+
+    if(event.target === menuPopup){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* ESCAPE */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape" &&
+      menuPopup.classList.contains("active")
+    ){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* POPUP SEARCH */
+
+popupSearch.addEventListener(
+  "input",
+  function(){
+
+    const query =
+      this.value
+        .trim()
+        .toLowerCase();
+
+
+    const items =
+      popupList.querySelectorAll(
+        ".popup-item"
+      );
+
+
+    let visibleCount = 0;
+
+
+    items.forEach(function(item){
+
+      const text =
+        item.textContent
+          .toLowerCase();
+
+
+      if(text.includes(query)){
+
+        item.style.display = "";
+
+        visibleCount++;
+
+      }else{
+
+        item.style.display = "none";
+
+      }
+
+    });
+
+
+    const oldNoResult =
+      popupList.querySelector(
+        ".no-result"
+      );
+
+
+    if(oldNoResult){
+
+      oldNoResult.remove();
+
+    }
+
+
+    if(
+      query &&
+      visibleCount === 0
+    ){
+
+      const noResult =
+        document.createElement(
+          "div"
+        );
+
+      noResult.className =
+        "no-result";
+
+      noResult.textContent =
+        "Indha menu-la result kidaikkala 😕";
+
+      popupList.appendChild(
+        noResult
+      );
+
+    }
+
+  }
+);
+
+
+/* MAIN SEARCH */
+
+searchInput.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key !== "Enter"){
+      return;
+    }
+
+
+    const query =
+      this.value
+        .trim()
+        .toLowerCase();
+
+
+    if(!query){
+      return;
+    }
+
+
+    const match =
+      categories.find(
+        function(category){
+
+          return (
+            category.title
+              .toLowerCase()
+              .includes(query)
+            ||
+            category.desc
+              .toLowerCase()
+              .includes(query)
+          );
+
+        }
+      );
+
+
+    if(match){
+
+      openMenu(match.id);
+
+      popupSearch.value =
+        query;
+
+      popupSearch.dispatchEvent(
+        new Event("input")
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>

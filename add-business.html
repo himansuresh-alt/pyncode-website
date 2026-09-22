@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode Planner - Add Your Business</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+   ===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+
+/* =====================================================
+   BODY
+   ===================================================== */
+
+body{
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#f5f7fb;
+
+    color:#172033;
+
+    min-height:100vh;
+
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #e7eaf0;
+
+    padding:12px 16px;
+
+    box-shadow:
+        0 2px 12px
+        rgba(20,30,50,0.04);
+
+}
+
+
+.header-inner{
+
+    max-width:900px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+}
+
+
+.logo{
+
+    text-decoration:none;
+
+    font-size:21px;
+
+    font-weight:800;
+
+    letter-spacing:-0.5px;
+
+    white-space:nowrap;
+
+}
+
+
+.pyn-text{
+
+    color:#ef603e;
+
+}
+
+
+.code-text{
+
+    color:#151923;
+
+}
+
+
+.back-planner-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:9px 13px;
+
+    background:#ffffff;
+
+    color:#34363b;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:11px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    text-decoration:none;
+
+    white-space:nowrap;
+
+    box-shadow:
+        0 3px 10px
+        rgba(30,30,50,0.05);
+
+}
+
+
+.back-planner-btn:active{
+
+    transform:scale(.97);
+
+}
+
+
+/* =====================================================
+   MAIN
+   ===================================================== */
+
+.main{
+
+    width:100%;
+
+    max-width:900px;
+
+    margin:0 auto;
+
+    padding:24px 16px 50px;
+
+}
+
+
+/* =====================================================
+   PAGE INTRO
+   ===================================================== */
+
+.page-intro{
+
+    margin-bottom:20px;
+
+}
+
+
+.page-intro h1{
+
+    font-size:27px;
+
+    line-height:1.2;
+
+    font-weight:800;
+
+    letter-spacing:-0.6px;
+
+}
+
+
+.page-intro p{
+
+    margin-top:8px;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+    color:#687386;
+
+}
+
+
+/* =====================================================
+   CARD
+   ===================================================== */
+
+.card{
+
+    background:#ffffff;
+
+    border:1px solid #e7eaf0;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    margin-bottom:16px;
+
+    box-shadow:
+        0 8px 30px rgba(20,30,50,0.05);
+
+}
+
+
+.card-title{
+
+    font-size:17px;
+
+    font-weight:800;
+
+    margin-bottom:5px;
+
+}
+
+
+.card-subtitle{
+
+    font-size:12px;
+
+    color:#687386;
+
+    margin-bottom:18px;
+
+}
+
+
+/* =====================================================
+   FORM GRID
+   ===================================================== */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:14px;
+
+}
+
+
+.field{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:7px;
+
+}
+
+
+.field.full{
+
+    grid-column:1 / -1;
+
+}
+
+
+.field label{
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:#374151;
+
+}
+
+
+.field input{
+
+    width:100%;
+
+    height:46px;
+
+    padding:0 13px;
+
+    border:1px solid #dfe4ec;
+
+    border-radius:11px;
+
+    background:#ffffff;
+
+    color:#172033;
+
+    font-size:14px;
+
+    outline:none;
+
+    transition:0.2s;
+
+}
+
+
+.field input:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,0.10);
+
+}
+
+
+/* =====================================================
+   SERVICE SEARCH AREA
+   ===================================================== */
+
+.service-toolbar{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+    margin-bottom:14px;
+
+}
+
+
+.search-box{
+
+    flex:1;
+
+    position:relative;
+
+}
+
+
+.search-box input{
+
+    width:100%;
+
+    height:44px;
+
+    border:1px solid #dfe4ec;
+
+    border-radius:11px;
+
+    padding:0 13px;
+
+    font-size:13px;
+
+    outline:none;
+
+}
+
+
+.search-box input:focus{
+
+    border-color:#2563eb;
+
+}
+
+
+.small-btn{
+
+    height:44px;
+
+    padding:0 13px;
+
+    border:1px solid #dfe4ec;
+
+    background:#ffffff;
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    color:#374151;
+
+}
+
+
+.small-btn:hover{
+
+    background:#f5f7fb;
+
+}
+
+
+/* =====================================================
+   SERVICE HEADER
+   ===================================================== */
+
+.service-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:12px;
+
+}
+
+
+.service-count{
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:#2563eb;
+
+}
+
+
+/* =====================================================
+   SERVICE LIST
+   ===================================================== */
+
+.service-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:7px;
+
+    max-height:430px;
+
+    overflow-y:auto;
+
+    padding-right:3px;
+
+}
+
+
+.service-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    padding:11px 12px;
+
+    border:1px solid #e6e9ef;
+
+    border-radius:10px;
+
+    background:#ffffff;
+
+    cursor:pointer;
+
+    transition:0.15s;
+
+}
+
+
+.service-item:hover{
+
+    background:#f8faff;
+
+}
+
+
+.service-item.selected{
+
+    border-color:#2563eb;
+
+    background:#eff6ff;
+
+}
+
+
+.service-item input{
+
+    width:17px;
+
+    height:17px;
+
+    accent-color:#2563eb;
+
+    flex-shrink:0;
+
+}
+
+
+.service-name{
+
+    font-size:13px;
+
+    font-weight:600;
+
+    line-height:1.4;
+
+}
+
+
+.no-results{
+
+    display:none;
+
+    padding:25px 10px;
+
+    text-align:center;
+
+    color:#687386;
+
+    font-size:13px;
+
+}
+
+
+/* =====================================================
+   SELECTED SERVICES
+   ===================================================== */
+
+.selected-box{
+
+    margin-top:18px;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    background:#f7f9fc;
+
+    border:1px solid #e7eaf0;
+
+}
+
+
+.selected-title{
+
+    font-size:12px;
+
+    font-weight:800;
+
+    margin-bottom:10px;
+
+}
+
+
+.selected-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+}
+
+
+.selected-tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:6px 9px;
+
+    border-radius:999px;
+
+    background:#e8f0ff;
+
+    color:#1d4ed8;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   SUBMIT
+   ===================================================== */
+
+.submit-btn{
+
+    width:100%;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 18px rgba(37,99,235,0.20);
+
+}
+
+
+.submit-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+
+.submit-btn:active{
+
+    transform:translateY(1px);
+
+}
+
+
+.note{
+
+    margin-top:10px;
+
+    text-align:center;
+
+    font-size:11px;
+
+    line-height:1.5;
+
+    color:#687386;
+
+}
+
+
+/* =====================================================
+   SUCCESS
+   ===================================================== */
+
+.success{
+
+    display:none;
+
+    text-align:center;
+
+    padding:35px 20px;
+
+}
+
+
+.success-icon{
+
+    width:64px;
+
+    height:64px;
+
+    margin:0 auto 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+    font-size:30px;
+
+    font-weight:800;
+
+}
+
+
+.success h2{
+
+    font-size:23px;
+
+    margin-bottom:8px;
+
+}
+
+
+.success p{
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    color:#687386;
+
+    margin-bottom:20px;
+
+}
+
+
+.back-btn{
+
+    height:46px;
+
+    padding:0 20px;
+
+    border:1px solid #dfe4ec;
+
+    background:#ffffff;
+
+    border-radius:10px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media(max-width:650px){
+
+    .header{
+
+        padding:11px 13px;
+
+    }
+
+
+    .logo{
+
+        font-size:19px;
+
+    }
+
+
+    .back-planner-btn{
+
+        padding:8px 10px;
+
+        font-size:11px;
+
+    }
+
+
+    .main{
+
+        padding:
+            20px
+            13px
+            40px;
+
+    }
+
+
+    .page-intro h1{
+
+        font-size:24px;
+
+    }
+
+
+    .card{
+
+        padding:16px;
+
+        border-radius:15px;
+
+    }
+
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .field.full{
+
+        grid-column:auto;
+
+    }
+
+
+    .service-toolbar{
+
+        align-items:stretch;
+
+    }
+
+
+    .small-btn{
+
+        padding:0 10px;
+
+    }
+
+
+    .service-list{
+
+        max-height:390px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a
+            href="planner.html"
+            class="logo"
+        >
+            <span class="pyn-text">Pyn</span><span class="code-text">code.in</span>
+        </a>
+
+
+        <a
+            href="planner.html"
+            class="back-planner-btn"
+        >
+            ← Back to Planner
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+     ===================================================== -->
+
+<main class="main">
+
+
+    <div class="page-intro">
+
+        <h1>
+            Add Your Business
+        </h1>
+
+        <p>
+            Register your business with Pyncode Planner
+            and get listed under the services you provide.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         BUSINESS DETAILS
+         ================================================= -->
+
+    <section
+        class="card"
+        id="formCard"
+    >
+
+        <div class="card-title">
+            Business Details
+        </div>
+
+        <div class="card-subtitle">
+            Enter your business contact information
+        </div>
+
+
+        <form id="businessForm">
+
+            <div class="form-grid">
+
+
+                <div class="field full">
+
+                    <label for="businessName">
+                        Business Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="businessName"
+                        placeholder="Enter business name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="ownerName">
+                        Owner Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="ownerName"
+                        placeholder="Enter owner name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="mobile">
+                        Mobile
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        placeholder="Enter mobile number"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="whatsapp">
+                        WhatsApp
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="whatsapp"
+                        placeholder="Enter WhatsApp number"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="area">
+                        Area
+                    </label>
+
+                    <input
+                        type="text"
+                        id="area"
+                        placeholder="Enter area"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="city">
+                        City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        placeholder="Enter city"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- =================================================
+         SERVICE CARD
+         ================================================= -->
+
+    <section
+        class="card"
+        id="serviceCard"
+    >
+
+        <div class="card-title">
+            Select Your Services
+        </div>
+
+        <div class="card-subtitle">
+            You can select multiple services
+        </div>
+
+
+        <div class="service-toolbar">
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="serviceSearch"
+                    placeholder="Search service..."
+                >
+
+            </div>
+
+
+            <button
+                type="button"
+                class="small-btn"
+                id="selectVisible"
+            >
+                Select Visible
+            </button>
+
+
+            <button
+                type="button"
+                class="small-btn"
+                id="clearServices"
+            >
+                Clear
+            </button>
+
+        </div>
+
+
+        <div class="service-header">
+
+            <span>
+                Available Services
+            </span>
+
+            <span
+                class="service-count"
+                id="serviceCount"
+            >
+                0 Selected
+            </span>
+
+        </div>
+
+
+        <div
+            class="service-list"
+            id="serviceList"
+        ></div>
+
+
+        <div
+            class="no-results"
+            id="noResults"
+        >
+            No services found.
+        </div>
+
+
+        <div class="selected-box">
+
+            <div class="selected-title">
+                Selected Services
+            </div>
+
+            <div
+                class="selected-list"
+                id="selectedList"
+            ></div>
+
+        </div>
+
+    </section>
+
+      <!-- =================================================
+         SUBMIT CARD
+         ================================================= -->
+
+    <section
+        class="card"
+        id="submitCard"
+    >
+
+        <button
+            type="submit"
+            form="businessForm"
+            class="submit-btn"
+        >
+            Add My Business
+        </button>
+
+        <div class="note">
+            Your business details will be securely submitted
+            to Pyncode Planner.
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SUCCESS CARD
+         ================================================= -->
+
+    <section
+        class="card success"
+        id="successCard"
+    >
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h2>
+            Business Added Successfully
+        </h2>
+
+        <p>
+            Your business has been submitted to
+            Pyncode Planner.
+        </p>
+
+        <button
+            type="button"
+            class="back-btn"
+            id="addAnother"
+        >
+            Add Another Business
+        </button>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   COMMON SERVICE PROVIDER MASTER LIST
+   ===================================================== */
+
+const SERVICES = [
+
+    "Wedding Hall",
+    "Mini Hall",
+    "Birthday Hall",
+    "Party Hall",
+    "Hotels",
+    "Resorts",
+    "Restaurants",
+    "Commercial Property",
+
+    "Travel Agency",
+    "Tour Packages",
+
+    "Wedding Planner",
+    "Event Planner",
+
+    "Catering",
+    "Event Decoration",
+    "Flower Decoration",
+    "Balloon Decoration",
+    "Lighting",
+    "Lighting & Sound",
+
+    "Bridal Makeup",
+    "Makeup Artist",
+    "Hairstylist",
+    "Mehendi Artist",
+
+    "Wedding Dress Shops",
+    "Kids Dress Shops",
+    "Dress Shops",
+    "Jewellery Rental",
+
+    "Photography & Videography",
+    "Baby Photoshoot",
+    "Drone Photography",
+
+    "Invitation Printing",
+    "Digital Invitation",
+
+    "DJ & Sounds",
+    "Event Anchor",
+    "Event Entertainment",
+
+    "Wedding Vehicle Rental",
+    "Bus / Van Rental",
+    "Car / Bike Rental",
+    "Cab / Taxi",
+    "Airport Transfer",
+
+    "Cake Shops",
+    "Sweets & Snacks",
+    "Gift Shops",
+    "Customized Gifts",
+    "Return Gifts",
+
+    "Security Guard Services",
+    "Equipment Rental",
+    "Pooja Materials",
+
+    "Camping / Adventure Services",
+    "Tourist Guide",
+    "Travel Insurance",
+    "Flight Booking",
+    "Bus / Train Booking",
+    "Hotel Booking",
+    "Passport Services",
+    "Visa Services",
+    "Currency Exchange",
+    "Travel Accessories Store",
+
+    "Shop Opening / Business Setup",
+    "Shop Interior",
+    "Carpenter",
+    "Electrician",
+    "Plumber",
+    "Painter",
+    "Glass Work",
+    "Electrical Shops",
+    "LED Light Shops",
+    "CCTV & Security",
+    "Inverter & UPS",
+    "AC Sales & Service",
+    "Fire Safety",
+
+    "Name Board",
+    "LED Name Board",
+    "3D Letter Board",
+    "Flex / Banner Printing",
+    "Vinyl / Sticker Printing",
+    "Visiting Card Printing",
+    "Pamphlet & Brochure Printing",
+
+    "Display Rack",
+    "Storage Rack",
+    "Billing Counter",
+    "Office Furniture",
+
+    "POS / Billing Software",
+    "Barcode Scanner / Printer",
+    "UPI / QR Payment Solutions",
+
+    "Google Business Profile",
+    "Digital Marketing",
+    "Website Developer",
+
+    "New Business Setup",
+    "Business Registration",
+    "GST Registration",
+    "MSME / Udyam Registration",
+    "Trade Licence",
+    "FSSAI Registration",
+    "Shop & Establishment Registration",
+    "Import Export Code",
+    "Digital Signature",
+    "PAN / TAN Services",
+    "Professional Tax Registration",
+
+    "CA / Chartered Accountant",
+    "Accountant",
+    "Tax Consultant",
+    "Legal Consultant",
+    "Business Consultant",
+    "Documentation Consultant",
+    "Franchise Consultant",
+    "Market Research",
+
+    "Current Account Setup",
+    "POS / Billing Solutions",
+
+    "Branding Agency",
+    "Advertising Agency",
+
+    "Manufacturers",
+    "Raw Material Suppliers",
+
+    "Business Insurance",
+    "Employee Insurance",
+
+    "Product Photoshoot",
+    "Promotional Videos",
+
+    "E-commerce Website",
+    "Freelancers",
+
+    /* HOME INVENTORY PLANNER SERVICES */
+
+    "Supermarket / Grocery Stores",
+    "Cleaning Service",
+    "Laundry / Dry Cleaning",
+    "Furniture Shops",
+    "Home Appliances Shops",
+    "Electrical Service",
+    "Plumbing Service",
+    "Painting Service",
+    "Curtain & Blinds",
+    "Mattress & Bedding",
+    "Kitchenware Shops",
+    "Lighting Shops",
+    "Pest Control",
+    "Locksmith / Key Maker",
+    "AC Service & Repair",
+    "TV / Electronics Service",
+    "Refrigerator Service",
+    "Washing Machine Service",
+    "Water Purifier Service",
+    "Inverter / Battery Service",
+    "Home Repair Services",
+    "Packers & Movers",
+    "Scrap / E-Waste Collection",
+    "Gardening / Plant Service",
+    "Interior Design"
+
+];
+
+
+/* =====================================================
+   SUPABASE CONFIG
+   ===================================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const serviceList =
+    document.getElementById("serviceList");
+
+
+const serviceSearch =
+    document.getElementById("serviceSearch");
+
+
+const serviceCount =
+    document.getElementById("serviceCount");
+
+
+const selectedList =
+    document.getElementById("selectedList");
+
+
+const noResults =
+    document.getElementById("noResults");
+
+
+const businessForm =
+    document.getElementById("businessForm");
+
+
+const formCard =
+    document.getElementById("formCard");
+
+
+const serviceCard =
+    document.getElementById("serviceCard");
+
+
+const successCard =
+    document.getElementById("successCard");
+
+
+const selectVisible =
+    document.getElementById("selectVisible");
+
+
+const clearServices =
+    document.getElementById("clearServices");
+
+
+const addAnother =
+    document.getElementById("addAnother");
+
+
+const submitCard =
+    document.getElementById("submitCard");
+
+
+/* =====================================================
+   RENDER SERVICES
+   ===================================================== */
+
+function renderServices(){
+
+    const search =
+        serviceSearch.value
+            .trim()
+            .toLowerCase();
+
+
+    serviceList.innerHTML = "";
+
+
+    let visibleCount = 0;
+
+
+    SERVICES.forEach((service)=>{
+
+        if(
+            search &&
+            !service
+                .toLowerCase()
+                .includes(search)
+        ){
+
+            return;
+
+        }
+
+
+        visibleCount++;
+
+
+        const item =
+            document.createElement("label");
+
+
+        item.className =
+            "service-item";
+
+
+        const checkbox =
+            document.createElement("input");
+
+
+        checkbox.type =
+            "checkbox";
+
+
+        checkbox.name =
+            "services";
+
+
+        checkbox.value =
+            service;
+
+
+        const name =
+            document.createElement("span");
+
+
+        name.className =
+            "service-name";
+
+
+        name.textContent =
+            service;
+
+
+        item.appendChild(
+            checkbox
+        );
+
+
+        item.appendChild(
+            name
+        );
+
+
+        serviceList.appendChild(
+            item
+        );
+
+
+        checkbox.addEventListener(
+            "change",
+            function(){
+
+                item.classList.toggle(
+                    "selected",
+                    this.checked
+                );
+
+
+                updateSelectedServices();
+
+            }
+        );
+
+    });
+
+
+    noResults.style.display =
+        visibleCount === 0
+            ? "block"
+            : "none";
+
+}
+
+
+/* =====================================================
+   GET SELECTED SERVICES
+   ===================================================== */
+
+function getSelectedServices(){
+
+    return Array.from(
+        document.querySelectorAll(
+            'input[name="services"]:checked'
+        )
+    ).map(
+        checkbox =>
+            checkbox.value
+    );
+
+}
+
+
+/* =====================================================
+   UPDATE SELECTED SERVICES
+   ===================================================== */
+
+function updateSelectedServices(){
+
+    const selected =
+        getSelectedServices();
+
+
+    serviceCount.textContent =
+        `${selected.length} Selected`;
+
+
+    selectedList.innerHTML =
+        "";
+
+
+    if(selected.length === 0){
+
+        const empty =
+            document.createElement("span");
+
+
+        empty.style.color =
+            "#687386";
+
+
+        empty.style.fontSize =
+            "12px";
+
+
+        empty.textContent =
+            "No services selected";
+
+
+        selectedList.appendChild(
+            empty
+        );
+
+
+        return;
+
+    }
+
+
+    selected.forEach(
+        service => {
+
+            const tag =
+                document.createElement("span");
+
+
+            tag.className =
+                "selected-tag";
+
+
+            tag.textContent =
+                service;
+
+
+            selectedList.appendChild(
+                tag
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+serviceSearch.addEventListener(
+    "input",
+    function(){
+
+        renderServices();
+
+    }
+);
+
+
+/* =====================================================
+   SELECT VISIBLE
+   ===================================================== */
+
+selectVisible.addEventListener(
+    "click",
+    function(){
+
+        const visibleItems =
+            Array.from(
+                serviceList.querySelectorAll(
+                    ".service-item"
+                )
+            );
+
+
+        visibleItems.forEach(
+            item => {
+
+                const checkbox =
+                    item.querySelector(
+                        'input[type="checkbox"]'
+                    );
+
+
+                checkbox.checked =
+                    true;
+
+
+                item.classList.add(
+                    "selected"
+                );
+
+            }
+        );
+
+
+        updateSelectedServices();
+
+    }
+);
+
+
+/* =====================================================
+   CLEAR ALL
+   ===================================================== */
+
+clearServices.addEventListener(
+    "click",
+    function(){
+
+        document
+            .querySelectorAll(
+                'input[name="services"]'
+            )
+            .forEach(
+                checkbox => {
+
+                    checkbox.checked =
+                        false;
+
+
+                    const item =
+                        checkbox.closest(
+                            ".service-item"
+                        );
+
+
+                    if(item){
+
+                        item.classList.remove(
+                            "selected"
+                        );
+
+                    }
+
+                }
+            );
+
+
+        updateSelectedServices();
+
+    }
+);
+
+  /* =====================================================
+   FORM SUBMIT
+   ===================================================== */
+
+businessForm.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+
+        /* =================================================
+           GET SELECTED SERVICES
+           ================================================= */
+
+        const selectedServices =
+            getSelectedServices();
+
+
+        /* =================================================
+           SERVICE VALIDATION
+           ================================================= */
+
+        if(selectedServices.length === 0){
+
+            alert(
+                "Please select at least one service."
+            );
+
+            return;
+
+        }
+
+
+        /* =================================================
+           GET BUSINESS DETAILS
+           ================================================= */
+
+        const businessName =
+            document
+                .getElementById("businessName")
+                .value
+                .trim();
+
+
+        const ownerName =
+            document
+                .getElementById("ownerName")
+                .value
+                .trim();
+
+
+        const mobile =
+            document
+                .getElementById("mobile")
+                .value
+                .trim();
+
+
+        const whatsapp =
+            document
+                .getElementById("whatsapp")
+                .value
+                .trim();
+
+
+        const area =
+            document
+                .getElementById("area")
+                .value
+                .trim();
+
+
+        const city =
+            document
+                .getElementById("city")
+                .value
+                .trim();
+
+
+        /* =================================================
+           SAVE TO SUPABASE
+           ================================================= */
+
+        try{
+
+            const response =
+                await fetch(
+                    `${SUPABASE_URL}/rest/v1/planner_service_providers`,
+                    {
+                        method:"POST",
+
+                        headers:{
+
+                            "Content-Type":
+                                "application/json",
+
+                            "apikey":
+                                SUPABASE_KEY,
+
+                            "Authorization":
+                                `Bearer ${SUPABASE_KEY}`,
+
+                            "Prefer":
+                                "return=minimal"
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                business_name:
+                                    businessName,
+
+                                owner_name:
+                                    ownerName,
+
+                                mobile:
+                                    mobile,
+
+                                whatsapp:
+                                    whatsapp,
+
+                                area:
+                                    area,
+
+                                city:
+                                    city,
+
+                                services:
+                                    selectedServices,
+
+                                active:
+                                    true
+
+                            })
+
+                    }
+                );
+
+
+            /* =================================================
+               CHECK RESPONSE
+               ================================================= */
+
+            if(!response.ok){
+
+                const errorText =
+                    await response.text();
+
+
+                throw new Error(
+                    errorText ||
+                    "Unable to save business"
+                );
+
+            }
+
+
+            /* =================================================
+               SUCCESS SCREEN
+               ================================================= */
+
+            formCard.style.display =
+                "none";
+
+
+            serviceCard.style.display =
+                "none";
+
+
+            successCard.style.display =
+                "block";
+
+
+            const returnPage =
+                new URLSearchParams(
+                    window.location.search
+                ).get("return");
+
+
+            const firstSelectedService =
+                document.querySelector(
+                    'input[name="services"]:checked'
+                )?.value;
+
+
+            if(
+                returnPage &&
+                firstSelectedService
+            ){
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        `${returnPage}?service=${encodeURIComponent(firstSelectedService)}`;
+
+                }, 1500);
+
+            }
+
+
+            window.scrollTo({
+
+                top:0,
+
+                behavior:"smooth"
+
+            });
+
+
+        }catch(error){
+
+            console.error(
+                "Supabase Error:",
+                error
+            );
+
+
+            alert(
+                "Business registration failed.\n\n" +
+                error.message
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ADD ANOTHER BUSINESS
+   ===================================================== */
+
+addAnother.addEventListener(
+    "click",
+    function(){
+
+        businessForm.reset();
+
+
+        serviceSearch.value =
+            "";
+
+
+        document
+            .querySelectorAll(
+                'input[name="services"]'
+            )
+            .forEach(
+                checkbox => {
+
+                    checkbox.checked =
+                        false;
+
+                }
+            );
+
+
+        formCard.style.display =
+            "block";
+
+
+        serviceCard.style.display =
+            "block";
+
+
+        successCard.style.display =
+            "none";
+
+
+        renderServices();
+
+
+        updateSelectedServices();
+
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    }
+);
+
+
+/* =====================================================
+   INITIAL LOAD
+   ===================================================== */
+
+renderServices();
+
+updateSelectedServices();
+
+</script>
+
+</body>
+
+</html>

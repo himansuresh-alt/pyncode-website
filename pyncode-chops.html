@@ -1,0 +1,2223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode Chops | Franchise Enquiry</title>
+
+<style>
+
+:root{
+
+  --bg:#fffaf5;
+  --card:#ffffff;
+
+  --text:#29231f;
+  --muted:#756d67;
+
+  --primary:#e85d04;
+  --primary-dark:#c94f00;
+  --primary-light:#fff0df;
+
+  --green:#168a45;
+  --green-dark:#0f7037;
+  --green-light:#eaf8ef;
+
+  --border:#eee2d7;
+
+  --shadow:
+    0 8px 28px rgba(60,40,20,.08);
+
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  margin:0;
+
+  background:var(--bg);
+
+  color:var(--text);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+}
+
+button,
+input,
+select,
+textarea{
+
+  font:inherit;
+
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+
+  color:inherit;
+
+  text-decoration:none;
+
+}
+
+.container{
+
+  width:100%;
+
+  max-width:760px;
+
+  margin:0 auto;
+
+  padding:0 14px 50px;
+
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+
+  padding:14px 0;
+
+}
+
+.header-top{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:12px;
+
+}
+
+.back-btn{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  padding:9px 12px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:12px;
+
+  font-size:13px;
+
+  font-weight:700;
+
+}
+
+.brand{
+
+  text-align:right;
+
+}
+
+.brand-title{
+
+  font-size:17px;
+
+  font-weight:800;
+
+}
+
+.brand-subtitle{
+
+  margin-top:3px;
+
+  font-size:11px;
+
+  color:var(--muted);
+
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+  margin-top:8px;
+
+  padding:30px 20px;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #fff0df,
+      #fffaf5
+    );
+
+  border:1px solid var(--border);
+
+  border-radius:26px;
+
+  text-align:center;
+
+  box-shadow:var(--shadow);
+
+}
+
+.hero-icon{
+
+  width:78px;
+
+  height:78px;
+
+  margin:0 auto 15px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:#fff;
+
+  border-radius:24px;
+
+  font-size:42px;
+
+  box-shadow:
+    0 8px 22px rgba(60,40,20,.08);
+
+}
+
+.hero h1{
+
+  margin:0;
+
+  font-size:30px;
+
+  line-height:1.15;
+
+}
+
+.hero h1 span{
+
+  color:var(--primary);
+
+}
+
+.hero p{
+
+  margin:12px auto 0;
+
+  max-width:610px;
+
+  color:var(--muted);
+
+  font-size:14px;
+
+  line-height:1.7;
+
+}
+
+.hero-badge{
+
+  display:inline-flex;
+
+  margin-top:16px;
+
+  padding:9px 14px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:999px;
+
+  font-size:12px;
+
+  font-weight:800;
+
+}
+
+/* =========================
+   CTA
+========================= */
+
+.hero-cta{
+
+  display:flex;
+
+  justify-content:center;
+
+  margin-top:18px;
+
+}
+
+.whatsapp-btn{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
+
+  min-height:48px;
+
+  padding:12px 18px;
+
+  background:#25D366;
+
+  color:#fff;
+
+  border-radius:13px;
+
+  font-size:13px;
+
+  font-weight:800;
+
+  box-shadow:
+    0 7px 18px rgba(37,211,102,.20);
+
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+
+  margin-top:22px;
+
+}
+
+.section-title{
+
+  margin:0;
+
+  font-size:20px;
+
+  font-weight:800;
+
+}
+
+.section-subtitle{
+
+  margin:6px 0 0;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.6;
+
+}
+
+/* =========================
+   CONCEPT CARD
+========================= */
+
+.concept-card{
+
+  margin-top:12px;
+
+  padding:18px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:18px;
+
+  box-shadow:var(--shadow);
+
+}
+
+.concept-highlight{
+
+  padding:13px;
+
+  background:var(--primary-light);
+
+  border-radius:13px;
+
+  font-size:14px;
+
+  font-weight:800;
+
+  line-height:1.5;
+
+}
+
+.concept-text{
+
+  margin-top:12px;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.7;
+
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.steps{
+
+  margin-top:12px;
+
+  display:grid;
+
+  gap:10px;
+
+}
+
+.step{
+
+  display:flex;
+
+  align-items:flex-start;
+
+  gap:12px;
+
+  padding:14px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:15px;
+
+}
+
+.step-number{
+
+  width:34px;
+
+  height:34px;
+
+  flex:0 0 34px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:var(--primary-light);
+
+  color:var(--primary);
+
+  font-size:13px;
+
+  font-weight:900;
+
+}
+
+.step-title{
+
+  font-size:13px;
+
+  font-weight:800;
+
+}
+
+.step-text{
+
+  margin-top:4px;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  line-height:1.5;
+
+}
+
+/* =========================
+   BENEFITS GRID
+========================= */
+
+.benefit-grid{
+
+  margin-top:12px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+
+}
+
+.benefit-card{
+
+  padding:15px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:15px;
+
+}
+
+.benefit-icon{
+
+  font-size:25px;
+
+}
+
+.benefit-title{
+
+  margin-top:8px;
+
+  font-size:12px;
+
+  font-weight:800;
+
+}
+
+.benefit-text{
+
+  margin-top:4px;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  line-height:1.5;
+
+}
+
+/* =========================
+   PRODUCT IDEAS
+========================= */
+
+.product-list{
+
+  margin-top:12px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:8px;
+
+}
+
+.product-item{
+
+  padding:11px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:12px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+}
+
+/* =========================
+   PINCODE CTA
+========================= */
+
+.pincode-card{
+
+  margin-top:22px;
+
+  padding:20px;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #eaf8ef,
+      #ffffff
+    );
+
+  border:1px solid #cfeedd;
+
+  border-radius:20px;
+
+  text-align:center;
+
+}
+
+.pincode-icon{
+
+  font-size:34px;
+
+}
+
+.pincode-card h2{
+
+  margin:8px 0 0;
+
+  font-size:20px;
+
+}
+
+.pincode-card p{
+
+  margin:7px 0 0;
+
+  color:#557062;
+
+  font-size:12px;
+
+  line-height:1.6;
+
+}
+
+  /* =========================
+   FORM
+========================= */
+
+.enquiry-card{
+
+  margin-top:14px;
+
+  padding:18px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:20px;
+
+  box-shadow:var(--shadow);
+
+}
+
+.form-title{
+
+  font-size:17px;
+
+  font-weight:800;
+
+}
+
+.form-note{
+
+  margin-top:5px;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  line-height:1.5;
+
+}
+
+.form-grid{
+
+  margin-top:15px;
+
+  display:grid;
+
+  gap:12px;
+
+}
+
+.field{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:6px;
+
+}
+
+.field label{
+
+  font-size:12px;
+
+  font-weight:800;
+
+}
+
+.required{
+
+  color:var(--primary);
+
+}
+
+.field input,
+.field select,
+.field textarea{
+
+  width:100%;
+
+  padding:12px;
+
+  border:1px solid var(--border);
+
+  border-radius:12px;
+
+  outline:none;
+
+  background:#fffaf5;
+
+  color:var(--text);
+
+  font-size:13px;
+
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+
+  border-color:var(--primary);
+
+  background:#fff;
+
+}
+
+.field textarea{
+
+  min-height:90px;
+
+  resize:vertical;
+
+}
+
+.two-col{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:10px;
+
+}
+
+.submit-btn{
+
+  width:100%;
+
+  margin-top:5px;
+
+  min-height:48px;
+
+  border:0;
+
+  border-radius:13px;
+
+  background:var(--primary);
+
+  color:#fff;
+
+  font-size:14px;
+
+  font-weight:800;
+
+}
+
+.submit-btn:hover{
+
+  background:var(--primary-dark);
+
+}
+
+/* =========================
+   CONTACT CARD
+========================= */
+
+.contact-card{
+
+  margin-top:18px;
+
+  padding:18px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:18px;
+
+  text-align:center;
+
+}
+
+.contact-card-title{
+
+  font-size:16px;
+
+  font-weight:800;
+
+}
+
+.contact-card-text{
+
+  margin-top:6px;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.6;
+
+}
+
+.contact-number{
+
+  margin-top:10px;
+
+  font-size:18px;
+
+  font-weight:900;
+
+}
+
+.contact-wa{
+
+  display:inline-flex;
+
+  margin-top:12px;
+
+  padding:10px 15px;
+
+  background:#25D366;
+
+  color:#fff;
+
+  border-radius:11px;
+
+  font-size:12px;
+
+  font-weight:800;
+
+}
+
+/* =========================
+   NOTE
+========================= */
+
+.note-box{
+
+  margin-top:18px;
+
+  padding:14px;
+
+  background:#fff8df;
+
+  border:1px solid #f0df9e;
+
+  border-radius:15px;
+
+}
+
+.note-title{
+
+  font-size:12px;
+
+  font-weight:800;
+
+}
+
+.note-text{
+
+  margin-top:5px;
+
+  color:#756538;
+
+  font-size:11px;
+
+  line-height:1.6;
+
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+
+  margin-top:30px;
+
+  padding:22px 10px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  line-height:1.7;
+
+}
+
+.footer strong{
+
+  color:var(--text);
+
+}
+
+/* =========================
+   SUCCESS POPUP
+========================= */
+
+.success-popup{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:2000;
+
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+
+  background:rgba(25,18,12,.48);
+
+}
+
+.success-popup.show{
+
+  display:flex;
+
+}
+
+.success-box{
+
+  width:100%;
+
+  max-width:420px;
+
+  padding:25px 20px;
+
+  background:#fff;
+
+  border-radius:22px;
+
+  text-align:center;
+
+  box-shadow:0 15px 50px rgba(0,0,0,.18);
+
+}
+
+.success-icon{
+
+  font-size:48px;
+
+}
+
+.success-box h3{
+
+  margin:10px 0 0;
+
+  font-size:20px;
+
+}
+
+.success-box p{
+
+  margin:8px 0 0;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.6;
+
+}
+
+.success-actions{
+
+  margin-top:18px;
+
+  display:grid;
+
+  gap:8px;
+
+}
+
+.success-wa{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  min-height:45px;
+
+  background:#25D366;
+
+  color:#fff;
+
+  border-radius:12px;
+
+  font-size:13px;
+
+  font-weight:800;
+
+}
+
+.success-close{
+
+  min-height:43px;
+
+  border:1px solid var(--border);
+
+  border-radius:12px;
+
+  background:#fff;
+
+  font-size:12px;
+
+  font-weight:800;
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:520px){
+
+  .container{
+
+    padding-left:10px;
+
+    padding-right:10px;
+
+  }
+
+  .hero{
+
+    padding:25px 15px;
+
+  }
+
+  .hero h1{
+
+    font-size:26px;
+
+  }
+
+  .benefit-grid{
+
+    grid-template-columns:
+      1fr 1fr;
+
+  }
+
+  .product-list{
+
+    grid-template-columns:
+      1fr 1fr;
+
+  }
+
+  .two-col{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+  <div class="header-top">
+
+    <a
+      href="innaiku-enna-samayal.html"
+      class="back-btn"
+    >
+      ← Samayal Home
+    </a>
+
+    <div class="brand">
+
+      <div class="brand-title">
+        🥕 Pyncode Chops
+      </div>
+
+      <div class="brand-subtitle">
+        Franchise Opportunity
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+  <div class="hero-icon">
+    🥕
+  </div>
+
+  <h1>
+    Pyncode <span>Chops</span>
+  </h1>
+
+  <p>
+    Start a local chopped vegetable business
+    in your Pincode with the Pyncode Chops
+    partner model.
+  </p>
+
+  <div class="hero-badge">
+    📍 One Local Partner • One Service Area
+  </div>
+
+  <div class="hero-cta">
+
+    <a
+      class="whatsapp-btn"
+      href="https://wa.me/919092035926?text=Hi%2C%20I%20am%20interested%20in%20Pyncode%20Chops%20franchise."
+      target="_blank"
+      rel="noopener"
+    >
+      📲 Franchise Enquiry on WhatsApp
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CONCEPT
+========================= -->
+
+<section class="section">
+
+  <h2 class="section-title">
+    🥕 What is Pyncode Chops?
+  </h2>
+
+  <p class="section-subtitle">
+    A simple local business concept focused on
+    chopped and ready-to-cook vegetables.
+  </p>
+
+  <div class="concept-card">
+
+    <div class="concept-highlight">
+      📍 Every Pincode → Local Pyncode Chops Partner
+    </div>
+
+    <div class="concept-text">
+
+      Pyncode Chops is planned as a
+      Pincode-focused chopped vegetable
+      business model.
+
+      <br><br>
+
+      A local partner can serve customers
+      in their selected service area with
+      fresh-cut and ready-to-cook vegetable
+      products.
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     HOW IT WORKS
+========================= -->
+
+<section class="section">
+
+  <h2 class="section-title">
+    ⚙️ How the Business Model Works
+  </h2>
+
+  <p class="section-subtitle">
+    Simple local partner model.
+  </p>
+
+  <div class="steps">
+
+    <div class="step">
+
+      <div class="step-number">
+        1
+      </div>
+
+      <div>
+
+        <div class="step-title">
+          📍 Select Your Pincode
+        </div>
+
+        <div class="step-text">
+          Interested partner can tell us
+          the Pincode and area they want
+          to operate in.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="step">
+
+      <div class="step-number">
+        2
+      </div>
+
+      <div>
+
+        <div class="step-title">
+          🤝 Franchise Enquiry
+        </div>
+
+        <div class="step-text">
+          Submit your details and tell us
+          about your business interest.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="step">
+
+      <div class="step-number">
+        3
+      </div>
+
+      <div>
+
+        <div class="step-title">
+          💬 Discussion
+        </div>
+
+        <div class="step-text">
+          Our team can discuss the proposed
+          business model, area and requirements.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="step">
+
+      <div class="step-number">
+        4
+      </div>
+
+      <div>
+
+        <div class="step-title">
+          🥕 Pyncode Chops Partner
+        </div>
+
+        <div class="step-text">
+          Subject to discussion and applicable
+          requirements, the partner can proceed
+          with the local business setup.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+  <!-- =========================
+     PRODUCT IDEAS
+========================= -->
+
+<section class="section">
+
+  <h2 class="section-title">
+    🥕 What Can Be Offered?
+  </h2>
+
+  <p class="section-subtitle">
+    Example product categories for a
+    chopped vegetable business.
+  </p>
+
+  <div class="product-list">
+
+    <div class="product-item">
+      🧅 Chopped Onion
+    </div>
+
+    <div class="product-item">
+      🍅 Chopped Tomato
+    </div>
+
+    <div class="product-item">
+      🥔 Chopped Potato
+    </div>
+
+    <div class="product-item">
+      🥕 Chopped Carrot
+    </div>
+
+    <div class="product-item">
+      🫘 Chopped Beans
+    </div>
+
+    <div class="product-item">
+      🥬 Chopped Cabbage
+    </div>
+
+    <div class="product-item">
+      🥦 Cut Cauliflower
+    </div>
+
+    <div class="product-item">
+      🫑 Chopped Capsicum
+    </div>
+
+    <div class="product-item">
+      🍲 Sambar Vegetable Pack
+    </div>
+
+    <div class="product-item">
+      🥘 Avial Vegetable Pack
+    </div>
+
+    <div class="product-item">
+      🍛 Biryani Vegetable Pack
+    </div>
+
+    <div class="product-item">
+      🥣 Soup Vegetable Pack
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PARTNER BENEFITS
+========================= -->
+
+<section class="section">
+
+  <h2 class="section-title">
+    🤝 Partner Opportunity
+  </h2>
+
+  <p class="section-subtitle">
+    The concept is designed around
+    local area-focused operations.
+  </p>
+
+  <div class="benefit-grid">
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">
+        📍
+      </div>
+
+      <div class="benefit-title">
+        Pincode Focus
+      </div>
+
+      <div class="benefit-text">
+        Build a local customer base
+        around your selected area.
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">
+        🥕
+      </div>
+
+      <div class="benefit-title">
+        Ready-to-Cook Concept
+      </div>
+
+      <div class="benefit-text">
+        Focus on chopped and
+        cooking-ready vegetables.
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">
+        🏠
+      </div>
+
+      <div class="benefit-title">
+        Local Business
+      </div>
+
+      <div class="benefit-text">
+        Serve customers within
+        a practical local area.
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">
+        📲
+      </div>
+
+      <div class="benefit-title">
+        Enquiry Based Start
+      </div>
+
+      <div class="benefit-text">
+        Start with a discussion before
+        moving into the business setup.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PINCODE CTA
+========================= -->
+
+<section class="pincode-card">
+
+  <div class="pincode-icon">
+    📍
+  </div>
+
+  <h2>
+    Is Your Pincode Available?
+  </h2>
+
+  <p>
+    Tell us your Pincode and area.
+    If you are interested in becoming
+    a Pyncode Chops partner, contact us.
+  </p>
+
+</section>
+
+
+<!-- =========================
+     ENQUIRY FORM
+========================= -->
+
+<section
+  class="section"
+  id="franchise-enquiry"
+>
+
+  <div class="enquiry-card">
+
+    <div class="form-title">
+      🤝 Franchise Enquiry
+    </div>
+
+    <div class="form-note">
+      Interested partners can share their
+      basic details. The enquiry will open
+      in WhatsApp for sending to our team.
+    </div>
+
+
+    <form
+      id="franchiseForm"
+      class="form-grid"
+    >
+
+
+      <div class="field">
+
+        <label>
+          Name <span class="required">*</span>
+        </label>
+
+        <input
+          type="text"
+          id="name"
+          placeholder="Your name"
+          autocomplete="name"
+          required
+        >
+
+      </div>
+
+
+      <div class="two-col">
+
+        <div class="field">
+
+          <label>
+            Mobile <span class="required">*</span>
+          </label>
+
+          <input
+            type="tel"
+            id="mobile"
+            placeholder="Mobile number"
+            inputmode="numeric"
+            autocomplete="tel"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            WhatsApp Number
+          </label>
+
+          <input
+            type="tel"
+            id="whatsapp"
+            placeholder="WhatsApp number"
+            inputmode="numeric"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="two-col">
+
+        <div class="field">
+
+          <label>
+            Pincode <span class="required">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="pincode"
+            placeholder="6 digit Pincode"
+            inputmode="numeric"
+            maxlength="6"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Area <span class="required">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="area"
+            placeholder="Your area"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          City
+        </label>
+
+        <input
+          type="text"
+          id="city"
+          placeholder="City"
+          autocomplete="address-level2"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Do you have an existing shop / workspace?
+        </label>
+
+        <select id="workspace">
+
+          <option value="">
+            Select
+          </option>
+
+          <option value="Yes">
+            Yes
+          </option>
+
+          <option value="No">
+            No
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Do you already run a business?
+        </label>
+
+        <select id="existingBusiness">
+
+          <option value="">
+            Select
+          </option>
+
+          <option value="Yes">
+            Yes
+          </option>
+
+          <option value="No">
+            No
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Approximate Investment Range
+        </label>
+
+        <select id="investment">
+
+          <option value="">
+            Select
+          </option>
+
+          <option value="Below ₹50,000">
+            Below ₹50,000
+          </option>
+
+          <option value="₹50,000 - ₹1 Lakh">
+            ₹50,000 - ₹1 Lakh
+          </option>
+
+          <option value="₹1 Lakh - ₹3 Lakh">
+            ₹1 Lakh - ₹3 Lakh
+          </option>
+
+          <option value="₹3 Lakh+">
+            ₹3 Lakh+
+          </option>
+
+          <option value="Prefer to discuss">
+            Prefer to discuss
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Message
+        </label>
+
+        <textarea
+          id="message"
+          placeholder="Tell us anything about your business interest..."
+        ></textarea>
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="submit-btn"
+      >
+        📲 Send Franchise Enquiry
+      </button>
+
+
+    </form>
+
+  </div>
+
+</section>
+
+  <!-- =========================
+     CONTACT
+========================= -->
+
+<section class="contact-card">
+
+  <div class="contact-card-title">
+    📲 Direct Franchise Contact
+  </div>
+
+  <div class="contact-card-text">
+    Prefer WhatsApp directly?
+    You can contact the Pyncode Chops
+    franchise enquiry team.
+  </div>
+
+  <div class="contact-number">
+    9092035926
+  </div>
+
+  <a
+    class="contact-wa"
+    href="https://wa.me/919092035926?text=Hi%2C%20I%20am%20interested%20in%20Pyncode%20Chops%20franchise."
+    target="_blank"
+    rel="noopener"
+  >
+    💬 Chat on WhatsApp
+  </a>
+
+</section>
+
+
+<!-- =========================
+     NOTE
+========================= -->
+
+<div class="note-box">
+
+  <div class="note-title">
+    ℹ️ Before Starting
+  </div>
+
+  <div class="note-text">
+    Franchise availability, service-area
+    allocation, investment, setup and
+    operating requirements will be discussed
+    with interested applicants before any
+    business arrangement is finalized.
+  </div>
+
+</div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+  <strong>
+    Pyncode Chops
+  </strong>
+
+  <br>
+
+  Pincode-wise Chopped Vegetable
+  Franchise Opportunity
+
+  <br><br>
+
+  Powered by Pyncode.in
+
+</footer>
+
+
+</div>
+
+
+<!-- =========================
+     SUCCESS POPUP
+========================= -->
+
+<div
+  class="success-popup"
+  id="successPopup"
+>
+
+  <div class="success-box">
+
+    <div class="success-icon">
+      🥕
+    </div>
+
+    <h3>
+      Enquiry Ready!
+    </h3>
+
+    <p>
+      Your franchise enquiry details
+      have been prepared for WhatsApp.
+      Tap below to send them to our team.
+    </p>
+
+    <div class="success-actions">
+
+      <a
+        id="successWhatsapp"
+        class="success-wa"
+        href="#"
+        target="_blank"
+        rel="noopener"
+      >
+        📲 Send on WhatsApp
+      </a>
+
+      <button
+        type="button"
+        class="success-close"
+        id="successClose"
+      >
+        Close
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const franchiseForm =
+  document.getElementById(
+    "franchiseForm"
+  );
+
+const successPopup =
+  document.getElementById(
+    "successPopup"
+  );
+
+const successWhatsapp =
+  document.getElementById(
+    "successWhatsapp"
+  );
+
+const successClose =
+  document.getElementById(
+    "successClose"
+  );
+
+
+/* =========================
+   WHATSAPP NUMBER
+========================= */
+
+const franchiseWhatsapp =
+  "919092035926";
+
+
+/* =========================
+   FORM SUBMIT
+========================= */
+
+franchiseForm.addEventListener(
+  "submit",
+  function(event){
+
+    event.preventDefault();
+
+
+    const name =
+      document.getElementById(
+        "name"
+      ).value.trim();
+
+
+    const mobile =
+      document.getElementById(
+        "mobile"
+      ).value.trim();
+
+
+    const whatsapp =
+      document.getElementById(
+        "whatsapp"
+      ).value.trim();
+
+
+    const pincode =
+      document.getElementById(
+        "pincode"
+      ).value.trim();
+
+
+    const area =
+      document.getElementById(
+        "area"
+      ).value.trim();
+
+
+    const city =
+      document.getElementById(
+        "city"
+      ).value.trim();
+
+
+    const workspace =
+      document.getElementById(
+        "workspace"
+      ).value;
+
+
+    const existingBusiness =
+      document.getElementById(
+        "existingBusiness"
+      ).value;
+
+
+    const investment =
+      document.getElementById(
+        "investment"
+      ).value;
+
+
+    const message =
+      document.getElementById(
+        "message"
+      ).value.trim();
+
+
+    /* =========================
+       BASIC VALIDATION
+    ========================= */
+
+    if(
+      !name ||
+      !mobile ||
+      !pincode ||
+      !area
+    ){
+
+      alert(
+        "Please fill all required fields."
+      );
+
+      return;
+
+    }
+
+
+    if(
+      !/^\d{6}$/.test(
+        pincode
+      )
+    ){
+
+      alert(
+        "Please enter a valid 6 digit Pincode."
+      );
+
+      return;
+
+    }
+
+
+    if(
+      mobile.replace(
+        /\D/g,
+        ""
+      ).length < 10
+    ){
+
+      alert(
+        "Please enter a valid mobile number."
+      );
+
+      return;
+
+    }
+
+
+    /* =========================
+       BUILD MESSAGE
+    ========================= */
+
+    let text =
+
+      "🥕 *Pyncode Chops Franchise Enquiry*" +
+
+      "\n\n" +
+
+      "👤 Name: " +
+      name +
+
+      "\n📱 Mobile: " +
+      mobile +
+
+      "\n💬 WhatsApp: " +
+      (
+        whatsapp || "Not provided"
+      ) +
+
+      "\n📍 Pincode: " +
+      pincode +
+
+      "\n🏠 Area: " +
+      area +
+
+      "\n🏙️ City: " +
+      (
+        city || "Not provided"
+      ) +
+
+      "\n🏪 Shop / Workspace: " +
+      (
+        workspace || "Not specified"
+      ) +
+
+      "\n💼 Existing Business: " +
+      (
+        existingBusiness ||
+        "Not specified"
+      ) +
+
+      "\n💰 Investment Range: " +
+      (
+        investment ||
+        "Not specified"
+      ) +
+
+      "\n📝 Message: " +
+      (
+        message ||
+        "No additional message"
+      );
+
+
+    /* =========================
+       WHATSAPP URL
+    ========================= */
+
+    const whatsappUrl =
+      "https://wa.me/" +
+      franchiseWhatsapp +
+      "?text=" +
+      encodeURIComponent(
+        text
+      );
+
+
+    successWhatsapp.href =
+      whatsappUrl;
+
+
+    successPopup.classList.add(
+      "show"
+    );
+
+
+    /*
+      Keep entered data until the
+      user sends / closes.
+    */
+
+  }
+);
+
+
+/* =========================
+   CLOSE SUCCESS
+========================= */
+
+successClose.addEventListener(
+  "click",
+  function(){
+
+    successPopup.classList.remove(
+      "show"
+    );
+
+  }
+);
+
+
+/* =========================
+   CLOSE OUTSIDE
+========================= */
+
+successPopup.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target ===
+      successPopup
+    ){
+
+      successPopup.classList.remove(
+        "show"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   PINCODE ONLY NUMBERS
+========================= */
+
+document
+  .getElementById("pincode")
+  .addEventListener(
+    "input",
+    function(){
+
+      this.value =
+        this.value
+          .replace(
+            /\D/g,
+            ""
+          )
+          .slice(
+            0,
+            6
+          );
+
+    }
+  );
+
+
+/* =========================
+   MOBILE ONLY NUMBERS
+========================= */
+
+document
+  .getElementById("mobile")
+  .addEventListener(
+    "input",
+    function(){
+
+      this.value =
+        this.value
+          .replace(
+            /\D/g,
+            ""
+          )
+          .slice(
+            0,
+            15
+          );
+
+    }
+  );
+
+
+document
+  .getElementById("whatsapp")
+  .addEventListener(
+    "input",
+    function(){
+
+      this.value =
+        this.value
+          .replace(
+            /\D/g,
+            ""
+          )
+          .slice(
+            0,
+            15
+          );
+
+    }
+  );
+
+</script>
+
+</body>
+
+</html>

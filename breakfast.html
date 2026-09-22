@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Breakfast | Innaiku Enna Samayal?</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#fffaf5;
+    color:#29231f;
+}
+
+button{
+    font-family:inherit;
+}
+
+.topbar{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:#fffaf5;
+    border-bottom:1px solid #eee2d7;
+}
+
+.topbar-inner{
+    max-width:1000px;
+    margin:auto;
+    padding:12px 15px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.back{
+    display:inline-block;
+    padding:9px 12px;
+    border:1px solid #eee2d7;
+    border-radius:10px;
+    background:#fff;
+    font-size:13px;
+    font-weight:bold;
+    color:#29231f;
+    text-decoration:none;
+}
+
+.brand{
+    text-align:right;
+}
+
+.brand strong{
+    display:block;
+    font-size:15px;
+}
+
+.brand span{
+    font-size:10px;
+    color:#777;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:15px;
+}
+
+.hero{
+    padding:25px 20px;
+    border-radius:20px;
+    background:#fff0df;
+    border:1px solid #eee2d7;
+}
+
+.hero-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.hero h1{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.hero p{
+    color:#756d67;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.search{
+    margin-top:15px;
+}
+
+.search input{
+    width:100%;
+    height:48px;
+    border:1px solid #eee2d7;
+    border-radius:12px;
+    padding:0 15px;
+    outline:none;
+    background:#fff;
+    font-size:14px;
+}
+
+.section{
+    margin-top:25px;
+}
+
+.section h2{
+    font-size:21px;
+    margin-bottom:13px;
+}
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.category{
+    width:100%;
+    min-height:112px;
+    padding:15px;
+    background:#fff;
+    border:1px solid #eee2d7;
+    border-radius:15px;
+    text-align:left;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(70,45,20,.04);
+}
+
+.category:active{
+    transform:scale(.98);
+    background:#fff4e8;
+}
+
+.category-icon{
+    font-size:25px;
+    margin-bottom:7px;
+}
+
+.category h3{
+    font-size:14px;
+    margin-bottom:4px;
+}
+
+.category p{
+    font-size:11px;
+    color:#777;
+}
+
+@media(min-width:650px){
+
+    .categories{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+}
+
+@media(max-width:380px){
+
+    .categories{
+        grid-template-columns:1fr;
+    }
+
+}
+
+
+/* ==============================
+   SOURCE MENU
+============================== */
+
+.source-menu{
+    display:none;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================
+     TOP BAR
+================================= -->
+
+<header class="topbar">
+
+<div class="topbar-inner">
+
+<a
+href="innaiku-enna-samayal.html"
+class="back"
+>
+← Samayal Home
+</a>
+
+
+<div class="brand">
+
+<strong>
+🍳 Breakfast
+</strong>
+
+<span>
+Pyncode Planner
+</span>
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<!-- =================================
+     MAIN
+================================= -->
+
+<main class="container">
+
+
+<!-- =================================
+     HERO
+================================= -->
+
+<section class="hero">
+
+<div class="hero-icon">
+🍳
+</div>
+
+<h1>
+Breakfast Menu
+</h1>
+
+<p>
+Simple breakfast & tiffin menu.
+Ingredients, recipe details illa.
+Menu list mattum.
+</p>
+
+
+<div class="search">
+
+<input
+type="search"
+id="searchInput"
+placeholder="Breakfast menu search pannunga..."
+>
+
+</div>
+
+</section>
+
+
+
+<!-- =================================
+     CATEGORY AREA
+================================= -->
+
+<section class="section">
+
+<h2>
+🍽️ Breakfast Categories
+</h2>
+
+
+<div
+class="categories"
+>
+
+<!--
+JavaScript automatically
+creates all category cards here.
+-->
+
+</div>
+
+
+</section>
+
+  <section
+id="common-menu"
+class="source-menu"
+>
+
+<h2>🍽️ Common Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🍚 Idli</div>
+
+<div class="menu-item">🥞 Dosa</div>
+
+<div class="menu-item">🥔 Masala Dosa</div>
+
+<div class="menu-item">🧅 Onion Dosa</div>
+
+<div class="menu-item">🌶️ Podi Dosa</div>
+
+<div class="menu-item">🥞 Rava Dosa</div>
+
+<div class="menu-item">🧈 Ghee Roast</div>
+
+<div class="menu-item">📄 Paper Roast</div>
+
+<div class="menu-item">🍅 Tomato Dosa</div>
+
+<div class="menu-item">🌿 Coriander Dosa</div>
+
+<div class="menu-item">🌿 Mint Dosa</div>
+
+<div class="menu-item">🥬 Vegetable Dosa</div>
+
+<div class="menu-item">🧀 Cheese Dosa</div>
+
+<div class="menu-item">🧀 Paneer Dosa</div>
+
+<div class="menu-item">🥞 Uthappam</div>
+
+<div class="menu-item">🧅 Onion Uthappam</div>
+
+<div class="menu-item">🍅 Tomato Uthappam</div>
+
+<div class="menu-item">🌶️ Podi Uthappam</div>
+
+<div class="menu-item">🥕 Vegetable Uthappam</div>
+
+<div class="menu-item">🍚 Ven Pongal</div>
+
+<div class="menu-item">🌶️ Milagu Pongal</div>
+
+<div class="menu-item">🍯 Sakkarai Pongal</div>
+
+<div class="menu-item">🥣 Rava Upma</div>
+
+<div class="menu-item">🥕 Vegetable Upma</div>
+
+<div class="menu-item">🍜 Semiya Upma</div>
+
+<div class="menu-item">🥕 Vegetable Semiya</div>
+
+<div class="menu-item">🍋 Aval Upma</div>
+
+<div class="menu-item">🍚 Poha</div>
+
+<div class="menu-item">🥕 Vegetable Poha</div>
+
+<div class="menu-item">🍜 Lemon Sevai</div>
+
+<div class="menu-item">🥥 Thengai Sevai</div>
+
+<div class="menu-item">🌶️ Puli Sevai</div>
+
+<div class="menu-item">🥣 Kichadi</div>
+
+<div class="menu-item">🥕 Vegetable Kichadi</div>
+
+<div class="menu-item">🥔 Poori</div>
+
+<div class="menu-item">🥔 Poori Masala</div>
+
+<div class="menu-item">🫓 Chapati</div>
+
+<div class="menu-item">🫓 Chapati Kurma</div>
+
+<div class="menu-item">🫓 Plain Parotta</div>
+
+<div class="menu-item">🍛 Parotta Kurma</div>
+
+<div class="menu-item">🍛 Parotta Salna</div>
+
+<div class="menu-item">🍳 Kothu Parotta</div>
+
+<div class="menu-item">🥚 Egg Parotta</div>
+
+<div class="menu-item">🥚 Egg Kothu Parotta</div>
+
+<div class="menu-item">🍘 Adai</div>
+
+<div class="menu-item">🥞 Paniyaram</div>
+
+<div class="menu-item">🥞 Kuzhi Paniyaram</div>
+
+<div class="menu-item">🍚 Idiyappam</div>
+
+<div class="menu-item">🥥 Appam</div>
+
+<div class="menu-item">🌾 Pesarattu</div>
+
+  <div class="menu-item">🌾 Ragi Dosa</div>
+
+<div class="menu-item">🌾 Ragi Idli</div>
+
+<div class="menu-item">🌾 Kambu Dosa</div>
+
+<div class="menu-item">🌾 Kambu Koozh</div>
+
+<div class="menu-item">🌾 Thinai Pongal</div>
+
+<div class="menu-item">🌾 Millet Dosa</div>
+
+<div class="menu-item">🌾 Millet Idli</div>
+
+<div class="menu-item">🥣 Millet Upma</div>
+
+<div class="menu-item">🥣 Oats Upma</div>
+
+<div class="menu-item">🥞 Oats Dosa</div>
+
+<div class="menu-item">🫓 Wheat Dosa</div>
+
+<div class="menu-item">🍚 Kanchipuram Idli</div>
+
+<div class="menu-item">🍚 Mini Idli</div>
+
+<div class="menu-item">🍚 Podi Idli</div>
+
+<div class="menu-item">🧈 Ghee Podi Idli</div>
+
+<div class="menu-item">🍚 Sambar Idli</div>
+
+<div class="menu-item">🥚 Egg Dosa</div>
+
+<div class="menu-item">🥚 Egg Onion Dosa</div>
+
+<div class="menu-item">🥚 Egg Uthappam</div>
+
+<div class="menu-item">🍳 Omelette</div>
+
+<div class="menu-item">🌶️ Masala Omelette</div>
+
+<div class="menu-item">🧅 Onion Omelette</div>
+
+<div class="menu-item">🍳 Egg Bhurji</div>
+
+<div class="menu-item">🥚 Boiled Egg</div>
+
+<div class="menu-item">🍞 Bread Omelette</div>
+
+<div class="menu-item">🥪 Egg Sandwich</div>
+
+<div class="menu-item">🍞 Bread Toast</div>
+
+<div class="menu-item">🧈 Butter Toast</div>
+
+<div class="menu-item">🍓 Jam Bread</div>
+
+<div class="menu-item">🍞 French Toast</div>
+
+<div class="menu-item">🥪 Vegetable Sandwich</div>
+
+<div class="menu-item">🧀 Cheese Sandwich</div>
+
+<div class="menu-item">🥞 Pancake</div>
+
+<div class="menu-item">🍌 Banana Pancake</div>
+
+<div class="menu-item">🥣 Ragi Porridge</div>
+
+<div class="menu-item">🥣 Oats Porridge</div>
+
+<div class="menu-item">🍚 Puttu</div>
+
+<div class="menu-item">🍛 Puttu Kadala</div>
+
+<div class="menu-item">🥥 Idiyappam Coconut Milk</div>
+
+<div class="menu-item">🍛 Kerala Vegetable Stew</div>
+
+<div class="menu-item">🥞 Kerala Appam</div>
+
+<div class="menu-item">🫓 Kerala Parotta</div>
+
+<div class="menu-item">🥯 Mysore Bonda</div>
+
+<div class="menu-item">🥨 Masala Vada</div>
+
+<div class="menu-item">🥨 Paruppu Vada</div>
+
+<div class="menu-item">🥨 Rava Vada</div>
+
+<div class="menu-item">🍽️ Vada</div>
+
+<div class="menu-item">🍛 Sambar Vada</div>
+
+<div class="menu-item">🥣 Curd Vada</div>
+
+<div class="menu-item">🍚 Rava Idli</div>
+
+<div class="menu-item">🌿 Keerai Vada</div>
+
+<div class="menu-item">🥥 Thengai Paniyaram</div>
+
+<div class="menu-item">🍚 Kara Kozhukattai</div>
+
+<div class="menu-item">🍚 Pidi Kozhukattai</div>
+
+<div class="menu-item">🍯 Sweet Kozhukattai</div>
+
+<div class="menu-item">🍚 Rice Upma</div>
+
+<div class="menu-item">🍚 Arisi Upma</div>
+
+<div class="menu-item">🌿 Adai Avial</div>
+
+<div class="menu-item">🥞 Set Dosa</div>
+
+<div class="menu-item">🥞 Neer Dosa</div>
+
+<div class="menu-item">🥞 Mysore Masala Dosa</div>
+
+<div class="menu-item">🧈 Butter Roast</div>
+
+<div class="menu-item">🌶️ Masala Uthappam</div>
+
+<div class="menu-item">🧀 Cheese Uthappam</div>
+
+<div class="menu-item">🧀 Cheese Masala Dosa</div>
+
+<div class="menu-item">🍄 Mushroom Dosa</div>
+
+<div class="menu-item">🍄 Mushroom Masala Dosa</div>
+
+<div class="menu-item">🧀 Paneer Masala Dosa</div>
+
+<div class="menu-item">🥕 Vegetable Kothu Parotta</div>
+
+<div class="menu-item">🧀 Paneer Kothu Parotta</div>
+
+<div class="menu-item">🥚 Egg Kothu Parotta</div>
+
+<div class="menu-item">🥚 Egg Curry</div>
+
+<div class="menu-item">🍳 Egg Masala</div>
+
+<div class="menu-item">🍞 Bread Upma</div>
+
+<div class="menu-item">🍌 Banana Toast</div>
+
+<div class="menu-item">🥣 Cornflakes</div>
+
+<div class="menu-item">🥣 Muesli</div>
+
+<div class="menu-item">🥜 Peanut Butter Toast</div>
+
+<div class="menu-item">🍎 Fruit Bowl</div>
+
+<div class="menu-item">🥣 Fruit Yogurt Bowl</div>
+
+<div class="menu-item">🥣 Sabudana Khichdi</div>
+
+<div class="menu-item">🥞 Besan Chilla</div>
+
+<div class="menu-item">🥞 Moong Dal Chilla</div>
+
+<div class="menu-item">🥕 Vegetable Chilla</div>
+
+<div class="menu-item">🫓 Aloo Paratha</div>
+
+<div class="menu-item">🫓 Gobi Paratha</div>
+
+<div class="menu-item">🫓 Paneer Paratha</div>
+
+<div class="menu-item">🫓 Methi Paratha</div>
+
+<div class="menu-item">🫓 Palak Paratha</div>
+
+<div class="menu-item">🍛 Chole Bhature</div>
+
+<div class="menu-item">🍛 Poori Chole</div>
+
+<div class="menu-item">🥔 Puri Bhaji</div>
+
+<div class="menu-item">🫓 Stuffed Kulcha</div>
+
+<div class="menu-item">🍚 Hotel Style Pongal</div>
+
+<div class="menu-item">🧈 Ghee Pongal</div>
+
+<div class="menu-item">🥣 Rava Kichadi</div>
+
+<div class="menu-item">🍯 Rava Kesari</div>
+
+<div class="menu-item">🍯 Kesari Bath</div>
+
+<div class="menu-item">🌶️ Khara Bath</div>
+
+<div class="menu-item">🥕 Chow Chow Bath</div>
+
+<div class="menu-item">🌾 Ragi Rotti</div>
+
+<div class="menu-item">🍚 Akki Rotti</div>
+
+<div class="menu-item">🥞 Benne Dosa</div>
+
+<div class="menu-item">🥞 Davangere Benne Dosa</div>
+
+<div class="menu-item">🥯 Mangalore Buns</div>
+
+<div class="menu-item">🥨 Maddur Vada</div>
+
+<div class="menu-item">🍚 Thatte Idli</div>
+
+<div class="menu-item">🍚 Kotte Kadubu</div>
+
+<div class="menu-item">🍚 Vegetable Idli</div>
+
+<div class="menu-item">🍋 Lemon Idli</div>
+
+<div class="menu-item">🌶️ Podi Idli</div>
+
+<div class="menu-item">🍅 Tomato Idli</div>
+
+<div class="menu-item">🌶️ Masala Idli</div>
+
+<div class="menu-item">🔥 Fried Idli</div>
+
+<div class="menu-item">🧈 Ghee Idli</div>
+
+<div class="menu-item">🍚 Kothu Idiyappam</div>
+
+<div class="menu-item">🍋 Lemon Sevai</div>
+
+<div class="menu-item">🥥 Coconut Sevai</div>
+
+<div class="menu-item">🍅 Tomato Sevai</div>
+
+<div class="menu-item">🥕 Vegetable Sevai</div>
+
+<div class="menu-item">🥣 Curd Semiya</div>
+
+<div class="menu-item">🍋 Lemon Poha</div>
+
+<div class="menu-item">🥜 Peanut Poha</div>
+
+<div class="menu-item">🥕 Vegetable Poha</div>
+
+<div class="menu-item">🌿 Pesarattu Upma</div>
+
+<div class="menu-item">🥞 Green Gram Dosa</div>
+
+<div class="menu-item">🌾 Kambu Adai</div>
+
+<div class="menu-item">🌾 Ragi Adai</div>
+
+<div class="menu-item">🌾 Millet Adai</div>
+
+<div class="menu-item">🌾 Thinai Adai</div>
+
+<div class="menu-item">🥣 Kambu Koozh</div>
+
+<div class="menu-item">🥣 Ragi Koozh</div>
+
+<div class="menu-item">🍚 Sweet Pongal</div>
+
+<div class="menu-item">🍚 Ven Pongal Vada</div>
+
+<div class="menu-item">🍽️ Idli Vada</div>
+
+<div class="menu-item">🍽️ Idli Vada Sambar</div>
+
+<div class="menu-item">🍽️ Pongal Vada</div>
+
+<div class="menu-item">🍽️ Pongal Vada Sambar</div>
+
+<div class="menu-item">🍽️ Dosa Vada</div>
+
+<div class="menu-item">🍽️ Poori Vada</div>
+
+<div class="menu-item">🍽️ Breakfast Combo</div>
+
+</div>
+
+</section>
+
+  <section
+id="quick-menu"
+class="source-menu"
+>
+
+<h2>⚡ Quick Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🍞 Bread Toast</div>
+<div class="menu-item">🧈 Butter Toast</div>
+<div class="menu-item">🍓 Jam Bread</div>
+<div class="menu-item">🥪 Vegetable Sandwich</div>
+<div class="menu-item">🧀 Cheese Sandwich</div>
+<div class="menu-item">🥚 Egg Sandwich</div>
+<div class="menu-item">🍳 Bread Omelette</div>
+<div class="menu-item">🍞 Bread Upma</div>
+<div class="menu-item">🍌 Banana Toast</div>
+<div class="menu-item">🥜 Peanut Butter Toast</div>
+<div class="menu-item">🥣 Oats Porridge</div>
+<div class="menu-item">🥣 Oats Upma</div>
+<div class="menu-item">🥞 Instant Rava Dosa</div>
+<div class="menu-item">🍚 Aval Upma</div>
+<div class="menu-item">🍚 Poha</div>
+<div class="menu-item">🍜 Semiya Upma</div>
+<div class="menu-item">🍜 Lemon Sevai</div>
+<div class="menu-item">🍚 Lemon Idli</div>
+<div class="menu-item">🌶️ Podi Idli</div>
+<div class="menu-item">🥚 Boiled Egg</div>
+<div class="menu-item">🍳 Omelette</div>
+<div class="menu-item">🥚 Egg Bhurji</div>
+<div class="menu-item">🥞 Dosa</div>
+<div class="menu-item">🍚 Idli</div>
+<div class="menu-item">🥣 Rava Upma</div>
+<div class="menu-item">🍜 Instant Noodles</div>
+<div class="menu-item">🍜 Vegetable Noodles</div>
+<div class="menu-item">🥣 Cornflakes</div>
+<div class="menu-item">🥣 Muesli</div>
+
+</div>
+
+</section>
+
+
+<section
+id="hotel-menu"
+class="source-menu"
+>
+
+<h2>🏨 Hotel Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🍚 Idli</div>
+<div class="menu-item">🍚 Mini Idli</div>
+<div class="menu-item">🍚 Podi Idli</div>
+<div class="menu-item">🍚 Sambar Idli</div>
+<div class="menu-item">🥞 Dosa</div>
+<div class="menu-item">🥔 Masala Dosa</div>
+<div class="menu-item">🧅 Onion Dosa</div>
+<div class="menu-item">🌶️ Podi Dosa</div>
+<div class="menu-item">🥞 Rava Dosa</div>
+<div class="menu-item">🧈 Ghee Roast</div>
+<div class="menu-item">📄 Paper Roast</div>
+<div class="menu-item">🥞 Uthappam</div>
+<div class="menu-item">🍚 Ven Pongal</div>
+<div class="menu-item">🥣 Rava Upma</div>
+<div class="menu-item">🥣 Rava Kichadi</div>
+<div class="menu-item">🥔 Poori Masala</div>
+<div class="menu-item">🍽️ Vada</div>
+<div class="menu-item">🍽️ Sambar Vada</div>
+<div class="menu-item">🥣 Curd Vada</div>
+<div class="menu-item">🥞 Set Dosa</div>
+
+</div>
+
+</section>
+
+  <section
+id="special-menu"
+class="source-menu"
+>
+
+<h2>⭐ Special Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🧈 Benne Dosa</div>
+<div class="menu-item">🥞 Davangere Benne Dosa</div>
+<div class="menu-item">🥞 Mysore Masala Dosa</div>
+<div class="menu-item">🧀 Cheese Masala Dosa</div>
+<div class="menu-item">🧀 Paneer Masala Dosa</div>
+<div class="menu-item">🍄 Mushroom Masala Dosa</div>
+<div class="menu-item">🍚 Kanchipuram Idli</div>
+<div class="menu-item">🥞 Neer Dosa</div>
+<div class="menu-item">🍚 Kothu Idiyappam</div>
+<div class="menu-item">🍚 Puttu Kadala</div>
+<div class="menu-item">🥥 Appam</div>
+<div class="menu-item">🥥 Kerala Appam</div>
+<div class="menu-item">🥯 Mangalore Buns</div>
+<div class="menu-item">🥯 Mysore Bonda</div>
+<div class="menu-item">🥨 Maddur Vada</div>
+<div class="menu-item">🍚 Thatte Idli</div>
+<div class="menu-item">🍚 Kotte Kadubu</div>
+<div class="menu-item">🍘 Adai Avial</div>
+<div class="menu-item">🌾 Pesarattu</div>
+<div class="menu-item">🌾 Ragi Rotti</div>
+<div class="menu-item">🍚 Akki Rotti</div>
+<div class="menu-item">🥞 Ghee Roast</div>
+<div class="menu-item">📄 Paper Roast</div>
+<div class="menu-item">🌶️ Podi Masala Dosa</div>
+<div class="menu-item">🧅 Onion Rava Dosa</div>
+
+</div>
+
+</section>
+
+
+<section
+id="office-menu"
+class="source-menu"
+>
+
+<h2>💼 Office Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🍚 Idli</div>
+<div class="menu-item">🥞 Dosa</div>
+<div class="menu-item">🫓 Chapati</div>
+<div class="menu-item">🥪 Vegetable Sandwich</div>
+<div class="menu-item">🥚 Egg Sandwich</div>
+<div class="menu-item">🍳 Bread Omelette</div>
+<div class="menu-item">🥣 Oats Upma</div>
+<div class="menu-item">🍚 Poha</div>
+<div class="menu-item">🍜 Semiya Upma</div>
+<div class="menu-item">🍚 Aval Upma</div>
+<div class="menu-item">🥣 Rava Upma</div>
+<div class="menu-item">🌾 Ragi Dosa</div>
+<div class="menu-item">🌾 Millet Dosa</div>
+<div class="menu-item">🍎 Fruit Bowl</div>
+<div class="menu-item">🥣 Muesli</div>
+
+</div>
+
+</section>
+
+  <section
+id="kids-menu"
+class="source-menu"
+>
+
+<h2>👧 Kids Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🍚 Mini Idli</div>
+<div class="menu-item">🥞 Mini Dosa</div>
+<div class="menu-item">🧀 Cheese Dosa</div>
+<div class="menu-item">🧀 Cheese Sandwich</div>
+<div class="menu-item">🍞 French Toast</div>
+<div class="menu-item">🥞 Pancake</div>
+<div class="menu-item">🍌 Banana Pancake</div>
+<div class="menu-item">🍞 Bread Toast</div>
+<div class="menu-item">🍓 Jam Bread</div>
+<div class="menu-item">🥔 Poori</div>
+<div class="menu-item">🥔 Poori Masala</div>
+<div class="menu-item">🍚 Ven Pongal</div>
+<div class="menu-item">🥣 Rava Upma</div>
+<div class="menu-item">🍜 Semiya Upma</div>
+<div class="menu-item">🥪 Vegetable Sandwich</div>
+
+</div>
+
+</section>
+
+
+<section
+id="healthy-menu"
+class="source-menu"
+>
+
+<h2>🌱 Healthy Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🌾 Ragi Dosa</div>
+<div class="menu-item">🌾 Ragi Idli</div>
+<div class="menu-item">🌾 Kambu Dosa</div>
+<div class="menu-item">🌾 Millet Dosa</div>
+<div class="menu-item">🌾 Millet Idli</div>
+<div class="menu-item">🥣 Millet Upma</div>
+<div class="menu-item">🥞 Oats Dosa</div>
+<div class="menu-item">🥣 Oats Upma</div>
+<div class="menu-item">🥣 Oats Porridge</div>
+<div class="menu-item">🌾 Ragi Porridge</div>
+<div class="menu-item">🌾 Pesarattu</div>
+<div class="menu-item">🥞 Moong Dal Chilla</div>
+<div class="menu-item">🥞 Besan Chilla</div>
+<div class="menu-item">🥕 Vegetable Chilla</div>
+<div class="menu-item">🍎 Fruit Bowl</div>
+<div class="menu-item">🥣 Fruit Yogurt Bowl</div>
+<div class="menu-item">🥣 Muesli</div>
+<div class="menu-item">🥜 Peanut Butter Toast</div>
+<div class="menu-item">🌾 Ragi Rotti</div>
+<div class="menu-item">🍘 Adai</div>
+
+</div>
+
+</section>
+
+  <section
+id="egg-menu"
+class="source-menu"
+>
+
+<h2>🥚 Egg Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🍳 Omelette</div>
+<div class="menu-item">🌶️ Masala Omelette</div>
+<div class="menu-item">🧅 Onion Omelette</div>
+<div class="menu-item">🍳 Egg Bhurji</div>
+<div class="menu-item">🥚 Boiled Egg</div>
+<div class="menu-item">🥞 Egg Dosa</div>
+<div class="menu-item">🧅 Egg Onion Dosa</div>
+<div class="menu-item">🥞 Egg Uthappam</div>
+<div class="menu-item">🫓 Egg Parotta</div>
+<div class="menu-item">🍳 Egg Kothu Parotta</div>
+<div class="menu-item">🍞 Bread Omelette</div>
+<div class="menu-item">🥪 Egg Sandwich</div>
+<div class="menu-item">🍛 Egg Curry</div>
+<div class="menu-item">🌶️ Egg Masala</div>
+
+</div>
+
+</section>
+
+
+<section
+id="lunchbox-menu"
+class="source-menu"
+>
+
+<h2>🍱 Lunch Box Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🍚 Idli</div>
+<div class="menu-item">🌶️ Podi Idli</div>
+<div class="menu-item">🍋 Lemon Idli</div>
+<div class="menu-item">🥞 Dosa</div>
+<div class="menu-item">🌶️ Podi Dosa</div>
+<div class="menu-item">🧅 Onion Dosa</div>
+<div class="menu-item">🫓 Chapati</div>
+<div class="menu-item">🥪 Vegetable Sandwich</div>
+<div class="menu-item">🥚 Egg Sandwich</div>
+<div class="menu-item">🍳 Bread Omelette</div>
+<div class="menu-item">🍚 Poha</div>
+<div class="menu-item">🍚 Aval Upma</div>
+<div class="menu-item">🍜 Semiya Upma</div>
+<div class="menu-item">🥣 Oats Upma</div>
+<div class="menu-item">🌾 Ragi Dosa</div>
+<div class="menu-item">🌾 Millet Dosa</div>
+
+</div>
+
+</section>
+
+  <section
+id="bachelor-menu"
+class="source-menu"
+>
+
+<h2>👨‍🍳 Bachelor Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🍞 Bread Toast</div>
+<div class="menu-item">🍳 Omelette</div>
+<div class="menu-item">🍞 Bread Omelette</div>
+<div class="menu-item">🥚 Boiled Egg</div>
+<div class="menu-item">🥪 Egg Sandwich</div>
+<div class="menu-item">🍜 Instant Noodles</div>
+<div class="menu-item">🍜 Vegetable Noodles</div>
+<div class="menu-item">🥣 Oats</div>
+<div class="menu-item">🍚 Poha</div>
+<div class="menu-item">🍚 Aval Upma</div>
+<div class="menu-item">🍜 Semiya Upma</div>
+<div class="menu-item">🥣 Rava Upma</div>
+<div class="menu-item">🍚 Idli</div>
+<div class="menu-item">🥞 Dosa</div>
+<div class="menu-item">🫓 Chapati</div>
+
+</div>
+
+</section>
+
+
+<section
+id="budget-menu"
+class="source-menu"
+>
+
+<h2>💰 Budget Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🍚 Idli</div>
+<div class="menu-item">🥣 Rava Upma</div>
+<div class="menu-item">🍚 Aval Upma</div>
+<div class="menu-item">🍚 Poha</div>
+<div class="menu-item">🍜 Semiya Upma</div>
+<div class="menu-item">🍞 Bread Toast</div>
+<div class="menu-item">🍞 Bread Upma</div>
+<div class="menu-item">🥚 Boiled Egg</div>
+<div class="menu-item">🍳 Omelette</div>
+<div class="menu-item">🥞 Dosa</div>
+<div class="menu-item">🫓 Chapati</div>
+<div class="menu-item">🍘 Adai</div>
+<div class="menu-item">🥞 Paniyaram</div>
+<div class="menu-item">🥣 Ragi Koozh</div>
+
+</div>
+
+</section>
+
+  <section
+id="traditional-menu"
+class="source-menu"
+>
+
+<h2>🪔 Traditional Menu</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🍚 Ven Pongal</div>
+<div class="menu-item">🍯 Sakkarai Pongal</div>
+<div class="menu-item">🍘 Adai</div>
+<div class="menu-item">🍘 Adai Avial</div>
+<div class="menu-item">🥞 Paniyaram</div>
+<div class="menu-item">🥞 Kuzhi Paniyaram</div>
+<div class="menu-item">🍚 Kanchipuram Idli</div>
+<div class="menu-item">🍚 Pidi Kozhukattai</div>
+<div class="menu-item">🍚 Kara Kozhukattai</div>
+<div class="menu-item">🍚 Sweet Kozhukattai</div>
+<div class="menu-item">🍚 Puttu</div>
+<div class="menu-item">🥥 Appam</div>
+<div class="menu-item">🍚 Idiyappam</div>
+<div class="menu-item">🌾 Ragi Koozh</div>
+<div class="menu-item">🌾 Kambu Koozh</div>
+<div class="menu-item">🌾 Ragi Rotti</div>
+
+</div>
+
+</section>
+
+
+<section
+id="thottuka-menu"
+class="source-menu"
+>
+
+<h2>🥣 Thottuka</h2>
+
+<div class="menu-list">
+
+<div class="menu-item">🥥 Coconut Chutney</div>
+<div class="menu-item">🍅 Tomato Chutney</div>
+<div class="menu-item">🌿 Mint Chutney</div>
+<div class="menu-item">🌿 Coriander Chutney</div>
+<div class="menu-item">🧅 Onion Chutney</div>
+<div class="menu-item">🌶️ Chilli Chutney</div>
+<div class="menu-item">🥜 Peanut Chutney</div>
+<div class="menu-item">🌶️ Podi</div>
+<div class="menu-item">🍛 Sambar</div>
+<div class="menu-item">🥔 Potato Masala</div>
+<div class="menu-item">🥕 Vegetable Kurma</div>
+<div class="menu-item">🍛 Salna</div>
+<div class="menu-item">🥬 Avial</div>
+<div class="menu-item">🥥 Coconut Milk</div>
+<div class="menu-item">🍛 Kadala Curry</div>
+<div class="menu-item">🍛 Gothsu</div>
+<div class="menu-item">🥣 Vegetable Stew</div>
+<div class="menu-item">🥛 Curd</div>
+<div class="menu-item">🥒 Pickle</div>
+
+</div>
+
+</section>
+
+
+<!-- HIDDEN SOURCE MENUS END -->
+
+</main>
+
+  <!-- =========================================================
+     POPUP
+========================================================= -->
+
+<div
+id="menuPopup"
+class="popup-overlay"
+>
+
+<div class="menu-popup">
+
+<div class="popup-header">
+
+<div>
+
+<strong id="popupTitle">
+🍽️ Menu
+</strong>
+
+<span>
+Select your breakfast menu
+</span>
+
+</div>
+
+<button
+type="button"
+class="popup-close"
+id="popupClose"
+>
+✕
+</button>
+
+</div>
+
+
+<div class="popup-search">
+
+<input
+type="search"
+id="popupSearch"
+placeholder="Indha menu-la search pannunga..."
+>
+
+</div>
+
+
+<div
+id="popupList"
+class="popup-list"
+></div>
+
+
+</div>
+
+</div>
+
+
+<footer class="footer">
+
+<strong>
+🍳 Innaiku Enna Samayal?
+</strong>
+
+<p>
+Breakfast menu simple-aa choose pannunga.
+</p>
+
+<a
+href="innaiku-enna-samayal.html"
+>
+← Samayal Home
+</a>
+
+<small>
+© Pyncode Planner
+</small>
+
+</footer>
+
+
+<style>
+
+/* =================================
+   HIDDEN SOURCE MENUS
+================================= */
+
+.source-menu{
+    display:none;
+}
+
+
+/* =================================
+   POPUP
+================================= */
+
+.popup-overlay{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:rgba(35,25,18,.58);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.popup-overlay.active{
+    display:flex;
+}
+
+.menu-popup{
+    width:100%;
+    max-width:750px;
+    max-height:90vh;
+    background:#fffaf5;
+    border-radius:22px 22px 0 0;
+    overflow:hidden;
+    box-shadow:0 -10px 35px rgba(0,0,0,.2);
+}
+
+.popup-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px;
+    background:#fff0df;
+    border-bottom:1px solid #eee2d7;
+}
+
+.popup-header strong{
+    display:block;
+    font-size:18px;
+}
+
+.popup-header span{
+    display:block;
+    margin-top:4px;
+    font-size:11px;
+    color:#777;
+}
+
+.popup-close{
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:50%;
+    background:#fff;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.popup-search{
+    padding:12px 15px 5px;
+}
+
+.popup-search input{
+    width:100%;
+    height:44px;
+    border:1px solid #eee2d7;
+    border-radius:11px;
+    padding:0 13px;
+    background:#fff;
+    outline:none;
+    font-size:13px;
+}
+
+.popup-list{
+    padding:10px 15px 20px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:9px;
+    overflow-y:auto;
+    max-height:calc(90vh - 125px);
+}
+
+.popup-item{
+    min-height:50px;
+    padding:12px;
+    display:flex;
+    align-items:center;
+    background:#fff;
+    border:1px solid #eee2d7;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.no-result{
+    grid-column:1/-1;
+    text-align:center;
+    padding:30px 10px;
+    color:#777;
+    font-size:13px;
+}
+
+
+@media(min-width:650px){
+
+    .popup-list{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+
+/* =================================
+   FOOTER
+================================= */
+
+.footer{
+    margin-top:40px;
+    padding:25px 15px;
+    background:#29231f;
+    color:#fff;
+    text-align:center;
+}
+
+.footer strong{
+    display:block;
+    font-size:17px;
+    margin-bottom:6px;
+}
+
+.footer p{
+    font-size:12px;
+    opacity:.75;
+    margin-bottom:14px;
+}
+
+.footer a{
+    display:inline-block;
+    padding:9px 14px;
+    background:#e85d04;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:700;
+    color:#fff;
+    text-decoration:none;
+}
+
+.footer small{
+    display:block;
+    margin-top:18px;
+    font-size:10px;
+    opacity:.55;
+}
+
+</style>
+
+
+<script>
+
+/* =================================
+   CATEGORY CARD DATA
+================================= */
+
+const categories = [
+
+{
+id:"common-menu",
+title:"🍽️ Common Menu"
+},
+
+{
+id:"quick-menu",
+title:"⚡ Quick Menu"
+},
+
+{
+id:"hotel-menu",
+title:"🏨 Hotel Menu"
+},
+
+{
+id:"special-menu",
+title:"⭐ Special Menu"
+},
+
+{
+id:"office-menu",
+title:"💼 Office Menu"
+},
+
+{
+id:"kids-menu",
+title:"👧 Kids Menu"
+},
+
+{
+id:"healthy-menu",
+title:"🌱 Healthy Menu"
+},
+
+{
+id:"egg-menu",
+title:"🥚 Egg Menu"
+},
+
+{
+id:"lunchbox-menu",
+title:"🍱 Lunch Box Menu"
+},
+
+{
+id:"bachelor-menu",
+title:"👨‍🍳 Bachelor Menu"
+},
+
+{
+id:"budget-menu",
+title:"💰 Budget Menu"
+},
+
+{
+id:"traditional-menu",
+title:"🪔 Traditional Menu"
+},
+
+{
+id:"thottuka-menu",
+title:"🥣 Thottuka"
+}
+
+];
+
+
+/* =================================
+   CREATE CATEGORY CARDS
+================================= */
+
+const categoryBox =
+document.querySelector(".categories");
+
+
+categoryBox.innerHTML = "";
+
+
+categories.forEach(function(category){
+
+const source =
+document.getElementById(category.id);
+
+const description =
+source.querySelector("h2").textContent;
+
+
+const button =
+document.createElement("button");
+
+button.type = "button";
+
+button.className = "category";
+
+button.innerHTML = `
+
+<div class="category-icon">
+${description.substring(0,2)}
+</div>
+
+<h3>
+${category.title.substring(2)}
+</h3>
+
+<p>
+Touch to view full menu
+</p>
+
+`;
+
+
+button.addEventListener(
+"click",
+function(){
+
+openMenu(category.id);
+
+});
+
+
+categoryBox.appendChild(button);
+
+});
+
+
+/* =================================
+   POPUP ELEMENTS
+================================= */
+
+const popup =
+document.getElementById("menuPopup");
+
+const popupTitle =
+document.getElementById("popupTitle");
+
+const popupList =
+document.getElementById("popupList");
+
+const popupSearch =
+document.getElementById("popupSearch");
+
+const popupClose =
+document.getElementById("popupClose");
+
+
+let currentCategory = "";
+
+
+/* =================================
+   OPEN CATEGORY POPUP
+================================= */
+
+function openMenu(categoryId){
+
+currentCategory =
+categoryId;
+
+
+const source =
+document.getElementById(categoryId);
+
+
+const heading =
+source.querySelector("h2");
+
+
+popupTitle.textContent =
+heading.textContent;
+
+
+popupList.innerHTML = "";
+
+
+const items =
+source.querySelectorAll(".menu-item");
+
+
+items.forEach(function(item){
+
+const newItem =
+document.createElement("div");
+
+newItem.className =
+"popup-item";
+
+newItem.textContent =
+item.textContent.trim();
+
+popupList.appendChild(newItem);
+
+});
+
+
+popupSearch.value = "";
+
+popup.classList.add("active");
+
+document.body.style.overflow =
+"hidden";
+
+}
+
+
+/* =================================
+   CLOSE POPUP
+================================= */
+
+function closeMenu(){
+
+popup.classList.remove("active");
+
+document.body.style.overflow =
+"";
+
+popupSearch.value = "";
+
+}
+
+
+popupClose.addEventListener(
+"click",
+closeMenu
+);
+
+
+popup.addEventListener(
+"click",
+function(event){
+
+if(event.target === popup){
+
+closeMenu();
+
+}
+
+});
+
+
+/* =================================
+   POPUP SEARCH
+================================= */
+
+popupSearch.addEventListener(
+"input",
+function(){
+
+const search =
+this.value
+.trim()
+.toLowerCase();
+
+
+const items =
+popupList.querySelectorAll(
+".popup-item"
+);
+
+
+let found = 0;
+
+
+items.forEach(function(item){
+
+const text =
+item.textContent
+.toLowerCase();
+
+
+if(text.includes(search)){
+
+item.style.display =
+"flex";
+
+found++;
+
+}else{
+
+item.style.display =
+"none";
+
+}
+
+});
+
+
+const oldMessage =
+popupList.querySelector(
+".no-result"
+);
+
+
+if(oldMessage){
+
+oldMessage.remove();
+
+}
+
+
+if(found === 0){
+
+const message =
+document.createElement("div");
+
+message.className =
+"no-result";
+
+message.textContent =
+"Menu kidaikala 😔";
+
+popupList.appendChild(message);
+
+}
+
+});
+
+
+/* =================================
+   ESCAPE KEY
+================================= */
+
+document.addEventListener(
+"keydown",
+function(event){
+
+if(event.key === "Escape"){
+
+closeMenu();
+
+}
+
+});
+
+
+/* =================================
+   TOP SEARCH
+   SEARCH ALL CATEGORIES
+================================= */
+
+const mainSearch =
+document.getElementById("searchInput");
+
+
+mainSearch.addEventListener(
+"input",
+function(){
+
+const search =
+this.value
+.trim()
+.toLowerCase();
+
+
+if(search === ""){
+
+return;
+
+}
+
+
+let foundCategory = null;
+
+
+categories.some(function(category){
+
+const source =
+document.getElementById(
+category.id
+);
+
+const items =
+source.querySelectorAll(
+".menu-item"
+);
+
+
+for(
+let i = 0;
+i < items.length;
+i++
+){
+
+const text =
+items[i]
+.textContent
+.toLowerCase();
+
+
+if(text.includes(search)){
+
+foundCategory =
+category.id;
+
+return true;
+
+}
+
+}
+
+return false;
+
+});
+
+
+if(foundCategory){
+
+openMenu(foundCategory);
+
+popupSearch.value =
+search;
+
+popupSearch.dispatchEvent(
+new Event("input")
+);
+
+}
+
+});
+
+</script>
+
+
+</body>
+
+</html>

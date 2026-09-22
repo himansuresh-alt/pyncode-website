@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Healthy Kids Menu | Pyncode Planner</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#fffaf4;
+  color:#2b211b;
+}
+
+body.no-scroll{
+  overflow:hidden;
+}
+
+/* TOPBAR */
+
+.topbar{
+  background:#ffffff;
+  border-bottom:1px solid #eadfd4;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.topbar-inner{
+  max-width:900px;
+  margin:auto;
+  min-height:64px;
+  padding:10px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.home-btn{
+  text-decoration:none;
+  color:#6b4328;
+  background:#fff3e5;
+  border:1px solid #f0ddc8;
+  padding:10px 13px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.brand-box{
+  text-align:right;
+}
+
+.brand-title{
+  font-size:17px;
+  font-weight:800;
+  color:#3b271a;
+}
+
+.brand-subtitle{
+  font-size:11px;
+  color:#9a806d;
+  margin-top:2px;
+}
+
+/* HERO */
+
+.hero{
+  max-width:900px;
+  margin:auto;
+  padding:25px 15px 18px;
+}
+
+.hero-icon{
+  font-size:34px;
+  margin-bottom:8px;
+}
+
+.hero h1{
+  font-size:28px;
+  line-height:1.15;
+  margin-bottom:7px;
+}
+
+.hero p{
+  font-size:13px;
+  line-height:1.6;
+  color:#806e60;
+  max-width:680px;
+}
+
+/* SEARCH */
+
+.main-search{
+  margin-top:18px;
+}
+
+.main-search input{
+  width:100%;
+  border:1px solid #ead9c8;
+  background:#ffffff;
+  border-radius:14px;
+  padding:14px 15px;
+  font-size:14px;
+  outline:none;
+  box-shadow:0 3px 12px rgba(90,60,30,.05);
+}
+
+.main-search input:focus{
+  border-color:#d99d62;
+}
+
+/* CATEGORIES */
+
+.categories{
+  max-width:900px;
+  margin:auto;
+  padding:8px 15px 30px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:11px;
+}
+
+.category-card{
+  background:#ffffff;
+  border:1px solid #eadfd4;
+  border-radius:16px;
+  padding:15px 13px;
+  cursor:pointer;
+  transition:.15s;
+  box-shadow:0 3px 12px rgba(70,45,25,.04);
+}
+
+.category-card:active{
+  transform:scale(.98);
+}
+
+.category-icon{
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.category-title{
+  font-size:14px;
+  font-weight:800;
+  color:#332219;
+}
+
+.category-desc{
+  font-size:11px;
+  color:#917b69;
+  margin-top:5px;
+  line-height:1.4;
+}
+
+/* SOURCE MENU */
+
+.source-menu{
+  display:none;
+}
+
+.menu-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.menu-item{
+  background:#ffffff;
+  border:1px solid #eadfd4;
+  border-radius:12px;
+  padding:11px 10px;
+  font-size:13px;
+  font-weight:700;
+}
+
+/* POPUP */
+
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(30,20,12,.45);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:100;
+}
+
+.popup-overlay.active{
+  display:flex;
+}
+
+.menu-popup{
+  width:100%;
+  max-width:700px;
+  max-height:88vh;
+  background:#fffaf4;
+  border-radius:22px 22px 0 0;
+  overflow:hidden;
+  box-shadow:0 -8px 30px rgba(0,0,0,.18);
+}
+
+.popup-header{
+  background:#fff0df;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.popup-header-left{
+  min-width:0;
+}
+
+.popup-title{
+  font-size:17px;
+  font-weight:800;
+  color:#382519;
+}
+
+.popup-subtitle{
+  font-size:11px;
+  color:#947967;
+  margin-top:3px;
+}
+
+.popup-close{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#ffffff;
+  color:#68452e;
+  font-size:17px;
+  cursor:pointer;
+}
+
+.popup-search{
+  padding:12px 15px 5px;
+  background:#fffaf4;
+}
+
+.popup-search input{
+  width:100%;
+  border:1px solid #ead9c8;
+  background:#ffffff;
+  border-radius:13px;
+  padding:13px 14px;
+  font-size:14px;
+  outline:none;
+}
+
+.popup-list{
+  padding:10px 15px 20px;
+  overflow-y:auto;
+  max-height:65vh;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.popup-item{
+  background:#ffffff;
+  border:1px solid #eadfd4;
+  border-radius:12px;
+  padding:11px 10px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.no-result{
+  grid-column:1/-1;
+  text-align:center;
+  padding:30px 10px;
+  color:#947967;
+  font-size:13px;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  padding:25px 15px 35px;
+  color:#927d6c;
+  font-size:11px;
+  line-height:1.7;
+}
+
+.footer strong{
+  color:#68452e;
+  font-size:13px;
+}
+
+/* DESKTOP */
+
+@media(min-width:700px){
+
+  .categories{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .popup-list{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+
+  <div class="topbar-inner">
+
+    <a href="innaiku-enna-samayal.html" class="home-btn">
+      ← Samayal Home
+    </a>
+
+    <div class="brand-box">
+      <div class="brand-title">👶 Kids Menu</div>
+      <div class="brand-subtitle">Pyncode Planner</div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<section class="hero">
+
+  <div class="hero-icon">👶</div>
+
+  <h1>Healthy Kids Menu</h1>
+
+  <p>
+    Homemade, simple and family-friendly food ideas.
+    Added sugar and highly processed packaged foods-ai
+    maximum-aa avoid pannitu daily menu choose pannunga.
+  </p>
+
+  <div class="main-search">
+
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Kids menu search pannunga..."
+      autocomplete="off"
+    >
+
+  </div>
+
+</section>
+
+
+<div class="categories" id="categories"></div>
+
+
+<!-- HEALTHY BREAKFAST -->
+
+<div class="source-menu" id="healthy-breakfast">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥣 Idli</div>
+    <div class="menu-item">🥣 Mini Idli</div>
+    <div class="menu-item">🥞 Plain Dosa</div>
+    <div class="menu-item">🥞 Ghee Dosa</div>
+    <div class="menu-item">🥞 Podi Dosa</div>
+    <div class="menu-item">🥞 Vegetable Dosa</div>
+    <div class="menu-item">🥞 Ragi Dosa</div>
+    <div class="menu-item">🥞 Millet Dosa</div>
+    <div class="menu-item">🍚 Ven Pongal</div>
+    <div class="menu-item">🍚 Millet Pongal</div>
+    <div class="menu-item">🥣 Vegetable Upma</div>
+    <div class="menu-item">🥣 Ragi Upma</div>
+    <div class="menu-item">🌾 Millet Upma</div>
+    <div class="menu-item">🍲 Vegetable Adai</div>
+    <div class="menu-item">🍲 Keerai Adai</div>
+    <div class="menu-item">🥞 Paniyaram</div>
+    <div class="menu-item">🥞 Vegetable Paniyaram</div>
+    <div class="menu-item">🥚 Egg Omelette</div>
+    <div class="menu-item">🍌 Banana</div>
+    <div class="menu-item">🍎 Apple</div>
+
+  </div>
+
+</div>
+
+
+<!-- HEALTHY LUNCH -->
+
+<div class="source-menu" id="healthy-lunch">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍚 Rice & Dal</div>
+    <div class="menu-item">🍚 Rice & Sambar</div>
+    <div class="menu-item">🍚 Rice & Rasam</div>
+    <div class="menu-item">🍚 Vegetable Rice</div>
+    <div class="menu-item">🍚 Lemon Rice</div>
+    <div class="menu-item">🍚 Tomato Rice</div>
+    <div class="menu-item">🍚 Curd Rice</div>
+    <div class="menu-item">🥕 Vegetable Kootu</div>
+    <div class="menu-item">🥗 Avial</div>
+    <div class="menu-item">🥬 Keerai Masiyal</div>
+    <div class="menu-item">🥔 Potato Curry</div>
+    <div class="menu-item">🥕 Carrot Beans Poriyal</div>
+    <div class="menu-item">🥦 Mixed Vegetable Curry</div>
+    <div class="menu-item">🥚 Egg Curry</div>
+    <div class="menu-item">🍗 Homemade Chicken Curry</div>
+    <div class="menu-item">🐟 Homemade Fish Curry</div>
+    <div class="menu-item">🌾 Millet Rice</div>
+    <div class="menu-item">🍲 Vegetable Khichdi</div>
+    <div class="menu-item">🥣 Dal Khichdi</div>
+
+  </div>
+
+</div>
+
+
+<!-- HEALTHY DINNER -->
+
+<div class="source-menu" id="healthy-dinner">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥣 Idli</div>
+    <div class="menu-item">🥞 Dosa</div>
+    <div class="menu-item">🥞 Ragi Dosa</div>
+    <div class="menu-item">🥞 Millet Dosa</div>
+    <div class="menu-item">🍲 Vegetable Adai</div>
+    <div class="menu-item">🍚 Ven Pongal</div>
+    <div class="menu-item">🥣 Vegetable Upma</div>
+    <div class="menu-item">🌾 Millet Upma</div>
+    <div class="menu-item">🍲 Vegetable Khichdi</div>
+    <div class="menu-item">🥣 Dal Khichdi</div>
+    <div class="menu-item">🥕 Vegetable Soup</div>
+    <div class="menu-item">🍅 Tomato Soup</div>
+    <div class="menu-item">🌽 Homemade Corn Soup</div>
+    <div class="menu-item">🥚 Egg Omelette</div>
+    <div class="menu-item">🍗 Homemade Chicken Soup</div>
+    <div class="menu-item">🥗 Vegetable Salad</div>
+    <div class="menu-item">🍌 Banana</div>
+    <div class="menu-item">🍎 Apple</div>
+
+  </div>
+
+</div>
+
+
+<!-- HEALTHY LUNCH BOX -->
+
+<div class="source-menu" id="healthy-lunchbox">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍱 Vegetable Idli</div>
+    <div class="menu-item">🍱 Mini Idli</div>
+    <div class="menu-item">🍱 Mini Dosa</div>
+    <div class="menu-item">🍱 Vegetable Dosa</div>
+    <div class="menu-item">🍱 Vegetable Adai</div>
+    <div class="menu-item">🍱 Paniyaram</div>
+    <div class="menu-item">🍱 Vegetable Rice</div>
+    <div class="menu-item">🍱 Lemon Rice</div>
+    <div class="menu-item">🍱 Tomato Rice</div>
+    <div class="menu-item">🍱 Curd Rice</div>
+    <div class="menu-item">🍱 Vegetable Pulao</div>
+    <div class="menu-item">🍱 Homemade Paneer Rice</div>
+    <div class="menu-item">🍱 Egg Rice</div>
+    <div class="menu-item">🍱 Chapati Roll</div>
+    <div class="menu-item">🍱 Vegetable Chapati Roll</div>
+    <div class="menu-item">🍱 Egg Chapati Roll</div>
+    <div class="menu-item">🍌 Banana</div>
+    <div class="menu-item">🍎 Apple Slices</div>
+
+  </div>
+
+</div>
+
+  <!-- HEALTHY SNACKS -->
+
+<div class="source-menu" id="healthy-snacks">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🌽 Boiled Corn</div>
+    <div class="menu-item">🥔 Boiled Sweet Potato</div>
+    <div class="menu-item">🍌 Banana</div>
+    <div class="menu-item">🍎 Apple</div>
+    <div class="menu-item">🍊 Orange</div>
+    <div class="menu-item">🍉 Watermelon</div>
+    <div class="menu-item">🍇 Grapes</div>
+    <div class="menu-item">🥭 Mango</div>
+    <div class="menu-item">🥭 Homemade Fruit Bowl</div>
+    <div class="menu-item">🥣 Homemade Curd</div>
+    <div class="menu-item">🥣 Curd & Fruit Bowl</div>
+    <div class="menu-item">🥜 Roasted Peanuts</div>
+    <div class="menu-item">🌰 Homemade Nut Mix</div>
+    <div class="menu-item">🥚 Boiled Egg</div>
+    <div class="menu-item">🥚 Egg Omelette</div>
+    <div class="menu-item">🌱 Homemade Sprouts</div>
+    <div class="menu-item">🥕 Steamed Vegetables</div>
+    <div class="menu-item">🥒 Cucumber</div>
+    <div class="menu-item">🥕 Carrot</div>
+    <div class="menu-item">🍠 Sweet Potato</div>
+
+  </div>
+
+</div>
+
+
+<!-- NO ADDED SUGAR -->
+
+<div class="source-menu" id="no-added-sugar">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍌 Banana</div>
+    <div class="menu-item">🍎 Apple</div>
+    <div class="menu-item">🍊 Orange</div>
+    <div class="menu-item">🍉 Watermelon</div>
+    <div class="menu-item">🍇 Grapes</div>
+    <div class="menu-item">🥭 Mango</div>
+    <div class="menu-item">🥭 Homemade Fruit Bowl</div>
+    <div class="menu-item">🥣 Homemade Curd & Fruit</div>
+    <div class="menu-item">🥥 Fresh Coconut</div>
+    <div class="menu-item">🌽 Boiled Corn</div>
+    <div class="menu-item">🍠 Boiled Sweet Potato</div>
+    <div class="menu-item">🥜 Roasted Peanuts</div>
+    <div class="menu-item">🥚 Boiled Egg</div>
+    <div class="menu-item">🥣 Homemade Ragi Porridge</div>
+    <div class="menu-item">🥣 Homemade Millet Porridge</div>
+    <div class="menu-item">🥣 Homemade Oats Porridge</div>
+    <div class="menu-item">🍚 Homemade Rice Porridge</div>
+
+  </div>
+
+</div>
+
+
+<!-- HOMEMADE DRINKS -->
+
+<div class="source-menu" id="homemade-drinks">
+
+  <div class="menu-list">
+
+    <div class="menu-item">💧 Plain Water</div>
+    <div class="menu-item">🥥 Tender Coconut Water</div>
+    <div class="menu-item">🥛 Homemade Milk</div>
+    <div class="menu-item">🥛 Homemade Curd Drink</div>
+    <div class="menu-item">🍌 Banana Milk</div>
+    <div class="menu-item">🥭 Fresh Mango Milk</div>
+    <div class="menu-item">🍓 Fresh Strawberry Milk</div>
+    <div class="menu-item">🍎 Fresh Fruit Smoothie</div>
+    <div class="menu-item">🍌 Banana Smoothie</div>
+    <div class="menu-item">🥭 Mango Smoothie</div>
+    <div class="menu-item">🥥 Coconut Milk</div>
+    <div class="menu-item">🌾 Homemade Ragi Drink</div>
+    <div class="menu-item">🌾 Homemade Millet Drink</div>
+    <div class="menu-item">🥣 Homemade Buttermilk</div>
+    <div class="menu-item">🍋 Homemade Lemon Water</div>
+
+  </div>
+
+</div>
+
+
+<!-- MILLET & TRADITIONAL -->
+
+<div class="source-menu" id="millet-traditional">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🌾 Ragi Dosa</div>
+    <div class="menu-item">🌾 Ragi Adai</div>
+    <div class="menu-item">🌾 Ragi Porridge</div>
+    <div class="menu-item">🌾 Ragi Upma</div>
+    <div class="menu-item">🌾 Millet Dosa</div>
+    <div class="menu-item">🌾 Millet Adai</div>
+    <div class="menu-item">🌾 Millet Upma</div>
+    <div class="menu-item">🌾 Millet Pongal</div>
+    <div class="menu-item">🌾 Millet Khichdi</div>
+    <div class="menu-item">🌾 Kambu Dosa</div>
+    <div class="menu-item">🌾 Thinai Pongal</div>
+    <div class="menu-item">🌾 Varagu Upma</div>
+    <div class="menu-item">🌾 Kuthiraivali Pongal</div>
+    <div class="menu-item">🌾 Kezhvaragu Adai</div>
+    <div class="menu-item">🥣 Homemade Kanji</div>
+    <div class="menu-item">🍚 Traditional Rice Kanji</div>
+
+  </div>
+
+</div>
+
+
+<!-- PROTEIN RICH HOMEMADE -->
+
+<div class="source-menu" id="protein-foods">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥚 Boiled Egg</div>
+    <div class="menu-item">🥚 Egg Omelette</div>
+    <div class="menu-item">🥚 Vegetable Omelette</div>
+    <div class="menu-item">🥚 Egg Podimas</div>
+    <div class="menu-item">🥚 Egg Curry</div>
+    <div class="menu-item">🌱 Homemade Green Gram Sundal</div>
+    <div class="menu-item">🌱 Homemade Chana Sundal</div>
+    <div class="menu-item">🌱 Homemade Sprouts</div>
+    <div class="menu-item">🥣 Dal</div>
+    <div class="menu-item">🥣 Dal Khichdi</div>
+    <div class="menu-item">🍲 Vegetable Dal</div>
+    <div class="menu-item">🥜 Roasted Peanuts</div>
+    <div class="menu-item">🥛 Homemade Curd</div>
+    <div class="menu-item">🥛 Homemade Paneer</div>
+    <div class="menu-item">🍗 Homemade Chicken Curry</div>
+    <div class="menu-item">🐟 Homemade Fish Curry</div>
+
+  </div>
+
+</div>
+
+
+<!-- FRUITS & VEGETABLES -->
+
+<div class="source-menu" id="fruits-vegetables">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍎 Apple</div>
+    <div class="menu-item">🍌 Banana</div>
+    <div class="menu-item">🍊 Orange</div>
+    <div class="menu-item">🍉 Watermelon</div>
+    <div class="menu-item">🍇 Grapes</div>
+    <div class="menu-item">🥭 Mango</div>
+    <div class="menu-item">🍐 Guava</div>
+    <div class="menu-item">🍈 Papaya</div>
+    <div class="menu-item">🍍 Pineapple</div>
+    <div class="menu-item">🥒 Cucumber</div>
+    <div class="menu-item">🥕 Carrot</div>
+    <div class="menu-item">🌽 Sweet Corn</div>
+    <div class="menu-item">🥔 Sweet Potato</div>
+    <div class="menu-item">🥦 Broccoli</div>
+    <div class="menu-item">🥬 Spinach</div>
+    <div class="menu-item">🥕 Beetroot</div>
+    <div class="menu-item">🫛 Green Peas</div>
+    <div class="menu-item">🎃 Pumpkin</div>
+    <div class="menu-item">🥒 Bottle Gourd</div>
+    <div class="menu-item">🍅 Tomato</div>
+
+  </div>
+
+</div>
+
+  <!-- PICKY EATER -->
+
+<div class="source-menu" id="picky-eater">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥣 Mini Idli</div>
+    <div class="menu-item">🥞 Mini Dosa</div>
+    <div class="menu-item">🥞 Ghee Dosa</div>
+    <div class="menu-item">🥞 Cheese Dosa</div>
+    <div class="menu-item">🍚 Mini Pongal</div>
+    <div class="menu-item">🥣 Vegetable Upma</div>
+    <div class="menu-item">🍲 Mini Adai</div>
+    <div class="menu-item">🥞 Paniyaram</div>
+    <div class="menu-item">🥕 Vegetable Paniyaram</div>
+    <div class="menu-item">🥪 Homemade Vegetable Sandwich</div>
+    <div class="menu-item">🥪 Homemade Egg Sandwich</div>
+    <div class="menu-item">🍚 Homemade Vegetable Rice</div>
+    <div class="menu-item">🍚 Homemade Egg Rice</div>
+    <div class="menu-item">🍝 Homemade Vegetable Pasta</div>
+    <div class="menu-item">🍜 Homemade Vegetable Noodles</div>
+    <div class="menu-item">🥔 Homemade Potato Roast</div>
+    <div class="menu-item">🌽 Homemade Butter Corn</div>
+    <div class="menu-item">🍌 Banana</div>
+
+  </div>
+
+</div>
+
+
+<!-- QUICK HOMEMADE -->
+
+<div class="source-menu" id="quick-homemade">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥣 Mini Idli</div>
+    <div class="menu-item">🥞 Mini Dosa</div>
+    <div class="menu-item">🥚 Egg Omelette</div>
+    <div class="menu-item">🥚 Boiled Egg</div>
+    <div class="menu-item">🥪 Homemade Egg Sandwich</div>
+    <div class="menu-item">🥪 Homemade Vegetable Sandwich</div>
+    <div class="menu-item">🍌 Banana & Curd</div>
+    <div class="menu-item">🍎 Apple & Homemade Curd</div>
+    <div class="menu-item">🌽 Boiled Corn</div>
+    <div class="menu-item">🍠 Boiled Sweet Potato</div>
+    <div class="menu-item">🥣 Oats Porridge</div>
+    <div class="menu-item">🥣 Ragi Porridge</div>
+    <div class="menu-item">🥣 Millet Porridge</div>
+    <div class="menu-item">🥣 Vegetable Upma</div>
+    <div class="menu-item">🥞 Paniyaram</div>
+    <div class="menu-item">🍚 Lemon Rice</div>
+    <div class="menu-item">🍚 Curd Rice</div>
+    <div class="menu-item">🍌 Banana Milk</div>
+
+  </div>
+
+</div>
+
+
+<!-- HEALTHY PARTY -->
+
+<div class="source-menu" id="healthy-party">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🎉 Mini Idli</div>
+    <div class="menu-item">🎉 Mini Dosa</div>
+    <div class="menu-item">🎉 Vegetable Paniyaram</div>
+    <div class="menu-item">🎉 Mini Vegetable Sandwich</div>
+    <div class="menu-item">🎉 Homemade Pizza</div>
+    <div class="menu-item">🎉 Homemade Vegetable Pasta</div>
+    <div class="menu-item">🎉 Homemade Vegetable Noodles</div>
+    <div class="menu-item">🎉 Boiled Sweet Corn</div>
+    <div class="menu-item">🎉 Homemade Potato Wedges</div>
+    <div class="menu-item">🎉 Homemade Chicken Nuggets</div>
+    <div class="menu-item">🎉 Egg Bites</div>
+    <div class="menu-item">🎉 Fruit Bowl</div>
+    <div class="menu-item">🎉 Homemade Curd & Fruit</div>
+    <div class="menu-item">🎉 Banana Milk</div>
+    <div class="menu-item">🎉 Homemade Fruit Smoothie</div>
+    <div class="menu-item">🎉 Homemade Ragi Ladoo</div>
+    <div class="menu-item">🎉 Homemade Banana Pancake</div>
+
+  </div>
+
+</div>
+
+
+<!-- GROWTH FRIENDLY -->
+
+<div class="source-menu" id="growth-foods">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥚 Egg Omelette</div>
+    <div class="menu-item">🥚 Boiled Egg</div>
+    <div class="menu-item">🌱 Green Gram Sundal</div>
+    <div class="menu-item">🌱 Chana Sundal</div>
+    <div class="menu-item">🥣 Dal Khichdi</div>
+    <div class="menu-item">🍲 Vegetable Dal</div>
+    <div class="menu-item">🥛 Homemade Curd</div>
+    <div class="menu-item">🥛 Homemade Paneer</div>
+    <div class="menu-item">🌾 Ragi Dosa</div>
+    <div class="menu-item">🌾 Millet Dosa</div>
+    <div class="menu-item">🌾 Millet Pongal</div>
+    <div class="menu-item">🥬 Keerai Adai</div>
+    <div class="menu-item">🥕 Vegetable Adai</div>
+    <div class="menu-item">🥗 Vegetable Kootu</div>
+    <div class="menu-item">🍗 Homemade Chicken Curry</div>
+    <div class="menu-item">🐟 Homemade Fish Curry</div>
+    <div class="menu-item">🍌 Banana</div>
+    <div class="menu-item">🥭 Mango</div>
+    <div class="menu-item">🍎 Apple</div>
+
+  </div>
+
+</div>
+
+
+<!-- BUDGET HEALTHY -->
+
+<div class="source-menu" id="budget-healthy">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥣 Idli</div>
+    <div class="menu-item">🥞 Dosa</div>
+    <div class="menu-item">🍚 Pongal</div>
+    <div class="menu-item">🥣 Upma</div>
+    <div class="menu-item">🍲 Adai</div>
+    <div class="menu-item">🥞 Paniyaram</div>
+    <div class="menu-item">🥚 Boiled Egg</div>
+    <div class="menu-item">🥚 Egg Omelette</div>
+    <div class="menu-item">🌱 Green Gram Sundal</div>
+    <div class="menu-item">🌱 Chana Sundal</div>
+    <div class="menu-item">🌽 Boiled Corn</div>
+    <div class="menu-item">🍠 Sweet Potato</div>
+    <div class="menu-item">🍌 Banana</div>
+    <div class="menu-item">🍎 Seasonal Fruits</div>
+    <div class="menu-item">🥕 Seasonal Vegetables</div>
+    <div class="menu-item">🥣 Dal Rice</div>
+    <div class="menu-item">🍚 Curd Rice</div>
+    <div class="menu-item">🥗 Vegetable Rice</div>
+
+  </div>
+
+</div>
+
+
+<!-- HOMEMADE TREATS -->
+
+<div class="source-menu" id="homemade-treats">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍌 Banana Pancake</div>
+    <div class="menu-item">🍎 Apple Pancake</div>
+    <div class="menu-item">🥞 Ragi Pancake</div>
+    <div class="menu-item">🌾 Millet Pancake</div>
+    <div class="menu-item">🍌 Banana Oats Pancake</div>
+    <div class="menu-item">🥥 Coconut Ladoo</div>
+    <div class="menu-item">🌾 Ragi Ladoo</div>
+    <div class="menu-item">🌾 Millet Ladoo</div>
+    <div class="menu-item">🍠 Sweet Potato Balls</div>
+    <div class="menu-item">🍌 Banana Bites</div>
+    <div class="menu-item">🍎 Apple & Curd Bowl</div>
+    <div class="menu-item">🍓 Homemade Fruit Bowl</div>
+    <div class="menu-item">🥣 Homemade Curd & Fruit</div>
+    <div class="menu-item">🥥 Coconut Fruit Bowl</div>
+    <div class="menu-item">🍌 Banana Milk</div>
+    <div class="menu-item">🥭 Fresh Mango Smoothie</div>
+
+  </div>
+
+</div>
+
+  <!-- POPUP -->
+
+<div class="popup-overlay" id="menuPopup">
+
+  <div class="menu-popup">
+
+    <div class="popup-header">
+
+      <div class="popup-header-left">
+
+        <div class="popup-title" id="popupTitle">
+          👶 Kids Menu
+        </div>
+
+        <div class="popup-subtitle">
+          Homemade menu
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="popup-close"
+        id="popupClose"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <div class="popup-search">
+
+      <input
+        type="search"
+        id="popupSearch"
+        placeholder="Indha menu-la search pannunga..."
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <div
+      class="popup-list"
+      id="popupList"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+  <strong>👶 Innaiku Enna Samayal?</strong><br>
+
+  Kids-ku homemade food ideas simple-aa choose pannunga.
+
+  <br><br>
+
+  <a
+    href="innaiku-enna-samayal.html"
+    class="home-btn"
+  >
+    ← Samayal Home
+  </a>
+
+  <br><br>
+
+  © Pyncode Planner
+
+</div>
+
+
+<script>
+
+/* CATEGORY DATA */
+
+const categories = [
+
+  {
+    id:"healthy-breakfast",
+    icon:"🥣",
+    title:"Healthy Breakfast",
+    desc:"Homemade healthy breakfast"
+  },
+
+  {
+    id:"healthy-lunch",
+    icon:"🍱",
+    title:"Healthy Lunch",
+    desc:"Simple homemade lunch"
+  },
+
+  {
+    id:"healthy-dinner",
+    icon:"🌙",
+    title:"Healthy Dinner",
+    desc:"Light homemade dinner"
+  },
+
+  {
+    id:"healthy-lunchbox",
+    icon:"🎒",
+    title:"Healthy Lunch Box",
+    desc:"School-friendly homemade food"
+  },
+
+  {
+    id:"healthy-snacks",
+    icon:"🍌",
+    title:"Healthy Snacks",
+    desc:"Natural homemade snacks"
+  },
+
+  {
+    id:"no-added-sugar",
+    icon:"🚫",
+    title:"No Added Sugar",
+    desc:"Naturally sweet food choices"
+  },
+
+  {
+    id:"homemade-drinks",
+    icon:"🥛",
+    title:"Homemade Drinks",
+    desc:"Simple homemade drinks"
+  },
+
+  {
+    id:"millet-traditional",
+    icon:"🌾",
+    title:"Millet & Traditional",
+    desc:"Traditional grain-based foods"
+  },
+
+  {
+    id:"protein-foods",
+    icon:"🥚",
+    title:"Protein Foods",
+    desc:"Homemade protein-rich choices"
+  },
+
+  {
+    id:"fruits-vegetables",
+    icon:"🥕",
+    title:"Fruits & Vegetables",
+    desc:"Natural fruit & vegetable ideas"
+  },
+
+  {
+    id:"picky-eater",
+    icon:"😋",
+    title:"Picky Eater",
+    desc:"Simple child-friendly choices"
+  },
+
+  {
+    id:"quick-homemade",
+    icon:"⚡",
+    title:"Quick Homemade",
+    desc:"Easy homemade food"
+  },
+
+  {
+    id:"healthy-party",
+    icon:"🎉",
+    title:"Healthy Kids Party",
+    desc:"Homemade party food"
+  },
+
+  {
+    id:"growth-foods",
+    icon:"💪",
+    title:"Growth-Friendly",
+    desc:"Balanced homemade food ideas"
+  },
+
+  {
+    id:"budget-healthy",
+    icon:"💰",
+    title:"Budget Healthy",
+    desc:"Simple affordable food"
+  },
+
+  {
+    id:"homemade-treats",
+    icon:"🍌",
+    title:"Homemade Treats",
+    desc:"Better homemade treat ideas"
+  }
+
+];
+
+
+const categoriesBox =
+  document.getElementById("categories");
+
+const menuPopup =
+  document.getElementById("menuPopup");
+
+const popupTitle =
+  document.getElementById("popupTitle");
+
+const popupList =
+  document.getElementById("popupList");
+
+const popupSearch =
+  document.getElementById("popupSearch");
+
+const popupClose =
+  document.getElementById("popupClose");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+
+/* CREATE CATEGORY CARDS */
+
+categories.forEach(function(category){
+
+  const card =
+    document.createElement("div");
+
+  card.className =
+    "category-card";
+
+  card.dataset.id =
+    category.id;
+
+  card.innerHTML = `
+
+    <div class="category-icon">
+      ${category.icon}
+    </div>
+
+    <div class="category-title">
+      ${category.title}
+    </div>
+
+    <div class="category-desc">
+      ${category.desc}
+    </div>
+
+  `;
+
+  card.addEventListener(
+    "click",
+    function(){
+
+      openMenu(category.id);
+
+    }
+  );
+
+  categoriesBox.appendChild(card);
+
+});
+
+
+/* OPEN MENU */
+
+function openMenu(categoryId){
+
+  const source =
+    document.getElementById(categoryId);
+
+  if(!source){
+    return;
+  }
+
+
+  const category =
+    categories.find(
+      function(item){
+
+        return item.id === categoryId;
+
+      }
+    );
+
+
+  if(category){
+
+    popupTitle.textContent =
+      category.icon + " " +
+      category.title;
+
+  }
+
+
+  popupList.innerHTML = "";
+
+
+  const items =
+    source.querySelectorAll(
+      ".menu-item"
+    );
+
+
+  items.forEach(function(item){
+
+    const popupItem =
+      document.createElement("div");
+
+    popupItem.className =
+      "popup-item";
+
+    popupItem.textContent =
+      item.textContent;
+
+    popupList.appendChild(
+      popupItem
+    );
+
+  });
+
+
+  popupSearch.value = "";
+
+
+  menuPopup.classList.add(
+    "active"
+  );
+
+  document.body.classList.add(
+    "no-scroll"
+  );
+
+
+  /*
+    IMPORTANT:
+
+    No popupSearch.focus()
+
+    Category click pannumbodhu
+    mobile keyboard automatic-aa
+    open aagathu.
+  */
+
+}
+
+
+/* CLOSE */
+
+function closeMenu(){
+
+  menuPopup.classList.remove(
+    "active"
+  );
+
+  document.body.classList.remove(
+    "no-scroll"
+  );
+
+}
+
+
+popupClose.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+/* OUTSIDE CLICK */
+
+menuPopup.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target === menuPopup
+    ){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* ESCAPE */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape" &&
+      menuPopup.classList.contains(
+        "active"
+      )
+    ){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* POPUP SEARCH */
+
+popupSearch.addEventListener(
+  "input",
+  function(){
+
+    const query =
+      this.value
+        .trim()
+        .toLowerCase();
+
+
+    const items =
+      popupList.querySelectorAll(
+        ".popup-item"
+      );
+
+
+    let visibleCount = 0;
+
+
+    items.forEach(function(item){
+
+      const text =
+        item.textContent
+          .toLowerCase();
+
+
+      if(
+        text.includes(query)
+      ){
+
+        item.style.display = "";
+
+        visibleCount++;
+
+      }else{
+
+        item.style.display =
+          "none";
+
+      }
+
+    });
+
+
+    const oldNoResult =
+      popupList.querySelector(
+        ".no-result"
+      );
+
+
+    if(oldNoResult){
+
+      oldNoResult.remove();
+
+    }
+
+
+    if(
+      query &&
+      visibleCount === 0
+    ){
+
+      const noResult =
+        document.createElement(
+          "div"
+        );
+
+      noResult.className =
+        "no-result";
+
+      noResult.textContent =
+        "Indha menu-la result kidaikkala 😕";
+
+      popupList.appendChild(
+        noResult
+      );
+
+    }
+
+  }
+);
+
+
+/* MAIN SEARCH */
+
+searchInput.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key !== "Enter"){
+      return;
+    }
+
+
+    const query =
+      this.value
+        .trim()
+        .toLowerCase();
+
+
+    if(!query){
+      return;
+    }
+
+
+    const match =
+      categories.find(
+        function(category){
+
+          return (
+            category.title
+              .toLowerCase()
+              .includes(query)
+            ||
+            category.desc
+              .toLowerCase()
+              .includes(query)
+          );
+
+        }
+      );
+
+
+    if(match){
+
+      openMenu(match.id);
+
+      popupSearch.value =
+        query;
+
+      popupSearch.dispatchEvent(
+        new Event("input")
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Anniversary Planner | Pyncode.in</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+    :root {
+      --primary: #6750e8;
+      --text: #202124;
+      --muted: #70757d;
+      --border: #ececf2;
+      --white: #ffffff;
+      --shadow:
+        0 8px 30px
+        rgba(40, 35, 80, 0.08);
+    }
+
+
+    body {
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff 0%,
+          #fffdf9 45%,
+          #f8f8fc 100%
+        );
+
+      color: var(--text);
+
+      min-height: 100vh;
+
+      padding-bottom: 30px;
+    }
+
+
+    button,
+    a {
+      font-family: inherit;
+    }
+
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+
+    /* =========================================
+       HEADER
+    ========================================= */
+
+    .top-header {
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 1000;
+
+      height: 64px;
+
+      background: #ffffff;
+
+      border-bottom:
+        1px solid #eeeeee;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      padding: 0 16px;
+
+      box-shadow:
+        0 2px 12px
+        rgba(20, 20, 40, 0.04);
+    }
+
+
+    /* =========================================
+       PYNCODE BRAND
+    ========================================= */
+
+    .brand {
+
+      font-size: 21px;
+
+      font-weight: 800;
+
+      letter-spacing: -0.5px;
+
+      text-decoration: none;
+
+      white-space: nowrap;
+    }
+
+
+    .pyn-text {
+      color: #ef603e;
+    }
+
+
+    .code-text {
+      color: #151923;
+    }
+
+
+    /* =========================================
+       ADD BUSINESS
+    ========================================= */
+
+    .add-business-btn {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 6px;
+
+      background: #000000;
+
+      color: #ffffff;
+
+      padding: 10px 13px;
+
+      border-radius: 12px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      box-shadow:
+        0 5px 16px
+        rgba(0, 0, 0, 0.14);
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+
+      white-space: nowrap;
+    }
+
+
+    .add-business-btn:active {
+
+      transform:
+        scale(0.97);
+    }
+
+
+    /* =========================================
+       MAIN
+    ========================================= */
+
+    .page {
+
+      width: 100%;
+
+      max-width: 720px;
+
+      margin: 0 auto;
+
+      padding:
+        18px 15px 40px;
+    }
+
+
+    /* =========================================
+       BACK BUTTON
+    ========================================= */
+
+    .back-btn {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      background: #ffffff;
+
+      color: #34363b;
+
+      padding: 9px 13px;
+
+      border:
+        1px solid #e8e8ed;
+
+      border-radius: 12px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      margin-bottom: 18px;
+
+      box-shadow:
+        0 4px 12px
+        rgba(30, 30, 50, 0.06);
+
+      text-decoration: none;
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+
+    .back-btn:active {
+
+      transform:
+        scale(0.97);
+    }
+
+
+    /* =========================================
+       HERO
+    ========================================= */
+
+    .planner-hero {
+
+      position: relative;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          #fff1f6 0%,
+          #fff7f1 50%,
+          #f3efff 100%
+        );
+
+      border:
+        1px solid #eee5f6;
+
+      border-radius: 24px;
+
+      padding: 24px 20px;
+
+      margin-bottom: 18px;
+
+      box-shadow: var(--shadow);
+    }
+
+
+    .hero-decoration {
+
+      position: absolute;
+
+      width: 120px;
+
+      height: 120px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(220, 90, 150, 0.09);
+
+      right: -45px;
+
+      top: -45px;
+    }
+
+
+    .hero-icon {
+
+      position: relative;
+
+      width: 58px;
+
+      height: 58px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background: #ffffff;
+
+      border-radius: 18px;
+
+      font-size: 29px;
+
+      box-shadow:
+        0 6px 18px
+        rgba(100, 70, 100, 0.10);
+
+      margin-bottom: 15px;
+    }
+
+
+    .hero-title {
+
+      position: relative;
+
+      font-size: 25px;
+
+      line-height: 1.2;
+
+      font-weight: 800;
+
+      letter-spacing: -0.6px;
+
+      margin-bottom: 7px;
+    }
+
+
+    .hero-description {
+
+      position: relative;
+
+      color: var(--muted);
+
+      font-size: 14px;
+
+      line-height: 1.55;
+
+      max-width: 500px;
+    }
+
+
+    /* =========================================
+       ACTION BUTTONS
+    ========================================= */
+
+    .action-row {
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 10px;
+
+      margin-bottom: 28px;
+    }
+
+
+    .action-btn {
+
+      min-height: 52px;
+
+      border: none;
+
+      border-radius: 15px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 8px;
+
+      font-size: 14px;
+
+      font-weight: 750;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+
+    .action-btn:active {
+
+      transform:
+        scale(0.97);
+    }
+
+
+    .pdf-btn {
+
+      background: #ffffff;
+
+      color: #4f3dc4;
+
+      border:
+        1px solid #e3defd;
+
+      box-shadow:
+        0 5px 18px
+        rgba(70, 55, 150, 0.07);
+    }
+
+
+    .whatsapp-btn {
+
+      background: #20b86b;
+
+      color: #ffffff;
+
+      box-shadow:
+        0 7px 18px
+        rgba(32, 184, 107, 0.20);
+    }
+
+
+    .action-icon {
+
+      font-size: 19px;
+    }
+
+
+    /* =========================================
+       SECTION HEADING
+    ========================================= */
+
+    .section-heading {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      font-size: 18px;
+
+      font-weight: 800;
+
+      margin-bottom: 6px;
+    }
+
+
+    .section-heading-icon {
+
+      width: 34px;
+
+      height: 34px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background: #fff0f7;
+
+      border-radius: 11px;
+
+      font-size: 17px;
+    }
+
+
+    .section-subtitle {
+
+      color: #817987;
+
+      font-size: 13px;
+
+      margin-bottom: 15px;
+    }
+
+
+    /* =========================================
+       SERVICE LIST
+    ========================================= */
+
+    .services-list {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 9px;
+    }
+
+
+    .service-item {
+
+      background: #ffffff;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 16px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 4px 16px
+        rgba(40, 35, 80, 0.045);
+    }
+
+
+    .service-btn {
+
+      width: 100%;
+
+      border: none;
+
+      background: transparent;
+
+      padding: 15px 14px;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      text-align: left;
+
+      cursor: pointer;
+
+      color: #342e3e;
+    }
+
+
+    .service-name {
+
+      flex: 1;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      line-height: 1.35;
+    }
+
+
+    .service-icon {
+
+      width: 34px;
+
+      height: 34px;
+
+      min-width: 34px;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background: #f7f3ff;
+
+      border-radius: 10px;
+
+      font-size: 18px;
+    }
+
+
+    .service-arrow {
+
+      flex: 0 0 auto;
+
+      color: #8a8d94;
+
+      font-size: 20px;
+
+      transition:
+        transform 0.2s ease;
+    }
+
+
+    .service-item.active
+    .service-arrow {
+
+      transform:
+        rotate(90deg);
+    }
+
+
+    /* =========================================
+       PROVIDERS
+    ========================================= */
+
+    .providers-box {
+
+      display: none;
+
+      padding:
+        0 11px 11px;
+    }
+
+
+    .service-item.active
+    .providers-box {
+
+      display: block;
+    }
+
+
+    .provider-loading,
+    .no-provider {
+
+      background: #faf9fc;
+
+      border-radius: 12px;
+
+      padding: 13px;
+
+      color: #77707f;
+
+      font-size: 13px;
+
+      text-align: center;
+    }
+
+
+    /* =========================================
+       PROVIDER CARD
+    ========================================= */
+
+    .provider-card {
+
+      background: #fafafe;
+
+      border:
+        1px solid #ececf5;
+
+      border-radius: 14px;
+
+      padding: 14px;
+
+      margin-top: 8px;
+    }
+
+
+    .provider-card:first-child {
+
+      margin-top: 0;
+    }
+
+
+    .provider-name {
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      color: #332d3d;
+
+      margin-bottom: 4px;
+    }
+
+
+    .provider-owner {
+
+      color: #666a72;
+
+      font-size: 12px;
+
+      margin-bottom: 5px;
+    }
+
+
+    .provider-location {
+
+      color: #777b83;
+
+      font-size: 12px;
+
+      margin-bottom: 12px;
+    }
+
+
+    .provider-actions {
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 8px;
+    }
+
+
+    .provider-action {
+
+      min-height: 39px;
+
+      border-radius: 10px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 6px;
+
+      font-size: 12px;
+
+      font-weight: 750;
+
+      text-decoration: none;
+    }
+
+
+    .call-action {
+
+      background: #eef5ff;
+
+      color: #2873cf;
+    }
+
+
+    .wa-action {
+
+      background: #eafaf2;
+
+      color: #159457;
+    }
+
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 420px) {
+
+      .top-header {
+
+        padding: 0 12px;
+      }
+
+
+      .brand {
+
+        font-size: 19px;
+      }
+
+
+      .add-business-btn {
+
+        padding:
+          9px 10px;
+
+        font-size: 12px;
+      }
+
+
+      .page {
+
+        padding-left: 12px;
+
+        padding-right: 12px;
+      }
+
+
+      .planner-hero {
+
+        padding:
+          21px 17px;
+
+        border-radius: 21px;
+      }
+
+
+      .hero-title {
+
+        font-size: 23px;
+      }
+
+
+      .action-btn {
+
+        font-size: 13px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================================
+       HEADER
+  ========================================= -->
+
+  <header class="top-header">
+
+    <a
+      href="planner.html"
+      class="brand"
+    >
+
+      <span class="pyn-text">Pyn</span><span class="code-text">code.in</span>
+
+    </a>
+
+
+    <a
+      href="add-business.html?return=anniversary-planner.html"
+      class="add-business-btn"
+    >
+
+      <span>＋</span>
+
+      Add Your Business
+
+    </a>
+
+  </header>
+
+
+  <!-- =========================================
+       MAIN
+  ========================================= -->
+
+  <main class="page">
+
+
+    <!-- BACK -->
+
+    <a
+      href="#"
+      class="back-btn"
+      onclick="history.back(); return false;"
+    >
+
+      ← <span>Back</span>
+
+    </a>
+
+
+    <!-- HERO -->
+
+    <section class="planner-hero">
+
+      <div class="hero-decoration"></div>
+
+      <div class="hero-icon">
+        🎊
+      </div>
+
+      <h1 class="hero-title">
+        Anniversary Planner
+      </h1>
+
+      <p class="hero-description">
+        Plan your anniversary celebration easily
+        and find hotels, restaurants, gifts and
+        other useful service providers.
+      </p>
+
+    </section>
+
+
+    <!-- ACTION BUTTONS -->
+
+    <div class="action-row">
+
+      <button
+        type="button"
+        class="action-btn pdf-btn"
+        onclick="downloadPlannerPDF()"
+      >
+
+        <span class="action-icon">
+          📄
+        </span>
+
+        Download PDF
+
+      </button>
+
+
+      <button
+        type="button"
+        class="action-btn whatsapp-btn"
+        onclick="sharePlannerWhatsApp()"
+      >
+
+        <span class="action-icon">
+          💬
+        </span>
+
+        Share on WhatsApp
+
+      </button>
+
+    </div>
+
+
+    <!-- RELATED SERVICE PROVIDERS -->
+
+    <section>
+
+      <h2 class="section-heading">
+
+        <span class="section-heading-icon">
+          🔎
+        </span>
+
+        Related Service Providers
+
+      </h2>
+
+
+      <p class="section-subtitle">
+        Tap a service to find registered providers.
+      </p>
+
+
+      <div
+        id="servicesList"
+        class="services-list"
+      ></div>
+
+    </section>
+
+
+  </main>
+
+
+  <script>
+
+        /* =========================================
+       ANNIVERSARY SERVICES
+    ========================================= */
+
+    const ANNIVERSARY_SERVICES = [
+
+      "Hotels",
+      "Resorts",
+      "Restaurant",
+      "Party hall",
+      "Catering",
+      "Balloon Decoration",
+      "Dress shops",
+      "Cake shops",
+      "Gift shops",
+      "Customized Gifts",
+      "Dj & Sounds",
+      "Makeup artist",
+      "Hairstylist"
+
+    ];
+
+
+    /* =========================================
+       SERVICE ICONS
+    ========================================= */
+
+    const ANNIVERSARY_ICONS = [
+
+      "🏨",
+      "🏝️",
+      "🍽️",
+      "🎉",
+      "🍴",
+      "🎈",
+      "👗",
+      "🎂",
+      "🎁",
+      "🎀",
+      "🎵",
+      "💄",
+      "💇"
+
+    ];
+
+
+    /* =========================================
+       SUPABASE
+    ========================================= */
+
+    const SUPABASE_URL =
+      "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+
+    const SUPABASE_KEY =
+      "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+    /* =========================================
+       PROVIDER CACHE
+    ========================================= */
+
+    const providerCache = {};
+
+
+    /* =========================================
+       NORMALIZE SERVICE
+    ========================================= */
+
+    function normalizeService(value) {
+
+      return String(value || "")
+
+        .toLowerCase()
+
+        .replace(/&/g, "and")
+
+        .replace(/[^a-z0-9]+/g, " ")
+
+        .trim()
+
+        .replace(/\s+/g, " ");
+
+    }
+
+
+    /* =========================================
+       CLEAN PHONE
+    ========================================= */
+
+    function cleanPhone(value) {
+
+      return String(value || "")
+
+        .replace(/\D/g, "");
+
+    }
+
+
+    /* =========================================
+       ESCAPE HTML
+    ========================================= */
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================================
+       RENDER SERVICES
+    ========================================= */
+
+    function renderServices() {
+
+      const container =
+        document.getElementById(
+          "servicesList"
+        );
+
+
+      if (!container) return;
+
+
+      container.innerHTML = "";
+
+
+      ANNIVERSARY_SERVICES.forEach(
+
+        (service, index) => {
+
+          const item =
+            document.createElement("div");
+
+
+          item.className =
+            "service-item";
+
+
+          item.innerHTML = `
+
+            <button
+              type="button"
+              class="service-btn"
+              onclick="toggleService(${index})"
+            >
+
+              <span class="service-name">
+
+                <span class="service-icon">
+
+                  ${ANNIVERSARY_ICONS[index]}
+
+                </span>
+
+
+                <span>
+
+                  ${escapeHtml(service)}
+
+                </span>
+
+              </span>
+
+
+              <span class="service-arrow">
+
+                ›
+
+              </span>
+
+            </button>
+
+
+            <div
+              class="providers-box"
+              id="providers-${index}"
+            ></div>
+
+          `;
+
+
+          container.appendChild(item);
+
+        }
+
+      );
+
+    }
+
+
+    /* =========================================
+       TOGGLE SERVICE
+    ========================================= */
+
+    async function toggleService(index) {
+
+      const container =
+        document.getElementById(
+          "servicesList"
+        );
+
+
+      if (!container) return;
+
+
+      const items =
+        container.querySelectorAll(
+          ".service-item"
+        );
+
+
+      const item =
+        items[index];
+
+
+      if (!item) return;
+
+
+      const providersBox =
+        document.getElementById(
+          `providers-${index}`
+        );
+
+
+      if (!providersBox) return;
+
+
+      const wasActive =
+        item.classList.contains(
+          "active"
+        );
+
+
+      /* Close all services */
+
+      items.forEach(
+
+        serviceItem => {
+
+          serviceItem.classList.remove(
+            "active"
+          );
+
+        }
+
+      );
+
+
+      /* Close current service */
+
+      if (wasActive) {
+
+        providersBox.innerHTML = "";
+
+        return;
+
+      }
+
+
+      /* Open selected service */
+
+      item.classList.add(
+        "active"
+      );
+
+
+      providersBox.innerHTML = `
+
+        <div class="provider-loading">
+
+          Finding service providers...
+
+        </div>
+
+      `;
+
+
+      await loadProviders(
+
+        ANNIVERSARY_SERVICES[index],
+
+        providersBox
+
+      );
+
+    }
+
+
+    /* =========================================
+       LOAD PROVIDERS
+    ========================================= */
+
+    async function loadProviders(
+
+      service,
+
+      container
+
+    ) {
+
+      const key =
+        normalizeService(service);
+
+
+      /* Use cached result */
+
+      if (
+
+        Object.prototype.hasOwnProperty.call(
+
+          providerCache,
+
+          key
+
+        )
+
+      ) {
+
+        renderProviders(
+
+          providerCache[key],
+
+          container
+
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+
+            `${SUPABASE_URL}/rest/v1/planner_service_providers?active=eq.true&select=id,business_name,owner_name,mobile,whatsapp,area,city,services`,
+
+            {
+
+              method: "GET",
+
+              headers: {
+
+                "apikey":
+                  SUPABASE_KEY,
+
+                "Authorization":
+                  `Bearer ${SUPABASE_KEY}`
+
+              }
+
+            }
+
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            `HTTP ${response.status}`
+          );
+
+        }
+
+
+        const providers =
+          await response.json();
+
+
+        const matchingProviders =
+          providers.filter(
+
+            provider => {
+
+              if (
+
+                !Array.isArray(
+                  provider.services
+                )
+
+              ) {
+
+                return false;
+
+              }
+
+
+              return provider.services.some(
+
+                registeredService => {
+
+                  return (
+
+                    normalizeService(
+                      registeredService
+                    ) === key
+
+                  );
+
+                }
+
+              );
+
+            }
+
+          );
+
+
+        providerCache[key] =
+          matchingProviders;
+
+
+        renderProviders(
+
+          matchingProviders,
+
+          container
+
+        );
+
+
+      } catch (error) {
+
+        console.error(
+
+          "Provider loading error:",
+
+          error
+
+        );
+
+
+        container.innerHTML = `
+
+          <div class="no-provider">
+
+            Unable to load providers right now.
+            Please try again.
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+        /* =========================================
+       RENDER PROVIDERS
+    ========================================= */
+
+    function renderProviders(
+
+      providers,
+
+      container
+
+    ) {
+
+      if (
+
+        !providers ||
+
+        providers.length === 0
+
+      ) {
+
+        container.innerHTML = `
+
+          <div class="no-provider">
+
+            No service providers available yet.
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      container.innerHTML = "";
+
+
+      providers.forEach(
+
+        provider => {
+
+          const businessName =
+            escapeHtml(
+              provider.business_name
+            );
+
+
+          const ownerName =
+            escapeHtml(
+              provider.owner_name
+            );
+
+
+          const area =
+            escapeHtml(
+              provider.area
+            );
+
+
+          const city =
+            escapeHtml(
+              provider.city
+            );
+
+
+          const mobile =
+            cleanPhone(
+              provider.mobile
+            );
+
+
+          const whatsapp =
+            cleanPhone(
+
+              provider.whatsapp ||
+
+              provider.mobile
+
+            );
+
+
+          const card =
+            document.createElement(
+              "div"
+            );
+
+
+          card.className =
+            "provider-card";
+
+
+          card.innerHTML = `
+
+            <div class="provider-name">
+
+              ${businessName}
+
+            </div>
+
+
+            <div class="provider-owner">
+
+              ${ownerName}
+
+            </div>
+
+
+            <div class="provider-location">
+
+              📍 ${area}, ${city}
+
+            </div>
+
+
+            <div class="provider-actions">
+
+              <a
+                class="provider-action call-action"
+                href="tel:${mobile}"
+              >
+
+                📞 Call
+
+              </a>
+
+
+              <a
+                class="provider-action wa-action"
+                href="https://wa.me/${whatsapp}"
+                target="_blank"
+                rel="noopener"
+              >
+
+                💬 WhatsApp
+
+              </a>
+
+            </div>
+
+          `;
+
+
+          container.appendChild(
+            card
+          );
+
+        }
+
+      );
+
+    }
+
+
+    /* =========================================
+       DOWNLOAD PDF
+    ========================================= */
+
+    function downloadPlannerPDF() {
+
+      const pdfFile =
+        "Pyncode_Anniversary_Planner_Checklist.pdf";
+
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+
+      link.href =
+        pdfFile;
+
+
+      link.download =
+        pdfFile;
+
+
+      document.body.appendChild(
+        link
+      );
+
+
+      link.click();
+
+
+      link.remove();
+
+    }
+
+
+    /* =========================================
+       WHATSAPP SHARE
+    ========================================= */
+
+    function sharePlannerWhatsApp() {
+
+      const message =
+
+        "🎊 Anniversary Planner - Pyncode.in\n\n" +
+
+        "Plan your anniversary celebration and " +
+
+        "find related service providers easily.\n\n" +
+
+        "Open Planner:\n" +
+
+        window.location.href;
+
+
+      const whatsappUrl =
+
+        "https://wa.me/?text=" +
+
+        encodeURIComponent(
+          message
+        );
+
+
+      window.open(
+
+        whatsappUrl,
+
+        "_blank"
+
+      );
+
+    }
+
+
+    /* =========================================
+       AUTO OPEN SERVICE
+       AFTER ADD BUSINESS REDIRECT
+    ========================================= */
+
+    function openServiceFromURL() {
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+
+      const requestedService =
+        params.get("service");
+
+
+      if (!requestedService) {
+
+        return;
+
+      }
+
+
+      const requestedKey =
+        normalizeService(
+          requestedService
+        );
+
+
+      const index =
+        ANNIVERSARY_SERVICES.findIndex(
+
+          service => {
+
+            return (
+
+              normalizeService(
+                service
+              ) === requestedKey
+
+            );
+
+          }
+
+        );
+
+
+      if (index === -1) {
+
+        return;
+
+      }
+
+
+      setTimeout(() => {
+
+        toggleService(index);
+
+
+        const container =
+          document.getElementById(
+            "servicesList"
+          );
+
+
+        const items =
+          container?.querySelectorAll(
+            ".service-item"
+          );
+
+
+        const selectedItem =
+          items?.[index];
+
+
+        if (selectedItem) {
+
+          selectedItem.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "center"
+
+          });
+
+        }
+
+      }, 250);
+
+    }
+
+
+    /* =========================================
+       INITIALIZE
+    ========================================= */
+
+    document.addEventListener(
+
+      "DOMContentLoaded",
+
+      () => {
+
+        renderServices();
+
+        openServiceFromURL();
+
+      }
+
+    );
+
+  </script>
+
+</body>
+
+</html>

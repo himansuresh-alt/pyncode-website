@@ -1,0 +1,2610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#fff8f0"
+>
+
+<title>
+    Cooking Tips | Pyncode Planner
+</title>
+
+<style>
+
+/* =====================================================
+   ROOT
+===================================================== */
+
+:root{
+
+    --bg:#fffaf5;
+    --card:#ffffff;
+    --text:#29231f;
+    --muted:#756d67;
+    --primary:#e85d04;
+    --primary-light:#fff0df;
+    --green:#168a45;
+    --green-light:#eaf8ef;
+    --border:#eee2d7;
+    --shadow:
+        0 8px 28px rgba(70,40,15,.08);
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+
+body{
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    line-height:1.5;
+
+}
+
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+button,
+input{
+    font:inherit;
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:18px;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:22px;
+
+    padding:15px 18px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:18px;
+
+}
+
+
+.header-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+}
+
+
+.back-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    color:var(--primary);
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+.brand{
+
+    text-align:right;
+
+}
+
+
+.brand-title{
+
+    font-size:18px;
+
+    font-weight:800;
+
+}
+
+
+.brand-subtitle{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0df,
+            #fff8f0
+        );
+
+    border:1px solid #f5ddc8;
+
+    border-radius:28px;
+
+    padding:30px 22px;
+
+    text-align:center;
+
+    margin-bottom:24px;
+
+}
+
+
+.hero-icon{
+
+    font-size:46px;
+
+    margin-bottom:8px;
+
+}
+
+
+.hero h1{
+
+    font-size:30px;
+
+    line-height:1.15;
+
+    margin-bottom:10px;
+
+}
+
+
+.hero h1 span{
+
+    color:var(--primary);
+
+}
+
+
+.hero p{
+
+    max-width:680px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:15px;
+
+}
+
+
+.hero-note{
+
+    display:inline-block;
+
+    margin-top:16px;
+
+    padding:8px 14px;
+
+    border-radius:50px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    color:var(--primary);
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   MAIN SEARCH
+===================================================== */
+
+.main-search{
+
+    max-width:620px;
+
+    margin:18px auto 0;
+
+}
+
+
+.main-search input{
+
+    width:100%;
+
+    height:48px;
+
+    border:1px solid var(--border);
+
+    border-radius:25px;
+
+    padding:0 18px;
+
+    outline:none;
+
+    background:#fff;
+
+    color:var(--text);
+
+    font-size:14px;
+
+}
+
+
+.main-search input:focus{
+
+    border-color:#efb27e;
+
+    box-shadow:
+        0 0 0 3px rgba(232,93,4,.08);
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section{
+
+    margin-bottom:28px;
+
+}
+
+
+.section-head{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:13px;
+
+}
+
+
+.section-head h2{
+
+    font-size:20px;
+
+}
+
+
+.section-head small{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+}
+
+
+/* =====================================================
+   CATEGORY GRID
+===================================================== */
+
+.category-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:12px;
+
+}
+
+
+.category-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:19px;
+
+    padding:15px;
+
+    min-height:88px;
+
+    box-shadow:
+        0 5px 18px rgba(70,40,15,.04);
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+.category-card:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#efc49e;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.category-card:active{
+
+    transform:scale(.98);
+
+}
+
+
+.category-icon{
+
+    width:48px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border-radius:15px;
+
+    background:var(--primary-light);
+
+    font-size:25px;
+
+}
+
+
+.category-info{
+
+    min-width:0;
+
+}
+
+
+.category-info h3{
+
+    font-size:15px;
+
+    margin-bottom:2px;
+
+}
+
+
+.category-info p{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+.category-arrow{
+
+    margin-left:auto;
+
+    font-size:23px;
+
+    color:#aaa;
+
+}
+
+
+/* =====================================================
+   INFO BOX
+===================================================== */
+
+.tip-info{
+
+    margin-top:18px;
+
+    background:var(--green-light);
+
+    border:1px solid #ccebd8;
+
+    border-radius:18px;
+
+    padding:15px 16px;
+
+}
+
+
+.tip-info strong{
+
+    display:block;
+
+    font-size:14px;
+
+    margin-bottom:3px;
+
+}
+
+
+.tip-info p{
+
+    color:#52705e;
+
+    font-size:12px;
+
+}
+
+
+/* =====================================================
+   SOURCE HIDDEN
+===================================================== */
+
+.source-menu{
+
+    display:none;
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9999;
+
+    background:rgba(0,0,0,.45);
+
+    display:none;
+
+    align-items:flex-end;
+
+}
+
+
+.popup.show{
+
+    display:flex;
+
+}
+
+
+.popup-box{
+
+    width:100%;
+
+    max-width:720px;
+
+    margin:auto;
+
+    max-height:88vh;
+
+    background:#fffaf5;
+
+    border-radius:25px 25px 0 0;
+
+    overflow:hidden;
+
+    animation:
+        popupUp .22s ease;
+
+}
+
+
+@keyframes popupUp{
+
+    from{
+        transform:translateY(100%);
+    }
+
+    to{
+        transform:translateY(0);
+    }
+
+}
+
+
+/* =====================================================
+   POPUP HEADER
+===================================================== */
+
+.popup-header{
+
+    background:#fff0df;
+
+    padding:16px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:2;
+
+}
+
+
+.popup-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.popup-title{
+
+    font-size:19px;
+
+    font-weight:800;
+
+}
+
+
+.popup-close{
+
+    width:38px;
+
+    height:38px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    color:#555;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+}
+
+
+.popup-search{
+
+    margin-top:11px;
+
+}
+
+
+.popup-search input{
+
+    width:100%;
+
+    height:44px;
+
+    border:1px solid #dfd5cc;
+
+    border-radius:23px;
+
+    padding:0 16px;
+
+    outline:none;
+
+    background:#fff;
+
+    font-size:14px;
+
+}
+
+
+.popup-search input:focus{
+
+    border-color:#efb27e;
+
+}
+
+
+/* =====================================================
+   POPUP CONTENT
+===================================================== */
+
+.popup-content{
+
+    padding:14px 15px 30px;
+
+    overflow-y:auto;
+
+    max-height:70vh;
+
+}
+
+
+.popup-item{
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    padding:14px;
+
+    margin-bottom:10px;
+
+}
+
+
+.popup-item-title{
+
+    font-size:14px;
+
+    font-weight:800;
+
+    margin-bottom:5px;
+
+}
+
+
+.popup-item-text{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.6;
+
+}
+
+
+.popup-item-badge{
+
+    display:inline-block;
+
+    margin-top:8px;
+
+    padding:4px 9px;
+
+    border-radius:20px;
+
+    background:var(--primary-light);
+
+    color:var(--primary);
+
+    font-size:10px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   EMPTY SEARCH
+===================================================== */
+
+.empty-message{
+
+    text-align:center;
+
+    padding:35px 15px;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+
+.empty-message strong{
+
+    display:block;
+
+    color:var(--text);
+
+    font-size:16px;
+
+    margin-bottom:5px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    text-align:center;
+
+    padding:28px 10px 14px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+}
+
+
+.footer strong{
+
+    color:var(--primary);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+    .container{
+
+        padding:12px;
+
+    }
+
+
+    .header{
+
+        border-radius:18px;
+
+        padding:13px 14px;
+
+    }
+
+
+    .brand-title{
+
+        font-size:16px;
+
+    }
+
+
+    .hero{
+
+        border-radius:23px;
+
+        padding:27px 17px;
+
+    }
+
+
+    .hero h1{
+
+        font-size:27px;
+
+    }
+
+
+    .hero p{
+
+        font-size:14px;
+
+    }
+
+
+    .category-grid{
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:9px;
+
+    }
+
+
+    .category-card{
+
+        padding:12px;
+
+        min-height:82px;
+
+        border-radius:16px;
+
+        gap:9px;
+
+    }
+
+
+    .category-icon{
+
+        width:40px;
+
+        height:40px;
+
+        font-size:21px;
+
+        border-radius:12px;
+
+    }
+
+
+    .category-info h3{
+
+        font-size:13px;
+
+    }
+
+
+    .category-info p{
+
+        font-size:10px;
+
+    }
+
+
+    .category-arrow{
+
+        font-size:19px;
+
+    }
+
+
+    .popup-box{
+
+        border-radius:23px 23px 0 0;
+
+    }
+
+
+    .popup-title{
+
+        font-size:17px;
+
+    }
+
+}
+
+
+/* =====================================================
+   PART 1 END
+===================================================== */
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- =================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-top">
+
+        <a
+            href="innaiku-enna-samayal.html"
+            class="back-btn"
+        >
+            ← Samayal Home
+        </a>
+
+        <div class="brand">
+
+            <div class="brand-title">
+                💡 Cooking Tips
+            </div>
+
+            <div class="brand-subtitle">
+                Pyncode Planner
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-icon">
+        💡
+    </div>
+
+    <h1>
+        Cooking <span>Tips</span>
+    </h1>
+
+    <p>
+        Daily samayal-la varra common doubts,
+        cooking mistakes, preparation,
+        storage, kitchen hacks & safety tips-ku
+        simple solutions.
+    </p>
+
+    <div class="hero-note">
+        ❤️ Small Tip • Big Difference
+    </div>
+
+
+    <div class="main-search">
+
+        <input
+            id="mainSearch"
+            type="search"
+            placeholder="உதா: salt, rice, chicken, oil..."
+            autocomplete="off"
+        >
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     PART 1 COMPLETE
+===================================================== -->
+
+  <!-- =================================================
+     TIP CATEGORIES
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <h2>
+            💡 Choose a Tip Category
+        </h2>
+
+        <small>
+            Tap to view
+        </small>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="categoryGrid"
+    >
+
+
+        <!-- 1 -->
+
+        <div
+            class="category-card"
+            data-category="cutting"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🔪
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Cutting & Preparation
+                </h3>
+
+                <p>
+                    Vegetable, onion & garlic
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 2 -->
+
+        <div
+            class="category-card"
+            data-category="rice"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🍚
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Rice & Grains
+                </h3>
+
+                <p>
+                    Rice, millet & grains
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 3 -->
+
+        <div
+            class="category-card"
+            data-category="sambar"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🥘
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Sambar • Rasam
+                </h3>
+
+                <p>
+                    Taste & consistency
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 4 -->
+
+        <div
+            class="category-card"
+            data-category="vegetables"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🥦
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Vegetable Cooking
+                </h3>
+
+                <p>
+                    Freshness & texture
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 5 -->
+
+        <div
+            class="category-card"
+            data-category="chicken"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🍗
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Chicken Tips
+                </h3>
+
+                <p>
+                    Cleaning & cooking
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 6 -->
+
+        <div
+            class="category-card"
+            data-category="fish"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🐟
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Fish & Seafood
+                </h3>
+
+                <p>
+                    Freshness & preparation
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 7 -->
+
+        <div
+            class="category-card"
+            data-category="egg"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🥚
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Egg Tips
+                </h3>
+
+                <p>
+                    Boil, fry & curry
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 8 -->
+
+        <div
+            class="category-card"
+            data-category="oil"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🫒
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Oil & Frying
+                </h3>
+
+                <p>
+                    Frying & oil tips
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 9 -->
+
+        <div
+            class="category-card"
+            data-category="salt"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🧂
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Salt • Sugar • Masala
+                </h3>
+
+                <p>
+                    Taste balance
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 10 -->
+
+        <div
+            class="category-card"
+            data-category="dairy"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🥛
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Milk • Curd • Paneer
+                </h3>
+
+                <p>
+                    Dairy handling
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 11 -->
+
+        <div
+            class="category-card"
+            data-category="storage"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🧊
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Fridge & Storage
+                </h3>
+
+                <p>
+                    Food storage basics
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 12 -->
+
+        <div
+            class="category-card"
+            data-category="hygiene"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🧼
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Kitchen Hygiene
+                </h3>
+
+                <p>
+                    Clean & safe kitchen
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 13 -->
+
+        <div
+            class="category-card"
+            data-category="leftover"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                ♻️
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Leftover Food
+                </h3>
+
+                <p>
+                    Reuse & reduce waste
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 14 -->
+
+        <div
+            class="category-card"
+            data-category="quick"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                ⚡
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Quick Cooking
+                </h3>
+
+                <p>
+                    Easy everyday hacks
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 15 -->
+
+        <div
+            class="category-card"
+            data-category="budget"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                💰
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Budget Cooking
+                </h3>
+
+                <p>
+                    Save money & food
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 16 -->
+
+        <div
+            class="category-card"
+            data-category="mistakes"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🧑‍🍳
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Cooking Mistakes
+                </h3>
+
+                <p>
+                    Common problems & fixes
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 17 -->
+
+        <div
+            class="category-card"
+            data-category="healthy"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                ❤️
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Healthy Cooking
+                </h3>
+
+                <p>
+                    Simple daily choices
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- 18 -->
+
+        <div
+            class="category-card"
+            data-category="safety"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🛡️
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Food Safety
+                </h3>
+
+                <p>
+                    Safe cooking & handling
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="tip-info">
+
+        <strong>
+            👩‍🍳 Samayal doubt-ku simple answer
+        </strong>
+
+        <p>
+            Category select pannunga.
+            Andha topic-ku related tips mattum
+            popup-la paakalaam.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     QUICK GUIDE
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <h2>
+            ❤️ Daily Kitchen Reminder
+        </h2>
+
+        <small>
+            Simple habits
+        </small>
+
+    </div>
+
+
+    <div class="category-grid">
+
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🧼
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Clean
+                </h3>
+
+                <p>
+                    Hands & kitchen clean
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🔪
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Separate
+                </h3>
+
+                <p>
+                    Raw & cooked separate
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                🍳
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Cook Well
+                </h3>
+
+                <p>
+                    Food thoroughly cook
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="category-card">
+
+            <div class="category-icon">
+                💧
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Safe Water
+                </h3>
+
+                <p>
+                    Safe water & ingredients
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     PART 2 END
+===================================================== -->
+
+  <!-- =================================================
+     POPUP
+===================================================== -->
+
+<div
+    class="popup"
+    id="tipPopup"
+>
+
+    <div class="popup-box">
+
+
+        <div class="popup-header">
+
+            <div class="popup-top">
+
+                <div
+                    class="popup-title"
+                    id="popupTitle"
+                >
+                    💡 Cooking Tips
+                </div>
+
+
+                <button
+                    type="button"
+                    class="popup-close"
+                    id="popupClose"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="popup-search">
+
+                <input
+                    id="popupSearch"
+                    type="search"
+                    placeholder="இந்த category-ல் தேடுங்கள்..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="popup-content"
+            id="popupList"
+        >
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     FINAL MESSAGE
+===================================================== -->
+
+<section class="section">
+
+    <div
+        class="tip-info"
+        style="
+            text-align:center;
+            padding:20px;
+        "
+    >
+
+        <strong>
+            💡 Samayal-la small doubt?
+        </strong>
+
+        <p>
+            First category choose pannunga.
+            Search pannunga.
+            Simple tip find pannunga.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <strong>
+        Pyncode.in
+    </strong>
+
+    <br><br>
+
+    Cooking Tips 💡
+
+    <br>
+
+    Cutting • Cooking • Storage •
+    Safety • Kitchen Hacks
+
+    <br><br>
+
+    Simple tips for everyday cooking ❤️
+
+</footer>
+
+
+</div>
+
+
+<!-- =================================================
+     PART 3 END
+     IMPORTANT:
+     NO SCRIPT HERE
+===================================================== -->
+
+  <script>
+
+/* =================================================
+   TIP DATABASE
+===================================================== */
+
+const tipMenus = {
+
+    cutting: {
+        title:"🔪 Cutting & Preparation",
+        items:[
+            ["Onion cutting","Onion-ஐ cut செய்வதற்கு முன் சில நிமிடங்கள் fridge-ல் வைத்தால் சிலருக்கு கண் எரிச்சல் குறையலாம்.","Preparation"],
+            ["Onion storage","Cut செய்த onion-ஐ covered container-ல் fridge-ல் வைத்து தேவைக்கேற்ப பயன்படுத்துங்கள்.","Storage"],
+            ["Ginger & garlic","Ginger-garlic paste-ஐ clean, dry container-ல் வைத்து தேவையான அளவு மட்டும் எடுத்து பயன்படுத்துங்கள்.","Preparation"],
+            ["Coriander","Coriander leaves-ஐ clean செய்து moisture குறைத்து fridge-ல் வைத்தால் பயன்படுத்த எளிதாக இருக்கும்.","Freshness"],
+            ["Curry leaves","Curry leaves-ஐ அதிக ஈரப்பதம் இல்லாமல் வைத்திருப்பது storage-க்கு உதவும்.","Freshness"],
+            ["Vegetable cutting","ஒரே dish-க்கு தேவையான vegetables-ஐ முன்கூட்டியே cut செய்து வைத்தால் cooking நேரம் குறையும்.","Time Saver"],
+            ["Garlic peeling","Garlic cloves-ஐ container-ல் வைத்து மெதுவாக shake செய்தால் peel loosen ஆக உதவும்.","Kitchen Hack"],
+            ["Lemon","Lemon-ஐ room temperature-ல் வைத்த பிறகு roll செய்து squeeze செய்தால் juice எடுக்க எளிதாக இருக்கும்.","Kitchen Hack"]
+        ]
+    },
+
+
+    rice: {
+        title:"🍚 Rice & Grains",
+        items:[
+            ["Rice washing","Rice-ஐ clean water-ல் கழுவி cooking method-க்கு ஏற்ப water அளவை அமைக்கவும்.","Rice"],
+            ["Rice soaking","சில rice varieties-க்கு soaking cooking time-ஐ குறைக்க உதவலாம்.","Rice"],
+            ["Soft rice","Rice அதிகமாக soft ஆகிவிட்டால் அடுத்த முறை water அளவை recipe-க்கு ஏற்ப adjust செய்யுங்கள்.","Correction"],
+            ["Leftover rice","Cooked rice-ஐ room temperature-ல் நீண்ட நேரம் வைக்காமல் prompt-ஆக refrigerate செய்யுங்கள்.","Food Safety"],
+            ["Millet cooking","Millet வகைக்கு ஏற்ப water ratio மாறும்; package அல்லது recipe instructions-ஐ follow செய்யுங்கள்.","Millet"],
+            ["Biryani rice","Biryani rice grains overcook ஆகாமல் cooking stage-ஐ கவனிக்கவும்.","Biryani"],
+            ["Variety rice","Cooked rice குளிர்ந்த பிறகு variety rice mixing செய்வது grains தனித்தனியாக இருக்க உதவும்.","Variety Rice"]
+        ]
+    },
+
+
+    sambar: {
+        title:"🥘 Sambar • Rasam • Kuzhambu",
+        items:[
+            ["Sambar too spicy","Chilli அதிகமாகிவிட்டால் dish-ன் quantity மற்றும் suitable ingredients மூலம் balance செய்யலாம்.","Taste Fix"],
+            ["Sambar too thick","தேவையான அளவு hot water சேர்த்து மீண்டும் சில நிமிடங்கள் simmer செய்யலாம்.","Consistency"],
+            ["Sambar too watery","Recipe-க்கு ஏற்ற cooked dal அல்லது thickening method மூலம் consistency adjust செய்யலாம்.","Consistency"],
+            ["Rasam too sour","Tamarind அதிகமாகிவிட்டால் dilution செய்து spice balance-ஐ adjust செய்யலாம்.","Taste Fix"],
+            ["Rasam flavour","Rasam-ஐ அதிக நேரம் boil செய்வதை தவிர்த்து final seasoning-ல் flavour adjust செய்யலாம்.","Rasam"],
+            ["Kuzhambu consistency","Kuzhambu cool ஆகும்போது சில வகைகள் naturally thick ஆகலாம்.","Consistency"],
+            ["Salt balance","Salt குறைவாக இருந்தால் சிறிது சிறிதாக add செய்து taste பார்த்து adjust செய்யுங்கள்.","Taste Fix"]
+        ]
+    },
+
+
+    vegetables: {
+        title:"🥦 Vegetable Cooking",
+        items:[
+            ["Fresh vegetables","Vegetable வாங்கும்போது freshness, damage, mould மற்றும் unusual smell இருக்கிறதா பாருங்கள்.","Shopping"],
+            ["Overcooking","Vegetables-ஐ தேவைக்கு அதிகமாக cook செய்வதை தவிர்த்து texture-ஐ check செய்யுங்கள்.","Cooking"],
+            ["Green vegetables","Green vegetables-ஐ அதிக நேரம் cook செய்வதை தவிர்ப்பது colour மற்றும் texture-க்கு உதவும்.","Cooking"],
+            ["Vegetable cutting","ஒரே dish-ல் சேர்க்கும் vegetables-ஐ similar size-ல் cut செய்தால் cooking uniform ஆகும்.","Preparation"],
+            ["Leafy vegetables","Keerai வகைகளை clean செய்து moisture குறைத்து விரைவாக cook செய்யலாம்.","Keerai"],
+            ["Frozen vegetables","Frozen vegetables பயன்படுத்தும்போது package storage instructions-ஐ follow செய்யுங்கள்.","Storage"]
+        ]
+    },
+
+
+    chicken: {
+        title:"🍗 Chicken Tips",
+        items:[
+            ["Raw chicken","Raw chicken-ஐ ready-to-eat foods-இலிருந்து தனியாக handle செய்யுங்கள்.","Food Safety"],
+            ["Cutting board","Raw chicken-க்கு பயன்படுத்திய board மற்றும் knife-ஐ clean செய்யாமல் cooked food-க்கு பயன்படுத்த வேண்டாம்.","Food Safety"],
+            ["Chicken marination","Marinated chicken-ஐ covered container-ல் fridge-ல் வைத்துப் பயன்படுத்துங்கள்.","Marination"],
+            ["Chicken cooking","Chicken முழுமையாக cook ஆக வேண்டும்; centre-ல் raw அல்லது undercooked பகுதி இருக்கக்கூடாது.","Cooking"],
+            ["Chicken curry","Masala cook ஆன பிறகு chicken சேர்த்து தேவையான அளவு liquid-ல் cook செய்யலாம்.","Cooking"],
+            ["Chicken fry","Chicken pieces similar size-ல் இருந்தால் cooking evenly நடக்க உதவும்.","Frying"],
+            ["Frozen chicken","Frozen chicken-ஐ safe thawing method மூலம் thaw செய்யுங்கள்.","Food Safety"]
+        ]
+    },
+
+
+    fish: {
+        title:"🐟 Fish & Seafood",
+        items:[
+            ["Fresh fish","Fish வாங்கும்போது unusual smell, damaged appearance அல்லது poor storage conditions இருக்கிறதா கவனிக்கவும்.","Shopping"],
+            ["Fish cleaning","Raw seafood juices மற்ற foods-க்கு செல்லாதபடி separate preparation area பயன்படுத்துங்கள்.","Food Safety"],
+            ["Fish cooking","Fish centre வரை thoroughly cook செய்யுங்கள்.","Cooking"],
+            ["Prawn cleaning","Prawn clean செய்த பிறகு raw seafood handling surfaces மற்றும் utensils-ஐ clean செய்யுங்கள்.","Food Safety"],
+            ["Seafood storage","Seafood-ஐ unnecessary delay இல்லாமல் proper refrigeration அல்லது cooking செய்யுங்கள்.","Storage"],
+            ["Fish fry","Fish pieces ஒரே அளவில் இருந்தால் frying consistency improve ஆகும்.","Frying"]
+        ]
+    },
+
+
+    egg: {
+        title:"🥚 Egg Tips",
+        items:[
+            ["Boiled egg","Egg-ஐ thoroughly cook செய்யுங்கள்; undercooked egg-ஐ குறிப்பாக vulnerable people-க்கு தவிர்ப்பது safer.","Food Safety"],
+            ["Easy peeling","Boiled egg cooking முடிந்ததும் suitable cooling method பயன்படுத்தினால் peeling easy ஆகலாம்.","Kitchen Hack"],
+            ["Omelette","Egg mixture-ல் vegetables சேர்க்கும்போது small pieces-ஆக cut செய்தால் cooking easy.","Breakfast"],
+            ["Egg curry","Masala cook ஆன பிறகு boiled eggs சேர்த்து short simmer கொடுக்கலாம்.","Cooking"],
+            ["Egg storage","Eggs-ஐ clean மற்றும் cool storage conditions-ல் வைத்துப் பயன்படுத்துங்கள்.","Storage"]
+        ]
+    },
+
+
+    oil: {
+        title:"🫒 Oil & Frying",
+        items:[
+            ["Oil quantity","Daily cooking-ல் deep-fried foods-ஐ அடிக்கடி செய்வதை குறைக்கலாம்.","Everyday Cooking"],
+            ["Oil heating","Oil-ஐ empty pan-ல் தேவையில்லாமல் நீண்ட நேரம் அதிகமாக heat செய்ய வேண்டாம்.","Cooking"],
+            ["Repeated oil","ஒரே cooking oil-ஐ repeatedly reuse செய்வதை தவிர்ப்பது நல்ல practice.","Oil Safety"],
+            ["Frying temperature","Oil மிகவும் low அல்லது excessively high temperature-ல் இருக்காமல் cooking-ஐ கவனிக்கவும்.","Frying"],
+            ["Less-oil cooking","Steam, boil, sauté, grill போன்ற methods-ஐ தேவைக்கேற்ப பயன்படுத்தலாம்.","Healthy Cooking"]
+        ]
+    },
+
+
+    salt: {
+        title:"🧂 Salt • Sugar • Masala",
+        items:[
+            ["Salt அதிகம்","Salt அதிகமாகிவிட்டால் dish-ஐ dilute செய்து other ingredients மூலம் balance செய்யலாம்.","Taste Fix"],
+            ["Chilli அதிகம்","Chilli அதிகமாகிவிட்டால் suitable ingredients மற்றும் dilution மூலம் balance செய்யலாம்.","Taste Fix"],
+            ["Too sour","Sourness அதிகமாக இருந்தால் dish quantity மற்றும் other flavours-ஐ balance செய்யலாம்.","Taste Fix"],
+            ["Too sweet","Sweetness அதிகமாகிவிட்டால் other ingredients மற்றும் seasoning மூலம் balance செய்யலாம்.","Taste Fix"],
+            ["Masala","Masala powder-ஐ little by little சேர்த்து taste பார்த்து adjust செய்யுங்கள்.","Masala"],
+            ["Sugar","Daily drinks மற்றும் recipes-ல் added sugar அளவை கவனியுங்கள்.","Everyday"]
+        ]
+    },
+
+
+    dairy: {
+        title:"🥛 Milk • Curd • Paneer",
+        items:[
+            ["Milk storage","Milk-ஐ label-ல் குறிப்பிடப்பட்ட storage instructions-க்கு ஏற்ப refrigerate செய்யுங்கள்.","Storage"],
+            ["Curd setting","Curd set செய்ய clean container மற்றும் suitable temperature பயன்படுத்துவது உதவும்.","Curd"],
+            ["Curd storage","Prepared curd-ஐ covered container-ல் refrigerate செய்யுங்கள்.","Storage"],
+            ["Paneer","Paneer-ஐ proper refrigeration-ல் வைத்து use-by guidance-க்கு ஏற்ப பயன்படுத்துங்கள்.","Storage"],
+            ["Buttermilk","Buttermilk தயாரித்த பிறகு clean container-ல் வைத்து fresh-ஆக பயன்படுத்துங்கள்.","Fresh"],
+            ["Dairy expiry","Dairy products பயன்படுத்தும் முன் expiry/use-by மற்றும் storage condition check செய்யுங்கள்.","Safety"]
+        ]
+    },
+
+
+    storage: {
+        title:"🧊 Fridge & Food Storage",
+        items:[
+            ["Raw & cooked","Raw meat, poultry, seafood மற்றும் cooked food-ஐ separate-ஆக store செய்யுங்கள்.","Food Safety"],
+            ["Leftover food","Cooked food-ஐ room temperature-ல் நீண்ட நேரம் வைக்காமல் prompt-ஆக refrigerate செய்யுங்கள்.","Food Safety"],
+            ["Food containers","Food-ஐ clean, suitable, covered containers-ல் store செய்யுங்கள்.","Storage"],
+            ["Fridge overload","Fridge-ஐ மிகவும் overcrowd செய்யாமல் air circulation-க்கு இடம் விடுங்கள்.","Fridge"],
+            ["Expiry check","Packed foods பயன்படுத்தும் முன் expiry/use-by மற்றும் storage instructions பாருங்கள்.","Shopping"],
+            ["Spoiled food","Unusual smell, mould அல்லது clearly spoiled food இருந்தால் taste செய்து check செய்யாமல் discard செய்வது safer.","Safety"],
+            ["Frozen food","Frozen food-ஐ room temperature-ல் நீண்ட நேரம் thaw செய்ய வேண்டாம்.","Food Safety"]
+        ]
+    },
+
+
+    hygiene: {
+        title:"🧼 Kitchen Hygiene",
+        items:[
+            ["Wash hands","Food preparationக்கு முன்பும் raw food handle செய்த பிறகும் கைகளை நன்றாக wash செய்யுங்கள்.","Food Safety"],
+            ["Clean surfaces","Cooking surfaces மற்றும் utensils-ஐ clean-ஆக வைத்திருங்கள்.","Food Safety"],
+            ["Cutting boards","Raw meat/seafood மற்றும் ready-to-eat foods-க்கு separate boards பயன்படுத்துவது cross-contamination குறைக்க உதவும்.","Food Safety"],
+            ["Kitchen cloth","Kitchen cloth-ஐ clean-ஆக வைத்திருந்து தேவையானபோது மாற்றுங்கள்.","Hygiene"],
+            ["Sink","Food preparation முடிந்த பிறகு sink area-ஐ clean செய்யுங்கள்.","Hygiene"],
+            ["Pests","Food மற்றும் kitchen area-ஐ insects மற்றும் pests-இலிருந்து பாதுகாக்கவும்.","Food Safety"]
+        ]
+    },
+
+
+    leftover: {
+        title:"♻️ Leftover Food",
+        items:[
+            ["Leftover rice","Properly refrigerated leftover rice-ஐ next meal-ல் suitable rice dish-ஆக பயன்படுத்தலாம்.","Reuse"],
+            ["Leftover idli","Leftover idli-ஐ idli upma அல்லது seasoning உடன் quick dish-ஆக மாற்றலாம்.","Reuse"],
+            ["Leftover dosa","Dosa pieces-ஐ vegetable அல்லது egg சேர்த்து quick dish-ஆக பயன்படுத்தலாம்.","Reuse"],
+            ["Leftover chapati","Chapati-ஐ roll, egg roll அல்லது vegetable wrap-ஆக பயன்படுத்தலாம்.","Reuse"],
+            ["Leftover vegetables","Cooked vegetables-ஐ chapati filling, rice அல்லது sandwich filling-ல் பயன்படுத்தலாம்.","Reuse"],
+            ["Leftover dal","மீதமான dal-ஐ suitable rice dish அல்லது chapati side dish-ல் பயன்படுத்தலாம்.","Reuse"],
+            ["Safety first","Leftover reuse செய்வதற்கு முன் storage history, smell மற்றும் appearance check செய்யுங்கள்.","Food Safety"]
+        ]
+    },
+
+
+    quick: {
+        title:"⚡ Quick Cooking Hacks",
+        items:[
+            ["Morning preparation","Regular ingredients-ஐ suitable quantity-ல் முன்கூட்டியே prepare செய்தால் morning cooking easy.","Time Saver"],
+            ["One-pot meals","Busy days-ல் one-pot rice, khichdi அல்லது simple vegetable meals useful.","Quick"],
+            ["Pressure cooker","Pressure cooker பயன்படுத்தும்போது manufacturer safety instructions-ஐ follow செய்யுங்கள்.","Safety"],
+            ["Batch preparation","Frequently used homemade ingredients-ஐ small batches-ல் prepare செய்து properly store செய்யலாம்.","Planning"],
+            ["Menu planning","Next day's lunch-ஐ previous night decide செய்தால் morning rush குறையலாம்.","Planning"],
+            ["Simple dinner","Busy day-ல் simple dosa, idli, chapati அல்லது vegetable soup போன்ற familiar options பயன்படுத்தலாம்.","Quick"]
+        ]
+    },
+
+
+    budget: {
+        title:"💰 Budget Cooking",
+        items:[
+            ["Seasonal vegetables","Seasonal vegetables கிடைக்கும் போது menu planning-ல் பயன்படுத்துவது practical option.","Budget"],
+            ["Reduce food waste","வீட்டில் இருக்கும் ingredients-ஐ முதலில் பயன்படுத்தி பிறகு shopping list உருவாக்குங்கள்.","Budget"],
+            ["Weekly planning","Week முழுவதும் menu plan செய்தால் unnecessary purchases குறைக்க உதவும்.","Planning"],
+            ["Ingredient reuse","ஒரே ingredient-ஐ பல dishes-ல் பயன்படுத்தக்கூடிய வகையில் menu plan செய்யலாம்.","Smart Cooking"],
+            ["Leftovers","Safe-ஆக stored leftovers-ஐ next meal planning-ல் பயன்படுத்தலாம்.","Waste Reduction"]
+        ]
+    },
+
+
+    mistakes: {
+        title:"🧑‍🍳 Cooking Mistakes & Fixes",
+        items:[
+            ["Gravy too watery","Recipe-க்கு ஏற்ற thickening method பயன்படுத்தி consistency adjust செய்யலாம்.","Fix"],
+            ["Gravy too thick","தேவையான அளவு hot water அல்லது suitable liquid சேர்த்து consistency adjust செய்யலாம்.","Fix"],
+            ["Salt அதிகம்","Dish-ஐ dilute செய்து quantity மற்றும் other ingredients-ஐ balance செய்யலாம்.","Fix"],
+            ["Rice mushy","அடுத்த முறை water அளவு மற்றும் cooking time-ஐ recipe-க்கு ஏற்ப adjust செய்யுங்கள்.","Rice"],
+            ["Food burnt","Burnt bottom-ஐ scrape செய்து முழு dish-ல் mix செய்யாமல் unburnt portion-ஐ வேறு vessel-க்கு மாற்றிப் பாருங்கள்.","Fix"],
+            ["Too spicy","Dish-ஐ dilute செய்து suitable ingredients சேர்த்து flavour balance செய்யலாம்.","Fix"],
+            ["Too sour","Recipe-க்கு ஏற்ற dilution மற்றும் flavour balancing மூலம் sourness குறைக்க முயற்சி செய்யலாம்.","Fix"]
+        ]
+    },
+
+
+    healthy: {
+        title:"❤️ Healthy Cooking",
+        items:[
+            ["Less deep fry","Daily cooking-ல் deep-fried foods-ஐ குறைத்து steaming, boiling, sautéing போன்ற methods பயன்படுத்தலாம்.","Everyday"],
+            ["Salt moderation","Cooking-ல் salt அளவை கவனித்து salty packaged foods-ஐ அடிக்கடி சாப்பிடுவதை குறைக்கலாம்.","Everyday"],
+            ["Added sugar","Tea, coffee, drinks மற்றும் desserts-ல் added sugar அளவை கவனிக்கவும்.","Everyday"],
+            ["Vegetables","Daily meals-ல் பல வகையான vegetables சேர்க்க முயற்சி செய்யலாம்.","Food"],
+            ["Oil","தேவையான அளவு oil பயன்படுத்தி repeatedly reused frying oil-ஐ avoid செய்யுங்கள்.","Oil"],
+            ["Balanced meal","Meals-ல் vegetables, protein foods மற்றும் grains போன்றவற்றை balance செய்யலாம்.","Meal Planning"]
+        ]
+    },
+
+
+    safety: {
+        title:"🛡️ Food Safety",
+        items:[
+            ["Keep clean","Food handle செய்வதற்கு முன் கைகளை wash செய்து kitchen surfaces மற்றும் utensils clean-ஆக வைத்திருங்கள்.","Food Safety"],
+            ["Separate raw & cooked","Raw meat, poultry, seafood ஆகியவற்றை cooked/ready-to-eat foods-இலிருந்து separate-ஆக வைத்திருங்கள்.","Food Safety"],
+            ["Cook thoroughly","Meat, poultry, eggs மற்றும் seafood போன்ற foods-ஐ thoroughly cook செய்யுங்கள்.","Food Safety"],
+            ["Safe temperature","Cooked மற்றும் perishable foods-ஐ safe temperature conditions-ல் வைத்திருங்கள்.","Food Safety"],
+            ["Safe water","Food preparation மற்றும் drinking-க்கு safe water பயன்படுத்துங்கள்.","Food Safety"],
+            ["Fresh ingredients","Fresh, wholesome raw materials தேர்வு செய்து expiry information-ஐ கவனியுங்கள்.","Food Safety"],
+            ["Raw meat handling","Raw meat அல்லது seafood handle செய்த பிறகு hands, knives, boards மற்றும் surfaces-ஐ clean செய்யுங்கள்.","Food Safety"],
+            ["Reheating","Stored cooked food-ஐ சாப்பிடுவதற்கு முன் thoroughly reheat செய்யுங்கள்.","Food Safety"]
+        ]
+    }
+
+};
+
+
+/* =================================================
+   DOM REFERENCES
+===================================================== */
+
+const tipPopup =
+    document.getElementById("tipPopup");
+
+const popupTitle =
+    document.getElementById("popupTitle");
+
+const popupList =
+    document.getElementById("popupList");
+
+const popupSearch =
+    document.getElementById("popupSearch");
+
+const popupClose =
+    document.getElementById("popupClose");
+
+const mainSearch =
+    document.getElementById("mainSearch");
+
+const categoryCards =
+    document.querySelectorAll(
+        ".category-card[data-category]"
+    );
+
+
+/* =================================================
+   OPEN POPUP
+===================================================== */
+
+function openTipMenu(categoryId){
+
+    const menu =
+        tipMenus[categoryId];
+
+    if(!menu){
+
+        return;
+
+    }
+
+
+    popupTitle.textContent =
+        menu.title;
+
+
+    popupList.innerHTML =
+        "";
+
+
+    menu.items.forEach(
+        function(item){
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "popup-item";
+
+
+            card.innerHTML =
+
+                '<div class="popup-item-title">' +
+                    escapeHTML(item[0]) +
+                '</div>' +
+
+                '<div class="popup-item-text">' +
+                    escapeHTML(item[1]) +
+                '</div>' +
+
+                '<span class="popup-item-badge">' +
+                    escapeHTML(item[2]) +
+                '</span>';
+
+
+            popupList.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    popupSearch.value = "";
+
+
+    tipPopup.classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    /*
+       IMPORTANT:
+       No focus here.
+       Mobile keyboard will not
+       open automatically.
+    */
+
+}
+
+
+/* =================================================
+   CLOSE POPUP
+===================================================== */
+
+function closeTipMenu(){
+
+    tipPopup.classList.remove(
+        "show"
+    );
+
+    document.body.style.overflow =
+        "";
+
+    popupSearch.value =
+        "";
+
+}
+
+
+/* =================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+    /* =================================================
+   CATEGORY CLICK
+===================================================== */
+
+categoryCards.forEach(
+    function(card){
+
+        card.addEventListener(
+            "click",
+            function(){
+
+                openTipMenu(
+                    this.dataset.category
+                );
+
+            }
+        );
+
+
+        card.addEventListener(
+            "keydown",
+            function(event){
+
+                if(
+                    event.key === "Enter" ||
+                    event.key === " "
+                ){
+
+                    event.preventDefault();
+
+                    openTipMenu(
+                        this.dataset.category
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =================================================
+   CLOSE BUTTON
+===================================================== */
+
+popupClose.addEventListener(
+    "click",
+    closeTipMenu
+);
+
+
+/* =================================================
+   OUTSIDE TAP
+===================================================== */
+
+tipPopup.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target === tipPopup
+        ){
+
+            closeTipMenu();
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape" &&
+            tipPopup.classList.contains("show")
+        ){
+
+            closeTipMenu();
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   POPUP SEARCH
+===================================================== */
+
+popupSearch.addEventListener(
+    "input",
+    function(){
+
+        const keyword =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        const items =
+            popupList.querySelectorAll(
+                ".popup-item"
+            );
+
+
+        let visibleCount = 0;
+
+
+        items.forEach(
+            function(item){
+
+                const text =
+                    item.textContent
+                        .toLowerCase();
+
+
+                if(
+                    keyword === "" ||
+                    text.includes(keyword)
+                ){
+
+                    item.style.display =
+                        "";
+
+                    visibleCount++;
+
+                }else{
+
+                    item.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+
+        const oldEmpty =
+            popupList.querySelector(
+                ".empty-message"
+            );
+
+
+        if(oldEmpty){
+
+            oldEmpty.remove();
+
+        }
+
+
+        if(
+            keyword !== "" &&
+            visibleCount === 0
+        ){
+
+            const empty =
+                document.createElement(
+                    "div"
+                );
+
+
+            empty.className =
+                "empty-message";
+
+
+            empty.innerHTML =
+                "<strong>😕 Tip கிடைக்கவில்லை</strong>" +
+                "வேறு keyword வைத்து search pannunga.";
+
+
+            popupList.appendChild(
+                empty
+            );
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   MAIN SEARCH
+   ENTER மட்டும்
+===================================================== */
+
+mainSearch.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key !== "Enter"
+        ){
+
+            return;
+
+        }
+
+
+        const keyword =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        if(!keyword){
+
+            return;
+
+        }
+
+
+        let foundCategory =
+            null;
+
+
+        Object.keys(
+            tipMenus
+        ).some(
+            function(categoryId){
+
+                const menu =
+                    tipMenus[
+                        categoryId
+                    ];
+
+
+                const searchableText =
+                    menu.title +
+                    " " +
+                    menu.items
+                        .map(
+                            function(item){
+
+                                return item.join(
+                                    " "
+                                );
+
+                            }
+                        )
+                        .join(
+                            " "
+                        );
+
+
+                if(
+                    searchableText
+                        .toLowerCase()
+                        .includes(
+                            keyword
+                        )
+                ){
+
+                    foundCategory =
+                        categoryId;
+
+                    return true;
+
+                }
+
+
+                return false;
+
+            }
+        );
+
+
+        if(foundCategory){
+
+            openTipMenu(
+                foundCategory
+            );
+
+        }else{
+
+            alert(
+                "இந்த cooking tip கிடைக்கவில்லை."
+            );
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   PAGE READY
+===================================================== */
+
+document.body.style.overflow =
+    "";
+
+
+/* =================================================
+   END SCRIPT
+===================================================== */
+
+</script>
+
+
+</body>
+
+</html>

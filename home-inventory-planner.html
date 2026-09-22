@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Home Inventory Planner | Pyncode.in</title>
+
+
+  <style>
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+
+    body{
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      background:
+        linear-gradient(
+          180deg,
+          #f8faff 0%,
+          #f5f6fb 48%,
+          #ffffff 100%
+        );
+
+      color:#171b29;
+
+      min-height:100vh;
+
+      -webkit-font-smoothing:antialiased;
+    }
+
+
+    button,
+    a{
+      font-family:inherit;
+    }
+
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+
+    /* =====================================================
+       PREMIUM HEADER
+    ===================================================== */
+
+    .top-header{
+
+      position:sticky;
+
+      top:0;
+
+      z-index:1000;
+
+      height:68px;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
+
+      padding:
+        0 16px;
+
+      background:
+        rgba(255,255,255,.96);
+
+      backdrop-filter:
+        blur(16px);
+
+      -webkit-backdrop-filter:
+        blur(16px);
+
+      border-bottom:
+        1px solid #e7e9ef;
+
+      box-shadow:
+        0 6px 24px
+        rgba(25,32,65,.055);
+
+    }
+
+
+    /* =====================================================
+       PYNCODE BRAND
+    ===================================================== */
+
+    .brand{
+
+      display:inline-flex;
+
+      align-items:center;
+
+      padding:6px 0;
+
+      font-size:21px;
+
+      line-height:1;
+
+      font-weight:900;
+
+      letter-spacing:-.7px;
+
+      white-space:nowrap;
+
+      color:#151923;
+
+    }
+
+
+    .pyn-text{
+      color:#ef603e;
+    }
+
+
+    .code-text{
+      color:#151923;
+    }
+
+
+    /* =====================================================
+       ADD BUSINESS BUTTON
+    ===================================================== */
+
+    .add-business-btn{
+
+      display:inline-flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      gap:6px;
+
+      min-height:42px;
+
+      padding:
+        0 15px;
+
+      border-radius:13px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #151d30,
+          #252e43
+        );
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      color:#ffffff;
+
+      font-size:12px;
+
+      font-weight:800;
+
+      box-shadow:
+        0 7px 18px
+        rgba(20,28,50,.16);
+
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+
+    }
+
+
+    .add-business-btn:hover{
+
+      transform:
+        translateY(-1px);
+
+      box-shadow:
+        0 10px 23px
+        rgba(20,28,50,.20);
+
+    }
+
+
+    .add-business-btn:active{
+
+      transform:
+        scale(.97);
+
+    }
+
+
+    /* =====================================================
+       MAIN PAGE
+    ===================================================== */
+
+    .page{
+
+      width:100%;
+
+      max-width:760px;
+
+      margin:0 auto;
+
+      padding:
+        20px 15px 45px;
+
+    }
+
+
+    /* =====================================================
+       PREMIUM BACK BUTTON
+    ===================================================== */
+
+    .back-btn{
+
+      display:inline-flex;
+
+      align-items:center;
+
+      gap:8px;
+
+      min-height:40px;
+
+      padding:
+        0 14px;
+
+      margin-bottom:18px;
+
+      background:#ffffff;
+
+      border:
+        1px solid #e4e6ed;
+
+      border-radius:12px;
+
+      color:#303442;
+
+      font-size:13px;
+
+      font-weight:750;
+
+      box-shadow:
+        0 4px 15px
+        rgba(30,35,70,.055);
+
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease;
+
+    }
+
+
+    .back-btn:hover{
+
+      transform:
+        translateX(-2px);
+
+      border-color:#d6d8e3;
+
+      box-shadow:
+        0 7px 19px
+        rgba(30,35,70,.09);
+
+    }
+
+
+    .back-btn:active{
+
+      transform:
+        scale(.97);
+
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .planner-hero{
+
+      position:relative;
+
+      overflow:hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f1efff 0%,
+          #faf8ff 46%,
+          #edf8ff 100%
+        );
+
+      border:
+        1px solid #e4e2f5;
+
+      border-radius:26px;
+
+      padding:
+        28px 23px;
+
+      margin-bottom:16px;
+
+      box-shadow:
+        0 10px 32px
+        rgba(42,37,88,.075);
+
+    }
+
+
+    .hero-decoration{
+
+      position:absolute;
+
+      width:155px;
+
+      height:155px;
+
+      border-radius:50%;
+
+      background:
+        rgba(103,80,232,.075);
+
+      right:-65px;
+
+      top:-65px;
+
+    }
+
+
+    .hero-decoration::after{
+
+      content:"";
+
+      position:absolute;
+
+      width:90px;
+
+      height:90px;
+
+      border-radius:50%;
+
+      background:
+        rgba(255,255,255,.45);
+
+      left:-35px;
+
+      bottom:-25px;
+
+    }
+
+
+    .hero-icon{
+
+      position:relative;
+
+      width:62px;
+
+      height:62px;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      background:#ffffff;
+
+      border:
+        1px solid #e7e4fa;
+
+      border-radius:19px;
+
+      font-size:30px;
+
+      box-shadow:
+        0 7px 20px
+        rgba(70,60,130,.10);
+
+      margin-bottom:17px;
+
+    }
+
+
+    .hero-title{
+
+      position:relative;
+
+      font-size:26px;
+
+      line-height:1.2;
+
+      font-weight:850;
+
+      letter-spacing:-.75px;
+
+      color:#171b29;
+
+      margin-bottom:8px;
+
+    }
+
+
+    .hero-description{
+
+      position:relative;
+
+      color:#747985;
+
+      font-size:14px;
+
+      line-height:1.6;
+
+      max-width:540px;
+
+    }
+
+
+    /* =====================================================
+       ACTION BUTTONS
+    ===================================================== */
+
+    .action-row{
+
+      display:grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:10px;
+
+      margin-bottom:29px;
+
+    }
+
+
+    .action-btn{
+
+      min-height:52px;
+
+      border:none;
+
+      border-radius:15px;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      gap:8px;
+
+      font-size:13.5px;
+
+      font-weight:800;
+
+      cursor:pointer;
+
+      transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+
+    }
+
+
+    .action-btn:active{
+
+      transform:
+        scale(.97);
+
+    }
+
+
+    .pdf-btn{
+
+      background:#ffffff;
+
+      color:#5140c9;
+
+      border:
+        1px solid #e0dcfa;
+
+      box-shadow:
+        0 5px 18px
+        rgba(70,55,150,.065);
+
+    }
+
+
+    .pdf-btn:hover{
+
+      box-shadow:
+        0 8px 22px
+        rgba(70,55,150,.10);
+
+    }
+
+
+    .whatsapp-btn{
+
+      background:
+        linear-gradient(
+          135deg,
+          #20b86b,
+          #18a961
+        );
+
+      color:#ffffff;
+
+      box-shadow:
+        0 7px 19px
+        rgba(32,184,107,.19);
+
+    }
+
+
+    .whatsapp-btn:hover{
+
+      box-shadow:
+        0 9px 23px
+        rgba(32,184,107,.24);
+
+    }
+
+
+    .action-icon{
+
+      font-size:18px;
+
+    }
+
+
+    /* =====================================================
+       SECTION HEADING
+    ===================================================== */
+
+    .section-heading{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:9px;
+
+      font-size:19px;
+
+      font-weight:850;
+
+      color:#181c2a;
+
+      margin-bottom:14px;
+
+    }
+
+
+    .section-heading-icon{
+
+      width:36px;
+
+      height:36px;
+
+      flex-shrink:0;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      background:
+        linear-gradient(
+          145deg,
+          #edf7ff,
+          #f5faff
+        );
+
+      border:
+        1px solid #dceefc;
+
+      border-radius:11px;
+
+      font-size:17px;
+
+    }
+
+
+    /* =====================================================
+       SERVICE LIST
+    ===================================================== */
+
+    .services-list{
+
+      display:flex;
+
+      flex-direction:column;
+
+      gap:9px;
+
+    }
+
+
+    .service-item{
+
+      background:#ffffff;
+
+      border:
+        1px solid #e6e7ee;
+
+      border-radius:17px;
+
+      overflow:hidden;
+
+      box-shadow:
+        0 4px 17px
+        rgba(35,35,70,.045);
+
+      transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+
+    }
+
+
+    .service-item.open{
+
+      border-color:#dcd8f6;
+
+      box-shadow:
+        0 7px 22px
+        rgba(70,55,150,.075);
+
+    }
+
+
+    /* =====================================================
+       SERVICE HEADER
+    ===================================================== */
+
+    .service-header{
+
+      width:100%;
+
+      border:none;
+
+      background:transparent;
+
+      padding:
+        14px 13px;
+
+      display:flex;
+
+      align-items:center;
+
+      gap:12px;
+
+      text-align:left;
+
+      cursor:pointer;
+
+    }
+
+
+    .service-header:active{
+
+      background:#fafaff;
+
+    }
+
+
+    .service-icon{
+
+      flex:
+        0 0 43px;
+
+      width:43px;
+
+      height:43px;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      border-radius:13px;
+
+      font-size:20px;
+
+    }
+
+
+    .service-info{
+
+      flex:1;
+
+      min-width:0;
+
+    }
+
+
+    .service-name{
+
+      display:block;
+
+      font-size:14px;
+
+      font-weight:750;
+
+      line-height:1.35;
+
+      color:#292c34;
+
+    }
+
+
+    .service-count{
+
+      display:block;
+
+      margin-top:3px;
+
+      color:#92969d;
+
+      font-size:11px;
+
+      line-height:1.3;
+
+    }
+
+
+    .service-arrow{
+
+      flex:
+        0 0 auto;
+
+      color:#8b8f99;
+
+      font-size:21px;
+
+      line-height:1;
+
+      transition:
+        transform .2s ease,
+        color .2s ease;
+
+    }
+
+
+    .service-item.open .service-arrow{
+
+      transform:
+        rotate(90deg);
+
+      color:#6750e8;
+
+    }
+
+
+    /* =====================================================
+       PROVIDERS
+    ===================================================== */
+
+    .providers-container{
+
+      display:none;
+
+      padding:
+        0 11px 11px;
+
+    }
+
+
+    .service-item.open
+    .providers-container{
+
+      display:block;
+
+    }
+
+
+    .provider-loading,
+    .no-providers{
+
+      padding:
+        16px 10px;
+
+      text-align:center;
+
+      color:#858990;
+
+      font-size:13px;
+
+    }
+
+
+    .provider-card{
+
+      background:
+        linear-gradient(
+          145deg,
+          #fbfbff,
+          #f8faff
+        );
+
+      border:
+        1px solid #e7e8f0;
+
+      border-radius:14px;
+
+      padding:14px;
+
+      margin-top:8px;
+
+    }
+
+
+    .provider-card:first-child{
+
+      margin-top:0;
+
+    }
+
+
+    .provider-name{
+
+      font-size:15px;
+
+      font-weight:850;
+
+      color:#20232d;
+
+      margin-bottom:4px;
+
+    }
+
+
+    .provider-owner{
+
+      color:#666a72;
+
+      font-size:12px;
+
+      margin-bottom:5px;
+
+    }
+
+
+    .provider-location{
+
+      color:#777b83;
+
+      font-size:12px;
+
+      margin-bottom:12px;
+
+    }
+
+
+    .provider-actions{
+
+      display:grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap:8px;
+
+    }
+
+
+    .provider-action{
+
+      min-height:39px;
+
+      border-radius:10px;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      gap:6px;
+
+      font-size:12px;
+
+      font-weight:800;
+
+    }
+
+
+    .call-btn{
+
+      background:#eef5ff;
+
+      color:#2873cf;
+
+    }
+
+
+    .provider-whatsapp-btn{
+
+      background:#eafaf2;
+
+      color:#159457;
+
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media(max-width:420px){
+
+      .top-header{
+
+        height:64px;
+
+        padding:
+          0 12px;
+
+      }
+
+
+      .brand{
+
+        font-size:19px;
+
+      }
+
+
+      .add-business-btn{
+
+        min-height:40px;
+
+        padding:
+          0 12px;
+
+        border-radius:12px;
+
+        font-size:11.5px;
+
+      }
+
+
+      .page{
+
+        padding:
+          17px 12px 40px;
+
+      }
+
+
+      .back-btn{
+
+        min-height:38px;
+
+        padding:
+          0 12px;
+
+        font-size:12.5px;
+
+        border-radius:11px;
+
+      }
+
+
+      .planner-hero{
+
+        padding:
+          22px 17px;
+
+        border-radius:21px;
+
+      }
+
+
+      .hero-icon{
+
+        width:57px;
+
+        height:57px;
+
+        border-radius:17px;
+
+        font-size:28px;
+
+      }
+
+
+      .hero-title{
+
+        font-size:23px;
+
+      }
+
+
+      .hero-description{
+
+        font-size:13px;
+
+      }
+
+
+      .action-btn{
+
+        min-height:50px;
+
+        font-size:12.5px;
+
+      }
+
+
+      .section-heading{
+
+        font-size:17px;
+
+      }
+
+
+      .service-header{
+
+        padding:
+          13px 12px;
+
+      }
+
+
+      .service-icon{
+
+        flex-basis:41px;
+
+        width:41px;
+
+        height:41px;
+
+      }
+
+
+      .service-name{
+
+        font-size:13.5px;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SMALL MOBILE
+    ===================================================== */
+
+    @media(max-width:360px){
+
+      .brand{
+
+        font-size:18px;
+
+      }
+
+
+      .add-business-btn{
+
+        padding:
+          0 10px;
+
+        font-size:11px;
+
+      }
+
+
+      .action-row{
+
+        gap:8px;
+
+      }
+
+
+      .action-btn{
+
+        font-size:12px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+  <body>
+
+
+  <!-- =====================================================
+       PREMIUM HEADER
+  ===================================================== -->
+
+  <header class="top-header">
+
+
+    <a
+      href="planner.html"
+      class="brand"
+    >
+
+      <span class="pyn-text">
+        Pyn
+      </span><span class="code-text">code.in</span>
+
+    </a>
+
+
+    <a
+      href="add-business.html?return=home-inventory-planner.html"
+      class="add-business-btn"
+    >
+
+      <span>＋</span>
+
+      Add Your Business
+
+    </a>
+
+
+  </header>
+
+
+
+  <!-- =====================================================
+       MAIN
+  ===================================================== -->
+
+  <main class="page">
+
+
+    <!-- ===================================================
+         BACK
+    =================================================== -->
+
+    <a
+      href="#"
+      class="back-btn"
+      onclick="history.back(); return false;"
+    >
+
+      ←
+
+      <span>
+        Back
+      </span>
+
+    </a>
+
+
+
+    <!-- ===================================================
+         HERO
+    =================================================== -->
+
+    <section class="planner-hero">
+
+
+      <div class="hero-decoration"></div>
+
+
+      <div class="hero-icon">
+        📦
+      </div>
+
+
+      <h1 class="hero-title">
+        Home Inventory Planner
+      </h1>
+
+
+      <p class="hero-description">
+        Plan your home essentials and find useful
+        local service providers in one place.
+      </p>
+
+
+    </section>
+
+
+
+    <!-- ===================================================
+         ACTION BUTTONS
+    =================================================== -->
+
+    <div class="action-row">
+
+
+      <button
+        type="button"
+        class="action-btn pdf-btn"
+        onclick="downloadPlannerPDF()"
+      >
+
+        <span class="action-icon">
+          📄
+        </span>
+
+        Download PDF
+
+      </button>
+
+
+      <button
+        type="button"
+        class="action-btn whatsapp-btn"
+        onclick="sharePlannerWhatsApp()"
+      >
+
+        <span class="action-icon">
+          💬
+        </span>
+
+        Share on WhatsApp
+
+      </button>
+
+
+    </div>
+
+
+
+    <!-- ===================================================
+         RELATED SERVICE PROVIDERS
+    =================================================== -->
+
+    <h2 class="section-heading">
+
+      <span class="section-heading-icon">
+        🔎
+      </span>
+
+      Related Service Providers
+
+    </h2>
+
+
+    <div
+      id="servicesList"
+      class="services-list"
+    ></div>
+
+
+  </main>
+
+      <script>
+
+    /* =========================================
+       CONFIG
+    ========================================= */
+
+    const SUPABASE_URL =
+      "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+    /* =========================================
+       HOME INVENTORY SERVICES
+    ========================================= */
+
+    const HOME_INVENTORY_SERVICES = [
+
+      "Supermarket / Grocery Stores",
+      "Cleaning Service",
+      "Laundry / Dry Cleaning",
+      "Furniture Shops",
+      "Home Appliances Shops",
+      "Electrical Service",
+      "Plumbing Service",
+      "Painting Service",
+      "Curtain & Blinds",
+      "Mattress & Bedding",
+      "Kitchenware Shops",
+      "Lighting Shops",
+      "Pest Control",
+      "Locksmith / Key Maker",
+      "AC Service & Repair",
+      "TV / Electronics Service",
+      "Refrigerator Service",
+      "Washing Machine Service",
+      "Water Purifier Service",
+      "Inverter / Battery Service",
+      "Home Repair Services",
+      "Packers & Movers",
+      "Scrap / E-Waste Collection",
+      "Gardening / Plant Service",
+      "Interior Design"
+
+    ];
+
+
+    /* =========================================
+       SERVICE ICONS
+    ========================================= */
+
+    const SERVICE_ICONS = [
+
+      "🛒",
+      "🧹",
+      "🧺",
+      "🛋️",
+      "📺",
+      "⚡",
+      "🔧",
+      "🎨",
+      "🪟",
+      "🛏️",
+      "🍳",
+      "💡",
+      "🐜",
+      "🔑",
+      "❄️",
+      "📺",
+      "🧊",
+      "🧺",
+      "💧",
+      "🔋",
+      "🛠️",
+      "📦",
+      "♻️",
+      "🌱",
+      "🏠"
+
+    ];
+
+
+    /* =========================================
+       ICON BACKGROUNDS
+    ========================================= */
+
+    const ICON_BACKGROUNDS = [
+
+      "#fff5df",
+      "#eef9f3",
+      "#edf7ff",
+      "#f7efff",
+      "#fff0f5",
+      "#fff8e8",
+      "#edf5ff",
+      "#fff0f0",
+      "#eef8ff",
+      "#f4efff"
+
+    ];
+
+
+    /* =========================================
+       PROVIDER CACHE
+    ========================================= */
+
+    const providerCache = {};
+
+
+    /* =========================================
+       INITIALIZE
+    ========================================= */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        renderServices();
+
+
+        const service =
+          new URLSearchParams(
+            window.location.search
+          ).get("service");
+
+
+        if(service){
+
+          const index =
+            HOME_INVENTORY_SERVICES.findIndex(
+              item =>
+                normalizeService(item) ===
+                normalizeService(service)
+            );
+
+
+          if(index !== -1){
+
+            setTimeout(() => {
+
+              toggleService(index);
+
+
+              const serviceItems =
+                document.querySelectorAll(
+                  ".service-item"
+                );
+
+
+              if(serviceItems[index]){
+
+                serviceItems[index]
+                  .scrollIntoView({
+                    behavior:"smooth",
+                    block:"center"
+                  });
+
+              }
+
+            },200);
+
+          }
+
+        }
+
+      }
+    );
+
+
+    /* =========================================
+       RENDER SERVICES
+    ========================================= */
+
+    function renderServices(){
+
+      const container =
+        document.getElementById(
+          "servicesList"
+        );
+
+
+      if(!container){
+
+        return;
+
+      }
+
+
+      container.innerHTML = "";
+
+
+      HOME_INVENTORY_SERVICES.forEach(
+        (service,index) => {
+
+          const item =
+            document.createElement(
+              "div"
+            );
+
+
+          item.className =
+            "service-item";
+
+
+          item.innerHTML = `
+
+            <button
+              type="button"
+              class="service-header"
+              onclick="toggleService(${index})"
+            >
+
+              <span
+                class="service-icon"
+                style="
+                  background:${
+                    ICON_BACKGROUNDS[
+                      index %
+                      ICON_BACKGROUNDS.length
+                    ]
+                  }
+                "
+              >
+                ${SERVICE_ICONS[index]}
+              </span>
+
+
+              <span class="service-info">
+
+                <span class="service-name">
+                  ${escapeHtml(service)}
+                </span>
+
+
+                <span
+                  class="service-count"
+                  id="count-${index}"
+                >
+                  Tap to view providers
+                </span>
+
+              </span>
+
+
+              <span class="service-arrow">
+                ›
+              </span>
+
+            </button>
+
+
+            <div
+              class="providers-container"
+              id="providers-${index}"
+            ></div>
+
+          `;
+
+
+          container.appendChild(item);
+
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       TOGGLE SERVICE
+    ========================================= */
+
+    async function toggleService(index){
+
+      const serviceItems =
+        document.querySelectorAll(
+          ".service-item"
+        );
+
+
+      const item =
+        serviceItems[index];
+
+
+      if(!item){
+
+        return;
+
+      }
+
+
+      const alreadyOpen =
+        item.classList.contains(
+          "open"
+        );
+
+
+      /* CLOSE OTHER SERVICES */
+
+      serviceItems.forEach(
+        (otherItem,otherIndex) => {
+
+          if(otherIndex !== index){
+
+            otherItem.classList.remove(
+              "open"
+            );
+
+
+            const otherContainer =
+              document.getElementById(
+                `providers-${otherIndex}`
+              );
+
+
+            if(otherContainer){
+
+              otherContainer.innerHTML =
+                "";
+
+            }
+
+          }
+
+        }
+      );
+
+
+      if(alreadyOpen){
+
+        item.classList.remove(
+          "open"
+        );
+
+        return;
+
+      }
+
+
+      item.classList.add(
+        "open"
+      );
+
+
+      const container =
+        document.getElementById(
+          `providers-${index}`
+        );
+
+
+      if(!container){
+
+        return;
+
+      }
+
+
+      const service =
+        HOME_INVENTORY_SERVICES[index];
+
+
+      container.innerHTML = `
+
+        <div class="provider-loading">
+          Loading providers...
+        </div>
+
+      `;
+
+
+      const providers =
+        await getProviders(
+          service
+        );
+
+
+      renderProviders(
+        container,
+        providers,
+        index
+      );
+
+    }
+
+
+    /* =========================================
+       GET PROVIDERS FROM SUPABASE
+    ========================================= */
+
+    async function getProviders(service){
+
+      if(providerCache[service]){
+
+        return providerCache[service];
+
+      }
+
+
+      try{
+
+        const response =
+          await fetch(
+            `${SUPABASE_URL}/rest/v1/planner_service_providers?select=*&active=eq.true`,
+            {
+
+              method:"GET",
+
+              headers:{
+
+                "apikey":
+                  SUPABASE_KEY,
+
+                "Authorization":
+                  `Bearer ${SUPABASE_KEY}`
+
+              }
+
+            }
+          );
+
+
+        if(!response.ok){
+
+          throw new Error(
+            "Unable to load providers"
+          );
+
+        }
+
+
+        const allProviders =
+          await response.json();
+
+
+        const matched =
+          allProviders.filter(
+            provider => {
+
+              if(
+                !Array.isArray(
+                  provider.services
+                )
+              ){
+
+                return false;
+
+              }
+
+
+              return provider.services.some(
+                registeredService =>
+
+                  normalizeService(
+                    registeredService
+                  ) ===
+                  normalizeService(
+                    service
+                  )
+              );
+
+            }
+          );
+
+
+        providerCache[service] =
+          matched;
+
+
+        return matched;
+
+      }
+      catch(error){
+
+        console.error(
+          "Provider loading error:",
+          error
+        );
+
+
+        return [];
+
+      }
+
+    }
+
+
+    /* =========================================
+       RENDER PROVIDERS
+    ========================================= */
+
+    function renderProviders(
+      container,
+      providers,
+      index
+    ){
+
+      if(!providers.length){
+
+        container.innerHTML = `
+
+          <div class="no-providers">
+            No registered service providers yet.
+          </div>
+
+        `;
+
+
+        const countElement =
+          document.getElementById(
+            `count-${index}`
+          );
+
+
+        if(countElement){
+
+          countElement.textContent =
+            "No providers registered";
+
+        }
+
+
+        return;
+
+      }
+
+
+      const countElement =
+        document.getElementById(
+          `count-${index}`
+        );
+
+
+      if(countElement){
+
+        countElement.textContent =
+          `${providers.length} provider${
+            providers.length === 1
+              ? ""
+              : "s"
+          } available`;
+
+      }
+
+
+      container.innerHTML =
+        providers
+          .map(provider => {
+
+            const mobile =
+              cleanPhone(
+                provider.mobile
+              );
+
+
+            const whatsapp =
+              cleanPhone(
+                provider.whatsapp
+              );
+
+
+            return `
+
+              <div class="provider-card">
+
+
+                <div class="provider-name">
+                  ${escapeHtml(
+                    provider.business_name
+                  )}
+                </div>
+
+
+                <div class="provider-owner">
+                  ${escapeHtml(
+                    provider.owner_name
+                  )}
+                </div>
+
+
+                <div class="provider-location">
+
+                  📍
+
+                  ${escapeHtml(
+                    provider.area
+                  )},
+
+                  ${escapeHtml(
+                    provider.city
+                  )}
+
+                </div>
+
+
+                <div class="provider-actions">
+
+
+                  <a
+                    class="provider-action call-btn"
+                    href="tel:${mobile}"
+                  >
+                    📞 Call
+                  </a>
+
+
+                  <a
+                    class="
+                      provider-action
+                      provider-whatsapp-btn
+                    "
+                    href="https://wa.me/${whatsapp}"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    💬 WhatsApp
+                  </a>
+
+
+                </div>
+
+
+              </div>
+
+            `;
+
+          })
+          .join("");
+
+    }
+
+
+    /* =========================================
+       DOWNLOAD PDF
+    ========================================= */
+
+    function downloadPlannerPDF(){
+
+      const pdfFile =
+        "Pyncode_Home_Inventory_Planner.pdf";
+
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+
+      link.href =
+        pdfFile;
+
+
+      link.download =
+        pdfFile;
+
+
+      document.body.appendChild(
+        link
+      );
+
+
+      link.click();
+
+
+      link.remove();
+
+    }
+
+
+    /* =========================================
+       SHARE WHATSAPP
+    ========================================= */
+
+    function sharePlannerWhatsApp(){
+
+      const message =
+        `📦 Pyncode Home Inventory Planner\n\n` +
+        `Plan your home essentials easily ` +
+        `with Pyncode.in.\n\n` +
+        `Open Planner:\n` +
+        window.location.href;
+
+
+      const whatsappUrl =
+        "https://wa.me/?text=" +
+        encodeURIComponent(
+          message
+        );
+
+
+      window.open(
+        whatsappUrl,
+        "_blank"
+      );
+
+    }
+
+
+    /* =========================================
+       NORMALIZE SERVICE
+    ========================================= */
+
+    function normalizeService(value){
+
+      return String(value || "")
+        .toLowerCase()
+        .replace(/&/g,"and")
+        .replace(/[\/\-]/g," ")
+        .replace(/\s+/g," ")
+        .trim();
+
+    }
+
+
+    /* =========================================
+       CLEAN PHONE
+    ========================================= */
+
+    function cleanPhone(value){
+
+      return String(value || "")
+        .replace(/[^\d+]/g,"")
+        .replace(/^\+/,"");
+
+    }
+
+
+    /* =========================================
+       ESCAPE HTML
+    ========================================= */
+
+    function escapeHtml(value){
+
+      return String(value || "")
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+  </script>
+
+
+</body>
+
+</html>

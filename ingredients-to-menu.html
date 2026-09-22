@@ -1,0 +1,3704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Ingredients to Menu | Pyncode Planner</title>
+
+<style>
+
+:root{
+  --bg:#fffaf5;
+  --card:#ffffff;
+  --text:#29231f;
+  --muted:#756d67;
+  --primary:#e85d04;
+  --primary-light:#fff0df;
+  --green:#168a45;
+  --green-light:#eaf8ef;
+  --yellow:#a56a00;
+  --yellow-light:#fff7dc;
+  --red:#b42318;
+  --border:#eee2d7;
+  --shadow:0 8px 25px rgba(80,55,35,.07);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:
+    Arial,
+    "Noto Sans Tamil",
+    sans-serif;
+}
+
+button,
+input,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.container{
+  width:min(100%,960px);
+  margin:auto;
+  padding:0 18px 60px;
+}
+
+/* HEADER */
+
+.header{
+  padding:14px 0 8px;
+}
+
+.header-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.back-btn{
+  text-decoration:none;
+  color:var(--text);
+  background:#fff;
+  border:1px solid var(--border);
+  padding:9px 13px;
+  border-radius:999px;
+  font-size:13px;
+  box-shadow:var(--shadow);
+}
+
+.brand{
+  text-align:right;
+}
+
+.brand-title{
+  font-size:16px;
+  font-weight:800;
+}
+
+.brand-subtitle{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+/* HERO */
+
+.hero{
+  margin-top:8px;
+  padding:28px 18px;
+  background:linear-gradient(
+    135deg,
+    #fff2df,
+    #fffaf5
+  );
+  border:1px solid var(--border);
+  border-radius:26px;
+  text-align:center;
+  box-shadow:var(--shadow);
+}
+
+.hero-icon{
+  font-size:44px;
+}
+
+.hero h1{
+  margin:8px 0 0;
+  font-size:32px;
+  line-height:1.15;
+}
+
+.hero h1 span{
+  color:var(--primary);
+}
+
+.hero p{
+  max-width:680px;
+  margin:12px auto 0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+
+.hero-note{
+  display:inline-block;
+  margin-top:16px;
+  padding:9px 14px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:999px;
+  color:var(--primary);
+  font-weight:800;
+  font-size:12px;
+}
+
+/* SEARCH */
+
+.main-search{
+  margin-top:20px;
+}
+
+.main-search input{
+  width:100%;
+  height:56px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:0 17px;
+  outline:none;
+  background:#fff;
+  font-size:15px;
+  box-shadow:var(--shadow);
+}
+
+.main-search input:focus{
+  border-color:var(--primary);
+  box-shadow:
+    0 0 0 4px rgba(232,93,4,.08);
+}
+
+/* SECTION */
+
+.section{
+  margin-top:34px;
+}
+
+.section-head{
+  margin-bottom:16px;
+}
+
+.section-head h2{
+  margin:0;
+  font-size:24px;
+}
+
+.section-head p{
+  margin:7px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* CATEGORY */
+
+.ingredient-category{
+  margin-top:28px;
+}
+
+.category-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:11px;
+}
+
+.category-title span{
+  font-size:23px;
+}
+
+.category-title h3{
+  margin:0;
+  font-size:19px;
+}
+
+.ingredient-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+
+.ingredient-card{
+  min-height:100px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
+  padding:11px 5px;
+  box-shadow:0 4px 15px rgba(80,55,35,.04);
+  user-select:none;
+  transition:.15s ease;
+}
+
+.ingredient-card:active{
+  transform:scale(.97);
+}
+
+.ingredient-card.selected{
+  background:var(--green-light);
+  border-color:var(--green);
+  box-shadow:
+    0 0 0 2px rgba(22,138,69,.08);
+}
+
+.ingredient-icon{
+  font-size:28px;
+}
+
+.ingredient-name{
+  font-size:11px;
+  font-weight:700;
+  text-align:center;
+}
+
+.check-mark{
+  display:none;
+  color:var(--green);
+  font-size:10px;
+  font-weight:800;
+}
+
+.ingredient-card.selected .check-mark{
+  display:block;
+}
+
+/* SELECTED */
+
+.selected-box{
+  display:none;
+  margin-top:25px;
+  padding:17px;
+  background:var(--green-light);
+  border:1px solid #cce7d5;
+  border-radius:20px;
+}
+
+.selected-box.show{
+  display:block;
+}
+
+.selected-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.selected-top h3{
+  margin:0;
+  font-size:17px;
+}
+
+.clear-selection{
+  border:0;
+  background:#fff;
+  color:var(--red);
+  border-radius:999px;
+  padding:7px 11px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.selected-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:12px;
+}
+
+.selected-chip{
+  background:#fff;
+  border:1px solid #cce7d5;
+  color:#176b3b;
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:11px;
+  font-weight:700;
+}
+
+/* FILTER */
+
+.filter-box{
+  margin-top:25px;
+  padding:19px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:21px;
+  box-shadow:var(--shadow);
+}
+
+.filter-box h3{
+  margin:0 0 15px;
+  font-size:18px;
+}
+
+.filter-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+
+.filter-item label{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.filter-item select{
+  width:100%;
+  height:46px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fffaf5;
+  padding:0 10px;
+  outline:none;
+}
+
+.find-btn{
+  width:100%;
+  height:54px;
+  margin-top:13px;
+  border:0;
+  border-radius:16px;
+  background:var(--primary);
+  color:#fff;
+  font-size:15px;
+  font-weight:800;
+  box-shadow:
+    0 8px 20px rgba(232,93,4,.18);
+}
+
+.find-btn:active{
+  transform:scale(.98);
+}
+
+/* QUICK FILTER */
+
+.quick-filter{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:2px 0 4px;
+  scrollbar-width:none;
+}
+
+.quick-filter::-webkit-scrollbar{
+  display:none;
+}
+
+.quick-btn{
+  flex:0 0 auto;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--text);
+  border-radius:999px;
+  padding:9px 13px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.quick-btn.active{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+
+  /* RESULTS */
+
+.results-section{
+  display:none;
+  margin-top:30px;
+}
+
+.results-section.show{
+  display:block;
+}
+
+.results-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:13px;
+}
+
+.results-header h2{
+  margin:0;
+  font-size:22px;
+}
+
+.results-count{
+  color:var(--primary);
+  font-size:12px;
+  font-weight:800;
+}
+
+.result-mode{
+  margin-bottom:13px;
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.mode-badge{
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.mode-badge.green{
+  background:var(--green-light);
+  color:var(--green);
+}
+
+.mode-badge.yellow{
+  background:var(--yellow-light);
+  color:var(--yellow);
+}
+
+.results-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.result-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:15px;
+  box-shadow:var(--shadow);
+  position:relative;
+}
+
+.result-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:8px;
+}
+
+.result-card h3{
+  margin:0;
+  font-size:16px;
+  line-height:1.35;
+}
+
+.favorite-btn{
+  border:0;
+  background:#fff7f1;
+  border-radius:50%;
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  font-size:17px;
+}
+
+.favorite-btn.active{
+  background:#ffe9df;
+}
+
+.result-desc{
+  margin-top:7px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.55;
+}
+
+.result-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:10px;
+}
+
+.meta{
+  background:#fff5e9;
+  color:#8b470c;
+  border-radius:999px;
+  padding:5px 7px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.match-line{
+  margin-top:10px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.match-line.green{
+  color:var(--green);
+}
+
+.match-line.yellow{
+  color:var(--yellow);
+}
+
+.missing-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:8px;
+}
+
+.missing-tag{
+  background:#fff0ed;
+  color:#a83226;
+  padding:5px 7px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:700;
+}
+
+.have-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:8px;
+}
+
+.have-tag{
+  background:var(--green-light);
+  color:#176b3b;
+  padding:5px 7px;
+  border-radius:8px;
+  font-size:10px;
+}
+
+.result-actions{
+  display:flex;
+  gap:7px;
+  margin-top:12px;
+}
+
+.result-action{
+  flex:1;
+  border:1px solid var(--border);
+  background:#fffaf5;
+  border-radius:11px;
+  padding:9px 5px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.result-action.primary{
+  background:var(--primary-light);
+  color:var(--primary);
+  border-color:#f6d0aa;
+}
+
+.no-result{
+  grid-column:1/-1;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:28px 18px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.no-result-icon{
+  font-size:38px;
+  margin-bottom:8px;
+}
+
+/* SHOPPING LIST */
+
+.shopping-section{
+  display:none;
+  margin-top:28px;
+}
+
+.shopping-section.show{
+  display:block;
+}
+
+.shopping-box{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:17px;
+  box-shadow:var(--shadow);
+}
+
+.shopping-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.shopping-top h2{
+  margin:0;
+  font-size:20px;
+}
+
+.clear-shopping{
+  border:0;
+  background:#fff0ed;
+  color:var(--red);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.shopping-list{
+  margin-top:12px;
+}
+
+.shopping-item{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.shopping-item:last-child{
+  border-bottom:0;
+}
+
+.shopping-check{
+  width:18px;
+  height:18px;
+}
+
+.shopping-name{
+  font-size:13px;
+  font-weight:700;
+}
+
+.shopping-item.done .shopping-name{
+  text-decoration:line-through;
+  color:var(--muted);
+}
+
+/* FAVORITES */
+
+.favorites-section{
+  display:none;
+  margin-top:28px;
+}
+
+.favorites-section.show{
+  display:block;
+}
+
+.favorites-box{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:17px;
+  box-shadow:var(--shadow);
+}
+
+.favorites-box h2{
+  margin:0;
+  font-size:20px;
+}
+
+.favorite-list{
+  margin-top:12px;
+  display:grid;
+  gap:8px;
+}
+
+.favorite-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  padding:11px;
+  background:#fffaf5;
+  border-radius:12px;
+}
+
+.favorite-row strong{
+  font-size:13px;
+}
+
+.remove-favorite{
+  border:0;
+  background:#fff;
+  color:var(--red);
+  border-radius:8px;
+  padding:6px 8px;
+  font-size:10px;
+}
+
+/* FOOTER */
+
+.footer{
+  margin-top:45px;
+  padding:25px 8px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+
+.footer strong{
+  color:var(--primary);
+  font-size:15px;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .container{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  .hero{
+    padding:24px 14px;
+    border-radius:22px;
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .hero p{
+    font-size:13px;
+  }
+
+  .ingredient-grid{
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+    gap:8px;
+  }
+
+  .ingredient-card{
+    min-height:92px;
+    border-radius:14px;
+  }
+
+  .ingredient-icon{
+    font-size:25px;
+  }
+
+  .ingredient-name{
+    font-size:10px;
+  }
+
+  .filter-grid{
+    grid-template-columns:1fr;
+  }
+
+  .results-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="header">
+
+  <div class="header-top">
+
+    <a
+      href="innaiku-enna-samayal.html"
+      class="back-btn"
+    >
+      ← Samayal Home
+    </a>
+
+    <div class="brand">
+
+      <div class="brand-title">
+        🥕 Ingredients → Menu
+      </div>
+
+      <div class="brand-subtitle">
+        Pyncode Planner
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<section class="hero">
+
+  <div class="hero-icon">
+    🥕
+  </div>
+
+  <h1>
+    Ingredients <span>→ Menu</span>
+  </h1>
+
+  <p>
+    வீட்டில் இருக்கும் ingredients-ஐ select
+    பண்ணுங்க. என்ன சமைக்கலாம், எது
+    almost ready, என்ன வாங்கணும் என்று
+    கண்டுபிடிக்கலாம்.
+  </p>
+
+  <div class="hero-note">
+    🟢 Can Cook • 🟡 Almost • 🛒 Shopping
+  </div>
+
+  <div class="main-search">
+
+    <input
+      id="ingredientSearch"
+      type="search"
+      placeholder="உதா: tomato, onion, chicken..."
+      autocomplete="off"
+    >
+
+  </div>
+
+</section>
+
+
+<section class="section">
+
+  <div class="section-head">
+
+    <h2>
+      🥕 What do you have?
+    </h2>
+
+    <p>
+      உங்களிடம் இருக்கும் ingredients-ஐ
+      touch செய்து select செய்யுங்கள்.
+    </p>
+
+  </div>
+
+
+  <div id="ingredientSections"></div>
+
+
+  <div
+    class="selected-box"
+    id="selectedBox"
+  >
+
+    <div class="selected-top">
+
+      <h3>
+        ✅ Selected
+      </h3>
+
+      <button
+        type="button"
+        class="clear-selection"
+        id="clearSelection"
+      >
+        Clear All
+      </button>
+
+    </div>
+
+    <div
+      class="selected-list"
+      id="selectedList"
+    ></div>
+
+  </div>
+
+
+  <div class="filter-box">
+
+    <h3>
+      🍳 What are you looking for?
+    </h3>
+
+
+    <div class="quick-filter">
+
+      <button
+        type="button"
+        class="quick-btn active"
+        data-filter="all"
+      >
+        🍽️ All
+      </button>
+
+      <button
+        type="button"
+        class="quick-btn"
+        data-filter="can"
+      >
+        🟢 Can Cook
+      </button>
+
+      <button
+        type="button"
+        class="quick-btn"
+        data-filter="almost"
+      >
+        🟡 Almost
+      </button>
+
+      <button
+        type="button"
+        class="quick-btn"
+        data-filter="quick"
+      >
+        ⚡ Quick
+      </button>
+
+      <button
+        type="button"
+        class="quick-btn"
+        data-filter="budget"
+      >
+        💰 Budget
+      </button>
+
+      <button
+        type="button"
+        class="quick-btn"
+        data-filter="leftover"
+      >
+        ♻️ Leftover
+      </button>
+
+    </div>
+
+
+    <div class="filter-grid">
+
+      <div class="filter-item">
+
+        <label>
+          Meal
+        </label>
+
+        <select id="mealType">
+
+          <option value="all">
+            Any Meal
+          </option>
+
+          <option value="breakfast">
+            Breakfast
+          </option>
+
+          <option value="lunch">
+            Lunch
+          </option>
+
+          <option value="snacks">
+            Snacks
+          </option>
+
+          <option value="dinner">
+            Dinner
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-item">
+
+        <label>
+          Food Type
+        </label>
+
+        <select id="foodType">
+
+          <option value="all">
+            Any Food
+          </option>
+
+          <option value="veg">
+            🥬 Vegetarian
+          </option>
+
+          <option value="nonveg">
+            🍗 Non-Vegetarian
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-item">
+
+        <label>
+          Cooking Time
+        </label>
+
+        <select id="timeType">
+
+          <option value="all">
+            Any Time
+          </option>
+
+          <option value="10">
+            Under 10 min
+          </option>
+
+          <option value="20">
+            Under 20 min
+          </option>
+
+          <option value="30">
+            Under 30 min
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-item">
+
+        <label>
+          Budget
+        </label>
+
+        <select id="budgetType">
+
+          <option value="all">
+            Any Budget
+          </option>
+
+          <option value="low">
+            💰 Budget
+          </option>
+
+          <option value="medium">
+            ₹₹ Medium
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="find-btn"
+      id="findBtn"
+    >
+      🔎 What can I cook today?
+    </button>
+
+  </div>
+
+</section>
+
+
+<section
+  class="results-section"
+  id="resultsSection"
+>
+
+  <div class="results-header">
+
+    <h2>
+      🍽️ Menu Ideas
+    </h2>
+
+    <div
+      class="results-count"
+      id="resultsCount"
+    >
+      0 dishes
+    </div>
+
+  </div>
+
+
+  <div
+    class="result-mode"
+    id="resultMode"
+  ></div>
+
+
+  <div
+    class="results-grid"
+    id="resultsGrid"
+  ></div>
+
+</section>
+
+  <section
+  class="shopping-section"
+  id="shoppingSection"
+>
+
+  <div class="shopping-box">
+
+    <div class="shopping-top">
+
+      <h2>
+        🛒 Shopping List
+      </h2>
+
+      <button
+        type="button"
+        class="clear-shopping"
+        id="clearShopping"
+      >
+        Clear
+      </button>
+
+    </div>
+
+    <div
+      class="shopping-list"
+      id="shoppingList"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<section
+  class="favorites-section"
+  id="favoritesSection"
+>
+
+  <div class="favorites-box">
+
+    <h2>
+      ❤️ My Favorites
+    </h2>
+
+    <div
+      class="favorite-list"
+      id="favoriteList"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<footer class="footer">
+
+  <strong>
+    Pyncode.in
+  </strong>
+
+  <br>
+
+  Ingredients → Menu 🥕🍳
+
+  <br><br>
+
+  What I Have → What I Can Cook
+  → What I Need 🛒
+
+</footer>
+
+</div>
+
+
+<script>
+
+const ingredientCategories = [
+
+  {
+    id:"common",
+    icon:"🥕",
+    title:"Common Ingredients",
+    items:[
+
+      ["onion","🧅","Onion"],
+      ["tomato","🍅","Tomato"],
+      ["potato","🥔","Potato"],
+      ["carrot","🥕","Carrot"],
+      ["beans","🫛","Beans"],
+      ["capsicum","🫑","Capsicum"],
+      ["cabbage","🥬","Cabbage"],
+      ["cauliflower","🥦","Cauliflower"],
+      ["spinach","🌿","Spinach"],
+      ["brinjal","🍆","Brinjal"],
+      ["peas","🟢","Green Peas"],
+      ["ladies-finger","🥒","Ladies Finger"],
+      ["egg","🥚","Egg"],
+      ["chicken","🍗","Chicken"],
+      ["mutton","🐐","Mutton"],
+      ["fish","🐟","Fish"],
+      ["prawn","🦐","Prawn"],
+      ["rice","🍚","Rice"],
+      ["wheat","🌾","Wheat"],
+      ["dal","🫘","Dal"],
+      ["curd","🥛","Curd"],
+      ["paneer","🧀","Paneer"],
+      ["bread","🍞","Bread"],
+      ["coconut","🥥","Coconut"]
+
+    ]
+  },
+
+
+  {
+    id:"vegetables",
+    icon:"🥬",
+    title:"Vegetables",
+    items:[
+
+      ["beetroot","🫜","Beetroot"],
+      ["radish","🥕","Radish"],
+      ["cucumber","🥒","Cucumber"],
+      ["bottle-gourd","🥒","Bottle Gourd"],
+      ["ridge-gourd","🥒","Ridge Gourd"],
+      ["snake-gourd","🥒","Snake Gourd"],
+      ["pumpkin","🎃","Pumpkin"],
+      ["ash-gourd","🥒","Ash Gourd"],
+      ["chow-chow","🥒","Chow Chow"],
+      ["raw-banana","🍌","Raw Banana"],
+      ["yam","🍠","Yam"],
+      ["sweet-potato","🍠","Sweet Potato"],
+      ["drumstick","🌿","Drumstick"],
+      ["banana-flower","🌸","Banana Flower"],
+      ["banana-stem","🌿","Banana Stem"],
+      ["mushroom","🍄","Mushroom"],
+      ["sweet-corn","🌽","Sweet Corn"],
+      ["green-chilli","🌶️","Green Chilli"],
+      ["red-chilli","🌶️","Red Chilli"],
+      ["keerai","🌿","Keerai"],
+      ["mint","🌿","Mint"],
+      ["coriander","🌿","Coriander"],
+      ["curry-leaves","🌿","Curry Leaves"],
+      ["spring-onion","🌿","Spring Onion"]
+
+    ]
+  },
+
+
+  {
+    id:"nonveg",
+    icon:"🍗",
+    title:"Non-Veg",
+    items:[
+
+      ["chicken","🍗","Chicken"],
+      ["country-chicken","🐔","Country Chicken"],
+      ["mutton","🐐","Mutton"],
+      ["mutton-liver","🥩","Mutton Liver"],
+      ["egg","🥚","Egg"],
+      ["quail","🐦","Quail"],
+      ["turkey","🦃","Turkey"],
+      ["chicken-liver","🍗","Chicken Liver"]
+
+    ]
+  },
+
+
+  {
+    id:"seafood",
+    icon:"🐟",
+    title:"Fish & Seafood",
+    items:[
+
+      ["fish","🐟","Fish"],
+      ["prawn","🦐","Prawn"],
+      ["crab","🦀","Crab"],
+      ["squid","🦑","Squid"],
+      ["sardine","🐟","Sardine / Mathi"],
+      ["mackerel","🐟","Mackerel / Ayala"],
+      ["seer-fish","🐟","Seer Fish / Vanjaram"],
+      ["pomfret","🐟","Pomfret / Vavval"],
+      ["anchovy","🐟","Anchovy / Nethili"],
+      ["karimeen","🐟","Karimeen"],
+      ["dry-fish","🐟","Dry Fish"]
+
+    ]
+  },
+
+
+  {
+    id:"grains",
+    icon:"🌾",
+    title:"Rice, Grains & Flour",
+    items:[
+
+      ["idli-rice","🍚","Idli Rice"],
+      ["raw-rice","🍚","Raw Rice"],
+      ["basmati","🍚","Basmati Rice"],
+      ["wheat","🌾","Wheat"],
+      ["ragi","🌾","Ragi"],
+      ["kambu","🌾","Kambu"],
+      ["thinai","🌾","Thinai"],
+      ["samai","🌾","Samai"],
+      ["varagu","🌾","Varagu"],
+      ["oats","🥣","Oats"],
+      ["poha","🍚","Poha"],
+      ["rava","🌾","Rava"],
+      ["maida","🌾","Maida"],
+      ["atta","🌾","Atta"],
+      ["rice-flour","🌾","Rice Flour"],
+      ["besan","🌾","Besan"]
+
+    ]
+  },
+
+
+  {
+    id:"dal",
+    icon:"🫘",
+    title:"Dal & Pulses",
+    items:[
+
+      ["toor-dal","🫘","Toor Dal"],
+      ["moong-dal","🫘","Moong Dal"],
+      ["chana-dal","🫘","Chana Dal"],
+      ["urad-dal","🫘","Urad Dal"],
+      ["masoor-dal","🫘","Masoor Dal"],
+      ["green-gram","🫘","Green Gram"],
+      ["black-chana","🫘","Black Chana"],
+      ["white-chana","🫘","White Chana"],
+      ["rajma","🫘","Rajma"],
+      ["cowpeas","🫘","Cow Peas"],
+      ["sprouts","🌱","Sprouts"],
+      ["chickpeas","🫘","Chickpeas"]
+
+    ]
+  },
+
+
+  {
+    id:"dairy",
+    icon:"🥛",
+    title:"Dairy",
+    items:[
+
+      ["milk","🥛","Milk"],
+      ["curd","🥛","Curd"],
+      ["paneer","🧀","Paneer"],
+      ["cheese","🧀","Cheese"],
+      ["butter","🧈","Butter"],
+      ["ghee","🧈","Ghee"],
+      ["cream","🥛","Cream"],
+      ["buttermilk","🥛","Buttermilk"]
+
+    ]
+  },
+
+
+  {
+    id:"fresh",
+    icon:"🥥",
+    title:"Fresh & Coconut",
+    items:[
+
+      ["coconut","🥥","Coconut"],
+      ["coconut-milk","🥥","Coconut Milk"],
+      ["ginger","🫚","Ginger"],
+      ["garlic","🧄","Garlic"],
+      ["lemon","🍋","Lemon"],
+      ["tamarind","🫘","Tamarind"],
+      ["raw-mango","🥭","Raw Mango"],
+      ["green-chilli","🌶️","Green Chilli"],
+      ["coriander","🌿","Coriander"],
+      ["mint","🌿","Mint"],
+      ["curry-leaves","🌿","Curry Leaves"],
+      ["spring-onion","🌿","Spring Onion"]
+
+    ]
+  },
+
+
+  {
+    id:"masala",
+    icon:"🌶️",
+    title:"Masala & Cooking Essentials",
+    items:[
+
+      ["salt","🧂","Salt"],
+      ["sugar","🍚","Sugar"],
+      ["jaggery","🟤","Jaggery"],
+      ["turmeric","🟡","Turmeric"],
+      ["chilli-powder","🌶️","Chilli Powder"],
+      ["coriander-powder","🌿","Coriander Powder"],
+      ["cumin","🌰","Cumin"],
+      ["pepper","⚫","Pepper"],
+      ["mustard","🌱","Mustard"],
+      ["fennel","🌿","Fennel"],
+      ["fenugreek","🌿","Fenugreek"],
+      ["garam-masala","🌶️","Garam Masala"],
+      ["sambar-powder","🌶️","Sambar Powder"],
+      ["rasam-powder","🌶️","Rasam Powder"],
+      ["biryani-masala","🌶️","Biryani Masala"],
+      ["cooking-oil","🫗","Cooking Oil"],
+      ["gingelly-oil","🫗","Gingelly Oil"],
+      ["coconut-oil","🥥","Coconut Oil"],
+      ["groundnut-oil","🥜","Groundnut Oil"]
+
+    ]
+  },
+
+
+  {
+    id:"ready",
+    icon:"🍞",
+    title:"Ready & Leftover",
+    items:[
+
+      ["bread","🍞","Bread"],
+      ["chapati","🫓","Chapati"],
+      ["parotta","🫓","Parotta"],
+      ["leftover-rice","🍚","Leftover Rice"],
+      ["leftover-idli","⚪","Leftover Idli"],
+      ["leftover-dosa","🥞","Leftover Dosa"],
+      ["boiled-potato","🥔","Boiled Potato"],
+      ["cooked-dal","🫘","Cooked Dal"],
+      ["cooked-chicken","🍗","Cooked Chicken"],
+      ["cooked-vegetables","🥗","Cooked Vegetables"]
+
+    ]
+  }
+
+];
+
+  const menuDatabase = [
+
+{
+ name:"Tomato Onion Omelette",
+ ingredients:["tomato","onion","egg"],
+ meal:"breakfast",
+ type:"nonveg",
+ time:10,
+ budget:"low",
+ leftover:false,
+ desc:"Quick egg omelette with tomato and onion."
+},
+
+{
+ name:"Bread Omelette",
+ ingredients:["bread","egg","onion","green-chilli"],
+ meal:"breakfast",
+ type:"nonveg",
+ time:10,
+ budget:"low",
+ leftover:false,
+ desc:"Quick breakfast with bread and egg."
+},
+
+{
+ name:"Vegetable Upma",
+ ingredients:["rava","onion","carrot","beans","green-chilli"],
+ meal:"breakfast",
+ type:"veg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Simple homemade vegetable upma."
+},
+
+{
+ name:"Vegetable Poha",
+ ingredients:["poha","onion","carrot","peas","green-chilli"],
+ meal:"breakfast",
+ type:"veg",
+ time:15,
+ budget:"low",
+ leftover:false,
+ desc:"Light poha with vegetables."
+},
+
+{
+ name:"Ragi Dosa",
+ ingredients:["ragi","onion","green-chilli"],
+ meal:"breakfast",
+ type:"veg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Traditional ragi dosa."
+},
+
+{
+ name:"Oats Porridge",
+ ingredients:["oats","milk"],
+ meal:"breakfast",
+ type:"veg",
+ time:10,
+ budget:"low",
+ leftover:false,
+ desc:"Quick oats breakfast."
+},
+
+{
+ name:"Ragi Porridge",
+ ingredients:["ragi","milk"],
+ meal:"breakfast",
+ type:"veg",
+ time:15,
+ budget:"low",
+ leftover:false,
+ desc:"Simple ragi porridge."
+},
+
+{
+ name:"Paneer Sandwich",
+ ingredients:["paneer","bread","capsicum","onion"],
+ meal:"breakfast",
+ type:"veg",
+ time:15,
+ budget:"medium",
+ leftover:false,
+ desc:"Easy paneer sandwich."
+},
+
+{
+ name:"Leftover Rice Upma",
+ ingredients:["leftover-rice","onion","green-chilli","curry-leaves"],
+ meal:"breakfast",
+ type:"veg",
+ time:10,
+ budget:"low",
+ leftover:true,
+ desc:"Easy breakfast using leftover rice."
+},
+
+{
+ name:"Tomato Rice",
+ ingredients:["rice","tomato","onion","green-chilli"],
+ meal:"lunch",
+ type:"veg",
+ time:25,
+ budget:"low",
+ leftover:false,
+ desc:"Simple tomato rice."
+},
+
+{
+ name:"Lemon Rice",
+ ingredients:["rice","lemon","green-chilli"],
+ meal:"lunch",
+ type:"veg",
+ time:15,
+ budget:"low",
+ leftover:false,
+ desc:"Quick lemon rice."
+},
+
+{
+ name:"Curd Rice",
+ ingredients:["rice","curd"],
+ meal:"lunch",
+ type:"veg",
+ time:10,
+ budget:"low",
+ leftover:false,
+ desc:"Simple curd rice."
+},
+
+{
+ name:"Curd Rice with Carrot",
+ ingredients:["rice","curd","carrot"],
+ meal:"lunch",
+ type:"veg",
+ time:15,
+ budget:"low",
+ leftover:false,
+ desc:"Curd rice with carrot."
+},
+
+{
+ name:"Vegetable Sambar Rice",
+ ingredients:["rice","toor-dal","tomato","carrot","drumstick","onion"],
+ meal:"lunch",
+ type:"veg",
+ time:30,
+ budget:"low",
+ leftover:false,
+ desc:"Rice with homemade vegetable sambar."
+},
+
+{
+ name:"Dal Rice",
+ ingredients:["rice","toor-dal","tomato","onion"],
+ meal:"lunch",
+ type:"veg",
+ time:25,
+ budget:"low",
+ leftover:false,
+ desc:"Comforting dal rice."
+},
+
+{
+ name:"Keerai Dal Rice",
+ ingredients:["rice","toor-dal","keerai","garlic"],
+ meal:"lunch",
+ type:"veg",
+ time:25,
+ budget:"low",
+ leftover:false,
+ desc:"Keerai cooked with dal and rice."
+},
+
+{
+ name:"Potato Onion Curry",
+ ingredients:["potato","onion","chilli-powder"],
+ meal:"lunch",
+ type:"veg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Easy potato onion curry."
+},
+
+{
+ name:"Beans Poriyal",
+ ingredients:["beans","coconut","mustard"],
+ meal:"lunch",
+ type:"veg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"South Indian style beans poriyal."
+},
+
+{
+ name:"Carrot Beans Poriyal",
+ ingredients:["carrot","beans","coconut"],
+ meal:"lunch",
+ type:"veg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Carrot and beans vegetable side."
+},
+
+{
+ name:"Brinjal Curry",
+ ingredients:["brinjal","onion","tomato","chilli-powder"],
+ meal:"lunch",
+ type:"veg",
+ time:25,
+ budget:"low",
+ leftover:false,
+ desc:"Homestyle brinjal curry."
+},
+
+{
+ name:"Ladies Finger Fry",
+ ingredients:["ladies-finger","onion","chilli-powder"],
+ meal:"lunch",
+ type:"veg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Simple ladies finger fry."
+},
+
+{
+ name:"Paneer Masala",
+ ingredients:["paneer","tomato","onion","capsicum"],
+ meal:"lunch",
+ type:"veg",
+ time:25,
+ budget:"medium",
+ leftover:false,
+ desc:"Paneer with onion, tomato and capsicum."
+},
+
+{
+ name:"Chicken Curry",
+ ingredients:["chicken","onion","tomato","ginger","garlic","chilli-powder"],
+ meal:"lunch",
+ type:"nonveg",
+ time:35,
+ budget:"medium",
+ leftover:false,
+ desc:"Homestyle chicken curry."
+},
+
+{
+ name:"Chicken Pepper",
+ ingredients:["chicken","onion","pepper","ginger","garlic"],
+ meal:"lunch",
+ type:"nonveg",
+ time:30,
+ budget:"medium",
+ leftover:false,
+ desc:"Pepper chicken preparation."
+},
+
+{
+ name:"Chicken Rice",
+ ingredients:["chicken","rice","onion","carrot","beans"],
+ meal:"lunch",
+ type:"nonveg",
+ time:30,
+ budget:"medium",
+ leftover:false,
+ desc:"Simple chicken rice."
+},
+
+{
+ name:"Fish Fry",
+ ingredients:["fish","chilli-powder","turmeric","lemon"],
+ meal:"lunch",
+ type:"nonveg",
+ time:20,
+ budget:"medium",
+ leftover:false,
+ desc:"Simple fish fry."
+},
+
+{
+ name:"Fish Curry",
+ ingredients:["fish","tomato","onion","tamarind","coconut"],
+ meal:"lunch",
+ type:"nonveg",
+ time:30,
+ budget:"medium",
+ leftover:false,
+ desc:"Homestyle fish curry."
+},
+
+{
+ name:"Prawn Masala",
+ ingredients:["prawn","onion","tomato","ginger","garlic"],
+ meal:"lunch",
+ type:"nonveg",
+ time:25,
+ budget:"medium",
+ leftover:false,
+ desc:"Prawn cooked with onion and tomato."
+},
+
+{
+ name:"Mutton Curry",
+ ingredients:["mutton","onion","tomato","ginger","garlic","chilli-powder"],
+ meal:"lunch",
+ type:"nonveg",
+ time:45,
+ budget:"medium",
+ leftover:false,
+ desc:"Homestyle mutton curry."
+},
+
+{
+ name:"Egg Curry",
+ ingredients:["egg","onion","tomato","chilli-powder"],
+ meal:"lunch",
+ type:"nonveg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Simple egg curry."
+},
+
+{
+ name:"Vegetable Fried Rice",
+ ingredients:["rice","carrot","beans","capsicum","onion"],
+ meal:"dinner",
+ type:"veg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Quick vegetable fried rice."
+},
+
+{
+ name:"Egg Fried Rice",
+ ingredients:["rice","egg","onion","carrot","beans"],
+ meal:"dinner",
+ type:"nonveg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Egg fried rice with vegetables."
+},
+
+{
+ name:"Chicken Fried Rice",
+ ingredients:["rice","chicken","egg","carrot","beans","capsicum"],
+ meal:"dinner",
+ type:"nonveg",
+ time:30,
+ budget:"medium",
+ leftover:false,
+ desc:"Chicken fried rice."
+},
+
+{
+ name:"Paneer Fried Rice",
+ ingredients:["rice","paneer","capsicum","carrot","beans"],
+ meal:"dinner",
+ type:"veg",
+ time:25,
+ budget:"medium",
+ leftover:false,
+ desc:"Paneer fried rice."
+},
+
+{
+ name:"Prawn Fried Rice",
+ ingredients:["prawn","rice","onion","carrot","beans"],
+ meal:"dinner",
+ type:"nonveg",
+ time:25,
+ budget:"medium",
+ leftover:false,
+ desc:"Prawn fried rice."
+},
+
+{
+ name:"Chapati Paneer",
+ ingredients:["chapati","paneer","onion","capsicum","tomato"],
+ meal:"dinner",
+ type:"veg",
+ time:20,
+ budget:"medium",
+ leftover:false,
+ desc:"Chapati with quick paneer filling."
+},
+
+{
+ name:"Chapati Egg Roll",
+ ingredients:["chapati","egg","onion","capsicum"],
+ meal:"dinner",
+ type:"nonveg",
+ time:15,
+ budget:"low",
+ leftover:false,
+ desc:"Quick egg chapati roll."
+},
+
+{
+ name:"Chicken Chapati",
+ ingredients:["chapati","chicken","onion","capsicum"],
+ meal:"dinner",
+ type:"nonveg",
+ time:25,
+ budget:"medium",
+ leftover:false,
+ desc:"Chapati with chicken filling."
+},
+
+{
+ name:"Vegetable Soup",
+ ingredients:["carrot","beans","cabbage","sweet-corn","capsicum"],
+ meal:"dinner",
+ type:"veg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Simple homemade vegetable soup."
+},
+
+{
+ name:"Chicken Soup",
+ ingredients:["chicken","carrot","onion","pepper"],
+ meal:"dinner",
+ type:"nonveg",
+ time:25,
+ budget:"medium",
+ leftover:false,
+ desc:"Simple chicken soup."
+},
+
+{
+ name:"Mushroom Pepper Fry",
+ ingredients:["mushroom","onion","pepper","capsicum"],
+ meal:"dinner",
+ type:"veg",
+ time:20,
+ budget:"medium",
+ leftover:false,
+ desc:"Quick mushroom pepper fry."
+},
+
+{
+ name:"Gobi Fry",
+ ingredients:["cauliflower","onion","chilli-powder"],
+ meal:"snacks",
+ type:"veg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Simple cauliflower snack."
+},
+
+{
+ name:"Paneer Roll",
+ ingredients:["paneer","chapati","onion","capsicum"],
+ meal:"snacks",
+ type:"veg",
+ time:15,
+ budget:"medium",
+ leftover:false,
+ desc:"Quick paneer roll."
+},
+
+{
+ name:"Egg Roll",
+ ingredients:["egg","chapati","onion","capsicum"],
+ meal:"snacks",
+ type:"nonveg",
+ time:15,
+ budget:"low",
+ leftover:false,
+ desc:"Simple egg roll."
+},
+
+{
+ name:"Bread Upma",
+ ingredients:["bread","onion","tomato","green-chilli"],
+ meal:"snacks",
+ type:"veg",
+ time:15,
+ budget:"low",
+ leftover:true,
+ desc:"Quick bread upma."
+},
+
+{
+ name:"Potato Bread Sandwich",
+ ingredients:["potato","bread","onion","capsicum"],
+ meal:"snacks",
+ type:"veg",
+ time:15,
+ budget:"low",
+ leftover:false,
+ desc:"Simple potato sandwich."
+},
+
+{
+ name:"Sweet Corn Chaat",
+ ingredients:["sweet-corn","onion","tomato","lemon"],
+ meal:"snacks",
+ type:"veg",
+ time:10,
+ budget:"low",
+ leftover:false,
+ desc:"Quick sweet corn chaat."
+},
+
+{
+ name:"Sprouts Salad",
+ ingredients:["sprouts","tomato","onion","cucumber","lemon"],
+ meal:"snacks",
+ type:"veg",
+ time:10,
+ budget:"low",
+ leftover:false,
+ desc:"Fresh sprouts salad."
+},
+
+{
+ name:"Leftover Rice Fried Rice",
+ ingredients:["leftover-rice","onion","carrot","beans","capsicum"],
+ meal:"dinner",
+ type:"veg",
+ time:15,
+ budget:"low",
+ leftover:true,
+ desc:"Fried rice using leftover rice."
+},
+
+{
+ name:"Egg Fried Rice with Leftover Rice",
+ ingredients:["leftover-rice","egg","onion","carrot","beans"],
+ meal:"dinner",
+ type:"nonveg",
+ time:15,
+ budget:"low",
+ leftover:true,
+ desc:"Egg fried rice using leftover rice."
+},
+
+{
+ name:"Coconut Rice",
+ ingredients:["rice","coconut","green-chilli","curry-leaves"],
+ meal:"lunch",
+ type:"veg",
+ time:20,
+ budget:"low",
+ leftover:false,
+ desc:"Simple coconut rice."
+},
+
+{
+ name:"Egg Sandwich",
+ ingredients:["egg","bread","onion","capsicum"],
+ meal:"snacks",
+ type:"nonveg",
+ time:10,
+ budget:"low",
+ leftover:false,
+ desc:"Quick egg sandwich."
+},
+
+{
+ name:"Chicken Sandwich",
+ ingredients:["chicken","bread","onion","capsicum"],
+ meal:"snacks",
+ type:"nonveg",
+ time:15,
+ budget:"medium",
+ leftover:true,
+ desc:"Homemade chicken sandwich."
+},
+
+{
+ name:"Fish Rice",
+ ingredients:["fish","rice","onion","tomato"],
+ meal:"lunch",
+ type:"nonveg",
+ time:25,
+ budget:"medium",
+ leftover:false,
+ desc:"Simple fish and rice meal."
+},
+
+{
+ name:"Mutton Rice",
+ ingredients:["mutton","rice","onion","tomato"],
+ meal:"lunch",
+ type:"nonveg",
+ time:40,
+ budget:"medium",
+ leftover:false,
+ desc:"Mutton with rice."
+},
+
+{
+ name:"Dal Khichdi",
+ ingredients:["rice","moong-dal","carrot","peas","turmeric"],
+ meal:"dinner",
+ type:"veg",
+ time:30,
+ budget:"low",
+ leftover:false,
+ desc:"Simple rice and dal one-pot meal."
+},
+
+{
+ name:"Paneer Chapati",
+ ingredients:["paneer","chapati","onion","tomato"],
+ meal:"dinner",
+ type:"veg",
+ time:20,
+ budget:"medium",
+ leftover:false,
+ desc:"Chapati with paneer masala."
+},
+
+{
+ name:"Vegetable Chapati Roll",
+ ingredients:["chapati","carrot","beans","capsicum","onion"],
+ meal:"snacks",
+ type:"veg",
+ time:15,
+ budget:"low",
+ leftover:false,
+ desc:"Vegetable chapati roll."
+},
+
+{
+ name:"Mushroom Rice",
+ ingredients:["mushroom","rice","onion","capsicum"],
+ meal:"lunch",
+ type:"veg",
+ time:25,
+ budget:"medium",
+ leftover:false,
+ desc:"Simple mushroom rice."
+},
+
+{
+ name:"Vegetable Coconut Rice",
+ ingredients:["rice","coconut","carrot","beans","peas"],
+ meal:"lunch",
+ type:"veg",
+ time:25,
+ budget:"low",
+ leftover:false,
+ desc:"Coconut rice with vegetables."
+}
+
+];
+
+  const ingredientSections =
+  document.getElementById(
+    "ingredientSections"
+  );
+
+const ingredientSearch =
+  document.getElementById(
+    "ingredientSearch"
+  );
+
+const selectedBox =
+  document.getElementById(
+    "selectedBox"
+  );
+
+const selectedList =
+  document.getElementById(
+    "selectedList"
+  );
+
+const clearSelection =
+  document.getElementById(
+    "clearSelection"
+  );
+
+const findBtn =
+  document.getElementById(
+    "findBtn"
+  );
+
+const mealType =
+  document.getElementById(
+    "mealType"
+  );
+
+const foodType =
+  document.getElementById(
+    "foodType"
+  );
+
+const timeType =
+  document.getElementById(
+    "timeType"
+  );
+
+const budgetType =
+  document.getElementById(
+    "budgetType"
+  );
+
+const resultsSection =
+  document.getElementById(
+    "resultsSection"
+  );
+
+const resultsGrid =
+  document.getElementById(
+    "resultsGrid"
+  );
+
+const resultsCount =
+  document.getElementById(
+    "resultsCount"
+  );
+
+const resultMode =
+  document.getElementById(
+    "resultMode"
+  );
+
+const shoppingSection =
+  document.getElementById(
+    "shoppingSection"
+  );
+
+const shoppingList =
+  document.getElementById(
+    "shoppingList"
+  );
+
+const clearShopping =
+  document.getElementById(
+    "clearShopping"
+  );
+
+const favoritesSection =
+  document.getElementById(
+    "favoritesSection"
+  );
+
+const favoriteList =
+  document.getElementById(
+    "favoriteList"
+  );
+
+
+const selectedIngredients =
+  new Set();
+
+const shoppingItems =
+  new Set();
+
+let activeQuickFilter = "all";
+
+
+const ingredientNames = {};
+
+ingredientCategories.forEach(
+  function(category){
+
+    category.items.forEach(
+      function(item){
+
+        ingredientNames[item[0]] =
+          item[2];
+
+      }
+    );
+
+  }
+);
+
+
+/* INGREDIENT CATEGORIES */
+
+function renderIngredientCategories(){
+
+  ingredientSections.innerHTML = "";
+
+  ingredientCategories.forEach(
+    function(category){
+
+      const section =
+        document.createElement("div");
+
+      section.className =
+        "ingredient-category";
+
+      section.dataset.category =
+        category.id;
+
+
+      const title =
+        document.createElement("div");
+
+      title.className =
+        "category-title";
+
+      title.innerHTML =
+        `
+          <span>${category.icon}</span>
+          <h3>${category.title}</h3>
+        `;
+
+
+      const grid =
+        document.createElement("div");
+
+      grid.className =
+        "ingredient-grid";
+
+
+      category.items.forEach(
+        function(item){
+
+          const card =
+            document.createElement("div");
+
+          card.className =
+            "ingredient-card";
+
+          card.dataset.id =
+            item[0];
+
+          card.dataset.name =
+            item[2].toLowerCase();
+
+
+          card.innerHTML =
+            `
+              <div class="ingredient-icon">
+                ${item[1]}
+              </div>
+
+              <div class="ingredient-name">
+                ${item[2]}
+              </div>
+
+              <div class="check-mark">
+                ✓ Selected
+              </div>
+            `;
+
+
+          card.addEventListener(
+            "click",
+            function(){
+
+              toggleIngredient(
+                item[0]
+              );
+
+            }
+          );
+
+
+          grid.appendChild(card);
+
+        }
+      );
+
+
+      section.appendChild(title);
+      section.appendChild(grid);
+
+      ingredientSections.appendChild(section);
+
+    }
+  );
+
+}
+
+
+/* TOGGLE INGREDIENT */
+
+function toggleIngredient(id){
+
+  if(
+    selectedIngredients.has(id)
+  ){
+
+    selectedIngredients.delete(id);
+
+  }else{
+
+    selectedIngredients.add(id);
+
+  }
+
+
+  updateIngredientCards(id);
+
+  renderSelected();
+
+}
+
+
+/* SYNC DUPLICATE CARDS */
+
+function updateIngredientCards(id){
+
+  const selected =
+    selectedIngredients.has(id);
+
+
+  document
+    .querySelectorAll(
+      '.ingredient-card[data-id="' +
+      id +
+      '"]'
+    )
+    .forEach(
+      function(card){
+
+        card.classList.toggle(
+          "selected",
+          selected
+        );
+
+      }
+    );
+
+}
+
+
+/* SELECTED */
+
+function renderSelected(){
+
+  selectedList.innerHTML = "";
+
+
+  if(
+    selectedIngredients.size === 0
+  ){
+
+    selectedBox.classList.remove(
+      "show"
+    );
+
+    return;
+
+  }
+
+
+  selectedBox.classList.add(
+    "show"
+  );
+
+
+  selectedIngredients.forEach(
+    function(id){
+
+      const chip =
+        document.createElement("div");
+
+      chip.className =
+        "selected-chip";
+
+      chip.textContent =
+        ingredientNames[id] || id;
+
+      selectedList.appendChild(
+        chip
+      );
+
+    }
+  );
+
+}
+
+
+/* CLEAR */
+
+clearSelection.addEventListener(
+  "click",
+  function(){
+
+    selectedIngredients.clear();
+
+    document
+      .querySelectorAll(
+        ".ingredient-card.selected"
+      )
+      .forEach(
+        function(card){
+
+          card.classList.remove(
+            "selected"
+          );
+
+        }
+      );
+
+    renderSelected();
+
+    resultsSection.classList.remove(
+      "show"
+    );
+
+  }
+);
+
+
+/* SEARCH INGREDIENT */
+
+ingredientSearch.addEventListener(
+  "input",
+  function(){
+
+    const keyword =
+      this.value
+        .trim()
+        .toLowerCase();
+
+
+    document
+      .querySelectorAll(
+        ".ingredient-card"
+      )
+      .forEach(
+        function(card){
+
+          const name =
+            card.dataset.name;
+
+
+          if(
+            keyword === "" ||
+            name.includes(keyword)
+          ){
+
+            card.style.display = "";
+
+          }else{
+
+            card.style.display =
+              "none";
+
+          }
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        ".ingredient-category"
+      )
+      .forEach(
+        function(section){
+
+          const visible =
+            Array.from(
+              section.querySelectorAll(
+                ".ingredient-card"
+              )
+            )
+            .some(
+              function(card){
+
+                return (
+                  card.style.display !==
+                  "none"
+                );
+
+              }
+            );
+
+
+          section.style.display =
+            visible || keyword === ""
+              ? ""
+              : "none";
+
+        }
+      );
+
+  }
+);
+
+
+/* ENTER SEARCH */
+
+ingredientSearch.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key !== "Enter"
+    ){
+
+      return;
+
+    }
+
+
+    const keyword =
+      this.value
+        .trim()
+        .toLowerCase();
+
+
+    if(!keyword){
+      return;
+    }
+
+
+    const cards =
+      document.querySelectorAll(
+        ".ingredient-card"
+      );
+
+
+    let found = null;
+
+
+    cards.forEach(
+      function(card){
+
+        if(found){
+          return;
+        }
+
+
+        const name =
+          card.dataset.name;
+
+
+        if(
+          name === keyword ||
+          name.includes(keyword)
+        ){
+
+          found = card;
+
+        }
+
+      }
+    );
+
+
+    if(found){
+
+      toggleIngredient(
+        found.dataset.id
+      );
+
+
+      found.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+
+
+      this.value = "";
+
+      document
+        .querySelectorAll(
+          ".ingredient-card"
+        )
+        .forEach(
+          function(card){
+
+            card.style.display = "";
+
+          }
+        );
+
+      document
+        .querySelectorAll(
+          ".ingredient-category"
+        )
+        .forEach(
+          function(section){
+
+            section.style.display = "";
+
+          }
+        );
+
+    }else{
+
+      alert(
+        "இந்த ingredient கிடைக்கவில்லை."
+      );
+
+    }
+
+  }
+);
+
+
+/* QUICK FILTER */
+
+document
+  .querySelectorAll(".quick-btn")
+  .forEach(
+    function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          document
+            .querySelectorAll(
+              ".quick-btn"
+            )
+            .forEach(
+              function(btn){
+
+                btn.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+
+          this.classList.add(
+            "active"
+          );
+
+
+          activeQuickFilter =
+            this.dataset.filter;
+
+
+          if(
+            selectedIngredients.size > 0
+          ){
+
+            renderResults();
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+
+/* FIND MATCHES */
+
+function findMatches(){
+
+  if(
+    selectedIngredients.size === 0
+  ){
+
+    return [];
+
+  }
+
+
+  const selected =
+    Array.from(
+      selectedIngredients
+    );
+
+
+  let results =
+    menuDatabase.map(
+      function(menu){
+
+        const matched =
+          menu.ingredients.filter(
+            function(id){
+
+              return selected.includes(
+                id
+              );
+
+            }
+          );
+
+
+        const missing =
+          menu.ingredients.filter(
+            function(id){
+
+              return !selected.includes(
+                id
+              );
+
+            }
+          );
+
+
+        return {
+          ...menu,
+          matched,
+          missing,
+          matchCount:
+            matched.length,
+          missingCount:
+            missing.length
+        };
+
+      }
+    );
+
+
+  /* MEAL */
+
+  if(
+    mealType.value !== "all"
+  ){
+
+    results =
+      results.filter(
+        function(menu){
+
+          return (
+            menu.meal ===
+            mealType.value
+          );
+
+        }
+      );
+
+  }
+
+
+  /* FOOD */
+
+  if(
+    foodType.value !== "all"
+  ){
+
+    results =
+      results.filter(
+        function(menu){
+
+          return (
+            menu.type ===
+            foodType.value
+          );
+
+        }
+      );
+
+  }
+
+
+  /* TIME */
+
+  if(
+    timeType.value !== "all"
+  ){
+
+    const maxTime =
+      Number(
+        timeType.value
+      );
+
+
+    results =
+      results.filter(
+        function(menu){
+
+          return (
+            menu.time <= maxTime
+          );
+
+        }
+      );
+
+  }
+
+
+  /* BUDGET */
+
+  if(
+    budgetType.value !== "all"
+  ){
+
+    results =
+      results.filter(
+        function(menu){
+
+          return (
+            menu.budget ===
+            budgetType.value
+          );
+
+        }
+      );
+
+  }
+
+
+  /* QUICK FILTER */
+
+  if(
+    activeQuickFilter === "can"
+  ){
+
+    results =
+      results.filter(
+        function(menu){
+
+          return (
+            menu.missingCount === 0
+          );
+
+        }
+      );
+
+  }
+
+
+  if(
+    activeQuickFilter === "almost"
+  ){
+
+    results =
+      results.filter(
+        function(menu){
+
+          return (
+            menu.missingCount > 0 &&
+            menu.missingCount <= 2
+          );
+
+        }
+      );
+
+  }
+
+
+  if(
+    activeQuickFilter === "quick"
+  ){
+
+    results =
+      results.filter(
+        function(menu){
+
+          return menu.time <= 20;
+
+        }
+      );
+
+  }
+
+
+  if(
+    activeQuickFilter === "budget"
+  ){
+
+    results =
+      results.filter(
+        function(menu){
+
+          return menu.budget === "low";
+
+        }
+      );
+
+  }
+
+
+  if(
+    activeQuickFilter === "leftover"
+  ){
+
+    results =
+      results.filter(
+        function(menu){
+
+          return menu.leftover === true;
+
+        }
+      );
+
+  }
+
+
+  /*
+    Sort:
+    1. Can cook now
+    2. Least missing
+    3. Most matched
+  */
+
+  results.sort(
+    function(a,b){
+
+      if(
+        a.missingCount !==
+        b.missingCount
+      ){
+
+        return (
+          a.missingCount -
+          b.missingCount
+        );
+
+      }
+
+
+      return (
+        b.matchCount -
+        a.matchCount
+      );
+
+    }
+  );
+
+
+  return results;
+
+}
+
+
+/* RENDER */
+
+function renderResults(){
+
+  if(
+    selectedIngredients.size === 0
+  ){
+
+    alert(
+      "முதலில் ingredients select செய்யுங்கள்."
+    );
+
+    return;
+
+  }
+
+
+  const results =
+    findMatches();
+
+
+  resultsSection.classList.add(
+    "show"
+  );
+
+
+  resultsGrid.innerHTML = "";
+
+
+  resultMode.innerHTML = "";
+
+
+  if(
+    activeQuickFilter === "can"
+  ){
+
+    resultMode.innerHTML +=
+      `<span class="mode-badge green">
+        🟢 Can Cook Now
+      </span>`;
+
+  }
+
+
+  if(
+    activeQuickFilter === "almost"
+  ){
+
+    resultMode.innerHTML +=
+      `<span class="mode-badge yellow">
+        🟡 Almost Can Cook
+      </span>`;
+
+  }
+
+
+  if(results.length === 0){
+
+    resultsCount.textContent =
+      "0 dishes";
+
+
+    resultsGrid.innerHTML =
+      `
+        <div class="no-result">
+
+          <div class="no-result-icon">
+            🍳
+          </div>
+
+          <strong>
+            இந்த combination-க்கு
+            menu கிடைக்கவில்லை.
+          </strong>
+
+          <p>
+            இன்னும் சில ingredients
+            select செய்து முயற்சி செய்யுங்கள்.
+          </p>
+
+        </div>
+      `;
+
+    return;
+
+  }
+
+
+  const visible =
+    results.slice(0,40);
+
+
+  resultsCount.textContent =
+    visible.length +
+    " dishes";
+
+
+  visible.forEach(
+    function(menu){
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "result-card";
+
+
+      const canCook =
+        menu.missingCount === 0;
+
+
+      const favorite =
+        getFavorites().includes(
+          menu.name
+        );
+
+
+      const matchedNames =
+        menu.matched.map(
+          function(id){
+
+            return (
+              ingredientNames[id] ||
+              id
+            );
+
+          }
+        );
+
+
+      const missingNames =
+        menu.missing.map(
+          function(id){
+
+            return (
+              ingredientNames[id] ||
+              id
+            );
+
+          }
+        );
+
+
+      const typeLabel =
+        menu.type === "veg"
+          ? "🥬 Veg"
+          : "🍗 Non-Veg";
+
+
+      card.innerHTML =
+        `
+          <div class="result-top">
+
+            <h3>
+              ${menu.name}
+            </h3>
+
+            <button
+              type="button"
+              class="favorite-btn ${
+                favorite ? "active" : ""
+              }"
+              data-favorite="${menu.name}"
+            >
+              ${favorite ? "❤️" : "🤍"}
+            </button>
+
+          </div>
+
+          <div class="result-desc">
+            ${menu.desc}
+          </div>
+
+          <div class="result-meta">
+
+            <span class="meta">
+              ${typeLabel}
+            </span>
+
+            <span class="meta">
+              ⏱️ ${menu.time} min
+            </span>
+
+            <span class="meta">
+              ${
+                menu.budget === "low"
+                  ? "💰 Budget"
+                  : "₹₹ Medium"
+              }
+            </span>
+
+            ${
+              menu.leftover
+                ? `
+                  <span class="meta">
+                    ♻️ Leftover
+                  </span>
+                `
+                : ""
+            }
+
+          </div>
+
+          <div class="match-line ${
+            canCook
+              ? "green"
+              : "yellow"
+          }">
+
+            ${
+              canCook
+                ? "🟢 You can cook this now!"
+                : "🟡 Missing " +
+                  menu.missingCount +
+                  " ingredient(s)"
+            }
+
+          </div>
+
+          ${
+            matchedNames.length
+              ? `
+                <div class="have-list">
+
+                  ${matchedNames.map(
+                    function(name){
+
+                      return `
+                        <span class="have-tag">
+                          ✓ ${name}
+                        </span>
+                      `;
+
+                    }
+                  ).join("")}
+
+                </div>
+              `
+              : ""
+          }
+
+          ${
+            missingNames.length
+              ? `
+                <div class="missing-list">
+
+                  ${missingNames.map(
+                    function(name){
+
+                      return `
+                        <span class="missing-tag">
+                          + ${name}
+                        </span>
+                      `;
+
+                    }
+                  ).join("")}
+
+                </div>
+              `
+              : ""
+          }
+
+          <div class="result-actions">
+
+            ${
+              missingNames.length
+                ? `
+                  <button
+                    type="button"
+                    class="result-action primary"
+                    data-shopping='${JSON.stringify(menu.missing)}'
+                  >
+                    🛒 Add Missing
+                  </button>
+                `
+                : `
+                  <button
+                    type="button"
+                    class="result-action primary"
+                    disabled
+                  >
+                    🟢 Ready
+                  </button>
+                `
+            }
+
+            <button
+              type="button"
+              class="result-action"
+              data-save="${menu.name}"
+            >
+              ❤️ Save
+            </button>
+
+          </div>
+
+        `;
+
+
+      resultsGrid.appendChild(
+        card
+      );
+
+    }
+  );
+
+
+  /*
+    Favorite buttons
+  */
+
+  resultsGrid
+    .querySelectorAll(
+      "[data-favorite]"
+    )
+    .forEach(
+      function(button){
+
+        button.addEventListener(
+          "click",
+          function(){
+
+            toggleFavorite(
+              this.dataset.favorite
+            );
+
+            renderResults();
+
+          }
+        );
+
+      }
+    );
+
+  /*
+  Add missing ingredients
+*/
+
+resultsGrid
+  .querySelectorAll(
+    "[data-shopping]"
+  )
+  .forEach(
+    function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          const ids =
+            JSON.parse(
+              this.dataset.shopping
+            );
+
+
+          ids.forEach(
+            function(id){
+
+              shoppingItems.add(id);
+
+            }
+          );
+
+
+          renderShoppingList();
+
+          shoppingSection.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+          });
+
+        }
+      );
+
+    }
+  );
+
+
+setTimeout(
+  function(){
+
+    resultsSection.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  },
+  100
+);
+
+}
+
+
+/* FIND BUTTON */
+
+findBtn.addEventListener(
+  "click",
+  function(){
+
+    renderResults();
+
+  }
+);
+
+
+/* FILTER CHANGE */
+
+[
+  mealType,
+  foodType,
+  timeType,
+  budgetType
+].forEach(
+  function(element){
+
+    element.addEventListener(
+      "change",
+      function(){
+
+        if(
+          selectedIngredients.size > 0 &&
+          resultsSection.classList.contains(
+            "show"
+          )
+        ){
+
+          renderResults();
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* SHOPPING LIST */
+
+function renderShoppingList(){
+
+  shoppingList.innerHTML = "";
+
+
+  if(
+    shoppingItems.size === 0
+  ){
+
+    shoppingSection.classList.remove(
+      "show"
+    );
+
+    return;
+
+  }
+
+
+  shoppingSection.classList.add(
+    "show"
+  );
+
+
+  shoppingItems.forEach(
+    function(id){
+
+      const row =
+        document.createElement("div");
+
+      row.className =
+        "shopping-item";
+
+
+      row.innerHTML =
+        `
+          <input
+            type="checkbox"
+            class="shopping-check"
+          >
+
+          <span class="shopping-name">
+            ${ingredientNames[id] || id}
+          </span>
+        `;
+
+
+      const checkbox =
+        row.querySelector(
+          ".shopping-check"
+        );
+
+
+      checkbox.addEventListener(
+        "change",
+        function(){
+
+          row.classList.toggle(
+            "done",
+            this.checked
+          );
+
+        }
+      );
+
+
+      shoppingList.appendChild(
+        row
+      );
+
+    }
+  );
+
+}
+
+
+clearShopping.addEventListener(
+  "click",
+  function(){
+
+    shoppingItems.clear();
+
+    renderShoppingList();
+
+  }
+);
+
+
+/* FAVORITES */
+
+function getFavorites(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        "pyncodeIngredientsFavorites"
+      ) || "[]"
+    );
+
+  }catch(error){
+
+    return [];
+
+  }
+
+}
+
+
+function saveFavorites(list){
+
+  localStorage.setItem(
+    "pyncodeIngredientsFavorites",
+    JSON.stringify(list)
+  );
+
+}
+
+
+function toggleFavorite(name){
+
+  const list =
+    getFavorites();
+
+
+  const index =
+    list.indexOf(name);
+
+
+  if(index >= 0){
+
+    list.splice(
+      index,
+      1
+    );
+
+  }else{
+
+    list.push(name);
+
+  }
+
+
+  saveFavorites(list);
+
+  renderFavorites();
+
+}
+
+
+function renderFavorites(){
+
+  const list =
+    getFavorites();
+
+
+  favoriteList.innerHTML = "";
+
+
+  if(
+    list.length === 0
+  ){
+
+    favoritesSection.classList.remove(
+      "show"
+    );
+
+    return;
+
+  }
+
+
+  favoritesSection.classList.add(
+    "show"
+  );
+
+
+  list.forEach(
+    function(name){
+
+      const row =
+        document.createElement("div");
+
+      row.className =
+        "favorite-row";
+
+
+      row.innerHTML =
+        `
+          <strong>
+            ❤️ ${name}
+          </strong>
+
+          <button
+            type="button"
+            class="remove-favorite"
+            data-remove-favorite="${name}"
+          >
+            Remove
+          </button>
+        `;
+
+
+      favoriteList.appendChild(
+        row
+      );
+
+    }
+  );
+
+
+  favoriteList
+    .querySelectorAll(
+      "[data-remove-favorite]"
+    )
+    .forEach(
+      function(button){
+
+        button.addEventListener(
+          "click",
+          function(){
+
+            toggleFavorite(
+              this.dataset.removeFavorite
+            );
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* INITIAL */
+
+renderIngredientCategories();
+
+renderFavorites();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Trip Planner | Pyncode.in</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f7fb;
+      color: #292633;
+      min-height: 100vh;
+    }
+
+    .planner-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px 14px 40px;
+    }
+
+
+    /* =========================================
+       APPROVED PYNCODE HEADER
+    ========================================= */
+
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: #ffffff;
+      border-bottom: 1px solid #eeeeee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      box-shadow: 0 2px 12px rgba(20,20,40,0.04);
+    }
+
+    .brand {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .pyn-text {
+      color: #ef603e;
+    }
+
+    .code-text {
+      color: #151923;
+    }
+
+    .add-business-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #000000;
+      color: #ffffff;
+      padding: 10px 13px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 5px 16px rgba(0,0,0,0.14);
+      transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .add-business-btn:active {
+      transform: scale(.97);
+    }
+
+
+    /* =========================================
+       APPROVED BACK BUTTON
+    ========================================= */
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #ffffff;
+      color: #34363b;
+      padding: 9px 13px;
+      border: 1px solid #e8e8ed;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 12px rgba(30,30,50,0.06);
+      text-decoration: none;
+      transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+    }
+
+    .back-btn:active {
+      transform: scale(.97);
+    }
+
+
+    /* =========================================
+       HERO
+    ========================================= */
+
+    .planner-hero {
+      background: linear-gradient(
+        135deg,
+        #eef8ff,
+        #f3efff
+      );
+      border-radius: 22px;
+      padding: 22px 18px;
+      margin-bottom: 18px;
+      border: 1px solid #e5eaf5;
+    }
+
+    .planner-icon {
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border-radius: 17px;
+      font-size: 29px;
+      margin-bottom: 13px;
+      box-shadow: 0 6px 18px rgba(80,55,110,0.08);
+    }
+
+    .planner-hero h1 {
+      font-size: 25px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      color: #30293b;
+    }
+
+    .planner-hero p {
+      color: #716a78;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+
+    /* =========================================
+       ACTION BUTTONS
+    ========================================= */
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .action-btn {
+      border: none;
+      border-radius: 14px;
+      padding: 13px 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .pdf-btn {
+      background: #ffffff;
+      color: #6c4ab6;
+      border: 1px solid #e5ddf3;
+    }
+
+    .whatsapp-btn {
+      background: #eaf8ef;
+      color: #168347;
+      border: 1px solid #d5efdf;
+    }
+
+
+    /* =========================================
+       SERVICES
+    ========================================= */
+
+    .section-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #30293b;
+      margin-bottom: 5px;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: #817987;
+      margin-bottom: 15px;
+    }
+
+    .services-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .service-item {
+      background: #ffffff;
+      border: 1px solid #eeeaf3;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(55,40,80,0.05);
+    }
+
+    .service-btn {
+      width: 100%;
+      border: none;
+      background: transparent;
+      padding: 15px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      color: #342e3e;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .service-name {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .service-icon {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7f3ff;
+      border-radius: 10px;
+      font-size: 18px;
+    }
+
+    .service-arrow {
+      color: #9a91a5;
+      font-size: 17px;
+      transition: transform 0.2s ease;
+    }
+
+    .service-item.active .service-arrow {
+      transform: rotate(180deg);
+    }
+
+    .providers-box {
+      display: none;
+      padding: 0 12px 12px;
+    }
+
+    .service-item.active .providers-box {
+      display: block;
+    }
+
+    .provider-loading,
+    .no-provider {
+      background: #faf9fc;
+      border-radius: 12px;
+      padding: 13px;
+      color: #77707f;
+      font-size: 13px;
+      text-align: center;
+    }
+
+
+    /* =========================================
+       PROVIDER CARD
+    ========================================= */
+
+    .provider-card {
+      background: #faf9fc;
+      border: 1px solid #eeeaf4;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 8px;
+    }
+
+    .provider-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #332d3d;
+      margin-bottom: 4px;
+    }
+
+    .provider-owner {
+      font-size: 13px;
+      color: #716a78;
+      margin-bottom: 8px;
+    }
+
+    .provider-location {
+      font-size: 12px;
+      color: #817987;
+      margin-bottom: 12px;
+    }
+
+    .provider-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .provider-action {
+      text-decoration: none;
+      text-align: center;
+      padding: 10px 8px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .call-action {
+      background: #f0edff;
+      color: #6243aa;
+    }
+
+    .wa-action {
+      background: #e9f8ee;
+      color: #168347;
+    }
+
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 420px) {
+
+      .planner-page {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .top-header {
+        padding: 0 12px;
+      }
+
+      .brand {
+        font-size: 19px;
+      }
+
+      .add-business-btn {
+        padding: 9px 10px;
+        font-size: 12px;
+      }
+
+      .planner-hero h1 {
+        font-size: 23px;
+      }
+
+      .action-btn {
+        font-size: 13px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+
+  <!-- =========================================
+       HEADER
+  ========================================= -->
+
+  <header class="top-header">
+
+    <a href="planner.html" class="brand">
+      <span class="pyn-text">Pyn</span><span class="code-text">code.in</span>
+    </a>
+
+    <a
+      href="add-business.html?return=trip-planner.html"
+      class="add-business-btn">
+
+      <span>＋</span>
+      Add Your Business
+
+    </a>
+
+  </header>
+
+
+  <main class="planner-page">
+
+
+    <!-- BACK -->
+
+    <a
+      href="#"
+      class="back-btn"
+      onclick="history.back(); return false;"
+    >
+      ← <span>Back</span>
+    </a>
+
+
+    <!-- HERO -->
+
+    <section class="planner-hero">
+
+      <div class="planner-icon">
+        ✈️
+      </div>
+
+      <h1>
+        Trip Planner
+      </h1>
+
+      <p>
+        Plan your trip easily and find useful travel
+        services, bookings and local providers.
+      </p>
+
+    </section>
+
+
+    <!-- ACTION BUTTONS -->
+
+    <div class="action-row">
+
+      <button
+        type="button"
+        class="action-btn pdf-btn"
+        onclick="downloadPlannerPDF()">
+
+        📄 Download PDF
+
+      </button>
+
+      <button
+        type="button"
+        class="action-btn whatsapp-btn"
+        onclick="sharePlannerWhatsApp()">
+
+        💬 Share on WhatsApp
+
+      </button>
+
+    </div>
+
+
+    <!-- SERVICES -->
+
+    <section>
+
+      <h2 class="section-title">
+        🔎 Related Service Providers
+      </h2>
+
+      <p class="section-subtitle">
+        Tap a service to find registered providers.
+      </p>
+
+      <div
+        id="servicesList"
+        class="services-list">
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+
+  /* =========================================
+     TRIP SERVICES
+  ========================================= */
+
+  const TRIP_SERVICES = [
+    "Travel Agency",
+    "Tour Packages",
+    "Hotel Booking",
+    "Resorts",
+    "Flight Booking",
+    "Bus/ Train Booking",
+    "Cab / Taxi",
+    "Rental Service",
+    "Car / Bike Rent",
+    "Tourist Guide",
+    "Travel Insurance",
+    "Passport Service",
+    "Visa Service",
+    "Travel Accessories Store",
+    "Camping/Adventure Service",
+    "currency Exchange",
+    "Airport Transfer"
+  ];
+
+
+  /* =========================================
+     SERVICE ICONS
+  ========================================= */
+
+  const TRIP_ICONS = [
+    "🧳",
+    "🗺️",
+    "🏨",
+    "🏝️",
+    "✈️",
+    "🚌",
+    "🚕",
+    "🔑",
+    "🚗",
+    "🧑‍💼",
+    "🛡️",
+    "🛂",
+    "🛃",
+    "🎒",
+    "🏕️",
+    "💱",
+    "🚐"
+  ];
+
+
+  /* =========================================
+     SUPABASE
+  ========================================= */
+
+  const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+  let providerCache = {};
+
+
+  /* =========================================
+     NORMALIZE SERVICE
+  ========================================= */
+
+  function normalizeService(value) {
+
+    return String(value || "")
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim()
+      .replace(/\s+/g, " ");
+
+  }
+
+
+  /* =========================================
+     CLEAN PHONE
+  ========================================= */
+
+  function cleanPhone(value) {
+
+    return String(value || "")
+      .replace(/\D/g, "");
+
+  }
+
+
+  /* =========================================
+     ESCAPE HTML
+  ========================================= */
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* =========================================
+     RENDER SERVICES
+  ========================================= */
+
+  function renderServices() {
+
+    const container =
+      document.getElementById("servicesList");
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    TRIP_SERVICES.forEach(
+      (service, index) => {
+
+        const item =
+          document.createElement("div");
+
+        item.className =
+          "service-item";
+
+
+        item.innerHTML = `
+
+          <button
+            type="button"
+            class="service-btn"
+            onclick="toggleService(${index})">
+
+            <span class="service-name">
+
+              <span class="service-icon">
+                ${TRIP_ICONS[index]}
+              </span>
+
+              <span>
+                ${escapeHtml(service)}
+              </span>
+
+            </span>
+
+            <span class="service-arrow">
+              ⌄
+            </span>
+
+          </button>
+
+
+          <div
+            class="providers-box"
+            id="providers-${index}">
+          </div>
+
+        `;
+
+
+        container.appendChild(item);
+
+      }
+    );
+
+  }
+
+
+  /* =========================================
+     TOGGLE SERVICE
+  ========================================= */
+
+  async function toggleService(index) {
+
+    const container =
+      document.getElementById("servicesList");
+
+    if (!container) return;
+
+
+    const items =
+      container.querySelectorAll(
+        ".service-item"
+      );
+
+
+    const item = items[index];
+
+    if (!item) return;
+
+
+    const providersBox =
+      document.getElementById(
+        `providers-${index}`
+      );
+
+    if (!providersBox) return;
+
+
+    const wasActive =
+      item.classList.contains("active");
+
+
+    items.forEach(serviceItem => {
+
+      serviceItem.classList.remove(
+        "active"
+      );
+
+    });
+
+
+    if (wasActive) {
+      return;
+    }
+
+
+    item.classList.add("active");
+
+
+    providersBox.innerHTML = `
+
+      <div class="provider-loading">
+        Finding service providers...
+      </div>
+
+    `;
+
+
+    await loadProviders(
+      TRIP_SERVICES[index],
+      providersBox
+    );
+
+  }
+
+
+  /* =========================================
+     LOAD PROVIDERS
+  ========================================= */
+
+  async function loadProviders(
+    service,
+    container
+  ) {
+
+    const key =
+      normalizeService(service);
+
+
+    if (
+      Object.prototype.hasOwnProperty.call(
+        providerCache,
+        key
+      )
+    ) {
+
+      renderProviders(
+        providerCache[key],
+        container
+      );
+
+      return;
+
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${SUPABASE_URL}/rest/v1/planner_service_providers?active=eq.true&select=id,business_name,owner_name,mobile,whatsapp,area,city,services`,
+          {
+            method: "GET",
+
+            headers: {
+              "apikey": SUPABASE_KEY,
+
+              "Authorization":
+                `Bearer ${SUPABASE_KEY}`
+            }
+          }
+        );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          `HTTP ${response.status}`
+        );
+
+      }
+
+
+      const providers =
+        await response.json();
+
+
+      const matchingProviders =
+        providers.filter(provider => {
+
+          if (
+            !Array.isArray(
+              provider.services
+            )
+          ) {
+
+            return false;
+
+          }
+
+
+          return provider.services.some(
+            registeredService => {
+
+              return (
+                normalizeService(
+                  registeredService
+                ) === key
+              );
+
+            }
+          );
+
+        });
+
+
+      providerCache[key] =
+        matchingProviders;
+
+
+      renderProviders(
+        matchingProviders,
+        container
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "Provider loading error:",
+        error
+      );
+
+
+      container.innerHTML = `
+
+        <div class="no-provider">
+          Unable to load providers right now.
+          Please try again.
+        </div>
+
+      `;
+
+    }
+
+  }
+
+
+  /* =========================================
+     RENDER PROVIDERS
+  ========================================= */
+
+  function renderProviders(
+    providers,
+    container
+  ) {
+
+    if (
+      !providers ||
+      providers.length === 0
+    ) {
+
+      container.innerHTML = `
+
+        <div class="no-provider">
+          No service providers available yet.
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    providers.forEach(provider => {
+
+      const businessName =
+        escapeHtml(
+          provider.business_name
+        );
+
+
+      const ownerName =
+        escapeHtml(
+          provider.owner_name
+        );
+
+
+      const area =
+        escapeHtml(
+          provider.area
+        );
+
+
+      const city =
+        escapeHtml(
+          provider.city
+        );
+
+
+      const mobile =
+        cleanPhone(
+          provider.mobile
+        );
+
+
+      const whatsapp =
+        cleanPhone(
+          provider.whatsapp ||
+          provider.mobile
+        );
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "provider-card";
+
+
+      card.innerHTML = `
+
+        <div class="provider-name">
+          ${businessName}
+        </div>
+
+        <div class="provider-owner">
+          Owner: ${ownerName}
+        </div>
+
+        <div class="provider-location">
+          📍 ${area}, ${city}
+        </div>
+
+
+        <div class="provider-actions">
+
+          <a
+            class="provider-action call-action"
+            href="tel:${mobile}">
+            📞 Call
+          </a>
+
+
+          <a
+            class="provider-action wa-action"
+            href="https://wa.me/${whatsapp}"
+            target="_blank"
+            rel="noopener">
+            💬 WhatsApp
+          </a>
+
+        </div>
+
+      `;
+
+
+      container.appendChild(card);
+
+    });
+
+  }
+
+      /* =========================================
+     DOWNLOAD PDF
+  ========================================= */
+
+  function downloadPlannerPDF() {
+
+    const link =
+      document.createElement("a");
+
+
+    link.href =
+      "Pyncode_Trip_Planner_Checklist.pdf";
+
+
+    link.download =
+      "Pyncode_Trip_Planner_Checklist.pdf";
+
+
+    document.body.appendChild(link);
+
+
+    link.click();
+
+
+    link.remove();
+
+  }
+
+
+  /* =========================================
+     WHATSAPP SHARE
+  ========================================= */
+
+  function sharePlannerWhatsApp() {
+
+    const message =
+      "✈️ Trip Planner - Pyncode.in\n\n" +
+      "Plan your trip and find related " +
+      "travel service providers easily.\n\n" +
+      window.location.href;
+
+
+    const whatsappUrl =
+      `https://wa.me/?text=${encodeURIComponent(
+        message
+      )}`;
+
+
+    window.open(
+      whatsappUrl,
+      "_blank"
+    );
+
+  }
+
+
+  /* =========================================
+     AUTO OPEN SERVICE
+     AFTER ADD BUSINESS REDIRECT
+  ========================================= */
+
+  function openServiceFromURL() {
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const requestedService =
+      params.get("service");
+
+
+    if (!requestedService) {
+      return;
+    }
+
+
+    const requestedKey =
+      normalizeService(
+        requestedService
+      );
+
+
+    const index =
+      TRIP_SERVICES.findIndex(
+        service => {
+
+          return (
+            normalizeService(service) ===
+            requestedKey
+          );
+
+        }
+      );
+
+
+    if (index === -1) {
+      return;
+    }
+
+
+    setTimeout(() => {
+
+      toggleService(index);
+
+
+      const container =
+        document.getElementById(
+          "servicesList"
+        );
+
+
+      const items =
+        container?.querySelectorAll(
+          ".service-item"
+        );
+
+
+      const selectedItem =
+        items?.[index];
+
+
+      if (selectedItem) {
+
+        selectedItem.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+      }
+
+    }, 250);
+
+  }
+
+
+  /* =========================================
+     INITIALIZE
+  ========================================= */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+      renderServices();
+
+      openServiceFromURL();
+
+    }
+  );
+
+</script>
+
+</body>
+</html>

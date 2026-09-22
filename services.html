@@ -34,49 +34,94 @@
 <title>Services | Pyncode.in</title>
 
 <style>
+  
 .bottom-nav{
     position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
+
+    left:10px;
+    right:10px;
+    bottom:10px;
+
     height:68px;
+
+    background:#151d30;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
     display:flex;
-    align-items:stretch;
+
+    align-items:center;
+
     justify-content:space-around;
-    background:#ffffff;
-    border-top:1px solid #e5e7eb;
-    box-shadow:0 -4px 18px rgba(0,0,0,0.08);
-    z-index:99999;
+
+    padding:6px;
+
+    z-index:9998;
+
+    box-shadow:
+        0 8px 28px
+        rgba(10,20,40,.20);
 }
+
 
 .bottom-nav-item{
     flex:1;
+
+    height:56px;
+
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
+
     justify-content:center;
+
     gap:4px;
+
+    border-radius:18px;
+
     text-decoration:none;
-    color:#777777;
+
+    color:#aeb6c5;
+
     font-size:11px;
-    font-weight:700;
+
+    font-weight:800;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .15s ease;
 }
 
+
 .bottom-nav-item .nav-icon{
-    font-size:20px;
+    font-size:21px;
     line-height:1;
 }
 
+
 .bottom-nav-item .nav-label{
-    font-size:11px;
+    font-size:10px;
+    line-height:1.2;
 }
+
 
 .bottom-nav-item.active{
-    color:#ef603e;
+    background:#ffffff;
+    color:#151a28;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,.08);
 }
 
-body{
-    padding-bottom:80px;
+
+.bottom-nav-item:active{
+    transform:scale(.95);
 }
 </style>
 
@@ -279,7 +324,7 @@ body{
     margin:0 auto;
 
     padding:
-        38px 4% 65px;
+        38px 4% 125px;
 }
 
 
@@ -714,7 +759,7 @@ body{
 
     .main{
         padding:
-            30px 16px 48px;
+            30px 16px 125px;
     }
 
     .page-title{
@@ -938,6 +983,10 @@ body{
      BOTTOM NAVIGATION
 ===================================================== -->
 
+<!-- =====================================================
+     FIXED BOTTOM NAVIGATION
+===================================================== -->
+
 <nav class="bottom-nav">
 
     <a
@@ -958,7 +1007,7 @@ body{
 
     <a
         href="services.html"
-        class="bottom-nav-item active"
+        class="bottom-nav-item"
     >
 
         <span class="nav-icon">
@@ -973,8 +1022,8 @@ body{
 
 
     <a
-        href="category.html"
-        class="bottom-nav-item"
+        href="index.html"
+        class="bottom-nav-item active"
     >
 
         <span class="nav-icon">
@@ -994,7 +1043,7 @@ body{
     >
 
         <span class="nav-icon">
-            📣
+            📢
         </span>
 
         <span class="nav-label">
@@ -1003,8 +1052,25 @@ body{
 
     </a>
 
-</nav>
 
+    <!-- PLANNER -->
+
+    <a
+        href="planner.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            📋
+        </span>
+
+        <span class="nav-label">
+            Planner
+        </span>
+
+    </a>
+
+</nav>
 
 <!-- =====================================================
      JAVASCRIPT
@@ -1318,6 +1384,44 @@ if(
 
 </script>
 
+  <script>
+/* =====================================================
+   AUTO ACTIVE FIXED NAVIGATION
+===================================================== */
+
+const currentPage =
+    window.location.pathname
+        .split("/")
+        .pop()
+        .toLowerCase();
+
+document
+    .querySelectorAll(".bottom-nav-item")
+    .forEach(function(item){
+
+        item.classList.remove("active");
+
+        const link =
+            item.getAttribute("href");
+
+        if(!link){
+            return;
+        }
+
+        const linkPage =
+            link
+                .split("?")[0]
+                .split("#")[0]
+                .toLowerCase();
+
+        if(linkPage === currentPage){
+
+            item.classList.add("active");
+
+        }
+
+    });
+  </script>
 
 </body>
 

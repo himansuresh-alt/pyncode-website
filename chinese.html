@@ -1,0 +1,2259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#fffaf4"
+>
+
+<title>Chinese Food | Pyncode Planner</title>
+
+<style>
+
+:root{
+
+    --bg:#fffaf4;
+    --card:#ffffff;
+    --text:#29231f;
+    --muted:#756d67;
+    --primary:#e85d04;
+    --primary-light:#fff0df;
+    --border:#eee2d7;
+
+    --shadow:
+        0 8px 28px rgba(70,40,15,.08);
+
+}
+
+
+*{
+
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+
+body{
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    line-height:1.5;
+
+}
+
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+button,
+input{
+
+    font:inherit;
+
+}
+
+
+.container{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:14px;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:15px 17px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:15px;
+
+}
+
+
+.header-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.back-btn{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+
+.brand{
+
+    text-align:right;
+
+}
+
+
+.brand-title{
+
+    font-size:16px;
+
+    font-weight:800;
+
+}
+
+
+.brand-subtitle{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:1px;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0df,
+            #fff8f0
+        );
+
+    border:1px solid #f5ddc8;
+
+    border-radius:25px;
+
+    padding:27px 18px;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+
+.hero-icon{
+
+    font-size:44px;
+
+    margin-bottom:7px;
+
+}
+
+
+.hero h1{
+
+    font-size:28px;
+
+    line-height:1.15;
+
+    margin-bottom:8px;
+
+}
+
+
+.hero h1 span{
+
+    color:var(--primary);
+
+}
+
+
+.hero p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.6;
+
+}
+
+
+.hero-note{
+
+    display:inline-block;
+
+    margin-top:13px;
+
+    padding:7px 12px;
+
+    border-radius:30px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    color:var(--primary);
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   MAIN SEARCH
+===================================================== */
+
+.main-search{
+
+    max-width:650px;
+
+    margin:18px auto 0;
+
+}
+
+
+.main-search input{
+
+    width:100%;
+
+    height:46px;
+
+    border:1px solid #ddd;
+
+    border-radius:24px;
+
+    padding:0 18px;
+
+    outline:none;
+
+    background:#fff;
+
+    font-size:14px;
+
+}
+
+
+.main-search input:focus{
+
+    border-color:#e8b98e;
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section{
+
+    margin-bottom:25px;
+
+}
+
+
+.section-head{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:12px;
+
+}
+
+
+.section-head h2{
+
+    font-size:19px;
+
+}
+
+
+.section-head small{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+/* =====================================================
+   CATEGORY GRID
+===================================================== */
+
+.category-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:11px;
+
+}
+
+
+.category-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:14px;
+
+    min-height:83px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 18px rgba(70,40,15,.04);
+
+    transition:.15s;
+
+}
+
+
+.category-card:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#efc49e;
+
+}
+
+
+.category-card:active{
+
+    transform:scale(.98);
+
+}
+
+
+.category-icon{
+
+    width:45px;
+
+    height:45px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--primary-light);
+
+    border-radius:14px;
+
+    font-size:24px;
+
+}
+
+
+.category-info{
+
+    min-width:0;
+
+}
+
+
+.category-info h3{
+
+    font-size:14px;
+
+    line-height:1.3;
+
+    margin-bottom:2px;
+
+}
+
+
+.category-info p{
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    line-height:1.35;
+
+}
+
+
+.category-arrow{
+
+    margin-left:auto;
+
+    color:#aaa;
+
+    font-size:21px;
+
+}
+
+
+/* =====================================================
+   SOURCE MENU
+===================================================== */
+
+.source-menu{
+
+    display:none;
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:9999;
+
+    display:none;
+
+    align-items:flex-end;
+
+}
+
+
+.popup.show{
+
+    display:flex;
+
+}
+
+
+.popup-box{
+
+    width:100%;
+
+    max-height:90vh;
+
+    background:#fffaf5;
+
+    border-radius:23px 23px 0 0;
+
+    overflow:hidden;
+
+    animation:slideUp .2s ease;
+
+}
+
+
+@keyframes slideUp{
+
+    from{
+
+        transform:translateY(100%);
+
+    }
+
+    to{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+.popup-header{
+
+    background:#fff0df;
+
+    padding:15px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:2;
+
+}
+
+
+.popup-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+
+.popup-title{
+
+    font-size:18px;
+
+    font-weight:800;
+
+}
+
+
+.popup-close{
+
+    width:37px;
+
+    height:37px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+}
+
+
+.popup-search{
+
+    margin-top:10px;
+
+}
+
+
+.popup-search input{
+
+    width:100%;
+
+    height:44px;
+
+    border:1px solid #ddd;
+
+    border-radius:23px;
+
+    padding:0 16px;
+
+    outline:none;
+
+    background:#fff;
+
+    font-size:14px;
+
+}
+
+
+.popup-content{
+
+    max-height:72vh;
+
+    overflow-y:auto;
+
+    padding:14px 15px 30px;
+
+}
+
+
+.popup-item{
+
+    background:#fff;
+
+    border:1px solid #eee;
+
+    border-radius:12px;
+
+    padding:12px 13px;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    text-align:center;
+
+    padding:25px 10px 35px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+.footer strong{
+
+    color:var(--primary);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+    .container{
+
+        padding:11px;
+
+    }
+
+
+    .category-grid{
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:9px;
+
+    }
+
+
+    .category-card{
+
+        padding:12px;
+
+        min-height:79px;
+
+        gap:8px;
+
+        border-radius:16px;
+
+    }
+
+
+    .category-icon{
+
+        width:39px;
+
+        height:39px;
+
+        font-size:21px;
+
+        border-radius:12px;
+
+    }
+
+
+    .category-info h3{
+
+        font-size:12.5px;
+
+    }
+
+
+    .category-info p{
+
+        font-size:9.5px;
+
+    }
+
+
+    .category-arrow{
+
+        font-size:18px;
+
+    }
+
+
+    .hero h1{
+
+        font-size:25px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<header class="header">
+
+    <div class="header-top">
+
+        <a
+            href="innaiku-enna-samayal.html"
+            class="back-btn"
+        >
+            ← Samayal Home
+        </a>
+
+        <div class="brand">
+
+            <div class="brand-title">
+                🥢 Chinese
+            </div>
+
+            <div class="brand-subtitle">
+                Pyncode Planner
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="hero-icon">
+        🥢
+    </div>
+
+    <h1>
+        Chinese <span>Food</span>
+    </h1>
+
+    <p>
+        Indian-Chinese style soups,
+        starters, fried rice, noodles,
+        Manchurian, chilli dishes,
+        seafood & restaurant specials.
+    </p>
+
+    <div class="hero-note">
+        🥢 Complete Chinese Menu
+    </div>
+
+
+    <div class="main-search">
+
+        <input
+            id="mainSearch"
+            type="search"
+            placeholder="உதா: noodles, fried rice, Manchurian..."
+            autocomplete="off"
+        >
+
+    </div>
+
+</section>
+
+  <section class="section">
+
+    <div class="section-head">
+
+        <h2>
+            🥢 Explore Chinese Menu
+        </h2>
+
+        <small>
+            Category select pannunga
+        </small>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="categoryGrid"
+    >
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('soups')"
+        >
+
+            <div class="category-icon">🥣</div>
+
+            <div class="category-info">
+
+                <h3>Chinese Soups</h3>
+
+                <p>Soup varieties</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('momos')"
+        >
+
+            <div class="category-icon">🥟</div>
+
+            <div class="category-info">
+
+                <h3>Momos & Dumplings</h3>
+
+                <p>Steamed & fried</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('veg-starters')"
+        >
+
+            <div class="category-icon">🥗</div>
+
+            <div class="category-info">
+
+                <h3>Veg Starters</h3>
+
+                <p>Vegetarian starters</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('chicken-starters')"
+        >
+
+            <div class="category-icon">🍗</div>
+
+            <div class="category-info">
+
+                <h3>Chicken Starters</h3>
+
+                <p>Chicken starters</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('seafood-starters')"
+        >
+
+            <div class="category-icon">🐟</div>
+
+            <div class="category-info">
+
+                <h3>Fish & Seafood Starters</h3>
+
+                <p>Seafood starters</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('veg-fried-rice')"
+        >
+
+            <div class="category-icon">🍚</div>
+
+            <div class="category-info">
+
+                <h3>Veg Fried Rice</h3>
+
+                <p>Vegetarian rice</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('egg-fried-rice')"
+        >
+
+            <div class="category-icon">🍳</div>
+
+            <div class="category-info">
+
+                <h3>Egg Fried Rice</h3>
+
+                <p>Egg rice varieties</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('chicken-fried-rice')"
+        >
+
+            <div class="category-icon">🍗</div>
+
+            <div class="category-info">
+
+                <h3>Chicken Fried Rice</h3>
+
+                <p>Chicken rice varieties</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('seafood-fried-rice')"
+        >
+
+            <div class="category-icon">🦐</div>
+
+            <div class="category-info">
+
+                <h3>Seafood Fried Rice</h3>
+
+                <p>Seafood rice varieties</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('veg-noodles')"
+        >
+
+            <div class="category-icon">🍜</div>
+
+            <div class="category-info">
+
+                <h3>Veg Noodles</h3>
+
+                <p>Vegetarian noodles</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('chicken-noodles')"
+        >
+
+            <div class="category-icon">🍜</div>
+
+            <div class="category-info">
+
+                <h3>Chicken Noodles</h3>
+
+                <p>Chicken noodles</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('mixed-noodles')"
+        >
+
+            <div class="category-icon">🥢</div>
+
+            <div class="category-info">
+
+                <h3>Mixed Noodles</h3>
+
+                <p>Mixed & special noodles</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('schezwan')"
+        >
+
+            <div class="category-icon">🌶️</div>
+
+            <div class="category-info">
+
+                <h3>Schezwan Specials</h3>
+
+                <p>Spicy Schezwan menu</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('veg-main')"
+        >
+
+            <div class="category-icon">🥦</div>
+
+            <div class="category-info">
+
+                <h3>Veg Main Course</h3>
+
+                <p>Veg Chinese gravies</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('chicken-main')"
+        >
+
+            <div class="category-icon">🍗</div>
+
+            <div class="category-info">
+
+                <h3>Chicken Main Course</h3>
+
+                <p>Chicken Chinese gravies</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('fish-main')"
+        >
+
+            <div class="category-icon">🐟</div>
+
+            <div class="category-info">
+
+                <h3>Fish & Seafood Main</h3>
+
+                <p>Fish & seafood gravies</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('prawn')"
+        >
+
+            <div class="category-icon">🦐</div>
+
+            <div class="category-info">
+
+                <h3>Prawn Specials</h3>
+
+                <p>Prawn dishes</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('chopsuey')"
+        >
+
+            <div class="category-icon">🥢</div>
+
+            <div class="category-info">
+
+                <h3>Chinese Chopsuey</h3>
+
+                <p>Chopsuey varieties</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('combos')"
+        >
+
+            <div class="category-icon">🍱</div>
+
+            <div class="category-info">
+
+                <h3>Chinese Combo Meals</h3>
+
+                <p>Rice + noodles + sides</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('manchurian')"
+        >
+
+            <div class="category-icon">🌶️</div>
+
+            <div class="category-info">
+
+                <h3>Manchurian Specials</h3>
+
+                <p>Veg & non-veg</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('chilli-pepper')"
+        >
+
+            <div class="category-icon">🧄</div>
+
+            <div class="category-info">
+
+                <h3>Chilli & Pepper</h3>
+
+                <p>Chilli & pepper dishes</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('street-food')"
+        >
+
+            <div class="category-icon">🥡</div>
+
+            <div class="category-info">
+
+                <h3>Chinese Street Food</h3>
+
+                <p>Street-style favourites</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('drinks')"
+        >
+
+            <div class="category-icon">🥤</div>
+
+            <div class="category-info">
+
+                <h3>Chinese Drinks</h3>
+
+                <p>Restaurant beverages</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+        <div
+            class="category-card"
+            onclick="openMenu('chef-special')"
+        >
+
+            <div class="category-icon">⭐</div>
+
+            <div class="category-info">
+
+                <h3>Chinese Chef Specials</h3>
+
+                <p>Special dishes</p>
+
+            </div>
+
+            <span class="category-arrow">›</span>
+
+        </div>
+
+
+    </div>
+
+  </section>
+
+  <!-- =====================================================
+     SOURCE MENUS
+===================================================== -->
+
+
+<section class="source-menu" id="soups">
+
+    <div class="menu-item">Sweet Corn Soup</div>
+    <div class="menu-item">Veg Sweet Corn Soup</div>
+    <div class="menu-item">Chicken Sweet Corn Soup</div>
+    <div class="menu-item">Hot & Sour Veg Soup</div>
+    <div class="menu-item">Hot & Sour Chicken Soup</div>
+    <div class="menu-item">Manchow Veg Soup</div>
+    <div class="menu-item">Manchow Chicken Soup</div>
+    <div class="menu-item">Veg Clear Soup</div>
+    <div class="menu-item">Chicken Clear Soup</div>
+    <div class="menu-item">Chicken Garlic Soup</div>
+    <div class="menu-item">Chicken Lemon Coriander Soup</div>
+    <div class="menu-item">Veg Lemon Coriander Soup</div>
+    <div class="menu-item">Mushroom Soup</div>
+    <div class="menu-item">Tomato Soup</div>
+    <div class="menu-item">Wonton Soup</div>
+    <div class="menu-item">Seafood Soup</div>
+
+</section>
+
+
+<section class="source-menu" id="momos">
+
+    <div class="menu-item">Veg Momos</div>
+    <div class="menu-item">Steamed Veg Momos</div>
+    <div class="menu-item">Fried Veg Momos</div>
+    <div class="menu-item">Paneer Momos</div>
+    <div class="menu-item">Cheese Momos</div>
+    <div class="menu-item">Chicken Momos</div>
+    <div class="menu-item">Steamed Chicken Momos</div>
+    <div class="menu-item">Fried Chicken Momos</div>
+    <div class="menu-item">Chicken Schezwan Momos</div>
+    <div class="menu-item">Tandoori Momos</div>
+    <div class="menu-item">Momos in Hot Garlic Sauce</div>
+    <div class="menu-item">Momos in Chilli Sauce</div>
+    <div class="menu-item">Veg Dumplings</div>
+    <div class="menu-item">Chicken Dumplings</div>
+    <div class="menu-item">Wonton</div>
+
+</section>
+
+
+<section class="source-menu" id="veg-starters">
+
+    <div class="menu-item">Veg Spring Roll</div>
+    <div class="menu-item">Crispy Vegetable</div>
+    <div class="menu-item">Crispy Corn</div>
+    <div class="menu-item">Crispy Honey Chilli Potato</div>
+    <div class="menu-item">Honey Chilli Potato</div>
+    <div class="menu-item">Chilli Potato</div>
+    <div class="menu-item">Gobi Manchurian</div>
+    <div class="menu-item">Gobi 65</div>
+    <div class="menu-item">Chilli Gobi</div>
+    <div class="menu-item">Paneer Manchurian</div>
+    <div class="menu-item">Chilli Paneer</div>
+    <div class="menu-item">Paneer 65</div>
+    <div class="menu-item">Crispy Paneer</div>
+    <div class="menu-item">Mushroom Manchurian</div>
+    <div class="menu-item">Chilli Mushroom</div>
+    <div class="menu-item">Mushroom Pepper Fry</div>
+    <div class="menu-item">Baby Corn Manchurian</div>
+    <div class="menu-item">Chilli Baby Corn</div>
+    <div class="menu-item">Baby Corn Pepper Fry</div>
+    <div class="menu-item">Veg Cutlet</div>
+
+</section>
+
+
+<section class="source-menu" id="chicken-starters">
+
+    <div class="menu-item">Chicken 65</div>
+    <div class="menu-item">Chicken Lollipop</div>
+    <div class="menu-item">Chicken Wings</div>
+    <div class="menu-item">Chicken Spring Roll</div>
+    <div class="menu-item">Chilli Chicken</div>
+    <div class="menu-item">Chicken Manchurian</div>
+    <div class="menu-item">Chicken Dragon</div>
+    <div class="menu-item">Chicken Pepper</div>
+    <div class="menu-item">Chicken Salt & Pepper</div>
+    <div class="menu-item">Crispy Chicken</div>
+    <div class="menu-item">Honey Chilli Chicken</div>
+    <div class="menu-item">Hot Garlic Chicken</div>
+    <div class="menu-item">Schezwan Chicken</div>
+    <div class="menu-item">Chicken Majestic</div>
+    <div class="menu-item">Chicken Pakoda</div>
+    <div class="menu-item">Chicken Tikka</div>
+    <div class="menu-item">Chicken Drumsticks</div>
+    <div class="menu-item">Drums of Heaven</div>
+
+</section>
+
+
+<section class="source-menu" id="seafood-starters">
+
+    <div class="menu-item">Fish Finger</div>
+    <div class="menu-item">Fish 65</div>
+    <div class="menu-item">Chilli Fish</div>
+    <div class="menu-item">Fish Manchurian</div>
+    <div class="menu-item">Crispy Fish</div>
+    <div class="menu-item">Fish Pepper</div>
+    <div class="menu-item">Salt & Pepper Fish</div>
+    <div class="menu-item">Prawn 65</div>
+    <div class="menu-item">Chilli Prawn</div>
+    <div class="menu-item">Prawn Manchurian</div>
+    <div class="menu-item">Crispy Prawn</div>
+    <div class="menu-item">Prawn Pepper</div>
+    <div class="menu-item">Salt & Pepper Prawn</div>
+    <div class="menu-item">Squid Pepper</div>
+    <div class="menu-item">Crispy Squid</div>
+
+</section>
+
+  <section class="source-menu" id="veg-fried-rice">
+
+    <div class="menu-item">Veg Fried Rice</div>
+    <div class="menu-item">Chinese Veg Fried Rice</div>
+    <div class="menu-item">Schezwan Veg Fried Rice</div>
+    <div class="menu-item">Hong Kong Veg Fried Rice</div>
+    <div class="menu-item">Singapore Veg Fried Rice</div>
+    <div class="menu-item">Mushroom Fried Rice</div>
+    <div class="menu-item">Paneer Fried Rice</div>
+    <div class="menu-item">Garlic Fried Rice</div>
+    <div class="menu-item">Chilli Garlic Fried Rice</div>
+    <div class="menu-item">Burnt Garlic Fried Rice</div>
+    <div class="menu-item">Triple Schezwan Fried Rice</div>
+
+</section>
+
+
+<section class="source-menu" id="egg-fried-rice">
+
+    <div class="menu-item">Egg Fried Rice</div>
+    <div class="menu-item">Chinese Egg Fried Rice</div>
+    <div class="menu-item">Schezwan Egg Fried Rice</div>
+    <div class="menu-item">Egg Garlic Fried Rice</div>
+    <div class="menu-item">Egg Chilli Fried Rice</div>
+    <div class="menu-item">Egg Burnt Garlic Fried Rice</div>
+    <div class="menu-item">Egg Singapore Fried Rice</div>
+    <div class="menu-item">Egg Hong Kong Fried Rice</div>
+
+</section>
+
+
+<section class="source-menu" id="chicken-fried-rice">
+
+    <div class="menu-item">Chicken Fried Rice</div>
+    <div class="menu-item">Chinese Chicken Fried Rice</div>
+    <div class="menu-item">Schezwan Chicken Fried Rice</div>
+    <div class="menu-item">Chicken Garlic Fried Rice</div>
+    <div class="menu-item">Chicken Chilli Fried Rice</div>
+    <div class="menu-item">Chicken Burnt Garlic Fried Rice</div>
+    <div class="menu-item">Chicken Singapore Fried Rice</div>
+    <div class="menu-item">Chicken Hong Kong Fried Rice</div>
+    <div class="menu-item">Chicken Triple Fried Rice</div>
+
+</section>
+
+
+<section class="source-menu" id="seafood-fried-rice">
+
+    <div class="menu-item">Prawn Fried Rice</div>
+    <div class="menu-item">Schezwan Prawn Fried Rice</div>
+    <div class="menu-item">Fish Fried Rice</div>
+    <div class="menu-item">Schezwan Fish Fried Rice</div>
+    <div class="menu-item">Mixed Seafood Fried Rice</div>
+    <div class="menu-item">Seafood Garlic Fried Rice</div>
+    <div class="menu-item">Mixed Fried Rice</div>
+    <div class="menu-item">Mixed Schezwan Fried Rice</div>
+
+</section>
+
+
+<section class="source-menu" id="veg-noodles">
+
+    <div class="menu-item">Veg Noodles</div>
+    <div class="menu-item">Hakka Veg Noodles</div>
+    <div class="menu-item">Schezwan Veg Noodles</div>
+    <div class="menu-item">Singapore Veg Noodles</div>
+    <div class="menu-item">Hong Kong Veg Noodles</div>
+    <div class="menu-item">Chilli Garlic Veg Noodles</div>
+    <div class="menu-item">Garlic Veg Noodles</div>
+    <div class="menu-item">Burnt Garlic Veg Noodles</div>
+    <div class="menu-item">Mushroom Noodles</div>
+    <div class="menu-item">Paneer Noodles</div>
+
+</section>
+
+
+<section class="source-menu" id="chicken-noodles">
+
+    <div class="menu-item">Chicken Noodles</div>
+    <div class="menu-item">Hakka Chicken Noodles</div>
+    <div class="menu-item">Schezwan Chicken Noodles</div>
+    <div class="menu-item">Singapore Chicken Noodles</div>
+    <div class="menu-item">Hong Kong Chicken Noodles</div>
+    <div class="menu-item">Chilli Garlic Chicken Noodles</div>
+    <div class="menu-item">Garlic Chicken Noodles</div>
+    <div class="menu-item">Burnt Garlic Chicken Noodles</div>
+    <div class="menu-item">Chicken Chow Mein</div>
+
+</section>
+
+
+<section class="source-menu" id="mixed-noodles">
+
+    <div class="menu-item">Mixed Noodles</div>
+    <div class="menu-item">Mixed Hakka Noodles</div>
+    <div class="menu-item">Mixed Schezwan Noodles</div>
+    <div class="menu-item">Mixed Singapore Noodles</div>
+    <div class="menu-item">Mixed Hong Kong Noodles</div>
+    <div class="menu-item">Mixed Chilli Garlic Noodles</div>
+    <div class="menu-item">Triple Schezwan Noodles</div>
+    <div class="menu-item">American Chopsuey</div>
+    <div class="menu-item">Chinese Chopsuey</div>
+
+</section>
+
+
+<section class="source-menu" id="schezwan">
+
+    <div class="menu-item">Schezwan Veg Fried Rice</div>
+    <div class="menu-item">Schezwan Egg Fried Rice</div>
+    <div class="menu-item">Schezwan Chicken Fried Rice</div>
+    <div class="menu-item">Schezwan Prawn Fried Rice</div>
+    <div class="menu-item">Schezwan Veg Noodles</div>
+    <div class="menu-item">Schezwan Chicken Noodles</div>
+    <div class="menu-item">Schezwan Paneer</div>
+    <div class="menu-item">Schezwan Chicken</div>
+    <div class="menu-item">Schezwan Prawn</div>
+    <div class="menu-item">Schezwan Fish</div>
+    <div class="menu-item">Schezwan Momos</div>
+    <div class="menu-item">Schezwan Chilli Potato</div>
+    <div class="menu-item">Schezwan Manchurian</div>
+
+</section>
+
+
+<section class="source-menu" id="veg-main">
+
+    <div class="menu-item">Veg Manchurian Gravy</div>
+    <div class="menu-item">Gobi Manchurian Gravy</div>
+    <div class="menu-item">Paneer Manchurian Gravy</div>
+    <div class="menu-item">Chilli Paneer Gravy</div>
+    <div class="menu-item">Chilli Mushroom Gravy</div>
+    <div class="menu-item">Chilli Gobi Gravy</div>
+    <div class="menu-item">Hot Garlic Vegetables</div>
+    <div class="menu-item">Mixed Vegetables in Garlic Sauce</div>
+    <div class="menu-item">Vegetables in Schezwan Sauce</div>
+    <div class="menu-item">Veg Sweet & Sour</div>
+    <div class="menu-item">Veg Black Pepper</div>
+    <div class="menu-item">Veg Kung Pao</div>
+    <div class="menu-item">Paneer Hot Garlic</div>
+    <div class="menu-item">Paneer Schezwan</div>
+
+</section>
+
+
+<section class="source-menu" id="chicken-main">
+
+    <div class="menu-item">Chilli Chicken Gravy</div>
+    <div class="menu-item">Chicken Manchurian Gravy</div>
+    <div class="menu-item">Schezwan Chicken Gravy</div>
+    <div class="menu-item">Hot Garlic Chicken</div>
+    <div class="menu-item">Chicken in Black Pepper Sauce</div>
+    <div class="menu-item">Chicken Sweet & Sour</div>
+    <div class="menu-item">Chicken Kung Pao</div>
+    <div class="menu-item">Chicken Hunan</div>
+    <div class="menu-item">Chicken Shanghai</div>
+    <div class="menu-item">Chicken in Oyster Sauce</div>
+    <div class="menu-item">Chicken in Black Bean Sauce</div>
+    <div class="menu-item">Schezwan Chicken</div>
+
+</section>
+
+
+<section class="source-menu" id="fish-main">
+
+    <div class="menu-item">Chilli Fish Gravy</div>
+    <div class="menu-item">Fish Manchurian Gravy</div>
+    <div class="menu-item">Schezwan Fish</div>
+    <div class="menu-item">Hot Garlic Fish</div>
+    <div class="menu-item">Fish Black Pepper</div>
+    <div class="menu-item">Fish Sweet & Sour</div>
+    <div class="menu-item">Fish in Black Bean Sauce</div>
+    <div class="menu-item">Fish Hunan</div>
+    <div class="menu-item">Fish Shanghai</div>
+
+</section>
+
+
+<section class="source-menu" id="prawn">
+
+    <div class="menu-item">Chilli Prawn</div>
+    <div class="menu-item">Prawn Manchurian</div>
+    <div class="menu-item">Schezwan Prawn</div>
+    <div class="menu-item">Hot Garlic Prawn</div>
+    <div class="menu-item">Prawn Black Pepper</div>
+    <div class="menu-item">Honey Chilli Prawn</div>
+    <div class="menu-item">Prawn Sweet & Sour</div>
+    <div class="menu-item">Prawn Kung Pao</div>
+    <div class="menu-item">Prawn in Black Bean Sauce</div>
+    <div class="menu-item">Crispy Prawn</div>
+
+</section>
+
+  <section class="source-menu" id="chopsuey">
+
+    <div class="menu-item">American Chopsuey</div>
+    <div class="menu-item">Veg American Chopsuey</div>
+    <div class="menu-item">Chicken American Chopsuey</div>
+    <div class="menu-item">Chinese Chopsuey</div>
+    <div class="menu-item">Veg Chinese Chopsuey</div>
+    <div class="menu-item">Chicken Chinese Chopsuey</div>
+    <div class="menu-item">Mixed Chopsuey</div>
+    <div class="menu-item">Seafood Chopsuey</div>
+
+</section>
+
+
+<section class="source-menu" id="combos">
+
+    <div class="menu-item">Veg Fried Rice + Veg Manchurian</div>
+    <div class="menu-item">Veg Noodles + Veg Manchurian</div>
+    <div class="menu-item">Veg Fried Rice + Chilli Paneer</div>
+    <div class="menu-item">Chicken Fried Rice + Chilli Chicken</div>
+    <div class="menu-item">Chicken Noodles + Chilli Chicken</div>
+    <div class="menu-item">Chicken Fried Rice + Chicken Manchurian</div>
+    <div class="menu-item">Schezwan Fried Rice + Chicken Manchurian</div>
+    <div class="menu-item">Veg Combo Meal</div>
+    <div class="menu-item">Chicken Combo Meal</div>
+    <div class="menu-item">Mixed Combo Meal</div>
+    <div class="menu-item">Family Chinese Combo</div>
+
+</section>
+
+
+<section class="source-menu" id="manchurian">
+
+    <div class="menu-item">Veg Manchurian</div>
+    <div class="menu-item">Veg Manchurian Dry</div>
+    <div class="menu-item">Veg Manchurian Gravy</div>
+    <div class="menu-item">Gobi Manchurian</div>
+    <div class="menu-item">Gobi Manchurian Dry</div>
+    <div class="menu-item">Gobi Manchurian Gravy</div>
+    <div class="menu-item">Paneer Manchurian</div>
+    <div class="menu-item">Paneer Manchurian Dry</div>
+    <div class="menu-item">Paneer Manchurian Gravy</div>
+    <div class="menu-item">Mushroom Manchurian</div>
+    <div class="menu-item">Mushroom Manchurian Dry</div>
+    <div class="menu-item">Chicken Manchurian</div>
+    <div class="menu-item">Chicken Manchurian Dry</div>
+    <div class="menu-item">Chicken Manchurian Gravy</div>
+    <div class="menu-item">Fish Manchurian</div>
+    <div class="menu-item">Prawn Manchurian</div>
+
+</section>
+
+
+<section class="source-menu" id="chilli-pepper">
+
+    <div class="menu-item">Chilli Paneer</div>
+    <div class="menu-item">Chilli Gobi</div>
+    <div class="menu-item">Chilli Mushroom</div>
+    <div class="menu-item">Chilli Potato</div>
+    <div class="menu-item">Chilli Baby Corn</div>
+    <div class="menu-item">Chilli Chicken</div>
+    <div class="menu-item">Chilli Fish</div>
+    <div class="menu-item">Chilli Prawn</div>
+    <div class="menu-item">Pepper Paneer</div>
+    <div class="menu-item">Pepper Mushroom</div>
+    <div class="menu-item">Pepper Chicken</div>
+    <div class="menu-item">Pepper Fish</div>
+    <div class="menu-item">Pepper Prawn</div>
+    <div class="menu-item">Salt & Pepper Vegetables</div>
+    <div class="menu-item">Salt & Pepper Chicken</div>
+    <div class="menu-item">Salt & Pepper Fish</div>
+    <div class="menu-item">Salt & Pepper Prawn</div>
+
+</section>
+
+
+<section class="source-menu" id="street-food">
+
+    <div class="menu-item">Chinese Bhel</div>
+    <div class="menu-item">Veg Spring Roll</div>
+    <div class="menu-item">Chicken Spring Roll</div>
+    <div class="menu-item">Veg Momos</div>
+    <div class="menu-item">Chicken Momos</div>
+    <div class="menu-item">Chilli Potato</div>
+    <div class="menu-item">Honey Chilli Potato</div>
+    <div class="menu-item">Crispy Corn</div>
+    <div class="menu-item">Crispy Noodles</div>
+    <div class="menu-item">Chicken Lollipop</div>
+    <div class="menu-item">Chicken 65</div>
+    <div class="menu-item">Chilli Chicken</div>
+    <div class="menu-item">Veg Hakka Noodles</div>
+    <div class="menu-item">Chicken Hakka Noodles</div>
+    <div class="menu-item">Veg Fried Rice</div>
+    <div class="menu-item">Chicken Fried Rice</div>
+
+</section>
+
+
+<section class="source-menu" id="drinks">
+
+    <div class="menu-item">Fresh Lime Soda</div>
+    <div class="menu-item">Sweet Lime Soda</div>
+    <div class="menu-item">Salt Lime Soda</div>
+    <div class="menu-item">Lemon Mint Cooler</div>
+    <div class="menu-item">Ginger Lime Cooler</div>
+    <div class="menu-item">Green Apple Cooler</div>
+    <div class="menu-item">Iced Tea</div>
+    <div class="menu-item">Lemon Iced Tea</div>
+    <div class="menu-item">Peach Iced Tea</div>
+    <div class="menu-item">Cold Coffee</div>
+    <div class="menu-item">Fresh Lime Juice</div>
+    <div class="menu-item">Orange Juice</div>
+    <div class="menu-item">Watermelon Juice</div>
+
+</section>
+
+
+<section class="source-menu" id="chef-special">
+
+    <div class="menu-item">Chef Special Fried Rice</div>
+    <div class="menu-item">Chef Special Noodles</div>
+    <div class="menu-item">Chef Special Chicken</div>
+    <div class="menu-item">Chef Special Fish</div>
+    <div class="menu-item">Chef Special Prawns</div>
+    <div class="menu-item">Chef Special Paneer</div>
+    <div class="menu-item">Chef Special Manchurian</div>
+    <div class="menu-item">Chef Special Schezwan</div>
+    <div class="menu-item">Chef Special Chopsuey</div>
+    <div class="menu-item">Chef Special Combo</div>
+
+</section>
+
+
+<!-- =====================================================
+     POPUP
+===================================================== -->
+
+<div
+    class="popup"
+    id="menuPopup"
+>
+
+    <div class="popup-box">
+
+        <div class="popup-header">
+
+            <div class="popup-top">
+
+                <div
+                    class="popup-title"
+                    id="popupTitle"
+                >
+                    Chinese Menu
+                </div>
+
+                <button
+                    type="button"
+                    class="popup-close"
+                    id="popupClose"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="popup-search">
+
+                <input
+                    id="popupSearch"
+                    type="search"
+                    placeholder="இந்த menu-ல் தேடுங்கள்..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="popup-content"
+            id="popupList"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<footer class="footer">
+
+    <strong>Pyncode.in</strong>
+
+    <br>
+
+    Chinese Food 🥢
+
+    <br><br>
+
+    Soups • Starters • Fried Rice •
+    Noodles • Main Course
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   CATEGORY DATA
+===================================================== */
+
+const categories = [
+
+    {
+        id:"soups",
+        title:"🥣 Chinese Soups"
+    },
+
+    {
+        id:"momos",
+        title:"🥟 Momos & Dumplings"
+    },
+
+    {
+        id:"veg-starters",
+        title:"🥗 Veg Starters"
+    },
+
+    {
+        id:"chicken-starters",
+        title:"🍗 Chicken Starters"
+    },
+
+    {
+        id:"seafood-starters",
+        title:"🐟 Fish & Seafood Starters"
+    },
+
+    {
+        id:"veg-fried-rice",
+        title:"🍚 Veg Fried Rice"
+    },
+
+    {
+        id:"egg-fried-rice",
+        title:"🍳 Egg Fried Rice"
+    },
+
+    {
+        id:"chicken-fried-rice",
+        title:"🍗 Chicken Fried Rice"
+    },
+
+    {
+        id:"seafood-fried-rice",
+        title:"🦐 Seafood Fried Rice"
+    },
+
+    {
+        id:"veg-noodles",
+        title:"🍜 Veg Noodles"
+    },
+
+    {
+        id:"chicken-noodles",
+        title:"🍜 Chicken Noodles"
+    },
+
+    {
+        id:"mixed-noodles",
+        title:"🥢 Mixed Noodles"
+    },
+
+    {
+        id:"schezwan",
+        title:"🌶️ Schezwan Specials"
+    },
+
+    {
+        id:"veg-main",
+        title:"🥦 Veg Main Course"
+    },
+
+    {
+        id:"chicken-main",
+        title:"🍗 Chicken Main Course"
+    },
+
+    {
+        id:"fish-main",
+        title:"🐟 Fish & Seafood Main Course"
+    },
+
+    {
+        id:"prawn",
+        title:"🦐 Prawn Specials"
+    },
+
+    {
+        id:"chopsuey",
+        title:"🥢 Chinese Chopsuey"
+    },
+
+    {
+        id:"combos",
+        title:"🍱 Chinese Combo Meals"
+    },
+
+    {
+        id:"manchurian",
+        title:"🌶️ Manchurian Specials"
+    },
+
+    {
+        id:"chilli-pepper",
+        title:"🧄 Chilli & Pepper Specials"
+    },
+
+    {
+        id:"street-food",
+        title:"🥡 Chinese Street Food"
+    },
+
+    {
+        id:"drinks",
+        title:"🥤 Chinese Drinks"
+    },
+
+    {
+        id:"chef-special",
+        title:"⭐ Chinese Chef Specials"
+    }
+
+];
+
+
+const menuPopup =
+    document.getElementById("menuPopup");
+
+const popupTitle =
+    document.getElementById("popupTitle");
+
+const popupList =
+    document.getElementById("popupList");
+
+const popupSearch =
+    document.getElementById("popupSearch");
+
+const popupClose =
+    document.getElementById("popupClose");
+
+const mainSearch =
+    document.getElementById("mainSearch");
+
+
+/* =====================================================
+   OPEN MENU
+===================================================== */
+
+function openMenu(categoryId){
+
+    const category =
+        categories.find(function(item){
+
+            return item.id === categoryId;
+
+        });
+
+
+    const source =
+        document.getElementById(categoryId);
+
+
+    if(!category || !source){
+
+        return;
+
+    }
+
+
+    popupTitle.textContent =
+        category.title;
+
+
+    popupList.innerHTML = "";
+
+
+    const items =
+        source.querySelectorAll(".menu-item");
+
+
+    items.forEach(function(item){
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "popup-item";
+
+        div.textContent =
+            item.textContent;
+
+        popupList.appendChild(div);
+
+    });
+
+
+    popupSearch.value = "";
+
+
+    menuPopup.classList.add("show");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    /*
+       IMPORTANT:
+
+       Do NOT focus popupSearch here.
+
+       Mobile keyboard opens only when
+       user manually taps the search box.
+    */
+
+}
+
+
+/* =====================================================
+   CLOSE MENU
+===================================================== */
+
+function closeMenu(){
+
+    menuPopup.classList.remove("show");
+
+    document.body.style.overflow =
+        "";
+
+    popupSearch.value = "";
+
+}
+
+
+popupClose.addEventListener(
+    "click",
+    closeMenu
+);
+
+
+/* =====================================================
+   OUTSIDE TAP
+===================================================== */
+
+menuPopup.addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === menuPopup){
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeMenu();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   POPUP SEARCH
+===================================================== */
+
+popupSearch.addEventListener(
+    "input",
+    function(){
+
+        const keyword =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        const items =
+            popupList.querySelectorAll(
+                ".popup-item"
+            );
+
+
+        items.forEach(function(item){
+
+            const text =
+                item.textContent.toLowerCase();
+
+
+            if(
+                keyword === "" ||
+                text.includes(keyword)
+            ){
+
+                item.style.display =
+                    "";
+
+            }else{
+
+                item.style.display =
+                    "none";
+
+            }
+
+        });
+
+    }
+);
+
+
+/* =====================================================
+   MAIN SEARCH
+===================================================== */
+
+mainSearch.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key !== "Enter"){
+
+            return;
+
+        }
+
+
+        const keyword =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        if(!keyword){
+
+            return;
+
+        }
+
+
+        const found =
+            categories.find(function(category){
+
+                const source =
+                    document.getElementById(
+                        category.id
+                    );
+
+
+                if(!source){
+
+                    return false;
+
+                }
+
+
+                const text = (
+
+                    category.title +
+                    " " +
+                    source.textContent
+
+                ).toLowerCase();
+
+
+                return text.includes(keyword);
+
+            });
+
+
+        if(found){
+
+            openMenu(found.id);
+
+        }else{
+
+            alert(
+                "இந்த dish / category கிடைக்கவில்லை."
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</div>
+
+</body>
+
+</html>

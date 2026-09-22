@@ -1275,93 +1275,131 @@ body{
 }
 
   /* =====================================================
-   FIXED BOTTOM NAVIGATION
+   FIXED BOTTOM NAVIGATION — PYNCODE STYLE
 ===================================================== */
 
 .bottom-nav{
-    position:fixed !important;
+    position:fixed;
 
-    left:0 !important;
-    right:0 !important;
-    bottom:0 !important;
+    left:10px;
+    right:10px;
+    bottom:10px;
 
-    width:100% !important;
-    height:78px !important;
+    height:68px;
 
-    background:#ffffff !important;
+    background:#151d30;
 
-    border-top:1px solid #e4e6ea !important;
+    border:1px solid rgba(255,255,255,.08);
 
-    display:flex !important;
-    align-items:center !important;
-    justify-content:space-around !important;
+    border-radius:24px;
 
-    z-index:999999 !important;
+    display:flex;
 
-    padding:7px 8px !important;
+    align-items:center;
+
+    justify-content:space-around;
+
+    padding:6px;
+
+    z-index:9998;
 
     box-shadow:
-        0 -5px 20px
-        rgba(0,0,0,.06) !important;
+        0 8px 28px
+        rgba(10,20,40,.20);
 }
+
 
 .bottom-nav-item{
-    flex:1 !important;
+    flex:1;
 
-    height:100% !important;
+    height:56px;
 
-    text-decoration:none !important;
+    display:flex;
 
-    color:#777 !important;
+    flex-direction:column;
 
-    display:flex !important;
-    flex-direction:column !important;
+    align-items:center;
 
-    align-items:center !important;
-    justify-content:center !important;
+    justify-content:center;
 
-    gap:4px !important;
+    gap:4px;
+
+    border-radius:18px;
+
+    text-decoration:none;
+
+    color:#aeb6c5;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .15s ease;
 }
+
 
 .bottom-nav-item .nav-icon{
-    font-size:22px !important;
-    line-height:1 !important;
+    font-size:21px;
+
+    line-height:1;
 }
+
 
 .bottom-nav-item .nav-label{
-    font-size:13px !important;
-    font-weight:700 !important;
+    line-height:1.2;
 }
+
 
 .bottom-nav-item.active{
-    color:#ef5b3f !important;
+    background:#ffffff;
+
+    color:#151a28;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,.08);
 }
 
 
-/* Prevent page content from hiding behind nav */
-
-body{
-    padding-bottom:95px !important;
+.bottom-nav-item:active{
+    transform:scale(.95);
 }
 
 
-/* Mobile */
+/* =====================================================
+   MOBILE
+===================================================== */
 
-@media(max-width:600px){
+@media(max-width:700px){
 
     .bottom-nav{
-        height:76px !important;
+        left:10px;
+        right:10px;
+        bottom:10px;
+
+        height:68px;
+
+        border-radius:24px;
+
+        padding:6px;
+    }
+
+    .bottom-nav-item{
+        height:56px;
+
+        border-radius:18px;
+
+        font-size:10px;
     }
 
     .bottom-nav-item .nav-icon{
-        font-size:21px !important;
+        font-size:21px;
     }
 
-    .bottom-nav-item .nav-label{
-        font-size:12px !important;
-    }
-
-  }
+}
 
 </style>
 
@@ -1548,8 +1586,11 @@ body{
      BOTTOM NAVIGATION
 ===================================================== -->
 
-<nav class="bottom-nav">
+<!-- =====================================================
+     FIXED BOTTOM NAVIGATION
+===================================================== -->
 
+<nav class="bottom-nav">
 
     <a
         href="shops.html"
@@ -1557,7 +1598,7 @@ body{
     >
 
         <span class="nav-icon">
-            🏪
+            🏬
         </span>
 
         <span class="nav-label">
@@ -1565,7 +1606,6 @@ body{
         </span>
 
     </a>
-
 
 
     <a
@@ -1584,10 +1624,9 @@ body{
     </a>
 
 
-
     <a
-        href="category.html"
-        class="bottom-nav-item"
+        href="index.html"
+        class="bottom-nav-item active"
     >
 
         <span class="nav-icon">
@@ -1601,14 +1640,13 @@ body{
     </a>
 
 
-
     <a
         href="promotion.html"
-        class="bottom-nav-item active"
+        class="bottom-nav-item"
     >
 
         <span class="nav-icon">
-            📣
+            📢
         </span>
 
         <span class="nav-label">
@@ -1618,8 +1656,24 @@ body{
     </a>
 
 
-</nav>
+    <!-- PLANNER -->
 
+    <a
+        href="planner.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            📋
+        </span>
+
+        <span class="nav-label">
+            Planner
+        </span>
+
+    </a>
+
+</nav>
 
 
 <script>
@@ -2566,6 +2620,7 @@ function renderCategoryPosterFeed(){
 
 }
 
+
 /* =====================================================
    CREATE CATEGORY POSTER SECTION
 ===================================================== */
@@ -3447,6 +3502,45 @@ loadPromotionPosters();
 
 
 </script>
+
+  <script>
+/* =====================================================
+   AUTO ACTIVE FIXED NAVIGATION
+===================================================== */
+
+const currentPage =
+    window.location.pathname
+        .split("/")
+        .pop()
+        .toLowerCase();
+
+document
+    .querySelectorAll(".bottom-nav-item")
+    .forEach(function(item){
+
+        item.classList.remove("active");
+
+        const link =
+            item.getAttribute("href");
+
+        if(!link){
+            return;
+        }
+
+        const linkPage =
+            link
+                .split("?")[0]
+                .split("#")[0]
+                .toLowerCase();
+
+        if(linkPage === currentPage){
+
+            item.classList.add("active");
+
+        }
+
+    });
+  </script>
 
 
 </body>

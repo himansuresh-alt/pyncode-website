@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#fff8f0"
+>
+
+<title>
+    Innaiku Enna Samayal? | Pyncode Planner
+</title>
+
+
+<style>
+
+/* =====================================================
+   ROOT
+===================================================== */
+
+:root{
+
+    --bg:#fffaf5;
+
+    --card:#ffffff;
+
+    --text:#29231f;
+
+    --muted:#756d67;
+
+    --primary:#e85d04;
+
+    --primary-light:#fff0df;
+
+    --border:#eee2d7;
+
+    --shadow:
+        0 8px 28px rgba(70,40,15,.08);
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+
+body{
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    line-height:1.5;
+
+}
+
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+button{
+
+    font:inherit;
+
+}
+
+
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
+
+.container{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:18px;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:22px;
+
+    padding:18px 20px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:18px;
+
+}
+
+
+.logo{
+
+    font-size:23px;
+
+    font-weight:800;
+
+    letter-spacing:-.4px;
+
+}
+
+
+.logo span{
+
+    color:var(--primary);
+
+}
+
+
+.tagline{
+
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0df,
+            #fff8f0
+        );
+
+    border:1px solid #f5ddc8;
+
+    border-radius:28px;
+
+    padding:30px 22px;
+
+    text-align:center;
+
+    margin-bottom:22px;
+
+}
+
+
+.hero-icon{
+
+    font-size:46px;
+
+    margin-bottom:8px;
+
+}
+
+
+.hero h1{
+
+    font-size:30px;
+
+    line-height:1.15;
+
+    margin-bottom:10px;
+
+}
+
+
+.hero h1 span{
+
+    color:var(--primary);
+
+}
+
+
+.hero p{
+
+    max-width:650px;
+
+    margin:auto;
+
+    color:var(--muted);
+
+    font-size:15px;
+
+}
+
+
+.hero-note{
+
+    display:inline-block;
+
+    margin-top:16px;
+
+    padding:8px 13px;
+
+    border-radius:50px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    color:var(--primary);
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.section{
+
+    margin-bottom:26px;
+
+}
+
+
+.section-head{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:12px;
+
+}
+
+
+.section-head h2{
+
+    font-size:20px;
+
+}
+
+
+.section-head small{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+}
+
+
+/* =====================================================
+   SITUATION GRID
+===================================================== */
+
+.situation-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+    gap:10px;
+
+}
+
+
+.situation-card{
+
+    display:block;
+
+    border:1px solid var(--border);
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    padding:15px 10px;
+
+    min-height:105px;
+
+    cursor:pointer;
+
+    text-align:center;
+
+    transition:.2s;
+
+    box-shadow:
+        0 5px 18px rgba(70,40,15,.04);
+
+}
+
+
+.situation-card:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#f1c49d;
+
+}
+
+
+.situation-card .icon{
+
+    display:block;
+
+    font-size:29px;
+
+    margin-bottom:7px;
+
+}
+
+
+.situation-card strong{
+
+    font-size:13px;
+
+}
+
+
+/* =====================================================
+   CATEGORY GRID
+===================================================== */
+
+.category-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:12px;
+
+}
+
+
+.category-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:19px;
+
+    padding:16px;
+
+    min-height:88px;
+
+    box-shadow:
+        0 5px 18px rgba(70,40,15,.04);
+
+    transition:.2s;
+
+}
+
+
+.category-card:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#efc49e;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.category-icon{
+
+    width:48px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border-radius:15px;
+
+    background:var(--primary-light);
+
+    font-size:25px;
+
+}
+
+
+.category-info{
+
+    min-width:0;
+
+}
+
+
+.category-info h3{
+
+    font-size:15px;
+
+    margin-bottom:2px;
+
+}
+
+
+.category-info p{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+
+.category-arrow{
+
+    margin-left:auto;
+
+    font-size:23px;
+
+    color:#aaa;
+
+}
+
+
+/* =====================================================
+   HELP GRID
+===================================================== */
+
+.help-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:12px;
+
+}
+
+
+.help-card{
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:18px;
+
+    box-shadow:
+        0 5px 18px rgba(70,40,15,.04);
+
+    transition:.2s;
+
+}
+
+
+.help-card:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+.help-icon{
+
+    font-size:28px;
+
+    margin-bottom:8px;
+
+}
+
+
+.help-card h3{
+
+    font-size:16px;
+
+    margin-bottom:4px;
+
+}
+
+
+.help-card p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+
+.help-arrow{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    color:var(--primary);
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   TODAY BOX
+===================================================== */
+
+.today-box{
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #fff3e6
+        );
+
+    border:1px solid #f1d7bf;
+
+    border-radius:24px;
+
+    padding:22px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+.today-box h2{
+
+    font-size:21px;
+
+    margin-bottom:5px;
+
+}
+
+
+.today-box > p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-bottom:16px;
+
+}
+
+
+.today-list{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+    gap:10px;
+
+}
+
+
+.today-item{
+
+    display:block;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:14px 10px;
+
+    text-align:center;
+
+}
+
+
+.today-item .icon{
+
+    font-size:25px;
+
+    display:block;
+
+    margin-bottom:5px;
+
+}
+
+
+.today-item strong{
+
+    display:block;
+
+    font-size:13px;
+
+}
+
+
+.today-item span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    margin-top:2px;
+
+}
+
+
+/* =====================================================
+   MESSAGE BOX
+===================================================== */
+
+.message-box{
+
+    text-align:center;
+
+    padding:25px 15px;
+
+    margin-top:5px;
+
+}
+
+
+.message-box .heart{
+
+    font-size:30px;
+
+    margin-bottom:7px;
+
+}
+
+
+.message-box h2{
+
+    font-size:21px;
+
+    margin-bottom:5px;
+
+}
+
+
+.message-box p{
+
+    color:var(--muted);
+
+    max-width:650px;
+
+    margin:auto;
+
+    font-size:13px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    text-align:center;
+
+    padding:25px 10px 12px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+}
+
+
+.footer strong{
+
+    color:var(--primary);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+    .container{
+
+        padding:12px;
+
+    }
+
+
+    .header{
+
+        border-radius:18px;
+
+        padding:15px;
+
+    }
+
+
+    .logo{
+
+        font-size:20px;
+
+    }
+
+
+    .hero{
+
+        border-radius:23px;
+
+        padding:27px 17px;
+
+    }
+
+
+    .hero h1{
+
+        font-size:27px;
+
+    }
+
+
+    .situation-grid{
+
+        grid-template-columns:
+            repeat(4,minmax(0,1fr));
+
+        gap:7px;
+
+    }
+
+
+    .situation-card{
+
+        min-height:91px;
+
+        padding:11px 5px;
+
+        border-radius:15px;
+
+    }
+
+
+    .situation-card .icon{
+
+        font-size:24px;
+
+    }
+
+
+    .situation-card strong{
+
+        font-size:11px;
+
+    }
+
+
+    .category-grid{
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:9px;
+
+    }
+
+
+    .category-card{
+
+        padding:12px;
+
+        min-height:78px;
+
+        border-radius:16px;
+
+        gap:9px;
+
+    }
+
+
+    .category-icon{
+
+        width:40px;
+
+        height:40px;
+
+        font-size:21px;
+
+        border-radius:12px;
+
+    }
+
+
+    .category-info h3{
+
+        font-size:13px;
+
+    }
+
+
+    .category-info p{
+
+        font-size:10px;
+
+    }
+
+
+    .category-arrow{
+
+        font-size:19px;
+
+    }
+
+
+    .help-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .today-list{
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+    }
+
+}
+
+
+/* =====================================================
+   PART 1 END
+===================================================== */
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================= -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            🍳 Innaiku Enna
+            <span>Samayal?</span>
+
+        </div>
+
+        <div class="tagline">
+
+            Pyncode Planner •
+            Samayal doubt-ku simple solution ❤️
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         HERO
+    ================================================= -->
+
+    <section class="hero">
+
+        <div class="hero-icon">
+            🍳
+        </div>
+
+        <h1>
+
+            Innaiku enna
+            <span>samayal?</span> 🤔
+
+        </h1>
+
+        <p>
+
+            Ungal veetukku,
+            kids-ku,
+            lunch box-ku,
+            dinner-ku,
+            bachelor-ku,
+            special day-ku
+            etha menu-va easy-aa choose pannunga.
+
+        </p>
+
+        <div class="hero-note">
+
+            ❤️ Samayal doubt vandhaa
+            inga answer irukku
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PART 1 / 3 COMPLETE
+    ================================================= -->
+
+      <!-- =================================================
+         DAILY SITUATION
+    ================================================= -->
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2>
+                ❤️ Enakku ippo...
+            </h2>
+
+            <small>
+                One touch
+            </small>
+
+        </div>
+
+
+        <div class="situation-grid">
+
+
+            <a
+                href="kids-menu.html"
+                class="situation-card"
+            >
+
+                <span class="icon">
+                    👩‍👧
+                </span>
+
+                <strong>
+                    Kids-ku
+                </strong>
+
+            </a>
+
+
+            <a
+                href="lunch-box.html"
+                class="situation-card"
+            >
+
+                <span class="icon">
+                    🎒
+                </span>
+
+                <strong>
+                    Lunch Box
+                </strong>
+
+            </a>
+
+
+            <a
+                href="dinner.html"
+                class="situation-card"
+            >
+
+                <span class="icon">
+                    🌙
+                </span>
+
+                <strong>
+                    Dinner
+                </strong>
+
+            </a>
+
+
+            <a
+                href="bachelor.html"
+                class="situation-card"
+            >
+
+                <span class="icon">
+                    🧑‍💼
+                </span>
+
+                <strong>
+                    Bachelor
+                </strong>
+
+            </a>
+
+
+            <a
+                href="quick-food.html"
+                class="situation-card"
+            >
+
+                <span class="icon">
+                    ⚡
+                </span>
+
+                <strong>
+                    Quick-aa
+                </strong>
+
+            </a>
+
+
+            <a
+                href="healthy-food.html"
+                class="situation-card"
+            >
+
+                <span class="icon">
+                    🥗
+                </span>
+
+                <strong>
+                    Healthy
+                </strong>
+
+            </a>
+
+<a
+    href="healthy-lifestyle.html"
+    class="situation-card"
+>
+
+    <span class="icon">
+        ❤️
+    </span>
+
+    <strong>
+        Healthy Lifestyle
+    </strong>
+
+</a>
+
+
+            <a
+                href="special-days.html"
+                class="situation-card"
+            >
+
+                <span class="icon">
+                    🎉
+                </span>
+
+                <strong>
+                    Special
+                </strong>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         MAIN FOOD CATEGORIES
+    ================================================= -->
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2>
+                🍽️ Explore Samayal
+            </h2>
+
+            <small>
+                Choose your category
+            </small>
+
+        </div>
+
+
+        <div class="category-grid">
+
+
+            <!-- BREAKFAST -->
+
+            <a
+                href="breakfast.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🍳
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Breakfast
+                    </h3>
+
+                    <p>
+                        Tiffin & morning ideas
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- LUNCH -->
+
+            <a
+                href="lunch.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🍚
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Lunch
+                    </h3>
+
+                    <p>
+                        Home & hotel lunch
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- SNACKS -->
+
+            <a
+                href="snacks.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🍪
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Snacks
+                    </h3>
+
+                    <p>
+                        Evening craving ideas
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- DINNER -->
+
+            <a
+                href="dinner.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🌙
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Dinner
+                    </h3>
+
+                    <p>
+                        Light & family dinner
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- SPECIAL DAYS -->
+
+            <a
+                href="special-days.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🎉
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Special Days
+                    </h3>
+
+                    <p>
+                        Festival & celebration
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- KIDS -->
+
+            <a
+                href="kids-menu.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    👧
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Kids Menu
+                    </h3>
+
+                    <p>
+                        Kids favourite food
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- LUNCH BOX -->
+
+            <a
+                href="lunch-box.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🎒
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Lunch Box
+                    </h3>
+
+                    <p>
+                        School & office ideas
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- QUICK FOOD -->
+
+            <a
+                href="quick-food.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    ⚡
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Quick Food
+                    </h3>
+
+                    <p>
+                        10–20 minute ideas
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- HEALTHY -->
+
+            <a
+                href="healthy-food.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🥗
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Healthy Food
+                    </h3>
+
+                    <p>
+                        Simple healthy choices
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+<!-- =================================================
+     NON VEG DISHES
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <h2>
+            🍗 Non-Veg Dishes
+        </h2>
+
+        <small>
+            Choose your dish
+        </small>
+
+    </div>
+
+
+    <div class="category-grid">
+
+
+        <!-- CHICKEN DISHES -->
+
+        <div
+            class="category-card"
+            onclick="openNonVegMenu('chicken')"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🍗
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Chicken Dishes
+                </h3>
+
+                <p>
+                    Chicken dishes மட்டும்
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- MUTTON DISHES -->
+
+        <div
+            class="category-card"
+            onclick="openNonVegMenu('mutton')"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🐐
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Mutton Dishes
+                </h3>
+
+                <p>
+                    Mutton dishes மட்டும்
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- FISH & SEAFOOD -->
+
+        <div
+            class="category-card"
+            onclick="openNonVegMenu('seafood')"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🐟
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Fish & Seafood
+                </h3>
+
+                <p>
+                    Fish, prawn, crab & seafood
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+        <!-- EGG DISHES -->
+
+        <div
+            class="category-card"
+            onclick="openNonVegMenu('egg')"
+            role="button"
+            tabindex="0"
+        >
+
+            <div class="category-icon">
+                🥚
+            </div>
+
+            <div class="category-info">
+
+                <h3>
+                    Egg Dishes
+                </h3>
+
+                <p>
+                    Egg dishes மட்டும்
+                </p>
+
+            </div>
+
+            <span class="category-arrow">
+                ›
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+    <!-- =================================================
+         FOOD STYLES
+    ================================================= -->
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2>
+                🌎 Food Styles
+            </h2>
+
+            <small>
+                Different cravings
+            </small>
+
+        </div>
+
+
+        <div class="category-grid">
+
+
+            <!-- SOUTH INDIAN -->
+
+            <a
+                href="south-indian.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🌿
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        South Indian
+                    </h3>
+
+                    <p>
+                        Traditional favourites
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- NORTH INDIAN -->
+
+            <a
+                href="north-indian.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🫓
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        North Indian
+                    </h3>
+
+                    <p>
+                        Roti, naan & gravies
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- HOTEL STYLE -->
+
+            <a
+                href="hotel-style.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🏨
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Hotel Style
+                    </h3>
+
+                    <p>
+                        Restaurant-style dishes
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- CHINESE -->
+
+            <a
+                href="chinese.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🥡
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Chinese / Indo-Chinese
+                    </h3>
+
+                    <p>
+                        Noodles, fried rice & more
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- FAST FOOD -->
+
+            <a
+                href="fast-food.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    🍔
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Fast Food
+                    </h3>
+
+                    <p>
+                        Burger, sandwich & more
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+            <!-- CAFE TO HOME -->
+
+            <a
+                href="cafe-to-home.html"
+                class="category-card"
+            >
+
+                <div class="category-icon">
+                    ☕
+                </div>
+
+                <div class="category-info">
+
+                    <h3>
+                        Cafe → Home
+                    </h3>
+
+                    <p>
+                        Cafe favourites at home
+                    </p>
+
+                </div>
+
+                <span class="category-arrow">
+                    ›
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PART 2 / 3 COMPLETE
+    ================================================= -->
+
+      <!-- =================================================
+         TODAY'S SIMPLE FOOD PLAN
+    ================================================= -->
+
+    <section class="section">
+
+        <div class="today-box">
+
+            <h2>
+                ❤️ Today's Simple Food Plan
+            </h2>
+
+            <p>
+                Innaiku full day-ku enna samayal-nu
+                decide panna easy-aa oru starting point.
+            </p>
+
+
+            <div class="today-list">
+
+
+                <!-- BREAKFAST -->
+
+                <a
+                    href="breakfast.html"
+                    class="today-item"
+                >
+
+                    <span class="icon">
+                        🍳
+                    </span>
+
+                    <strong>
+                        Breakfast
+                    </strong>
+
+                    <span>
+                        Morning
+                    </span>
+
+                </a>
+
+
+                <!-- LUNCH -->
+
+                <a
+                    href="lunch.html"
+                    class="today-item"
+                >
+
+                    <span class="icon">
+                        🍚
+                    </span>
+
+                    <strong>
+                        Lunch
+                    </strong>
+
+                    <span>
+                        School / Office
+                    </span>
+
+                </a>
+
+
+                <!-- SNACKS -->
+
+                <a
+                    href="snacks.html"
+                    class="today-item"
+                >
+
+                    <span class="icon">
+                        🍪
+                    </span>
+
+                    <strong>
+                        Evening
+                    </strong>
+
+                    <span>
+                        Snack time
+                    </span>
+
+                </a>
+
+
+                <!-- DINNER -->
+
+                <a
+                    href="dinner.html"
+                    class="today-item"
+                >
+
+                    <span class="icon">
+                        🌙
+                    </span>
+
+                    <strong>
+                        Dinner
+                    </strong>
+
+                    <span>
+                        Night
+                    </span>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SAMAYAL DOUBT SOLUTIONS
+    ================================================= -->
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2>
+                🤔 Samayal Doubt?
+            </h2>
+
+            <small>
+                Simple solutions
+            </small>
+
+        </div>
+
+
+        <div class="help-grid">
+
+
+            <!-- INGREDIENT TO MENU -->
+
+            <a
+                href="ingredients-to-menu.html"
+                class="help-card"
+            >
+
+                <div class="help-icon">
+                    🧊
+                </div>
+
+                <h3>
+                    Veetla irukkuradha vachu
+                    enna samayal?
+                </h3>
+
+                <p>
+                    Available ingredients select pannunga.
+                    Suitable menu ideas find pannalam.
+                </p>
+
+                <span class="help-arrow">
+                    Find My Menu →
+                </span>
+
+            </a>
+
+
+            <!-- WEEKLY PLANNER -->
+
+            <a
+                href="weekly-food-planner.html"
+                class="help-card"
+            >
+
+                <div class="help-icon">
+                    📅
+                </div>
+
+                <h3>
+                    Full Week Food Plan
+                </h3>
+
+                <p>
+                    Monday to Sunday breakfast,
+                    lunch and dinner plan pannunga.
+                </p>
+
+                <span class="help-arrow">
+                    Plan My Week →
+                </span>
+
+            </a>
+
+
+     <!-- =================================================
+     PYNCODE CHOPS FRANCHISE
+===================================================== -->
+
+<a
+    href="pyncode-chops.html"
+    class="help-card"
+>
+
+    <div class="help-icon">
+        🏪
+    </div>
+
+    <h3>
+        Pyncode Chops Franchise
+    </h3>
+
+    <p>
+        Ungal pincode-la chopped
+        vegetables business start pannunga.
+    </p>
+
+    <span class="help-arrow">
+        Become a Partner →
+    </span>
+
+</a>
+
+            <!-- COOKING TIPS -->
+
+            <a
+                href="cooking-tips.html"
+                class="help-card"
+            >
+
+                <div class="help-icon">
+                    💡
+                </div>
+
+                <h3>
+                    Cooking Tips
+                </h3>
+
+                <p>
+                    Daily cooking-la useful-aana
+                    small tips and ideas.
+                </p>
+
+                <span class="help-arrow">
+                    View Tips →
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         FINAL MESSAGE
+    ================================================= -->
+
+    <section class="message-box">
+
+        <div class="heart">
+            ❤️
+        </div>
+
+        <h2>
+            Samayal-ku yosikka vendam.
+        </h2>
+
+        <p>
+
+            Breakfast enna?
+            Lunch enna?
+            Kids-ku enna?
+            Dinner-ku enna?
+
+            <br>
+
+            Veetla irukkuradha vachu enna pannalam?
+
+            <br>
+
+            Special day-ku enna seiyalam?
+
+            <br><br>
+
+            <strong>
+                Pyncode Planner-la
+                answer thedalam.
+            </strong>
+
+        </p>
+
+    </section>
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================= -->
+
+    <footer class="footer">
+
+        <strong>
+            Pyncode.in
+        </strong>
+
+        <br>
+
+        Innaiku Enna Samayal? 🍳
+
+        <br><br>
+
+        Breakfast • Lunch • Snacks • Dinner •
+        Kids • Lunch Box • Healthy • Special
+
+    </footer>
+
+
+</div>
+
+
+<!-- =================================================
+     FILE END
+===================================================== -->
+
+  <!-- =================================================
+     NON VEG POPUP
+===================================================== -->
+
+<div
+    id="nonVegPopup"
+    style="
+        display:none;
+        position:fixed;
+        inset:0;
+        z-index:9999;
+        background:rgba(0,0,0,.45);
+        align-items:flex-end;
+    "
+>
+
+    <div
+        style="
+            width:100%;
+            max-height:88vh;
+            background:#fffaf5;
+            border-radius:24px 24px 0 0;
+            overflow:hidden;
+        "
+    >
+
+        <!-- POPUP HEADER -->
+
+        <div
+            style="
+                background:#fff0df;
+                padding:16px;
+                position:sticky;
+                top:0;
+                z-index:2;
+            "
+        >
+
+            <div
+                style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:10px;
+                "
+            >
+
+                <h2
+                    id="nonVegPopupTitle"
+                    style="
+                        font-size:19px;
+                        margin:0;
+                    "
+                >
+                    🍗 Chicken Dishes
+                </h2>
+
+                <button
+                    type="button"
+                    onclick="closeNonVegMenu()"
+                    style="
+                        width:38px;
+                        height:38px;
+                        border:0;
+                        border-radius:50%;
+                        background:#fff;
+                        font-size:23px;
+                        cursor:pointer;
+                    "
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <input
+                id="nonVegSearch"
+                type="search"
+                placeholder="இந்த menu-ல் தேடுங்கள்..."
+                autocomplete="off"
+                style="
+                    width:100%;
+                    height:44px;
+                    margin-top:11px;
+                    border:1px solid #ddd;
+                    border-radius:23px;
+                    padding:0 16px;
+                    font-size:14px;
+                    outline:none;
+                    background:#fff;
+                "
+            >
+
+        </div>
+
+
+        <!-- MENU -->
+
+        <div
+            id="nonVegMenuList"
+            style="
+                padding:14px 15px 30px;
+                overflow-y:auto;
+                max-height:70vh;
+            "
+        >
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =================================================
+   NON VEG DISH DATA
+================================================= */
+
+const nonVegMenus = {
+
+    chicken: {
+
+        title: "🍗 Chicken Dishes",
+
+        items: [
+
+            "Chicken Curry",
+            "Chicken Gravy",
+            "Chicken Masala",
+            "Chicken Chettinad",
+            "Chicken Chukka",
+            "Chicken Sukka",
+            "Chicken Fry",
+            "Chicken 65",
+            "Chicken Pepper Fry",
+            "Chicken Pepper Masala",
+            "Chicken Roast",
+            "Chicken Ghee Roast",
+            "Chicken Thokku",
+            "Chicken Varuval",
+            "Chicken Kola",
+            "Chicken Keema",
+            "Chicken Lollipop",
+            "Chilli Chicken",
+            "Chicken Manchurian",
+            "Dragon Chicken",
+            "Tandoori Chicken",
+            "Grilled Chicken",
+            "Chicken Tikka",
+            "Chicken Kebab",
+            "Chicken Pakoda",
+            "Chicken Soup",
+            "Chicken Clear Soup",
+            "Chicken Biryani",
+            "Chicken Dum Biryani",
+            "Chicken 65 Biryani",
+            "Chicken Fried Rice",
+            "Chicken Noodles",
+            "Chicken Kothu",
+            "Chicken Parotta",
+            "Chicken Shawarma",
+            "Chicken Roll",
+            "Chicken Sandwich",
+            "Pallipalayam Chicken",
+            "Chicken Chinthamani",
+            "Naatu Kozhi Kuzhambu",
+            "Naatu Kozhi Fry",
+            "Naatu Kozhi Roast",
+            "Pichi Potta Kozhi"
+
+        ]
+
+    },
+
+
+    mutton: {
+
+        title: "🐐 Mutton Dishes",
+
+        items: [
+
+            "Mutton Curry",
+            "Mutton Gravy",
+            "Mutton Masala",
+            "Mutton Chukka",
+            "Mutton Sukka",
+            "Mutton Pepper",
+            "Mutton Pepper Fry",
+            "Mutton Fry",
+            "Mutton Varuval",
+            "Mutton Thokku",
+            "Mutton Kola",
+            "Mutton Keema",
+            "Mutton Nalli",
+            "Mutton Liver Fry",
+            "Mutton Brain Fry",
+            "Mutton Bone Soup",
+            "Mutton Soup",
+            "Mutton Biryani",
+            "Mutton Dum Biryani",
+            "Mutton Fried Rice",
+            "Mutton Kothu",
+            "Mutton Chukka Biryani",
+            "Mutton Kothu Parotta"
+
+        ]
+
+    },
+
+
+    seafood: {
+
+        title: "🐟 Fish & Seafood",
+
+        items: [
+
+            "Fish Curry",
+            "Fish Kuzhambu",
+            "Fish Gravy",
+            "Fish Masala",
+            "Fish Fry",
+            "Fish Pepper Fry",
+            "Fish Roast",
+            "Fish 65",
+            "Fish Tawa Fry",
+            "Fish Tikka",
+            "Fish Biryani",
+            "Prawn Curry",
+            "Prawn Masala",
+            "Prawn Fry",
+            "Prawn Pepper Fry",
+            "Prawn Roast",
+            "Prawn Thokku",
+            "Prawn Biryani",
+            "Prawn Fried Rice",
+            "Crab Curry",
+            "Crab Masala",
+            "Crab Fry",
+            "Crab Pepper Fry",
+            "Crab Soup",
+            "Squid Fry",
+            "Squid Masala",
+            "Squid Pepper Fry",
+            "Squid Curry",
+            "Seafood Biryani"
+
+        ]
+
+    },
+
+
+    egg: {
+
+        title: "🥚 Egg Dishes",
+
+        items: [
+
+            "Egg Omelette",
+            "Masala Omelette",
+            "Egg Podimas",
+            "Egg Bhurji",
+            "Egg Fry",
+            "Egg Curry",
+            "Egg Masala",
+            "Egg Pepper",
+            "Egg Roast",
+            "Egg Kalakki",
+            "Egg Kothu",
+            "Egg 65",
+            "Egg Bajji",
+            "Egg Bonda",
+            "Egg Biryani",
+            "Egg Fried Rice",
+            "Egg Noodles",
+            "Egg Parotta",
+            "Egg Kothu Parotta",
+            "Egg Sandwich",
+            "Egg Roll",
+            "Boiled Egg",
+            "Half Boil",
+            "Full Boil",
+            "Egg Gravy",
+            "Egg Thokku"
+
+        ]
+
+    }
+
+};
+
+
+/* =================================================
+   OPEN POPUP
+================================================= */
+
+function openNonVegMenu(type){
+
+    const menu =
+        nonVegMenus[type];
+
+    if(!menu){
+        return;
+    }
+
+
+    const popup =
+        document.getElementById(
+            "nonVegPopup"
+        );
+
+    const title =
+        document.getElementById(
+            "nonVegPopupTitle"
+        );
+
+    const list =
+        document.getElementById(
+            "nonVegMenuList"
+        );
+
+    const search =
+        document.getElementById(
+            "nonVegSearch"
+        );
+
+
+    title.textContent =
+        menu.title;
+
+
+    list.innerHTML = "";
+
+
+    menu.items.forEach(function(item){
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            item;
+
+        div.style.cssText = `
+            background:#fff;
+            border:1px solid #eee;
+            border-radius:12px;
+            padding:13px;
+            margin-bottom:9px;
+            font-size:14px;
+            line-height:1.4;
+        `;
+
+        div.className =
+            "nonveg-dish-item";
+
+        list.appendChild(div);
+
+    });
+
+
+    search.value = "";
+
+
+    popup.style.display =
+        "flex";
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =================================================
+   CLOSE POPUP
+================================================= */
+
+function closeNonVegMenu(){
+
+    const popup =
+        document.getElementById(
+            "nonVegPopup"
+        );
+
+    popup.style.display =
+        "none";
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =================================================
+   SEARCH
+================================================= */
+
+document
+    .getElementById("nonVegSearch")
+    .addEventListener(
+        "input",
+        function(){
+
+            const keyword =
+                this.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const items =
+                document.querySelectorAll(
+                    ".nonveg-dish-item"
+                );
+
+
+            items.forEach(function(item){
+
+                const text =
+                    item.textContent
+                        .toLowerCase();
+
+
+                if(
+                    keyword === "" ||
+                    text.includes(keyword)
+                ){
+
+                    item.style.display =
+                        "block";
+
+                }else{
+
+                    item.style.display =
+                        "none";
+
+                }
+
+            });
+
+        }
+    );
+
+
+/* =================================================
+   OUTSIDE TAP CLOSE
+================================================= */
+
+document
+    .getElementById("nonVegPopup")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target === this
+            ){
+
+                closeNonVegMenu();
+
+            }
+
+        }
+    );
+
+
+/* =================================================
+   ESCAPE CLOSE
+================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeNonVegMenu();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

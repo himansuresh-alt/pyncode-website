@@ -1,0 +1,4159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Weekly Food Planner | Pyncode Planner</title>
+
+<style>
+
+:root{
+
+  --bg:#fffaf5;
+  --card:#ffffff;
+  --text:#29231f;
+  --muted:#756d67;
+
+  --primary:#e85d04;
+  --primary-light:#fff0df;
+
+  --green:#168a45;
+  --green-light:#eaf8ef;
+
+  --yellow:#a56a00;
+  --yellow-light:#fff7dc;
+
+  --red:#b42318;
+  --red-light:#fff0ee;
+
+  --border:#eee2d7;
+
+  --shadow:
+    0 8px 24px rgba(60,40,20,.08);
+
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  margin:0;
+
+  background:var(--bg);
+
+  color:var(--text);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.container{
+
+  width:100%;
+
+  max-width:760px;
+
+  margin:0 auto;
+
+  padding:0 14px 50px;
+
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+
+  padding:14px 0 8px;
+
+}
+
+.header-top{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+}
+
+.back-btn{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  padding:9px 12px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:12px;
+
+  font-size:13px;
+
+  font-weight:700;
+
+}
+
+.brand{
+
+  text-align:right;
+
+}
+
+.brand-title{
+
+  font-size:17px;
+
+  font-weight:800;
+
+}
+
+.brand-subtitle{
+
+  margin-top:3px;
+
+  font-size:11px;
+
+  color:var(--muted);
+
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+  margin-top:10px;
+
+  padding:24px 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff0df,
+      #fffaf5
+    );
+
+  border:1px solid var(--border);
+
+  border-radius:24px;
+
+  text-align:center;
+
+  box-shadow:var(--shadow);
+
+}
+
+.hero-icon{
+
+  width:64px;
+
+  height:64px;
+
+  margin:0 auto 12px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border-radius:20px;
+
+  background:#fff;
+
+  font-size:34px;
+
+  box-shadow:
+    0 6px 18px rgba(60,40,20,.08);
+
+}
+
+.hero h1{
+
+  margin:0;
+
+  font-size:28px;
+
+  line-height:1.2;
+
+}
+
+.hero h1 span{
+
+  color:var(--primary);
+
+}
+
+.hero p{
+
+  margin:10px auto 0;
+
+  max-width:600px;
+
+  color:var(--muted);
+
+  font-size:14px;
+
+  line-height:1.6;
+
+}
+
+.hero-note{
+
+  display:inline-flex;
+
+  margin-top:14px;
+
+  padding:8px 12px;
+
+  border-radius:999px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  font-size:12px;
+
+  font-weight:700;
+
+}
+
+/* =========================
+   WEEK CONTROLS
+========================= */
+
+.week-controls{
+
+  margin-top:16px;
+
+  padding:14px;
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  border-radius:18px;
+
+  box-shadow:var(--shadow);
+
+}
+
+.week-control-top{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+}
+
+.week-title{
+
+  font-size:16px;
+
+  font-weight:800;
+
+}
+
+.week-subtitle{
+
+  margin-top:4px;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+}
+
+.week-actions{
+
+  display:flex;
+
+  gap:7px;
+
+  flex-wrap:wrap;
+
+  justify-content:flex-end;
+
+}
+
+.small-btn{
+
+  border:1px solid var(--border);
+
+  background:#fff;
+
+  color:var(--text);
+
+  padding:8px 10px;
+
+  border-radius:10px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+}
+
+.small-btn.primary{
+
+  background:var(--primary);
+
+  color:#fff;
+
+  border-color:var(--primary);
+
+}
+
+.week-range{
+
+  margin-top:12px;
+
+  padding:11px 12px;
+
+  background:var(--primary-light);
+
+  border-radius:12px;
+
+  text-align:center;
+
+  font-size:13px;
+
+  font-weight:800;
+
+}
+
+/* =========================
+   QUICK FILTER
+========================= */
+
+.quick-options{
+
+  margin-top:16px;
+
+  display:flex;
+
+  gap:8px;
+
+  overflow-x:auto;
+
+  padding-bottom:3px;
+
+  scrollbar-width:none;
+
+}
+
+.quick-options::-webkit-scrollbar{
+  display:none;
+}
+
+.quick-chip{
+
+  flex:0 0 auto;
+
+  border:1px solid var(--border);
+
+  background:#fff;
+
+  padding:9px 13px;
+
+  border-radius:999px;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  white-space:nowrap;
+
+}
+
+.quick-chip.active{
+
+  background:var(--primary);
+
+  color:#fff;
+
+  border-color:var(--primary);
+
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+
+  margin-top:20px;
+
+}
+
+.section-head{
+
+  display:flex;
+
+  align-items:flex-end;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  margin-bottom:10px;
+
+}
+
+.section-title{
+
+  margin:0;
+
+  font-size:18px;
+
+  font-weight:800;
+
+}
+
+.section-note{
+
+  color:var(--muted);
+
+  font-size:11px;
+
+}
+
+/* =========================
+   WEEK GRID
+========================= */
+
+.week-grid{
+
+  display:grid;
+
+  gap:12px;
+
+}
+
+/* =========================
+   DAY CARD
+========================= */
+
+.day-card{
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  box-shadow:var(--shadow);
+
+}
+
+.day-header{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  padding:13px 14px;
+
+  background:#fff5e9;
+
+  border-bottom:1px solid var(--border);
+
+}
+
+.day-name{
+
+  font-size:15px;
+
+  font-weight:800;
+
+}
+
+.day-date{
+
+  margin-top:3px;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+}
+
+.day-label{
+
+  padding:5px 8px;
+
+  border-radius:999px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  font-weight:700;
+
+}
+
+/* =========================
+   MEAL SLOTS
+========================= */
+
+.meal-slots{
+
+  padding:10px;
+
+  display:grid;
+
+  gap:8px;
+
+}
+
+.meal-slot{
+
+  display:grid;
+
+  grid-template-columns:42px 1fr auto;
+
+  align-items:center;
+
+  gap:10px;
+
+  min-height:62px;
+
+  padding:10px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:14px;
+
+}
+
+.meal-icon{
+
+  width:40px;
+
+  height:40px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:var(--primary-light);
+
+  border-radius:12px;
+
+  font-size:20px;
+
+}
+
+.meal-info{
+
+  min-width:0;
+
+}
+
+.meal-name{
+
+  font-size:12px;
+
+  font-weight:800;
+
+}
+
+.meal-value{
+
+  margin-top:4px;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  line-height:1.4;
+
+  white-space:nowrap;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+}
+
+.meal-empty{
+
+  color:#9a918a;
+
+}
+
+.add-meal-btn{
+
+  width:34px;
+
+  height:34px;
+
+  border-radius:10px;
+
+  border:1px solid var(--border);
+
+  background:#fff;
+
+  color:var(--primary);
+
+  font-size:20px;
+
+  font-weight:700;
+
+}
+
+/* =========================
+   DAY NOTE
+========================= */
+
+.day-note{
+
+  padding:0 10px 10px;
+
+}
+
+.day-note textarea{
+
+  width:100%;
+
+  min-height:55px;
+
+  resize:vertical;
+
+  padding:10px;
+
+  border:1px solid var(--border);
+
+  border-radius:12px;
+
+  background:#fffaf5;
+
+  color:var(--text);
+
+  outline:none;
+
+  font-size:12px;
+
+}
+
+.day-note textarea:focus{
+
+  border-color:var(--primary);
+
+}
+
+/* =========================
+   INFO BOX
+========================= */
+
+.info-box{
+
+  margin-top:18px;
+
+  padding:14px;
+
+  background:var(--green-light);
+
+  border:1px solid #cfeedd;
+
+  border-radius:16px;
+
+}
+
+.info-title{
+
+  font-size:13px;
+
+  font-weight:800;
+
+}
+
+.info-text{
+
+  margin-top:5px;
+
+  color:#4f6658;
+
+  font-size:12px;
+
+  line-height:1.6;
+
+}
+
+  /* =========================
+   SHOPPING SECTION
+========================= */
+
+.shopping-section{
+
+  margin-top:20px;
+
+  padding:16px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  border-radius:18px;
+
+  box-shadow:var(--shadow);
+
+}
+
+.shopping-head{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+}
+
+.shopping-title{
+
+  font-size:17px;
+
+  font-weight:800;
+
+}
+
+.shopping-count{
+
+  padding:5px 9px;
+
+  border-radius:999px;
+
+  background:var(--primary-light);
+
+  color:var(--primary);
+
+  font-size:11px;
+
+  font-weight:800;
+
+}
+
+.shopping-list{
+
+  margin-top:12px;
+
+  display:grid;
+
+  gap:7px;
+
+}
+
+.shopping-item{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  padding:10px;
+
+  border:1px solid var(--border);
+
+  border-radius:12px;
+
+  background:#fffaf5;
+
+  font-size:12px;
+
+}
+
+.shopping-item input{
+
+  width:17px;
+
+  height:17px;
+
+  accent-color:var(--primary);
+
+}
+
+.shopping-empty{
+
+  padding:14px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  border:1px dashed var(--border);
+
+  border-radius:12px;
+
+}
+
+/* =========================
+   BOTTOM ACTIONS
+========================= */
+
+.bottom-actions{
+
+  margin-top:18px;
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:9px;
+
+}
+
+.action-btn{
+
+  min-height:44px;
+
+  border:1px solid var(--border);
+
+  border-radius:12px;
+
+  background:#fff;
+
+  color:var(--text);
+
+  font-size:12px;
+
+  font-weight:800;
+
+}
+
+.action-btn.primary{
+
+  background:var(--primary);
+
+  border-color:var(--primary);
+
+  color:#fff;
+
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+
+  margin-top:30px;
+
+  padding:22px 10px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  line-height:1.7;
+
+}
+
+.footer strong{
+
+  color:var(--text);
+
+}
+
+/* =========================
+   POPUP
+========================= */
+
+.popup{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:1000;
+
+  display:none;
+
+  align-items:flex-end;
+
+  background:rgba(25,18,12,.48);
+
+}
+
+.popup.show{
+
+  display:flex;
+
+}
+
+.popup-box{
+
+  width:100%;
+
+  max-width:760px;
+
+  max-height:88vh;
+
+  margin:0 auto;
+
+  background:#fff;
+
+  border-radius:22px 22px 0 0;
+
+  overflow:hidden;
+
+  animation:slideUp .22s ease;
+
+}
+
+@keyframes slideUp{
+
+  from{
+
+    transform:translateY(100%);
+
+  }
+
+  to{
+
+    transform:translateY(0);
+
+  }
+
+}
+
+.popup-header{
+
+  padding:14px;
+
+  background:#fff0df;
+
+  border-bottom:1px solid var(--border);
+
+}
+
+.popup-top{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+}
+
+.popup-title{
+
+  font-size:17px;
+
+  font-weight:800;
+
+}
+
+.popup-close{
+
+  width:36px;
+
+  height:36px;
+
+  border:0;
+
+  border-radius:10px;
+
+  background:#fff;
+
+  color:var(--text);
+
+  font-size:24px;
+
+  line-height:1;
+
+}
+
+.popup-search{
+
+  margin-top:10px;
+
+}
+
+.popup-search input{
+
+  width:100%;
+
+  padding:12px 13px;
+
+  border:1px solid var(--border);
+
+  border-radius:12px;
+
+  outline:none;
+
+  background:#fff;
+
+  font-size:13px;
+
+}
+
+.popup-search input:focus{
+
+  border-color:var(--primary);
+
+}
+
+.popup-filter-row{
+
+  display:flex;
+
+  gap:7px;
+
+  overflow-x:auto;
+
+  margin-top:9px;
+
+  scrollbar-width:none;
+
+}
+
+.popup-filter-row::-webkit-scrollbar{
+  display:none;
+}
+
+.popup-filter{
+
+  flex:0 0 auto;
+
+  padding:7px 10px;
+
+  border:1px solid var(--border);
+
+  border-radius:999px;
+
+  background:#fff;
+
+  font-size:11px;
+
+  font-weight:700;
+
+}
+
+.popup-filter.active{
+
+  background:var(--primary);
+
+  color:#fff;
+
+  border-color:var(--primary);
+
+}
+
+.popup-content{
+
+  max-height:68vh;
+
+  overflow-y:auto;
+
+  padding:12px;
+
+}
+
+.menu-item{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  padding:11px;
+
+  margin-bottom:7px;
+
+  border:1px solid var(--border);
+
+  border-radius:13px;
+
+  background:#fffaf5;
+
+}
+
+.menu-item-info{
+
+  flex:1;
+
+  min-width:0;
+
+}
+
+.menu-item-name{
+
+  font-size:13px;
+
+  font-weight:800;
+
+}
+
+.menu-item-meta{
+
+  display:flex;
+
+  gap:5px;
+
+  flex-wrap:wrap;
+
+  margin-top:5px;
+
+}
+
+.meta{
+
+  padding:3px 6px;
+
+  border-radius:6px;
+
+  background:#fff;
+
+  border:1px solid var(--border);
+
+  color:var(--muted);
+
+  font-size:9px;
+
+  font-weight:700;
+
+}
+
+.menu-add{
+
+  width:32px;
+
+  height:32px;
+
+  flex:0 0 32px;
+
+  border:1px solid var(--border);
+
+  border-radius:9px;
+
+  background:#fff;
+
+  color:var(--primary);
+
+  font-size:19px;
+
+  font-weight:800;
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:520px){
+
+  .container{
+
+    padding-left:10px;
+
+    padding-right:10px;
+
+  }
+
+  .hero{
+
+    padding:20px 14px;
+
+  }
+
+  .hero h1{
+
+    font-size:25px;
+
+  }
+
+  .week-control-top{
+
+    align-items:flex-start;
+
+    flex-direction:column;
+
+  }
+
+  .week-actions{
+
+    width:100%;
+
+    justify-content:flex-start;
+
+  }
+
+  .small-btn{
+
+    flex:1;
+
+  }
+
+  .meal-slot{
+
+    grid-template-columns:40px 1fr auto;
+
+  }
+
+  .bottom-actions{
+
+    grid-template-columns:1fr;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="header">
+
+  <div class="header-top">
+
+    <a
+      href="innaiku-enna-samayal.html"
+      class="back-btn"
+    >
+      ← Samayal Home
+    </a>
+
+    <div class="brand">
+
+      <div class="brand-title">
+        📅 Weekly Planner
+      </div>
+
+      <div class="brand-subtitle">
+        Pyncode Planner
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<section class="hero">
+
+  <div class="hero-icon">
+    📅
+  </div>
+
+  <h1>
+    Weekly <span>Food Planner</span>
+  </h1>
+
+  <p>
+    Oru week-ku breakfast, lunch, snacks,
+    dinner ellame simple-aa plan pannunga.
+  </p>
+
+  <div class="hero-note">
+    🗓️ Plan • Save • Cook • Shop
+  </div>
+
+</section>
+
+
+<section class="week-controls">
+
+  <div class="week-control-top">
+
+    <div>
+
+      <div class="week-title">
+        This Week
+      </div>
+
+      <div class="week-subtitle">
+        Ungaloda weekly food plan
+      </div>
+
+    </div>
+
+    <div class="week-actions">
+
+      <button
+        type="button"
+        class="small-btn"
+        id="prevWeek"
+      >
+        ← Previous
+      </button>
+
+      <button
+        type="button"
+        class="small-btn primary"
+        id="todayWeek"
+      >
+        Today
+      </button>
+
+      <button
+        type="button"
+        class="small-btn"
+        id="nextWeek"
+      >
+        Next →
+      </button>
+
+    </div>
+
+  </div>
+
+  <div
+    class="week-range"
+    id="weekRange"
+  >
+    Loading week...
+  </div>
+
+</section>
+
+
+<div class="quick-options">
+
+  <button
+    type="button"
+    class="quick-chip active"
+    data-quick="all"
+  >
+    🍽️ All
+  </button>
+
+  <button
+    type="button"
+    class="quick-chip"
+    data-quick="veg"
+  >
+    🥬 Veg
+  </button>
+
+  <button
+    type="button"
+    class="quick-chip"
+    data-quick="nonveg"
+  >
+    🍗 Non-Veg
+  </button>
+
+  <button
+    type="button"
+    class="quick-chip"
+    data-quick="quick"
+  >
+    ⚡ Quick
+  </button>
+
+  <button
+    type="button"
+    class="quick-chip"
+    data-quick="healthy"
+  >
+    🥗 Healthy
+  </button>
+
+  <button
+    type="button"
+    class="quick-chip"
+    data-quick="budget"
+  >
+    💰 Budget
+  </button>
+
+</div>
+
+
+<section class="section">
+
+  <div class="section-head">
+
+    <div>
+
+      <h2 class="section-title">
+        🗓️ Your Weekly Plan
+      </h2>
+
+      <div class="section-note">
+        Tap + to add a dish
+      </div>
+
+    </div>
+
+  </div>
+
+  <div
+    class="week-grid"
+    id="weekGrid"
+  ></div>
+
+</section>
+
+
+<div class="info-box">
+
+  <div class="info-title">
+    💡 Small planning tip
+  </div>
+
+  <div class="info-text">
+    Already veetla irukkura ingredients-ai
+    first use panni plan pannina food waste,
+    shopping time and unnecessary expense-ai
+    reduce panna help aagum.
+  </div>
+
+</div>
+
+
+<section
+  class="shopping-section"
+  id="shoppingSection"
+>
+
+  <div class="shopping-head">
+
+    <div class="shopping-title">
+      🛒 Weekly Shopping List
+    </div>
+
+    <div
+      class="shopping-count"
+      id="shoppingCount"
+    >
+      0 items
+    </div>
+
+  </div>
+
+  <div
+    class="shopping-list"
+    id="shoppingList"
+  >
+
+    <div class="shopping-empty">
+      First dishes plan pannunga.
+      Shopping list automatically create aagum.
+    </div>
+
+  </div>
+
+</section>
+
+
+<div class="bottom-actions">
+
+  <button
+    type="button"
+    class="action-btn"
+    id="clearWeek"
+  >
+    🗑️ Clear Week
+  </button>
+
+  <button
+    type="button"
+    class="action-btn primary"
+    id="sharePlan"
+  >
+    📲 Share Plan
+  </button>
+
+</div>
+
+
+<footer class="footer">
+
+  <strong>Pyncode.in</strong>
+
+  <br>
+
+  Weekly Food Planner ❤️
+
+  <br><br>
+
+  Plan • Cook • Shop • Save
+
+</footer>
+
+
+</div>
+
+
+<!-- =========================
+     DISH POPUP
+========================= -->
+
+<div
+  class="popup"
+  id="menuPopup"
+>
+
+  <div class="popup-box">
+
+    <div class="popup-header">
+
+      <div class="popup-top">
+
+        <div
+          class="popup-title"
+          id="popupTitle"
+        >
+          Select Dish
+        </div>
+
+        <button
+          type="button"
+          class="popup-close"
+          id="popupClose"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div class="popup-search">
+
+        <input
+          id="popupSearch"
+          type="search"
+          placeholder="Dish search pannunga..."
+          autocomplete="off"
+        >
+
+      </div>
+
+      <div
+        class="popup-filter-row"
+        id="popupFilterRow"
+      >
+
+        <button
+          type="button"
+          class="popup-filter active"
+          data-popup-filter="all"
+        >
+          🍽️ All
+        </button>
+
+        <button
+          type="button"
+          class="popup-filter"
+          data-popup-filter="veg"
+        >
+          🥬 Veg
+        </button>
+
+        <button
+          type="button"
+          class="popup-filter"
+          data-popup-filter="nonveg"
+        >
+          🍗 Non-Veg
+        </button>
+
+        <button
+          type="button"
+          class="popup-filter"
+          data-popup-filter="quick"
+        >
+          ⚡ Quick
+        </button>
+
+        <button
+          type="button"
+          class="popup-filter"
+          data-popup-filter="healthy"
+        >
+          🥗 Healthy
+        </button>
+
+        <button
+          type="button"
+          class="popup-filter"
+          data-popup-filter="budget"
+        >
+          💰 Budget
+        </button>
+
+      </div>
+
+    </div>
+
+    <div
+      class="popup-content"
+      id="popupList"
+    ></div>
+
+  </div>
+
+</div>
+
+  <script>
+
+/* =========================
+   WEEK DATA
+========================= */
+
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+];
+
+const mealTypes = [
+  {
+    id:"breakfast",
+    name:"Breakfast",
+    icon:"🌅"
+  },
+  {
+    id:"lunch",
+    name:"Lunch",
+    icon:"🍛"
+  },
+  {
+    id:"snacks",
+    name:"Snacks",
+    icon:"🍿"
+  },
+  {
+    id:"dinner",
+    name:"Dinner",
+    icon:"🌙"
+  }
+];
+
+
+/* =========================
+   DISH DATABASE
+========================= */
+
+const dishes = [
+
+{
+  id:"idli-sambar",
+  name:"Idli + Sambar",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Idli rice",
+    "Urad dal",
+    "Toor dal",
+    "Vegetables"
+  ]
+},
+
+{
+  id:"ragi-dosa",
+  name:"Ragi Dosa",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:20,
+  ingredients:[
+    "Ragi",
+    "Rice",
+    "Onion",
+    "Green chilli"
+  ]
+},
+
+{
+  id:"vegetable-upma",
+  name:"Vegetable Upma",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:20,
+  ingredients:[
+    "Rava",
+    "Onion",
+    "Carrot",
+    "Beans"
+  ]
+},
+
+{
+  id:"poha",
+  name:"Vegetable Poha",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:15,
+  ingredients:[
+    "Poha",
+    "Onion",
+    "Potato",
+    "Peanuts"
+  ]
+},
+
+{
+  id:"pongal",
+  name:"Ven Pongal",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Moong dal",
+    "Pepper",
+    "Ginger"
+  ]
+},
+
+{
+  id:"dosa",
+  name:"Plain Dosa",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Dosa batter",
+    "Oil"
+  ]
+},
+
+{
+  id:"chapati",
+  name:"Chapati + Vegetable Kurma",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:30,
+  ingredients:[
+    "Wheat atta",
+    "Mixed vegetables",
+    "Coconut"
+  ]
+},
+
+{
+  id:"bread-omelette",
+  name:"Bread Omelette",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:10,
+  ingredients:[
+    "Egg",
+    "Bread",
+    "Onion",
+    "Green chilli"
+  ]
+},
+
+{
+  id:"egg-dosa",
+  name:"Egg Dosa",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Egg",
+    "Onion"
+  ]
+},
+
+{
+  id:"vegetable-rice",
+  name:"Vegetable Rice",
+  type:"veg",
+  tags:["budget","quick"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Carrot",
+    "Beans",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"lemon-rice",
+  name:"Lemon Rice",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Rice",
+    "Lemon",
+    "Peanuts",
+    "Green chilli"
+  ]
+},
+
+{
+  id:"tomato-rice",
+  name:"Tomato Rice",
+  type:"veg",
+  tags:["budget","quick"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Tomato",
+    "Onion",
+    "Masala"
+  ]
+},
+
+{
+  id:"curd-rice",
+  name:"Curd Rice",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:10,
+  ingredients:[
+    "Rice",
+    "Curd",
+    "Milk",
+    "Ginger"
+  ]
+},
+
+{
+  id:"sambar-rice",
+  name:"Sambar Rice",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Toor dal",
+    "Vegetables",
+    "Sambar powder"
+  ]
+},
+
+{
+  id:"dal-rice",
+  name:"Dal Rice",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Toor dal",
+    "Vegetables"
+  ]
+},
+
+{
+  id:"keerai-dal",
+  name:"Keerai Dal Rice",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Toor dal",
+    "Keerai",
+    "Garlic"
+  ]
+},
+
+{
+  id:"vegetable-biryani",
+  name:"Vegetable Biryani",
+  type:"veg",
+  tags:["healthy"],
+  time:45,
+  ingredients:[
+    "Basmati rice",
+    "Mixed vegetables",
+    "Biryani masala",
+    "Mint"
+  ]
+},
+
+{
+  id:"chicken-biryani",
+  name:"Chicken Biryani",
+  type:"nonveg",
+  tags:[],
+  time:60,
+  ingredients:[
+    "Basmati rice",
+    "Chicken",
+    "Onion",
+    "Biryani masala",
+    "Mint"
+  ]
+},
+
+{
+  id:"chicken-curry",
+  name:"Chicken Curry + Rice",
+  type:"nonveg",
+  tags:["healthy"],
+  time:40,
+  ingredients:[
+    "Chicken",
+    "Rice",
+    "Onion",
+    "Tomato",
+    "Masala"
+  ]
+},
+
+{
+  id:"chicken-pepper",
+  name:"Chicken Pepper",
+  type:"nonveg",
+  tags:["quick"],
+  time:30,
+  ingredients:[
+    "Chicken",
+    "Pepper",
+    "Onion",
+    "Ginger",
+    "Garlic"
+  ]
+},
+
+{
+  id:"chicken-fried-rice",
+  name:"Chicken Fried Rice",
+  type:"nonveg",
+  tags:["quick"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Chicken",
+    "Egg",
+    "Carrot",
+    "Beans"
+  ]
+},
+
+{
+  id:"fish-fry",
+  name:"Fish Fry + Rice",
+  type:"nonveg",
+  tags:["quick"],
+  time:25,
+  ingredients:[
+    "Fish",
+    "Rice",
+    "Chilli powder",
+    "Lemon"
+  ]
+},
+
+{
+  id:"fish-curry",
+  name:"Fish Curry + Rice",
+  type:"nonveg",
+  tags:["healthy"],
+  time:35,
+  ingredients:[
+    "Fish",
+    "Rice",
+    "Tamarind",
+    "Onion",
+    "Tomato"
+  ]
+},
+
+{
+  id:"prawn-masala",
+  name:"Prawn Masala + Rice",
+  type:"nonveg",
+  tags:[],
+  time:30,
+  ingredients:[
+    "Prawn",
+    "Rice",
+    "Onion",
+    "Tomato",
+    "Masala"
+  ]
+},
+
+{
+  id:"mutton-curry",
+  name:"Mutton Curry + Rice",
+  type:"nonveg",
+  tags:[],
+  time:60,
+  ingredients:[
+    "Mutton",
+    "Rice",
+    "Onion",
+    "Tomato",
+    "Masala"
+  ]
+},
+
+{
+  id:"egg-curry",
+  name:"Egg Curry + Rice",
+  type:"nonveg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Egg",
+    "Rice",
+    "Onion",
+    "Tomato"
+  ]
+},
+
+{
+  id:"egg-rice",
+  name:"Egg Fried Rice",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Egg",
+    "Carrot",
+    "Beans"
+  ]
+},
+
+{
+  id:"veg-fried-rice",
+  name:"Vegetable Fried Rice",
+  type:"veg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Carrot",
+    "Beans",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"paneer-rice",
+  name:"Paneer Fried Rice",
+  type:"veg",
+  tags:["healthy"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Paneer",
+    "Carrot",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"paneer-masala",
+  name:"Paneer Masala + Chapati",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Paneer",
+    "Chapati",
+    "Tomato",
+    "Onion"
+  ]
+},
+
+{
+  id:"vegetable-kurma",
+  name:"Vegetable Kurma + Chapati",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:35,
+  ingredients:[
+    "Mixed vegetables",
+    "Coconut",
+    "Chapati"
+  ]
+},
+
+{
+  id:"dal-khichdi",
+  name:"Dal Khichdi",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Moong dal",
+    "Vegetables"
+  ]
+},
+
+{
+  id:"vegetable-soup",
+  name:"Vegetable Soup",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:20,
+  ingredients:[
+    "Carrot",
+    "Beans",
+    "Cabbage",
+    "Sweet corn"
+  ]
+},
+
+{
+  id:"chicken-soup",
+  name:"Chicken Soup",
+  type:"nonveg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Chicken",
+    "Carrot",
+    "Pepper",
+    "Ginger"
+  ]
+},
+
+{
+  id:"sprouts-salad",
+  name:"Sprouts Salad",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:10,
+  ingredients:[
+    "Sprouts",
+    "Tomato",
+    "Cucumber",
+    "Lemon"
+  ]
+},
+
+{
+  id:"sweet-corn-chaat",
+  name:"Sweet Corn Chaat",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:10,
+  ingredients:[
+    "Sweet corn",
+    "Onion",
+    "Tomato",
+    "Lemon"
+  ]
+},
+
+{
+  id:"paneer-sandwich",
+  name:"Paneer Sandwich",
+  type:"veg",
+  tags:["quick"],
+  time:15,
+  ingredients:[
+    "Bread",
+    "Paneer",
+    "Onion",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"egg-sandwich",
+  name:"Egg Sandwich",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:12,
+  ingredients:[
+    "Bread",
+    "Egg",
+    "Onion"
+  ]
+},
+
+{
+  id:"chicken-sandwich",
+  name:"Chicken Sandwich",
+  type:"nonveg",
+  tags:["quick"],
+  time:15,
+  ingredients:[
+    "Bread",
+    "Chicken",
+    "Lettuce",
+    "Onion"
+  ]
+},
+
+{
+  id:"bread-upma",
+  name:"Bread Upma",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Bread",
+    "Onion",
+    "Tomato",
+    "Green chilli"
+  ]
+},
+
+{
+  id:"potato-sandwich",
+  name:"Potato Sandwich",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Bread",
+    "Potato",
+    "Onion"
+  ]
+},
+
+{
+  id:"leftover-rice-upma",
+  name:"Leftover Rice Upma",
+  type:"veg",
+  tags:["quick","budget","leftover"],
+  time:10,
+  ingredients:[
+    "Leftover rice",
+    "Onion",
+    "Green chilli"
+  ]
+},
+
+{
+  id:"leftover-fried-rice",
+  name:"Leftover Rice Fried Rice",
+  type:"veg",
+  tags:["quick","budget","leftover"],
+  time:15,
+  ingredients:[
+    "Leftover rice",
+    "Carrot",
+    "Beans",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"leftover-egg-rice",
+  name:"Leftover Rice Egg Fried Rice",
+  type:"nonveg",
+  tags:["quick","budget","leftover"],
+  time:15,
+  ingredients:[
+    "Leftover rice",
+    "Egg",
+    "Onion",
+    "Carrot"
+  ]
+},
+
+{
+  id:"coconut-rice",
+  name:"Coconut Rice",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Rice",
+    "Coconut",
+    "Green chilli",
+    "Peanuts"
+  ]
+},
+
+{
+  id:"vegetable-coconut-rice",
+  name:"Vegetable Coconut Rice",
+  type:"veg",
+  tags:["healthy"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Coconut",
+    "Carrot",
+    "Beans"
+  ]
+},
+
+{
+  id:"mushroom-rice",
+  name:"Mushroom Rice",
+  type:"veg",
+  tags:["quick"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Mushroom",
+    "Onion",
+    "Pepper"
+  ]
+},
+
+{
+  id:"mushroom-pepper",
+  name:"Mushroom Pepper Fry",
+  type:"veg",
+  tags:["quick","healthy"],
+  time:20,
+  ingredients:[
+    "Mushroom",
+    "Pepper",
+    "Onion"
+  ]
+},
+
+{
+  id:"gobi-fry",
+  name:"Gobi Fry",
+  type:"veg",
+  tags:["quick"],
+  time:25,
+  ingredients:[
+    "Cauliflower",
+    "Chilli powder",
+    "Rice flour"
+  ]
+},
+
+{
+  id:"potato-curry",
+  name:"Potato Onion Curry",
+  type:"veg",
+  tags:["budget","quick"],
+  time:20,
+  ingredients:[
+    "Potato",
+    "Onion",
+    "Chilli powder"
+  ]
+},
+
+{
+  id:"beans-poriyal",
+  name:"Beans Poriyal",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:15,
+  ingredients:[
+    "Beans",
+    "Coconut",
+    "Mustard"
+  ]
+},
+
+{
+  id:"carrot-beans",
+  name:"Carrot Beans Poriyal",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:20,
+  ingredients:[
+    "Carrot",
+    "Beans",
+    "Coconut"
+  ]
+},
+
+{
+  id:"brinjal-curry",
+  name:"Brinjal Curry",
+  type:"veg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Brinjal",
+    "Onion",
+    "Tomato"
+  ]
+},
+
+{
+  id:"ladies-finger",
+  name:"Ladies Finger Fry",
+  type:"veg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Ladies finger",
+    "Onion",
+    "Chilli powder"
+  ]
+},
+
+{
+  id:"oats-porridge",
+  name:"Oats Porridge",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:10,
+  ingredients:[
+    "Oats",
+    "Milk",
+    "Banana"
+  ]
+},
+
+{
+  id:"ragi-porridge",
+  name:"Ragi Porridge",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:15,
+  ingredients:[
+    "Ragi",
+    "Milk"
+  ]
+},
+
+{
+  id:"fruit-curd",
+  name:"Fruit + Curd Bowl",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:5,
+  ingredients:[
+    "Curd",
+    "Fruits"
+  ]
+}
+
+];
+
+    /* =========================
+   DOM REFERENCES
+========================= */
+
+const weekGrid =
+  document.getElementById("weekGrid");
+
+const weekRange =
+  document.getElementById("weekRange");
+
+const menuPopup =
+  document.getElementById("menuPopup");
+
+const popupTitle =
+  document.getElementById("popupTitle");
+
+const popupList =
+  document.getElementById("popupList");
+
+const popupSearch =
+  document.getElementById("popupSearch");
+
+const popupClose =
+  document.getElementById("popupClose");
+
+const popupFilterRow =
+  document.getElementById("popupFilterRow");
+
+const shoppingList =
+  document.getElementById("shoppingList");
+
+const shoppingCount =
+  document.getElementById("shoppingCount");
+
+const clearWeek =
+  document.getElementById("clearWeek");
+
+const sharePlan =
+  document.getElementById("sharePlan");
+
+const prevWeek =
+  document.getElementById("prevWeek");
+
+const nextWeek =
+  document.getElementById("nextWeek");
+
+const todayWeek =
+  document.getElementById("todayWeek");
+
+
+/* =========================
+   STATE
+========================= */
+
+let currentWeekStart =
+  getMonday(new Date());
+
+let selectedSlot = null;
+
+let popupQuickFilter = "all";
+
+let weeklyPlan = {};
+
+let savedShoppingChecks = {};
+
+
+/* =========================
+   DATE HELPERS
+========================= */
+
+function getMonday(date){
+
+  const d =
+    new Date(date);
+
+  const day =
+    d.getDay();
+
+  const difference =
+    day === 0 ? -6 : 1 - day;
+
+  d.setDate(
+    d.getDate() + difference
+  );
+
+  d.setHours(0,0,0,0);
+
+  return d;
+
+}
+
+
+function addDays(date, days){
+
+  const d =
+    new Date(date);
+
+  d.setDate(
+    d.getDate() + days
+  );
+
+  return d;
+
+}
+
+
+function formatDate(date){
+
+  return date.toLocaleDateString(
+    "en-IN",
+    {
+      day:"numeric",
+      month:"short"
+    }
+  );
+
+}
+
+
+function formatLongDate(date){
+
+  return date.toLocaleDateString(
+    "en-IN",
+    {
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+function getWeekKey(){
+
+  return currentWeekStart
+    .toISOString()
+    .split("T")[0];
+
+}
+
+
+/* =========================
+   STORAGE
+========================= */
+
+function getStorageKey(){
+
+  return "pyncode_weekly_food_" +
+    getWeekKey();
+
+}
+
+
+function loadWeek(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(
+        getStorageKey()
+      );
+
+    if(saved){
+
+      weeklyPlan =
+        JSON.parse(saved);
+
+    }else{
+
+      weeklyPlan = {};
+
+    }
+
+  }catch(error){
+
+    weeklyPlan = {};
+
+  }
+
+}
+
+
+function saveWeek(){
+
+  localStorage.setItem(
+    getStorageKey(),
+    JSON.stringify(weeklyPlan)
+  );
+
+}
+
+
+/* =========================
+   WEEK RANGE
+========================= */
+
+function renderWeekRange(){
+
+  const start =
+    currentWeekStart;
+
+  const end =
+    addDays(start,6);
+
+  weekRange.textContent =
+    formatLongDate(start) +
+    " — " +
+    formatLongDate(end);
+
+}
+
+
+/* =========================
+   DAY LABEL
+========================= */
+
+function getDayLabel(index){
+
+  if(index === 0){
+    return "Start";
+  }
+
+  if(index === 6){
+    return "Weekend";
+  }
+
+  return "Day " + (index + 1);
+
+}
+
+
+/* =========================
+   PLAN VALUE
+========================= */
+
+function getSlotValue(
+  dateKey,
+  mealId
+){
+
+  if(
+    weeklyPlan[dateKey] &&
+    weeklyPlan[dateKey].meals &&
+    weeklyPlan[dateKey].meals[mealId]
+  ){
+
+    return weeklyPlan[
+      dateKey
+    ].meals[mealId];
+
+  }
+
+  return null;
+
+}
+
+
+/* =========================
+   DAY NOTE
+========================= */
+
+function getDayNote(dateKey){
+
+  if(
+    weeklyPlan[dateKey] &&
+    weeklyPlan[dateKey].note
+  ){
+
+    return weeklyPlan[
+      dateKey
+    ].note;
+
+  }
+
+  return "";
+
+}
+
+
+/* =========================
+   RENDER WEEK
+========================= */
+
+function renderWeek(){
+
+  loadWeek();
+
+  renderWeekRange();
+
+  weekGrid.innerHTML = "";
+
+  for(
+    let i = 0;
+    i < 7;
+    i++
+  ){
+
+    const date =
+      addDays(
+        currentWeekStart,
+        i
+      );
+
+    const dateKey =
+      date.toISOString()
+        .split("T")[0];
+
+    const dayCard =
+      document.createElement("div");
+
+    dayCard.className =
+      "day-card";
+
+    dayCard.innerHTML = `
+
+      <div class="day-header">
+
+        <div>
+
+          <div class="day-name">
+            ${days[date.getDay()]}
+          </div>
+
+          <div class="day-date">
+            ${formatDate(date)}
+          </div>
+
+        </div>
+
+        <div class="day-label">
+          ${getDayLabel(i)}
+        </div>
+
+      </div>
+
+      <div class="meal-slots">
+
+        ${mealTypes.map(function(meal){
+
+          const selected =
+            getSlotValue(
+              dateKey,
+              meal.id
+            );
+
+          return `
+
+            <div
+              class="meal-slot"
+            >
+
+              <div class="meal-icon">
+                ${meal.icon}
+              </div>
+
+              <div class="meal-info">
+
+                <div class="meal-name">
+                  ${meal.name}
+                </div>
+
+                <div
+                  class="
+                    meal-value
+                    ${selected ? "" : "meal-empty"}
+                  "
+                >
+                  ${
+                    selected
+                    ? selected.name
+                    : "Dish select pannunga"
+                  }
+                </div>
+
+              </div>
+
+              <button
+                type="button"
+                class="add-meal-btn"
+                data-date="${dateKey}"
+                data-meal="${meal.id}"
+              >
+                ${selected ? "✎" : "+"}
+              </button>
+
+            </div>
+
+          `;
+
+        }).join("")}
+
+      </div>
+
+      <div class="day-note">
+
+        <textarea
+          placeholder="Innaiku special plan / note..."
+          data-note="${dateKey}"
+        >${getDayNote(dateKey)}</textarea>
+
+      </div>
+
+    `;
+
+    weekGrid.appendChild(
+      dayCard
+    );
+
+  }
+
+  bindWeekEvents();
+
+  renderShoppingList();
+
+}
+
+
+/* =========================
+   WEEK EVENTS
+========================= */
+
+function bindWeekEvents(){
+
+  weekGrid
+    .querySelectorAll(
+      ".add-meal-btn"
+    )
+    .forEach(
+      function(button){
+
+        button.addEventListener(
+          "click",
+          function(){
+
+            selectedSlot = {
+
+              date:
+                this.dataset.date,
+
+              meal:
+                this.dataset.meal
+
+            };
+
+            openDishPopup();
+
+          }
+        );
+
+      }
+    );
+
+
+  weekGrid
+    .querySelectorAll(
+      "[data-note]"
+    )
+    .forEach(
+      function(textarea){
+
+        textarea.addEventListener(
+          "input",
+          function(){
+
+            const dateKey =
+              this.dataset.note;
+
+            if(
+              !weeklyPlan[dateKey]
+            ){
+
+              weeklyPlan[dateKey] = {
+
+                meals:{},
+
+                note:""
+
+              };
+
+            }
+
+            weeklyPlan[
+              dateKey
+            ].note =
+              this.value;
+
+            saveWeek();
+
+          }
+        );
+
+      }
+    );
+
+}
+
+    /* =========================
+   OPEN DISH POPUP
+========================= */
+
+function openDishPopup(){
+
+  if(!selectedSlot){
+    return;
+  }
+
+  const meal =
+    mealTypes.find(
+      function(item){
+
+        return item.id ===
+          selectedSlot.meal;
+
+      }
+    );
+
+  if(!meal){
+    return;
+  }
+
+  popupTitle.textContent =
+    meal.icon +
+    " " +
+    meal.name +
+    " — Select Dish";
+
+  popupSearch.value = "";
+
+  popupQuickFilter = "all";
+
+  popupFilterRow
+    .querySelectorAll(
+      ".popup-filter"
+    )
+    .forEach(
+      function(button){
+
+        button.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+  const allButton =
+    popupFilterRow.querySelector(
+      '[data-popup-filter="all"]'
+    );
+
+  if(allButton){
+
+    allButton.classList.add(
+      "active"
+    );
+
+  }
+
+  renderPopupDishes();
+
+  menuPopup.classList.add(
+    "show"
+  );
+
+  document.body.style.overflow =
+    "hidden";
+
+  /*
+    IMPORTANT:
+    Search input is NOT focused here.
+    Mobile keyboard will open only
+    when user manually taps search.
+  */
+
+}
+
+
+/* =========================
+   CLOSE POPUP
+========================= */
+
+function closeDishPopup(){
+
+  menuPopup.classList.remove(
+    "show"
+  );
+
+  document.body.style.overflow =
+    "";
+
+  popupSearch.value = "";
+
+  selectedSlot = null;
+
+}
+
+
+popupClose.addEventListener(
+  "click",
+  closeDishPopup
+);
+
+
+menuPopup.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target ===
+      menuPopup
+    ){
+
+      closeDishPopup();
+
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closeDishPopup();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   POPUP FILTER
+========================= */
+
+popupFilterRow
+  .querySelectorAll(
+    ".popup-filter"
+  )
+  .forEach(
+    function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          popupQuickFilter =
+            this.dataset
+              .popupFilter;
+
+          popupFilterRow
+            .querySelectorAll(
+              ".popup-filter"
+            )
+            .forEach(
+              function(item){
+
+                item.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+          this.classList.add(
+            "active"
+          );
+
+          renderPopupDishes();
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================
+   FILTER DISH
+========================= */
+
+function dishMatchesFilter(
+  dish
+){
+
+  if(
+    popupQuickFilter ===
+    "all"
+  ){
+
+    return true;
+
+  }
+
+  if(
+    popupQuickFilter ===
+    "veg"
+  ){
+
+    return dish.type ===
+      "veg";
+
+  }
+
+  if(
+    popupQuickFilter ===
+    "nonveg"
+  ){
+
+    return dish.type ===
+      "nonveg";
+
+  }
+
+  return dish.tags.includes(
+    popupQuickFilter
+  );
+
+}
+
+
+/* =========================
+   RENDER POPUP DISHES
+========================= */
+
+function renderPopupDishes(){
+
+  const keyword =
+    popupSearch.value
+      .trim()
+      .toLowerCase();
+
+  const filtered =
+    dishes.filter(
+      function(dish){
+
+        const matchesFilter =
+          dishMatchesFilter(
+            dish
+          );
+
+        const matchesSearch =
+          keyword === "" ||
+          dish.name
+            .toLowerCase()
+            .includes(keyword);
+
+        return (
+          matchesFilter &&
+          matchesSearch
+        );
+
+      }
+    );
+
+
+  popupList.innerHTML = "";
+
+
+  if(
+    filtered.length === 0
+  ){
+
+    popupList.innerHTML = `
+
+      <div class="shopping-empty">
+
+        😕 Dish கிடைக்கவில்லை.
+
+        <br><br>
+
+        Search / filter change
+        பண்ணிப் பாருங்க.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  filtered.forEach(
+    function(dish){
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+      item.className =
+        "menu-item";
+
+      const typeLabel =
+        dish.type === "veg"
+        ? "🥬 Veg"
+        : "🍗 Non-Veg";
+
+
+      item.innerHTML = `
+
+        <div class="menu-item-info">
+
+          <div class="menu-item-name">
+            ${dish.name}
+          </div>
+
+          <div class="menu-item-meta">
+
+            <span class="meta">
+              ${typeLabel}
+            </span>
+
+            <span class="meta">
+              ⏱️ ${dish.time} min
+            </span>
+
+            ${
+              dish.tags.includes("quick")
+              ? `
+                <span class="meta">
+                  ⚡ Quick
+                </span>
+              `
+              : ""
+            }
+
+            ${
+              dish.tags.includes("healthy")
+              ? `
+                <span class="meta">
+                  🥗 Healthy
+                </span>
+              `
+              : ""
+            }
+
+            ${
+              dish.tags.includes("budget")
+              ? `
+                <span class="meta">
+                  💰 Budget
+                </span>
+              `
+              : ""
+            }
+
+            ${
+              dish.tags.includes("leftover")
+              ? `
+                <span class="meta">
+                  ♻️ Leftover
+                </span>
+              `
+              : ""
+            }
+
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          class="menu-add"
+          data-dish="${dish.id}"
+        >
+          +
+        </button>
+
+      `;
+
+      popupList.appendChild(
+        item
+      );
+
+    }
+  );
+
+
+  popupList
+    .querySelectorAll(
+      "[data-dish]"
+    )
+    .forEach(
+      function(button){
+
+        button.addEventListener(
+          "click",
+          function(){
+
+            selectDish(
+              this.dataset.dish
+            );
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+popupSearch.addEventListener(
+  "input",
+  function(){
+
+    renderPopupDishes();
+
+  }
+);
+
+
+/* =========================
+   SELECT DISH
+========================= */
+
+function selectDish(
+  dishId
+){
+
+  if(!selectedSlot){
+    return;
+  }
+
+  const dish =
+    dishes.find(
+      function(item){
+
+        return item.id ===
+          dishId;
+
+      }
+    );
+
+  if(!dish){
+    return;
+  }
+
+  const dateKey =
+    selectedSlot.date;
+
+  const mealId =
+    selectedSlot.meal;
+
+
+  if(
+    !weeklyPlan[dateKey]
+  ){
+
+    weeklyPlan[dateKey] = {
+
+      meals:{},
+
+      note:""
+
+    };
+
+  }
+
+
+  if(
+    !weeklyPlan[dateKey].meals
+  ){
+
+    weeklyPlan[
+      dateKey
+    ].meals = {};
+
+  }
+
+
+  weeklyPlan[
+    dateKey
+  ].meals[
+    mealId
+  ] = {
+
+    id:dish.id,
+
+    name:dish.name,
+
+    type:dish.type,
+
+    tags:dish.tags,
+
+    time:dish.time,
+
+    ingredients:dish.ingredients
+
+  };
+
+
+  saveWeek();
+
+  closeDishPopup();
+
+  renderWeek();
+
+}
+
+
+/* =========================
+   WEEK NAVIGATION
+========================= */
+
+prevWeek.addEventListener(
+  "click",
+  function(){
+
+    currentWeekStart =
+      addDays(
+        currentWeekStart,
+        -7
+      );
+
+    renderWeek();
+
+  }
+);
+
+
+nextWeek.addEventListener(
+  "click",
+  function(){
+
+    currentWeekStart =
+      addDays(
+        currentWeekStart,
+        7
+      );
+
+    renderWeek();
+
+  }
+);
+
+
+todayWeek.addEventListener(
+  "click",
+  function(){
+
+    currentWeekStart =
+      getMonday(
+        new Date()
+      );
+
+    renderWeek();
+
+  }
+);
+
+
+/* =========================
+   QUICK FILTER
+========================= */
+
+document
+  .querySelectorAll(
+    ".quick-chip"
+  )
+  .forEach(
+    function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          document
+            .querySelectorAll(
+              ".quick-chip"
+            )
+            .forEach(
+              function(item){
+
+                item.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+          this.classList.add(
+            "active"
+          );
+
+          const filter =
+            this.dataset.quick;
+
+          /*
+            Quick filter is mainly
+            a shortcut for opening
+            the dish picker.
+          */
+
+          if(
+            filter === "all"
+          ){
+
+            return;
+
+          }
+
+          /*
+            Find first meal slot and
+            open popup with selected
+            filter.
+          */
+
+          const firstButton =
+            weekGrid.querySelector(
+              ".add-meal-btn"
+            );
+
+          if(!firstButton){
+            return;
+          }
+
+          selectedSlot = {
+
+            date:
+              firstButton.dataset.date,
+
+            meal:
+              firstButton.dataset.meal
+
+          };
+
+          popupQuickFilter =
+            filter;
+
+          openDishPopup();
+
+          popupFilterRow
+            .querySelectorAll(
+              ".popup-filter"
+            )
+            .forEach(
+              function(item){
+
+                item.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+          const target =
+            popupFilterRow.querySelector(
+              '[data-popup-filter="' +
+              filter +
+              '"]'
+            );
+
+          if(target){
+
+            target.classList.add(
+              "active"
+            );
+
+          }
+
+          renderPopupDishes();
+
+        }
+      );
+
+    }
+  );
+
+    /* =========================
+   SHOPPING LIST
+========================= */
+
+function buildShoppingItems(){
+
+  const items = {};
+
+  Object.keys(
+    weeklyPlan
+  ).forEach(
+    function(dateKey){
+
+      const day =
+        weeklyPlan[
+          dateKey
+        ];
+
+      if(
+        !day ||
+        !day.meals
+      ){
+
+        return;
+
+      }
+
+      Object.keys(
+        day.meals
+      ).forEach(
+        function(mealId){
+
+          const dish =
+            day.meals[
+              mealId
+            ];
+
+          if(
+            !dish ||
+            !dish.ingredients
+          ){
+
+            return;
+
+          }
+
+          dish.ingredients
+            .forEach(
+              function(ingredient){
+
+                const key =
+                  ingredient
+                    .toLowerCase();
+
+                if(
+                  !items[key]
+                ){
+
+                  items[key] =
+                    ingredient;
+
+                }
+
+              }
+            );
+
+        }
+      );
+
+    }
+  );
+
+  return Object.values(
+    items
+  ).sort(
+    function(a,b){
+
+      return a.localeCompare(
+        b
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   RENDER SHOPPING
+========================= */
+
+function renderShoppingList(){
+
+  const items =
+    buildShoppingItems();
+
+  shoppingList.innerHTML = "";
+
+  shoppingCount.textContent =
+    items.length +
+    (
+      items.length === 1
+      ? " item"
+      : " items"
+    );
+
+
+  if(
+    items.length === 0
+  ){
+
+    shoppingList.innerHTML = `
+
+      <div class="shopping-empty">
+
+        🛒 First dishes plan pannunga.
+
+        <br>
+
+        Ingredients inga
+        automatically varum.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  items.forEach(
+    function(item){
+
+      const row =
+        document.createElement(
+          "label"
+        );
+
+      row.className =
+        "shopping-item";
+
+
+      const key =
+        getWeekKey() +
+        "_" +
+        item;
+
+
+      const checked =
+        savedShoppingChecks[
+          key
+        ] === true;
+
+
+      row.innerHTML = `
+
+        <input
+          type="checkbox"
+          ${checked ? "checked" : ""}
+          data-shopping="${item}"
+        >
+
+        <span>
+          ${item}
+        </span>
+
+      `;
+
+
+      shoppingList.appendChild(
+        row
+      );
+
+    }
+  );
+
+
+  shoppingList
+    .querySelectorAll(
+      "[data-shopping]"
+    )
+    .forEach(
+      function(input){
+
+        input.addEventListener(
+          "change",
+          function(){
+
+            const key =
+              getWeekKey() +
+              "_" +
+              this.dataset.shopping;
+
+            savedShoppingChecks[
+              key
+            ] =
+              this.checked;
+
+            try{
+
+              localStorage.setItem(
+                "pyncode_shopping_checks",
+                JSON.stringify(
+                  savedShoppingChecks
+                )
+              );
+
+            }catch(error){}
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================
+   LOAD SHOPPING CHECKS
+========================= */
+
+function loadShoppingChecks(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(
+        "pyncode_shopping_checks"
+      );
+
+    if(saved){
+
+      savedShoppingChecks =
+        JSON.parse(
+          saved
+        );
+
+    }
+
+  }catch(error){
+
+    savedShoppingChecks = {};
+
+  }
+
+}
+
+
+/* =========================
+   CLEAR WEEK
+========================= */
+
+clearWeek.addEventListener(
+  "click",
+  function(){
+
+    const hasData =
+      Object.keys(
+        weeklyPlan
+      ).length > 0;
+
+
+    if(!hasData){
+
+      alert(
+        "இந்த week-ல் plan எதுவும் இல்லை."
+      );
+
+      return;
+
+    }
+
+
+    const confirmClear =
+      confirm(
+        "இந்த week's முழு food plan-ஐ clear செய்யவா?"
+      );
+
+
+    if(
+      !confirmClear
+    ){
+
+      return;
+
+    }
+
+
+    weeklyPlan = {};
+
+    localStorage.removeItem(
+      getStorageKey()
+    );
+
+    renderWeek();
+
+  }
+);
+
+
+/* =========================
+   SHARE PLAN
+========================= */
+
+function buildShareText(){
+
+  const start =
+    currentWeekStart;
+
+  const end =
+    addDays(
+      start,
+      6
+    );
+
+
+  let text =
+    "📅 Pyncode Weekly Food Planner\n\n";
+
+  text +=
+    formatDate(start) +
+    " - " +
+    formatDate(end) +
+    "\n\n";
+
+
+  for(
+    let i = 0;
+    i < 7;
+    i++
+  ){
+
+    const date =
+      addDays(
+        start,
+        i
+      );
+
+    const dateKey =
+      date.toISOString()
+        .split("T")[0];
+
+
+    text +=
+      "📌 " +
+      days[date.getDay()] +
+      " - " +
+      formatDate(date) +
+      "\n";
+
+
+    mealTypes.forEach(
+      function(meal){
+
+        const selected =
+          getSlotValue(
+            dateKey,
+            meal.id
+          );
+
+
+        text +=
+          meal.icon +
+          " " +
+          meal.name +
+          ": " +
+          (
+            selected
+            ? selected.name
+            : "Not planned"
+          ) +
+          "\n";
+
+      }
+    );
+
+
+    const note =
+      getDayNote(
+        dateKey
+      );
+
+
+    if(note){
+
+      text +=
+        "📝 Note: " +
+        note +
+        "\n";
+
+    }
+
+
+    text += "\n";
+
+  }
+
+
+  text +=
+    "🛒 Shopping items: " +
+    buildShoppingItems()
+      .join(", ");
+
+
+  return text;
+
+}
+
+
+sharePlan.addEventListener(
+  "click",
+  async function(){
+
+    const text =
+      buildShareText();
+
+
+    if(
+      navigator.share
+    ){
+
+      try{
+
+        await navigator.share({
+
+          title:
+            "Pyncode Weekly Food Planner",
+
+          text:text
+
+        });
+
+      }catch(error){
+
+        /*
+          User closed share sheet.
+          No action needed.
+        */
+
+      }
+
+      return;
+
+    }
+
+
+    try{
+
+      await navigator.clipboard.writeText(
+        text
+      );
+
+      alert(
+        "Weekly plan copied! WhatsApp-ல் paste பண்ணலாம்."
+      );
+
+    }catch(error){
+
+      alert(
+        text
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   INITIAL LOAD
+========================= */
+
+loadShoppingChecks();
+
+renderWeek();
+
+</script>
+
+</body>
+
+</html>

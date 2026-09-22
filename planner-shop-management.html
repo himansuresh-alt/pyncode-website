@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Planner Shop Management - Pyncode.in
+    </title>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <style>
+
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+
+        body{
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background:#f6f7fb;
+            color:#17191f;
+            min-height:100vh;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .top-header{
+            position:sticky;
+            top:0;
+            z-index:1000;
+
+            height:64px;
+
+            background:#ffffff;
+
+            border-bottom:
+                1px solid #e8e9ee;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+
+            padding:0 18px;
+
+            box-shadow:
+                0 2px 12px
+                rgba(20,20,40,0.05);
+        }
+
+
+        .brand{
+            text-decoration:none;
+
+            font-size:21px;
+            font-weight:800;
+
+            letter-spacing:-0.5px;
+
+            white-space:nowrap;
+        }
+
+
+        .pyn-text{
+            color:#ef603e;
+        }
+
+
+        .code-text{
+            color:#151923;
+        }
+
+
+        .header-right{
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+
+
+        .back-btn,
+        .logout-btn{
+
+            display:inline-flex;
+
+            align-items:center;
+            justify-content:center;
+
+            padding:9px 12px;
+
+            border-radius:10px;
+
+            font-size:12px;
+            font-weight:700;
+
+            cursor:pointer;
+
+            text-decoration:none;
+
+            transition:
+                transform .15s ease,
+                box-shadow .15s ease;
+        }
+
+
+        .back-btn{
+
+            background:#ffffff;
+
+            color:#34363b;
+
+            border:
+                1px solid #e2e4e9;
+
+            box-shadow:
+                0 3px 10px
+                rgba(30,30,50,0.05);
+        }
+
+
+        .logout-btn{
+
+            background:#111318;
+
+            color:#ffffff;
+
+            border:none;
+        }
+
+
+        .back-btn:active,
+        .logout-btn:active{
+            transform:scale(.97);
+        }
+
+
+        /* =========================================
+           PAGE
+        ========================================= */
+
+        .page{
+            width:100%;
+            max-width:1100px;
+
+            margin:0 auto;
+
+            padding:
+                24px 16px 50px;
+        }
+
+
+        .page-title{
+            margin-bottom:6px;
+
+            font-size:27px;
+            font-weight:800;
+
+            letter-spacing:-0.5px;
+        }
+
+
+        .page-subtitle{
+            color:#6d7280;
+
+            font-size:14px;
+
+            line-height:1.5;
+
+            margin-bottom:22px;
+        }
+
+
+        /* =========================================
+           TOP STATS
+        ========================================= */
+
+        .stats-grid{
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:12px;
+
+            margin-bottom:20px;
+        }
+
+
+        .stat-card{
+
+            background:#ffffff;
+
+            border:
+                1px solid #e9eaf0;
+
+            border-radius:16px;
+
+            padding:16px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(20,20,40,0.04);
+        }
+
+
+        .stat-label{
+
+            font-size:12px;
+
+            color:#777c87;
+
+            margin-bottom:6px;
+        }
+
+
+        .stat-value{
+
+            font-size:24px;
+
+            font-weight:800;
+
+            color:#17191f;
+        }
+
+
+        /* =========================================
+           SEARCH
+        ========================================= */
+
+        .search-box{
+
+            background:#ffffff;
+
+            border:
+                1px solid #e5e7ec;
+
+            border-radius:16px;
+
+            padding:15px;
+
+            margin-bottom:18px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(20,20,40,0.04);
+        }
+
+
+        .search-label{
+
+            display:block;
+
+            font-size:12px;
+
+            font-weight:700;
+
+            color:#555a65;
+
+            margin-bottom:8px;
+        }
+
+
+        .search-input{
+
+            width:100%;
+
+            height:46px;
+
+            border:
+                1px solid #dfe2e8;
+
+            border-radius:11px;
+
+            padding:
+                0 14px;
+
+            font-size:14px;
+
+            outline:none;
+
+            background:#ffffff;
+
+            transition:
+                border-color .15s ease,
+                box-shadow .15s ease;
+        }
+
+
+        .search-input:focus{
+
+            border-color:#ef603e;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(239,96,62,0.10);
+        }
+
+
+        /* =========================================
+           LOADING
+        ========================================= */
+
+        .loading{
+
+            display:none;
+
+            text-align:center;
+
+            padding:35px 15px;
+
+            color:#6d7280;
+
+            font-size:14px;
+        }
+
+
+        .loading.show{
+            display:block;
+        }
+
+
+        /* =========================================
+           EMPTY STATE
+        ========================================= */
+
+        .empty-state{
+
+            display:none;
+
+            background:#ffffff;
+
+            border:
+                1px solid #e7e9ee;
+
+            border-radius:16px;
+
+            padding:35px 20px;
+
+            text-align:center;
+
+            color:#737782;
+        }
+
+
+        .empty-state.show{
+            display:block;
+        }
+
+
+        .empty-icon{
+
+            font-size:36px;
+
+            margin-bottom:10px;
+        }
+
+
+        .empty-title{
+
+            font-size:17px;
+
+            font-weight:800;
+
+            color:#252832;
+
+            margin-bottom:5px;
+        }
+
+
+        .empty-text{
+
+            font-size:13px;
+
+            line-height:1.5;
+        }
+
+
+        /* =========================================
+           PROVIDER LIST
+        ========================================= */
+
+        .provider-list{
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0,1fr));
+
+            gap:15px;
+        }
+
+
+        .provider-card{
+
+            background:#ffffff;
+
+            border:
+                1px solid #e7e9ee;
+
+            border-radius:18px;
+
+            padding:17px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(20,20,40,0.04);
+        }
+
+
+        .provider-top{
+
+            display:flex;
+
+            align-items:flex-start;
+
+            justify-content:space-between;
+
+            gap:12px;
+
+            margin-bottom:12px;
+        }
+
+
+        .business-name{
+
+            font-size:17px;
+
+            font-weight:800;
+
+            line-height:1.3;
+
+            color:#181a20;
+        }
+
+
+        .active-badge{
+
+            flex-shrink:0;
+
+            padding:5px 8px;
+
+            border-radius:20px;
+
+            background:#e9f8ef;
+
+            color:#18834a;
+
+            font-size:10px;
+
+            font-weight:800;
+        }
+
+
+        .owner-name{
+
+            font-size:13px;
+
+            color:#626773;
+
+            margin-top:4px;
+        }
+
+
+        .provider-info{
+
+            display:grid;
+
+            gap:8px;
+
+            margin-bottom:14px;
+        }
+
+
+        .info-row{
+
+            display:flex;
+
+            gap:8px;
+
+            font-size:13px;
+
+            line-height:1.4;
+        }
+
+
+        .info-label{
+
+            min-width:72px;
+
+            font-weight:700;
+
+            color:#555a65;
+        }
+
+
+        .info-value{
+
+            color:#282c34;
+
+            word-break:break-word;
+        }
+
+
+        .service-title{
+
+            font-size:11px;
+
+            font-weight:800;
+
+            color:#777c87;
+
+            text-transform:uppercase;
+
+            letter-spacing:.5px;
+
+            margin-bottom:7px;
+        }
+
+
+        .service-tags{
+
+            display:flex;
+
+            flex-wrap:wrap;
+
+            gap:6px;
+
+            margin-bottom:16px;
+        }
+
+
+        .service-tag{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            padding:6px 8px;
+
+            border-radius:8px;
+
+            background:#f3f4f7;
+
+            color:#454a55;
+
+            font-size:11px;
+
+            font-weight:600;
+        }
+
+
+        /* =========================================
+           ACTIONS
+        ========================================= */
+
+        .provider-actions{
+
+            display:flex;
+
+            gap:8px;
+
+            padding-top:13px;
+
+            border-top:
+                1px solid #eeeeF2;
+        }
+
+
+        .call-btn,
+        .whatsapp-btn,
+        .delete-btn{
+
+            flex:1;
+
+            min-height:40px;
+
+            border:none;
+
+            border-radius:10px;
+
+            font-size:12px;
+
+            font-weight:800;
+
+            cursor:pointer;
+
+            text-decoration:none;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            transition:
+                transform .15s ease;
+        }
+
+
+        .call-btn{
+
+            background:#eef5ff;
+
+            color:#2167bd;
+        }
+
+
+        .whatsapp-btn{
+
+            background:#eaf8ef;
+
+            color:#168447;
+        }
+
+
+        .delete-btn{
+
+            background:#fff0f0;
+
+            color:#d52d2d;
+        }
+
+
+        .call-btn:active,
+        .whatsapp-btn:active,
+        .delete-btn:active{
+
+            transform:scale(.97);
+        }
+
+
+        /* =========================================
+           ERROR
+        ========================================= */
+
+        .error-box{
+
+            display:none;
+
+            background:#fff1f1;
+
+            border:
+                1px solid #ffd4d4;
+
+            color:#c62828;
+
+            border-radius:12px;
+
+            padding:12px 14px;
+
+            margin-bottom:16px;
+
+            font-size:13px;
+
+            line-height:1.5;
+        }
+
+
+        .error-box.show{
+            display:block;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media(max-width:700px){
+
+            .provider-list{
+
+                grid-template-columns:1fr;
+            }
+
+            .stats-grid{
+
+                grid-template-columns:
+                    repeat(3,1fr);
+
+                gap:8px;
+            }
+
+            .stat-card{
+
+                padding:12px;
+            }
+
+            .stat-value{
+
+                font-size:20px;
+            }
+
+            .stat-label{
+
+                font-size:10px;
+            }
+
+        }
+
+
+        @media(max-width:500px){
+
+            .top-header{
+
+                padding:
+                    0 12px;
+            }
+
+            .brand{
+
+                font-size:19px;
+            }
+
+            .back-btn{
+
+                display:none;
+            }
+
+            .logout-btn{
+
+                padding:
+                    8px 10px;
+
+                font-size:11px;
+            }
+
+            .page{
+
+                padding:
+                    20px 12px 40px;
+            }
+
+            .page-title{
+
+                font-size:23px;
+            }
+
+            .page-subtitle{
+
+                font-size:13px;
+            }
+
+            .provider-card{
+
+                padding:15px;
+            }
+
+            .provider-actions{
+
+                flex-wrap:wrap;
+            }
+
+            .call-btn,
+            .whatsapp-btn,
+            .delete-btn{
+
+                min-width:
+                    calc(33.333% - 6px);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="top-header">
+
+        <a
+            href="admin-dashboard.html"
+            class="brand"
+        >
+            <span class="pyn-text">Pyn</span><span class="code-text">code.in</span>
+        </a>
+
+
+        <div class="header-right">
+
+            <a
+                href="admin-dashboard.html"
+                class="back-btn"
+            >
+                ← Dashboard
+            </a>
+
+
+            <button
+                type="button"
+                class="logout-btn"
+                id="logoutBtn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================
+         MAIN PAGE
+    ========================================== -->
+
+    <main class="page">
+
+
+        <h1 class="page-title">
+            Planner Shop Management
+        </h1>
+
+
+        <p class="page-subtitle">
+            Manage businesses registered through
+            Pyncode Planner.
+        </p>
+
+
+        <!-- ERROR -->
+
+        <div
+            class="error-box"
+            id="errorBox"
+        ></div>
+
+
+        <!-- =====================================
+             STATS
+        ====================================== -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Total Businesses
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="totalCount"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Active
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="activeCount"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Services
+                </div>
+
+                <div
+                    class="stat-value"
+                    id="serviceCount"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             SEARCH
+        ====================================== -->
+
+        <section class="search-box">
+
+            <label
+                class="search-label"
+                for="searchInput"
+            >
+                Search Business / Owner / Area /
+                City / Service
+            </label>
+
+
+            <input
+                type="search"
+                id="searchInput"
+                class="search-input"
+                placeholder="Type to search..."
+                autocomplete="off"
+            >
+
+        </section>
+
+
+        <!-- =====================================
+             LOADING
+        ====================================== -->
+
+        <div
+            class="loading"
+            id="loading"
+        >
+            Loading planner businesses...
+        </div>
+
+
+        <!-- =====================================
+             EMPTY
+        ====================================== -->
+
+        <div
+            class="empty-state"
+            id="emptyState"
+        >
+
+            <div class="empty-icon">
+                📋
+            </div>
+
+            <div class="empty-title">
+                No Planner Businesses Found
+            </div>
+
+            <div class="empty-text">
+                No businesses match your search.
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             PROVIDER LIST
+        ====================================== -->
+
+        <section
+            class="provider-list"
+            id="providerList"
+        ></section>
+
+
+    </main>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+        /* =========================================
+           SUPABASE CONFIG
+        ========================================== */
+
+        const SUPABASE_URL =
+            "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        /* =========================================
+           GLOBAL DATA
+        ========================================== */
+
+        let allProviders = [];
+
+
+        /* =========================================
+           ELEMENTS
+        ========================================== */
+
+        const providerList =
+            document.getElementById("providerList");
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const loading =
+            document.getElementById("loading");
+
+        const emptyState =
+            document.getElementById("emptyState");
+
+        const errorBox =
+            document.getElementById("errorBox");
+
+        const totalCount =
+            document.getElementById("totalCount");
+
+        const activeCount =
+            document.getElementById("activeCount");
+
+        const serviceCount =
+            document.getElementById("serviceCount");
+
+        const logoutBtn =
+            document.getElementById("logoutBtn");
+
+
+        /* =========================================
+           ESCAPE HTML
+        ========================================== */
+
+        function escapeHtml(value){
+
+            if(
+                value === null ||
+                value === undefined
+            ){
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        /* =========================================
+           CLEAN PHONE
+        ========================================== */
+
+        function cleanPhone(phone){
+
+            return String(phone || "")
+                .replace(/\D/g, "");
+        }
+
+
+        /* =========================================
+           ERROR
+        ========================================== */
+
+        function showError(message){
+
+            errorBox.textContent =
+                message ||
+                "Something went wrong.";
+
+            errorBox.classList.add("show");
+        }
+
+
+        function hideError(){
+
+            errorBox.textContent = "";
+
+            errorBox.classList.remove("show");
+        }
+
+
+        /* =========================================
+           LOADING
+        ========================================== */
+
+        function setLoading(isLoading){
+
+            if(isLoading){
+
+                loading.classList.add("show");
+
+            }else{
+
+                loading.classList.remove("show");
+
+            }
+
+        }
+
+
+        /* =========================================
+           ADMIN ACCESS CHECK
+        ========================================== */
+
+        async function checkAdminAccess(){
+
+            try{
+
+                const {
+                    data: sessionData,
+                    error: sessionError
+                } =
+                    await supabaseClient
+                        .auth
+                        .getSession();
+
+
+                if(
+                    sessionError ||
+                    !sessionData ||
+                    !sessionData.session
+                ){
+
+                    window.location.replace(
+                        "promotion-admin-login.html"
+                    );
+
+                    return false;
+                }
+
+
+                const user =
+                    sessionData.session.user;
+
+
+                if(
+                    !user ||
+                    !user.id
+                ){
+
+                    window.location.replace(
+                        "promotion-admin-login.html"
+                    );
+
+                    return false;
+                }
+
+
+                const {
+                    data: adminUser,
+                    error: adminError
+                } =
+                    await supabaseClient
+                        .from("admin_users")
+                        .select("id")
+                        .eq(
+                            "auth_user_id",
+                            user.id
+                        )
+                        .maybeSingle();
+
+
+                if(
+                    adminError ||
+                    !adminUser
+                ){
+
+                    await supabaseClient
+                        .auth
+                        .signOut();
+
+
+                    alert(
+                        "Admin access required."
+                    );
+
+
+                    window.location.replace(
+                        "promotion-admin-login.html"
+                    );
+
+                    return false;
+                }
+
+
+                return true;
+
+            }catch(error){
+
+                console.error(
+                    "Admin check error:",
+                    error
+                );
+
+
+                window.location.replace(
+                    "promotion-admin-login.html"
+                );
+
+                return false;
+            }
+
+        }
+
+
+        /* =========================================
+           LOAD PROVIDERS
+        ========================================== */
+
+        async function loadProviders(){
+
+            hideError();
+
+            setLoading(true);
+
+
+            try{
+
+                const response =
+                    await fetch(
+
+                        `${SUPABASE_URL}/rest/v1/planner_service_providers?select=id,business_name,owner_name,mobile,whatsapp,area,city,services,active&order=id.desc`,
+
+                        {
+                            method:"GET",
+
+                            headers:{
+                                "apikey":
+                                    SUPABASE_KEY,
+
+                                "Authorization":
+                                    `Bearer ${SUPABASE_KEY}`
+                            }
+                        }
+                    );
+
+
+                if(!response.ok){
+
+                    const errorText =
+                        await response.text();
+
+                    throw new Error(
+                        errorText ||
+                        "Failed to load businesses."
+                    );
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                allProviders =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+
+                updateStats(
+                    allProviders
+                );
+
+
+                renderProviders(
+                    allProviders
+                );
+
+
+            }catch(error){
+
+                console.error(
+                    "Provider loading error:",
+                    error
+                );
+
+
+                allProviders = [];
+
+                updateStats([]);
+
+                providerList.innerHTML = "";
+
+
+                emptyState.classList.remove(
+                    "show"
+                );
+
+
+                showError(
+                    "Unable to load planner businesses. Please try again."
+                );
+
+
+            }finally{
+
+                setLoading(false);
+
+            }
+
+        }
+
+
+        /* =========================================
+           UPDATE STATS
+        ========================================== */
+
+        function updateStats(providers){
+
+            const list =
+                Array.isArray(providers)
+                    ? providers
+                    : [];
+
+
+            totalCount.textContent =
+                list.length;
+
+
+            activeCount.textContent =
+                list.filter(
+                    provider =>
+                        provider.active === true
+                ).length;
+
+
+            const services =
+                new Set();
+
+
+            list.forEach(
+                provider => {
+
+                    if(
+                        Array.isArray(
+                            provider.services
+                        )
+                    ){
+
+                        provider.services.forEach(
+                            service => {
+
+                                if(service){
+
+                                    services.add(
+                                        String(service)
+                                            .trim()
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                    }
+
+                }
+            );
+
+
+            serviceCount.textContent =
+                services.size;
+
+        }
+
+
+        /* =========================================
+           NORMALIZE SEARCH
+        ========================================== */
+
+        function normalizeSearch(value){
+
+            return String(value || "")
+                .toLowerCase()
+                .trim();
+
+        }
+
+
+        /* =========================================
+           FILTER PROVIDERS
+        ========================================== */
+
+        function filterProviders(){
+
+            const query =
+                normalizeSearch(
+                    searchInput.value
+                );
+
+
+            if(!query){
+
+                renderProviders(
+                    allProviders
+                );
+
+                return;
+            }
+
+
+            const filtered =
+                allProviders.filter(
+                    provider => {
+
+                        const business =
+                            normalizeSearch(
+                                provider.business_name
+                            );
+
+                        const owner =
+                            normalizeSearch(
+                                provider.owner_name
+                            );
+
+                        const mobile =
+                            normalizeSearch(
+                                provider.mobile
+                            );
+
+                        const whatsapp =
+                            normalizeSearch(
+                                provider.whatsapp
+                            );
+
+                        const area =
+                            normalizeSearch(
+                                provider.area
+                            );
+
+                        const city =
+                            normalizeSearch(
+                                provider.city
+                            );
+
+                        const services =
+                            Array.isArray(
+                                provider.services
+                            )
+                                ? provider.services
+                                    .map(
+                                        service =>
+                                            normalizeSearch(
+                                                service
+                                            )
+                                    )
+                                    .join(" ")
+                                : "";
+
+
+                        return (
+                            business.includes(query) ||
+                            owner.includes(query) ||
+                            mobile.includes(query) ||
+                            whatsapp.includes(query) ||
+                            area.includes(query) ||
+                            city.includes(query) ||
+                            services.includes(query)
+                        );
+
+                    }
+                );
+
+
+            renderProviders(
+                filtered
+            );
+
+        }
+
+
+        /* =========================================
+           SEARCH EVENT
+        ========================================== */
+
+        searchInput.addEventListener(
+            "input",
+            filterProviders
+        );
+
+              /* =========================================
+           RENDER PROVIDERS
+        ========================================== */
+
+        function renderProviders(providers){
+
+            providerList.innerHTML = "";
+
+
+            const list =
+                Array.isArray(providers)
+                    ? providers
+                    : [];
+
+
+            if(list.length === 0){
+
+                emptyState.classList.add(
+                    "show"
+                );
+
+                return;
+            }
+
+
+            emptyState.classList.remove(
+                "show"
+            );
+
+
+            list.forEach(
+                provider => {
+
+                    providerList.insertAdjacentHTML(
+                        "beforeend",
+                        createProviderCard(
+                            provider
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================================
+           CREATE PROVIDER CARD
+        ========================================== */
+
+        function createProviderCard(
+            provider
+        ){
+
+            const id =
+                escapeHtml(
+                    provider.id
+                );
+
+
+            const businessName =
+                escapeHtml(
+                    provider.business_name ||
+                    "Business Name Not Available"
+                );
+
+
+            const ownerName =
+                escapeHtml(
+                    provider.owner_name ||
+                    "-"
+                );
+
+
+            const mobile =
+                escapeHtml(
+                    provider.mobile ||
+                    "-"
+                );
+
+
+            const whatsapp =
+                escapeHtml(
+                    provider.whatsapp ||
+                    "-"
+                );
+
+
+            const area =
+                escapeHtml(
+                    provider.area ||
+                    "-"
+                );
+
+
+            const city =
+                escapeHtml(
+                    provider.city ||
+                    "-"
+                );
+
+
+            const isActive =
+                provider.active === true;
+
+
+            const services =
+                Array.isArray(
+                    provider.services
+                )
+                    ? provider.services
+                    : [];
+
+
+            const serviceTags =
+                services.length
+                    ? services
+                        .map(
+                            service => `
+                                <span class="service-tag">
+                                    ${escapeHtml(service)}
+                                </span>
+                            `
+                        )
+                        .join("")
+                    : `
+                        <span class="service-tag">
+                            No services
+                        </span>
+                    `;
+
+
+            const cleanMobile =
+                cleanPhone(
+                    provider.mobile
+                );
+
+
+            const cleanWhatsapp =
+                cleanPhone(
+                    provider.whatsapp
+                );
+
+
+            const callLink =
+                cleanMobile
+                    ? `tel:${cleanMobile}`
+                    : "#";
+
+
+            const whatsappLink =
+                cleanWhatsapp
+                    ? `https://wa.me/${cleanWhatsapp}`
+                    : "#";
+
+
+            return `
+
+                <article
+                    class="provider-card"
+                    data-provider-id="${id}"
+                >
+
+                    <div class="provider-top">
+
+                        <div>
+
+                            <div class="business-name">
+                                ${businessName}
+                            </div>
+
+                            <div class="owner-name">
+                                Owner: ${ownerName}
+                            </div>
+
+                        </div>
+
+
+                        ${
+                            isActive
+                                ? `
+                                    <span class="active-badge">
+                                        ACTIVE
+                                    </span>
+                                  `
+                                : `
+                                    <span
+                                        class="active-badge"
+                                        style="
+                                            background:#f3f3f3;
+                                            color:#777;
+                                        "
+                                    >
+                                        INACTIVE
+                                    </span>
+                                  `
+                        }
+
+                    </div>
+
+
+                    <div class="provider-info">
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Mobile
+                            </span>
+
+                            <span class="info-value">
+                                ${mobile}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                WhatsApp
+                            </span>
+
+                            <span class="info-value">
+                                ${whatsapp}
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Location
+                            </span>
+
+                            <span class="info-value">
+                                ${area}, ${city}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="service-title">
+                        Services
+                    </div>
+
+
+                    <div class="service-tags">
+                        ${serviceTags}
+                    </div>
+
+
+                    <div class="provider-actions">
+
+                        <a
+                            href="${callLink}"
+                            class="call-btn"
+                        >
+                            📞 Call
+                        </a>
+
+
+                        <a
+                            href="${whatsappLink}"
+                            target="_blank"
+                            rel="noopener"
+                            class="whatsapp-btn"
+                        >
+                            💬 WhatsApp
+                        </a>
+
+
+                        <button
+                            type="button"
+                            class="delete-btn"
+                            onclick="deleteProvider('${id}')"
+                        >
+                            🗑 Delete
+                        </button>
+
+                    </div>
+
+                </article>
+
+            `;
+
+        }
+
+
+        /* =========================================
+           LOGOUT
+        ========================================== */
+
+        logoutBtn.addEventListener(
+            "click",
+            async function(){
+
+                const confirmed =
+                    confirm(
+                        "Are you sure you want to logout?"
+                    );
+
+
+                if(!confirmed){
+                    return;
+                }
+
+
+                try{
+
+                    await supabaseClient
+                        .auth
+                        .signOut();
+
+                }catch(error){
+
+                    console.error(
+                        "Logout error:",
+                        error
+                    );
+
+                }
+
+
+                window.location.replace(
+                    "promotion-admin-login.html"
+                );
+
+            }
+        );
+
+
+                /* =========================================
+           DELETE PROVIDER
+        ========================================== */
+
+  async function deleteProvider(providerId){
+
+    if(!providerId){
+        return;
+    }
+
+
+    const provider =
+        allProviders.find(
+            item =>
+                String(item.id) ===
+                String(providerId)
+        );
+
+
+    const businessName =
+        provider &&
+        provider.business_name
+            ? provider.business_name
+            : "this business";
+
+
+    const confirmed =
+        confirm(
+            `Are you sure you want to delete "${businessName}"?\n\nThis business will be removed from all related Planner service listings.`
+        );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    try{
+
+        hideError();
+
+
+        /* =====================================
+           GET CURRENT ADMIN SESSION
+        ====================================== */
+
+        const {
+            data: sessionData,
+            error: sessionError
+        } =
+            await supabaseClient
+                .auth
+                .getSession();
+
+
+        if(
+            sessionError ||
+            !sessionData ||
+            !sessionData.session
+        ){
+
+            alert(
+                "Admin session expired. Please login again."
+            );
+
+            window.location.replace(
+                "promotion-admin-login.html"
+            );
+
+            return;
+        }
+
+
+        /* =====================================
+           DELETE USING AUTHENTICATED SUPABASE
+           SESSION
+        ====================================== */
+
+        const {
+            data: deletedRows,
+            error: deleteError
+        } =
+            await supabaseClient
+                .from("planner_service_providers")
+                .delete()
+                .eq("id", providerId)
+                .select("id");
+
+
+        if(deleteError){
+
+            console.error(
+                "Delete error:",
+                deleteError
+            );
+
+            throw deleteError;
+        }
+
+
+        /* =====================================
+           VERIFY DELETE
+        ====================================== */
+
+        if(
+            !deletedRows ||
+            deletedRows.length === 0
+        ){
+
+            throw new Error(
+                "Business was not deleted. Please check admin permission."
+            );
+        }
+
+
+        alert(
+            "Planner business deleted successfully."
+        );
+
+
+        /* =====================================
+           RELOAD LATEST DATABASE DATA
+        ====================================== */
+
+        await loadProviders();
+
+
+    }catch(error){
+
+        console.error(
+            "Delete provider error:",
+            error
+        );
+
+
+        showError(
+            "Unable to delete this business. Please try again."
+        );
+
+    }
+
+}
+
+        /* =========================================
+           INITIALIZE
+        ========================================== */
+
+        async function initialize(){
+
+            const isAdmin =
+                await checkAdminAccess();
+
+
+            if(!isAdmin){
+                return;
+            }
+
+
+            await loadProviders();
+
+        }
+
+
+        /* =========================================
+           START
+        ========================================== */
+
+        initialize();
+
+    </script>
+
+
+</body>
+
+</html>

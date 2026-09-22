@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bachelor Food Menu | Pyncode Planner</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#fffaf4;
+  color:#2b211b;
+}
+
+body.no-scroll{
+  overflow:hidden;
+}
+
+.topbar{
+  background:#ffffff;
+  border-bottom:1px solid #eadfd4;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.topbar-inner{
+  max-width:900px;
+  margin:auto;
+  min-height:64px;
+  padding:10px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.home-btn{
+  text-decoration:none;
+  color:#6b4328;
+  background:#fff3e5;
+  border:1px solid #f0ddc8;
+  padding:10px 13px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.brand-box{
+  text-align:right;
+}
+
+.brand-title{
+  font-size:17px;
+  font-weight:800;
+  color:#3b271a;
+}
+
+.brand-subtitle{
+  font-size:11px;
+  color:#9a806d;
+  margin-top:2px;
+}
+
+.hero{
+  max-width:900px;
+  margin:auto;
+  padding:25px 15px 18px;
+}
+
+.hero-icon{
+  font-size:34px;
+  margin-bottom:8px;
+}
+
+.hero h1{
+  font-size:28px;
+  line-height:1.15;
+  margin-bottom:7px;
+}
+
+.hero p{
+  font-size:13px;
+  line-height:1.6;
+  color:#806e60;
+  max-width:680px;
+}
+
+.main-search{
+  margin-top:18px;
+}
+
+.main-search input{
+  width:100%;
+  border:1px solid #ead9c8;
+  background:#ffffff;
+  border-radius:14px;
+  padding:14px 15px;
+  font-size:14px;
+  outline:none;
+  box-shadow:0 3px 12px rgba(90,60,30,.05);
+}
+
+.main-search input:focus{
+  border-color:#d99d62;
+}
+
+.categories{
+  max-width:900px;
+  margin:auto;
+  padding:8px 15px 30px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:11px;
+}
+
+.category-card{
+  background:#ffffff;
+  border:1px solid #eadfd4;
+  border-radius:16px;
+  padding:15px 13px;
+  cursor:pointer;
+  transition:.15s;
+  box-shadow:0 3px 12px rgba(70,45,25,.04);
+}
+
+.category-card:active{
+  transform:scale(.98);
+}
+
+.category-icon{
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.category-title{
+  font-size:14px;
+  font-weight:800;
+  color:#332219;
+}
+
+.category-desc{
+  font-size:11px;
+  color:#917b69;
+  margin-top:5px;
+  line-height:1.4;
+}
+
+.source-menu{
+  display:none;
+}
+
+.menu-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.menu-item{
+  background:#ffffff;
+  border:1px solid #eadfd4;
+  border-radius:12px;
+  padding:11px 10px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(30,20,12,.45);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:100;
+}
+
+.popup-overlay.active{
+  display:flex;
+}
+
+.menu-popup{
+  width:100%;
+  max-width:700px;
+  max-height:88vh;
+  background:#fffaf4;
+  border-radius:22px 22px 0 0;
+  overflow:hidden;
+  box-shadow:0 -8px 30px rgba(0,0,0,.18);
+}
+
+.popup-header{
+  background:#fff0df;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.popup-header-left{
+  min-width:0;
+}
+
+.popup-title{
+  font-size:17px;
+  font-weight:800;
+  color:#382519;
+}
+
+.popup-subtitle{
+  font-size:11px;
+  color:#947967;
+  margin-top:3px;
+}
+
+.popup-close{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#ffffff;
+  color:#68452e;
+  font-size:17px;
+  cursor:pointer;
+}
+
+.popup-search{
+  padding:12px 15px 5px;
+  background:#fffaf4;
+}
+
+.popup-search input{
+  width:100%;
+  border:1px solid #ead9c8;
+  background:#ffffff;
+  border-radius:13px;
+  padding:13px 14px;
+  font-size:14px;
+  outline:none;
+}
+
+.popup-list{
+  padding:10px 15px 20px;
+  overflow-y:auto;
+  max-height:65vh;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.popup-item{
+  background:#ffffff;
+  border:1px solid #eadfd4;
+  border-radius:12px;
+  padding:11px 10px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.no-result{
+  grid-column:1/-1;
+  text-align:center;
+  padding:30px 10px;
+  color:#947967;
+  font-size:13px;
+}
+
+.footer{
+  text-align:center;
+  padding:25px 15px 35px;
+  color:#927d6c;
+  font-size:11px;
+  line-height:1.7;
+}
+
+.footer strong{
+  color:#68452e;
+  font-size:13px;
+}
+
+@media(min-width:700px){
+
+  .categories{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .popup-list{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+
+  <div class="topbar-inner">
+
+    <a href="innaiku-enna-samayal.html" class="home-btn">
+      ← Samayal Home
+    </a>
+
+    <div class="brand-box">
+      <div class="brand-title">🍳 Bachelor Menu</div>
+      <div class="brand-subtitle">Pyncode Planner</div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<section class="hero">
+
+  <div class="hero-icon">🍳</div>
+
+  <h1>Bachelor Food Menu</h1>
+
+  <p>
+    Bachelor life-ku simple, affordable, quick-aa
+    prepare panna homemade food ideas.
+  </p>
+
+  <div class="main-search">
+
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Bachelor menu search pannunga..."
+      autocomplete="off"
+    >
+
+  </div>
+
+</section>
+
+
+<div class="categories" id="categories"></div>
+
+
+<!-- QUICK FOOD -->
+
+<div class="source-menu" id="quick-food">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍳 Omelette</div>
+    <div class="menu-item">🥚 Boiled Egg</div>
+    <div class="menu-item">🥪 Egg Sandwich</div>
+    <div class="menu-item">🥪 Vegetable Sandwich</div>
+    <div class="menu-item">🍌 Banana & Curd</div>
+    <div class="menu-item">🌽 Boiled Corn</div>
+    <div class="menu-item">🥣 Oats</div>
+    <div class="menu-item">🥣 Vegetable Upma</div>
+    <div class="menu-item">🥞 Dosa</div>
+    <div class="menu-item">🥣 Idli</div>
+    <div class="menu-item">🍚 Curd Rice</div>
+    <div class="menu-item">🍋 Lemon Rice</div>
+    <div class="menu-item">🍅 Tomato Rice</div>
+    <div class="menu-item">🍚 Egg Rice</div>
+
+  </div>
+
+</div>
+
+
+<!-- 10 MINUTES -->
+
+<div class="source-menu" id="ten-minute">
+
+  <div class="menu-list">
+
+    <div class="menu-item">⚡ Omelette</div>
+    <div class="menu-item">⚡ Boiled Egg</div>
+    <div class="menu-item">⚡ Egg Bhurji</div>
+    <div class="menu-item">⚡ Egg Sandwich</div>
+    <div class="menu-item">⚡ Banana Oats</div>
+    <div class="menu-item">⚡ Oats Porridge</div>
+    <div class="menu-item">⚡ Curd Rice</div>
+    <div class="menu-item">⚡ Lemon Rice</div>
+    <div class="menu-item">⚡ Tomato Rice</div>
+    <div class="menu-item">⚡ Bread Omelette</div>
+    <div class="menu-item">⚡ Vegetable Sandwich</div>
+    <div class="menu-item">⚡ Boiled Corn</div>
+    <div class="menu-item">⚡ Sprouts Salad</div>
+    <div class="menu-item">⚡ Fruit Bowl</div>
+
+  </div>
+
+</div>
+
+
+<!-- EGG MEALS -->
+
+<div class="source-menu" id="egg-meals">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥚 Boiled Egg</div>
+    <div class="menu-item">🥚 Omelette</div>
+    <div class="menu-item">🥚 Masala Omelette</div>
+    <div class="menu-item">🥚 Onion Omelette</div>
+    <div class="menu-item">🥚 Egg Bhurji</div>
+    <div class="menu-item">🥚 Egg Podimas</div>
+    <div class="menu-item">🥚 Egg Curry</div>
+    <div class="menu-item">🥚 Egg Masala</div>
+    <div class="menu-item">🥚 Egg Rice</div>
+    <div class="menu-item">🥚 Egg Dosa</div>
+    <div class="menu-item">🥚 Egg Chapati Roll</div>
+    <div class="menu-item">🥚 Egg Sandwich</div>
+    <div class="menu-item">🥚 Egg Pulao</div>
+    <div class="menu-item">🥚 Egg Noodles</div>
+
+  </div>
+
+</div>
+
+
+<!-- ONE POT RICE -->
+
+<div class="source-menu" id="one-pot-rice">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍚 Lemon Rice</div>
+    <div class="menu-item">🍚 Tomato Rice</div>
+    <div class="menu-item">🍚 Coconut Rice</div>
+    <div class="menu-item">🍚 Vegetable Rice</div>
+    <div class="menu-item">🍚 Egg Rice</div>
+    <div class="menu-item">🍚 Chicken Rice</div>
+    <div class="menu-item">🍚 Vegetable Pulao</div>
+    <div class="menu-item">🍚 Egg Pulao</div>
+    <div class="menu-item">🍚 Chicken Pulao</div>
+    <div class="menu-item">🍚 Dal Rice</div>
+    <div class="menu-item">🍚 Curd Rice</div>
+    <div class="menu-item">🍚 Vegetable Khichdi</div>
+    <div class="menu-item">🍚 Dal Khichdi</div>
+    <div class="menu-item">🍚 Millet Pulao</div>
+
+  </div>
+
+</div>
+
+  <!-- GYM GUYS -->
+
+<div class="source-menu" id="gym-guys">
+
+  <div class="menu-list">
+
+    <div class="menu-item">💪 Egg & Vegetable Breakfast</div>
+    <div class="menu-item">💪 Oats & Banana Bowl</div>
+    <div class="menu-item">💪 Oats & Homemade Curd</div>
+    <div class="menu-item">💪 Ragi Dosa & Egg</div>
+    <div class="menu-item">💪 Millet Dosa & Egg</div>
+    <div class="menu-item">💪 Egg Omelette & Vegetables</div>
+    <div class="menu-item">💪 Homemade Paneer Bowl</div>
+    <div class="menu-item">💪 Dal & Rice Bowl</div>
+    <div class="menu-item">💪 Chicken & Rice Bowl</div>
+    <div class="menu-item">💪 Chicken & Millet Bowl</div>
+    <div class="menu-item">💪 Grilled Homemade Chicken</div>
+    <div class="menu-item">💪 Homemade Fish & Rice</div>
+    <div class="menu-item">💪 Fish & Vegetable Bowl</div>
+    <div class="menu-item">💪 Egg & Rice Bowl</div>
+    <div class="menu-item">💪 Paneer & Chapati</div>
+    <div class="menu-item">💪 Chicken & Chapati</div>
+    <div class="menu-item">💪 Dal Khichdi</div>
+    <div class="menu-item">💪 Chicken Khichdi</div>
+    <div class="menu-item">💪 Sprouts & Vegetable Bowl</div>
+    <div class="menu-item">💪 Chana & Vegetable Bowl</div>
+    <div class="menu-item">💪 Homemade Curd & Fruit Bowl</div>
+    <div class="menu-item">💪 Banana & Peanut Bowl</div>
+    <div class="menu-item">💪 Boiled Egg & Fruit</div>
+    <div class="menu-item">💪 Homemade Buttermilk</div>
+    <div class="menu-item">💪 Tender Coconut Water</div>
+
+  </div>
+
+</div>
+
+
+<!-- SIMPLE VEG -->
+
+<div class="source-menu" id="simple-veg">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🥗 Vegetable Rice</div>
+    <div class="menu-item">🥗 Lemon Rice</div>
+    <div class="menu-item">🥗 Tomato Rice</div>
+    <div class="menu-item">🥗 Curd Rice</div>
+    <div class="menu-item">🥗 Dal Rice</div>
+    <div class="menu-item">🥗 Sambar Rice</div>
+    <div class="menu-item">🥗 Vegetable Khichdi</div>
+    <div class="menu-item">🥗 Vegetable Upma</div>
+    <div class="menu-item">🥗 Adai</div>
+    <div class="menu-item">🥗 Paniyaram</div>
+    <div class="menu-item">🥗 Chapati</div>
+    <div class="menu-item">🥗 Vegetable Kurma</div>
+    <div class="menu-item">🥗 Dal</div>
+    <div class="menu-item">🥗 Keerai Masiyal</div>
+    <div class="menu-item">🥗 Vegetable Kootu</div>
+
+  </div>
+
+</div>
+
+
+<!-- SIMPLE NON VEG -->
+
+<div class="source-menu" id="simple-nonveg">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍗 Chicken Curry</div>
+    <div class="menu-item">🍗 Chicken Gravy</div>
+    <div class="menu-item">🍗 Chicken Pepper</div>
+    <div class="menu-item">🍗 Chicken Chukka</div>
+    <div class="menu-item">🍗 Homemade Chicken Rice</div>
+    <div class="menu-item">🍗 Chicken Pulao</div>
+    <div class="menu-item">🍗 Chicken Chapati</div>
+    <div class="menu-item">🍗 Chicken Roll</div>
+    <div class="menu-item">🐟 Fish Curry</div>
+    <div class="menu-item">🐟 Fish Fry</div>
+    <div class="menu-item">🐟 Fish Rice</div>
+    <div class="menu-item">🍤 Prawn Masala</div>
+    <div class="menu-item">🥚 Egg Curry</div>
+    <div class="menu-item">🥚 Egg Rice</div>
+
+  </div>
+
+</div>
+
+
+<!-- BREAD MEALS -->
+
+<div class="source-menu" id="bread-meals">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍞 Bread Omelette</div>
+    <div class="menu-item">🍞 Egg Sandwich</div>
+    <div class="menu-item">🍞 Vegetable Sandwich</div>
+    <div class="menu-item">🍞 Paneer Sandwich</div>
+    <div class="menu-item">🍞 Chicken Sandwich</div>
+    <div class="menu-item">🍞 Egg Toast</div>
+    <div class="menu-item">🍞 Vegetable Toast</div>
+    <div class="menu-item">🍞 Banana Toast</div>
+    <div class="menu-item">🍞 Peanut Butter Toast</div>
+    <div class="menu-item">🍞 Homemade Paneer Toast</div>
+
+  </div>
+
+</div>
+
+
+<!-- OFFICE LUNCH -->
+
+<div class="source-menu" id="office-lunch">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍱 Lemon Rice</div>
+    <div class="menu-item">🍱 Tomato Rice</div>
+    <div class="menu-item">🍱 Vegetable Rice</div>
+    <div class="menu-item">🍱 Coconut Rice</div>
+    <div class="menu-item">🍱 Curd Rice</div>
+    <div class="menu-item">🍱 Dal Rice</div>
+    <div class="menu-item">🍱 Vegetable Pulao</div>
+    <div class="menu-item">🍱 Egg Rice</div>
+    <div class="menu-item">🍱 Chicken Rice</div>
+    <div class="menu-item">🍱 Chapati & Dal</div>
+    <div class="menu-item">🍱 Chapati & Egg</div>
+    <div class="menu-item">🍱 Chapati & Chicken</div>
+    <div class="menu-item">🍱 Vegetable Khichdi</div>
+    <div class="menu-item">🍱 Millet Rice</div>
+
+  </div>
+
+</div>
+
+  <!-- MINIMUM INGREDIENTS -->
+
+<div class="source-menu" id="minimum-ingredients">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🛒 Egg Omelette</div>
+    <div class="menu-item">🛒 Boiled Egg</div>
+    <div class="menu-item">🛒 Egg Rice</div>
+    <div class="menu-item">🛒 Curd Rice</div>
+    <div class="menu-item">🛒 Lemon Rice</div>
+    <div class="menu-item">🛒 Tomato Rice</div>
+    <div class="menu-item">🛒 Upma</div>
+    <div class="menu-item">🛒 Oats</div>
+    <div class="menu-item">🛒 Banana Oats</div>
+    <div class="menu-item">🛒 Bread Omelette</div>
+    <div class="menu-item">🛒 Chapati & Egg</div>
+    <div class="menu-item">🛒 Dal Rice</div>
+    <div class="menu-item">🛒 Vegetable Rice</div>
+    <div class="menu-item">🛒 Paniyaram</div>
+
+  </div>
+
+</div>
+
+
+<!-- ONE PAN -->
+
+<div class="source-menu" id="one-pan">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🍳 Egg Rice</div>
+    <div class="menu-item">🍳 Vegetable Rice</div>
+    <div class="menu-item">🍳 Chicken Rice</div>
+    <div class="menu-item">🍳 Egg Pulao</div>
+    <div class="menu-item">🍳 Chicken Pulao</div>
+    <div class="menu-item">🍳 Vegetable Pulao</div>
+    <div class="menu-item">🍳 Vegetable Khichdi</div>
+    <div class="menu-item">🍳 Dal Khichdi</div>
+    <div class="menu-item">🍳 Egg Noodles</div>
+    <div class="menu-item">🍳 Chicken Noodles</div>
+    <div class="menu-item">🍳 Vegetable Noodles</div>
+    <div class="menu-item">🍳 Egg Curry</div>
+    <div class="menu-item">🍳 Chicken Curry</div>
+
+  </div>
+
+</div>
+
+
+<!-- BUDGET MEALS -->
+
+<div class="source-menu" id="budget-meals">
+
+  <div class="menu-list">
+
+    <div class="menu-item">💰 Idli</div>
+    <div class="menu-item">💰 Dosa</div>
+    <div class="menu-item">💰 Upma</div>
+    <div class="menu-item">💰 Pongal</div>
+    <div class="menu-item">💰 Paniyaram</div>
+    <div class="menu-item">💰 Adai</div>
+    <div class="menu-item">💰 Lemon Rice</div>
+    <div class="menu-item">💰 Tomato Rice</div>
+    <div class="menu-item">💰 Curd Rice</div>
+    <div class="menu-item">💰 Dal Rice</div>
+    <div class="menu-item">💰 Egg Rice</div>
+    <div class="menu-item">💰 Boiled Egg</div>
+    <div class="menu-item">💰 Banana</div>
+    <div class="menu-item">💰 Seasonal Vegetables</div>
+
+  </div>
+
+</div>
+
+
+<!-- LEFTOVER -->
+
+<div class="source-menu" id="leftover">
+
+  <div class="menu-list">
+
+    <div class="menu-item">♻️ Leftover Rice → Lemon Rice</div>
+    <div class="menu-item">♻️ Leftover Rice → Tomato Rice</div>
+    <div class="menu-item">♻️ Leftover Rice → Curd Rice</div>
+    <div class="menu-item">♻️ Leftover Rice → Egg Rice</div>
+    <div class="menu-item">♻️ Leftover Rice → Paniyaram</div>
+    <div class="menu-item">♻️ Leftover Dal → Dal Rice</div>
+    <div class="menu-item">♻️ Leftover Chapati → Egg Roll</div>
+    <div class="menu-item">♻️ Leftover Chapati → Vegetable Roll</div>
+    <div class="menu-item">♻️ Leftover Chicken → Chicken Rice</div>
+    <div class="menu-item">♻️ Leftover Chicken → Chicken Roll</div>
+    <div class="menu-item">♻️ Leftover Vegetables → Chapati Roll</div>
+    <div class="menu-item">♻️ Leftover Idli → Idli Upma</div>
+
+  </div>
+
+</div>
+
+
+<!-- BEGINNER COOKING -->
+
+<div class="source-menu" id="beginner-cooking">
+
+  <div class="menu-list">
+
+    <div class="menu-item">👨‍🍳 Boiled Egg</div>
+    <div class="menu-item">👨‍🍳 Omelette</div>
+    <div class="menu-item">👨‍🍳 Bread Omelette</div>
+    <div class="menu-item">👨‍🍳 Upma</div>
+    <div class="menu-item">👨‍🍳 Oats</div>
+    <div class="menu-item">👨‍🍳 Curd Rice</div>
+    <div class="menu-item">👨‍🍳 Lemon Rice</div>
+    <div class="menu-item">👨‍🍳 Tomato Rice</div>
+    <div class="menu-item">👨‍🍳 Dal Rice</div>
+    <div class="menu-item">👨‍🍳 Egg Rice</div>
+    <div class="menu-item">👨‍🍳 Vegetable Rice</div>
+    <div class="menu-item">👨‍🍳 Chapati & Egg</div>
+    <div class="menu-item">👨‍🍳 Vegetable Sandwich</div>
+    <div class="menu-item">👨‍🍳 Fruit Bowl</div>
+
+  </div>
+
+</div>
+
+
+<!-- HOME WHAT IS THERE -->
+
+<div class="source-menu" id="what-you-have">
+
+  <div class="menu-list">
+
+    <div class="menu-item">🔎 Rice + Egg → Egg Rice</div>
+    <div class="menu-item">🔎 Rice + Curd → Curd Rice</div>
+    <div class="menu-item">🔎 Rice + Lemon → Lemon Rice</div>
+    <div class="menu-item">🔎 Rice + Tomato → Tomato Rice</div>
+    <div class="menu-item">🔎 Rice + Dal → Dal Rice</div>
+    <div class="menu-item">🔎 Egg + Bread → Bread Omelette</div>
+    <div class="menu-item">🔎 Egg + Chapati → Egg Roll</div>
+    <div class="menu-item">🔎 Vegetable + Rice → Vegetable Rice</div>
+    <div class="menu-item">🔎 Banana + Oats → Banana Oats</div>
+    <div class="menu-item">🔎 Curd + Fruit → Fruit Curd Bowl</div>
+    <div class="menu-item">🔎 Dal + Rice → Dal Khichdi</div>
+    <div class="menu-item">🔎 Chapati + Vegetable → Vegetable Roll</div>
+
+  </div>
+
+</div>
+
+  <!-- POPUP -->
+
+<div class="popup-overlay" id="menuPopup">
+
+  <div class="menu-popup">
+
+    <div class="popup-header">
+
+      <div class="popup-header-left">
+
+        <div class="popup-title" id="popupTitle">
+          🍳 Bachelor Menu
+        </div>
+
+        <div class="popup-subtitle">
+          Full menu
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="popup-close"
+        id="popupClose"
+      >
+        ✕
+      </button>
+
+    </div>
+
+
+    <div class="popup-search">
+
+      <input
+        type="search"
+        id="popupSearch"
+        placeholder="Indha menu-la search pannunga..."
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <div
+      class="popup-list"
+      id="popupList"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+  <strong>🍳 Innaiku Enna Samayal?</strong><br>
+
+  Bachelor life-ku easy-aa
+  food menu choose pannunga.
+
+  <br><br>
+
+  <a
+    href="innaiku-enna-samayal.html"
+    class="home-btn"
+  >
+    ← Samayal Home
+  </a>
+
+  <br><br>
+
+  © Pyncode Planner
+
+</div>
+
+
+<script>
+
+const categories = [
+
+  {
+    id:"quick-food",
+    icon:"⚡",
+    title:"Quick Food",
+    desc:"Simple everyday food"
+  },
+
+  {
+    id:"ten-minute",
+    icon:"⏱️",
+    title:"10 Minute Food",
+    desc:"Fast homemade meals"
+  },
+
+  {
+    id:"egg-meals",
+    icon:"🥚",
+    title:"Egg Meals",
+    desc:"Easy egg-based meals"
+  },
+
+  {
+    id:"one-pot-rice",
+    icon:"🍚",
+    title:"One-Pot Rice",
+    desc:"Easy one-pot meals"
+  },
+
+  {
+    id:"gym-guys",
+    icon:"💪",
+    title:"Gym Guys",
+    desc:"Balanced homemade gym meals"
+  },
+
+  {
+    id:"simple-veg",
+    icon:"🥗",
+    title:"Simple Veg",
+    desc:"Easy vegetarian food"
+  },
+
+  {
+    id:"simple-nonveg",
+    icon:"🍗",
+    title:"Simple Non-Veg",
+    desc:"Easy homemade non-veg"
+  },
+
+  {
+    id:"bread-meals",
+    icon:"🍞",
+    title:"Bread Meals",
+    desc:"Quick bread-based meals"
+  },
+
+  {
+    id:"office-lunch",
+    icon:"💼",
+    title:"Office Lunch",
+    desc:"Easy office lunch box"
+  },
+
+  {
+    id:"minimum-ingredients",
+    icon:"🛒",
+    title:"Minimum Ingredients",
+    desc:"Few ingredients needed"
+  },
+
+  {
+    id:"one-pan",
+    icon:"🍳",
+    title:"One-Pan Meals",
+    desc:"Less vessels, easy cooking"
+  },
+
+  {
+    id:"budget-meals",
+    icon:"💰",
+    title:"Budget Meals",
+    desc:"Affordable homemade food"
+  },
+
+  {
+    id:"leftover",
+    icon:"♻️",
+    title:"Leftover Ideas",
+    desc:"Reuse food smartly"
+  },
+
+  {
+    id:"beginner-cooking",
+    icon:"👨‍🍳",
+    title:"Beginner Cooking",
+    desc:"Easy foods for beginners"
+  },
+
+  {
+    id:"what-you-have",
+    icon:"🔎",
+    title:"What You Have?",
+    desc:"Use ingredients already at home"
+  }
+
+];
+
+
+const categoriesBox =
+  document.getElementById("categories");
+
+const menuPopup =
+  document.getElementById("menuPopup");
+
+const popupTitle =
+  document.getElementById("popupTitle");
+
+const popupList =
+  document.getElementById("popupList");
+
+const popupSearch =
+  document.getElementById("popupSearch");
+
+const popupClose =
+  document.getElementById("popupClose");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+
+/* CATEGORY CARDS */
+
+categories.forEach(function(category){
+
+  const card =
+    document.createElement("div");
+
+  card.className =
+    "category-card";
+
+  card.innerHTML = `
+
+    <div class="category-icon">
+      ${category.icon}
+    </div>
+
+    <div class="category-title">
+      ${category.title}
+    </div>
+
+    <div class="category-desc">
+      ${category.desc}
+    </div>
+
+  `;
+
+  card.addEventListener(
+    "click",
+    function(){
+
+      openMenu(category.id);
+
+    }
+  );
+
+  categoriesBox.appendChild(card);
+
+});
+
+
+/* OPEN MENU */
+
+function openMenu(categoryId){
+
+  const source =
+    document.getElementById(categoryId);
+
+  if(!source){
+    return;
+  }
+
+
+  const category =
+    categories.find(
+      function(item){
+
+        return item.id === categoryId;
+
+      }
+    );
+
+
+  if(category){
+
+    popupTitle.textContent =
+      category.icon + " " +
+      category.title;
+
+  }
+
+
+  popupList.innerHTML = "";
+
+
+  const items =
+    source.querySelectorAll(
+      ".menu-item"
+    );
+
+
+  items.forEach(function(item){
+
+    const popupItem =
+      document.createElement("div");
+
+    popupItem.className =
+      "popup-item";
+
+    popupItem.textContent =
+      item.textContent;
+
+    popupList.appendChild(
+      popupItem
+    );
+
+  });
+
+
+  popupSearch.value = "";
+
+  menuPopup.classList.add("active");
+
+  document.body.classList.add("no-scroll");
+
+  /* NO AUTO FOCUS */
+
+}
+
+
+/* CLOSE */
+
+function closeMenu(){
+
+  menuPopup.classList.remove("active");
+
+  document.body.classList.remove("no-scroll");
+
+}
+
+
+popupClose.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+/* OUTSIDE CLICK */
+
+menuPopup.addEventListener(
+  "click",
+  function(event){
+
+    if(event.target === menuPopup){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* ESCAPE */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape" &&
+      menuPopup.classList.contains("active")
+    ){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* POPUP SEARCH */
+
+popupSearch.addEventListener(
+  "input",
+  function(){
+
+    const query =
+      this.value
+        .trim()
+        .toLowerCase();
+
+
+    const items =
+      popupList.querySelectorAll(
+        ".popup-item"
+      );
+
+
+    let visibleCount = 0;
+
+
+    items.forEach(function(item){
+
+      const text =
+        item.textContent
+          .toLowerCase();
+
+
+      if(text.includes(query)){
+
+        item.style.display = "";
+
+        visibleCount++;
+
+      }else{
+
+        item.style.display = "none";
+
+      }
+
+    });
+
+
+    const oldNoResult =
+      popupList.querySelector(
+        ".no-result"
+      );
+
+
+    if(oldNoResult){
+
+      oldNoResult.remove();
+
+    }
+
+
+    if(
+      query &&
+      visibleCount === 0
+    ){
+
+      const noResult =
+        document.createElement(
+          "div"
+        );
+
+      noResult.className =
+        "no-result";
+
+      noResult.textContent =
+        "Indha menu-la result kidaikkala 😕";
+
+      popupList.appendChild(
+        noResult
+      );
+
+    }
+
+  }
+);
+
+
+/* MAIN SEARCH */
+
+searchInput.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key !== "Enter"){
+      return;
+    }
+
+
+    const query =
+      this.value
+        .trim()
+        .toLowerCase();
+
+
+    if(!query){
+      return;
+    }
+
+
+    const match =
+      categories.find(
+        function(category){
+
+          return (
+            category.title
+              .toLowerCase()
+              .includes(query)
+            ||
+            category.desc
+              .toLowerCase()
+              .includes(query)
+          );
+
+        }
+      );
+
+
+    if(match){
+
+      openMenu(match.id);
+
+      popupSearch.value =
+        query;
+
+      popupSearch.dispatchEvent(
+        new Event("input")
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>

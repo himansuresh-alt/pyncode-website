@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Healthy Lifestyle | Pyncode Planner</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#fffaf4;
+  color:#333;
+}
+
+.topbar{
+  background:#ffffff;
+  border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.topbar-inner{
+  max-width:1000px;
+  margin:auto;
+  min-height:64px;
+  padding:10px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.home-btn{
+  text-decoration:none;
+  color:#444;
+  font-size:14px;
+  font-weight:600;
+}
+
+.brand-box{
+  text-align:right;
+}
+
+.brand-title{
+  font-size:17px;
+  font-weight:800;
+}
+
+.brand-subtitle{
+  font-size:11px;
+  color:#888;
+  margin-top:2px;
+}
+
+.hero{
+  max-width:1000px;
+  margin:auto;
+  padding:28px 15px 18px;
+  text-align:center;
+}
+
+.hero-icon{
+  font-size:45px;
+  margin-bottom:8px;
+}
+
+.hero h1{
+  font-size:27px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  font-size:14px;
+  line-height:1.6;
+  color:#666;
+  max-width:700px;
+  margin:auto;
+}
+
+.search-box{
+  max-width:650px;
+  margin:20px auto 0;
+  position:relative;
+}
+
+.search-box input{
+  width:100%;
+  height:48px;
+  border:1px solid #ddd;
+  border-radius:25px;
+  padding:0 20px;
+  font-size:15px;
+  outline:none;
+  background:#fff;
+}
+
+.search-box input:focus{
+  border-color:#aaa;
+}
+
+.main{
+  max-width:1000px;
+  margin:auto;
+  padding:5px 15px 35px;
+}
+
+.section-title{
+  font-size:19px;
+  font-weight:800;
+  margin:15px 0;
+}
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.category-card{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:17px;
+  padding:17px 14px;
+  min-height:105px;
+  cursor:pointer;
+  box-shadow:0 3px 12px rgba(0,0,0,.04);
+  transition:.15s;
+}
+
+.category-card:active{
+  transform:scale(.98);
+}
+
+.category-icon{
+  font-size:27px;
+  margin-bottom:9px;
+}
+
+.category-title{
+  font-size:15px;
+  font-weight:800;
+  line-height:1.3;
+}
+
+.category-desc{
+  font-size:12px;
+  color:#777;
+  margin-top:5px;
+  line-height:1.4;
+}
+
+.source-menu{
+  display:none;
+}
+
+.menu-item{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:12px;
+  padding:13px;
+  margin-bottom:9px;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.menu-item strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.42);
+  z-index:100;
+  display:none;
+  align-items:flex-end;
+}
+
+.popup.show{
+  display:flex;
+}
+
+.popup-box{
+  width:100%;
+  max-height:88vh;
+  background:#fffaf4;
+  border-radius:22px 22px 0 0;
+  overflow:hidden;
+  animation:slideUp .2s ease;
+}
+
+@keyframes slideUp{
+  from{
+    transform:translateY(100%);
+  }
+  to{
+    transform:translateY(0);
+  }
+}
+
+.popup-header{
+  background:#fff0df;
+  padding:17px 15px 12px;
+  position:sticky;
+  top:0;
+  z-index:2;
+}
+
+.popup-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.popup-title{
+  font-size:18px;
+  font-weight:800;
+}
+
+.popup-close{
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.popup-search{
+  margin-top:11px;
+}
+
+.popup-search input{
+  width:100%;
+  height:44px;
+  border:1px solid #ddd;
+  border-radius:22px;
+  padding:0 17px;
+  font-size:14px;
+  outline:none;
+  background:#fff;
+}
+
+.popup-content{
+  padding:14px 15px 30px;
+  overflow-y:auto;
+  max-height:70vh;
+}
+
+.popup-note{
+  background:#fff;
+  border-left:4px solid #777;
+  padding:11px 12px;
+  border-radius:10px;
+  margin-bottom:12px;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.popup-item{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:12px;
+  padding:13px;
+  margin-bottom:9px;
+  font-size:14px;
+  line-height:1.55;
+}
+
+.popup-item .tag{
+  display:inline-block;
+  font-size:11px;
+  padding:3px 7px;
+  border-radius:10px;
+  background:#f3eee8;
+  margin-bottom:5px;
+  font-weight:700;
+}
+
+.footer{
+  text-align:center;
+  padding:25px 15px 40px;
+  color:#888;
+  font-size:12px;
+}
+
+@media(max-width:600px){
+  .hero h1{
+    font-size:24px;
+  }
+
+  .category-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .category-card{
+    padding:15px 12px;
+    min-height:102px;
+  }
+
+  .category-title{
+    font-size:14px;
+  }
+}
+
+@media(min-width:800px){
+  .category-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+
+    <a href="innaiku-enna-samayal.html" class="home-btn">
+      ← Planner Home
+    </a>
+
+    <div class="brand-box">
+      <div class="brand-title">❤️ Healthy Lifestyle</div>
+      <div class="brand-subtitle">Pyncode Planner</div>
+    </div>
+
+  </div>
+</div>
+
+<section class="hero">
+
+  <div class="hero-icon">❤️</div>
+
+  <h1>Healthy Lifestyle</h1>
+
+  <p>
+    நம்ம health-ஐ தினசரி எப்படி கவனிக்க வேண்டும்?
+    என்ன வாங்க வேண்டும், எப்படி பயன்படுத்த வேண்டும்,
+    என்ன குறைக்க வேண்டும், எப்போது health check செய்ய வேண்டும்
+    என்பதற்கான simple family checklist.
+  </p>
+
+  <div class="search-box">
+    <input
+      id="mainSearch"
+      type="search"
+      placeholder="எதை தேடுகிறீர்கள்? உதா: toothpaste, sugar, plastic..."
+      autocomplete="off"
+    >
+  </div>
+
+</section>
+
+<main class="main">
+
+  <div class="section-title">
+    ❤️ Complete Health & Lifestyle
+  </div>
+
+  <div id="categoryGrid" class="category-grid"></div>
+
+
+<!-- SOURCE MENUS -->
+
+  <!-- 1 PERSONAL & DENTAL CARE -->
+<section class="source-menu" id="personal-dental">
+
+  <div class="popup-note">
+    🪥 பல் பராமரிப்பு தினசரி health-ல ஒரு முக்கியமான பகுதி.
+  </div>
+
+  <div class="menu-item">
+    <strong>🪥 Toothbrush</strong>
+    Soft-bristle brush பயன்படுத்துவது பொதுவாக நல்ல choice.
+    Brush worn-out ஆகிவிட்டால் மாற்றுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🦷 Toothpaste</strong>
+    வாங்கும்போது label பாருங்கள்.
+    Fluoride உள்ள toothpaste-ஐ தேர்வு செய்வது cavity prevention-க்கு முக்கியம்.
+    பொதுவான daily-use toothpaste-ல் 1000–1500 ppm fluoride range WHO குறிப்பிடுகிறது.
+  </div>
+
+  <div class="menu-item">
+    <strong>⏰ Brush எப்போது?</strong>
+    தினமும் 2 முறை — காலை மற்றும் இரவு.
+  </div>
+
+  <div class="menu-item">
+    <strong>⏱️ Brush எப்படி?</strong>
+    மெதுவாக எல்லா tooth surfaces-ஐயும் clean செய்யுங்கள்.
+    மிகவும் force-ஆக தேய்க்க வேண்டாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>👅 Tongue Cleaning</strong>
+    Tongue-ஐ மெதுவாக clean செய்யலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧵 Dental Floss</strong>
+    Teeth இடையில் food/debris இருந்தால் floss/interdental cleaning உதவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🚫 Brush-ஐ share செய்யாதீங்க</strong>
+    ஒவ்வொருவருக்கும் தனி toothbrush.
+  </div>
+
+  <div class="menu-item">
+    <strong>⚠️ Toothbrush change</strong>
+    Bristles worn/frayed ஆகும்போது மாற்றுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>👨‍⚕️ Dental problem</strong>
+    தொடர்ந்து tooth pain, bleeding gums, swelling போன்ற பிரச்சனைகள் இருந்தால் dentist-ஐ அணுகுங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 2 PERSONAL HYGIENE -->
+<section class="source-menu" id="personal-hygiene">
+
+  <div class="popup-note">
+    🧼 தினசரி personal hygiene-ஐ simple routine-ஆக வைத்துக்கொள்ளுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧼 Bath / Body Cleanser</strong>
+    உங்கள் skin-க்கு suitable product தேர்வு செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧴 Shampoo</strong>
+    Hair/scalp condition-க்கு ஏற்ற product தேர்வு செய்யுங்கள்.
+    “Strong fragrance = better” என்று நினைக்க வேண்டாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧴 Moisturizer</strong>
+    Dry skin இருந்தால் suitable moisturizer பயன்படுத்தலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>☀️ Sunscreen</strong>
+    வெளியில் அதிக நேரம் இருப்பவர்கள் suitable sunscreen பற்றி label-ஐ பார்த்து தேர்வு செய்யலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧼 Hand Hygiene</strong>
+    சாப்பிடுவதற்கு முன், toilet பயன்படுத்திய பிறகு போன்ற நேரங்களில் கைகளை நன்றாக clean செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📅 Expiry Check</strong>
+    Personal-care products-ன் expiry மற்றும் usage instructions பாருங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 3 HOW TO BUY -->
+<section class="source-menu" id="smart-shopping">
+
+  <div class="popup-note">
+    🛒 Brand மட்டும் பார்த்து வாங்காதீங்க.
+    Product என்ன செய்கிறது, label என்ன சொல்கிறது, யாருக்கு suitable என்பதை பாருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔍 Label First</strong>
+    Front advertisement மட்டும் பார்க்காமல் back-side label-ஐயும் படியுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧾 Ingredients</strong>
+    Ingredients / nutrition information தேவையான அளவு புரிந்து கொண்டு வாங்குங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📅 Expiry</strong>
+    Expiry date, batch details மற்றும் storage instructions பாருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>👨‍👩‍👧 யாருக்காக?</strong>
+    Adult, child, senior அல்லது specific health need என்றால் அதற்கு suitable product-ஐ தேர்வு செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>⭐ Brand ≠ Health Guarantee</strong>
+    பெரிய brand என்றாலே எல்லா variant-களும் எல்லாருக்கும் suitable என்று அர்த்தமில்லை.
+  </div>
+
+</section>
+
+
+<!-- 4 HEALTHY FOOD -->
+<section class="source-menu" id="healthy-food">
+
+  <div class="popup-note">
+    🥗 தினசரி உணவில் variety, balance, moderation முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥬 Vegetables</strong>
+    தினசரி பலவகை காய்கறிகள் சேர்க்க முயற்சி செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🍎 Fruits</strong>
+    Whole fruits-ஐ தேர்வு செய்வது நல்லது.
+  </div>
+
+  <div class="menu-item">
+    <strong>🌾 Whole Grains / Millets</strong>
+    Whole grains, millets போன்றவை diet-ல் variety கொடுக்கலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥜 Pulses & Nuts</strong>
+    Dal, legumes, beans, nuts போன்ற nutrient-rich foods சேர்க்கலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥚 Protein</strong>
+    Egg, fish, lean meat, pulses போன்ற suitable protein sources சேர்க்கலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>💧 Water</strong>
+    Safe drinking water-ஐ regular-ஆக குடிக்கவும்.
+  </div>
+
+</section>
+
+
+<!-- 5 SUGAR -->
+<section class="source-menu" id="sugar">
+
+  <div class="popup-note">
+    🍬 Sugar-ஐ “முழுவதும் poison” என்று பார்க்க வேண்டாம்.
+    Added/free sugar-ஐ அதிகமாக எடுத்துக்கொள்ளாமல் இருப்பதே முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🚫 Sugary Drinks</strong>
+    Soft drinks, sugary beverages போன்றவற்றை அடிக்கடி குடிப்பதை குறைக்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🍰 Sweets</strong>
+    Cakes, sweets, chocolates போன்றவற்றை frequency மற்றும் quantity-ல் கட்டுப்படுத்துங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥤 Packed Drinks</strong>
+    Juice drinks, flavoured drinks போன்றவற்றின் label-ல் sugar பார்க்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧾 Food Label</strong>
+    “Healthy”, “Natural”, “Energy” போன்ற front claims மட்டும் பார்த்து வாங்க வேண்டாம்.
+    Nutrition label-ஐ பாருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🦷 Teeth</strong>
+    அதிக free sugar dental caries risk-ஐ அதிகரிக்கலாம்.
+  </div>
+
+</section>
+
+
+<!-- 6 SALT -->
+<section class="source-menu" id="salt">
+
+  <div class="popup-note">
+    🧂 அதிக salt/sodium உட்கொள்வதை குறைப்பது health-க்கு முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧂 Cooking Salt</strong>
+    Cooking-ல் தேவையான அளவு மட்டும் பயன்படுத்துங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🍟 Salty Snacks</strong>
+    Chips, packaged salty snacks போன்றவற்றை அடிக்கடி சாப்பிட வேண்டாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥫 Sauces</strong>
+    Soy sauce, sauces, stock cubes போன்றவற்றிலும் sodium இருக்கலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧾 Sodium Label</strong>
+    Packed food வாங்கும்போது sodium/salt information பாருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>❤️ BP</strong>
+    அதிக sodium intake blood pressure-ஐ அதிகரிக்கக்கூடும்.
+  </div>
+
+</section>
+
+  <!-- 7 COOKING OIL -->
+<section class="source-menu" id="cooking-oil">
+
+  <div class="popup-note">
+    🫒 Oil என்றாலே healthy / unhealthy என்று மட்டும் பார்க்க வேண்டாம்.
+    எந்த fat, எவ்வளவு quantity, எப்படி பயன்படுத்துகிறோம் என்பதும் முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥄 Oil Quantity</strong>
+    தேவைக்கு அதிகமாக oil பயன்படுத்த வேண்டாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔄 Oil Reuse</strong>
+    Cooking oil-ஐ repeatedly reuse செய்வதை தவிர்க்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🍳 Cooking Method</strong>
+    Steam, boil, pressure cook, grill போன்ற methods-ஐ தேவைக்கு ஏற்ப பயன்படுத்துங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🫒 Oil Variety</strong>
+    உங்கள் உணவு முறைக்கு ஏற்ற cooking oil-ஐ தேர்வு செய்து, quantity-ஐ கவனியுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧾 Label Check</strong>
+    Oil வாங்கும்போது nutrition information மற்றும் ingredients பாருங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 8 PALM OIL -->
+<section class="source-menu" id="palm-oil">
+
+  <div class="popup-note">
+    🌴 Palm oil-ஐ “poison” என்று சொல்ல வேண்டாம்.
+    ஆனால் palm oil saturated fat-ன் ஒரு source என்பதால் overall saturated-fat intake-ஐ கவனிப்பது முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🌴 Palm Oil</strong>
+    Palm oil உள்ள processed foods-ஐ அடிக்கடி/அதிகமாக சாப்பிடாமல் இருக்கலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧾 Ingredient List</strong>
+    Biscuit, bakery, snacks, packaged foods வாங்கும்போது ingredients list பாருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥐 Bakery Foods</strong>
+    Cakes, pastries, biscuits, wafers போன்றவற்றை அடிக்கடி சாப்பிடுவதை குறைக்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>❤️ Overall Fat</strong>
+    ஒரு ingredient மட்டும் பார்த்து முடிவு செய்யாமல் total saturated fat + trans fat + serving size-ஐயும் பாருங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 9 DEEP FRIED -->
+<section class="source-menu" id="deep-fry">
+
+  <div class="popup-note">
+    🍟 Deep-fried food-ஐ daily food ஆக மாற்றாமல் occasional food ஆக வைத்துக்கொள்ளுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🍟 Deep Fried Snacks</strong>
+    Bajji, bonda, pakoda, chips, fries போன்றவற்றை அடிக்கடி சாப்பிடுவதை குறைக்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔥 High Heat</strong>
+    Oil-ஐ தேவையில்லாமல் repeatedly அதிகமாக heat செய்ய வேண்டாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔄 Reused Oil</strong>
+    Repeatedly used frying oil-ஐ மீண்டும் மீண்டும் பயன்படுத்த வேண்டாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥣 Alternative Cooking</strong>
+    Steam, boil, saute, grill, bake போன்ற methods-ஐ பயன்படுத்தலாம்.
+  </div>
+
+</section>
+
+
+<!-- 10 CHOLESTEROL -->
+<section class="source-menu" id="cholesterol">
+
+  <div class="popup-note">
+    ❤️ “Cholesterol உள்ள food = உடனே bad” என்று simple-ஆக பார்க்க வேண்டாம்.
+    Blood cholesterol மற்றும் food cholesterol இரண்டும் ஒரே விஷயம் இல்லை.
+  </div>
+
+  <div class="menu-item">
+    <strong>🩸 Blood Cholesterol</strong>
+    Cholesterol level தெரிந்துகொள்ள blood test மருத்துவர் advice-க்கு ஏற்ப செய்யலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥓 Saturated Fat</strong>
+    Saturated fat அதிகம் உள்ள foods-ஐ குறைப்பது முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🚫 Trans Fat</strong>
+    Industrial trans fat உள்ள foods-ஐ தவிர்ப்பது முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥗 Better Pattern</strong>
+    Vegetables, fruits, whole grains, pulses போன்ற diverse foods-ஐ diet-ல் சேர்க்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>👨‍⚕️ Report Abnormal?</strong>
+    Blood cholesterol அதிகமாக இருந்தால் தனியாக diet changes செய்யாமல் doctor/dietitian advice பெறுங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 11 AVOID / LIMIT -->
+<section class="source-menu" id="avoid-list">
+
+  <div class="popup-note">
+    🚫 இந்த list “எதையும் சாப்பிடக்கூடாது” என்பதற்காக இல்லை.
+    Daily habit-ஆக அதிகமாகிவிடும் விஷயங்களை குறைக்க உதவும் checklist.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔴 அதிக Sugar</strong>
+    Sweets, sugary drinks, added/free sugar அதிகமாக வேண்டாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔴 அதிக Salt</strong>
+    அதிக salt மற்றும் high-sodium packaged foods குறைக்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔴 Deep Fried</strong>
+    Deep-fried foods அடிக்கடி வேண்டாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔴 Reused Oil</strong>
+    Repeatedly reused frying oil-ஐ தவிர்க்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔴 Industrial Trans Fat</strong>
+    Partially hydrogenated oils / industrial trans fat உள்ள foods-ஐ தவிர்க்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🟠 அதிக Saturated Fat</strong>
+    Butter, ghee, fatty meat, palm oil, coconut oil போன்ற saturated-fat sources-ஐ overall quantity-ல் கவனிக்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🟠 Highly Processed Foods</strong>
+    Highly processed snacks மற்றும் ready-to-eat foods-ஐ அடிக்கடி சாப்பிடுவதை குறைக்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🟠 Excess Bakery Foods</strong>
+    Biscuits, cakes, pastries, wafers போன்றவற்றை regular staple food ஆக மாற்ற வேண்டாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🚫 Tobacco</strong>
+    Smoking / tobacco products health-க்கு harmful; தவிர்ப்பது முக்கியம்.
+  </div>
+
+</section>
+
+  <!-- 12 PLASTIC -->
+<section class="source-menu" id="plastic">
+
+  <div class="popup-note">
+    ♻️ Plastic-ஐ “எல்லா plastic-உம் dangerous” என்று சொல்லாமல்,
+    unnecessary single-use plastic மற்றும் unsuitable food use-ஐ குறைப்பதே practical approach.
+  </div>
+
+  <div class="menu-item">
+    <strong>♻️ Reduce Single Use</strong>
+    தேவையில்லாத single-use plastic items-ஐ குறைக்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔥 Plastic + Heat</strong>
+    Food-ஐ unsuitable plastic containers-ல் heat செய்ய வேண்டாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥣 Food Storage</strong>
+    Food storage-க்கு suitable food-safe containers பயன்படுத்துங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🫙 Glass</strong>
+    வீட்டில் தேவைக்கு ஏற்ற இடங்களில் glass containers பயன்படுத்தலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥣 Stainless Steel</strong>
+    Food/water storage-க்கு suitable stainless-steel containers பயன்படுத்தலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>⚠️ Damaged Containers</strong>
+    Cracked / badly damaged food containers-ஐ replace செய்யுங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 13 HEALTHY KITCHEN -->
+<section class="source-menu" id="healthy-kitchen">
+
+  <div class="popup-note">
+    🍳 Healthy family-க்கு kitchen hygiene + cooking habits இரண்டும் முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧼 Kitchen Clean</strong>
+    Cooking area மற்றும் frequently touched surfaces clean வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥬 Vegetables</strong>
+    Vegetables-ஐ safe drinking-quality water பயன்படுத்தி தேவையான முறையில் clean செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥩 Raw + Cooked</strong>
+    Raw meat மற்றும் cooked food cross-contamination ஆகாமல் separate handling செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧊 Food Storage</strong>
+    Perishable foods-ஐ appropriate temperature/storage-ல் வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🍳 Cooking Oil</strong>
+    Oil-ஐ அதிகமாகவும் repeatedly reuse செய்யாமலும் இருக்கவும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧂 Salt + Sugar</strong>
+    Cooking-ல் salt மற்றும் added sugar-ஐ தேவையான அளவுக்குள் வைத்துக்கொள்ளுங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 14 WATER -->
+<section class="source-menu" id="water">
+
+  <div class="popup-note">
+    💧 குடிக்கும் தண்ணீர் safe-ஆக இருப்பது family health-க்கு அடிப்படை.
+  </div>
+
+  <div class="menu-item">
+    <strong>💧 Safe Drinking Water</strong>
+    Safe drinking water-ஐ மட்டும் பயன்படுத்துங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🚰 Water Filter</strong>
+    Filter இருந்தால் manufacturer instructions படி service செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔄 Filter Replacement</strong>
+    Filter cartridge/membrane replacement schedule-ஐ மறக்காதீங்க.
+  </div>
+
+  <div class="menu-item">
+    <strong>🫙 Water Bottles</strong>
+    Bottles மற்றும் storage containers-ஐ regularly clean செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧪 Water Quality</strong>
+    Water source பற்றி doubt இருந்தால் appropriate water-quality testing பற்றி கேளுங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 15 HOME HYGIENE -->
+<section class="source-menu" id="home-hygiene">
+
+  <div class="popup-note">
+    🏠 Healthy home = clean home + safe home + good ventilation.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧹 Dust</strong>
+    Dust build-up ஆகாமல் regular cleaning செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🌬️ Ventilation</strong>
+    முடிந்தவரை வீட்டில் நல்ல ventilation வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🦟 Mosquito</strong>
+    Standing water தேங்காமல் பார்த்துக்கொள்ளுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🪳 Pest Control</strong>
+    Kitchen மற்றும் storage areas-ல் pest prevention செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🛏️ Bedsheets</strong>
+    Bedsheets மற்றும் towels-ஐ regular-ஆக wash செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🗑️ Waste</strong>
+    Household waste-ஐ proper-ஆக dispose செய்யுங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 16 UTENSILS -->
+<section class="source-menu" id="utensils">
+
+  <div class="popup-note">
+    🍽️ Kitchen vessels தேர்வு செய்யும்போது food-safe use மற்றும் condition-ஐ கவனியுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🥣 Stainless Steel</strong>
+    Daily cooking/storage-க்கு suitable stainless-steel vessels ஒரு practical option.
+  </div>
+
+  <div class="menu-item">
+    <strong>🫙 Glass</strong>
+    Food storage-க்கு suitable glass containers பயன்படுத்தலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🍲 Traditional Vessels</strong>
+    Suitable traditional cooking vessels-ஐ முறையாக பயன்படுத்தலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>⚠️ Damaged Vessel</strong>
+    Deeply damaged, cracked அல்லது unsafe condition உள்ள vessels-ஐ replace செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔥 Heat Safety</strong>
+    எந்த vessel எந்த type of heat-க்கு suitable என்பதை manufacturer instructions படி பயன்படுத்துங்கள்.
+  </div>
+
+</section>
+
+  <!-- 17 EXERCISE -->
+<section class="source-menu" id="exercise">
+
+  <div class="popup-note">
+    🏃 Health என்பது food மட்டும் இல்லை. Regular physical activity-யும் முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🚶 Walking</strong>
+    Regular walking-ஐ daily routine-ல் சேர்க்கலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧘 Stretching</strong>
+    உடல் நிலைக்கு ஏற்ற stretching செய்யலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🧘 Yoga</strong>
+    Suitable yoga practice செய்யலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🚴 Cycling</strong>
+    உடல் நிலைக்கு ஏற்ற cycling போன்ற activities செய்யலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>💪 Strength Activity</strong>
+    Age மற்றும் fitness-க்கு ஏற்ற strength exercises செய்யலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🪑 Long Sitting</strong>
+    நீண்ட நேரம் தொடர்ந்து உட்காராமல் இடையிடையே movement செய்யுங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 18 SLEEP -->
+<section class="source-menu" id="sleep">
+
+  <div class="popup-note">
+    😴 Sleep-ஐ luxury மாதிரி பார்க்காமல் daily health routine-ன் ஒரு பகுதியாக பாருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>⏰ Regular Sleep</strong>
+    முடிந்தவரை regular sleep/wake timing வைத்துக்கொள்ளுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📱 Screen</strong>
+    Bedtime-க்கு முன் unnecessary screen usage-ஐ குறைக்கலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>☕ Caffeine</strong>
+    Late evening/night-ல் அதிக caffeine எடுத்துக்கொள்வதை தவிர்க்கலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🛏️ Bedroom</strong>
+    Comfortable, quiet sleep environment உருவாக்குங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>⚠️ Persistent Problem</strong>
+    தொடர்ந்து sleep problems இருந்தால் healthcare professional-ஐ அணுகுங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 19 FAMILY -->
+<section class="source-menu" id="family">
+
+  <div class="popup-note">
+    👨‍👩‍👧 ஒருவருடைய health மட்டும் இல்லை — குடும்பத்தோட health information-ஐயும் ஒழுங்காக வைத்திருக்க வேண்டும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📁 Family Health Records</strong>
+    Important medical reports-ஐ safe-ஆக வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>💊 Medicines List</strong>
+    Family members எடுத்துக்கொள்ளும் current medicines list வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>⚠️ Allergies</strong>
+    Known allergies இருந்தால் record வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>💉 Vaccination</strong>
+    Family vaccination records update-ஆக வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📞 Emergency Contacts</strong>
+    Family doctor / emergency contacts phone-ல் மட்டும் இல்லாமல் accessible-ஆக வைத்திருங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 20 HEALTH CHECK -->
+<section class="source-menu" id="health-check">
+
+  <div class="popup-note">
+    🩺 Test எல்லாம் எல்லாருக்கும் ஒரே மாதிரி தேவையில்லை.
+    Age, risk factors, symptoms, family history மற்றும் doctor advice முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🩸 Blood Pressure</strong>
+    BP check தேவைக்கு ஏற்ப செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🩸 Blood Sugar</strong>
+    Blood sugar testing age/risk/doctor advice-க்கு ஏற்ப செய்யலாம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🩸 Cholesterol</strong>
+    Cholesterol test தேவையான interval-ல் healthcare professional advice-க்கு ஏற்ப செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>⚖️ Weight</strong>
+    Weight மற்றும் overall health changes-ஐ கவனியுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>👁️ Eye Check</strong>
+    Vision changes அல்லது age/risk அடிப்படையில் eye check செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🦷 Dental Check</strong>
+    Regular dental care மற்றும் தேவையான check-up செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🩺 General Check</strong>
+    உங்கள் age மற்றும் health history-க்கு ஏற்ற preventive check-up பற்றி doctor-ஐ கேளுங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 21 HEALTH INSURANCE -->
+<section class="source-menu" id="insurance">
+
+  <div class="popup-note">
+    🛡️ Health care என்பது illness வந்த பிறகு மட்டும் அல்ல.
+    Financial protection-ஐயும் முன்கூட்டியே plan செய்ய வேண்டும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🛡️ Health Insurance</strong>
+    Family-க்கு தேவையான health insurance coverage பற்றி research செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📄 Policy Details</strong>
+    Coverage, exclusions, waiting periods, claim rules ஆகியவற்றை புரிந்து கொள்ளுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🏥 Hospital Network</strong>
+    Cashless/network hospital details தெரிந்து வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📅 Renewal</strong>
+    Policy renewal date-ஐ calendar-ல் reminder வையுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📞 Emergency Information</strong>
+    Insurer/customer-care details family members-க்கு தெரிந்திருக்கட்டும்.
+  </div>
+
+</section>
+
+
+<!-- 22 MEDICINE -->
+<section class="source-menu" id="medicine">
+
+  <div class="popup-note">
+    💊 Medicine-ஐ “health supplement” மாதிரி self-use செய்யாமல், prescribed medicines-ஐ சரியாக manage செய்வது முக்கியம்.
+  </div>
+
+  <div class="menu-item">
+    <strong>💊 Current Medicines</strong>
+    Family members எடுத்துக்கொள்ளும் medicines list வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📋 Prescription</strong>
+    Current prescriptions / medical records safe-ஆக வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📅 Expiry</strong>
+    Medicine expiry date check செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🔒 Safe Storage</strong>
+    Medicines-ஐ label மற்றும் storage instructions படி வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🚫 Self Medication</strong>
+    Prescription medicines-ஐ doctor advice இல்லாமல் start/stop/change செய்ய வேண்டாம்.
+  </div>
+
+</section>
+
+  <!-- 23 EMERGENCY -->
+<section class="source-menu" id="emergency">
+
+  <div class="popup-note">
+    🚨 Emergency நேரத்தில் தேடிக்கொண்டிருக்காமல் information ready-ஆக இருக்க வேண்டும்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📞 Emergency Numbers</strong>
+    Local emergency numbers மற்றும் important contacts save செய்யுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🏥 Nearby Hospital</strong>
+    வீட்டிற்கு அருகிலுள்ள suitable hospital details தெரிந்து வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>👨‍⚕️ Doctor Contact</strong>
+    Family doctor / regular healthcare provider contact வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>📁 Medical Reports</strong>
+    Important medical reports easily accessible-ஆக வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>💊 Medicine List</strong>
+    Current medicines மற்றும் allergies information ready-ஆக வைத்திருங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🛡️ Insurance</strong>
+    Insurance details மற்றும் policy number/document accessible-ஆக வைத்திருங்கள்.
+  </div>
+
+</section>
+
+
+<!-- 24 REMINDERS -->
+<section class="source-menu" id="reminders">
+
+  <div class="popup-note">
+    📅 Health care-ஐ நினைவில் வைத்திருப்பதற்குப் பதிலாக reminders வைத்துக்கொள்ளுங்கள்.
+  </div>
+
+  <div class="menu-item">
+    <strong>🦷 Dental Reminder</strong>
+    Dental check-up / dental care reminder.
+  </div>
+
+  <div class="menu-item">
+    <strong>👁️ Eye Reminder</strong>
+    தேவைக்கு ஏற்ப eye check reminder.
+  </div>
+
+  <div class="menu-item">
+    <strong>🩸 Health Check</strong>
+    Doctor-recommended BP, sugar, cholesterol அல்லது other check-up reminder.
+  </div>
+
+  <div class="menu-item">
+    <strong>🛡️ Insurance Renewal</strong>
+    Insurance renewal reminder.
+  </div>
+
+  <div class="menu-item">
+    <strong>🚰 Water Filter</strong>
+    Filter service/replacement reminder.
+  </div>
+
+  <div class="menu-item">
+    <strong>💊 Medicine Expiry</strong>
+    Medicine expiry check reminder.
+  </div>
+
+  <div class="menu-item">
+    <strong>💉 Vaccination</strong>
+    Family vaccination records/reminders.
+  </div>
+
+</section>
+
+
+</div>
+</main>
+
+
+<div class="footer">
+  ❤️ Healthy Lifestyle • Complete Family Care<br>
+  Pyncode Planner
+</div>
+
+
+<!-- POPUP -->
+
+<div class="popup" id="menuPopup">
+
+  <div class="popup-box">
+
+    <div class="popup-header">
+
+      <div class="popup-top">
+
+        <div class="popup-title" id="popupTitle">
+          Healthy Lifestyle
+        </div>
+
+        <button
+          class="popup-close"
+          id="popupClose"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div class="popup-search">
+
+        <input
+          id="popupSearch"
+          type="search"
+          placeholder="இந்த category-ல் தேடுங்கள்..."
+          autocomplete="off"
+        >
+
+      </div>
+
+    </div>
+
+    <div
+      class="popup-content"
+      id="popupList"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const categories = [
+
+  {
+    id:"personal-dental",
+    icon:"🪥",
+    title:"Personal & Dental Care",
+    desc:"Toothpaste, brush, floss & daily oral care"
+  },
+
+  {
+    id:"personal-hygiene",
+    icon:"🧼",
+    title:"Personal Hygiene",
+    desc:"Bath, shampoo, skin & daily hygiene"
+  },
+
+  {
+    id:"smart-shopping",
+    icon:"🛒",
+    title:"Smart Health Shopping",
+    desc:"Product வாங்கும்போது என்ன பார்க்க வேண்டும்?"
+  },
+
+  {
+    id:"healthy-food",
+    icon:"🥗",
+    title:"Healthy Food",
+    desc:"Daily food choices"
+  },
+
+  {
+    id:"sugar",
+    icon:"🍬",
+    title:"Sugar",
+    desc:"Sugar & sugary food கவனம்"
+  },
+
+  {
+    id:"salt",
+    icon:"🧂",
+    title:"Salt",
+    desc:"Salt & sodium கவனம்"
+  },
+
+  {
+    id:"cooking-oil",
+    icon:"🫒",
+    title:"Cooking Oil",
+    desc:"Oil quantity, reuse & cooking"
+  },
+
+  {
+    id:"palm-oil",
+    icon:"🌴",
+    title:"Palm Oil",
+    desc:"Packaged food label-ல் கவனிக்க"
+  },
+
+  {
+    id:"deep-fry",
+    icon:"🍟",
+    title:"Deep Fry",
+    desc:"Fried food & reused oil"
+  },
+
+  {
+    id:"cholesterol",
+    icon:"❤️",
+    title:"Cholesterol",
+    desc:"Blood cholesterol & food choices"
+  },
+
+  {
+    id:"avoid-list",
+    icon:"🚫",
+    title:"Limit / Avoid",
+    desc:"Sugar, salt, fried, trans fat & more"
+  },
+
+  {
+    id:"plastic",
+    icon:"♻️",
+    title:"Plastic & Food Storage",
+    desc:"Plastic use & safe food storage"
+  },
+
+  {
+    id:"healthy-kitchen",
+    icon:"🍳",
+    title:"Healthy Kitchen",
+    desc:"Kitchen hygiene & cooking habits"
+  },
+
+  {
+    id:"water",
+    icon:"💧",
+    title:"Drinking Water",
+    desc:"Water safety & filter care"
+  },
+
+  {
+    id:"home-hygiene",
+    icon:"🏠",
+    title:"Healthy Home",
+    desc:"Cleaning, ventilation & pest care"
+  },
+
+  {
+    id:"utensils",
+    icon:"🍽️",
+    title:"Healthy Utensils",
+    desc:"Kitchen vessels & safe usage"
+  },
+
+  {
+    id:"exercise",
+    icon:"🏃",
+    title:"Exercise & Activity",
+    desc:"Walking, movement & fitness"
+  },
+
+  {
+    id:"sleep",
+    icon:"😴",
+    title:"Sleep & Rest",
+    desc:"Daily sleep habits"
+  },
+
+  {
+    id:"family",
+    icon:"👨‍👩‍👧",
+    title:"Family Health",
+    desc:"Family records & health care"
+  },
+
+  {
+    id:"health-check",
+    icon:"🩺",
+    title:"Health Check",
+    desc:"BP, sugar, cholesterol & check-ups"
+  },
+
+  {
+    id:"insurance",
+    icon:"🛡️",
+    title:"Health Insurance",
+    desc:"Coverage & renewal"
+  },
+
+  {
+    id:"medicine",
+    icon:"💊",
+    title:"Medicine & Records",
+    desc:"Medicine list, expiry & records"
+  },
+
+  {
+    id:"emergency",
+    icon:"🚨",
+    title:"Emergency Care",
+    desc:"Important information ready"
+  },
+
+  {
+    id:"reminders",
+    icon:"📅",
+    title:"Health Reminders",
+    desc:"Dental, check-up, insurance & more"
+  }
+
+];
+
+
+const categoryGrid =
+  document.getElementById("categoryGrid");
+
+const menuPopup =
+  document.getElementById("menuPopup");
+
+const popupTitle =
+  document.getElementById("popupTitle");
+
+const popupList =
+  document.getElementById("popupList");
+
+const popupSearch =
+  document.getElementById("popupSearch");
+
+const popupClose =
+  document.getElementById("popupClose");
+
+const mainSearch =
+  document.getElementById("mainSearch");
+
+
+/* CREATE CATEGORY CARDS */
+
+categories.forEach(function(category){
+
+  const card =
+    document.createElement("div");
+
+  card.className = "category-card";
+
+  card.innerHTML = `
+    <div class="category-icon">
+      ${category.icon}
+    </div>
+
+    <div class="category-title">
+      ${category.title}
+    </div>
+
+    <div class="category-desc">
+      ${category.desc}
+    </div>
+  `;
+
+  card.addEventListener("click",function(){
+
+    openMenu(category.id);
+
+  });
+
+  categoryGrid.appendChild(card);
+
+});
+
+
+/* OPEN POPUP */
+
+function openMenu(categoryId){
+
+  const category =
+    categories.find(function(item){
+      return item.id === categoryId;
+    });
+
+  const source =
+    document.getElementById(categoryId);
+
+  if(!category || !source){
+    return;
+  }
+
+  popupTitle.textContent =
+    category.icon + " " + category.title;
+
+  popupList.innerHTML = "";
+
+  const items =
+    source.querySelectorAll(".menu-item");
+
+  items.forEach(function(item){
+
+    const clone =
+      item.cloneNode(true);
+
+    clone.classList.add("popup-item");
+
+    popupList.appendChild(clone);
+
+  });
+
+  menuPopup.classList.add("show");
+
+  document.body.style.overflow = "hidden";
+
+  /* IMPORTANT:
+     Search input is NOT focused here.
+     So mobile keyboard will NOT open automatically.
+  */
+
+  popupSearch.value = "";
+
+}
+
+
+/* CLOSE POPUP */
+
+function closeMenu(){
+
+  menuPopup.classList.remove("show");
+
+  document.body.style.overflow = "";
+
+  popupSearch.value = "";
+
+}
+
+
+popupClose.addEventListener(
+  "click",
+  closeMenu
+);
+
+
+/* OUTSIDE TAP */
+
+menuPopup.addEventListener(
+  "click",
+  function(event){
+
+    if(event.target === menuPopup){
+      closeMenu();
+    }
+
+  }
+);
+
+
+/* ESCAPE */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Escape"){
+      closeMenu();
+    }
+
+  }
+);
+
+
+/* POPUP SEARCH */
+
+popupSearch.addEventListener(
+  "input",
+  function(){
+
+    const keyword =
+      popupSearch.value
+      .trim()
+      .toLowerCase();
+
+    const items =
+      popupList.querySelectorAll(".popup-item");
+
+    items.forEach(function(item){
+
+      const text =
+        item.textContent.toLowerCase();
+
+      if(
+        keyword === "" ||
+        text.includes(keyword)
+      ){
+
+        item.style.display = "";
+
+      }else{
+
+        item.style.display = "none";
+
+      }
+
+    });
+
+  }
+);
+
+
+/* MAIN SEARCH
+   Only Enter opens a category.
+   This avoids popup opening while user is typing.
+*/
+
+mainSearch.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key !== "Enter"){
+      return;
+    }
+
+    const keyword =
+      mainSearch.value
+      .trim()
+      .toLowerCase();
+
+    if(!keyword){
+      return;
+    }
+
+    const found =
+      categories.find(function(category){
+
+        const source =
+          document.getElementById(category.id);
+
+        if(!source){
+          return false;
+        }
+
+        const text =
+          (
+            category.title +
+            " " +
+            category.desc +
+            " " +
+            source.textContent
+          ).toLowerCase();
+
+        return text.includes(keyword);
+
+      });
+
+    if(found){
+
+      openMenu(found.id);
+
+    }else{
+
+      alert(
+        "இந்த health topic இப்போது கிடைக்கவில்லை."
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>

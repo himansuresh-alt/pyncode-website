@@ -727,46 +727,42 @@ body{
    FIXED BOTTOM NAVIGATION
 ===================================================== */
 
-.bottom-nav{
 
+.bottom-nav{
     position:fixed;
 
-    left:0;
-    right:0;
-    bottom:0;
+    left:10px;
+    right:10px;
+    bottom:10px;
 
     height:68px;
 
-    background:
-        rgba(255,255,255,.97);
+    background:#151d30;
 
-    border-top:
-        1px solid #e5e8ee;
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
 
     display:flex;
 
-    align-items:stretch;
+    align-items:center;
 
     justify-content:space-around;
+
+    padding:6px;
 
     z-index:9998;
 
     box-shadow:
-        0 -5px 20px
-        rgba(20,30,60,.08);
-
-    backdrop-filter:
-        blur(12px);
-
-    -webkit-backdrop-filter:
-        blur(12px);
-
+        0 8px 28px
+        rgba(10,20,40,.20);
 }
 
 
 .bottom-nav-item{
-
     flex:1;
+
+    height:56px;
 
     display:flex;
 
@@ -778,51 +774,82 @@ body{
 
     gap:4px;
 
+    border-radius:18px;
+
     text-decoration:none;
 
-    color:#7d8492;
+    color:#aeb6c5;
 
     font-size:11px;
 
     font-weight:800;
 
     transition:
+        background .2s ease,
         color .2s ease,
         transform .15s ease;
-
 }
 
 
 .bottom-nav-item .nav-icon{
-
-    font-size:22px;
+    font-size:21px;
 
     line-height:1;
-
 }
 
 
 .bottom-nav-item .nav-label{
-
     line-height:1.2;
-
 }
 
 
 .bottom-nav-item.active{
+    background:#ffffff;
 
-    color:#ef603e;
+    color:#151a28;
 
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,.08);
 }
 
 
 .bottom-nav-item:active{
-
-    transform:
-        scale(.94);
-
+    transform:scale(.95);
 }
 
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+    .bottom-nav{
+        left:10px;
+        right:10px;
+        bottom:10px;
+
+        height:68px;
+
+        border-radius:24px;
+
+        padding:6px;
+    }
+
+    .bottom-nav-item{
+        height:56px;
+
+        border-radius:18px;
+
+        font-size:10px;
+    }
+
+    .bottom-nav-item .nav-icon{
+        font-size:21px;
+    }
+
+}
 
 /* =====================================================
    TABLET
@@ -1249,7 +1276,7 @@ body{
         </span>
 
         <span class="nav-label">
-            category
+            Category
         </span>
 
     </a>
@@ -1270,8 +1297,25 @@ body{
 
     </a>
 
-</nav>
 
+    <!-- PLANNER -->
+
+    <a
+        href="planner.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            📋
+        </span>
+
+        <span class="nav-label">
+            Planner
+        </span>
+
+    </a>
+
+</nav>
 
 <script>
 
