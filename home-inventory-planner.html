@@ -222,83 +222,16 @@
 
     .page{
 
-      width:100%;
+  width:100%;
 
-      max-width:760px;
+  max-width:760px;
 
-      margin:0 auto;
+  margin:0 auto;
 
-      padding:
-        20px 15px 45px;
-
-    }
-
-
-    /* =====================================================
-       PREMIUM BACK BUTTON
-    ===================================================== */
-
-    .back-btn{
-
-      display:inline-flex;
-
-      align-items:center;
-
-      gap:8px;
-
-      min-height:40px;
-
-      padding:
-        0 14px;
-
-      margin-bottom:18px;
-
-      background:#ffffff;
-
-      border:
-        1px solid #e4e6ed;
-
-      border-radius:12px;
-
-      color:#303442;
-
-      font-size:13px;
-
-      font-weight:750;
-
-      box-shadow:
-        0 4px 15px
-        rgba(30,35,70,.055);
-
-      transition:
-        transform .18s ease,
-        box-shadow .18s ease,
-        border-color .18s ease;
+  padding:
+    20px 15px 110px;
 
     }
-
-
-    .back-btn:hover{
-
-      transform:
-        translateX(-2px);
-
-      border-color:#d6d8e3;
-
-      box-shadow:
-        0 7px 19px
-        rgba(30,35,70,.09);
-
-    }
-
-
-    .back-btn:active{
-
-      transform:
-        scale(.97);
-
-    }
-
 
     /* =====================================================
        HERO
@@ -1112,6 +1045,98 @@
 
     }
 
+/* =========================================
+   FIXED BACK TO PLANNER
+========================================= */
+
+.planner-fixed-back {
+
+    position: fixed;
+
+    left: 14px;
+    right: 14px;
+
+    bottom: calc(
+        12px + env(safe-area-inset-bottom, 0px)
+    );
+
+    z-index: 2000;
+
+    padding: 8px 0;
+
+    background: transparent;
+
+    border: none;
+
+    box-shadow: none;
+}
+
+
+.planner-fixed-back a {
+
+    width: 100%;
+
+    max-width: 760px;
+
+    min-height: 46px;
+
+    margin: 0 auto;
+
+    padding: 13px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            135deg,
+            #151d30,
+            #252e43
+        );
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 13px;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 5px 16px
+        rgba(20,28,50,.18);
+
+    transition:
+        transform .12s ease,
+        box-shadow .12s ease;
+}
+
+
+.planner-fixed-back a:active {
+
+    transform: scale(.98);
+
+    box-shadow:
+        0 3px 10px
+        rgba(20,28,50,.14);
+}
+
+
+.planner-fixed-back-icon {
+    display: none;
+}
+
   </style>
 
 </head>
@@ -1160,24 +1185,6 @@
 
   <main class="page">
 
-
-    <!-- ===================================================
-         BACK
-    =================================================== -->
-
-    <a
-      href="#"
-      class="back-btn"
-      onclick="history.back(); return false;"
-    >
-
-      ←
-
-      <span>
-        Back
-      </span>
-
-    </a>
 
 
 
@@ -2032,6 +2039,24 @@
     }
 
   </script>
+
+    <!-- =========================================
+     FIXED BACK TO PLANNER
+========================================= -->
+
+<nav class="planner-fixed-back">
+
+    <a href="planner.html">
+        <span class="planner-fixed-back-icon">
+            ←
+        </span>
+
+        <span>
+            Back to Planner
+        </span>
+    </a>
+
+</nav>
 
 
 </body>

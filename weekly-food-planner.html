@@ -113,27 +113,7 @@ a{
 
 }
 
-.back-btn{
 
-  display:inline-flex;
-
-  align-items:center;
-
-  gap:6px;
-
-  padding:9px 12px;
-
-  background:#fff;
-
-  border:1px solid var(--border);
-
-  border-radius:12px;
-
-  font-size:13px;
-
-  font-weight:700;
-
-}
 
 .brand{
 
@@ -1271,6 +1251,39 @@ a{
 
 }
 
+  .calendar-icon{
+  width:48px;
+  height:48px;
+  background:#ffffff;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 5px 14px rgba(60,40,20,.10);
+  border:1px solid #eee2d7;
+}
+
+.calendar-top{
+  height:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#e85d04;
+  color:#ffffff;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+
+.calendar-date{
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#ffffff;
+  color:#29231f;
+  font-size:18px;
+  font-weight:900;
+}
+
 </style>
 
 </head>
@@ -1283,22 +1296,11 @@ a{
 
   <div class="header-top">
 
-    <a
-      href="innaiku-enna-samayal.html"
-      class="back-btn"
-    >
-      ← Samayal Home
-    </a>
+   
 
     <div class="brand">
 
-      <div class="brand-title">
-        📅 Weekly Planner
-      </div>
-
-      <div class="brand-subtitle">
-        Pyncode Planner
-      </div>
+     
 
     </div>
 
@@ -1309,9 +1311,12 @@ a{
 
 <section class="hero">
 
-  <div class="hero-icon">
-    📅
+<div class="hero-icon">
+  <div class="calendar-icon">
+    <div class="calendar-top">DEC</div>
+    <div class="calendar-date">21</div>
   </div>
+</div>
 
   <h1>
     Weekly <span>Food Planner</span>
@@ -1702,30 +1707,204 @@ const mealTypes = [
   }
 ];
 
-
 /* =========================
    DISH DATABASE
+   BREAKFAST
 ========================= */
 
 const dishes = [
 
+/* =========================
+   IDLI
+========================= */
+
 {
-  id:"idli-sambar",
-  name:"Idli + Sambar",
+  id:"idli",
+  name:"Idli",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:15,
+  ingredients:[
+    "Idli rice",
+    "Urad dal"
+  ]
+},
+
+{
+  id:"mini-idli",
+  name:"Mini Idli",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:15,
+  ingredients:[
+    "Idli rice",
+    "Urad dal"
+  ]
+},
+
+{
+  id:"podi-idli",
+  name:"Podi Idli",
+  meal:"breakfast",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Idli",
+    "Idli podi",
+    "Oil"
+  ]
+},
+
+{
+  id:"ghee-idli",
+  name:"Ghee Idli",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:15,
+  ingredients:[
+    "Idli",
+    "Ghee"
+  ]
+},
+
+{
+  id:"sambar-idli",
+  name:"Sambar Idli",
+  meal:"breakfast",
   type:"veg",
   tags:["healthy","budget"],
   time:25,
   ingredients:[
-    "Idli rice",
-    "Urad dal",
+    "Idli",
     "Toor dal",
-    "Vegetables"
+    "Vegetables",
+    "Sambar powder"
+  ]
+},
+
+{
+  id:"thatte-idli",
+  name:"Thatte Idli",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Urad dal"
+  ]
+},
+
+/* =========================
+   DOSA
+========================= */
+
+{
+  id:"plain-dosa",
+  name:"Plain Dosa",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Oil"
+  ]
+},
+
+{
+  id:"masala-dosa",
+  name:"Masala Dosa",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Dosa batter",
+    "Potato",
+    "Onion",
+    "Oil"
+  ]
+},
+
+{
+  id:"onion-dosa",
+  name:"Onion Dosa",
+  meal:"breakfast",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Onion",
+    "Oil"
+  ]
+},
+
+{
+  id:"podi-dosa",
+  name:"Podi Dosa",
+  meal:"breakfast",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Idli podi",
+    "Oil"
+  ]
+},
+
+{
+  id:"ghee-dosa",
+  name:"Ghee Dosa",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Ghee"
+  ]
+},
+
+{
+  id:"ghee-podi-dosa",
+  name:"Ghee Podi Dosa",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Ghee",
+    "Idli podi"
+  ]
+},
+
+{
+  id:"rava-dosa",
+  name:"Rava Dosa",
+  meal:"breakfast",
+  type:"veg",
+  tags:["quick"],
+  time:20,
+  ingredients:[
+    "Rava",
+    "Rice flour",
+    "Onion",
+    "Green chilli"
   ]
 },
 
 {
   id:"ragi-dosa",
   name:"Ragi Dosa",
+  meal:"breakfast",
   type:"veg",
   tags:["healthy","quick"],
   time:20,
@@ -1738,22 +1917,400 @@ const dishes = [
 },
 
 {
-  id:"vegetable-upma",
-  name:"Vegetable Upma",
+  id:"wheat-dosa",
+  name:"Wheat Dosa",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:15,
+  ingredients:[
+    "Wheat flour",
+    "Onion",
+    "Green chilli"
+  ]
+},
+
+{
+  id:"tomato-dosa",
+  name:"Tomato Dosa",
+  meal:"breakfast",
+  type:"veg",
+  tags:["quick"],
+  time:20,
+  ingredients:[
+    "Dosa batter",
+    "Tomato",
+    "Onion",
+    "Chilli"
+  ]
+},
+
+{
+  id:"carrot-dosa",
+  name:"Carrot Dosa",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy"],
+  time:20,
+  ingredients:[
+    "Dosa batter",
+    "Carrot",
+    "Onion"
+  ]
+},
+
+{
+  id:"egg-dosa",
+  name:"Egg Dosa",
+  meal:"breakfast",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Egg",
+    "Onion"
+  ]
+},
+
+{
+  id:"egg-podi-dosa",
+  name:"Egg Podi Dosa",
+  meal:"breakfast",
+  type:"nonveg",
+  tags:["quick"],
+  time:18,
+  ingredients:[
+    "Dosa batter",
+    "Egg",
+    "Idli podi"
+  ]
+},
+
+/* =========================
+   UTTAPAM
+========================= */
+
+{
+  id:"plain-uttapam",
+  name:"Plain Uttapam",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Dosa batter",
+    "Oil"
+  ]
+},
+
+{
+  id:"onion-uttapam",
+  name:"Onion Uttapam",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Dosa batter",
+    "Onion"
+  ]
+},
+
+{
+  id:"tomato-uttapam",
+  name:"Tomato Uttapam",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy"],
+  time:20,
+  ingredients:[
+    "Dosa batter",
+    "Tomato",
+    "Onion"
+  ]
+},
+
+{
+  id:"vegetable-uttapam",
+  name:"Vegetable Uttapam",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy"],
+  time:25,
+  ingredients:[
+    "Dosa batter",
+    "Carrot",
+    "Onion",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"podi-uttapam",
+  name:"Podi Uttapam",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Dosa batter",
+    "Idli podi",
+    "Onion"
+  ]
+},
+
+/* =========================
+   PONGAL
+========================= */
+
+{
+  id:"ven-pongal",
+  name:"Ven Pongal",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Moong dal",
+    "Pepper",
+    "Ginger"
+  ]
+},
+
+{
+  id:"ghee-pongal",
+  name:"Ghee Pongal",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Moong dal",
+    "Ghee",
+    "Pepper"
+  ]
+},
+
+{
+  id:"sweet-pongal",
+  name:"Sweet Pongal",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Moong dal",
+    "Jaggery",
+    "Ghee"
+  ]
+},
+
+/* =========================
+   UPMA
+========================= */
+
+{
+  id:"rava-upma",
+  name:"Rava Upma",
+  meal:"breakfast",
   type:"veg",
   tags:["healthy","budget","quick"],
   time:20,
   ingredients:[
     "Rava",
     "Onion",
-    "Carrot",
-    "Beans"
+    "Green chilli"
   ]
 },
 
 {
+  id:"vegetable-upma",
+  name:"Vegetable Upma",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rava",
+    "Carrot",
+    "Beans",
+    "Onion"
+  ]
+},
+
+{
+  id:"semiya-upma",
+  name:"Semiya Upma",
+  meal:"breakfast",
+  type:"veg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Vermicelli",
+    "Onion",
+    "Carrot"
+  ]
+},
+
+{
+  id:"vegetable-semiya",
+  name:"Vegetable Semiya",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:25,
+  ingredients:[
+    "Vermicelli",
+    "Carrot",
+    "Beans",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"rava-kichadi",
+  name:"Rava Kichadi",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rava",
+    "Vegetables",
+    "Onion"
+  ]
+},
+
+/* =========================
+   POORI
+========================= */
+
+{
+  id:"poori-masala",
+  name:"Poori + Potato Masala",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Wheat flour",
+    "Potato",
+    "Onion"
+  ]
+},
+
+{
+  id:"poori-channa",
+  name:"Poori + Channa Masala",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy"],
+  time:35,
+  ingredients:[
+    "Wheat flour",
+    "Chickpeas",
+    "Onion",
+    "Tomato"
+  ]
+},
+
+/* =========================
+   APPAM / IDIYAPPAM
+========================= */
+
+{
+  id:"appam",
+  name:"Appam",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Coconut"
+  ]
+},
+
+{
+  id:"appam-coconut-milk",
+  name:"Appam + Coconut Milk",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Coconut",
+    "Coconut milk"
+  ]
+},
+
+{
+  id:"appam-veg-kurma",
+  name:"Appam + Vegetable Kurma",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy"],
+  time:35,
+  ingredients:[
+    "Rice",
+    "Coconut",
+    "Mixed vegetables"
+  ]
+},
+
+{
+  id:"idiyappam",
+  name:"Idiyappam",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy"],
+  time:25,
+  ingredients:[
+    "Rice flour"
+  ]
+},
+
+{
+  id:"idiyappam-coconut-milk",
+  name:"Idiyappam + Coconut Milk",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Rice flour",
+    "Coconut",
+    "Coconut milk"
+  ]
+},
+
+{
+  id:"idiyappam-veg-kurma",
+  name:"Idiyappam + Vegetable Kurma",
+  meal:"breakfast",
+  type:"veg",
+  tags:["healthy"],
+  time:35,
+  ingredients:[
+    "Rice flour",
+    "Mixed vegetables",
+    "Coconut"
+  ]
+},
+
+/* =========================
+   POHA / SEMIYA
+========================= */
+
+{
   id:"poha",
   name:"Vegetable Poha",
+  meal:"breakfast",
   type:"veg",
   tags:["healthy","budget","quick"],
   time:15,
@@ -1766,135 +2323,91 @@ const dishes = [
 },
 
 {
-  id:"pongal",
-  name:"Ven Pongal",
+  id:"lemon-sevai",
+  name:"Lemon Sevai",
+  meal:"breakfast",
   type:"veg",
-  tags:["healthy","budget"],
-  time:25,
+  tags:["quick","budget"],
+  time:20,
   ingredients:[
-    "Rice",
-    "Moong dal",
-    "Pepper",
-    "Ginger"
+    "Rice sevai",
+    "Lemon",
+    "Peanuts"
   ]
 },
 
 {
-  id:"dosa",
-  name:"Plain Dosa",
+  id:"coconut-sevai",
+  name:"Coconut Sevai",
+  meal:"breakfast",
   type:"veg",
   tags:["budget"],
   time:20,
   ingredients:[
-    "Dosa batter",
+    "Rice sevai",
+    "Coconut",
+    "Green chilli"
+  ]
+},
+
+/* =========================
+   PANIYARAM
+========================= */
+
+{
+  id:"plain-paniyaram",
+  name:"Plain Paniyaram",
+  meal:"breakfast",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Idli batter",
     "Oil"
   ]
 },
 
 {
-  id:"chapati",
-  name:"Chapati + Vegetable Kurma",
+  id:"masala-paniyaram",
+  name:"Masala Paniyaram",
+  meal:"breakfast",
   type:"veg",
-  tags:["healthy","budget"],
-  time:30,
-  ingredients:[
-    "Wheat atta",
-    "Mixed vegetables",
-    "Coconut"
-  ]
-},
-
-{
-  id:"bread-omelette",
-  name:"Bread Omelette",
-  type:"nonveg",
   tags:["quick","budget"],
-  time:10,
-  ingredients:[
-    "Egg",
-    "Bread",
-    "Onion",
-    "Green chilli"
-  ]
-},
-
-{
-  id:"egg-dosa",
-  name:"Egg Dosa",
-  type:"nonveg",
-  tags:["quick","budget"],
-  time:15,
-  ingredients:[
-    "Dosa batter",
-    "Egg",
-    "Onion"
-  ]
-},
-
-{
-  id:"vegetable-rice",
-  name:"Vegetable Rice",
-  type:"veg",
-  tags:["budget","quick"],
   time:25,
   ingredients:[
-    "Rice",
-    "Carrot",
-    "Beans",
-    "Capsicum"
+    "Idli batter",
+    "Onion",
+    "Green chilli"
   ]
 },
 
+/* =========================
+   VADA
+========================= */
+
 {
-  id:"lemon-rice",
-  name:"Lemon Rice",
+  id:"medu-vada",
+  name:"Medu Vada",
+  meal:"breakfast",
   type:"veg",
-  tags:["quick","budget"],
-  time:15,
+  tags:["budget"],
+  time:30,
   ingredients:[
-    "Rice",
-    "Lemon",
-    "Peanuts",
+    "Urad dal",
+    "Pepper",
     "Green chilli"
   ]
 },
 
 {
-  id:"tomato-rice",
-  name:"Tomato Rice",
+  id:"sambar-vada",
+  name:"Sambar Vada",
+  meal:"breakfast",
   type:"veg",
-  tags:["budget","quick"],
-  time:20,
+  tags:["budget"],
+  time:35,
   ingredients:[
-    "Rice",
-    "Tomato",
-    "Onion",
-    "Masala"
-  ]
-},
-
-{
-  id:"curd-rice",
-  name:"Curd Rice",
-  type:"veg",
-  tags:["healthy","budget","quick"],
-  time:10,
-  ingredients:[
-    "Rice",
-    "Curd",
-    "Milk",
-    "Ginger"
-  ]
-},
-
-{
-  id:"sambar-rice",
-  name:"Sambar Rice",
-  type:"veg",
-  tags:["healthy","budget"],
-  time:30,
-  ingredients:[
-    "Rice",
+    "Urad dal",
     "Toor dal",
     "Vegetables",
     "Sambar powder"
@@ -1902,334 +2415,42 @@ const dishes = [
 },
 
 {
-  id:"dal-rice",
-  name:"Dal Rice",
+  id:"masala-vada",
+  name:"Masala Vada",
+  meal:"breakfast",
   type:"veg",
-  tags:["healthy","budget"],
-  time:25,
-  ingredients:[
-    "Rice",
-    "Toor dal",
-    "Vegetables"
-  ]
-},
-
-{
-  id:"keerai-dal",
-  name:"Keerai Dal Rice",
-  type:"veg",
-  tags:["healthy","budget"],
-  time:30,
-  ingredients:[
-    "Rice",
-    "Toor dal",
-    "Keerai",
-    "Garlic"
-  ]
-},
-
-{
-  id:"vegetable-biryani",
-  name:"Vegetable Biryani",
-  type:"veg",
-  tags:["healthy"],
-  time:45,
-  ingredients:[
-    "Basmati rice",
-    "Mixed vegetables",
-    "Biryani masala",
-    "Mint"
-  ]
-},
-
-{
-  id:"chicken-biryani",
-  name:"Chicken Biryani",
-  type:"nonveg",
-  tags:[],
-  time:60,
-  ingredients:[
-    "Basmati rice",
-    "Chicken",
-    "Onion",
-    "Biryani masala",
-    "Mint"
-  ]
-},
-
-{
-  id:"chicken-curry",
-  name:"Chicken Curry + Rice",
-  type:"nonveg",
-  tags:["healthy"],
-  time:40,
-  ingredients:[
-    "Chicken",
-    "Rice",
-    "Onion",
-    "Tomato",
-    "Masala"
-  ]
-},
-
-{
-  id:"chicken-pepper",
-  name:"Chicken Pepper",
-  type:"nonveg",
-  tags:["quick"],
-  time:30,
-  ingredients:[
-    "Chicken",
-    "Pepper",
-    "Onion",
-    "Ginger",
-    "Garlic"
-  ]
-},
-
-{
-  id:"chicken-fried-rice",
-  name:"Chicken Fried Rice",
-  type:"nonveg",
-  tags:["quick"],
-  time:30,
-  ingredients:[
-    "Rice",
-    "Chicken",
-    "Egg",
-    "Carrot",
-    "Beans"
-  ]
-},
-
-{
-  id:"fish-fry",
-  name:"Fish Fry + Rice",
-  type:"nonveg",
-  tags:["quick"],
-  time:25,
-  ingredients:[
-    "Fish",
-    "Rice",
-    "Chilli powder",
-    "Lemon"
-  ]
-},
-
-{
-  id:"fish-curry",
-  name:"Fish Curry + Rice",
-  type:"nonveg",
-  tags:["healthy"],
-  time:35,
-  ingredients:[
-    "Fish",
-    "Rice",
-    "Tamarind",
-    "Onion",
-    "Tomato"
-  ]
-},
-
-{
-  id:"prawn-masala",
-  name:"Prawn Masala + Rice",
-  type:"nonveg",
-  tags:[],
-  time:30,
-  ingredients:[
-    "Prawn",
-    "Rice",
-    "Onion",
-    "Tomato",
-    "Masala"
-  ]
-},
-
-{
-  id:"mutton-curry",
-  name:"Mutton Curry + Rice",
-  type:"nonveg",
-  tags:[],
-  time:60,
-  ingredients:[
-    "Mutton",
-    "Rice",
-    "Onion",
-    "Tomato",
-    "Masala"
-  ]
-},
-
-{
-  id:"egg-curry",
-  name:"Egg Curry + Rice",
-  type:"nonveg",
   tags:["budget"],
-  time:25,
+  time:30,
   ingredients:[
-    "Egg",
-    "Rice",
+    "Chana dal",
     "Onion",
-    "Tomato"
+    "Green chilli"
   ]
 },
 
+/* =========================
+   EGG / BREAD
+========================= */
+
 {
-  id:"egg-rice",
-  name:"Egg Fried Rice",
+  id:"bread-omelette",
+  name:"Bread Omelette",
+  meal:"breakfast",
   type:"nonveg",
   tags:["quick","budget"],
-  time:20,
-  ingredients:[
-    "Rice",
-    "Egg",
-    "Carrot",
-    "Beans"
-  ]
-},
-
-{
-  id:"veg-fried-rice",
-  name:"Vegetable Fried Rice",
-  type:"veg",
-  tags:["quick","budget"],
-  time:20,
-  ingredients:[
-    "Rice",
-    "Carrot",
-    "Beans",
-    "Capsicum"
-  ]
-},
-
-{
-  id:"paneer-rice",
-  name:"Paneer Fried Rice",
-  type:"veg",
-  tags:["healthy"],
-  time:25,
-  ingredients:[
-    "Rice",
-    "Paneer",
-    "Carrot",
-    "Capsicum"
-  ]
-},
-
-{
-  id:"paneer-masala",
-  name:"Paneer Masala + Chapati",
-  type:"veg",
-  tags:["healthy"],
-  time:30,
-  ingredients:[
-    "Paneer",
-    "Chapati",
-    "Tomato",
-    "Onion"
-  ]
-},
-
-{
-  id:"vegetable-kurma",
-  name:"Vegetable Kurma + Chapati",
-  type:"veg",
-  tags:["healthy","budget"],
-  time:35,
-  ingredients:[
-    "Mixed vegetables",
-    "Coconut",
-    "Chapati"
-  ]
-},
-
-{
-  id:"dal-khichdi",
-  name:"Dal Khichdi",
-  type:"veg",
-  tags:["healthy","budget"],
-  time:30,
-  ingredients:[
-    "Rice",
-    "Moong dal",
-    "Vegetables"
-  ]
-},
-
-{
-  id:"vegetable-soup",
-  name:"Vegetable Soup",
-  type:"veg",
-  tags:["healthy","quick"],
-  time:20,
-  ingredients:[
-    "Carrot",
-    "Beans",
-    "Cabbage",
-    "Sweet corn"
-  ]
-},
-
-{
-  id:"chicken-soup",
-  name:"Chicken Soup",
-  type:"nonveg",
-  tags:["healthy"],
-  time:30,
-  ingredients:[
-    "Chicken",
-    "Carrot",
-    "Pepper",
-    "Ginger"
-  ]
-},
-
-{
-  id:"sprouts-salad",
-  name:"Sprouts Salad",
-  type:"veg",
-  tags:["healthy","quick"],
   time:10,
-  ingredients:[
-    "Sprouts",
-    "Tomato",
-    "Cucumber",
-    "Lemon"
-  ]
-},
-
-{
-  id:"sweet-corn-chaat",
-  name:"Sweet Corn Chaat",
-  type:"veg",
-  tags:["healthy","quick"],
-  time:10,
-  ingredients:[
-    "Sweet corn",
-    "Onion",
-    "Tomato",
-    "Lemon"
-  ]
-},
-
-{
-  id:"paneer-sandwich",
-  name:"Paneer Sandwich",
-  type:"veg",
-  tags:["quick"],
-  time:15,
   ingredients:[
     "Bread",
-    "Paneer",
+    "Egg",
     "Onion",
-    "Capsicum"
+    "Green chilli"
   ]
 },
 
 {
   id:"egg-sandwich",
   name:"Egg Sandwich",
+  meal:"breakfast",
   type:"nonveg",
   tags:["quick","budget"],
   time:12,
@@ -2241,223 +2462,28 @@ const dishes = [
 },
 
 {
-  id:"chicken-sandwich",
-  name:"Chicken Sandwich",
-  type:"nonveg",
-  tags:["quick"],
-  time:15,
-  ingredients:[
-    "Bread",
-    "Chicken",
-    "Lettuce",
-    "Onion"
-  ]
-},
-
-{
-  id:"bread-upma",
-  name:"Bread Upma",
-  type:"veg",
-  tags:["quick","budget"],
-  time:15,
-  ingredients:[
-    "Bread",
-    "Onion",
-    "Tomato",
-    "Green chilli"
-  ]
-},
-
-{
-  id:"potato-sandwich",
-  name:"Potato Sandwich",
-  type:"veg",
-  tags:["quick","budget"],
-  time:15,
-  ingredients:[
-    "Bread",
-    "Potato",
-    "Onion"
-  ]
-},
-
-{
-  id:"leftover-rice-upma",
-  name:"Leftover Rice Upma",
-  type:"veg",
-  tags:["quick","budget","leftover"],
-  time:10,
-  ingredients:[
-    "Leftover rice",
-    "Onion",
-    "Green chilli"
-  ]
-},
-
-{
-  id:"leftover-fried-rice",
-  name:"Leftover Rice Fried Rice",
-  type:"veg",
-  tags:["quick","budget","leftover"],
-  time:15,
-  ingredients:[
-    "Leftover rice",
-    "Carrot",
-    "Beans",
-    "Capsicum"
-  ]
-},
-
-{
-  id:"leftover-egg-rice",
-  name:"Leftover Rice Egg Fried Rice",
-  type:"nonveg",
-  tags:["quick","budget","leftover"],
-  time:15,
-  ingredients:[
-    "Leftover rice",
-    "Egg",
-    "Onion",
-    "Carrot"
-  ]
-},
-
-{
-  id:"coconut-rice",
-  name:"Coconut Rice",
-  type:"veg",
-  tags:["quick","budget"],
-  time:15,
-  ingredients:[
-    "Rice",
-    "Coconut",
-    "Green chilli",
-    "Peanuts"
-  ]
-},
-
-{
-  id:"vegetable-coconut-rice",
-  name:"Vegetable Coconut Rice",
-  type:"veg",
-  tags:["healthy"],
-  time:25,
-  ingredients:[
-    "Rice",
-    "Coconut",
-    "Carrot",
-    "Beans"
-  ]
-},
-
-{
-  id:"mushroom-rice",
-  name:"Mushroom Rice",
-  type:"veg",
-  tags:["quick"],
-  time:25,
-  ingredients:[
-    "Rice",
-    "Mushroom",
-    "Onion",
-    "Pepper"
-  ]
-},
-
-{
-  id:"mushroom-pepper",
-  name:"Mushroom Pepper Fry",
+  id:"vegetable-sandwich",
+  name:"Vegetable Sandwich",
+  meal:"breakfast",
   type:"veg",
   tags:["quick","healthy"],
-  time:20,
+  time:12,
   ingredients:[
-    "Mushroom",
-    "Pepper",
+    "Bread",
+    "Carrot",
+    "Capsicum",
     "Onion"
   ]
 },
 
-{
-  id:"gobi-fry",
-  name:"Gobi Fry",
-  type:"veg",
-  tags:["quick"],
-  time:25,
-  ingredients:[
-    "Cauliflower",
-    "Chilli powder",
-    "Rice flour"
-  ]
-},
-
-{
-  id:"potato-curry",
-  name:"Potato Onion Curry",
-  type:"veg",
-  tags:["budget","quick"],
-  time:20,
-  ingredients:[
-    "Potato",
-    "Onion",
-    "Chilli powder"
-  ]
-},
-
-{
-  id:"beans-poriyal",
-  name:"Beans Poriyal",
-  type:"veg",
-  tags:["healthy","budget","quick"],
-  time:15,
-  ingredients:[
-    "Beans",
-    "Coconut",
-    "Mustard"
-  ]
-},
-
-{
-  id:"carrot-beans",
-  name:"Carrot Beans Poriyal",
-  type:"veg",
-  tags:["healthy","budget"],
-  time:20,
-  ingredients:[
-    "Carrot",
-    "Beans",
-    "Coconut"
-  ]
-},
-
-{
-  id:"brinjal-curry",
-  name:"Brinjal Curry",
-  type:"veg",
-  tags:["budget"],
-  time:25,
-  ingredients:[
-    "Brinjal",
-    "Onion",
-    "Tomato"
-  ]
-},
-
-{
-  id:"ladies-finger",
-  name:"Ladies Finger Fry",
-  type:"veg",
-  tags:["quick","budget"],
-  time:20,
-  ingredients:[
-    "Ladies finger",
-    "Onion",
-    "Chilli powder"
-  ]
-},
+/* =========================
+   HEALTHY BREAKFAST
+========================= */
 
 {
   id:"oats-porridge",
   name:"Oats Porridge",
+  meal:"breakfast",
   type:"veg",
   tags:["healthy","quick"],
   time:10,
@@ -2471,6 +2497,7 @@ const dishes = [
 {
   id:"ragi-porridge",
   name:"Ragi Porridge",
+  meal:"breakfast",
   type:"veg",
   tags:["healthy","budget"],
   time:15,
@@ -2481,8 +2508,9 @@ const dishes = [
 },
 
 {
-  id:"fruit-curd",
+  id:"fruit-curd-bowl",
   name:"Fruit + Curd Bowl",
+  meal:"breakfast",
   type:"veg",
   tags:["healthy","quick"],
   time:5,
@@ -2493,6 +2521,2630 @@ const dishes = [
 }
 
 ];
+
+    /* =========================
+   LUNCH DATABASE
+========================= */
+
+dishes.push(
+
+{
+  id:"sambar-rice",
+  name:"Sambar Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Toor dal",
+    "Vegetables",
+    "Sambar powder"
+  ]
+},
+
+{
+  id:"rasam-rice",
+  name:"Rasam Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Tomato",
+    "Tamarind",
+    "Rasam powder"
+  ]
+},
+
+{
+  id:"curd-rice",
+  name:"Curd Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:10,
+  ingredients:[
+    "Rice",
+    "Curd",
+    "Milk"
+  ]
+},
+
+{
+  id:"lemon-rice",
+  name:"Lemon Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Rice",
+    "Lemon",
+    "Peanuts"
+  ]
+},
+
+{
+  id:"tomato-rice",
+  name:"Tomato Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Tomato",
+    "Onion"
+  ]
+},
+
+{
+  id:"coconut-rice",
+  name:"Coconut Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Rice",
+    "Coconut",
+    "Peanuts"
+  ]
+},
+
+{
+  id:"tamarind-rice",
+  name:"Tamarind Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Tamarind",
+    "Peanuts",
+    "Sesame"
+  ]
+},
+
+{
+  id:"mango-rice",
+  name:"Mango Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Raw mango",
+    "Peanuts"
+  ]
+},
+
+{
+  id:"mint-rice",
+  name:"Mint Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Mint leaves",
+    "Onion",
+    "Coconut"
+  ]
+},
+
+{
+  id:"coriander-rice",
+  name:"Coriander Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Coriander",
+    "Onion",
+    "Coconut"
+  ]
+},
+
+{
+  id:"vegetable-rice",
+  name:"Vegetable Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Carrot",
+    "Beans",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"jeera-rice",
+  name:"Jeera Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Jeera",
+    "Ghee"
+  ]
+},
+
+{
+  id:"veg-pulao",
+  name:"Vegetable Pulao",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Basmati rice",
+    "Mixed vegetables",
+    "Onion"
+  ]
+},
+
+{
+  id:"paneer-pulao",
+  name:"Paneer Pulao",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Basmati rice",
+    "Paneer",
+    "Mixed vegetables"
+  ]
+},
+
+{
+  id:"vegetable-biryani",
+  name:"Vegetable Biryani",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy"],
+  time:40,
+  ingredients:[
+    "Basmati rice",
+    "Mixed vegetables",
+    "Biryani masala"
+  ]
+},
+
+{
+  id:"chicken-biryani",
+  name:"Chicken Biryani",
+  meal:"lunch",
+  type:"nonveg",
+  tags:["budget"],
+  time:50,
+  ingredients:[
+    "Basmati rice",
+    "Chicken",
+    "Onion",
+    "Tomato",
+    "Biryani masala"
+  ]
+},
+
+{
+  id:"chicken-rice",
+  name:"Chicken Rice",
+  meal:"lunch",
+  type:"nonveg",
+  tags:["quick"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Chicken",
+    "Egg",
+    "Vegetables"
+  ]
+},
+
+{
+  id:"egg-rice",
+  name:"Egg Rice",
+  meal:"lunch",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Egg",
+    "Onion",
+    "Carrot"
+  ]
+},
+
+{
+  id:"egg-biryani",
+  name:"Egg Biryani",
+  meal:"lunch",
+  type:"nonveg",
+  tags:["budget"],
+  time:35,
+  ingredients:[
+    "Rice",
+    "Egg",
+    "Onion",
+    "Biryani masala"
+  ]
+},
+
+{
+  id:"fish-rice",
+  name:"Fish Rice",
+  meal:"lunch",
+  type:"nonveg",
+  tags:["healthy"],
+  time:35,
+  ingredients:[
+    "Rice",
+    "Fish",
+    "Onion",
+    "Spices"
+  ]
+},
+
+{
+  id:"chicken-meals",
+  name:"Chicken Meals",
+  meal:"lunch",
+  type:"nonveg",
+  tags:["budget"],
+  time:40,
+  ingredients:[
+    "Rice",
+    "Chicken",
+    "Sambar",
+    "Rasam",
+    "Vegetables"
+  ]
+},
+
+{
+  id:"fish-meals",
+  name:"Fish Meals",
+  meal:"lunch",
+  type:"nonveg",
+  tags:["healthy"],
+  time:40,
+  ingredients:[
+    "Rice",
+    "Fish",
+    "Sambar",
+    "Rasam",
+    "Vegetables"
+  ]
+},
+
+{
+  id:"south-indian-veg-meals",
+  name:"South Indian Veg Meals",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:35,
+  ingredients:[
+    "Rice",
+    "Sambar",
+    "Rasam",
+    "Poriyal",
+    "Curd"
+  ]
+},
+
+{
+  id:"mini-meals",
+  name:"Mini Meals",
+  meal:"lunch",
+  type:"veg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Sambar",
+    "Poriyal",
+    "Curd"
+  ]
+},
+
+{
+  id:"quick-lunch-combo",
+  name:"Quick Lunch Combo",
+  meal:"lunch",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Rice",
+    "Curd",
+    "Pickle",
+    "Poriyal"
+  ]
+},
+
+{
+  id:"sambar-curd-rice",
+  name:"Sambar Rice + Curd Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Toor dal",
+    "Vegetables",
+    "Curd"
+  ]
+},
+
+{
+  id:"lemon-curd-rice",
+  name:"Lemon Rice + Curd Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Rice",
+    "Lemon",
+    "Curd",
+    "Peanuts"
+  ]
+},
+
+{
+  id:"puliyodharai-curd-rice",
+  name:"Puliyodharai + Curd Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Tamarind",
+    "Curd",
+    "Peanuts"
+  ]
+},
+
+{
+  id:"kara-kuzhambu-rice",
+  name:"Kara Kuzhambu Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Tamarind",
+    "Vegetables",
+    "Spices"
+  ]
+},
+
+{
+  id:"vatha-kuzhambu-rice",
+  name:"Vatha Kuzhambu Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Tamarind",
+    "Vathal",
+    "Spices"
+  ]
+},
+
+{
+  id:"mor-kuzhambu-rice",
+  name:"Mor Kuzhambu Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Curd",
+    "Vegetables",
+    "Coconut"
+  ]
+},
+
+{
+  id:"avial-rice",
+  name:"Avial Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Mixed vegetables",
+    "Curd",
+    "Coconut"
+  ]
+},
+
+{
+  id:"keerai-rice",
+  name:"Keerai Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Spinach",
+    "Garlic",
+    "Dal"
+  ]
+},
+
+{
+  id:"keerai-paruppu-sadam",
+  name:"Keerai Paruppu Sadam",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Spinach",
+    "Toor dal",
+    "Garlic"
+  ]
+},
+
+{
+  id:"vegetable-sambar-meals",
+  name:"Vegetable Sambar Meals",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Toor dal",
+    "Mixed vegetables",
+    "Poriyal"
+  ]
+},
+
+{
+  id:"kootu-rice",
+  name:"Kootu Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Moong dal",
+    "Vegetables",
+    "Coconut"
+  ]
+},
+
+{
+  id:"poriyal-rice",
+  name:"Poriyal Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Vegetables",
+    "Coconut"
+  ]
+},
+
+{
+  id:"dal-rice",
+  name:"Dal Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Toor dal",
+    "Ghee"
+  ]
+},
+
+{
+  id:"paruppu-podi-rice",
+  name:"Paruppu Podi Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["quick","budget"],
+  time:10,
+  ingredients:[
+    "Rice",
+    "Paruppu podi",
+    "Ghee"
+  ]
+},
+
+{
+  id:"ghee-rice-dal",
+  name:"Ghee Rice + Dal",
+  meal:"lunch",
+  type:"veg",
+  tags:["budget","quick"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Ghee",
+    "Dal"
+  ]
+},
+
+{
+  id:"chapathi-veg-kurma",
+  name:"Chapathi + Vegetable Kurma",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Wheat flour",
+    "Mixed vegetables",
+    "Coconut"
+  ]
+},
+
+{
+  id:"chapathi-channa",
+  name:"Chapathi + Channa Masala",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:30,
+  ingredients:[
+    "Wheat flour",
+    "Chickpeas",
+    "Onion",
+    "Tomato"
+  ]
+},
+
+{
+  id:"chapathi-paneer",
+  name:"Chapathi + Paneer Gravy",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Wheat flour",
+    "Paneer",
+    "Tomato",
+    "Onion"
+  ]
+},
+
+{
+  id:"millet-sambar-rice",
+  name:"Millet Sambar Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Millet",
+    "Toor dal",
+    "Vegetables",
+    "Sambar powder"
+  ]
+},
+
+{
+  id:"millet-rasam-rice",
+  name:"Millet Rasam Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Millet",
+    "Tomato",
+    "Tamarind",
+    "Rasam powder"
+  ]
+},
+
+{
+  id:"millet-curd-rice",
+  name:"Millet Curd Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:15,
+  ingredients:[
+    "Millet",
+    "Curd",
+    "Milk"
+  ]
+},
+
+{
+  id:"brown-rice-sambar",
+  name:"Brown Rice Sambar",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Brown rice",
+    "Toor dal",
+    "Vegetables",
+    "Sambar powder"
+  ]
+},
+
+{
+  id:"brown-rice-veg-bowl",
+  name:"Brown Rice Vegetable Bowl",
+  meal:"lunch",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:25,
+  ingredients:[
+    "Brown rice",
+    "Mixed vegetables",
+    "Dal"
+  ]
+},
+
+{
+  id:"simple-budget-lunch",
+  name:"Simple Budget Lunch",
+  meal:"lunch",
+  type:"veg",
+  tags:["budget","quick"],
+  time:15,
+  ingredients:[
+    "Rice",
+    "Dal",
+    "Vegetable",
+    "Curd"
+  ]
+},
+
+{
+  id:"leftover-rice-lemon",
+  name:"Leftover Rice Lemon Rice",
+  meal:"lunch",
+  type:"veg",
+  tags:["quick","budget","leftover"],
+  time:10,
+  ingredients:[
+    "Leftover rice",
+    "Lemon",
+    "Peanuts",
+    "Onion"
+  ]
+}
+
+);
+
+    /* =========================
+   SNACKS DATABASE
+========================= */
+
+dishes.push(
+
+/* =========================
+   COMMON SNACKS
+========================= */
+
+{
+  id:"veg-sandwich",
+  name:"Vegetable Sandwich",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick","healthy","budget"],
+  time:10,
+  ingredients:[
+    "Bread",
+    "Carrot",
+    "Capsicum",
+    "Onion"
+  ]
+},
+
+{
+  id:"bread-butter",
+  name:"Bread + Butter",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick","budget"],
+  time:5,
+  ingredients:[
+    "Bread",
+    "Butter"
+  ]
+},
+
+{
+  id:"bread-jam",
+  name:"Bread + Jam",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick","budget"],
+  time:5,
+  ingredients:[
+    "Bread",
+    "Jam"
+  ]
+},
+
+{
+  id:"bread-cheese",
+  name:"Bread + Cheese",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick"],
+  time:5,
+  ingredients:[
+    "Bread",
+    "Cheese"
+  ]
+},
+
+{
+  id:"cheese-toast",
+  name:"Cheese Toast",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick"],
+  time:10,
+  ingredients:[
+    "Bread",
+    "Cheese",
+    "Butter"
+  ]
+},
+
+{
+  id:"veg-toast",
+  name:"Vegetable Toast",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick","healthy"],
+  time:12,
+  ingredients:[
+    "Bread",
+    "Carrot",
+    "Capsicum",
+    "Onion"
+  ]
+},
+
+/* =========================
+   QUICK SNACKS
+========================= */
+
+{
+  id:"boiled-corn",
+  name:"Boiled Corn",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:10,
+  ingredients:[
+    "Sweet corn",
+    "Salt",
+    "Lemon"
+  ]
+},
+
+{
+  id:"masala-corn",
+  name:"Masala Corn",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick","budget"],
+  time:10,
+  ingredients:[
+    "Sweet corn",
+    "Butter",
+    "Chilli powder",
+    "Lemon"
+  ]
+},
+
+{
+  id:"boiled-peanuts",
+  name:"Boiled Peanuts",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:20,
+  ingredients:[
+    "Peanuts",
+    "Salt"
+  ]
+},
+
+{
+  id:"roasted-peanuts",
+  name:"Roasted Peanuts",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:10,
+  ingredients:[
+    "Peanuts",
+    "Salt"
+  ]
+},
+
+{
+  id:"fruit-bowl",
+  name:"Fresh Fruit Bowl",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:5,
+  ingredients:[
+    "Apple",
+    "Banana",
+    "Papaya",
+    "Pomegranate"
+  ]
+},
+
+{
+  id:"fruit-curd",
+  name:"Fruit + Curd",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:5,
+  ingredients:[
+    "Curd",
+    "Fruits"
+  ]
+},
+
+{
+  id:"banana-peanut",
+  name:"Banana + Peanuts",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:5,
+  ingredients:[
+    "Banana",
+    "Peanuts"
+  ]
+},
+
+{
+  id:"sprouts-salad",
+  name:"Sprouts Salad",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:10,
+  ingredients:[
+    "Sprouts",
+    "Onion",
+    "Tomato",
+    "Lemon"
+  ]
+},
+
+/* =========================
+   TRADITIONAL SNACKS
+========================= */
+
+{
+  id:"medu-vada-snack",
+  name:"Medu Vada",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Urad dal",
+    "Pepper",
+    "Green chilli"
+  ]
+},
+
+{
+  id:"masala-vada-snack",
+  name:"Masala Vada",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Chana dal",
+    "Onion",
+    "Green chilli"
+  ]
+},
+
+{
+  id:"bajji",
+  name:"Bajji",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Besan",
+    "Vegetables",
+    "Oil"
+  ]
+},
+
+{
+  id:"onion-bajji",
+  name:"Onion Bajji",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Onion",
+    "Besan",
+    "Chilli"
+  ]
+},
+
+{
+  id:"banana-bajji",
+  name:"Banana Bajji",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Raw banana",
+    "Besan",
+    "Oil"
+  ]
+},
+
+{
+  id:"bread-bajji",
+  name:"Bread Bajji",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Bread",
+    "Besan",
+    "Onion",
+    "Oil"
+  ]
+},
+
+{
+  id:"pakoda",
+  name:"Pakoda",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Besan",
+    "Onion",
+    "Green chilli",
+    "Oil"
+  ]
+},
+
+{
+  id:"onion-pakoda",
+  name:"Onion Pakoda",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Onion",
+    "Besan",
+    "Rice flour",
+    "Oil"
+  ]
+},
+
+{
+  id:"potato-bonda",
+  name:"Potato Bonda",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Potato",
+    "Besan",
+    "Onion",
+    "Oil"
+  ]
+},
+
+{
+  id:"mysore-bonda",
+  name:"Mysore Bonda",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Urad dal",
+    "Rice flour",
+    "Curd"
+  ]
+},
+
+/* =========================
+   TEA TIME
+========================= */
+
+{
+  id:"samosa",
+  name:"Samosa",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Maida",
+    "Potato",
+    "Peas",
+    "Oil"
+  ]
+},
+
+{
+  id:"bread-roll",
+  name:"Bread Roll",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Bread",
+    "Potato",
+    "Onion",
+    "Oil"
+  ]
+},
+
+{
+  id:"veg-cutlet",
+  name:"Vegetable Cutlet",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Potato",
+    "Carrot",
+    "Beans",
+    "Bread crumbs"
+  ]
+},
+
+{
+  id:"potato-fry-snack",
+  name:"Potato Fry",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget","quick"],
+  time:15,
+  ingredients:[
+    "Potato",
+    "Chilli powder",
+    "Oil"
+  ]
+},
+
+{
+  id:"sweet-potato",
+  name:"Boiled Sweet Potato",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:15,
+  ingredients:[
+    "Sweet potato",
+    "Salt"
+  ]
+},
+
+/* =========================
+   CHAT SNACKS
+========================= */
+
+{
+  id:"bhel-puri",
+  name:"Bhel Puri",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick","budget"],
+  time:10,
+  ingredients:[
+    "Puffed rice",
+    "Onion",
+    "Tomato",
+    "Chutney"
+  ]
+},
+
+{
+  id:"masala-puri",
+  name:"Masala Puri",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Puri",
+    "Peas",
+    "Potato",
+    "Chutney"
+  ]
+},
+
+{
+  id:"dahi-puri",
+  name:"Dahi Puri",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick"],
+  time:15,
+  ingredients:[
+    "Puri",
+    "Curd",
+    "Potato",
+    "Chutney"
+  ]
+},
+
+{
+  id:"sev-puri",
+  name:"Sev Puri",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick","budget"],
+  time:10,
+  ingredients:[
+    "Puri",
+    "Potato",
+    "Onion",
+    "Sev"
+  ]
+},
+
+{
+  id:"corn-chaat",
+  name:"Corn Chaat",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:10,
+  ingredients:[
+    "Sweet corn",
+    "Onion",
+    "Tomato",
+    "Lemon"
+  ]
+},
+
+/* =========================
+   SWEET SNACKS
+========================= */
+
+{
+  id:"kesari",
+  name:"Kesari",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Rava",
+    "Sugar",
+    "Ghee"
+  ]
+},
+
+{
+  id:"sweet-poha",
+  name:"Sweet Poha",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick","budget"],
+  time:10,
+  ingredients:[
+    "Poha",
+    "Jaggery",
+    "Coconut"
+  ]
+},
+
+{
+  id:"banana-pancake",
+  name:"Banana Pancake",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick"],
+  time:15,
+  ingredients:[
+    "Banana",
+    "Wheat flour",
+    "Milk"
+  ]
+},
+
+{
+  id:"ragi-ladoo",
+  name:"Ragi Ladoo",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy"],
+  time:25,
+  ingredients:[
+    "Ragi",
+    "Jaggery",
+    "Ghee"
+  ]
+},
+
+{
+  id:"dates-ladoo",
+  name:"Dates Ladoo",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:15,
+  ingredients:[
+    "Dates",
+    "Nuts",
+    "Coconut"
+  ]
+},
+
+/* =========================
+   KIDS SNACKS
+========================= */
+
+{
+  id:"mini-pancake",
+  name:"Mini Pancake",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick"],
+  time:15,
+  ingredients:[
+    "Wheat flour",
+    "Banana",
+    "Milk"
+  ]
+},
+
+{
+  id:"cheese-sandwich",
+  name:"Cheese Sandwich",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick"],
+  time:10,
+  ingredients:[
+    "Bread",
+    "Cheese",
+    "Butter"
+  ]
+},
+
+{
+  id:"egg-bread",
+  name:"Egg Bread",
+  meal:"snacks",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:10,
+  ingredients:[
+    "Bread",
+    "Egg",
+    "Onion"
+  ]
+},
+
+{
+  id:"egg-roll",
+  name:"Egg Roll",
+  meal:"snacks",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Chapathi",
+    "Egg",
+    "Onion"
+  ]
+},
+
+{
+  id:"chicken-sandwich",
+  name:"Chicken Sandwich",
+  meal:"snacks",
+  type:"nonveg",
+  tags:["quick"],
+  time:15,
+  ingredients:[
+    "Bread",
+    "Chicken",
+    "Mayonnaise",
+    "Vegetables"
+  ]
+},
+
+/* =========================
+   NON-VEG SNACKS
+========================= */
+
+{
+  id:"chicken-65-snack",
+  name:"Chicken 65",
+  meal:"snacks",
+  type:"nonveg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Chicken",
+    "Corn flour",
+    "Chilli powder",
+    "Oil"
+  ]
+},
+
+{
+  id:"chicken-pakoda",
+  name:"Chicken Pakoda",
+  meal:"snacks",
+  type:"nonveg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Chicken",
+    "Besan",
+    "Spices",
+    "Oil"
+  ]
+},
+
+{
+  id:"fish-fry-snack",
+  name:"Fish Fry",
+  meal:"snacks",
+  type:"nonveg",
+  tags:["healthy"],
+  time:25,
+  ingredients:[
+    "Fish",
+    "Chilli powder",
+    "Lemon",
+    "Oil"
+  ]
+},
+
+{
+  id:"egg-bajji",
+  name:"Egg Bajji",
+  meal:"snacks",
+  type:"nonveg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Egg",
+    "Besan",
+    "Oil"
+  ]
+},
+
+/* =========================
+   HEALTHY SNACKS
+========================= */
+
+{
+  id:"oats-snack",
+  name:"Oats Snack Bowl",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:10,
+  ingredients:[
+    "Oats",
+    "Curd",
+    "Fruits"
+  ]
+},
+
+{
+  id:"vegetable-salad",
+  name:"Vegetable Salad",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:10,
+  ingredients:[
+    "Cucumber",
+    "Carrot",
+    "Tomato",
+    "Lemon"
+  ]
+},
+
+{
+  id:"cucumber-curd",
+  name:"Cucumber + Curd",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:5,
+  ingredients:[
+    "Cucumber",
+    "Curd",
+    "Salt"
+  ]
+},
+
+{
+  id:"roasted-chana",
+  name:"Roasted Chana",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:5,
+  ingredients:[
+    "Roasted chana"
+  ]
+},
+
+{
+  id:"mixed-nuts",
+  name:"Mixed Nuts",
+  meal:"snacks",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:5,
+  ingredients:[
+    "Almonds",
+    "Cashews",
+    "Peanuts",
+    "Walnuts"
+  ]
+},
+
+/* =========================
+   STREET FOOD
+========================= */
+
+{
+  id:"pani-puri",
+  name:"Pani Puri",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Puri",
+    "Potato",
+    "Chickpeas",
+    "Pani"
+  ]
+},
+
+{
+  id:"vada-pav",
+  name:"Vada Pav",
+  meal:"snacks",
+  type:"veg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Pav",
+    "Potato",
+    "Besan",
+    "Chutney"
+  ]
+},
+
+{
+  id:"bread-omelette-snack",
+  name:"Bread Omelette",
+  meal:"snacks",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:10,
+  ingredients:[
+    "Bread",
+    "Egg",
+    "Onion",
+    "Green chilli"
+  ]
+},
+
+{
+  id:"masala-noodles-snack",
+  name:"Masala Noodles",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Noodles",
+    "Onion",
+    "Carrot",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"veg-maggi",
+  name:"Vegetable Maggi",
+  meal:"snacks",
+  type:"veg",
+  tags:["quick","budget"],
+  time:10,
+  ingredients:[
+    "Maggi",
+    "Carrot",
+    "Onion",
+    "Capsicum"
+  ]
+}
+
+);
+
+    /* =========================
+   DINNER DATABASE
+========================= */
+
+dishes.push(
+
+/* =========================
+   REGULAR DINNER
+========================= */
+
+{
+  id:"chapathi-dinner",
+  name:"Chapathi",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:20,
+  ingredients:[
+    "Wheat flour",
+    "Oil"
+  ]
+},
+
+{
+  id:"chapathi-veg-kurma-dinner",
+  name:"Chapathi + Vegetable Kurma",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Wheat flour",
+    "Mixed vegetables",
+    "Coconut"
+  ]
+},
+
+{
+  id:"chapathi-channa-dinner",
+  name:"Chapathi + Channa Masala",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:30,
+  ingredients:[
+    "Wheat flour",
+    "Chickpeas",
+    "Onion",
+    "Tomato"
+  ]
+},
+
+{
+  id:"chapathi-paneer-dinner",
+  name:"Chapathi + Paneer Gravy",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Wheat flour",
+    "Paneer",
+    "Tomato",
+    "Onion"
+  ]
+},
+
+{
+  id:"dosa-dinner",
+  name:"Dosa",
+  meal:"dinner",
+  type:"veg",
+  tags:["budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Oil"
+  ]
+},
+
+{
+  id:"onion-dosa-dinner",
+  name:"Onion Dosa",
+  meal:"dinner",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Onion",
+    "Oil"
+  ]
+},
+
+{
+  id:"podi-dosa-dinner",
+  name:"Podi Dosa",
+  meal:"dinner",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Idli podi",
+    "Oil"
+  ]
+},
+
+{
+  id:"ghee-dosa-dinner",
+  name:"Ghee Dosa",
+  meal:"dinner",
+  type:"veg",
+  tags:["budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Ghee"
+  ]
+},
+
+{
+  id:"ragi-dosa-dinner",
+  name:"Ragi Dosa",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:20,
+  ingredients:[
+    "Ragi",
+    "Rice",
+    "Onion"
+  ]
+},
+
+{
+  id:"uttapam-dinner",
+  name:"Vegetable Uttapam",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy"],
+  time:25,
+  ingredients:[
+    "Dosa batter",
+    "Carrot",
+    "Onion",
+    "Capsicum"
+  ]
+},
+
+/* =========================
+   QUICK DINNER
+========================= */
+
+{
+  id:"lemon-rice-dinner",
+  name:"Lemon Rice",
+  meal:"dinner",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Rice",
+    "Lemon",
+    "Peanuts"
+  ]
+},
+
+{
+  id:"tomato-rice-dinner",
+  name:"Tomato Rice",
+  meal:"dinner",
+  type:"veg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Tomato",
+    "Onion"
+  ]
+},
+
+{
+  id:"curd-rice-dinner",
+  name:"Curd Rice",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","quick","budget"],
+  time:10,
+  ingredients:[
+    "Rice",
+    "Curd",
+    "Milk"
+  ]
+},
+
+{
+  id:"vegetable-rice-dinner",
+  name:"Vegetable Rice",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Carrot",
+    "Beans",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"egg-rice-dinner",
+  name:"Egg Rice",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Egg",
+    "Onion",
+    "Carrot"
+  ]
+},
+
+{
+  id:"chicken-rice-dinner",
+  name:"Chicken Rice",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["quick"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Chicken",
+    "Vegetables"
+  ]
+},
+
+/* =========================
+   SOUTH INDIAN DINNER
+========================= */
+
+{
+  id:"idli-dinner",
+  name:"Idli",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:15,
+  ingredients:[
+    "Idli rice",
+    "Urad dal"
+  ]
+},
+
+{
+  id:"sambar-idli-dinner",
+  name:"Idli + Sambar",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Idli",
+    "Toor dal",
+    "Vegetables",
+    "Sambar powder"
+  ]
+},
+
+{
+  id:"paniyaram-dinner",
+  name:"Paniyaram",
+  meal:"dinner",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Idli batter",
+    "Onion",
+    "Green chilli"
+  ]
+},
+
+{
+  id:"vegetable-upma-dinner",
+  name:"Vegetable Upma",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget","quick"],
+  time:20,
+  ingredients:[
+    "Rava",
+    "Carrot",
+    "Beans",
+    "Onion"
+  ]
+},
+
+{
+  id:"semiya-upma-dinner",
+  name:"Semiya Upma",
+  meal:"dinner",
+  type:"veg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Vermicelli",
+    "Onion",
+    "Carrot"
+  ]
+},
+
+{
+  id:"ven-pongal-dinner",
+  name:"Ven Pongal",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Moong dal",
+    "Pepper",
+    "Ginger"
+  ]
+},
+
+/* =========================
+   NORTH INDIAN DINNER
+========================= */
+
+{
+  id:"roti-dinner",
+  name:"Roti",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:20,
+  ingredients:[
+    "Wheat flour"
+  ]
+},
+
+{
+  id:"roti-dal",
+  name:"Roti + Dal",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Wheat flour",
+    "Toor dal",
+    "Onion",
+    "Tomato"
+  ]
+},
+
+{
+  id:"roti-paneer",
+  name:"Roti + Paneer Masala",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Wheat flour",
+    "Paneer",
+    "Tomato",
+    "Onion"
+  ]
+},
+
+{
+  id:"jeera-rice-dinner",
+  name:"Jeera Rice",
+  meal:"dinner",
+  type:"veg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Jeera",
+    "Ghee"
+  ]
+},
+
+{
+  id:"veg-pulao-dinner",
+  name:"Vegetable Pulao",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Basmati rice",
+    "Mixed vegetables",
+    "Onion"
+  ]
+},
+
+/* =========================
+   HOTEL STYLE
+========================= */
+
+{
+  id:"hotel-masala-dosa",
+  name:"Hotel Style Masala Dosa",
+  meal:"dinner",
+  type:"veg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Dosa batter",
+    "Potato",
+    "Onion",
+    "Oil"
+  ]
+},
+
+{
+  id:"hotel-ghee-roast",
+  name:"Ghee Roast",
+  meal:"dinner",
+  type:"veg",
+  tags:["budget"],
+  time:20,
+  ingredients:[
+    "Dosa batter",
+    "Ghee"
+  ]
+},
+
+{
+  id:"hotel-paneer-dosa",
+  name:"Paneer Dosa",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy"],
+  time:25,
+  ingredients:[
+    "Dosa batter",
+    "Paneer",
+    "Onion"
+  ]
+},
+
+{
+  id:"hotel-kothu-parotta",
+  name:"Kothu Parotta",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["budget"],
+  time:25,
+  ingredients:[
+    "Parotta",
+    "Egg",
+    "Onion",
+    "Chicken"
+  ]
+},
+
+{
+  id:"egg-kothu-parotta",
+  name:"Egg Kothu Parotta",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:20,
+  ingredients:[
+    "Parotta",
+    "Egg",
+    "Onion"
+  ]
+},
+
+/* =========================
+   CHICKEN DINNER
+========================= */
+
+{
+  id:"chicken-chapathi",
+  name:"Chicken Gravy + Chapathi",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["healthy"],
+  time:35,
+  ingredients:[
+    "Wheat flour",
+    "Chicken",
+    "Onion",
+    "Tomato"
+  ]
+},
+
+{
+  id:"chicken-dosa",
+  name:"Chicken Dosa",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["quick"],
+  time:25,
+  ingredients:[
+    "Dosa batter",
+    "Chicken",
+    "Onion"
+  ]
+},
+
+{
+  id:"chicken-kothu",
+  name:"Chicken Kothu Parotta",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Parotta",
+    "Chicken",
+    "Egg",
+    "Onion"
+  ]
+},
+
+{
+  id:"chicken-noodles",
+  name:"Chicken Noodles",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["quick"],
+  time:20,
+  ingredients:[
+    "Noodles",
+    "Chicken",
+    "Carrot",
+    "Capsicum"
+  ]
+},
+
+{
+  id:"chicken-fried-rice",
+  name:"Chicken Fried Rice",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["quick"],
+  time:25,
+  ingredients:[
+    "Rice",
+    "Chicken",
+    "Egg",
+    "Vegetables"
+  ]
+},
+
+/* =========================
+   MUTTON DINNER
+========================= */
+
+{
+  id:"mutton-chapathi",
+  name:"Mutton Gravy + Chapathi",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["budget"],
+  time:45,
+  ingredients:[
+    "Wheat flour",
+    "Mutton",
+    "Onion",
+    "Tomato"
+  ]
+},
+
+{
+  id:"mutton-rice-dinner",
+  name:"Mutton Rice",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["budget"],
+  time:45,
+  ingredients:[
+    "Rice",
+    "Mutton",
+    "Onion",
+    "Spices"
+  ]
+},
+
+{
+  id:"mutton-biryani-dinner",
+  name:"Mutton Biryani",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["budget"],
+  time:60,
+  ingredients:[
+    "Basmati rice",
+    "Mutton",
+    "Onion",
+    "Tomato",
+    "Biryani masala"
+  ]
+},
+
+/* =========================
+   FISH DINNER
+========================= */
+
+{
+  id:"fish-rice-dinner",
+  name:"Fish Rice",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["healthy"],
+  time:35,
+  ingredients:[
+    "Rice",
+    "Fish",
+    "Onion",
+    "Spices"
+  ]
+},
+
+{
+  id:"fish-curry-rice",
+  name:"Fish Curry + Rice",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["healthy"],
+  time:40,
+  ingredients:[
+    "Rice",
+    "Fish",
+    "Tamarind",
+    "Coconut"
+  ]
+},
+
+{
+  id:"fish-fry-rice",
+  name:"Fish Fry + Rice",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["healthy"],
+  time:35,
+  ingredients:[
+    "Rice",
+    "Fish",
+    "Chilli powder",
+    "Lemon"
+  ]
+},
+
+/* =========================
+   EGG DINNER
+========================= */
+
+{
+  id:"egg-dosa-dinner",
+  name:"Egg Dosa",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Egg",
+    "Onion"
+  ]
+},
+
+{
+  id:"egg-omelette-dinner",
+  name:"Egg Omelette + Chapathi",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Egg",
+    "Chapathi",
+    "Onion"
+  ]
+},
+
+{
+  id:"egg-noodles-dinner",
+  name:"Egg Noodles",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Noodles",
+    "Egg",
+    "Carrot",
+    "Capsicum"
+  ]
+},
+
+/* =========================
+   HEALTHY DINNER
+========================= */
+
+{
+  id:"millet-dosa-dinner",
+  name:"Millet Dosa",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy"],
+  time:25,
+  ingredients:[
+    "Millet",
+    "Rice",
+    "Urad dal"
+  ]
+},
+
+{
+  id:"millet-upma-dinner",
+  name:"Millet Upma",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Millet",
+    "Vegetables",
+    "Onion"
+  ]
+},
+
+{
+  id:"vegetable-soup-dinner",
+  name:"Vegetable Soup",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:20,
+  ingredients:[
+    "Carrot",
+    "Beans",
+    "Cabbage",
+    "Pepper"
+  ]
+},
+
+{
+  id:"chicken-soup-dinner",
+  name:"Chicken Soup",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["healthy"],
+  time:30,
+  ingredients:[
+    "Chicken",
+    "Carrot",
+    "Pepper",
+    "Ginger"
+  ]
+},
+
+{
+  id:"vegetable-salad-dinner",
+  name:"Vegetable Salad",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:10,
+  ingredients:[
+    "Cucumber",
+    "Carrot",
+    "Tomato",
+    "Lemon"
+  ]
+},
+
+/* =========================
+   BUDGET DINNER
+========================= */
+
+{
+  id:"rice-rasam-dinner",
+  name:"Rice + Rasam",
+  meal:"dinner",
+  type:"veg",
+  tags:["budget","quick"],
+  time:15,
+  ingredients:[
+    "Rice",
+    "Tomato",
+    "Tamarind",
+    "Rasam powder"
+  ]
+},
+
+{
+  id:"rice-dal-dinner",
+  name:"Rice + Dal",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Toor dal",
+    "Ghee"
+  ]
+},
+
+{
+  id:"rice-poriyal-dinner",
+  name:"Rice + Poriyal",
+  meal:"dinner",
+  type:"veg",
+  tags:["budget","quick"],
+  time:15,
+  ingredients:[
+    "Rice",
+    "Vegetables",
+    "Coconut"
+  ]
+},
+
+{
+  id:"leftover-rice-dinner",
+  name:"Leftover Rice Stir Fry",
+  meal:"dinner",
+  type:"veg",
+  tags:["quick","budget","leftover"],
+  time:10,
+  ingredients:[
+    "Leftover rice",
+    "Onion",
+    "Vegetables",
+    "Egg"
+  ]
+},
+
+/* =========================
+   KIDS DINNER
+========================= */
+
+{
+  id:"kids-dosa-dinner",
+  name:"Kids Mini Dosa",
+  meal:"dinner",
+  type:"veg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Dosa batter",
+    "Ghee"
+  ]
+},
+
+{
+  id:"kids-idli-dinner",
+  name:"Mini Idli + Sambar",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:20,
+  ingredients:[
+    "Idli",
+    "Toor dal",
+    "Vegetables"
+  ]
+},
+
+{
+  id:"kids-veg-rice-dinner",
+  name:"Kids Vegetable Rice",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","quick"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Carrot",
+    "Beans",
+    "Peas"
+  ]
+},
+
+/* =========================
+   TRADITIONAL DINNER
+========================= */
+
+{
+  id:"adai-dinner",
+  name:"Adai",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:30,
+  ingredients:[
+    "Toor dal",
+    "Chana dal",
+    "Urad dal",
+    "Rice"
+  ]
+},
+
+{
+  id:"adai-avial-dinner",
+  name:"Adai + Avial",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy"],
+  time:35,
+  ingredients:[
+    "Rice",
+    "Dal",
+    "Mixed vegetables",
+    "Coconut"
+  ]
+},
+
+{
+  id:"kambu-dosa-dinner",
+  name:"Kambu Dosa",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:25,
+  ingredients:[
+    "Pearl millet",
+    "Rice",
+    "Urad dal"
+  ]
+},
+
+{
+  id:"ragi-koozh-dinner",
+  name:"Ragi Koozh",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:20,
+  ingredients:[
+    "Ragi",
+    "Curd",
+    "Water"
+  ]
+},
+
+/* =========================
+   SIMPLE FAMILY DINNER
+========================= */
+
+{
+  id:"simple-veg-dinner",
+  name:"Simple Vegetable Dinner",
+  meal:"dinner",
+  type:"veg",
+  tags:["healthy","budget"],
+  time:20,
+  ingredients:[
+    "Rice",
+    "Vegetables",
+    "Dal"
+  ]
+},
+
+{
+  id:"simple-egg-dinner",
+  name:"Simple Egg Dinner",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["quick","budget"],
+  time:15,
+  ingredients:[
+    "Egg",
+    "Rice",
+    "Onion"
+  ]
+},
+
+{
+  id:"simple-chicken-dinner",
+  name:"Simple Chicken Dinner",
+  meal:"dinner",
+  type:"nonveg",
+  tags:["budget"],
+  time:30,
+  ingredients:[
+    "Rice",
+    "Chicken",
+    "Vegetables"
+  ]
+}
+
+);
+
+    
 
     /* =========================
    DOM REFERENCES
@@ -3231,14 +5883,37 @@ function renderPopupDishes(){
       .trim()
       .toLowerCase();
 
+
+  /* =========================
+     MEAL FILTER
+     IMPORTANT
+  ========================= */
+
+  const selectedMeal =
+    selectedSlot
+      ? selectedSlot.meal
+      : null;
+
+
   const filtered =
     dishes.filter(
       function(dish){
+
+        /* FIRST: selected meal only */
+
+        const matchesMeal =
+          dish.meal === selectedMeal;
+
+
+        /* SECOND: popup filter */
 
         const matchesFilter =
           dishMatchesFilter(
             dish
           );
+
+
+        /* THIRD: search */
 
         const matchesSearch =
           keyword === "" ||
@@ -3246,7 +5921,9 @@ function renderPopupDishes(){
             .toLowerCase()
             .includes(keyword);
 
+
         return (
+          matchesMeal &&
           matchesFilter &&
           matchesSearch
         );
@@ -3257,6 +5934,10 @@ function renderPopupDishes(){
 
   popupList.innerHTML = "";
 
+
+  /* =========================
+     NO RESULTS
+  ========================= */
 
   if(
     filtered.length === 0
@@ -3282,6 +5963,10 @@ function renderPopupDishes(){
   }
 
 
+  /* =========================
+     SHOW DISHES
+  ========================= */
+
   filtered.forEach(
     function(dish){
 
@@ -3290,8 +5975,10 @@ function renderPopupDishes(){
           "div"
         );
 
+
       item.className =
         "menu-item";
+
 
       const typeLabel =
         dish.type === "veg"
@@ -3361,6 +6048,7 @@ function renderPopupDishes(){
 
         </div>
 
+
         <button
           type="button"
           class="menu-add"
@@ -3371,6 +6059,7 @@ function renderPopupDishes(){
 
       `;
 
+
       popupList.appendChild(
         item
       );
@@ -3378,6 +6067,10 @@ function renderPopupDishes(){
     }
   );
 
+
+  /* =========================
+     ADD DISH BUTTON EVENTS
+  ========================= */
 
   popupList
     .querySelectorAll(
