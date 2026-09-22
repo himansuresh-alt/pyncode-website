@@ -1062,7 +1062,7 @@
 
     z-index: 2000;
 
-    padding: 8px 0;
+    padding: 0;
 
     background: transparent;
 
@@ -1071,18 +1071,13 @@
     box-shadow: none;
 }
 
-
 .planner-fixed-back a {
 
     width: 100%;
 
-    max-width: 760px;
+    min-height: 50px;
 
-    min-height: 46px;
-
-    margin: 0 auto;
-
-    padding: 13px 20px;
+    padding: 14px 20px;
 
     display: flex;
 
@@ -1103,7 +1098,7 @@
 
     border: none;
 
-    border-radius: 13px;
+    border-radius: 14px;
 
     font-size: 13px;
 
@@ -1116,25 +1111,6 @@
     box-shadow:
         0 5px 16px
         rgba(20,28,50,.18);
-
-    transition:
-        transform .12s ease,
-        box-shadow .12s ease;
-}
-
-
-.planner-fixed-back a:active {
-
-    transform: scale(.98);
-
-    box-shadow:
-        0 3px 10px
-        rgba(20,28,50,.14);
-}
-
-
-.planner-fixed-back-icon {
-    display: none;
 }
 
   </style>
