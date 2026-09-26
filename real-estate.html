@@ -1,0 +1,3525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Pyncode - Real Estate</title>
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:#f5f7fa;
+
+    color:#0f172a;
+
+    min-height:100vh;
+
+    padding-bottom:94px;
+}
+
+button,
+input,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    -webkit-tap-highlight-color:transparent;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar{
+    height:64px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    backdrop-filter:blur(14px);
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 16px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+}
+
+.brand{
+    font-size:22px;
+
+    font-weight:950;
+
+    letter-spacing:-.8px;
+
+    color:#111827;
+}
+
+.brand-pyn{
+    color:#f97316;
+}
+
+.brand-code{
+    color:#111827;
+}
+  
+.login-btn{
+    height:38px;
+
+    padding:0 17px;
+
+    border:
+        1px solid #fed7aa;
+
+    border-radius:20px;
+
+    background:#fff7ed;
+
+    color:#ea580c;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.18s;
+}
+
+.login-btn:active{
+    transform:scale(.95);
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+    width:100%;
+
+    max-width:720px;
+
+    margin:0 auto;
+
+    padding:
+        14px
+        12px
+        30px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:14px;
+
+    padding:25px 20px;
+
+    border-radius:21px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #1f2937
+        );
+
+    color:#fff;
+
+    box-shadow:
+        0 12px 30px
+        rgba(15,23,42,.14);
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+
+    height:170px;
+
+    border-radius:50%;
+
+    background:
+        rgba(249,115,22,.20);
+
+    right:-65px;
+
+    top:-65px;
+}
+
+.hero h1{
+    position:relative;
+
+    z-index:2;
+
+    font-size:26px;
+
+    line-height:1.18;
+
+    font-weight:950;
+
+    letter-spacing:-.7px;
+}
+
+.hero p{
+    position:relative;
+
+    z-index:2;
+
+    margin-top:9px;
+
+    max-width:580px;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    color:
+        rgba(255,255,255,.82);
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    background:#fff;
+
+    border:
+        1px solid #e7eaf0;
+
+    border-radius:18px;
+
+    padding:17px;
+
+    margin-bottom:13px;
+
+    box-shadow:
+        0 6px 22px
+        rgba(15,23,42,.045);
+}
+
+.step-label{
+    display:inline-flex;
+
+    align-items:center;
+
+    height:25px;
+
+    padding:0 10px;
+
+    border-radius:20px;
+
+    background:#fff7ed;
+
+    color:#ea580c;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    letter-spacing:.6px;
+
+    margin-bottom:9px;
+}
+
+.card-title{
+    font-size:18px;
+
+    font-weight:950;
+
+    letter-spacing:-.3px;
+
+    color:#111827;
+
+    margin-bottom:5px;
+}
+
+.card-subtitle{
+    font-size:12.5px;
+
+    color:#64748b;
+
+    line-height:1.55;
+
+    margin-bottom:15px;
+}
+
+/* =========================
+   OPTIONS
+========================= */
+
+.option-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:9px;
+}
+
+.option{
+    min-height:57px;
+
+    padding:11px 12px;
+
+    border:
+        1.5px solid #e5e7eb;
+
+    border-radius:13px;
+
+    background:#fff;
+
+    color:#334155;
+
+    font-size:13px;
+
+    font-weight:850;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    transition:
+        border-color .18s,
+        background .18s,
+        color .18s,
+        transform .12s,
+        box-shadow .18s;
+}
+
+.option:hover{
+    border-color:#fdba74;
+
+    background:#fffaf5;
+}
+
+.option:active{
+    transform:scale(.98);
+}
+
+.option.selected{
+    border:
+        2px solid #f97316;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #fffaf5
+        );
+
+    color:#c2410c;
+
+    box-shadow:
+        0 5px 15px
+        rgba(249,115,22,.09);
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.input{
+    width:100%;
+
+    height:48px;
+
+    border:
+        1.5px solid #dfe4ec;
+
+    border-radius:12px;
+
+    padding:
+        0 13px;
+
+    margin-top:10px;
+
+    outline:none;
+
+    background:#fff;
+
+    color:#0f172a;
+
+    font-size:13px;
+
+    transition:.18s;
+}
+
+.input:focus{
+    border-color:#f97316;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(249,115,22,.08);
+}
+
+textarea.input{
+    height:115px;
+
+    padding:12px 13px;
+
+    resize:vertical;
+
+    line-height:1.5;
+}
+
+/* =========================
+   INFO / PREVIEW
+========================= */
+
+.info-box{
+    background:
+        linear-gradient(
+            135deg,
+            #f8fafc,
+            #fff
+        );
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:14px;
+
+    padding:15px;
+
+    font-size:12.5px;
+
+    line-height:1.7;
+
+    color:#475569;
+}
+
+/* =========================
+   PRIMARY BUTTON
+========================= */
+
+.primary-btn{
+    width:100%;
+
+    min-height:48px;
+
+    border:0;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f97316,
+            #ea580c
+        );
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:950;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 7px 18px
+        rgba(249,115,22,.18);
+
+    transition:.18s;
+}
+
+.primary-btn:active{
+    transform:scale(.98);
+}
+
+/* =========================
+   BOTTOM
+========================= */
+
+.bottom{
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    height:76px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    backdrop-filter:blur(14px);
+
+    border-top:
+        1px solid #e5e7eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:
+        10px 13px;
+
+    z-index:90;
+}
+
+.add-btn{
+    width:100%;
+
+    max-width:430px;
+
+    height:48px;
+
+    border:0;
+
+    border-radius:14px;
+
+    background:#111827;
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:950;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 7px 18px
+        rgba(15,23,42,.16);
+}
+
+.add-btn:active{
+    transform:scale(.98);
+}
+
+/* =========================
+   LOGIN MODAL
+========================= */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(15,23,42,.58);
+
+    backdrop-filter:blur(4px);
+
+    display:none;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding:0;
+
+    z-index:500;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+
+    max-width:520px;
+
+    background:#fff;
+
+    border-radius:
+        24px 24px 0 0;
+
+    padding:23px 20px;
+
+    box-shadow:
+        0 -12px 40px
+        rgba(15,23,42,.18);
+}
+
+.modal-title{
+    font-size:21px;
+
+    font-weight:950;
+
+    color:#111827;
+}
+
+.modal-text{
+    margin-top:7px;
+
+    font-size:13px;
+
+    color:#64748b;
+
+    line-height:1.55;
+}
+
+.modal-actions{
+    display:flex;
+
+    gap:9px;
+
+    margin-top:13px;
+}
+
+.modal-actions button{
+    flex:1;
+
+    height:45px;
+
+    border-radius:11px;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    cursor:pointer;
+}
+
+.cancel-btn{
+    border:
+        1px solid #e2e8f0;
+
+    background:#f8fafc;
+
+    color:#475569;
+}
+
+.continue-btn{
+    border:0;
+
+    background:#f97316;
+
+    color:#fff;
+}
+
+/* =========================
+   DATE PICKER
+========================= */
+
+.date-modal{
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(15,23,42,.58);
+
+    backdrop-filter:blur(4px);
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding:0;
+
+    z-index:1000;
+}
+
+.date-box{
+    width:100%;
+
+    max-width:430px;
+
+    background:#fff;
+
+    border-radius:
+        24px 24px 0 0;
+
+    padding:19px;
+
+    box-shadow:
+        0 -12px 40px
+        rgba(15,23,42,.20);
+}
+
+.date-head{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:15px;
+}
+
+.month-btn{
+    width:38px;
+
+    height:38px;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:10px;
+
+    background:#fff;
+
+    font-size:20px;
+
+    cursor:pointer;
+}
+
+.month-title{
+    font-size:16px;
+
+    font-weight:950;
+}
+
+.weekdays,
+.calendar-days{
+    display:grid;
+
+    grid-template-columns:
+        repeat(7,1fr);
+
+    gap:4px;
+}
+
+.weekdays{
+    margin-bottom:6px;
+
+    text-align:center;
+}
+
+.weekday{
+    font-size:10px;
+
+    font-weight:900;
+
+    color:#94a3b8;
+}
+
+.day-btn{
+    height:40px;
+
+    width:40px;
+
+    border-radius:10px;
+
+    border:
+        1px solid transparent;
+
+    background:#fff;
+
+    color:#334155;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    justify-self:center;
+}
+
+.day-btn.today{
+    border-color:#fdba74;
+
+    background:#fff7ed;
+
+    color:#ea580c;
+}
+
+.day-btn.selected{
+    border-color:#f97316;
+
+    background:#f97316;
+
+    color:#fff;
+}
+
+.date-actions{
+    display:flex;
+
+    gap:9px;
+
+    margin-top:18px;
+}
+
+.date-actions button{
+    flex:1;
+
+    height:45px;
+
+    border-radius:11px;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    cursor:pointer;
+}
+
+.date-cancel{
+    border:
+        1px solid #e2e8f0;
+
+    background:#f8fafc;
+
+    color:#475569;
+}
+
+.date-ok{
+    border:0;
+
+    background:#111827;
+
+    color:#fff;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:520px){
+
+    .container{
+        padding:
+            12px
+            10px
+            30px;
+    }
+
+    .hero{
+        padding:22px 17px;
+
+        border-radius:19px;
+    }
+
+    .hero h1{
+        font-size:23px;
+    }
+
+    .hero p{
+        font-size:12.5px;
+    }
+
+    .card{
+        padding:15px;
+
+        border-radius:16px;
+    }
+
+    .card-title{
+        font-size:17px;
+    }
+
+    .option-grid{
+        gap:8px;
+    }
+
+    .option{
+        min-height:54px;
+
+        font-size:12.5px;
+    }
+
+    .bottom{
+        height:74px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+   <div class="brand">
+    <span class="brand-pyn">Pyn</span><span class="brand-code">code.in</span>
+   </div>
+
+   <button
+  id="headerLoginBtn"
+  class="login-btn"
+  onclick="handleHeaderAction()">
+
+  Login
+
+   </button>
+
+</header>
+
+<main class="container">
+
+    <section class="hero">
+
+  
+
+        <h1>
+            Real Estate Requirement
+        </h1>
+
+        <p>
+            Tell us what property you are looking for.
+            Your requirement can be shared with relevant
+            property owners and providers.
+        </p>
+
+    </section>
+
+    <section class="card">
+
+        <div class="step-label">
+            Step 1
+        </div>
+
+        <div class="card-title">
+            What are you looking for?
+        </div>
+
+        <div class="card-subtitle">
+            Select one property type
+        </div>
+
+        <div
+            class="option-grid"
+            id="propertyTypeOptions">
+
+            <button
+                class="option"
+                onclick="selectProperty('Flat',this)">
+                🏢 Flat
+            </button>
+
+            <button
+                class="option"
+                onclick="selectProperty('House',this)">
+                🏠 House
+            </button>
+
+            <button
+                class="option"
+                onclick="selectProperty('Villa',this)">
+                🏡 Villa
+            </button>
+
+            <button
+                class="option"
+                onclick="selectProperty('Land',this)">
+                🌳 Land
+            </button>
+
+            <button
+                class="option"
+                onclick="selectProperty('Shop',this)">
+                🏪 Shop
+            </button>
+
+            <button
+                class="option"
+                onclick="selectProperty('Office',this)">
+                🏢 Office
+            </button>
+
+            <button
+                class="option"
+                onclick="selectProperty('Other Property',this)">
+                📍 Other
+            </button>
+
+        </div>
+
+    </section>
+
+    <div id="formArea"></div>
+
+</main>
+
+<div class="bottom">
+
+    <button
+        class="add-btn"
+        onclick="scrollToForm()">
+        ＋ Add Requirement
+    </button>
+
+</div>
+
+<div
+    class="modal"
+    id="loginModal">
+
+    <div class="modal-box">
+
+        <div class="modal-title">
+            Login to Pyncode
+        </div>
+
+        <div class="modal-text">
+            Enter your mobile number to continue.
+        </div>
+
+        <input
+            type="tel"
+            id="loginMobile"
+            class="input"
+            maxlength="10"
+            placeholder="Mobile number">
+
+        <div class="modal-actions">
+
+            <button
+                class="cancel-btn"
+                onclick="closeLogin()">
+                Cancel
+            </button>
+
+            <button
+                class="continue-btn"
+                onclick="saveLogin()">
+                Continue
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const state = {
+
+    propertyType:"",
+    requirementType:"",
+
+    bhk:"",
+    furnishing:"",
+    propertyCondition:"",
+
+    landType:"",
+    landSize:"",
+
+    shopType:"",
+    officeType:"",
+    otherProperty:"",
+
+    budget:"",
+    minBudget:"",
+    maxBudget:"",
+
+    location:"",
+    landmark:"",
+
+    preferences:[],
+
+    requiredDate:"",
+    additional:""
+
+};
+
+let calendarDate = new Date();
+
+let selectedCalendarDate = null;
+
+function scrollToForm(){
+
+    setTimeout(()=>{
+
+        const area =
+            document.getElementById(
+                "formArea"
+            );
+
+        if(area){
+
+            area.scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+        }
+
+    },100);
+
+}
+
+function selectProperty(type,button){
+
+    state.propertyType = type;
+
+    document
+        .querySelectorAll(
+            "#propertyTypeOptions .option"
+        )
+        .forEach(btn=>{
+            btn.classList.remove("selected");
+        });
+
+    button.classList.add("selected");
+
+    state.requirementType="";
+    state.bhk="";
+    state.furnishing="";
+    state.propertyCondition="";
+    state.landType="";
+    state.landSize="";
+    state.shopType="";
+    state.officeType="";
+    state.otherProperty="";
+    state.budget="";
+    state.minBudget="";
+    state.maxBudget="";
+    state.location="";
+    state.landmark="";
+    state.preferences=[];
+    state.requiredDate="";
+    state.additional="";
+
+    renderRequirementType();
+
+    scrollToForm();
+
+}
+
+function renderRequirementType(){
+
+    const area =
+        document.getElementById(
+            "formArea"
+        );
+
+    area.innerHTML = `
+
+        <section class="card">
+
+            <div class="step-label">
+                Step 2
+            </div>
+
+            <div class="card-title">
+                What do you want?
+            </div>
+
+            <div class="card-subtitle">
+                Select Buy or Rent
+            </div>
+
+            <div class="option-grid">
+
+                <button
+                    class="option"
+                    onclick="
+                        selectRequirement(
+                            'Buy',
+                            this
+                        )
+                    ">
+                    🏷️ Buy
+                </button>
+
+                <button
+                    class="option"
+                    onclick="
+                        selectRequirement(
+                            'Rent',
+                            this
+                        )
+                    ">
+                    🔑 Rent
+                </button>
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+  function selectRequirement(type,button){
+
+    state.requirementType = type;
+
+    button
+        .parentElement
+        .querySelectorAll(".option")
+        .forEach(btn=>{
+            btn.classList.remove("selected");
+        });
+
+    button.classList.add("selected");
+
+    renderPropertyDetails();
+
+    scrollToForm();
+
+}
+
+function renderPropertyDetails(){
+
+    const area =
+        document.getElementById(
+            "formArea"
+        );
+
+    let html = `
+
+        <section class="card">
+
+            <div class="step-label">
+                Step 3
+            </div>
+
+            <div class="card-title">
+                Property Details
+            </div>
+
+            <div class="card-subtitle">
+                Tell us more about the property
+            </div>
+
+    `;
+
+
+    if(state.propertyType==="Flat"){
+
+        html += `
+
+            <div class="card-subtitle">
+                BHK
+            </div>
+
+            <div class="option-grid">
+
+                ${makeOption(
+                    "1 BHK",
+                    "bhk",
+                    "1 BHK"
+                )}
+
+                ${makeOption(
+                    "2 BHK",
+                    "bhk",
+                    "2 BHK"
+                )}
+
+                ${makeOption(
+                    "3 BHK",
+                    "bhk",
+                    "3 BHK"
+                )}
+
+                ${makeOption(
+                    "4 BHK",
+                    "bhk",
+                    "4 BHK"
+                )}
+
+                ${makeOption(
+                    "5+ BHK",
+                    "bhk",
+                    "5+ BHK"
+                )}
+
+            </div>
+
+            <div style="height:18px"></div>
+
+            <div class="card-subtitle">
+                Furnishing
+            </div>
+
+            <div class="option-grid">
+
+                ${makeOption(
+                    "Fully Furnished",
+                    "furnishing",
+                    "Fully Furnished"
+                )}
+
+                ${makeOption(
+                    "Semi Furnished",
+                    "furnishing",
+                    "Semi Furnished"
+                )}
+
+                ${makeOption(
+                    "Unfurnished",
+                    "furnishing",
+                    "Unfurnished"
+                )}
+
+                ${makeOption(
+                    "Any",
+                    "furnishing",
+                    "Any"
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(
+        state.propertyType==="House" ||
+        state.propertyType==="Villa"
+    ){
+
+        html += `
+
+            <div class="card-subtitle">
+                BHK
+            </div>
+
+            <div class="option-grid">
+
+                ${makeOption(
+                    "1 BHK",
+                    "bhk",
+                    "1 BHK"
+                )}
+
+                ${makeOption(
+                    "2 BHK",
+                    "bhk",
+                    "2 BHK"
+                )}
+
+                ${makeOption(
+                    "3 BHK",
+                    "bhk",
+                    "3 BHK"
+                )}
+
+                ${makeOption(
+                    "4 BHK",
+                    "bhk",
+                    "4 BHK"
+                )}
+
+                ${makeOption(
+                    "5+ BHK",
+                    "bhk",
+                    "5+ BHK"
+                )}
+
+            </div>
+
+            <div style="height:18px"></div>
+
+            <div class="card-subtitle">
+                Property Condition
+            </div>
+
+            <div class="option-grid">
+
+                ${makeOption(
+                    "New",
+                    "propertyCondition",
+                    "New"
+                )}
+
+                ${makeOption(
+                    "Resale",
+                    "propertyCondition",
+                    "Resale"
+                )}
+
+                ${makeOption(
+                    "Any",
+                    "propertyCondition",
+                    "Any"
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(state.propertyType==="Land"){
+
+        html += `
+
+            <div class="card-subtitle">
+                Land Type
+            </div>
+
+            <div class="option-grid">
+
+                ${makeOption(
+                    "Residential Plot",
+                    "landType",
+                    "Residential Plot"
+                )}
+
+                ${makeOption(
+                    "Commercial Plot",
+                    "landType",
+                    "Commercial Plot"
+                )}
+
+                ${makeOption(
+                    "Agricultural Land",
+                    "landType",
+                    "Agricultural Land"
+                )}
+
+                ${makeOption(
+                    "Other",
+                    "landType",
+                    "Other"
+                )}
+
+            </div>
+
+            <input
+                class="input"
+                id="landSize"
+                placeholder="Approx. land size e.g. 1200 sq.ft"
+                oninput="
+                    state.landSize=this.value;
+                    updatePreview();
+                ">
+
+        `;
+
+    }
+
+
+    if(state.propertyType==="Shop"){
+
+        html += `
+
+            <div class="card-subtitle">
+                Shop Type
+            </div>
+
+            <div class="option-grid">
+
+                ${makeOption(
+                    "Retail Shop",
+                    "shopType",
+                    "Retail Shop"
+                )}
+
+                ${makeOption(
+                    "Commercial Shop",
+                    "shopType",
+                    "Commercial Shop"
+                )}
+
+                ${makeOption(
+                    "Showroom",
+                    "shopType",
+                    "Showroom"
+                )}
+
+                ${makeOption(
+                    "Restaurant Space",
+                    "shopType",
+                    "Restaurant Space"
+                )}
+
+                ${makeOption(
+                    "Office / Shop Space",
+                    "shopType",
+                    "Office / Shop Space"
+                )}
+
+                ${makeOption(
+                    "Other",
+                    "shopType",
+                    "Other"
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(state.propertyType==="Office"){
+
+        html += `
+
+            <div class="card-subtitle">
+                Office Type
+            </div>
+
+            <div class="option-grid">
+
+                ${makeOption(
+                    "Office Space",
+                    "officeType",
+                    "Office Space"
+                )}
+
+                ${makeOption(
+                    "Commercial Building",
+                    "officeType",
+                    "Commercial Building"
+                )}
+
+                ${makeOption(
+                    "Co-working Space",
+                    "officeType",
+                    "Co-working Space"
+                )}
+
+                ${makeOption(
+                    "Individual Office",
+                    "officeType",
+                    "Individual Office"
+                )}
+
+                ${makeOption(
+                    "Other",
+                    "officeType",
+                    "Other"
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(state.propertyType==="Other Property"){
+
+        html += `
+
+            <input
+                class="input"
+                placeholder="What type of property?"
+                oninput="
+                    state.otherProperty=this.value;
+                    updatePreview();
+                ">
+
+        `;
+
+    }
+
+
+    html += `
+
+        </section>
+
+        <div id="afterDetails"></div>
+
+    `;
+
+
+    area.innerHTML = html;
+
+
+    setTimeout(()=>{
+
+        document
+            .querySelectorAll(
+                "#formArea .option"
+            )
+            .forEach(button=>{
+
+                button.addEventListener(
+                    "click",
+                    ()=>{
+                        updatePreview();
+                    }
+                );
+
+            });
+
+    },20);
+
+}
+
+
+function makeOption(
+    text,
+    key,
+    value
+){
+
+    return `
+
+        <button
+            type="button"
+            class="option"
+            onclick="
+                selectDetail(
+                    '${key}',
+                    '${value}',
+                    this
+                )
+            ">
+            ${text}
+        </button>
+
+    `;
+
+}
+
+
+function selectDetail(
+    key,
+    value,
+    button
+){
+
+    state[key] = value;
+
+    button
+        .parentElement
+        .querySelectorAll(".option")
+        .forEach(btn=>{
+            btn.classList.remove("selected");
+        });
+
+    button.classList.add("selected");
+
+    renderAfterDetails();
+
+    updatePreview();
+
+}
+
+
+function renderAfterDetails(){
+
+    const existing =
+        document.getElementById(
+            "afterDetails"
+        );
+
+    if(!existing) return;
+
+    existing.innerHTML = `
+
+        <section class="card">
+
+            <div class="step-label">
+                Step 4
+            </div>
+
+            <div class="card-title">
+                Budget
+            </div>
+
+            <div class="card-subtitle">
+                ${
+                    state.requirementType==="Rent"
+                    ? "Select your monthly rent budget"
+                    : "Select your property purchase budget"
+                }
+            </div>
+
+            <div class="option-grid">
+
+                ${getBudgetOptions()}
+
+            </div>
+
+            <div
+                style="
+                    display:grid;
+                    grid-template-columns:1fr 1fr;
+                    gap:10px;
+                    margin-top:4px;
+                ">
+
+                <input
+                    class="input"
+                    type="number"
+                    placeholder="Minimum ₹"
+                    value="${state.minBudget}"
+                    oninput="
+                        state.minBudget=this.value;
+                        updatePreview();
+                    ">
+
+                <input
+                    class="input"
+                    type="number"
+                    placeholder="Maximum ₹"
+                    value="${state.maxBudget}"
+                    oninput="
+                        state.maxBudget=this.value;
+                        updatePreview();
+                    ">
+
+            </div>
+
+        </section>
+
+        <div id="afterBudget"></div>
+
+    `;
+
+}
+
+
+function getBudgetOptions(){
+
+    if(state.requirementType==="Rent"){
+
+        return `
+
+            ${makeBudgetOption("Under ₹10,000","Under ₹10,000")}
+
+            ${makeBudgetOption("₹10,000 – ₹20,000","₹10,000 – ₹20,000")}
+
+            ${makeBudgetOption("₹20,000 – ₹30,000","₹20,000 – ₹30,000")}
+
+            ${makeBudgetOption("₹30,000 – ₹50,000","₹30,000 – ₹50,000")}
+
+            ${makeBudgetOption("₹50,000+","₹50,000+")}
+
+        `;
+
+    }
+
+
+    return `
+
+        ${makeBudgetOption("Under ₹10L","Under ₹10L")}
+
+        ${makeBudgetOption("₹10L – ₹25L","₹10L – ₹25L")}
+
+        ${makeBudgetOption("₹25L – ₹50L","₹25L – ₹50L")}
+
+        ${makeBudgetOption("₹50L – ₹1Cr","₹50L – ₹1Cr")}
+
+        ${makeBudgetOption("₹1Cr+","₹1Cr+")}
+
+    `;
+
+}
+
+
+function makeBudgetOption(
+    label,
+    value
+){
+
+    return `
+
+        <button
+            type="button"
+            class="option"
+            onclick="
+                selectBudget(
+                    '${value}',
+                    this
+                )
+            ">
+            ${label}
+        </button>
+
+    `;
+
+}
+
+
+function selectBudget(
+    value,
+    button
+){
+
+    state.budget = value;
+
+    button
+        .parentElement
+        .querySelectorAll(".option")
+        .forEach(btn=>{
+            btn.classList.remove("selected");
+        });
+
+    button.classList.add("selected");
+
+    renderAfterBudget();
+
+    updatePreview();
+
+}function renderAfterBudget(){
+
+    const area =
+        document.getElementById(
+            "afterBudget"
+        );
+
+    if(!area) return;
+
+    area.innerHTML = `
+
+        <section class="card">
+
+            <div class="step-label">
+                Step 5
+            </div>
+
+            <div class="card-title">
+                Preferred Location
+            </div>
+
+            <div class="card-subtitle">
+                Enter the area or city where you need the property
+            </div>
+
+            <input
+                class="input"
+                placeholder="Area / Locality / City"
+                value="${escapeHtml(state.location)}"
+                oninput="
+                    state.location=this.value;
+                    updatePreview();
+                ">
+
+            <input
+                class="input"
+                placeholder="Nearby area / landmark (optional)"
+                value="${escapeHtml(state.landmark)}"
+                oninput="
+                    state.landmark=this.value;
+                    updatePreview();
+                ">
+
+        </section>
+
+        <div id="afterLocation"></div>
+
+    `;
+
+    renderPreferences();
+
+}
+
+
+function renderPreferences(){
+
+    const area =
+        document.getElementById(
+            "afterLocation"
+        );
+
+    if(!area) return;
+
+    const preferences = [
+
+        "Parking",
+        "Lift",
+        "Gated Community",
+        "Security",
+        "Balcony",
+        "Power Backup",
+        "Water Facility",
+        "Road Facing",
+        "Corner Property",
+        "Any"
+
+    ];
+
+
+    let options = "";
+
+    preferences.forEach(item=>{
+
+        const selected =
+            state.preferences.includes(item)
+            ? "selected"
+            : "";
+
+        options += `
+
+            <button
+                type="button"
+                class="option ${selected}"
+                onclick="
+                    togglePreference(
+                        '${item}',
+                        this
+                    )
+                ">
+                ${item}
+            </button>
+
+        `;
+
+    });
+
+
+    area.innerHTML = `
+
+        <section class="card">
+
+            <div class="step-label">
+                Step 6
+            </div>
+
+            <div class="card-title">
+                Additional Preferences
+            </div>
+
+            <div class="card-subtitle">
+                Select all that are important to you
+            </div>
+
+            <div class="option-grid">
+
+                ${options}
+
+            </div>
+
+        </section>
+
+        <div id="afterPreferences"></div>
+
+    `;
+
+    renderDate();
+
+}
+
+
+function togglePreference(
+    value,
+    button
+){
+
+    if(value==="Any"){
+
+        state.preferences =
+            ["Any"];
+
+        button
+            .parentElement
+            .querySelectorAll(".option")
+            .forEach(btn=>{
+                btn.classList.remove("selected");
+            });
+
+        button.classList.add("selected");
+
+    }else{
+
+        state.preferences =
+            state.preferences.filter(
+                item=>item!=="Any"
+            );
+
+        const index =
+            state.preferences.indexOf(
+                value
+            );
+
+        if(index===-1){
+
+            state.preferences.push(value);
+
+            button.classList.add(
+                "selected"
+            );
+
+        }else{
+
+            state.preferences.splice(
+                index,
+                1
+            );
+
+            button.classList.remove(
+                "selected"
+            );
+
+        }
+
+    }
+
+    updatePreview();
+
+}
+
+
+function renderDate(){
+
+    const area =
+        document.getElementById(
+            "afterPreferences"
+        );
+
+    if(!area) return;
+
+    area.innerHTML = `
+
+        <section class="card">
+
+            <div class="step-label">
+                Step 7
+            </div>
+
+            <div class="card-title">
+                Preferred Date
+            </div>
+
+            <div class="card-subtitle">
+                When do you need the property?
+            </div>
+
+            <button
+                type="button"
+                class="option ${
+                    state.requiredDate
+                    ? "selected"
+                    : ""
+                }"
+                style="
+                    width:100%;
+                    text-align:left;
+                "
+                id="dateButton"
+                onclick="openDatePicker()">
+
+                ${
+                    state.requiredDate
+                    ? "📅 " +
+                      formatDisplayDate(
+                          state.requiredDate
+                      )
+                    : "📅 Select Date"
+                }
+
+            </button>
+
+        </section>
+
+        <div id="afterDate"></div>
+
+    `;
+
+    renderAdditional();
+
+}
+
+
+function renderAdditional(){
+
+    const area =
+        document.getElementById(
+            "afterDate"
+        );
+
+    if(!area) return;
+
+    area.innerHTML = `
+
+        <section class="card">
+
+            <div class="step-label">
+                Step 8
+            </div>
+
+            <div class="card-title">
+                Additional Requirement
+            </div>
+
+            <div class="card-subtitle">
+                Add anything else you want to mention
+            </div>
+
+            <textarea
+                class="input"
+                placeholder="Example: Need ready-to-move property near main road..."
+                oninput="
+                    state.additional=this.value;
+                    updatePreview();
+                ">${escapeHtml(
+                    state.additional
+                )}</textarea>
+
+        </section>
+
+        <div id="afterAdditional"></div>
+
+    `;
+
+    renderPreview();
+
+}
+
+
+function renderPreview(){
+
+    const area =
+        document.getElementById(
+            "afterAdditional"
+        );
+
+    if(!area) return;
+
+    area.innerHTML = `
+
+        <section class="card">
+
+            <div class="step-label">
+                Step 9
+            </div>
+
+            <div class="card-title">
+                Preview
+            </div>
+
+            <div class="card-subtitle">
+                Check your requirement before posting
+            </div>
+
+            <div
+                id="previewBox"
+                class="info-box">
+
+            </div>
+
+            <button
+                type="button"
+                class="primary-btn"
+                style="margin-top:15px;"
+                onclick="preparePost()">
+
+                Post My Requirement
+
+            </button>
+
+        </section>
+
+    `;
+
+    updatePreview();
+
+}
+
+
+function updatePreview(){
+
+    const box =
+        document.getElementById(
+            "previewBox"
+        );
+
+    if(!box) return;
+
+
+    let details = [];
+
+
+    if(state.bhk){
+
+        details.push(
+            state.bhk
+        );
+
+    }
+
+
+    if(state.furnishing){
+
+        details.push(
+            state.furnishing
+        );
+
+    }
+
+
+    if(state.propertyCondition){
+
+        details.push(
+            state.propertyCondition
+        );
+
+    }
+
+
+    if(state.landType){
+
+        details.push(
+            state.landType
+        );
+
+    }
+
+
+    if(state.landSize){
+
+        details.push(
+            state.landSize
+        );
+
+    }
+
+
+    if(state.shopType){
+
+        details.push(
+            state.shopType
+        );
+
+    }
+
+
+    if(state.officeType){
+
+        details.push(
+            state.officeType
+        );
+
+    }
+
+
+    if(state.otherProperty){
+
+        details.push(
+            state.otherProperty
+        );
+
+    }
+
+
+    if(state.budget){
+
+        details.push(
+            state.budget
+        );
+
+    }
+
+
+    if(
+        state.minBudget ||
+        state.maxBudget
+    ){
+
+        let customBudget = "";
+
+        if(state.minBudget){
+
+            customBudget +=
+                "₹" +
+                Number(
+                    state.minBudget
+                ).toLocaleString(
+                    "en-IN"
+                );
+
+        }
+
+        if(state.maxBudget){
+
+            if(customBudget){
+                customBudget += " – ";
+            }
+
+            customBudget +=
+                "₹" +
+                Number(
+                    state.maxBudget
+                ).toLocaleString(
+                    "en-IN"
+                );
+
+        }
+
+        if(customBudget){
+
+            details.push(
+                customBudget
+            );
+
+        }
+
+    }
+
+
+    const preferenceText =
+        state.preferences.length
+        ? state.preferences.join(", ")
+        : "Not specified";
+
+
+    box.innerHTML = `
+
+        <div style="
+            font-size:10px;
+            font-weight:900;
+            color:#64748b;
+            text-transform:uppercase;
+            letter-spacing:.5px;
+        ">
+            Real Estate Requirement
+        </div>
+
+        <div style="
+            margin-top:7px;
+            font-size:18px;
+            font-weight:900;
+        ">
+            ${escapeHtml(
+                state.propertyType ||
+                "Property"
+            )}
+        </div>
+
+        <div style="
+            margin-top:5px;
+            color:#2563eb;
+            font-size:13px;
+            font-weight:900;
+        ">
+            ${escapeHtml(
+                state.requirementType ||
+                "Requirement"
+            )}
+        </div>
+
+        ${
+            details.length
+            ? `
+                <div style="
+                    margin-top:12px;
+                    font-size:13px;
+                    line-height:1.8;
+                ">
+                    ${details.map(
+                        item =>
+                        "✓ " +
+                        escapeHtml(item)
+                    ).join("<br>")}
+                </div>
+            `
+            : ""
+        }
+
+        <div style="
+            margin-top:12px;
+            padding-top:12px;
+            border-top:1px solid #e2e8f0;
+            font-size:13px;
+            line-height:1.8;
+        ">
+
+            <strong>Location:</strong>
+            ${
+                escapeHtml(
+                    state.location ||
+                    "Not specified"
+                )
+            }
+
+            ${
+                state.landmark
+                ? `
+                    <br>
+                    <strong>Nearby:</strong>
+                    ${escapeHtml(
+                        state.landmark
+                    )}
+                `
+                : ""
+            }
+
+            <br>
+
+            <strong>Preferences:</strong>
+            ${escapeHtml(
+                preferenceText
+            )}
+
+            ${
+                state.requiredDate
+                ? `
+                    <br>
+                    <strong>Date:</strong>
+                    ${escapeHtml(
+                        formatDisplayDate(
+                            state.requiredDate
+                        )
+                    )}
+                `
+                : ""
+            }
+
+            ${
+                state.additional
+                ? `
+                    <br>
+                    <strong>Additional:</strong>
+                    ${escapeHtml(
+                        state.additional
+                    )}
+                `
+                : ""
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+function escapeHtml(value){
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function formatDisplayDate(date){
+
+    if(!date) return "";
+
+    const parts =
+        date.split("-");
+
+    if(parts.length!==3){
+        return date;
+    }
+
+    return (
+        parts[2] +
+        "-" +
+        parts[1] +
+        "-" +
+        parts[0]
+    );
+
+                  }
+
+  function openDatePicker(){
+
+    const old =
+        document.getElementById(
+            "dateModal"
+        );
+
+    if(old){
+        old.remove();
+    }
+
+
+    const today =
+        new Date();
+
+
+    calendarDate =
+        new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            1
+        );
+
+
+    selectedCalendarDate =
+        state.requiredDate
+        ? new Date(
+            state.requiredDate +
+            "T00:00:00"
+        )
+        : null;
+
+
+    renderDateModal();
+
+}
+
+
+function renderDateModal(){
+
+    const year =
+        calendarDate.getFullYear();
+
+    const month =
+        calendarDate.getMonth();
+
+
+    const monthName =
+        calendarDate.toLocaleString(
+            "en-US",
+            {
+                month:"long"
+            }
+        );
+
+
+    const firstDay =
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
+
+    const daysInMonth =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+
+    let days = "";
+
+
+    for(
+        let i=0;
+        i<firstDay;
+        i++
+    ){
+
+        days += `
+            <div style="
+                height:40px;
+            "></div>
+        `;
+
+    }
+
+
+    const today =
+        new Date();
+
+
+    for(
+        let day=1;
+        day<=daysInMonth;
+        day++
+    ){
+
+        const isSelected =
+            selectedCalendarDate &&
+            selectedCalendarDate.getFullYear()===year &&
+            selectedCalendarDate.getMonth()===month &&
+            selectedCalendarDate.getDate()===day;
+
+
+        const isToday =
+            today.getFullYear()===year &&
+            today.getMonth()===month &&
+            today.getDate()===day;
+
+
+        days += `
+
+            <button
+                type="button"
+                class="day-btn ${
+                    isSelected
+                    ? "selected"
+                    : isToday
+                    ? "today"
+                    : ""
+                }"
+                onclick="
+                    selectCalendarDay(
+                        ${day}
+                    )
+                ">
+
+                ${day}
+
+            </button>
+
+        `;
+
+    }
+
+
+    const modal =
+        document.createElement(
+            "div"
+        );
+
+
+    modal.id =
+        "dateModal";
+
+
+    modal.className =
+        "date-modal";
+
+
+    modal.innerHTML = `
+
+        <div class="date-box">
+
+            <div class="date-head">
+
+                <button
+                    type="button"
+                    class="month-btn"
+                    onclick="
+                        changeCalendarMonth(-1)
+                    ">
+                    ‹
+                </button>
+
+                <div class="month-title">
+                    ${monthName}
+                    ${year}
+                </div>
+
+                <button
+                    type="button"
+                    class="month-btn"
+                    onclick="
+                        changeCalendarMonth(1)
+                    ">
+                    ›
+                </button>
+
+            </div>
+
+
+            <div class="weekdays">
+
+                <div class="weekday">
+                    SUN
+                </div>
+
+                <div class="weekday">
+                    MON
+                </div>
+
+                <div class="weekday">
+                    TUE
+                </div>
+
+                <div class="weekday">
+                    WED
+                </div>
+
+                <div class="weekday">
+                    THU
+                </div>
+
+                <div class="weekday">
+                    FRI
+                </div>
+
+                <div class="weekday">
+                    SAT
+                </div>
+
+            </div>
+
+
+            <div class="calendar-days">
+
+                ${days}
+
+            </div>
+
+
+            <div class="date-actions">
+
+                <button
+                    type="button"
+                    class="date-cancel"
+                    onclick="
+                        closeDatePicker()
+                    ">
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="date-ok"
+                    onclick="
+                        confirmDate()
+                    ">
+                    OK
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        modal
+    );
+
+}
+
+
+function changeCalendarMonth(
+    direction
+){
+
+    calendarDate.setMonth(
+        calendarDate.getMonth() +
+        direction
+    );
+
+    renderDateModal();
+
+}
+
+
+function selectCalendarDay(day){
+
+    selectedCalendarDate =
+        new Date(
+            calendarDate.getFullYear(),
+            calendarDate.getMonth(),
+            day
+        );
+
+    renderDateModal();
+
+}
+
+
+function confirmDate(){
+
+    if(!selectedCalendarDate){
+
+        alert(
+            "Please select a date."
+        );
+
+        return;
+
+    }
+
+
+    const year =
+        selectedCalendarDate
+            .getFullYear();
+
+
+    const month =
+        String(
+            selectedCalendarDate
+                .getMonth()+1
+        ).padStart(2,"0");
+
+
+    const day =
+        String(
+            selectedCalendarDate
+                .getDate()
+        ).padStart(2,"0");
+
+
+    state.requiredDate =
+        `${year}-${month}-${day}`;
+
+
+    closeDatePicker();
+
+
+    renderAfterDetails();
+
+
+    updatePreview();
+
+}
+
+
+function closeDatePicker(){
+
+    const modal =
+        document.getElementById(
+            "dateModal"
+        );
+
+    if(modal){
+
+        modal.remove();
+
+    }
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeDatePicker();
+
+        }
+
+    }
+);
+
+
+function validateRequirement(){
+
+    if(!state.propertyType){
+
+        alert(
+            "Please select a property type."
+        );
+
+        return false;
+
+    }
+
+
+    if(!state.requirementType){
+
+        alert(
+            "Please select Buy or Rent."
+        );
+
+        return false;
+
+    }
+
+
+    if(
+        state.propertyType==="Flat" ||
+        state.propertyType==="House" ||
+        state.propertyType==="Villa"
+    ){
+
+        if(!state.bhk){
+
+            alert(
+                "Please select BHK."
+            );
+
+            return false;
+
+        }
+
+    }
+
+
+    if(state.propertyType==="Land"){
+
+        if(!state.landType){
+
+            alert(
+                "Please select land type."
+            );
+
+            return false;
+
+        }
+
+    }
+
+
+    if(state.propertyType==="Shop"){
+
+        if(!state.shopType){
+
+            alert(
+                "Please select shop type."
+            );
+
+            return false;
+
+        }
+
+    }
+
+
+    if(state.propertyType==="Office"){
+
+        if(!state.officeType){
+
+            alert(
+                "Please select office type."
+            );
+
+            return false;
+
+        }
+
+    }
+
+
+    if(
+        state.propertyType==="Other Property" &&
+        !state.otherProperty.trim()
+    ){
+
+        alert(
+            "Please enter the property type."
+        );
+
+        return false;
+
+    }
+
+
+    if(!state.location.trim()){
+
+        alert(
+            "Please enter your preferred location."
+        );
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+function preparePost(){
+
+    if(!validateRequirement()){
+
+        return;
+
+    }
+
+
+    const mobile =
+        localStorage.getItem(
+            "pyncode_mobile"
+        );
+
+
+    if(!mobile){
+
+        openLogin();
+
+        return;
+
+    }
+
+
+    submitRequirement(
+        mobile
+    );
+
+}
+
+  function openLogin(){
+
+    document
+        .getElementById(
+            "loginModal"
+        )
+        .classList.add(
+            "show"
+        );
+
+}
+
+
+function closeLogin(){
+
+    document
+        .getElementById(
+            "loginModal"
+        )
+        .classList.remove(
+            "show"
+        );
+
+}
+
+
+function saveLogin(){
+
+    const input =
+        document.getElementById(
+            "loginMobile"
+        );
+
+
+    const mobile =
+        input.value.trim();
+
+
+    if(
+        !/^[6-9]\d{9}$/.test(
+            mobile
+        )
+    ){
+
+        alert(
+            "Please enter a valid 10 digit mobile number."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "pyncode_mobile",
+        mobile
+    );
+
+
+    closeLogin();
+
+
+    submitRequirement(
+        mobile
+    );
+
+}
+
+
+/* =========================
+   SUPABASE INSERT
+========================= */
+
+async function submitRequirement(
+    mobile
+){
+
+    if(
+        !validateRequirement()
+    ){
+
+        return;
+
+    }
+
+
+    const title =
+        buildTitle();
+
+
+    const description =
+        buildDescription();
+
+
+    const quantity =
+        buildQuantity();
+
+
+    const payload = {
+
+        mobile:mobile,
+
+        category:"realestate",
+
+        location:
+            state.location.trim(),
+
+        title:title,
+
+        description:description,
+
+        required_date:
+            state.requiredDate ||
+            null,
+
+        quantity:quantity
+
+    };
+
+
+    try{
+
+        const response =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/requirements",
+                {
+
+                    method:"POST",
+
+                    headers:{
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            "Bearer " +
+                            SUPABASE_KEY,
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Prefer":
+                            "return=minimal"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            payload
+                        )
+
+                }
+            );
+
+
+        if(!response.ok){
+
+            const errorText =
+                await response.text();
+
+            console.error(
+                "Supabase error:",
+                errorText
+            );
+
+            alert(
+                "Unable to post requirement. Please try again."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Requirement posted successfully!"
+        );
+
+
+        window.location.href =
+            "enquiry.html";
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+        alert(
+            "Network error. Please try again."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   BUILD TITLE
+========================= */
+
+function buildTitle(){
+
+    let title =
+        state.propertyType;
+
+
+    if(state.requirementType){
+
+        title +=
+            " - " +
+            state.requirementType;
+
+    }
+
+
+    return title;
+
+}
+
+
+/* =========================
+   BUILD DESCRIPTION
+========================= */
+
+function buildDescription(){
+
+    const lines=[];
+
+
+    lines.push(
+        "Property Type: " +
+        state.propertyType
+    );
+
+
+    lines.push(
+        "Requirement: " +
+        state.requirementType
+    );
+
+
+    if(state.bhk){
+
+        lines.push(
+            "BHK: " +
+            state.bhk
+        );
+
+    }
+
+
+    if(state.furnishing){
+
+        lines.push(
+            "Furnishing: " +
+            state.furnishing
+        );
+
+    }
+
+
+    if(state.propertyCondition){
+
+        lines.push(
+            "Property Condition: " +
+            state.propertyCondition
+        );
+
+    }
+
+
+    if(state.landType){
+
+        lines.push(
+            "Land Type: " +
+            state.landType
+        );
+
+    }
+
+
+    if(state.landSize){
+
+        lines.push(
+            "Land Size: " +
+            state.landSize
+        );
+
+    }
+
+
+    if(state.shopType){
+
+        lines.push(
+            "Shop Type: " +
+            state.shopType
+        );
+
+    }
+
+
+    if(state.officeType){
+
+        lines.push(
+            "Office Type: " +
+            state.officeType
+        );
+
+    }
+
+
+    if(state.otherProperty){
+
+        lines.push(
+            "Other Property: " +
+            state.otherProperty
+        );
+
+    }
+
+
+    if(state.budget){
+
+        lines.push(
+            "Budget Range: " +
+            state.budget
+        );
+
+    }
+
+
+    if(
+        state.minBudget ||
+        state.maxBudget
+    ){
+
+        let custom="";
+
+
+        if(state.minBudget){
+
+            custom +=
+                "₹" +
+                Number(
+                    state.minBudget
+                ).toLocaleString(
+                    "en-IN"
+                );
+
+        }
+
+
+        if(state.maxBudget){
+
+            if(custom){
+
+                custom +=
+                    " - ";
+
+            }
+
+
+            custom +=
+                "₹" +
+                Number(
+                    state.maxBudget
+                ).toLocaleString(
+                    "en-IN"
+                );
+
+        }
+
+
+        if(custom){
+
+            lines.push(
+                "Custom Budget: " +
+                custom
+            );
+
+        }
+
+    }
+
+
+    if(state.landmark){
+
+        lines.push(
+            "Nearby: " +
+            state.landmark
+        );
+
+    }
+
+
+    if(state.preferences.length){
+
+        lines.push(
+            "Preferences: " +
+            state.preferences.join(
+                ", "
+            )
+        );
+
+    }
+
+
+    if(state.requiredDate){
+
+        lines.push(
+            "Preferred Date: " +
+            state.requiredDate
+        );
+
+    }
+
+
+    if(state.additional.trim()){
+
+        lines.push(
+            "Additional Requirement: " +
+            state.additional.trim()
+        );
+
+    }
+
+
+    return lines.join(
+        "\n"
+    );
+
+}
+
+
+/* =========================
+   BUILD QUANTITY
+========================= */
+
+function buildQuantity(){
+
+    const parts=[];
+
+
+    if(state.bhk){
+
+        parts.push(
+            state.bhk
+        );
+
+    }
+
+
+    if(state.budget){
+
+        parts.push(
+            state.budget
+        );
+
+    }
+
+
+    if(state.landSize){
+
+        parts.push(
+            state.landSize
+        );
+
+    }
+
+
+    return parts.join(
+        " | "
+    );
+
+}
+
+
+/* =========================
+   LOGIN MODAL OUTSIDE CLICK
+========================= */
+
+document
+    .getElementById(
+        "loginModal"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target === this
+            ){
+
+                closeLogin();
+
+            }
+
+        }
+    );
+
+
+/* =========================
+   AUTO UPDATE PREVIEW
+========================= */
+
+document.addEventListener(
+    "input",
+    function(){
+
+        updatePreview();
+
+    }
+);
+
+
+/* =========================
+   INITIAL
+========================= */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        const savedMobile =
+            localStorage.getItem(
+                "pyncode_mobile"
+            );
+
+
+        if(savedMobile){
+
+            const loginButton =
+                document.querySelector(
+                    ".login-btn"
+                );
+
+            if(loginButton){
+
+                loginButton.textContent =
+                    "Logged In";
+
+            }
+
+        }
+
+    }
+);
+
+  </script>
+
+</body>
+
+</html>

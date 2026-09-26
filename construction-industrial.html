@@ -1,0 +1,4321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode - Construction & Industrial</title>
+
+<style>
+
+/* =====================================================
+   PYNCODE CONSTRUCTION & INDUSTRIAL
+   PART 1 / 8
+===================================================== */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --orange:#f97316;
+  --orange-dark:#ea580c;
+  --orange-soft:#fff7ed;
+
+  --dark:#111827;
+  --dark-2:#1f2937;
+
+  --text:#111827;
+  --muted:#6b7280;
+
+  --bg:#f7f7f8;
+  --card:#ffffff;
+
+  --border:#e5e7eb;
+
+  --green:#16a34a;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:var(--bg);
+
+  color:var(--text);
+
+  padding-bottom:105px;
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+  height:64px;
+
+  background:
+    rgba(255,255,255,.97);
+
+  backdrop-filter:blur(12px);
+
+  border-bottom:
+    1px solid var(--border);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:0 16px;
+
+  position:sticky;
+
+  top:0;
+
+  z-index:100;
+}
+
+.logo{
+  font-size:21px;
+
+  font-weight:900;
+
+  letter-spacing:-.5px;
+}
+
+.logo span{
+  color:var(--orange);
+}
+
+.login-btn{
+  border:
+    1px solid #fed7aa;
+
+  background:
+    var(--orange-soft);
+
+  color:
+    var(--orange-dark);
+
+  padding:
+    9px 16px;
+
+  border-radius:22px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.login-btn:active{
+  transform:scale(.96);
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.container{
+  width:100%;
+
+  max-width:720px;
+
+  margin:auto;
+
+  padding:
+    14px
+    14px
+    30px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--dark),
+      var(--dark-2)
+    );
+
+  color:#fff;
+
+  border-radius:20px;
+
+  padding:
+    24px 20px;
+
+  margin-bottom:15px;
+
+  box-shadow:
+    0 10px 28px
+    rgba(17,24,39,.16);
+}
+
+.hero:after{
+  content:"";
+
+  position:absolute;
+
+  width:175px;
+
+  height:175px;
+
+  border-radius:50%;
+
+  background:
+    rgba(249,115,22,.18);
+
+  right:-60px;
+
+  top:-65px;
+}
+
+.hero h1{
+  position:relative;
+
+  z-index:1;
+
+  font-size:25px;
+
+  line-height:1.2;
+
+  margin-bottom:8px;
+
+  letter-spacing:-.5px;
+}
+
+.hero p{
+  position:relative;
+
+  z-index:1;
+
+  font-size:14px;
+
+  line-height:1.55;
+
+  opacity:.9;
+
+  max-width:620px;
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card{
+  background:
+    var(--card);
+
+  border:
+    1px solid #ececec;
+
+  border-radius:18px;
+
+  padding:18px;
+
+  margin-bottom:14px;
+
+  box-shadow:
+    0 5px 18px
+    rgba(17,24,39,.05);
+}
+
+.card-title{
+  font-size:17px;
+
+  font-weight:900;
+
+  margin-bottom:5px;
+}
+
+.card-subtitle{
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.5;
+
+  margin-bottom:16px;
+}
+
+
+/* =====================================================
+   SECTION LABEL
+===================================================== */
+
+.section-label{
+  font-size:13px;
+
+  font-weight:900;
+
+  color:#374151;
+
+  margin:
+    18px 0 9px;
+}
+
+.section-label:first-child{
+  margin-top:0;
+}
+
+
+/* =====================================================
+   OPTION GRID
+===================================================== */
+
+.option-grid{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:9px;
+}
+
+.option-btn{
+  position:relative;
+
+  border:
+    1.5px solid var(--border);
+
+  background:#fff;
+
+  border-radius:13px;
+
+  min-height:58px;
+
+  padding:10px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  text-align:left;
+
+  cursor:pointer;
+
+  transition:.2s;
+
+  font-family:inherit;
+}
+
+.option-btn:hover{
+  border-color:#fdba74;
+}
+
+.option-btn.active{
+  border-color:
+    var(--orange);
+
+  background:
+    var(--orange-soft);
+
+  box-shadow:
+    0 0 0 2px
+    rgba(249,115,22,.07);
+}
+
+.option-icon{
+  width:36px;
+
+  height:36px;
+
+  flex:none;
+
+  border-radius:10px;
+
+  background:#f8fafc;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:19px;
+}
+
+.option-btn.active
+.option-icon{
+  background:#ffedd5;
+}
+
+.option-text{
+  font-size:12px;
+
+  font-weight:800;
+
+  color:#374151;
+
+  line-height:1.25;
+}
+
+.option-check{
+  display:none;
+
+  position:absolute;
+
+  right:8px;
+
+  top:7px;
+
+  color:var(--orange);
+
+  font-size:14px;
+
+  font-weight:900;
+}
+
+.option-btn.active
+.option-check{
+  display:block;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.field{
+  margin-bottom:12px;
+}
+
+.field label{
+  display:block;
+
+  font-size:12px;
+
+  font-weight:800;
+
+  color:#374151;
+
+  margin-bottom:6px;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+
+  border:
+    1.5px solid var(--border);
+
+  border-radius:12px;
+
+  background:#fff;
+
+  color:var(--text);
+
+  padding:
+    13px;
+
+  font-family:inherit;
+
+  font-size:14px;
+
+  outline:none;
+
+  transition:
+    border-color .2s,
+    box-shadow .2s;
+}
+
+.field textarea{
+  min-height:110px;
+
+  resize:vertical;
+
+  line-height:1.5;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:
+    var(--orange);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(249,115,22,.10);
+}
+
+
+/* =====================================================
+   TWO COLUMN
+===================================================== */
+
+.two-col{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:10px;
+}
+
+
+/* =====================================================
+   NOTE
+===================================================== */
+
+.note{
+  background:
+    var(--orange-soft);
+
+  border:
+    1px solid #fed7aa;
+
+  border-radius:13px;
+
+  padding:
+    12px 13px;
+
+  color:#9a3412;
+
+  font-size:12px;
+
+  line-height:1.5;
+
+  margin-top:10px;
+}
+
+  /* =====================================================
+   PART 2 / 8
+   ADDITIONAL STYLES
+===================================================== */
+
+
+/* =====================================================
+   CHECKBOX SERVICE GRID
+===================================================== */
+
+.service-grid{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:8px;
+}
+
+.service-item{
+  border:
+    1.5px solid var(--border);
+
+  background:#fff;
+
+  border-radius:12px;
+
+  padding:11px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.service-item:has(input:checked){
+  border-color:
+    var(--orange);
+
+  background:
+    var(--orange-soft);
+}
+
+.service-item input{
+  width:17px;
+
+  height:17px;
+
+  accent-color:
+    var(--orange);
+
+  flex:none;
+}
+
+.service-item span{
+  font-size:12px;
+
+  font-weight:750;
+
+  line-height:1.3;
+
+  color:#374151;
+}
+
+
+/* =====================================================
+   TOGGLE
+===================================================== */
+
+.toggle-row{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:12px;
+
+  padding:13px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius:13px;
+
+  background:#fff;
+}
+
+.toggle-info{
+  flex:1;
+}
+
+.toggle-title{
+  font-size:14px;
+
+  font-weight:900;
+
+  margin-bottom:3px;
+}
+
+.toggle-subtitle{
+  font-size:11px;
+
+  color:var(--muted);
+
+  line-height:1.4;
+}
+
+.switch{
+  position:relative;
+
+  width:48px;
+
+  height:27px;
+
+  flex:none;
+}
+
+.switch input{
+  opacity:0;
+
+  width:0;
+
+  height:0;
+}
+
+.slider{
+  position:absolute;
+
+  inset:0;
+
+  cursor:pointer;
+
+  background:#d1d5db;
+
+  border-radius:30px;
+
+  transition:.2s;
+}
+
+.slider:before{
+  content:"";
+
+  position:absolute;
+
+  width:21px;
+
+  height:21px;
+
+  left:3px;
+
+  top:3px;
+
+  background:#fff;
+
+  border-radius:50%;
+
+  box-shadow:
+    0 1px 4px
+    rgba(0,0,0,.2);
+
+  transition:.2s;
+}
+
+.switch input:checked + .slider{
+  background:
+    var(--orange);
+}
+
+.switch input:checked + .slider:before{
+  transform:
+    translateX(21px);
+}
+
+
+/* =====================================================
+   PREVIEW
+===================================================== */
+
+.preview{
+  background:
+    #111827;
+
+  color:#fff;
+
+  border-radius:16px;
+
+  padding:16px;
+
+  margin-top:10px;
+}
+
+.preview-title{
+  font-size:11px;
+
+  color:#fdba74;
+
+  font-weight:900;
+
+  text-transform:uppercase;
+
+  letter-spacing:.7px;
+
+  margin-bottom:8px;
+}
+
+.preview-main{
+  font-size:18px;
+
+  font-weight:900;
+
+  line-height:1.3;
+
+  margin-bottom:7px;
+}
+
+.preview-line{
+  font-size:12px;
+
+  line-height:1.6;
+
+  color:#d1d5db;
+}
+
+.preview-line strong{
+  color:#fff;
+}
+
+
+/* =====================================================
+   ERROR / SUCCESS
+===================================================== */
+
+.error-box{
+  display:none;
+
+  background:#fef2f2;
+
+  border:
+    1px solid #fecaca;
+
+  color:#b91c1c;
+
+  border-radius:12px;
+
+  padding:
+    11px 13px;
+
+  font-size:12px;
+
+  line-height:1.45;
+
+  margin-bottom:12px;
+}
+
+.error-box.show{
+  display:block;
+}
+
+.success-box{
+  display:none;
+
+  background:#f0fdf4;
+
+  border:
+    1px solid #bbf7d0;
+
+  color:#166534;
+
+  border-radius:12px;
+
+  padding:
+    11px 13px;
+
+  font-size:12px;
+
+  line-height:1.45;
+
+  margin-bottom:12px;
+}
+
+.success-box.show{
+  display:block;
+}
+
+
+/* =====================================================
+   BOTTOM BAR
+===================================================== */
+
+.bottom{
+  position:fixed;
+
+  left:0;
+
+  right:0;
+
+  bottom:0;
+
+  z-index:90;
+
+  background:
+    rgba(255,255,255,.97);
+
+  backdrop-filter:blur(12px);
+
+  border-top:
+    1px solid var(--border);
+
+  padding:
+    11px 14px;
+
+  box-shadow:
+    0 -8px 25px
+    rgba(17,24,39,.10);
+}
+
+.bottom-inner{
+  width:100%;
+
+  max-width:720px;
+
+  margin:auto;
+}
+
+.post-btn{
+  width:100%;
+
+  border:0;
+
+  border-radius:14px;
+
+  padding:15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--orange),
+      var(--orange-dark)
+    );
+
+  color:#fff;
+
+  font-size:15px;
+
+  font-weight:900;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 7px 18px
+    rgba(249,115,22,.25);
+
+  transition:.2s;
+}
+
+.post-btn:active{
+  transform:
+    scale(.985);
+}
+
+.post-btn:disabled{
+  opacity:.65;
+
+  cursor:not-allowed;
+}
+
+
+/* =====================================================
+   LOGIN MODAL
+===================================================== */
+
+.modal{
+  position:fixed;
+
+  inset:0;
+
+  z-index:300;
+
+  background:
+    rgba(17,24,39,.62);
+
+  display:none;
+
+  align-items:flex-end;
+
+  justify-content:center;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+
+  max-width:520px;
+
+  background:#fff;
+
+  border-radius:
+    22px 22px 0 0;
+
+  padding:
+    23px 20px;
+
+  box-shadow:
+    0 -15px 45px
+    rgba(0,0,0,.20);
+}
+
+.modal-box h2{
+  font-size:21px;
+
+  margin-bottom:7px;
+}
+
+.modal-box p{
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.5;
+
+  margin-bottom:16px;
+}
+
+.modal-box input{
+  width:100%;
+
+  padding:14px;
+
+  border:
+    1.5px solid var(--border);
+
+  border-radius:12px;
+
+  outline:none;
+
+  font-size:15px;
+
+  font-family:inherit;
+}
+
+.modal-box input:focus{
+  border-color:
+    var(--orange);
+}
+
+.modal-actions{
+  display:flex;
+
+  gap:9px;
+
+  margin-top:12px;
+}
+
+.modal-actions button{
+  flex:1;
+
+  padding:13px;
+
+  border:0;
+
+  border-radius:12px;
+
+  font-weight:900;
+
+  cursor:pointer;
+
+  font-family:inherit;
+}
+
+.cancel{
+  background:#f1f5f9;
+
+  color:#374151;
+}
+
+.continue{
+  background:
+    var(--orange);
+
+  color:#fff;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
+
+  font-size:12px;
+
+  font-weight:800;
+
+  color:#fff;
+}
+
+.loading.show{
+  display:flex;
+}
+
+.dot{
+  width:6px;
+
+  height:6px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  animation:
+    pulse 1s infinite alternate;
+}
+
+.dot:nth-child(2){
+  animation-delay:.2s;
+}
+
+.dot:nth-child(3){
+  animation-delay:.4s;
+}
+
+@keyframes pulse{
+
+  from{
+    opacity:.25;
+  }
+
+  to{
+    opacity:1;
+  }
+
+}
+
+
+/* =====================================================
+   HIDDEN
+===================================================== */
+
+.hidden{
+  display:none !important;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:520px){
+
+  .container{
+    padding:
+      12px
+      11px
+      25px;
+  }
+
+  .hero{
+    padding:
+      21px 17px;
+
+    border-radius:19px;
+  }
+
+  .hero h1{
+    font-size:23px;
+  }
+
+  .card{
+    padding:15px;
+
+    border-radius:16px;
+  }
+
+  .option-grid{
+    grid-template-columns:1fr;
+  }
+
+  .service-grid{
+    grid-template-columns:1fr;
+  }
+
+  .two-col{
+    grid-template-columns:1fr;
+  }
+
+}
+
+
+/* =====================================================
+   SMALL PHONES
+===================================================== */
+
+@media(max-width:360px){
+
+  .hero h1{
+    font-size:21px;
+  }
+
+  .card-title{
+    font-size:16px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="topbar">
+
+<div class="logo">
+    <span style="color:#ff6b1a;">Pyn</span><span style="color:#151515;">code.in</span>
+</div>
+
+  <button
+    id="headerLoginBtn"
+    class="login-btn"
+    type="button"
+    onclick="handleHeaderAction()"
+  >
+    Login
+  </button>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+<section class="hero">
+
+  <h1>
+    Construction & Industrial
+  </h1>
+
+  <p>
+    Post requirements for construction projects,
+    building materials, industrial supplies,
+    manpower, machinery, site services and more.
+  </p>
+
+</section>
+
+
+<!-- =====================================================
+     ORGANIZATION / PROJECT TYPE
+===================================================== -->
+
+<section class="card">
+
+  <div class="card-title">
+    Project / Organization Type
+  </div>
+
+  <div class="card-subtitle">
+    Select the type of project or organization
+    related to your requirement.
+  </div>
+
+
+  <div class="option-grid">
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-project="Residential Construction"
+      onclick="selectProject(this)"
+    >
+
+      <span class="option-icon">
+        🏠
+      </span>
+
+      <span class="option-text">
+        Residential Construction
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-project="Commercial Building"
+      onclick="selectProject(this)"
+    >
+
+      <span class="option-icon">
+        🏢
+      </span>
+
+      <span class="option-text">
+        Commercial Building
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-project="Industrial Project"
+      onclick="selectProject(this)"
+    >
+
+      <span class="option-icon">
+        🏭
+      </span>
+
+      <span class="option-text">
+        Industrial Project
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-project="Factory"
+      onclick="selectProject(this)"
+    >
+
+      <span class="option-icon">
+        🏗️
+      </span>
+
+      <span class="option-text">
+        Factory
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-project="Warehouse"
+      onclick="selectProject(this)"
+    >
+
+      <span class="option-icon">
+        🏬
+      </span>
+
+      <span class="option-text">
+        Warehouse
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-project="Infrastructure / Site"
+      onclick="selectProject(this)"
+    >
+
+      <span class="option-icon">
+        🛣️
+      </span>
+
+      <span class="option-text">
+        Infrastructure / Site
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+  </div>
+
+
+  <div class="field" style="margin-top:15px;">
+
+    <label for="projectName">
+      Project / Company Name
+    </label>
+
+    <input
+      id="projectName"
+      type="text"
+      placeholder="Example: ABC Construction Project"
+    >
+
+  </div>
+
+
+  <div class="two-col">
+
+    <div class="field">
+
+      <label for="contactPerson">
+        Contact Person
+      </label>
+
+      <input
+        id="contactPerson"
+        type="text"
+        placeholder="Contact person"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="quantity">
+        Approx. Quantity
+      </label>
+
+      <input
+        id="quantity"
+        type="number"
+        min="1"
+        placeholder="Example: 100"
+      >
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAIN REQUIREMENT GROUP
+===================================================== -->
+
+<section class="card">
+
+  <div class="card-title">
+    Requirement Category
+  </div>
+
+  <div class="card-subtitle">
+    Select what you need for your construction or
+    industrial requirement.
+  </div>
+
+
+  <div class="option-grid">
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Construction Materials"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        🧱
+      </span>
+
+      <span class="option-text">
+        Construction Materials
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Hardware & Building Supplies"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        🔩
+      </span>
+
+      <span class="option-text">
+        Hardware & Building Supplies
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Electrical & Plumbing"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        ⚡
+      </span>
+
+      <span class="option-text">
+        Electrical & Plumbing
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Interior & Finishing"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        🏠
+      </span>
+
+      <span class="option-text">
+        Interior & Finishing
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Construction Services"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        👷
+      </span>
+
+      <span class="option-text">
+        Construction Services
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Machinery & Equipment"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        🚜
+      </span>
+
+      <span class="option-text">
+        Machinery & Equipment
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Labour & Manpower"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        👷
+      </span>
+
+      <span class="option-text">
+        Labour & Manpower
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Industrial Supplies"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        🏭
+      </span>
+
+      <span class="option-text">
+        Industrial Supplies
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Safety & Site Requirements"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        🦺
+      </span>
+
+      <span class="option-text">
+        Safety & Site Requirements
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Site Logistics"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        🚛
+      </span>
+
+      <span class="option-text">
+        Site Logistics
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+    <button
+      type="button"
+      class="option-btn"
+      data-group="Industrial Projects"
+      onclick="selectGroup(this)"
+    >
+
+      <span class="option-icon">
+        🏢
+      </span>
+
+      <span class="option-text">
+        Industrial Projects
+      </span>
+
+      <span class="option-check">
+        ✓
+      </span>
+
+    </button>
+
+
+  </div>
+
+</section>
+
+  <!-- =====================================================
+     SUBCATEGORY
+===================================================== -->
+
+<section class="card">
+
+  <div class="card-title">
+    Select Requirement
+  </div>
+
+  <div class="card-subtitle">
+    Choose one or more specific requirements.
+  </div>
+
+
+  <div class="service-grid">
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Cement"
+      >
+      <span>Cement</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="M-Sand / River Sand"
+      >
+      <span>M-Sand / River Sand</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Bricks / Blocks"
+      >
+      <span>Bricks / Blocks</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="TMT Steel"
+      >
+      <span>TMT Steel</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Construction Chemicals"
+      >
+      <span>Construction Chemicals</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Tiles"
+      >
+      <span>Tiles</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Marble / Granite"
+      >
+      <span>Marble / Granite</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Plywood / Boards"
+      >
+      <span>Plywood / Boards</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Nuts & Bolts"
+      >
+      <span>Nuts & Bolts</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Fasteners"
+      >
+      <span>Fasteners</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Pipes & Fittings"
+      >
+      <span>Pipes & Fittings</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Tools"
+      >
+      <span>Tools</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Welding Materials"
+      >
+      <span>Welding Materials</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Electrical Materials"
+      >
+      <span>Electrical Materials</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Wiring / Cables"
+      >
+      <span>Wiring / Cables</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Lights"
+      >
+      <span>Lights</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Pumps"
+      >
+      <span>Pumps</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Sanitary Fittings"
+      >
+      <span>Sanitary Fittings</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Interior Contractor"
+      >
+      <span>Interior Contractor</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Modular Kitchen"
+      >
+      <span>Modular Kitchen</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="False Ceiling"
+      >
+      <span>False Ceiling</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Painting"
+      >
+      <span>Painting</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Flooring"
+      >
+      <span>Flooring</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Glass & Aluminium"
+      >
+      <span>Glass & Aluminium</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Doors & Windows"
+      >
+      <span>Doors & Windows</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Fabrication"
+      >
+      <span>Fabrication</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Carpentry"
+      >
+      <span>Carpentry</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Civil Contractor"
+      >
+      <span>Civil Contractor</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Building Contractor"
+      >
+      <span>Building Contractor</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Mason"
+      >
+      <span>Mason</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Plumber"
+      >
+      <span>Plumber</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Electrician"
+      >
+      <span>Electrician</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Waterproofing"
+      >
+      <span>Waterproofing</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Demolition"
+      >
+      <span>Demolition</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="JCB / Excavator"
+      >
+      <span>JCB / Excavator</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Crane"
+      >
+      <span>Crane</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Concrete Mixer"
+      >
+      <span>Concrete Mixer</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Generator"
+      >
+      <span>Generator</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Construction Equipment"
+      >
+      <span>Construction Equipment</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Construction Labour"
+      >
+      <span>Construction Labour</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Skilled Workers"
+      >
+      <span>Skilled Workers</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Helpers"
+      >
+      <span>Helpers</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Site Supervisor"
+      >
+      <span>Site Supervisor</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Industrial Tools"
+      >
+      <span>Industrial Tools</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Bearings"
+      >
+      <span>Bearings</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Motors"
+      >
+      <span>Motors</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Valves"
+      >
+      <span>Valves</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Machine Spare Parts"
+      >
+      <span>Machine Spare Parts</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Safety Equipment"
+      >
+      <span>Safety Equipment</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Fire Safety"
+      >
+      <span>Fire Safety</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Safety Nets"
+      >
+      <span>Safety Nets</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Material Transport"
+      >
+      <span>Material Transport</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Loading / Unloading"
+      >
+      <span>Loading / Unloading</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Site Storage"
+      >
+      <span>Site Storage</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Factory Setup"
+      >
+      <span>Factory Setup</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Industrial Shed"
+      >
+      <span>Industrial Shed</span>
+    </label>
+
+
+    <label class="service-item">
+      <input
+        type="checkbox"
+        class="requirement-check"
+        value="Factory Maintenance"
+      >
+      <span>Factory Maintenance</span>
+    </label>
+
+
+  </div>
+
+
+  <div class="note">
+
+    💡 You can select multiple requirements.
+    For example: Cement + M-Sand + Bricks + Material
+    Transport.
+
+  </div>
+
+</section>
+
+  <!-- =====================================================
+     REQUIREMENT DETAILS
+===================================================== -->
+
+<section class="card">
+
+  <div class="card-title">
+    Requirement Details
+  </div>
+
+  <div class="card-subtitle">
+    Add the exact requirement so providers can
+    understand what you need.
+  </div>
+
+
+  <div class="field">
+
+    <label for="requirementTitle">
+      Requirement Title
+    </label>
+
+    <input
+      id="requirementTitle"
+      type="text"
+      placeholder="Example: Cement & M-Sand for Building Project"
+    >
+
+  </div>
+
+
+  <div class="field">
+
+    <label for="description">
+      Detailed Requirement
+    </label>
+
+    <textarea
+      id="description"
+      placeholder="Mention brand, quality, quantity, delivery requirement, site details, budget or any other information..."
+    ></textarea>
+
+  </div>
+
+
+  <div class="two-col">
+
+    <div class="field">
+
+      <label for="unit">
+        Unit
+      </label>
+
+      <select id="unit">
+
+        <option value="">
+          Select unit
+        </option>
+
+        <option value="Nos">
+          Nos
+        </option>
+
+        <option value="Kg">
+          Kg
+        </option>
+
+        <option value="Ton">
+          Ton
+        </option>
+
+        <option value="Bag">
+          Bag
+        </option>
+
+        <option value="Litre">
+          Litre
+        </option>
+
+        <option value="Sq.Ft">
+          Sq.Ft
+        </option>
+
+        <option value="Sq.M">
+          Sq.M
+        </option>
+
+        <option value="Load">
+          Load
+        </option>
+
+        <option value="Hours">
+          Hours
+        </option>
+
+        <option value="Days">
+          Days
+        </option>
+
+        <option value="Month">
+          Month
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="budget">
+        Approx. Budget
+      </label>
+
+      <input
+        id="budget"
+        type="text"
+        placeholder="Example: ₹50,000"
+      >
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     ONE TIME / RECURRING
+===================================================== -->
+
+<section class="card">
+
+  <div class="card-title">
+    Requirement Schedule
+  </div>
+
+  <div class="card-subtitle">
+    Select whether this is a one-time requirement
+    or a recurring requirement.
+  </div>
+
+
+  <div class="toggle-row">
+
+    <div class="toggle-info">
+
+      <div class="toggle-title">
+        Recurring Requirement
+      </div>
+
+      <div class="toggle-subtitle">
+        Useful for regular material supply,
+        manpower, maintenance, transport or AMC.
+      </div>
+
+    </div>
+
+
+    <label class="switch">
+
+      <input
+        id="recurringToggle"
+        type="checkbox"
+        onchange="toggleRecurring()"
+      >
+
+      <span class="slider"></span>
+
+    </label>
+
+  </div>
+
+
+  <div
+    id="recurringFields"
+    class="hidden"
+  >
+
+    <div class="section-label">
+      Frequency
+    </div>
+
+
+    <div class="option-grid">
+
+
+      <button
+        type="button"
+        class="option-btn"
+        data-frequency="Daily"
+        onclick="selectFrequency(this)"
+      >
+
+        <span class="option-icon">
+          📅
+        </span>
+
+        <span class="option-text">
+          Daily
+        </span>
+
+        <span class="option-check">
+          ✓
+        </span>
+
+      </button>
+
+
+      <button
+        type="button"
+        class="option-btn"
+        data-frequency="Weekly"
+        onclick="selectFrequency(this)"
+      >
+
+        <span class="option-icon">
+          🗓️
+        </span>
+
+        <span class="option-text">
+          Weekly
+        </span>
+
+        <span class="option-check">
+          ✓
+        </span>
+
+      </button>
+
+
+      <button
+        type="button"
+        class="option-btn"
+        data-frequency="Monthly"
+        onclick="selectFrequency(this)"
+      >
+
+        <span class="option-icon">
+          📆
+        </span>
+
+        <span class="option-text">
+          Monthly
+        </span>
+
+        <span class="option-check">
+          ✓
+        </span>
+
+      </button>
+
+
+      <button
+        type="button"
+        class="option-btn"
+        data-frequency="Custom"
+        onclick="selectFrequency(this)"
+      >
+
+        <span class="option-icon">
+          ⚙️
+        </span>
+
+        <span class="option-text">
+          Custom
+        </span>
+
+        <span class="option-check">
+          ✓
+        </span>
+
+      </button>
+
+
+    </div>
+
+
+    <div class="field" style="margin-top:14px;">
+
+      <label for="scheduleDetails">
+        Schedule Details
+      </label>
+
+      <input
+        id="scheduleDetails"
+        type="text"
+        placeholder="Example: Every Monday or 10 tons every month"
+      >
+
+    </div>
+
+  </div>
+
+
+  <div class="note">
+
+    💡 Recurring requirements can be used for
+    regular material supply, manpower, machinery,
+    transport, maintenance and industrial needs.
+
+  </div>
+
+</section>
+
+  <!-- =====================================================
+     DATE & LOCATION
+===================================================== -->
+
+<section class="card">
+
+  <div class="card-title">
+    Date & Location
+  </div>
+
+  <div class="card-subtitle">
+    Tell providers when and where the requirement
+    is needed.
+  </div>
+
+
+  <div class="two-col">
+
+    <div class="field">
+
+      <label for="requiredDate">
+        Required / Start Date
+      </label>
+
+      <input
+        id="requiredDate"
+        type="date"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="endDate">
+        End Date
+      </label>
+
+      <input
+        id="endDate"
+        type="date"
+      >
+
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label for="location">
+      Site / Requirement Location
+    </label>
+
+    <input
+      id="location"
+      type="text"
+      placeholder="Example: Pallavaram, Chennai"
+    >
+
+  </div>
+
+
+  <div class="two-col">
+
+    <div class="field">
+
+      <label for="area">
+        Area
+      </label>
+
+      <input
+        id="area"
+        type="text"
+        placeholder="Area / Locality"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label for="city">
+        City
+      </label>
+
+      <input
+        id="city"
+        type="text"
+        placeholder="City"
+      >
+
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label for="siteAddress">
+      Site Address / Landmark
+    </label>
+
+    <textarea
+      id="siteAddress"
+      placeholder="Enter site address, landmark or delivery instructions..."
+    ></textarea>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADDITIONAL
+===================================================== -->
+
+<section class="card">
+
+  <div class="card-title">
+    Additional Information
+  </div>
+
+  <div class="card-subtitle">
+    Add any other important information providers
+    should know.
+  </div>
+
+
+  <div class="field">
+
+    <label for="additional">
+      Additional Requirement
+    </label>
+
+    <textarea
+      id="additional"
+      placeholder="Example: GST invoice required, delivery vehicle required, material should be delivered to site, urgent requirement, etc."
+    ></textarea>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     ERROR / SUCCESS
+===================================================== -->
+
+<div
+  id="errorBox"
+  class="error-box"
+></div>
+
+
+<div
+  id="successBox"
+  class="success-box"
+>
+  Requirement posted successfully.
+</div>
+
+
+<!-- =====================================================
+     PREVIEW
+===================================================== -->
+
+<section class="card">
+
+  <div class="card-title">
+    Requirement Preview
+  </div>
+
+  <div class="card-subtitle">
+    Check your requirement before posting.
+  </div>
+
+
+  <div class="preview">
+
+    <div class="preview-title">
+      Pyncode Requirement
+    </div>
+
+
+    <div
+      id="previewTitle"
+      class="preview-main"
+    >
+      Your requirement title
+    </div>
+
+
+    <div
+      id="previewDetails"
+      class="preview-line"
+    >
+      Select your project and requirement details.
+    </div>
+
+
+    <div
+      id="previewMeta"
+      class="preview-line"
+      style="margin-top:8px;"
+    >
+      Location and schedule will appear here.
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     BOTTOM BAR
+===================================================== -->
+
+<div class="bottom">
+
+  <div class="bottom-inner">
+
+    <button
+      id="postBtn"
+      type="button"
+      class="post-btn"
+      onclick="postRequirement()"
+    >
+
+      <span id="postText">
+        Post Construction Requirement
+      </span>
+
+
+      <span
+        id="loading"
+        class="loading"
+      >
+
+        <span>Posting</span>
+
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+
+      </span>
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     LOGIN MODAL
+===================================================== -->
+
+<div
+  id="loginModal"
+  class="modal"
+>
+
+  <div class="modal-box">
+
+    <h2>
+      Login to Continue
+    </h2>
+
+    <p>
+      Enter your name and mobile number to post
+      your construction or industrial requirement.
+    </p>
+
+
+    <input
+      id="loginName"
+      type="text"
+      autocomplete="name"
+      placeholder="Enter your name"
+    >
+
+
+    <br>
+    <br>
+
+
+    <input
+      id="loginMobile"
+      type="tel"
+      inputmode="numeric"
+      autocomplete="tel"
+      maxlength="10"
+      placeholder="10 digit mobile number"
+    >
+
+
+    <div class="modal-actions">
+
+      <button
+        class="cancel"
+        type="button"
+        onclick="closeLogin()"
+      >
+        Cancel
+      </button>
+
+
+      <button
+        class="continue"
+        type="button"
+        onclick="continueLogin()"
+      >
+        Continue
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+  <script>
+
+/* =====================================================
+   PYNCODE CONSTRUCTION & INDUSTRIAL
+   PART 6 / 8
+   JAVASCRIPT
+===================================================== */
+
+
+/* =====================================================
+   SUPABASE CONNECTION
+===================================================== */
+
+const SUPABASE_URL =
+  "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+
+const SUPABASE_KEY =
+  "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let projectType = "";
+
+let requirementGroup = "";
+
+let frequency = "";
+
+
+/* =====================================================
+   LOGIN CHECK
+===================================================== */
+
+function isLoggedIn(){
+
+  const savedName =
+    localStorage.getItem(
+      "pyncode_name"
+    );
+
+  const savedMobile =
+    localStorage.getItem(
+      "pyncode_mobile"
+    );
+
+  return !!(
+    savedName &&
+    savedMobile
+  );
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+function updateHeaderButton(){
+
+  const button =
+    document.getElementById(
+      "headerLoginBtn"
+    );
+
+  if(!button){
+    return;
+  }
+
+
+  if(isLoggedIn()){
+
+    button.textContent =
+      "Logout";
+
+  }else{
+
+    button.textContent =
+      "Login";
+
+  }
+
+}
+
+
+function handleHeaderAction(){
+
+  if(isLoggedIn()){
+
+    localStorage.removeItem(
+      "pyncode_name"
+    );
+
+    localStorage.removeItem(
+      "pyncode_mobile"
+    );
+
+    updateHeaderButton();
+
+    return;
+
+  }
+
+
+  openLogin();
+
+}
+
+
+/* =====================================================
+   LOGIN MODAL
+===================================================== */
+
+function openLogin(){
+
+  const modal =
+    document.getElementById(
+      "loginModal"
+    );
+
+  modal.classList.add(
+    "show"
+  );
+
+
+  const savedName =
+    localStorage.getItem(
+      "pyncode_name"
+    );
+
+
+  if(savedName){
+
+    document.getElementById(
+      "loginName"
+    ).value = savedName;
+
+  }
+
+
+  setTimeout(
+    function(){
+
+      document
+        .getElementById(
+          "loginName"
+        )
+        .focus();
+
+    },
+    100
+  );
+
+}
+
+
+function closeLogin(){
+
+  document
+    .getElementById(
+      "loginModal"
+    )
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+function continueLogin(){
+
+  const name =
+    document
+      .getElementById(
+        "loginName"
+      )
+      .value
+      .trim();
+
+
+  const mobile =
+    document
+      .getElementById(
+        "loginMobile"
+      )
+      .value
+      .trim();
+
+
+  if(!name){
+
+    alert(
+      "Please enter your name."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !/^[0-9]{10}$/.test(
+      mobile
+    )
+  ){
+
+    alert(
+      "Please enter a valid 10 digit mobile number."
+    );
+
+    return;
+
+  }
+
+
+  localStorage.setItem(
+    "pyncode_name",
+    name
+  );
+
+
+  localStorage.setItem(
+    "pyncode_mobile",
+    mobile
+  );
+
+
+  updateHeaderButton();
+
+  closeLogin();
+
+}
+
+
+/* =====================================================
+   PROJECT TYPE
+===================================================== */
+
+function selectProject(button){
+
+  document
+    .querySelectorAll(
+      "[data-project]"
+    )
+    .forEach(
+      function(item){
+
+        item.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  projectType =
+    button.dataset.project;
+
+
+  updatePreview();
+
+}
+
+
+/* =====================================================
+   REQUIREMENT GROUP
+===================================================== */
+
+function selectGroup(button){
+
+  document
+    .querySelectorAll(
+      "[data-group]"
+    )
+    .forEach(
+      function(item){
+
+        item.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  requirementGroup =
+    button.dataset.group;
+
+
+  updatePreview();
+
+}
+
+
+/* =====================================================
+   FREQUENCY
+===================================================== */
+
+function selectFrequency(button){
+
+  document
+    .querySelectorAll(
+      "[data-frequency]"
+    )
+    .forEach(
+      function(item){
+
+        item.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  frequency =
+    button.dataset.frequency;
+
+
+  updatePreview();
+
+}
+
+
+/* =====================================================
+   RECURRING
+===================================================== */
+
+function toggleRecurring(){
+
+  const toggle =
+    document.getElementById(
+      "recurringToggle"
+    );
+
+
+  const fields =
+    document.getElementById(
+      "recurringFields"
+    );
+
+
+  if(toggle.checked){
+
+    fields.classList.remove(
+      "hidden"
+    );
+
+  }else{
+
+    fields.classList.add(
+      "hidden"
+    );
+
+    frequency = "";
+
+
+    document
+      .querySelectorAll(
+        "[data-frequency]"
+      )
+      .forEach(
+        function(item){
+
+          item.classList.remove(
+            "active"
+          );
+
+        }
+      );
+
+  }
+
+
+  updatePreview();
+
+}
+
+
+/* =====================================================
+   SELECTED REQUIREMENTS
+===================================================== */
+
+function getSelectedRequirements(){
+
+  return Array.from(
+    document.querySelectorAll(
+      ".requirement-check:checked"
+    )
+  ).map(
+    function(item){
+
+      return item.value;
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   VALUE
+===================================================== */
+
+function value(id){
+
+  const element =
+    document.getElementById(
+      id
+    );
+
+  if(!element){
+    return "";
+  }
+
+  return element.value.trim();
+
+}
+
+
+/* =====================================================
+   PREVIEW
+===================================================== */
+
+function updatePreview(){
+
+  const title =
+    value(
+      "requirementTitle"
+    );
+
+
+  document
+    .getElementById(
+      "previewTitle"
+    )
+    .textContent =
+      title ||
+      "Your requirement title";
+
+
+  const selected =
+    getSelectedRequirements();
+
+
+  const selectedText =
+    selected.length
+      ? selected.join(", ")
+      : "No specific requirement selected";
+
+
+  document
+    .getElementById(
+      "previewDetails"
+    )
+    .innerHTML =
+
+      (
+        projectType ||
+        "Project type not selected"
+      ) +
+
+      " • " +
+
+      (
+        requirementGroup ||
+        "Requirement category not selected"
+      ) +
+
+      " • " +
+
+      selectedText;
+
+
+  const location =
+    value(
+      "location"
+    );
+
+
+  const city =
+    value(
+      "city"
+    );
+
+
+  const recurring =
+    document
+      .getElementById(
+        "recurringToggle"
+      )
+      .checked;
+
+
+  let schedule =
+    recurring
+      ? (
+          frequency ||
+          "Recurring"
+        )
+      : "One-time";
+
+
+  if(
+    recurring &&
+    value("scheduleDetails")
+  ){
+
+    schedule +=
+      " - " +
+      value(
+        "scheduleDetails"
+      );
+
+  }
+
+
+  document
+    .getElementById(
+      "previewMeta"
+    )
+    .textContent =
+
+      (
+        location ||
+        city
+          ? "Location: " +
+            (
+              location ||
+              city
+            )
+          : "Location not added"
+      ) +
+
+      " • Schedule: " +
+
+      schedule;
+
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(message){
+
+  const box =
+    document.getElementById(
+      "errorBox"
+    );
+
+
+  box.textContent =
+    message;
+
+
+  box.classList.add(
+    "show"
+  );
+
+
+  document
+    .getElementById(
+      "successBox"
+    )
+    .classList.remove(
+      "show"
+    );
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+function clearMessages(){
+
+  document
+    .getElementById(
+      "errorBox"
+    )
+    .classList.remove(
+      "show"
+    );
+
+
+  document
+    .getElementById(
+      "successBox"
+    )
+    .classList.remove(
+      "show"
+    );
+
+}
+
+    /* =====================================================
+   PART 7 / 8
+   SUPABASE POST
+===================================================== */
+
+async function postRequirement(){
+
+  clearMessages();
+
+
+  /* ===================================================
+     CUSTOMER IDENTITY
+  =================================================== */
+
+  const name =
+    localStorage.getItem(
+      "pyncode_name"
+    );
+
+
+  const mobile =
+    localStorage.getItem(
+      "pyncode_mobile"
+    );
+
+
+  if(
+    !name ||
+    !mobile
+  ){
+
+    openLogin();
+
+    return;
+
+  }
+
+
+  /* ===================================================
+     VALIDATION
+  =================================================== */
+
+  if(!projectType){
+
+    showError(
+      "Please select the project type."
+    );
+
+    return;
+
+  }
+
+
+  if(!value("projectName")){
+
+    showError(
+      "Please enter the project / company name."
+    );
+
+    return;
+
+  }
+
+
+  if(!requirementGroup){
+
+    showError(
+      "Please select the requirement category."
+    );
+
+    return;
+
+  }
+
+
+  const selected =
+    getSelectedRequirements();
+
+
+  if(selected.length === 0){
+
+    showError(
+      "Please select at least one requirement."
+    );
+
+    return;
+
+  }
+
+
+  if(!value("requirementTitle")){
+
+    showError(
+      "Please enter a requirement title."
+    );
+
+    return;
+
+  }
+
+
+  if(!value("description")){
+
+    showError(
+      "Please enter the detailed requirement."
+    );
+
+    return;
+
+  }
+
+
+  if(!value("requiredDate")){
+
+    showError(
+      "Please select the required / start date."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !value("location") &&
+    !value("area") &&
+    !value("city")
+  ){
+
+    showError(
+      "Please enter the requirement location."
+    );
+
+    return;
+
+  }
+
+
+  const recurring =
+    document
+      .getElementById(
+        "recurringToggle"
+      )
+      .checked;
+
+
+  if(
+    recurring &&
+    !frequency
+  ){
+
+    showError(
+      "Please select the recurring frequency."
+    );
+
+    return;
+
+  }
+
+
+  /* ===================================================
+     LOADING
+  =================================================== */
+
+  const button =
+    document.getElementById(
+      "postBtn"
+    );
+
+
+  const postText =
+    document.getElementById(
+      "postText"
+    );
+
+
+  const loading =
+    document.getElementById(
+      "loading"
+    );
+
+
+  button.disabled = true;
+
+
+  postText.style.display =
+    "none";
+
+
+  loading.classList.add(
+    "show"
+  );
+
+
+  try{
+
+
+    /* =================================================
+       SCHEDULE
+    ================================================= */
+
+    const scheduleText =
+      recurring
+
+        ? (
+            "Recurring: " +
+            frequency +
+
+            (
+              value(
+                "scheduleDetails"
+              )
+              ? " | " +
+                value(
+                  "scheduleDetails"
+                )
+              : ""
+            )
+          )
+
+        : "One-time requirement";
+
+
+    /* =================================================
+       COMPLETE DESCRIPTION
+    ================================================= */
+
+    const fullDescription =
+
+      "Project Type: " +
+      projectType +
+
+      "\n" +
+
+      "Project / Company Name: " +
+      value(
+        "projectName"
+      ) +
+
+      "\n" +
+
+      "Contact Person: " +
+      value(
+        "contactPerson"
+      ) +
+
+      "\n" +
+
+      "Requirement Category: " +
+      requirementGroup +
+
+      "\n" +
+
+      "Requirements: " +
+      selected.join(
+        ", "
+      ) +
+
+      "\n" +
+
+      "Quantity: " +
+      (
+        value(
+          "quantity"
+        ) ||
+        "Not specified"
+      ) +
+
+      "\n" +
+
+      "Unit: " +
+      (
+        value(
+          "unit"
+        ) ||
+        "Not specified"
+      ) +
+
+      "\n" +
+
+      "Budget: " +
+      (
+        value(
+          "budget"
+        ) ||
+        "Not specified"
+      ) +
+
+      "\n" +
+
+      "Schedule: " +
+      scheduleText +
+
+      "\n\n" +
+
+      "Detailed Requirement:\n" +
+
+      value(
+        "description"
+      ) +
+
+      "\n\n" +
+
+      "Site Address / Landmark:\n" +
+
+      (
+        value(
+          "siteAddress"
+        ) ||
+        "Not specified"
+      ) +
+
+      "\n\n" +
+
+      "Additional Information:\n" +
+
+      (
+        value(
+          "additional"
+        ) ||
+        "None"
+      );
+
+
+    /* =================================================
+       LOCATION
+    ================================================= */
+
+    const locationParts = [];
+
+
+    if(
+      value("location")
+    ){
+
+      locationParts.push(
+        value("location")
+      );
+
+    }
+
+
+    if(
+      value("area") &&
+      !locationParts.includes(
+        value("area")
+      )
+    ){
+
+      locationParts.push(
+        value("area")
+      );
+
+    }
+
+
+    if(
+      value("city") &&
+      !locationParts.includes(
+        value("city")
+      )
+    ){
+
+      locationParts.push(
+        value("city")
+      );
+
+    }
+
+
+    const finalLocation =
+      locationParts.join(
+        ", "
+      );
+
+
+    /* =================================================
+       SUPABASE PAYLOAD
+    ================================================= */
+
+    const payload = {
+
+      name:
+        name,
+
+      mobile:
+        mobile,
+
+      category:
+        "construction_industrial",
+
+      location:
+        finalLocation,
+
+      title:
+        value(
+          "requirementTitle"
+        ),
+
+      description:
+        fullDescription,
+
+      required_date:
+        value(
+          "requiredDate"
+        ),
+
+      quantity:
+        value(
+          "quantity"
+        ) ||
+        "1"
+
+    };
+
+
+    /* =================================================
+       INSERT INTO REQUIREMENTS
+    ================================================= */
+
+    const response =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/requirements",
+
+        {
+
+          method:
+            "POST",
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json",
+
+            "Prefer":
+              "return=representation"
+
+          },
+
+          body:
+            JSON.stringify(
+              payload
+            )
+
+        }
+
+      );
+
+
+    /* =================================================
+       ERROR RESPONSE
+    ================================================= */
+
+    if(!response.ok){
+
+      let errorText =
+        "Unable to post requirement.";
+
+
+      try{
+
+        const errorData =
+          await response.json();
+
+
+        if(
+          errorData &&
+          errorData.message
+        ){
+
+          errorText =
+            errorData.message;
+
+        }
+
+        else if(
+          errorData &&
+          errorData.error
+        ){
+
+          errorText =
+            errorData.error;
+
+        }
+
+        else if(
+          errorData &&
+          errorData.hint
+        ){
+
+          errorText =
+            errorData.hint;
+
+        }
+
+      }catch(error){
+
+        /* Ignore JSON parsing error */
+
+      }
+
+
+      throw new Error(
+        errorText
+      );
+
+    }
+
+
+    /* =================================================
+       SUCCESS
+    ================================================= */
+
+    document
+      .getElementById(
+        "successBox"
+      )
+      .classList.add(
+        "show"
+      );
+
+
+    postText.textContent =
+      "Requirement Posted ✓";
+
+
+    loading.classList.remove(
+      "show"
+    );
+
+
+    setTimeout(
+      function(){
+
+        window.location.href =
+          "enquiry.html";
+
+      },
+      700
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Construction requirement error:",
+      error
+    );
+
+
+    showError(
+      error.message ||
+      "Something went wrong while posting your requirement."
+    );
+
+
+    button.disabled = false;
+
+
+    postText.style.display =
+      "inline";
+
+
+    loading.classList.remove(
+      "show"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   LIVE PREVIEW
+===================================================== */
+
+[
+  "projectName",
+  "contactPerson",
+  "quantity",
+  "unit",
+  "budget",
+  "requirementTitle",
+  "description",
+  "scheduleDetails",
+  "location",
+  "area",
+  "city",
+  "siteAddress",
+  "additional"
+].forEach(
+  function(id){
+
+    const element =
+      document.getElementById(
+        id
+      );
+
+
+    if(element){
+
+      element.addEventListener(
+        "input",
+        updatePreview
+      );
+
+      element.addEventListener(
+        "change",
+        updatePreview
+      );
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   REQUIREMENT CHECKBOX PREVIEW
+===================================================== */
+
+document
+  .querySelectorAll(
+    ".requirement-check"
+  )
+  .forEach(
+    function(item){
+
+      item.addEventListener(
+        "change",
+        updatePreview
+      );
+
+    }
+  );
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closeLogin();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   MODAL OUTSIDE CLICK
+===================================================== */
+
+document
+  .getElementById(
+    "loginModal"
+  )
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === this
+      ){
+
+        closeLogin();
+
+      }
+
+    }
+  );
+
+    /* =====================================================
+   PART 8 / 8
+   LOGIN INPUT + PAGE LOAD
+===================================================== */
+
+
+/* =====================================================
+   MOBILE INPUT
+===================================================== */
+
+document
+  .getElementById(
+    "loginMobile"
+  )
+  .addEventListener(
+    "input",
+    function(){
+
+      this.value =
+        this.value
+          .replace(
+            /\D/g,
+            ""
+          )
+          .slice(
+            0,
+            10
+          );
+
+    }
+  );
+
+
+/* =====================================================
+   ENTER - NAME
+===================================================== */
+
+document
+  .getElementById(
+    "loginName"
+  )
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(
+        event.key === "Enter"
+      ){
+
+        event.preventDefault();
+
+
+        document
+          .getElementById(
+            "loginMobile"
+          )
+          .focus();
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   ENTER - MOBILE
+===================================================== */
+
+document
+  .getElementById(
+    "loginMobile"
+  )
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(
+        event.key === "Enter"
+      ){
+
+        event.preventDefault();
+
+        continueLogin();
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   PAGE LOAD
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    updateHeaderButton();
+
+    updatePreview();
+
+
+    /*
+     * Same Pyncode customer identity
+     * flow used by existing category pages.
+     */
+
+    if(isLoggedIn()){
+
+      return;
+
+    }
+
+
+    openLogin();
+
+  }
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,3319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode - Products Requirement</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:#f8fafc;
+  color:#111827;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+  background:#ffffff;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.brand{
+  position:relative;
+  font-size:21px;
+  font-weight:950;
+  letter-spacing:-.7px;
+  color:#111827;
+}
+
+.brand-pyn{
+    color:#f97316;
+}
+
+.brand-code{
+    color:#111827;
+}
+
+.login-btn{
+  min-width:76px;
+  height:38px;
+  padding:0 16px;
+  border:0;
+  border-radius:999px;
+  background:#f97316;
+  color:#ffffff;
+  font-size:12px;
+  font-weight:900;
+  box-shadow:0 6px 16px rgba(249,115,22,.20);
+}
+
+.login-btn:active{
+  transform:scale(.96);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    margin:14px 12px 0;
+    padding:30px 22px;
+    border-radius:22px;
+    background:
+        linear-gradient(135deg,#111827 0%,#1e293b 65%,#273449 100%);
+    color:#fff;
+    box-shadow:
+        0 12px 30px rgba(15,23,42,.16);
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(249,115,22,.18);
+    right:-55px;
+    top:-75px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    border:1px solid rgba(249,115,22,.35);
+    right:55px;
+    bottom:-45px;
+}
+
+.hero-inner{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:720px;
+    margin:0 auto;
+}
+
+.hero h1{
+    font-size:28px;
+    line-height:1.18;
+    font-weight:950;
+    letter-spacing:-.8px;
+}
+
+.hero p{
+    margin-top:10px;
+    max-width:600px;
+    font-size:13px;
+    line-height:1.6;
+    color:rgba(255,255,255,.82);
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+.page{
+  width:100%;
+  max-width:760px;
+  margin:auto;
+  padding:18px 14px 110px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+  position:relative;
+  margin-bottom:16px;
+  padding:20px;
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  box-shadow:
+    0 8px 28px
+    rgba(15,23,42,.055);
+}
+
+.step-title{
+  margin-bottom:7px;
+  color:#f97316;
+  font-size:11px;
+  font-weight:950;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+}
+
+.card h2{
+  margin:0 0 7px;
+  color:#111827;
+  font-size:20px;
+  line-height:1.3;
+  font-weight:950;
+  letter-spacing:-.3px;
+}
+
+.muted{
+  margin:0 0 16px;
+  color:#64748b;
+  font-size:13px;
+  line-height:1.55;
+}
+
+
+/* =========================
+   OPTIONS
+========================= */
+
+.options{
+  display:grid;
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+
+.option{
+  min-height:52px;
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  text-align:left;
+  border:1px solid #e2e8f0;
+  border-radius:13px;
+  background:#ffffff;
+  color:#334155;
+  font-size:13px;
+  font-weight:850;
+  transition:.18s ease;
+  box-shadow:
+    0 3px 10px
+    rgba(15,23,42,.035);
+}
+
+.option:hover{
+  border-color:#fb923c;
+  background:#fff7ed;
+  transform:translateY(-1px);
+}
+
+.option:active{
+  transform:scale(.97);
+}
+
+.option.selected{
+  border-color:#f97316;
+  background:#fff7ed;
+  color:#c2410c;
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(249,115,22,.10);
+}
+
+
+/* =========================
+   SELECTED BOX
+========================= */
+
+.selected-box{
+  margin-top:14px;
+  padding:13px;
+  border-radius:12px;
+  background:#fffaf5;
+  border:1px solid #fed7aa;
+  color:#64748b;
+  font-size:12px;
+  line-height:1.65;
+}
+
+.selected-box strong{
+  color:#c2410c;
+}
+
+
+/* =========================
+   FIELD
+========================= */
+
+.field{
+  margin-top:15px;
+}
+
+.field label{
+  display:block;
+  margin-bottom:7px;
+  color:#334155;
+  font-size:12px;
+  font-weight:900;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  padding:12px 13px;
+  border:1px solid #dbe3ef;
+  border-radius:11px;
+  outline:none;
+  background:#ffffff;
+  color:#0f172a;
+  font-size:14px;
+  transition:.15s ease;
+}
+
+.field textarea{
+  min-height:95px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:#f97316;
+  box-shadow:
+    0 0 0 3px
+    rgba(249,115,22,.10);
+}
+
+
+/* =========================
+   COUNTER
+========================= */
+
+.counter{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  min-height:52px;
+  padding:5px;
+  border:1px solid #e2e8f0;
+  border-radius:12px;
+  background:#f8fafc;
+}
+
+.counter button{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:9px;
+  background:#ffffff;
+  color:#f97316;
+  font-size:21px;
+  font-weight:950;
+  box-shadow:
+    0 3px 10px
+    rgba(15,23,42,.08);
+}
+
+.counter button:active{
+  transform:scale(.94);
+}
+
+.counter-value{
+  min-width:55px;
+  text-align:center;
+  color:#111827;
+  font-size:18px;
+  font-weight:950;
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+.date-btn{
+  width:100%;
+  min-height:48px;
+  padding:0 13px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  text-align:left;
+  border:1px solid #dbe3ef;
+  border-radius:11px;
+  background:#ffffff;
+  color:#334155;
+  font-size:14px;
+}
+
+.date-btn::after{
+  content:"📅";
+  font-size:15px;
+}
+
+.date-btn:focus{
+  border-color:#f97316;
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview-box{
+  padding:16px;
+  background:#fffaf5;
+  border:1px solid #fed7aa;
+  border-radius:13px;
+}
+
+.preview-row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:10px 0;
+  border-bottom:1px solid #f1f5f9;
+  font-size:13px;
+}
+
+.preview-row:last-child{
+  border-bottom:0;
+}
+
+.preview-label{
+  color:#64748b;
+  font-weight:750;
+}
+
+.preview-value{
+  max-width:65%;
+  text-align:right;
+  color:#111827;
+  font-weight:850;
+  white-space:pre-wrap;
+}
+
+
+/* =========================
+   POST
+========================= */
+
+.post-btn{
+  width:100%;
+  min-height:52px;
+  margin-top:16px;
+  border:0;
+  border-radius:13px;
+  background:
+    linear-gradient(
+      135deg,
+      #f97316,
+      #ea580c
+    );
+  color:#ffffff;
+  font-size:15px;
+  font-weight:950;
+  box-shadow:
+    0 9px 22px
+    rgba(249,115,22,.22);
+}
+
+.post-btn:active{
+  transform:scale(.98);
+}
+
+.post-btn:disabled{
+  opacity:.55;
+}
+
+
+/* =========================
+   BOTTOM
+========================= */
+
+.bottom{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:90;
+  display:flex;
+  justify-content:center;
+  padding:10px 14px;
+  background:
+    rgba(255,255,255,.96);
+  border-top:1px solid #e2e8f0;
+  backdrop-filter:blur(10px);
+}
+
+.bottom button{
+  width:100%;
+  max-width:500px;
+  height:49px;
+  border:0;
+  border-radius:13px;
+  background:#111827;
+  color:#ffffff;
+  font-size:14px;
+  font-weight:950;
+  box-shadow:
+    0 7px 20px
+    rgba(15,23,42,.14);
+}
+
+.bottom button:active{
+  transform:scale(.98);
+}
+
+
+/* =========================
+   LOGIN MODAL
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:300;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:
+    rgba(15,23,42,.52);
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:390px;
+  padding:21px;
+  border-radius:18px;
+  background:#ffffff;
+  box-shadow:
+    0 25px 70px
+    rgba(15,23,42,.25);
+}
+
+.modal-box h3{
+  margin:0 0 6px;
+  color:#111827;
+  font-size:20px;
+  font-weight:950;
+}
+
+.modal-box p{
+  margin:0 0 16px;
+  color:#64748b;
+  font-size:13px;
+  line-height:1.55;
+}
+
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.modal-actions button{
+  flex:1;
+  height:45px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:900;
+}
+
+.cancel-btn{
+  border:1px solid #dbe3ef;
+  background:#ffffff;
+  color:#475569;
+}
+
+.save-btn{
+  border:0;
+  background:#f97316;
+  color:#ffffff;
+}
+
+
+/* =========================
+   CALENDAR
+========================= */
+
+.calendar-box{
+  width:100%;
+  max-width:390px;
+  padding:18px;
+  border-radius:18px;
+  background:#ffffff;
+  box-shadow:
+    0 25px 70px
+    rgba(15,23,42,.25);
+}
+
+.calendar-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:15px;
+}
+
+.calendar-head strong{
+  color:#111827;
+  font-size:16px;
+  font-weight:950;
+}
+
+.calendar-head button{
+  width:38px;
+  height:38px;
+  border:1px solid #e2e8f0;
+  border-radius:9px;
+  background:#ffffff;
+  color:#334155;
+  font-size:18px;
+  font-weight:950;
+}
+
+.calendar-week{
+  display:grid;
+  grid-template-columns:
+    repeat(7,1fr);
+  gap:4px;
+  margin-bottom:5px;
+}
+
+.calendar-week div{
+  padding:6px 0;
+  text-align:center;
+  color:#94a3b8;
+  font-size:10px;
+  font-weight:900;
+}
+
+.calendar-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(7,1fr);
+  gap:5px;
+}
+
+.calendar-day{
+  min-height:38px;
+  border:1px solid transparent;
+  border-radius:9px;
+  background:#f8fafc;
+  color:#334155;
+  font-size:12px;
+  font-weight:800;
+}
+
+.calendar-day.today{
+  border-color:#fdba74;
+}
+
+.calendar-day.selected{
+  background:#f97316;
+  color:#ffffff;
+}
+
+.calendar-day.disabled{
+  opacity:.3;
+  pointer-events:none;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+  .hero{
+    padding:34px 15px 30px;
+  }
+
+  .hero h1{
+    font-size:26px;
+  }
+
+  .hero p{
+    font-size:13px;
+  }
+
+  .page{
+    padding:
+      15px
+      12px
+      105px;
+  }
+
+  .card{
+    padding:17px;
+    border-radius:16px;
+  }
+
+  .options{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .option{
+    min-height:50px;
+    padding:11px;
+    font-size:12px;
+  }
+
+  .preview-row{
+    align-items:flex-start;
+  }
+
+  .preview-value{
+    max-width:58%;
+  }
+
+}
+
+@media(max-width:380px){
+
+  .options{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="topbar">
+
+<div class="brand">
+    <span class="brand-pyn">Pyn</span><span class="brand-code">code.in</span>
+</div>
+  
+  <button
+    class="login-btn"
+    id="topLoginBtn"
+    onclick="openLogin()"
+  >
+    Login
+  </button>
+
+</div>
+
+<section class="hero">
+
+  <div class="hero-inner">
+
+    <h1>
+      Products
+    </h1>
+
+    <p>
+      Post what product you need.
+      Select multiple products and
+      send one requirement.
+    </p>
+
+  </div>
+
+</section>
+
+<main class="page">
+
+  <div id="formArea"></div>
+
+  <div id="previewArea"></div>
+
+</main>
+
+<div class="bottom">
+
+
+</div>
+
+<div
+  class="modal"
+  id="loginModal"
+>
+
+  <div class="modal-box">
+
+    <h3>
+      Login to Continue
+    </h3>
+
+    <p>
+      Enter your mobile number to
+      post your requirement.
+    </p>
+
+    <div class="field">
+
+      <label>
+        Mobile Number
+      </label>
+
+      <input
+        id="loginMobile"
+        type="tel"
+        inputmode="numeric"
+        maxlength="10"
+        placeholder="Enter 10 digit mobile number"
+      >
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        class="cancel-btn"
+        onclick="closeLogin()"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="save-btn"
+        onclick="saveLogin()"
+      >
+        Continue
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div
+  class="modal"
+  id="dateModal"
+>
+
+  <div class="calendar-box">
+
+    <div class="calendar-head">
+
+      <button
+        onclick="changeMonth(-1)"
+      >
+        ‹
+      </button>
+
+      <strong id="calendarTitle">
+        Month
+      </strong>
+
+      <button
+        onclick="changeMonth(1)"
+      >
+        ›
+      </button>
+
+    </div>
+
+    <div class="calendar-week">
+
+      <div>Sun</div>
+      <div>Mon</div>
+      <div>Tue</div>
+      <div>Wed</div>
+      <div>Thu</div>
+      <div>Fri</div>
+      <div>Sat</div>
+
+    </div>
+
+    <div
+      class="calendar-grid"
+      id="calendarGrid"
+    ></div>
+
+    <div class="modal-actions">
+
+      <button
+        class="cancel-btn"
+        onclick="closeDatePicker()"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="save-btn"
+        onclick="confirmDate()"
+      >
+        Select Date
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  /* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+  "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+/* =========================
+   STATE
+========================= */
+
+const state = {
+
+  productCategories:[],
+
+  requirementTypes:[],
+
+  productItems:[],
+
+  productDetails:{},
+
+  quantity:1,
+
+  budget:"",
+
+  requiredDate:"",
+
+  location:"",
+
+  additional:""
+
+};
+
+
+let calendarDate =
+  new Date();
+
+let selectedCalendarDate =
+  null;
+
+
+/* =========================
+   HELPER
+========================= */
+
+function $(id){
+
+  return document.getElementById(id);
+
+}
+
+
+/* =========================
+   PRODUCT CATEGORIES
+========================= */
+
+const productCategories = [
+
+  "Cleaning Products",
+
+  "Food Products",
+
+  "Clothing",
+
+  "Electronics",
+
+  "Furniture",
+
+  "Grocery / Supermarket Products",
+
+  "Industrial Products",
+
+  "Construction Materials",
+
+  "Office Products",
+
+  "Other Products"
+
+];
+
+
+/* =========================
+   PRODUCT ITEMS
+========================= */
+
+const productItems = {
+
+  "Cleaning Products":[
+
+    "Detergent",
+
+    "Dishwash Liquid",
+
+    "Floor Cleaner",
+
+    "Toilet Cleaner",
+
+    "Glass Cleaner",
+
+    "Car / Bike Shampoo",
+
+    "Other Cleaning Product"
+
+  ],
+
+  "Food Products":[
+
+    "Rice",
+
+    "Dal / Pulses",
+
+    "Cooking Oil",
+
+    "Spices / Masala",
+
+    "Snacks",
+
+    "Beverages",
+
+    "Other Food Product"
+
+  ],
+
+  "Clothing":[
+
+    "Men Clothing",
+
+    "Women Clothing",
+
+    "Kids Clothing",
+
+    "School / Office Uniform",
+
+    "Wholesale Clothing",
+
+    "Other Clothing"
+
+  ],
+
+  "Electronics":[
+
+    "Mobile",
+
+    "Laptop",
+
+    "Computer",
+
+    "Printer",
+
+    "CCTV",
+
+    "Electronic Accessories",
+
+    "Other Electronics"
+
+  ],
+
+  "Furniture":[
+
+    "Chair",
+
+    "Table",
+
+    "Sofa",
+
+    "Bed",
+
+    "Office Furniture",
+
+    "Home Furniture",
+
+    "Other Furniture"
+
+  ],
+
+  "Grocery / Supermarket Products":[
+
+    "Rice / Grains",
+
+    "Dal / Pulses",
+
+    "Cooking Oil",
+
+    "Masala",
+
+    "Beverages",
+
+    "Household Products",
+
+    "Other Grocery Product"
+
+  ],
+
+  "Industrial Products":[
+
+    "Machinery",
+
+    "Tools",
+
+    "Chemicals",
+
+    "Raw Materials",
+
+    "Safety Products",
+
+    "Packaging Materials",
+
+    "Other Industrial Product"
+
+  ],
+
+  "Construction Materials":[
+
+    "Cement",
+
+    "Steel",
+
+    "Sand",
+
+    "Bricks",
+
+    "Tiles",
+
+    "Paint",
+
+    "Plumbing Materials",
+
+    "Electrical Materials",
+
+    "Other Construction Material"
+
+  ],
+
+  "Office Products":[
+
+    "Stationery",
+
+    "Printer",
+
+    "Computer",
+
+    "Office Chair",
+
+    "Office Table",
+
+    "Paper",
+
+    "Other Office Product"
+
+  ],
+
+  "Other Products":[
+
+    "Other Product"
+
+  ]
+
+};
+
+
+/* =========================
+   REQUIREMENT TYPES
+========================= */
+
+const requirementTypes = [
+
+  "New",
+
+  "Used",
+
+  "Wholesale",
+
+  "Retail",
+
+  "Supply",
+
+  "Other"
+
+];
+
+
+/* =========================
+   OPTION HTML
+========================= */
+
+function option(
+  text,
+  selected,
+  onclick
+){
+
+  const safeOnclick =
+    onclick.replace(
+      /"/g,
+      "&quot;"
+    );
+
+  return `
+
+    <button
+      type="button"
+      class="option ${
+        selected
+          ? "selected"
+          : ""
+      }"
+      onclick="${safeOnclick}"
+    >
+
+      ${
+        selected
+          ? "✓ "
+          : ""
+      }
+
+      ${escapeHtml(text)}
+
+    </button>
+
+  `;
+
+}
+
+/* =========================
+   RENDER CATEGORY
+========================= */
+
+function renderProductSelection(){
+
+  $("formArea").innerHTML = `
+
+    <div class="card">
+
+      <div class="step-title">
+        Step 1
+      </div>
+
+      <h2>
+        What product do you need?
+      </h2>
+
+      <p class="muted">
+        Select one or more product categories
+      </p>
+
+      <div class="options">
+
+        ${
+          productCategories
+            .map(category => {
+
+              const selected =
+                state.productCategories
+                  .includes(category);
+
+              return option(
+                category,
+                selected,
+                `selectProductCategory(${JSON.stringify(category)})`
+              );
+
+            })
+            .join("")
+        }
+
+      </div>
+
+      ${
+        state.productCategories.length
+          ? `
+
+            <div class="selected-box">
+
+              <strong>
+                Selected:
+              </strong>
+
+              <br>
+
+              ${
+                state.productCategories
+                  .join(", ")
+              }
+
+            </div>
+
+          `
+          : ""
+      }
+
+    </div>
+
+  `;
+
+}
+
+  /* =========================
+   CATEGORY SELECTION
+========================= */
+
+function selectProductCategory(
+  category
+){
+
+  const index =
+    state.productCategories
+      .indexOf(category);
+
+
+  if(index === -1){
+
+    state.productCategories
+      .push(category);
+
+  }else{
+
+    state.productCategories
+      .splice(index,1);
+
+  }
+
+
+  /*
+    Remove product selections
+    that no longer belong to
+    selected categories.
+  */
+
+  state.productItems =
+    state.productItems.filter(
+      item => {
+
+        const categoryName =
+          item.split("|||")[0];
+
+        return state.productCategories
+          .includes(categoryName);
+
+      }
+    );
+
+
+  renderProductSelection();
+
+  renderRequirementTypes();
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   REQUIREMENT TYPE
+========================= */
+
+function renderRequirementTypes(){
+
+  if(
+    !state.productCategories.length
+  ){
+
+    return;
+
+  }
+
+
+  const existing =
+    $("requirementTypeCard");
+
+
+  const html = `
+
+    <div
+      class="card"
+      id="requirementTypeCard"
+    >
+
+      <div class="step-title">
+        Step 2
+      </div>
+
+      <h2>
+        What do you need?
+      </h2>
+
+      <p class="muted">
+        Select one or more requirement types
+      </p>
+
+      <div class="options">
+
+        ${
+          requirementTypes
+            .map(type => {
+
+              const selected =
+                state.requirementTypes
+                  .includes(type);
+
+              return option(
+                type,
+                selected,
+                `selectRequirementType(${JSON.stringify(type)})`
+              );
+
+            })
+            .join("")
+        }
+
+      </div>
+
+      ${
+        state.requirementTypes.length
+          ? `
+
+            <div class="selected-box">
+
+              <strong>
+                Selected:
+              </strong>
+
+              <br>
+
+              ${
+                state.requirementTypes
+                  .join(", ")
+              }
+
+            </div>
+
+          `
+          : ""
+      }
+
+    </div>
+
+  `;
+
+
+  if(existing){
+
+    existing.outerHTML =
+      html;
+
+  }else{
+
+    $("formArea")
+      .insertAdjacentHTML(
+        "beforeend",
+        html
+      );
+
+  }
+
+
+  renderProductDetails();
+
+}
+
+
+/* =========================
+   REQUIREMENT TYPE SELECT
+========================= */
+
+function selectRequirementType(
+  type
+){
+
+  const index =
+    state.requirementTypes
+      .indexOf(type);
+
+
+  if(index === -1){
+
+    state.requirementTypes
+      .push(type);
+
+  }else{
+
+    state.requirementTypes
+      .splice(index,1);
+
+  }
+
+
+  renderRequirementTypes();
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   PRODUCT DETAILS
+========================= */
+
+function renderProductDetails(){
+
+  if(
+    !state.productCategories.length
+  ){
+
+    return;
+
+  }
+
+
+  const existing =
+    $("productDetailsCard");
+
+
+  const selectedItems =
+    state.productItems;
+
+
+  let itemHtml = "";
+
+
+  state.productCategories
+    .forEach(category => {
+
+      const items =
+        productItems[category] || [];
+
+
+      if(!items.length){
+
+        return;
+
+      }
+
+
+      itemHtml += `
+
+        <div
+          style="
+            margin-top:18px;
+          "
+        >
+
+          <div
+            style="
+              margin-bottom:9px;
+              color:#334155;
+              font-size:12px;
+              font-weight:900;
+            "
+          >
+            ${category}
+          </div>
+
+          <div class="options">
+
+            ${
+              items
+                .map(item => {
+
+                  const key =
+                    category +
+                    "|||" +
+                    item;
+
+                  const selected =
+                    selectedItems
+                      .includes(key);
+
+                  return option(
+                    item,
+                    selected,
+                    `selectProductItem(${JSON.stringify(key)})`
+                  );
+
+                })
+                .join("")
+            }
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+
+  const html = `
+
+    <div
+      class="card"
+      id="productDetailsCard"
+    >
+
+      <div class="step-title">
+        Step 3
+      </div>
+
+      <h2>
+        Select Products
+      </h2>
+
+      <p class="muted">
+        Select one or more products you need.
+      </p>
+
+      ${itemHtml}
+
+      ${
+        selectedItems.length
+          ? `
+
+            <div class="selected-box">
+
+              <strong>
+                Selected Products:
+              </strong>
+
+              <br>
+
+              ${
+                selectedItems
+                  .map(item => {
+
+                    return item
+                      .split("|||")[1];
+
+                  })
+                  .join(", ")
+
+              }
+
+            </div>
+
+          `
+          : ""
+      }
+
+      <div class="field">
+
+        <label>
+          Product / Brand / Model
+        </label>
+
+        <input
+          id="productNameInput"
+          type="text"
+          value="${
+            escapeAttribute(
+              state.productDetails.productName || ""
+            )
+          }"
+          placeholder="Optional"
+          oninput="
+            state.productDetails.productName=this.value;
+            updatePreview();
+          "
+        >
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  if(existing){
+
+    existing.outerHTML =
+      html;
+
+  }else{
+
+    $("formArea")
+      .insertAdjacentHTML(
+        "beforeend",
+        html
+      );
+
+  }
+
+
+  renderCommonFields();
+
+}
+
+  /* =========================
+   PRODUCT ITEM SELECT
+========================= */
+
+function selectProductItem(
+  key
+){
+
+  const index =
+    state.productItems
+      .indexOf(key);
+
+
+  if(index === -1){
+
+    state.productItems
+      .push(key);
+
+  }else{
+
+    state.productItems
+      .splice(index,1);
+
+  }
+
+
+  renderProductDetails();
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   COMMON FIELDS
+========================= */
+
+function renderCommonFields(){
+
+  const existing =
+    $("commonFieldsCard");
+
+
+  const html = `
+
+    <div
+      class="card"
+      id="commonFieldsCard"
+    >
+
+      <div class="step-title">
+        Step 4
+      </div>
+
+      <h2>
+        Requirement Details
+      </h2>
+
+      <div class="field">
+
+        <label>
+          Quantity
+        </label>
+
+        <div class="counter">
+
+          <button
+            type="button"
+            onclick="changeQuantity(-1)"
+          >
+            −
+          </button>
+
+          <div
+            class="counter-value"
+            id="quantityValue"
+          >
+            ${state.quantity}
+          </div>
+
+          <button
+            type="button"
+            onclick="changeQuantity(1)"
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          Budget / Price Preference
+        </label>
+
+        <input
+          id="budgetInput"
+          type="text"
+          value="${
+            escapeAttribute(
+              state.budget
+            )
+          }"
+          placeholder="Example: ₹50,000 or ₹100/kg"
+          oninput="
+            state.budget=this.value;
+            updatePreview();
+          "
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          Required Date
+        </label>
+
+        <button
+          type="button"
+          class="date-btn"
+          onclick="openDatePicker()"
+          id="dateButton"
+        >
+
+          ${
+            state.requiredDate
+              ? formatDisplayDate(
+                  state.requiredDate
+                )
+              : "Select required date"
+          }
+
+        </button>
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          Location
+        </label>
+
+        <input
+          id="locationInput"
+          type="text"
+          value="${
+            escapeAttribute(
+              state.location
+            )
+          }"
+          placeholder="Area / City"
+          oninput="
+            state.location=this.value;
+            updatePreview();
+          "
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          Additional Requirement
+        </label>
+
+        <textarea
+          id="additionalInput"
+          placeholder="Anything else you want to mention?"
+          oninput="
+            state.additional=this.value;
+            updatePreview();
+          "
+        >${
+          escapeHtml(
+            state.additional
+          )
+        }</textarea>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  if(existing){
+
+    existing.outerHTML =
+      html;
+
+  }else{
+
+    $("formArea")
+      .insertAdjacentHTML(
+        "beforeend",
+        html
+      );
+
+  }
+
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   QUANTITY
+========================= */
+
+function changeQuantity(
+  amount
+){
+
+  state.quantity =
+    state.quantity +
+    amount;
+
+
+  if(
+    state.quantity < 1
+  ){
+
+    state.quantity = 1;
+
+  }
+
+
+  if(
+    state.quantity > 100000
+  ){
+
+    state.quantity = 100000;
+
+  }
+
+
+  const value =
+    $("quantityValue");
+
+
+  if(value){
+
+    value.textContent =
+      state.quantity;
+
+  }
+
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHtml(
+  value
+){
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+
+/* =========================
+   ESCAPE ATTRIBUTE
+========================= */
+
+function escapeAttribute(
+  value
+){
+
+  return escapeHtml(
+    value
+  );
+
+}
+
+
+/* =========================
+   SELECTED PRODUCT LABELS
+========================= */
+
+function getSelectedProductNames(){
+
+  return state.productItems
+    .map(item => {
+
+      return item
+        .split("|||")[1];
+
+    });
+
+}
+
+  /* =========================
+   DATE PICKER
+========================= */
+
+function openDatePicker(){
+
+  calendarDate =
+    selectedCalendarDate
+      ? new Date(
+          selectedCalendarDate
+        )
+      : new Date();
+
+
+  if(
+    state.requiredDate
+  ){
+
+    const parts =
+      state.requiredDate
+        .split("-");
+
+
+    if(parts.length === 3){
+
+      calendarDate =
+        new Date(
+          Number(parts[0]),
+          Number(parts[1]) - 1,
+          Number(parts[2])
+        );
+
+    }
+
+  }
+
+
+  renderCalendar();
+
+  $("dateModal")
+    .classList
+    .add("show");
+
+}
+
+
+function closeDatePicker(){
+
+  $("dateModal")
+    .classList
+    .remove("show");
+
+}
+
+
+function changeMonth(
+  amount
+){
+
+  calendarDate =
+    new Date(
+      calendarDate.getFullYear(),
+      calendarDate.getMonth() + amount,
+      1
+    );
+
+  renderCalendar();
+
+}
+
+
+function renderCalendar(){
+
+  const year =
+    calendarDate.getFullYear();
+
+  const month =
+    calendarDate.getMonth();
+
+
+  const title =
+    calendarDate.toLocaleDateString(
+      "en-IN",
+      {
+        month:"long",
+        year:"numeric"
+      }
+    );
+
+
+  $("calendarTitle")
+    .textContent =
+      title;
+
+
+  const firstDay =
+    new Date(
+      year,
+      month,
+      1
+    ).getDay();
+
+
+  const totalDays =
+    new Date(
+      year,
+      month + 1,
+      0
+    ).getDate();
+
+
+  const today =
+    new Date();
+
+  today.setHours(
+    0,0,0,0
+  );
+
+
+  let html = "";
+
+
+  for(
+    let i = 0;
+    i < firstDay;
+    i++
+  ){
+
+    html += `
+      <div></div>
+    `;
+
+  }
+
+
+  for(
+    let day = 1;
+    day <= totalDays;
+    day++
+  ){
+
+    const date =
+      new Date(
+        year,
+        month,
+        day
+      );
+
+
+    date.setHours(
+      0,0,0,0
+    );
+
+
+    const disabled =
+      date < today;
+
+
+    const selected =
+      selectedCalendarDate &&
+      date.getTime() ===
+      selectedCalendarDate.getTime();
+
+
+    const isToday =
+      date.getTime() ===
+      today.getTime();
+
+
+    html += `
+
+      <button
+        type="button"
+        class="
+          calendar-day
+          ${disabled ? "disabled" : ""}
+          ${selected ? "selected" : ""}
+          ${isToday ? "today" : ""}
+        "
+        ${
+          disabled
+            ? ""
+            : `onclick="selectCalendarDate(${day})"`
+        }
+      >
+
+        ${day}
+
+      </button>
+
+    `;
+
+  }
+
+
+  $("calendarGrid")
+    .innerHTML =
+      html;
+
+}
+
+
+function selectCalendarDate(
+  day
+){
+
+  selectedCalendarDate =
+    new Date(
+      calendarDate.getFullYear(),
+      calendarDate.getMonth(),
+      day
+    );
+
+
+  selectedCalendarDate
+    .setHours(
+      0,0,0,0
+    );
+
+
+  renderCalendar();
+
+}
+
+
+function confirmDate(){
+
+  if(
+    !selectedCalendarDate
+  ){
+
+    alert(
+      "Please select a date."
+    );
+
+    return;
+
+  }
+
+
+  const year =
+    selectedCalendarDate
+      .getFullYear();
+
+  const month =
+    String(
+      selectedCalendarDate
+        .getMonth() + 1
+    )
+    .padStart(2,"0");
+
+  const day =
+    String(
+      selectedCalendarDate
+        .getDate()
+    )
+    .padStart(2,"0");
+
+
+  state.requiredDate =
+    `${year}-${month}-${day}`;
+
+
+  const button =
+    $("dateButton");
+
+
+  if(button){
+
+    button.textContent =
+      formatDisplayDate(
+        state.requiredDate
+      );
+
+  }
+
+
+  closeDatePicker();
+
+  updatePreview();
+
+}
+
+
+function formatDisplayDate(
+  value
+){
+
+  if(!value){
+
+    return "";
+
+  }
+
+
+  const parts =
+    value.split("-");
+
+
+  if(
+    parts.length !== 3
+  ){
+
+    return value;
+
+  }
+
+
+  return `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+function updatePreview(){
+
+  const preview =
+    $("previewArea");
+
+
+  if(
+    !state.productCategories.length
+  ){
+
+    preview.innerHTML = "";
+
+    return;
+
+  }
+
+
+  const categories =
+    state.productCategories
+      .join(", ");
+
+
+  const types =
+    state.requirementTypes.length
+      ? state.requirementTypes
+          .join(", ")
+      : "Not selected";
+
+
+  const products =
+    getSelectedProductNames()
+      .join(", ");
+
+
+  preview.innerHTML = `
+
+    <div class="card">
+
+      <div class="step-title">
+        Step 5
+      </div>
+
+      <h2>
+        Requirement Preview
+      </h2>
+
+      <div class="preview-box">
+
+        <div class="preview-row">
+
+          <div class="preview-label">
+            Categories
+          </div>
+
+          <div class="preview-value">
+            ${escapeHtml(categories)}
+          </div>
+
+        </div>
+
+        <div class="preview-row">
+
+          <div class="preview-label">
+            Requirement
+          </div>
+
+          <div class="preview-value">
+            ${escapeHtml(types)}
+          </div>
+
+        </div>
+
+        <div class="preview-row">
+
+          <div class="preview-label">
+            Products
+          </div>
+
+          <div class="preview-value">
+            ${
+              products
+                ? escapeHtml(products)
+                : "Not selected"
+            }
+          </div>
+
+        </div>
+
+        <div class="preview-row">
+
+          <div class="preview-label">
+            Quantity
+          </div>
+
+          <div class="preview-value">
+            ${state.quantity}
+          </div>
+
+        </div>
+
+        <div class="preview-row">
+
+          <div class="preview-label">
+            Budget
+          </div>
+
+          <div class="preview-value">
+            ${
+              state.budget
+                ? escapeHtml(
+                    state.budget
+                  )
+                : "Not specified"
+            }
+          </div>
+
+        </div>
+
+        <div class="preview-row">
+
+          <div class="preview-label">
+            Required Date
+          </div>
+
+          <div class="preview-value">
+            ${
+              state.requiredDate
+                ? formatDisplayDate(
+                    state.requiredDate
+                  )
+                : "Not specified"
+            }
+          </div>
+
+        </div>
+
+        <div class="preview-row">
+
+          <div class="preview-label">
+            Location
+          </div>
+
+          <div class="preview-value">
+            ${
+              state.location
+                ? escapeHtml(
+                    state.location
+                  )
+                : "Not specified"
+            }
+          </div>
+
+        </div>
+
+        <div class="preview-row">
+
+          <div class="preview-label">
+            Additional
+          </div>
+
+          <div class="preview-value">
+            ${
+              state.additional
+                ? escapeHtml(
+                    state.additional
+                  )
+                : "None"
+            }
+          </div>
+
+        </div>
+
+      </div>
+
+      <button
+        class="post-btn"
+        type="button"
+        onclick="postRequirement()"
+      >
+        Post Requirement
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+  /* =========================
+   LOGIN
+========================= */
+
+function openLogin(){
+
+  const modal =
+    $("loginModal");
+
+
+  const input =
+    $("loginMobile");
+
+
+  if(
+    isLoggedIn()
+  ){
+
+    return;
+
+  }
+
+
+  modal
+    .classList
+    .add("show");
+
+
+  setTimeout(
+    function(){
+
+      if(input){
+
+        input.focus();
+
+      }
+
+    },
+    100
+  );
+
+}
+
+
+function closeLogin(){
+
+  $("loginModal")
+    .classList
+    .remove("show");
+
+}
+
+
+function isLoggedIn(){
+
+  return Boolean(
+    localStorage.getItem(
+      "pyncode_mobile"
+    )
+  );
+
+}
+
+
+function saveLogin(){
+
+  const input =
+    $("loginMobile");
+
+
+  const mobile =
+    input
+      ? input.value.trim()
+      : "";
+
+
+  if(
+    !/^[6-9]\d{9}$/.test(
+      mobile
+    )
+  ){
+
+    alert(
+      "Please enter a valid 10 digit mobile number."
+    );
+
+    return;
+
+  }
+
+
+  localStorage.setItem(
+    "pyncode_mobile",
+    mobile
+  );
+
+
+  closeLogin();
+
+  updateLoginButton();
+
+  alert(
+    "Login successful."
+  );
+
+}
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+function updateLoginButton(){
+
+  const button =
+    $("topLoginBtn");
+
+
+  if(!button){
+
+    return;
+
+  }
+
+
+  if(
+    isLoggedIn()
+  ){
+
+    button.textContent =
+      "Logged In";
+
+    button.style.background =
+      "#ecfdf5";
+
+    button.style.color =
+      "#047857";
+
+    button.style.borderColor =
+      "#a7f3d0";
+
+  }else{
+
+    button.textContent =
+      "Login";
+
+    button.style.background =
+      "";
+
+    button.style.color =
+      "";
+
+    button.style.borderColor =
+      "";
+
+  }
+
+}
+
+
+/* =========================
+   VALIDATION
+========================= */
+
+function validateRequirement(){
+
+  if(
+    !state.productCategories.length
+  ){
+
+    return {
+      valid:false,
+      message:
+        "Please select at least one product category."
+    };
+
+  }
+
+
+  if(
+    !state.requirementTypes.length
+  ){
+
+    return {
+      valid:false,
+      message:
+        "Please select what you need."
+    };
+
+  }
+
+
+  if(
+    !state.productItems.length
+  ){
+
+    return {
+      valid:false,
+      message:
+        "Please select at least one product."
+    };
+
+  }
+
+
+  if(
+    !state.location.trim()
+  ){
+
+    return {
+      valid:false,
+      message:
+        "Please enter your location."
+    };
+
+  }
+
+
+  if(
+    !state.quantity ||
+    state.quantity < 1
+  ){
+
+    return {
+      valid:false,
+      message:
+        "Please enter a valid quantity."
+    };
+
+  }
+
+
+  return {
+    valid:true,
+    message:""
+  };
+
+}
+
+
+/* =========================
+   PRETTIFY
+========================= */
+
+function prettifyKey(
+  key
+){
+
+  const map = {
+
+    productName:
+      "Product / Brand / Model",
+
+    quantity:
+      "Quantity",
+
+    budget:
+      "Budget / Price",
+
+    requiredDate:
+      "Required Date",
+
+    location:
+      "Location",
+
+    additional:
+      "Additional Requirement"
+
+  };
+
+
+  return (
+    map[key] ||
+    key
+  );
+
+}
+
+
+/* =========================
+   BUILD DESCRIPTION
+========================= */
+
+function buildDescription(){
+
+  const lines = [];
+
+
+  lines.push(
+    "Product Categories: " +
+    state.productCategories
+      .join(", ")
+  );
+
+
+  lines.push(
+    "Requirement Type: " +
+    state.requirementTypes
+      .join(", ")
+  );
+
+
+  lines.push(
+    "Products: " +
+    getSelectedProductNames()
+      .join(", ")
+  );
+
+
+  if(
+    state.productDetails.productName
+  ){
+
+    lines.push(
+      "Product / Brand / Model: " +
+      state.productDetails.productName
+    );
+
+  }
+
+
+  lines.push(
+    "Quantity: " +
+    state.quantity
+  );
+
+
+  if(
+    state.budget.trim()
+  ){
+
+    lines.push(
+      "Budget / Price Preference: " +
+      state.budget.trim()
+    );
+
+  }
+
+
+  if(
+    state.requiredDate
+  ){
+
+    lines.push(
+      "Required Date: " +
+      state.requiredDate
+    );
+
+  }
+
+
+  if(
+    state.additional.trim()
+  ){
+
+    lines.push(
+      "Additional Requirement: " +
+      state.additional.trim()
+    );
+
+  }
+
+
+  return lines.join("\n");
+
+}
+
+  /* =========================
+   POST REQUIREMENT
+========================= */
+
+async function postRequirement(){
+
+  const validation =
+    validateRequirement();
+
+
+  if(
+    !validation.valid
+  ){
+
+    alert(
+      validation.message
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !isLoggedIn()
+  ){
+
+    openLogin();
+
+    return;
+
+  }
+
+
+  const mobile =
+    localStorage.getItem(
+      "pyncode_mobile"
+    );
+
+
+  if(!mobile){
+
+    openLogin();
+
+    return;
+
+  }
+
+
+  const button =
+    document.querySelector(
+      ".post-btn"
+    );
+
+
+  if(button){
+
+    button.disabled =
+      true;
+
+    button.textContent =
+      "Posting...";
+
+  }
+
+
+  const products =
+    getSelectedProductNames();
+
+
+  const firstProduct =
+    products.length
+      ? products[0]
+      : "Product";
+
+
+  const title =
+    state.productCategories
+      .join(", ") +
+    " - " +
+    firstProduct;
+
+
+  const payload = {
+
+    mobile:
+
+      mobile,
+
+    category:
+
+      "products",
+
+    location:
+
+      state.location.trim(),
+
+    title:
+
+      title,
+
+    description:
+
+      buildDescription(),
+
+    required_date:
+
+      state.requiredDate ||
+      null,
+
+    quantity:
+
+      String(
+        state.quantity
+      )
+
+  };
+
+
+  try{
+
+    const response =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/requirements`,
+        {
+
+          method:"POST",
+
+          headers:{
+
+            apikey:
+              SUPABASE_KEY,
+
+            Authorization:
+              `Bearer ${SUPABASE_KEY}`,
+
+            "Content-Type":
+              "application/json",
+
+            Prefer:
+              "return=minimal"
+
+          },
+
+          body:
+            JSON.stringify(
+              payload
+            )
+
+        }
+      );
+
+
+    if(
+      !response.ok
+    ){
+
+      const errorText =
+        await response.text();
+
+
+      console.error(
+        "Supabase error:",
+        errorText
+      );
+
+
+      throw new Error(
+        "Unable to post requirement."
+      );
+
+    }
+
+
+    alert(
+      "Requirement posted successfully."
+    );
+
+
+    window.location.href =
+      "enquiry.html";
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "Something went wrong while posting. Please try again."
+    );
+
+
+    if(button){
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "Post Requirement";
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   MOBILE INPUT
+========================= */
+
+document.addEventListener(
+  "input",
+  function(event){
+
+    if(
+      event.target &&
+      event.target.id ===
+      "loginMobile"
+    ){
+
+      event.target.value =
+        event.target.value
+          .replace(
+            /\D/g,
+            ""
+          )
+          .slice(
+            0,
+            10
+          );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   ENTER LOGIN
+========================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Enter" &&
+      event.target &&
+      event.target.id ===
+      "loginMobile"
+    ){
+
+      saveLogin();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closeLogin();
+
+      closeDatePicker();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   MODAL BACKDROP
+========================= */
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    const loginModal =
+      $("loginModal");
+
+
+    if(
+      event.target ===
+      loginModal
+    ){
+
+      closeLogin();
+
+    }
+
+
+    const dateModal =
+      $("dateModal");
+
+
+    if(
+      event.target ===
+      dateModal
+    ){
+
+      closeDatePicker();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   INITIAL RENDER
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    renderProductSelection();
+
+    updateLoginButton();
+
+  }
+);
+
+  /* =========================
+   STORAGE CHANGE
+========================= */
+
+window.addEventListener(
+  "storage",
+  function(event){
+
+    if(
+      event.key ===
+      "pyncode_mobile"
+    ){
+
+      updateLoginButton();
+
+      updatePreview();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   PAGE SHOW
+========================= */
+
+window.addEventListener(
+  "pageshow",
+  function(){
+
+    updateLoginButton();
+
+    updatePreview();
+
+  }
+);
+
+
+/* =========================
+   VISIBILITY
+========================= */
+
+document.addEventListener(
+  "visibilitychange",
+  function(){
+
+    if(
+      !document.hidden
+    ){
+
+      updateLoginButton();
+
+      updatePreview();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   INITIAL SAFETY REFRESH
+========================= */
+
+setTimeout(
+  function(){
+
+    try{
+
+      renderProductSelection();
+
+      updateLoginButton();
+
+      updatePreview();
+
+    }
+    catch(error){
+
+      console.error(
+        "Pyncode Products error:",
+        error
+      );
+
+    }
+
+  },
+  100
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Pyncode Enquiry Feed</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <style>
+
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+
+
+        body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#faf9f7;
+    color:#171717;
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .header{
+            background:#fff;
+            border-bottom:1px solid #e8e8e8;
+            padding:22px 28px;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+
+            position:sticky;
+            top:0;
+            z-index:100;
+        }
+
+
+        .brand{
+            font-size:25px;
+            font-weight:800;
+            letter-spacing:-.7px;
+        }
+
+
+        .back-btn{
+            border:none;
+            background:#f2f2f2;
+            color:#222;
+
+            padding:11px 17px;
+            border-radius:12px;
+
+            font-size:14px;
+            font-weight:700;
+
+            cursor:pointer;
+        }
+
+
+        .back-btn:active{
+            transform:scale(.98);
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================== */
+
+        .container{
+    width:100%;
+    max-width:1100px;
+
+    margin:0 auto;
+
+    padding:35px 18px 60px;
+
+    flex:1;
+        }
+
+        /* =========================
+           PAGE HEADER
+        ========================== */
+
+        .page-header{
+            margin-bottom:28px;
+        }
+
+
+        .page-header h1{
+            font-size:30px;
+            letter-spacing:-1px;
+            margin-bottom:8px;
+        }
+
+
+        .page-header p{
+            color:#777;
+            font-size:15px;
+            line-height:1.6;
+        }
+
+
+        /* =========================
+           TOOLBAR
+        ========================== */
+
+        .toolbar{
+            background:#fff;
+
+            border:1px solid #e7e7e7;
+            border-radius:20px;
+
+            padding:18px;
+
+            margin-bottom:25px;
+
+            display:grid;
+            grid-template-columns:1fr 1fr auto;
+
+            gap:12px;
+        }
+
+
+        .filter-input,
+        .filter-select{
+            width:100%;
+
+            border:1px solid #ddd;
+            background:#fafafa;
+
+            padding:13px 14px;
+
+            border-radius:12px;
+
+            font-size:14px;
+            outline:none;
+        }
+
+
+        .filter-input:focus,
+        .filter-select:focus{
+            border-color:#999;
+            background:#fff;
+        }
+
+
+        .refresh-btn{
+            border:none;
+
+            background:#151515;
+            color:#fff;
+
+            padding:13px 20px;
+
+            border-radius:12px;
+
+            font-size:14px;
+            font-weight:700;
+
+            cursor:pointer;
+        }
+
+
+        .refresh-btn:active{
+            transform:scale(.98);
+        }
+
+
+        /* =========================
+           RESULT INFO
+        ========================== */
+
+        .result-info{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+
+            margin-bottom:18px;
+
+            gap:15px;
+        }
+
+
+        .result-count{
+            font-size:15px;
+            font-weight:700;
+        }
+
+
+        .status-text{
+            font-size:13px;
+            color:#777;
+        }
+
+
+        /* =========================
+           REQUIREMENT GRID
+        ========================== */
+
+        .requirements-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap:20px;
+        }
+
+
+        /* =========================
+           REQUIREMENT CARD
+        ========================== */
+
+        .requirement-card{
+            background:#fff;
+
+            border:1px solid #e5e5e5;
+
+            border-radius:22px;
+
+            padding:22px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,.045);
+
+            display:flex;
+            flex-direction:column;
+        }
+
+
+        .card-top{
+            display:flex;
+
+            align-items:flex-start;
+            justify-content:space-between;
+
+            gap:12px;
+
+            margin-bottom:15px;
+        }
+
+
+        .category-badge{
+            display:inline-flex;
+
+            align-items:center;
+
+            background:#fff0e8;
+            color:#a94716;
+
+            padding:7px 11px;
+
+            border-radius:10px;
+
+            font-size:12px;
+            font-weight:700;
+        }
+
+
+        .posted-time{
+            color:#999;
+            font-size:11px;
+            white-space:nowrap;
+        }
+
+
+        .requirement-title{
+            font-size:20px;
+            line-height:1.35;
+
+            margin-bottom:9px;
+        }
+
+
+        .requirement-description{
+            color:#666;
+
+            font-size:14px;
+            line-height:1.65;
+
+            margin-bottom:18px;
+
+            word-break:break-word;
+        }
+
+
+        /* =========================
+           DETAILS
+        ========================== */
+
+        .details-box{
+            background:#f8f8f8;
+
+            border-radius:15px;
+
+            padding:14px;
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap:12px;
+
+            margin-bottom:18px;
+        }
+
+
+        .detail-item{
+            min-width:0;
+        }
+
+
+        .detail-label{
+            color:#999;
+
+            font-size:11px;
+
+            margin-bottom:4px;
+
+            text-transform:uppercase;
+
+            letter-spacing:.4px;
+        }
+
+
+        .detail-value{
+            font-size:13px;
+
+            font-weight:700;
+
+            color:#222;
+
+            word-break:break-word;
+        }
+
+
+        /* =========================
+           MOBILE NUMBER
+        ========================== */
+
+        .mobile-box{
+            background:#f1f7ff;
+
+            border-radius:13px;
+
+            padding:12px 14px;
+
+            margin-bottom:15px;
+        }
+
+
+        .mobile-label{
+            color:#668;
+
+            font-size:11px;
+
+            margin-bottom:4px;
+        }
+
+
+        .mobile-number{
+            font-size:15px;
+            font-weight:700;
+        }
+
+
+        /* =========================
+           DELETE BUTTON
+        ========================== */
+
+        .delete-btn{
+            width:100%;
+
+            border:none;
+
+            background:#fff0f0;
+
+            color:#c62828;
+
+            padding:13px;
+
+            border-radius:12px;
+
+            font-size:14px;
+            font-weight:700;
+
+            cursor:pointer;
+        }
+
+
+        .delete-btn:active{
+            transform:scale(.98);
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================== */
+
+        .empty-state{
+            background:#fff;
+
+            border:1px solid #e7e7e7;
+
+            border-radius:22px;
+
+            padding:55px 20px;
+
+            text-align:center;
+
+            display:none;
+        }
+
+
+        .empty-icon{
+            font-size:45px;
+            margin-bottom:15px;
+        }
+
+
+        .empty-state h2{
+            font-size:21px;
+            margin-bottom:8px;
+        }
+
+
+        .empty-state p{
+            color:#777;
+            font-size:14px;
+        }
+
+
+        /* =========================
+           LOADING
+        ========================== */
+
+        .loading-state{
+            background:#fff;
+
+            border:1px solid #e7e7e7;
+
+            border-radius:22px;
+
+            padding:45px 20px;
+
+            text-align:center;
+
+            color:#777;
+
+            font-size:14px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .footer{
+    background:#111;
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:28px 20px;
+
+    margin-top:auto;
+        }
+
+        .footer-title{
+            font-size:16px;
+            font-weight:700;
+            margin-bottom:7px;
+        }
+
+
+        .footer-subtitle{
+            color:#aaa;
+            font-size:13px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media(max-width:700px){
+
+            .header{
+                padding:18px 16px;
+            }
+
+
+            .brand{
+                font-size:21px;
+            }
+
+
+            .back-btn{
+                padding:10px 13px;
+                font-size:13px;
+            }
+
+
+            .container{
+                padding:28px 14px 45px;
+            }
+
+
+            .page-header h1{
+                font-size:26px;
+            }
+
+
+            .page-header p{
+                font-size:14px;
+            }
+
+
+            .toolbar{
+                grid-template-columns:1fr;
+                padding:15px;
+            }
+
+
+            .requirements-grid{
+                grid-template-columns:1fr;
+                gap:16px;
+            }
+
+
+            .requirement-card{
+                padding:18px;
+                border-radius:19px;
+            }
+
+
+            .requirement-title{
+                font-size:18px;
+            }
+
+
+            .details-box{
+                grid-template-columns:1fr 1fr;
+            }
+
+
+            .result-info{
+                align-items:flex-start;
+                flex-direction:column;
+                gap:5px;
+            }
+
+        }
+
+
+        @media(max-width:400px){
+
+            .details-box{
+                grid-template-columns:1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+  <body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="brand">
+        Pyncode
+    </div>
+
+
+    <button
+        type="button"
+        class="back-btn"
+        id="backBtn"
+    >
+        ← Admin Dashboard
+    </button>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+    <!-- =========================
+         PAGE HEADER
+    ========================== -->
+
+    <section class="page-header">
+
+        <h1>
+            Enquiry Feed
+        </h1>
+
+        <p>
+            View and manage customer requirements
+            posted through Pyncode Connect.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         FILTER TOOLBAR
+    ================================================= -->
+
+    <section class="toolbar">
+
+
+        <input
+            type="text"
+            id="searchInput"
+            class="filter-input"
+            placeholder="Search title, location or mobile..."
+        >
+
+
+        <select
+            id="categoryFilter"
+            class="filter-select"
+        >
+
+            <option value="">
+                All Categories
+            </option>
+
+            <option value="business">
+                Business
+            </option>
+
+            <option value="property">
+                Property
+            </option>
+
+            <option value="job">
+                Jobs
+            </option>
+
+            <option value="service">
+                Services
+            </option>
+
+            <option value="product">
+                Products
+            </option>
+
+            <option value="rental">
+                Rental Services
+            </option>
+
+            <option value="event">
+                Events
+            </option>
+
+            <option value="education">
+                Education
+            </option>
+
+            <option value="other">
+                Other
+            </option>
+
+        </select>
+
+
+        <button
+            type="button"
+            class="refresh-btn"
+            id="refreshBtn"
+        >
+            ↻ Refresh
+        </button>
+
+    </section>
+
+
+
+    <!-- =================================================
+         RESULT INFO
+    ================================================= -->
+
+    <div class="result-info">
+
+        <div
+            class="result-count"
+            id="resultCount"
+        >
+            0 enquiries
+        </div>
+
+
+        <div
+            class="status-text"
+            id="statusText"
+        >
+            Loading...
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         LOADING
+    ================================================= -->
+
+    <div
+        class="loading-state"
+        id="loadingState"
+    >
+        Loading enquiries...
+    </div>
+
+
+
+    <!-- =================================================
+         REQUIREMENT GRID
+    ================================================= -->
+
+    <section
+        class="requirements-grid"
+        id="requirementsGrid"
+    ></section>
+
+
+
+    <!-- =================================================
+         EMPTY STATE
+    ================================================= -->
+
+    <section
+        class="empty-state"
+        id="emptyState"
+    >
+
+        <div class="empty-icon">
+            📭
+        </div>
+
+        <h2>
+            No enquiries found
+        </h2>
+
+        <p>
+            There are no customer requirements
+            matching your current filters.
+        </p>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-title">
+        Pyncode
+    </div>
+
+    <div class="footer-subtitle">
+        Pynd Everything Near You
+    </div>
+
+</footer>
+
+    <script>
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let allRequirements = [];
+
+let filteredRequirements = [];
+
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const requirementsGrid =
+    document.getElementById(
+        "requirementsGrid"
+    );
+
+
+const loadingState =
+    document.getElementById(
+        "loadingState"
+    );
+
+
+const emptyState =
+    document.getElementById(
+        "emptyState"
+    );
+
+
+const resultCount =
+    document.getElementById(
+        "resultCount"
+    );
+
+
+const statusText =
+    document.getElementById(
+        "statusText"
+    );
+
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+
+const categoryFilter =
+    document.getElementById(
+        "categoryFilter"
+    );
+
+
+const refreshBtn =
+    document.getElementById(
+        "refreshBtn"
+    );
+
+
+const backBtn =
+    document.getElementById(
+        "backBtn"
+    );
+
+
+
+/* =====================================================
+   CATEGORY NAMES
+===================================================== */
+
+const categoryNames = {
+
+    business:
+        "Business",
+
+    property:
+        "Property",
+
+    job:
+        "Jobs",
+
+    service:
+        "Services",
+
+    product:
+        "Products",
+
+    rental:
+        "Rental Services",
+
+    event:
+        "Events",
+
+    education:
+        "Education",
+
+    other:
+        "Other"
+
+};
+
+
+
+/* =====================================================
+   ADMIN ACCESS CHECK
+===================================================== */
+
+async function checkAdminAccess(){
+
+    try{
+
+        const {
+            data: { session },
+            error: sessionError
+        } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+
+        /* NO SESSION */
+
+        if(
+            sessionError ||
+            !session
+        ){
+
+            window.location.replace(
+                "promotion-admin-login.html"
+            );
+
+            return false;
+
+        }
+
+
+        /* CHECK ADMIN USERS */
+
+        const {
+            data: adminUser,
+            error: adminError
+        } =
+        await supabaseClient
+            .from("admin_users")
+            .select("id")
+            .eq(
+                "auth_user_id",
+                session.user.id
+            )
+            .maybeSingle();
+
+
+        /* NOT ADMIN */
+
+        if(
+            adminError ||
+            !adminUser
+        ){
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+
+            alert(
+                "Admin access required."
+            );
+
+
+            window.location.replace(
+                "promotion-admin-login.html"
+            );
+
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+    catch(error){
+
+        console.error(
+            "Admin access error:",
+            error
+        );
+
+
+        window.location.replace(
+            "promotion-admin-login.html"
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   LOAD REQUIREMENTS
+===================================================== */
+
+async function loadRequirements(){
+
+    loadingState.style.display =
+        "block";
+
+
+    requirementsGrid.innerHTML =
+        "";
+
+
+    emptyState.style.display =
+        "none";
+
+
+    statusText.textContent =
+        "Loading...";
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("requirements")
+            .select(
+                "*"
+            )
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        allRequirements =
+            data || [];
+
+
+        applyFilters();
+
+
+        statusText.textContent =
+            "Feed updated";
+
+    }
+    catch(error){
+
+        console.error(
+            "Load requirements error:",
+            error
+        );
+
+
+        loadingState.style.display =
+            "none";
+
+
+        resultCount.textContent =
+            "Unable to load";
+
+
+        statusText.textContent =
+            "Database error";
+
+
+        requirementsGrid.innerHTML = `
+
+            <div class="empty-state"
+                 style="display:block;grid-column:1/-1;">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
+                <h2>
+                    Unable to load enquiries
+                </h2>
+
+                <p>
+                    Please check the database
+                    permissions and try again.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   APPLY FILTERS
+===================================================== */
+
+function applyFilters(){
+
+    const search =
+        searchInput
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const category =
+        categoryFilter
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    filteredRequirements =
+        allRequirements.filter(
+            function(item){
+
+                const title =
+                    String(
+                        item.title || ""
+                    )
+                    .toLowerCase();
+
+
+                const location =
+                    String(
+                        item.location || ""
+                    )
+                    .toLowerCase();
+
+
+                const mobile =
+                    String(
+                        item.mobile || ""
+                    )
+                    .toLowerCase();
+
+
+                const description =
+                    String(
+                        item.description || ""
+                    )
+                    .toLowerCase();
+
+
+                const itemCategory =
+                    String(
+                        item.category || ""
+                    )
+                    .toLowerCase();
+
+
+                const searchMatch =
+                    !search ||
+                    title.includes(search) ||
+                    location.includes(search) ||
+                    mobile.includes(search) ||
+                    description.includes(search);
+
+
+                const categoryMatch =
+                    !category ||
+                    itemCategory === category;
+
+
+                return (
+                    searchMatch &&
+                    categoryMatch
+                );
+
+            }
+        );
+
+
+    renderRequirements();
+
+}
+
+/* =====================================================
+   RENDER REQUIREMENTS
+===================================================== */
+
+function renderRequirements(){
+
+    loadingState.style.display =
+        "none";
+
+
+    requirementsGrid.innerHTML =
+        "";
+
+
+    resultCount.textContent =
+        filteredRequirements.length +
+        (
+            filteredRequirements.length === 1
+                ? " enquiry"
+                : " enquiries"
+        );
+
+
+    if(
+        filteredRequirements.length === 0
+    ){
+
+        emptyState.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    emptyState.style.display =
+        "none";
+
+
+    filteredRequirements.forEach(
+        function(item){
+
+            const card =
+                createRequirementCard(
+                    item
+                );
+
+
+            requirementsGrid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   CREATE REQUIREMENT CARD
+===================================================== */
+
+function createRequirementCard(item){
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "requirement-card";
+
+
+    const category =
+        categoryNames[
+            item.category
+        ] ||
+        item.category ||
+        "Other";
+
+
+    const createdDate =
+        formatDate(
+            item.created_at
+        );
+
+
+    const requiredDate =
+        item.required_date
+            ? formatDateOnly(
+                item.required_date
+            )
+            : "Not specified";
+
+
+    const quantity =
+        item.quantity ||
+        "Not specified";
+
+
+    const mobile =
+        item.mobile ||
+        "Not available";
+
+
+    card.innerHTML = `
+
+        <div class="card-top">
+
+            <span class="category-badge">
+                ${escapeHtml(category)}
+            </span>
+
+            <span class="posted-time">
+                ${escapeHtml(createdDate)}
+            </span>
+
+        </div>
+
+
+        <h2 class="requirement-title">
+            ${escapeHtml(
+                item.title ||
+                "Untitled Requirement"
+            )}
+        </h2>
+
+
+        <p class="requirement-description">
+            ${escapeHtml(
+                item.description ||
+                "No description provided."
+            )}
+        </p>
+
+
+        <div class="details-box">
+
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Location
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        item.location ||
+                        "Not specified"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Required Date
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        requiredDate
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Quantity
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        quantity
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <div class="detail-label">
+                    Category
+                </div>
+
+                <div class="detail-value">
+                    ${escapeHtml(
+                        category
+                    )}
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="mobile-box">
+
+            <div class="mobile-label">
+                CUSTOMER MOBILE
+            </div>
+
+            <div class="mobile-number">
+                ${escapeHtml(
+                    mobile
+                )}
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="delete-btn"
+            data-id="${item.id}"
+        >
+            🗑️ Delete Enquiry
+        </button>
+
+    `;
+
+
+    const deleteButton =
+        card.querySelector(
+            ".delete-btn"
+        );
+
+
+    deleteButton.addEventListener(
+        "click",
+        function(){
+
+            deleteRequirement(
+                item.id
+            );
+
+        }
+    );
+
+
+    return card;
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+/* =====================================================
+   DATE FORMAT
+===================================================== */
+
+function formatDate(value){
+
+    if(!value){
+
+        return "Unknown";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "Unknown";
+
+    }
+
+
+    return date.toLocaleString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   DATE ONLY FORMAT
+===================================================== */
+
+function formatDateOnly(value){
+
+    if(!value){
+
+        return "Not specified";
+
+    }
+
+
+    const date =
+        new Date(
+            value + "T00:00:00"
+        );
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return value;
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   DELETE REQUIREMENT
+===================================================== */
+
+async function deleteRequirement(
+    requirementId
+){
+
+    if(!requirementId){
+
+        return;
+
+    }
+
+
+    const confirmed =
+        window.confirm(
+            "Are you sure you want to delete this enquiry?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    try{
+
+        statusText.textContent =
+            "Deleting...";
+
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("requirements")
+            .delete()
+            .eq(
+                "id",
+                requirementId
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        allRequirements =
+            allRequirements.filter(
+                function(item){
+
+                    return (
+                        item.id !==
+                        requirementId
+                    );
+
+                }
+            );
+
+
+        applyFilters();
+
+
+        statusText.textContent =
+            "Enquiry deleted";
+
+
+        alert(
+            "Enquiry deleted successfully."
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Delete requirement error:",
+            error
+        );
+
+
+        statusText.textContent =
+            "Delete failed";
+
+
+        alert(
+            "Unable to delete this enquiry. Please check admin database permission."
+        );
+
+    }
+
+}
+
+      /* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    function(){
+
+        applyFilters();
+
+    }
+);
+
+
+
+/* =====================================================
+   CATEGORY FILTER
+===================================================== */
+
+categoryFilter.addEventListener(
+    "change",
+    function(){
+
+        applyFilters();
+
+    }
+);
+
+
+
+/* =====================================================
+   REFRESH
+===================================================== */
+
+refreshBtn.addEventListener(
+    "click",
+    async function(){
+
+        refreshBtn.disabled =
+            true;
+
+        refreshBtn.textContent =
+            "Refreshing...";
+
+
+        await loadRequirements();
+
+
+        refreshBtn.disabled =
+            false;
+
+        refreshBtn.textContent =
+            "↻ Refresh";
+
+    }
+);
+
+
+
+/* =====================================================
+   BACK TO ADMIN DASHBOARD
+===================================================== */
+
+backBtn.addEventListener(
+    "click",
+    function(){
+
+        window.location.href =
+            "admin-dashboard.html";
+
+    }
+);
+
+
+
+/* =====================================================
+   START PAGE
+===================================================== */
+
+async function startPage(){
+
+    const isAdmin =
+        await checkAdminAccess();
+
+
+    if(!isAdmin){
+
+        return;
+
+    }
+
+
+    await loadRequirements();
+
+}
+
+
+
+/* =====================================================
+   DOM READY
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        startPage();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

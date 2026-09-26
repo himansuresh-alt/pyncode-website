@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode - Post Requirement</title>
+
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --primary:#f97316;
+  --primary-dark:#ea580c;
+  --bg:#f7f7f8;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --soft:#fff7ed;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:var(--bg);
+
+  color:var(--text);
+
+  padding-bottom:92px;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+  height:64px;
+
+  background:rgba(255,255,255,.96);
+
+  backdrop-filter:blur(12px);
+
+  border-bottom:1px solid var(--border);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:0 16px;
+
+  position:sticky;
+
+  top:0;
+
+  z-index:100;
+}
+
+.logo{
+  font-size:21px;
+
+  font-weight:900;
+
+  letter-spacing:-.4px;
+}
+
+.logo span{
+  color:var(--primary);
+}
+
+.login-btn{
+  border:1px solid #fed7aa;
+
+  background:var(--soft);
+
+  color:var(--primary-dark);
+
+  padding:9px 16px;
+
+  border-radius:22px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.login-btn:active{
+  transform:scale(.96);
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+  width:100%;
+
+  max-width:720px;
+
+  margin:auto;
+
+  padding:14px 14px 30px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #111827,
+      #1f2937
+    );
+
+  color:#fff;
+
+  border-radius:20px;
+
+  padding:24px 20px;
+
+  margin-bottom:15px;
+
+  box-shadow:
+    0 10px 28px rgba(17,24,39,.16);
+}
+
+.hero:after{
+  content:"";
+
+  position:absolute;
+
+  width:150px;
+
+  height:150px;
+
+  border-radius:50%;
+
+  background:
+    rgba(249,115,22,.18);
+
+  right:-55px;
+
+  top:-55px;
+}
+
+.hero h1{
+  position:relative;
+
+  z-index:1;
+
+  font-size:25px;
+
+  line-height:1.2;
+
+  margin-bottom:8px;
+
+  letter-spacing:-.5px;
+}
+
+.hero p{
+  position:relative;
+
+  z-index:1;
+
+  font-size:14px;
+
+  line-height:1.55;
+
+  opacity:.88;
+
+  max-width:580px;
+}
+
+
+/* =========================
+   CATEGORY CARD
+========================= */
+
+.card{
+  background:var(--card);
+
+  border:1px solid #ececec;
+
+  border-radius:18px;
+
+  padding:17px;
+
+  margin-bottom:14px;
+
+  box-shadow:
+    0 5px 20px rgba(15,23,42,.045);
+}
+
+.title{
+  font-size:17px;
+
+  font-weight:900;
+
+  line-height:1.35;
+
+  margin-bottom:5px;
+}
+
+.subtitle{
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.5;
+
+  margin-bottom:15px;
+}
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:10px;
+}
+
+.category-btn{
+  min-height:72px;
+
+  padding:12px;
+
+  border-radius:14px;
+
+  border:1.5px solid #e5e7eb;
+
+  background:#fff;
+
+  color:#1f2937;
+
+  text-align:left;
+
+  font-family:inherit;
+
+  cursor:pointer;
+
+  transition:
+    border-color .18s,
+    background .18s,
+    transform .12s,
+    box-shadow .18s;
+}
+
+.category-btn:hover{
+  border-color:#fdba74;
+
+  background:#fffaf5;
+}
+
+.category-btn:active{
+  transform:scale(.98);
+}
+
+.category-icon{
+  display:block;
+
+  font-size:22px;
+
+  margin-bottom:7px;
+}
+
+.category-name{
+  display:block;
+
+  font-size:14px;
+
+  font-weight:850;
+
+  line-height:1.3;
+}
+
+
+/* =========================
+   INFO BOX
+========================= */
+
+.info-box{
+  background:#fff7ed;
+
+  border:1px solid #fed7aa;
+
+  border-radius:15px;
+
+  padding:14px;
+
+  color:#7c2d12;
+
+  font-size:13px;
+
+  line-height:1.6;
+}
+
+.info-title{
+  font-weight:900;
+
+  margin-bottom:5px;
+}
+
+
+/* =========================
+   BOTTOM BAR
+========================= */
+
+.bottom{
+  position:fixed;
+
+  left:0;
+
+  right:0;
+
+  bottom:0;
+
+  height:74px;
+
+  background:
+    rgba(255,255,255,.96);
+
+  backdrop-filter:blur(12px);
+
+  border-top:1px solid var(--border);
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  padding:10px 14px;
+
+  z-index:90;
+}
+
+.bottom button{
+  width:100%;
+
+  max-width:430px;
+
+  border:0;
+
+  border-radius:14px;
+
+  padding:14px;
+
+  background:#111827;
+
+  color:#fff;
+
+  font-size:15px;
+
+  font-weight:900;
+
+  box-shadow:
+    0 5px 16px rgba(17,24,39,.16);
+
+  cursor:pointer;
+}
+
+
+/* =========================
+   LOGIN MODAL
+========================= */
+
+.modal{
+  position:fixed;
+
+  inset:0;
+
+  background:
+    rgba(15,23,42,.58);
+
+  backdrop-filter:blur(3px);
+
+  display:none;
+
+  align-items:flex-end;
+
+  justify-content:center;
+
+  z-index:300;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+
+  max-width:520px;
+
+  background:#fff;
+
+  border-radius:
+    24px 24px 0 0;
+
+  padding:23px 20px;
+
+  box-shadow:
+    0 -10px 35px rgba(0,0,0,.12);
+}
+
+.modal-box h2{
+  font-size:21px;
+
+  margin-bottom:7px;
+}
+
+.modal-box p{
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.5;
+
+  margin-bottom:16px;
+}
+
+.modal-box input{
+  width:100%;
+
+  padding:14px;
+
+  border:
+    1.5px solid #dfe4ec;
+
+  border-radius:12px;
+
+  outline:none;
+
+  font-size:15px;
+}
+
+.modal-box input:focus{
+  border-color:var(--primary);
+}
+
+.modal-actions{
+  display:flex;
+
+  gap:9px;
+
+  margin-top:12px;
+}
+
+.modal-actions button{
+  flex:1;
+
+  padding:13px;
+
+  border:0;
+
+  border-radius:12px;
+
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.cancel{
+  background:#f1f5f9;
+
+  color:#374151;
+}
+
+.continue{
+  background:var(--primary);
+
+  color:#fff;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:520px){
+
+  .container{
+    padding:
+      12px
+      11px
+      25px;
+  }
+
+  .hero{
+    padding:
+      21px 17px;
+
+    border-radius:19px;
+  }
+
+  .hero h1{
+    font-size:23px;
+  }
+
+  .card{
+    padding:15px;
+
+    border-radius:16px;
+  }
+
+  .categories{
+    grid-template-columns:1fr;
+  }
+
+  .category-btn{
+    min-height:66px;
+  }
+
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media(max-width:360px){
+
+  .hero h1{
+    font-size:21px;
+  }
+
+  .title{
+    font-size:16px;
+  }
+
+  .category-name{
+    font-size:13px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="topbar">
+
+ <div class="logo">
+    <span style="color:#ff6b1a;">Pyn</span><span style="color:#151515;">code.in</span>
+ </div>
+
+
+  <button
+    id="headerLoginBtn"
+    class="login-btn"
+    type="button"
+    onclick="handleHeaderAction()"
+  >
+
+    Login
+
+  </button>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <h1>
+      Post Your Requirement
+    </h1>
+
+    <p>
+      Choose what you are looking for.
+      We will take you to a simple requirement
+      form designed for that category.
+    </p>
+
+  </section>
+
+
+  <!-- CATEGORY CARD -->
+
+  <section class="card">
+
+    <div class="title">
+      What do you need?
+    </div>
+
+    <div class="subtitle">
+      Select one category to continue.
+    </div>
+
+
+    <div class="categories">
+
+      <!-- COMMERCIAL REQUIREMENTS -->
+
+<button
+  class="category-btn"
+  type="button"
+  onclick="goToCategory('commercial-requirements.html')"
+>
+
+  <span class="category-icon">
+    🏢
+  </span>
+
+  <span class="category-name">
+    Commercial Requirements
+  </span>
+
+</button>
+
+      <!-- CONSTRUCTION & INDUSTRIAL -->
+
+<button
+  class="category-btn"
+  type="button"
+  onclick="goToCategory('construction-industrial.html')"
+>
+
+  <span class="category-icon">
+    🏗️
+  </span>
+
+  <span class="category-name">
+    Construction & Industrial
+  </span>
+
+</button>
+
+
+      <!-- FUNCTION -->
+
+      <button
+        class="category-btn"
+        type="button"
+        onclick="goToCategory('function.html')"
+      >
+
+        <span class="category-icon">
+          🎉
+        </span>
+
+        <span class="category-name">
+          Function
+        </span>
+
+      </button>
+
+
+      <!-- HOME -->
+
+      <button
+        class="category-btn"
+        type="button"
+        onclick="goToCategory('home.html')"
+      >
+
+        <span class="category-icon">
+          🏠
+        </span>
+
+        <span class="category-name">
+          Home
+        </span>
+
+      </button>
+
+
+      <!-- REAL ESTATE -->
+
+      <button
+        class="category-btn"
+        type="button"
+        onclick="goToCategory('real-estate.html')"
+      >
+
+        <span class="category-icon">
+          🏢
+        </span>
+
+        <span class="category-name">
+          Real Estate
+        </span>
+
+      </button>
+
+
+      <!-- HOME APPLIANCES -->
+
+      <button
+        class="category-btn"
+        type="button"
+        onclick="goToCategory('home-appliances.html')"
+      >
+
+        <span class="category-icon">
+          🧊
+        </span>
+
+        <span class="category-name">
+          Home Appliances
+        </span>
+
+      </button>
+
+
+      <!-- PRODUCTS -->
+
+      <button
+        class="category-btn"
+        type="button"
+        onclick="goToCategory('products.html')"
+      >
+
+        <span class="category-icon">
+          📦
+        </span>
+
+        <span class="category-name">
+          Products
+        </span>
+
+      </button>
+
+
+      <!-- BUSINESS -->
+
+      <button
+        class="category-btn"
+        type="button"
+        onclick="goToCategory('business.html')"
+      >
+
+        <span class="category-icon">
+          💼
+        </span>
+
+        <span class="category-name">
+          Business
+        </span>
+
+      </button>
+
+        <!-- VEHICLES -->
+
+      <button
+        class="category-btn"
+        type="button"
+        onclick="goToCategory('vehicles.html')"
+      >
+
+        <span class="category-icon">
+          🚗
+        </span>
+
+        <span class="category-name">
+          Vehicles
+        </span>
+
+      </button>
+
+
+      <!-- RENTAL -->
+
+      <button
+        class="category-btn"
+        type="button"
+        onclick="goToCategory('rental.html')"
+      >
+
+        <span class="category-icon">
+          📋
+        </span>
+
+        <span class="category-name">
+          Rental Services
+        </span>
+
+      </button>
+
+        <!-- SERVICES -->
+
+      <button
+        class="category-btn"
+        type="button"
+        onclick="goToCategory('services.html')"
+      >
+
+        <span class="category-icon">
+          🛠️
+        </span>
+
+        <span class="category-name">
+          Services
+        </span>
+
+      </button>
+
+
+
+      <!-- CATEGORY -->
+
+      <button
+        class="category-btn"
+        type="button"
+        onclick="goToCategory('category.html')"
+      >
+
+        <span class="category-icon">
+          📂
+        </span>
+
+        <span class="category-name">
+          Category
+        </span>
+
+      </button>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- INFO -->
+
+  <section class="info-box">
+
+    <div class="info-title">
+      How Pyncode works
+    </div>
+
+    Choose your category →
+    enter your requirement →
+    post it →
+    relevant sellers or service providers
+    can respond.
+
+  </section>
+
+
+</main>
+
+
+<!-- =========================
+     BOTTOM BAR
+========================= -->
+
+<div class="bottom">
+
+  <button
+    type="button"
+    onclick="startPosting()"
+  >
+
+    ＋ Add Requirement
+
+  </button>
+
+</div>
+
+
+<!-- =========================
+     LOGIN MODAL
+========================= -->
+
+<div
+  id="loginModal"
+  class="modal"
+>
+
+  <div class="modal-box">
+
+    <h2>
+      Login to Continue
+    </h2>
+
+    <p>
+      Enter your name and mobile number
+      to post your requirement.
+    </p>
+
+
+    <input
+      id="loginName"
+      type="text"
+      autocomplete="name"
+      placeholder="Enter your name"
+    >
+
+
+    <br>
+    <br>
+
+
+    <input
+      id="loginMobile"
+      type="tel"
+      inputmode="numeric"
+      autocomplete="tel"
+      maxlength="10"
+      placeholder="10 digit mobile number"
+    >
+
+
+    <div class="modal-actions">
+
+      <button
+        class="cancel"
+        type="button"
+        onclick="closeLogin()"
+      >
+
+        Cancel
+
+      </button>
+
+
+      <button
+        class="continue"
+        type="button"
+        onclick="continueLogin()"
+      >
+
+        Continue
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   PYNCODE ADD REQUIREMENT
+   =====================================================
+
+   IMPORTANT:
+
+   1. This page does NOT create a requirement.
+   2. This page only verifies Name + Mobile.
+   3. User then selects a category.
+   4. Category page contains the actual requirement form.
+   5. Category page inserts the completed requirement
+      into Supabase.
+   6. localStorage remembers the posting identity.
+   7. Logout clears the saved posting identity.
+
+===================================================== */
+
+
+/* =========================
+   STATE
+========================= */
+
+let pendingCategoryPage = "";
+
+
+/* =========================
+   CHECK POSTING IDENTITY
+========================= */
+
+function isLoggedIn(){
+
+  const savedName =
+    localStorage.getItem(
+      "pyncode_name"
+    );
+
+
+  const savedMobile =
+    localStorage.getItem(
+      "pyncode_mobile"
+    );
+
+
+  return !!(
+    savedName &&
+    savedMobile
+  );
+
+}
+
+
+/* =========================
+   UPDATE HEADER BUTTON
+========================= */
+
+function updateHeaderButton(){
+
+  const button =
+    document.getElementById(
+      "headerLoginBtn"
+    );
+
+
+  if(!button){
+    return;
+  }
+
+
+  if(isLoggedIn()){
+
+    button.textContent =
+      "Logout";
+
+  }
+  else{
+
+    button.textContent =
+      "Login";
+
+  }
+
+}
+
+
+/* =========================
+   HEADER ACTION
+========================= */
+
+function handleHeaderAction(){
+
+  if(isLoggedIn()){
+
+    logoutCustomer();
+
+    return;
+
+  }
+
+
+  openLogin();
+
+}
+
+
+/* =========================
+   CUSTOMER LOGOUT
+========================= */
+
+function logoutCustomer(){
+
+  localStorage.removeItem(
+    "pyncode_name"
+  );
+
+
+  localStorage.removeItem(
+    "pyncode_mobile"
+  );
+
+
+  pendingCategoryPage = "";
+
+
+  updateHeaderButton();
+
+
+  alert(
+    "You have been logged out."
+  );
+
+}
+
+
+/* =========================
+   START POSTING
+========================= */
+
+function startPosting(){
+
+  /*
+   * Already has posting identity.
+   * Just stay on category selection.
+   */
+
+  if(isLoggedIn()){
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+
+    return;
+
+  }
+
+
+  /*
+   * New user.
+   * Ask Name + Mobile.
+   */
+
+  pendingCategoryPage = "";
+
+  openLogin();
+
+}
+
+
+/* =========================
+   CATEGORY NAVIGATION
+========================= */
+
+function goToCategory(page){
+
+  /*
+   * User already completed
+   * Name + Mobile.
+   */
+
+  if(isLoggedIn()){
+
+    window.location.href =
+      page;
+
+    return;
+
+  }
+
+
+  /*
+   * User clicked category
+   * without login.
+   */
+
+  pendingCategoryPage =
+    page;
+
+  openLogin();
+
+}
+
+
+/* =========================
+   OPEN LOGIN
+========================= */
+
+function openLogin(){
+
+  const modal =
+    document.getElementById(
+      "loginModal"
+    );
+
+
+  const nameInput =
+    document.getElementById(
+      "loginName"
+    );
+
+
+  const mobileInput =
+    document.getElementById(
+      "loginMobile"
+    );
+
+
+  /*
+   * Restore only posting
+   * identity.
+   */
+
+  nameInput.value =
+    localStorage.getItem(
+      "pyncode_name"
+    ) || "";
+
+
+  mobileInput.value =
+    localStorage.getItem(
+      "pyncode_mobile"
+    ) || "";
+
+
+  modal.classList.add(
+    "show"
+  );
+
+
+  setTimeout(
+    function(){
+
+      if(!nameInput.value){
+
+        nameInput.focus();
+
+      }
+      else{
+
+        mobileInput.focus();
+
+      }
+
+    },
+    100
+  );
+
+}
+
+
+/* =========================
+   CLOSE LOGIN
+========================= */
+
+function closeLogin(){
+
+  const modal =
+    document.getElementById(
+      "loginModal"
+    );
+
+
+  modal.classList.remove(
+    "show"
+  );
+
+
+  pendingCategoryPage = "";
+
+}
+
+
+/* =========================
+   CONTINUE LOGIN
+========================= */
+
+function continueLogin(){
+
+  const nameInput =
+    document.getElementById(
+      "loginName"
+    );
+
+
+  const mobileInput =
+    document.getElementById(
+      "loginMobile"
+    );
+
+
+  const name =
+    nameInput.value.trim();
+
+
+  const mobile =
+    mobileInput.value
+      .replace(
+        /\D/g,
+        ""
+      );
+
+
+  /* =========================
+     NAME VALIDATION
+  ========================= */
+
+  if(!name){
+
+    alert(
+      "Please enter your name."
+    );
+
+
+    nameInput.focus();
+
+
+    return;
+
+  }
+
+
+  /* =========================
+     MOBILE VALIDATION
+  ========================= */
+
+  if(
+    !/^[6-9]\d{9}$/.test(
+      mobile
+    )
+  ){
+
+    alert(
+      "Please enter a valid 10 digit mobile number."
+    );
+
+
+    mobileInput.focus();
+
+
+    return;
+
+  }
+
+
+  /*
+   * Remember posting identity.
+   *
+   * IMPORTANT:
+   *
+   * This is NOT the requirement.
+   *
+   * Actual requirement will be
+   * sent to Supabase from the
+   * selected category page.
+   */
+
+  localStorage.setItem(
+    "pyncode_name",
+    name
+  );
+
+
+  localStorage.setItem(
+    "pyncode_mobile",
+    mobile
+  );
+
+
+  /*
+   * Update header to Logout.
+   */
+
+  updateHeaderButton();
+
+
+  /*
+   * Close modal.
+   */
+
+  const modal =
+    document.getElementById(
+      "loginModal"
+    );
+
+
+  modal.classList.remove(
+    "show"
+  );
+
+
+  /* =========================
+     CONTINUE TO SELECTED
+     CATEGORY
+  ========================= */
+
+  if(pendingCategoryPage){
+
+    const page =
+      pendingCategoryPage;
+
+
+    pendingCategoryPage = "";
+
+
+    window.location.href =
+      page;
+
+
+    return;
+
+  }
+
+
+  /*
+   * Normal login from header
+   * or bottom button.
+   */
+
+  alert(
+    "Login successful. Now select your category."
+  );
+
+}
+
+
+/* =========================
+   MODAL OUTSIDE CLICK
+========================= */
+
+document
+  .getElementById(
+    "loginModal"
+  )
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === this
+      ){
+
+        closeLogin();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   ESCAPE KEY
+========================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closeLogin();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   MOBILE INPUT
+========================= */
+
+document
+  .getElementById(
+    "loginMobile"
+  )
+  .addEventListener(
+    "input",
+    function(){
+
+      this.value =
+        this.value
+          .replace(
+            /\D/g,
+            ""
+          )
+          .slice(
+            0,
+            10
+          );
+
+    }
+  );
+
+
+/* =========================
+   ENTER - NAME
+========================= */
+
+document
+  .getElementById(
+    "loginName"
+  )
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(
+        event.key === "Enter"
+      ){
+
+        event.preventDefault();
+
+
+        document
+          .getElementById(
+            "loginMobile"
+          )
+          .focus();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   ENTER - MOBILE
+========================= */
+
+document
+  .getElementById(
+    "loginMobile"
+  )
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(
+        event.key === "Enter"
+      ){
+
+        event.preventDefault();
+
+
+        continueLogin();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   PAGE LOAD
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    /*
+     * Update Login / Logout
+     * button first.
+     */
+
+    updateHeaderButton();
+
+
+    /*
+     * Already logged in:
+     * do NOT show login.
+     */
+
+    if(isLoggedIn()){
+
+      return;
+
+    }
+
+
+    /*
+     * Direct opening of
+     * add-requirement.html
+     * requires Name + Mobile.
+     */
+
+    pendingCategoryPage = "";
+
+    openLogin();
+
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>

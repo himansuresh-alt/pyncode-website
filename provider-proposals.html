@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>My Proposals - Pyncode</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fb;
+  color:#1f2937;
+  min-height:100vh;
+}
+
+.header{
+  background:#ffffff;
+  border-bottom:1px solid #e5e7eb;
+  padding:16px 20px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+  color:#111827;
+}
+
+.back-btn{
+  border:none;
+  background:#f3f4f6;
+  color:#111827;
+  padding:10px 16px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.back-btn:hover{
+  background:#e5e7eb;
+}
+
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:22px 16px 50px;
+}
+
+.page-title{
+  font-size:28px;
+  font-weight:800;
+  color:#111827;
+  margin-bottom:6px;
+}
+
+.page-subtitle{
+  color:#6b7280;
+  font-size:14px;
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.status-box{
+  padding:12px 15px;
+  border-radius:11px;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+.loading{
+  background:#eff6ff;
+  color:#1d4ed8;
+}
+
+.error{
+  background:#fef2f2;
+  color:#b91c1c;
+}
+
+.empty{
+  background:#ffffff;
+  border:1px dashed #d1d5db;
+  border-radius:16px;
+  padding:40px 20px;
+  text-align:center;
+  color:#6b7280;
+}
+
+.proposals-list{
+  display:grid;
+  gap:16px;
+}
+
+.proposal-card{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:19px;
+  box-shadow:0 4px 15px rgba(0,0,0,.04);
+}
+
+.proposal-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.proposal-title{
+  font-size:19px;
+  font-weight:800;
+  color:#111827;
+}
+
+.status-badge{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  text-transform:capitalize;
+  white-space:nowrap;
+}
+
+.status-pending{
+  background:#fff7ed;
+  color:#c2410c;
+}
+
+.status-viewed{
+  background:#eff6ff;
+  color:#1d4ed8;
+}
+
+.status-accepted{
+  background:#ecfdf5;
+  color:#047857;
+}
+
+.status-rejected{
+  background:#fef2f2;
+  color:#b91c1c;
+}
+
+.status-withdrawn,
+.status-closed{
+  background:#f3f4f6;
+  color:#4b5563;
+}
+
+.proposal-message{
+  margin-top:13px;
+  color:#4b5563;
+  font-size:14px;
+  line-height:1.6;
+  white-space:pre-wrap;
+}
+
+.proposal-details{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:17px;
+}
+
+.detail-box{
+  background:#f9fafb;
+  border-radius:10px;
+  padding:11px 12px;
+}
+
+.detail-label{
+  display:block;
+  color:#6b7280;
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+
+.detail-value{
+  color:#111827;
+  font-size:14px;
+  font-weight:700;
+}
+
+.requirement-section{
+  margin-top:17px;
+  padding-top:16px;
+  border-top:1px solid #e5e7eb;
+}
+
+.requirement-title{
+  font-size:14px;
+  font-weight:800;
+  color:#111827;
+  margin-bottom:9px;
+}
+
+.requirement-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.meta-tag{
+  background:#f3f4f6;
+  color:#4b5563;
+  padding:7px 10px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.proposal-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:17px;
+}
+
+.action-btn{
+  border:none;
+  border-radius:10px;
+  padding:10px 15px;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.view-btn{
+  background:#111827;
+  color:#ffffff;
+}
+
+.view-btn:hover{
+  background:#000000;
+}
+
+.refresh-btn{
+  background:#f3f4f6;
+  color:#111827;
+}
+
+.action-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+  /* Proposal modal */
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:500;
+}
+
+.modal-overlay.show{
+  display:flex;
+}
+
+.modal{
+  width:100%;
+  max-width:560px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:#ffffff;
+  border-radius:18px;
+  padding:20px;
+  position:relative;
+}
+
+.modal-close{
+  position:absolute;
+  right:15px;
+  top:12px;
+  border:none;
+  background:#f3f4f6;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.modal-title{
+  font-size:21px;
+  font-weight:800;
+  color:#111827;
+  padding-right:45px;
+}
+
+.modal-content{
+  margin-top:17px;
+}
+
+.modal-section{
+  margin-bottom:16px;
+}
+
+.modal-label{
+  display:block;
+  color:#6b7280;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+
+.modal-value{
+  color:#111827;
+  font-size:14px;
+  line-height:1.6;
+  white-space:pre-wrap;
+}
+
+@media(max-width:650px){
+
+  .page-title{
+    font-size:24px;
+  }
+
+  .proposal-header{
+    flex-direction:column;
+  }
+
+  .proposal-details{
+    grid-template-columns:1fr;
+  }
+
+  .modal{
+    padding:17px;
+  }
+
+}
+
+  /* =================================
+   PREMIUM PROPOSAL CARD UI
+================================= */
+
+.proposal-card{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 6px 20px rgba(15,23,42,0.06);
+}
+
+.proposal-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.proposal-title{
+  margin:0;
+  font-size:19px;
+  line-height:1.3;
+  font-weight:800;
+  color:#111827;
+}
+
+.proposal-date{
+  margin-top:5px;
+  font-size:12px;
+  color:#6b7280;
+}
+
+.status-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:6px 11px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  text-transform:capitalize;
+  white-space:nowrap;
+}
+
+.status-accepted{
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.status-pending{
+  background:#fef3c7;
+  color:#a16207;
+}
+
+.status-viewed{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.status-rejected{
+  background:#fee2e2;
+  color:#dc2626;
+}
+
+.status-withdrawn{
+  background:#f3f4f6;
+  color:#4b5563;
+}
+
+.status-closed{
+  background:#e5e7eb;
+  color:#374151;
+}
+
+
+/* Requirement */
+
+.requirement-box{
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:13px;
+  padding:14px;
+  margin-bottom:16px;
+}
+
+.requirement-label{
+  font-size:11px;
+  font-weight:700;
+  color:#6b7280;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+  margin-bottom:5px;
+}
+
+.requirement-title{
+  font-size:16px;
+  font-weight:800;
+  color:#111827;
+  margin-bottom:9px;
+}
+
+.requirement-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.requirement-meta span{
+  display:inline-flex;
+  padding:5px 9px;
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:8px;
+  font-size:12px;
+  color:#4b5563;
+}
+
+
+/* Message */
+
+.proposal-message{
+  background:#ffffff;
+  border-left:3px solid #d1d5db;
+  padding:4px 0 4px 13px;
+  margin:17px 0;
+  color:#374151;
+  font-size:14px;
+  line-height:1.6;
+}
+
+
+/* Quote + Availability */
+
+.proposal-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:16px;
+}
+
+.proposal-info > div{
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  border-radius:11px;
+  padding:12px;
+}
+
+.info-label{
+  display:block;
+  font-size:11px;
+  color:#6b7280;
+  margin-bottom:5px;
+}
+
+.proposal-info strong{
+  display:block;
+  font-size:15px;
+  color:#111827;
+}
+
+
+/* Accepted */
+
+.accepted-note{
+  margin-top:14px;
+  padding:10px 12px;
+  border-radius:10px;
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+  color:#15803d;
+  font-size:13px;
+  font-weight:700;
+}
+
+
+/* View button */
+
+.view-button{
+  width:100%;
+  margin-top:16px;
+  padding:12px 15px;
+  border:0;
+  border-radius:11px;
+  background:#111827;
+  color:#ffffff;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.view-button:active{
+  transform:scale(.98);
+}
+
+
+/* Privacy */
+
+.private-note{
+  text-align:center;
+  margin-top:10px;
+  font-size:11px;
+  color:#9ca3af;
+}
+
+
+/* Mobile */
+
+@media(max-width:600px){
+
+  .proposal-card{
+    padding:16px;
+    border-radius:16px;
+  }
+
+  .proposal-top{
+    gap:9px;
+  }
+
+  .proposal-title{
+    font-size:17px;
+  }
+
+  .proposal-info{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+  <div class="header-inner">
+
+    <div class="logo">
+      Pyncode
+    </div>
+
+    <button
+      class="back-btn"
+      type="button"
+      onclick="goBack()"
+    >
+      ← Back
+    </button>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <h1 class="page-title">
+    My Proposals
+  </h1>
+
+  <p class="page-subtitle">
+    View and track all proposals you have sent to customers.
+  </p>
+
+
+  <div
+    id="statusArea"
+  ></div>
+
+
+  <div
+    id="proposalsList"
+    class="proposals-list"
+  ></div>
+
+</main>
+
+
+<!-- Proposal Details Modal -->
+
+<div
+  id="proposalModal"
+  class="modal-overlay"
+>
+
+  <div class="modal">
+
+    <button
+      class="modal-close"
+      type="button"
+      onclick="closeProposalModal()"
+    >
+      ×
+    </button>
+
+
+    <h2
+      id="modalTitle"
+      class="modal-title"
+    >
+      Proposal Details
+    </h2>
+
+
+    <div
+      id="modalContent"
+      class="modal-content"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* Supabase */
+
+const SUPABASE_URL =
+  "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+
+/*
+ Use the SAME existing Pyncode
+ Supabase publishable key.
+*/
+
+const SUPABASE_KEY =
+  "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+/* State */
+
+let providerProfile = null;
+
+let proposals = [];
+
+
+/* DOM */
+
+const statusArea =
+  document.getElementById(
+    "statusArea"
+  );
+
+const proposalsList =
+  document.getElementById(
+    "proposalsList"
+  );
+
+const proposalModal =
+  document.getElementById(
+    "proposalModal"
+  );
+
+const modalTitle =
+  document.getElementById(
+    "modalTitle"
+  );
+
+const modalContent =
+  document.getElementById(
+    "modalContent"
+  );
+
+
+/* Escape HTML */
+
+function escapeHtml(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+
+    return "";
+
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* Date */
+
+function formatDate(value){
+
+  if(!value){
+
+    return "-";
+
+  }
+
+
+  const date =
+    new Date(value);
+
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+
+    return "-";
+
+  }
+
+
+  return date.toLocaleDateString(
+    "en-IN",
+    {
+      day:"2-digit",
+      month:"short",
+      year:"numeric"
+    }
+  );
+
+}
+
+
+/* Amount */
+
+function formatAmount(value){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
+
+    return "Not specified";
+
+  }
+
+
+  const number =
+    Number(value);
+
+
+  if(Number.isNaN(number)){
+
+    return escapeHtml(value);
+
+  }
+
+
+  return "₹" +
+    number.toLocaleString(
+      "en-IN",
+      {
+        minimumFractionDigits:0,
+        maximumFractionDigits:2
+      }
+    );
+
+}
+
+
+/* Loading */
+
+function showLoading(message){
+
+  statusArea.innerHTML = `
+
+    <div class="status-box loading">
+      ${escapeHtml(message)}
+    </div>
+
+  `;
+
+}
+
+
+/* Error */
+
+function showError(message){
+
+  statusArea.innerHTML = `
+
+    <div class="status-box error">
+      ${escapeHtml(message)}
+    </div>
+
+  `;
+
+}
+
+
+/* Back */
+
+function goBack(){
+
+  if(document.referrer){
+
+    history.back();
+
+    return;
+
+  }
+
+
+  window.location.href =
+    "provider-enquiry.html";
+
+}
+
+  /* ================================
+   PROVIDER SESSION
+================================ */
+
+let providerAccessToken = "";
+
+
+async function getProviderSession(){
+
+  providerAccessToken = "";
+
+
+  try{
+
+    const projectRef =
+      "mtuspuehsxsjoaxoenen";
+
+
+    const possibleKeys = [
+
+      "sb-" +
+      projectRef +
+      "-auth-token",
+
+      "supabase.auth.token"
+
+    ];
+
+
+    let sessionData = null;
+
+
+    /*
+      First try the standard
+      Supabase v2 storage key
+    */
+
+    for(
+      const key of possibleKeys
+    ){
+
+      const raw =
+        localStorage.getItem(
+          key
+        );
+
+
+      if(!raw){
+
+        continue;
+
+      }
+
+
+      try{
+
+        sessionData =
+          JSON.parse(raw);
+
+      }
+      catch(error){
+
+        sessionData = null;
+
+      }
+
+
+      if(sessionData){
+
+        break;
+
+      }
+
+    }
+
+
+    /*
+      Fallback:
+      Search Supabase auth
+      storage keys.
+    */
+
+    if(!sessionData){
+
+      for(
+        let i = 0;
+        i < localStorage.length;
+        i++
+      ){
+
+        const key =
+          localStorage.key(i);
+
+
+        if(
+          !key ||
+          !key.startsWith("sb-") ||
+          !key.endsWith("-auth-token")
+        ){
+
+          continue;
+
+        }
+
+
+        const raw =
+          localStorage.getItem(
+            key
+          );
+
+
+        if(!raw){
+
+          continue;
+
+        }
+
+
+        try{
+
+          const parsed =
+            JSON.parse(raw);
+
+
+          if(
+            parsed &&
+            (
+              parsed.access_token ||
+              parsed.user
+            )
+          ){
+
+            sessionData =
+              parsed;
+
+            break;
+
+          }
+
+        }
+        catch(error){
+
+          continue;
+
+        }
+
+      }
+
+    }
+
+
+    if(
+      !sessionData ||
+      !sessionData.access_token
+    ){
+
+      console.error(
+        "Supabase session not found."
+      );
+
+      return null;
+
+    }
+
+
+    providerAccessToken =
+      sessionData.access_token;
+
+
+    /*
+      Get current authenticated
+      Supabase user.
+    */
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/auth/v1/user",
+        {
+          method:"GET",
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              providerAccessToken
+
+          }
+
+        }
+      );
+
+
+    if(!response.ok){
+
+      console.error(
+        "Unable to verify provider session."
+      );
+
+      providerAccessToken =
+        "";
+
+      return null;
+
+    }
+
+
+    const user =
+      await response.json();
+
+
+    if(
+      !user ||
+      !user.id
+    ){
+
+      providerAccessToken =
+        "";
+
+      return null;
+
+    }
+
+
+    return {
+
+      user:user,
+
+      access_token:
+        providerAccessToken
+
+    };
+
+  }
+  catch(error){
+
+    console.error(
+      "Session error:",
+      error
+    );
+
+    providerAccessToken =
+      "";
+
+    return null;
+
+  }
+
+}
+
+
+/* ================================
+   LOAD PROVIDER PROFILE
+================================ */
+
+async function loadProviderProfile(
+  userId
+){
+
+  if(
+    !providerAccessToken
+  ){
+
+    throw new Error(
+      "Provider session expired. Please login again."
+    );
+
+  }
+
+
+  const url =
+    SUPABASE_URL +
+    "/rest/v1/provider_profiles" +
+    "?auth_user_id=eq." +
+    encodeURIComponent(
+      userId
+    ) +
+    "&select=*";
+
+
+  const response =
+    await fetch(
+      url,
+      {
+        method:"GET",
+
+        headers:{
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            "Bearer " +
+            providerAccessToken,
+
+          "Content-Type":
+            "application/json"
+
+        }
+
+      }
+    );
+
+
+  if(!response.ok){
+
+    const errorText =
+      await response.text();
+
+
+    console.error(
+      "Provider profile error:",
+      errorText
+    );
+
+
+    throw new Error(
+      "Unable to load provider profile."
+    );
+
+  }
+
+
+  const data =
+    await response.json();
+
+
+  if(
+    !Array.isArray(data) ||
+    data.length === 0
+  ){
+
+    return null;
+
+  }
+
+
+  return data[0];
+
+}
+
+
+/* ================================
+   LOAD PROVIDER PROPOSALS
+================================ */
+
+async function loadProviderProposals(
+  userId
+){
+
+  if(
+    !providerAccessToken
+  ){
+
+    throw new Error(
+      "Provider session expired. Please login again."
+    );
+
+  }
+
+
+  showLoading(
+    "Loading your proposals..."
+  );
+
+
+  const url =
+    SUPABASE_URL +
+    "/rest/v1/requirement_proposals" +
+    "?provider_auth_user_id=eq." +
+    encodeURIComponent(
+      userId
+    ) +
+    "&select=*,requirements(*)" +
+    "&order=created_at.desc";
+
+
+  const response =
+    await fetch(
+      url,
+      {
+        method:"GET",
+
+        headers:{
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            "Bearer " +
+            providerAccessToken,
+
+          "Content-Type":
+            "application/json"
+
+        }
+
+      }
+    );
+
+
+  if(!response.ok){
+
+    const errorText =
+      await response.text();
+
+
+    console.error(
+      "Provider proposals error:",
+      errorText
+    );
+
+
+    throw new Error(
+      "Unable to load your proposals."
+    );
+
+  }
+
+
+  const data =
+    await response.json();
+
+
+  proposals =
+  Array.isArray(data)
+    ? data
+    : [];
+
+renderProposals();
+
+/* Hide loading message after successful load */
+if(statusArea){
+
+  statusArea.innerHTML = "";
+
+  statusArea.style.display =
+    "none";
+
+}
+
+}
+
+
+/* ================================
+   STATUS CLASS
+================================ */
+
+function getStatusClass(
+  status
+){
+
+  const value =
+    String(
+      status ||
+      "pending"
+    )
+    .toLowerCase()
+    .trim();
+
+
+  if(
+    value === "accepted"
+  ){
+
+    return "status-accepted";
+
+  }
+
+
+  if(
+    value === "rejected"
+  ){
+
+    return "status-rejected";
+
+  }
+
+
+  if(
+    value === "viewed"
+  ){
+
+    return "status-viewed";
+
+  }
+
+
+  if(
+    value === "withdrawn"
+  ){
+
+    return "status-withdrawn";
+
+  }
+
+
+  if(
+    value === "closed"
+  ){
+
+    return "status-closed";
+
+  }
+
+
+  return "status-pending";
+
+}
+
+
+/* ================================
+   REQUIREMENT HELPER
+================================ */
+
+function getRequirementFromProposal(
+  proposal
+){
+
+  if(
+    !proposal
+  ){
+
+    return null;
+
+  }
+
+
+  return (
+    proposal.requirements ||
+    proposal.requirement ||
+    null
+  );
+
+}
+
+
+/* ================================
+   LOCATION HELPER
+================================ */
+
+function getRequirementLocation(
+  requirement
+){
+
+  if(
+    !requirement
+  ){
+
+    return "Not specified";
+
+  }
+
+
+  return (
+    requirement.location ||
+    requirement.area ||
+    requirement.city ||
+    "Not specified"
+  );
+
+}
+
+
+/* ================================
+   RENDER PROPOSALS
+================================ */
+
+function renderProposals(){
+
+  if(
+    !proposals ||
+    proposals.length === 0
+  ){
+
+    proposalsList.innerHTML = `
+
+      <div class="empty-state">
+
+        <div class="empty-icon">
+          📩
+        </div>
+
+        <h3>
+          No proposals yet
+        </h3>
+
+        <p>
+          Proposals you send to customers
+          will appear here.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  proposalsList.innerHTML =
+    proposals
+      .map(
+        createProposalCard
+      )
+      .join("");
+
+
+  document
+    .querySelectorAll(
+      "[data-proposal-id]"
+    )
+    .forEach(
+      function(button){
+
+        button.addEventListener(
+          "click",
+          function(){
+
+            const id =
+              this.getAttribute(
+                "data-proposal-id"
+              );
+
+
+            openProposalModal(
+              id
+            );
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* ================================
+   CREATE PROPOSAL CARD
+================================ */
+
+function createProposalCard(
+  proposal
+){
+
+  const requirement =
+    getRequirementFromProposal(
+      proposal
+    );
+
+
+  const requirementTitle =
+    requirement &&
+    requirement.title
+      ? requirement.title
+      : "Customer Requirement";
+
+
+  const category =
+    requirement &&
+    requirement.category
+      ? requirement.category
+      : "Not specified";
+
+
+  const location =
+    getRequirementLocation(
+      requirement
+    );
+
+
+  const title =
+    proposal.proposal_title ||
+    "Provider Proposal";
+
+
+  const message =
+    proposal.proposal_message ||
+    "No proposal message provided.";
+
+
+  const amount =
+    formatAmount(
+      proposal.quoted_amount
+    );
+
+
+  const availability =
+    proposal.availability ||
+    "Not specified";
+
+
+  const status =
+    String(
+      proposal.status ||
+      "pending"
+    )
+    .toLowerCase()
+    .trim();
+
+
+  const createdAt =
+    formatDate(
+      proposal.created_at
+    );
+
+
+  return `
+
+    <div class="proposal-card">
+
+      <div class="proposal-top">
+
+        <div>
+
+          <h3 class="proposal-title">
+            ${escapeHtml(title)}
+          </h3>
+
+          <div class="proposal-date">
+            Sent ${escapeHtml(createdAt)}
+          </div>
+
+        </div>
+
+
+        <span
+          class="status-badge ${getStatusClass(status)}"
+        >
+          ${escapeHtml(status)}
+        </span>
+
+      </div>
+
+
+      <div class="requirement-box">
+
+        <div class="requirement-label">
+          Customer Requirement
+        </div>
+
+        <div class="requirement-title">
+          ${escapeHtml(requirementTitle)}
+        </div>
+
+        <div class="requirement-meta">
+
+          <span>
+            ${escapeHtml(category)}
+          </span>
+
+          <span>
+            ${escapeHtml(location)}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="proposal-message">
+
+        ${escapeHtml(message)}
+
+      </div>
+
+
+      <div class="proposal-info">
+
+        <div>
+
+          <span class="info-label">
+            Quote
+          </span>
+
+          <strong>
+            ${amount}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span class="info-label">
+            Availability
+          </span>
+
+          <strong>
+            ${escapeHtml(availability)}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      ${
+        status === "accepted"
+        ? `
+
+          <div class="accepted-note">
+
+            ✓ Customer accepted this proposal.
+
+          </div>
+
+        `
+        : ""
+      }
+
+
+      <button
+        type="button"
+        class="view-button"
+        data-proposal-id="${proposal.id}"
+      >
+        View Details
+      </button>
+
+
+      <div class="private-note">
+
+        🔒 Customer contact details are private.
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+  /* Open proposal modal */
+
+function openProposalModal(
+  proposalId
+){
+
+  const proposal =
+    proposals.find(
+      function(item){
+
+        return Number(item.id) ===
+          Number(proposalId);
+
+      }
+    );
+
+
+  if(!proposal){
+
+    return;
+
+  }
+
+
+  const status =
+    String(
+      proposal.status ||
+      "pending"
+    )
+    .toLowerCase()
+    .trim();
+
+
+  const title =
+    proposal.proposal_title ||
+    "Provider Proposal";
+
+
+  const message =
+    proposal.proposal_message ||
+    "No proposal message provided.";
+
+
+  const amount =
+    formatAmount(
+      proposal.quoted_amount
+    );
+
+
+  const availability =
+    proposal.availability ||
+    "Not specified";
+
+
+  const createdAt =
+    formatDate(
+      proposal.created_at
+    );
+
+
+  const requirement =
+    getRequirementFromProposal(
+      proposal
+    );
+
+
+  const requirementTitle =
+    requirement &&
+    requirement.title
+      ? requirement.title
+      : "Customer Requirement";
+
+
+  const category =
+    requirement &&
+    requirement.category
+      ? requirement.category
+      : "Not specified";
+
+
+  const location =
+    getRequirementLocation(
+      requirement
+    );
+
+
+  const requiredDate =
+    requirement &&
+    requirement.required_date
+      ? requirement.required_date
+      : "Not specified";
+
+
+  const description =
+    requirement &&
+    requirement.description
+      ? requirement.description
+      : "No requirement description provided.";
+
+
+  modalTitle.textContent =
+    title;
+
+
+  modalContent.innerHTML = `
+
+    <div class="modal-section">
+
+      <span class="modal-label">
+        Proposal Status
+      </span>
+
+      <div class="modal-value">
+        ${escapeHtml(status)}
+      </div>
+
+    </div>
+
+
+    <div class="modal-section">
+
+      <span class="modal-label">
+        Proposal Message
+      </span>
+
+      <div class="modal-value">
+        ${escapeHtml(message)}
+      </div>
+
+    </div>
+
+
+    <div class="modal-section">
+
+      <span class="modal-label">
+        Quoted Amount
+      </span>
+
+      <div class="modal-value">
+        ${amount}
+      </div>
+
+    </div>
+
+
+    <div class="modal-section">
+
+      <span class="modal-label">
+        Availability
+      </span>
+
+      <div class="modal-value">
+        ${escapeHtml(
+          availability
+        )}
+      </div>
+
+    </div>
+
+
+    <div class="modal-section">
+
+      <span class="modal-label">
+        Sent On
+      </span>
+
+      <div class="modal-value">
+        ${escapeHtml(
+          createdAt
+        )}
+      </div>
+
+    </div>
+
+
+    <div
+      style="
+        margin-top:18px;
+        padding-top:17px;
+        border-top:1px solid #e5e7eb;
+      "
+    >
+
+      <div
+        style="
+          font-size:15px;
+          font-weight:800;
+          color:#111827;
+          margin-bottom:13px;
+        "
+      >
+        Customer Requirement
+      </div>
+
+
+      <div class="modal-section">
+
+        <span class="modal-label">
+          Requirement
+        </span>
+
+        <div class="modal-value">
+          ${escapeHtml(
+            requirementTitle
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="modal-section">
+
+        <span class="modal-label">
+          Category
+        </span>
+
+        <div class="modal-value">
+          ${escapeHtml(
+            category
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="modal-section">
+
+        <span class="modal-label">
+          Location
+        </span>
+
+        <div class="modal-value">
+          ${escapeHtml(
+            location
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="modal-section">
+
+        <span class="modal-label">
+          Required Date
+        </span>
+
+        <div class="modal-value">
+          ${escapeHtml(
+            requiredDate
+          )}
+        </div>
+
+      </div>
+
+
+      <div class="modal-section">
+
+        <span class="modal-label">
+          Description
+        </span>
+
+        <div class="modal-value">
+          ${escapeHtml(
+            description
+          )}
+        </div>
+
+      </div>
+
+    </div>
+
+
+    ${
+      status === "accepted"
+      ? `
+
+        <div
+          style="
+            margin-top:16px;
+            padding:13px;
+            background:#ecfdf5;
+            border:1px solid #a7f3d0;
+            border-radius:11px;
+            color:#047857;
+            font-size:13px;
+            line-height:1.5;
+            font-weight:700;
+          "
+        >
+          ✓ Customer has accepted this proposal.
+        </div>
+
+      `
+      : ""
+    }
+
+
+    <div
+      style="
+        margin-top:15px;
+        padding:12px;
+        background:#f9fafb;
+        border-radius:10px;
+        color:#6b7280;
+        font-size:12px;
+        line-height:1.5;
+      "
+    >
+      🔒 Customer contact details are kept private.
+    </div>
+
+  `;
+
+
+  proposalModal.classList.add(
+    "show"
+  );
+
+}
+
+
+/* Close modal */
+
+function closeProposalModal(){
+
+  proposalModal.classList.remove(
+    "show"
+  );
+
+}
+
+
+/* Modal background click */
+
+proposalModal.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target ===
+      proposalModal
+    ){
+
+      closeProposalModal();
+
+    }
+
+  }
+);
+
+
+/* Escape key */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closeProposalModal();
+
+    }
+
+  }
+);
+
+
+/* Refresh */
+
+async function refreshProposals(){
+
+  if(
+    !providerProfile ||
+    !providerProfile.auth_user_id
+  ){
+
+    return;
+
+  }
+
+
+  await loadProviderProposals(
+    providerProfile.auth_user_id
+  );
+
+}
+
+  /* Close button */
+
+
+
+/* Load everything */
+
+async function init(){
+
+  showLoading(
+    "Checking provider account..."
+  );
+
+
+  try{
+
+    const session =
+      await getProviderSession();
+
+
+    if(!session){
+
+      window.location.href =
+        "provider-login.html?return=provider-proposals.html";
+
+      return;
+
+    }
+
+
+    const userId =
+      session.user.id;
+
+
+    showLoading(
+      "Loading provider profile..."
+    );
+
+
+    providerProfile =
+      await loadProviderProfile(
+        userId
+      );
+
+
+    if(!providerProfile){
+
+      showError(
+        "Provider profile not found. Please complete your provider profile first."
+      );
+
+      return;
+
+    }
+
+
+    showLoading(
+      "Loading your proposals..."
+    );
+
+
+    await loadProviderProposals(
+      userId
+    );
+
+  }
+  catch(error){
+
+    console.error(
+      "Provider proposals error:",
+      error
+    );
+
+
+    showError(
+      error.message ||
+      "Unable to load your proposals."
+    );
+
+  }
+
+}
+
+
+/* Start page */
+
+init();
+
+</script>
+
+</body>
+</html>

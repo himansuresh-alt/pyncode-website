@@ -1,0 +1,4093 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode - Function Requirement</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --orange:#f97316;
+  --orange-dark:#ea580c;
+  --orange-soft:#fff7ed;
+
+  --dark:#111827;
+  --text:#1f2937;
+  --muted:#6b7280;
+
+  --bg:#f6f7f9;
+  --white:#ffffff;
+
+  --border:#e5e7eb;
+  --green:#16a34a;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:var(--bg);
+
+  color:var(--text);
+
+  padding-bottom:88px;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+  height:64px;
+
+  background:rgba(255,255,255,.97);
+
+  backdrop-filter:blur(14px);
+
+  border-bottom:1px solid var(--border);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:0 15px;
+
+  position:sticky;
+
+  top:0;
+
+  z-index:100;
+}
+
+.logo{
+  font-size:21px;
+
+  font-weight:900;
+
+  letter-spacing:-.5px;
+
+  color:var(--dark);
+}
+
+.logo span{
+  color:var(--orange);
+}
+
+.login-btn{
+  border:1px solid #fed7aa;
+
+  background:var(--orange-soft);
+
+  color:var(--orange-dark);
+
+  padding:9px 15px;
+
+  border-radius:11px;
+
+  font-family:inherit;
+
+  font-size:13px;
+
+  font-weight:850;
+
+  cursor:pointer;
+}
+
+.login-btn:active{
+  transform:scale(.96);
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container{
+  width:100%;
+
+  max-width:700px;
+
+  margin:auto;
+
+  padding:13px 13px 30px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #111827,
+      #1f2937
+    );
+
+  color:#fff;
+
+  border-radius:20px;
+
+  padding:22px 18px;
+
+  margin-bottom:13px;
+
+  box-shadow:
+    0 10px 28px rgba(15,23,42,.14);
+}
+
+.hero:after{
+  content:"";
+
+  position:absolute;
+
+  width:145px;
+
+  height:145px;
+
+  border-radius:50%;
+
+  background:
+    rgba(249,115,22,.20);
+
+  right:-55px;
+
+  top:-55px;
+}
+
+.hero-content{
+  position:relative;
+
+  z-index:2;
+}
+
+.hero h1{
+  font-size:24px;
+
+  line-height:1.2;
+
+  letter-spacing:-.5px;
+
+  margin-bottom:7px;
+}
+
+.hero p{
+  font-size:13px;
+
+  line-height:1.55;
+
+  color:rgba(255,255,255,.82);
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-row{
+  display:flex;
+
+  justify-content:flex-end;
+
+  margin-bottom:9px;
+}
+
+.back-btn{
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:6px;
+
+  height:34px;
+
+  padding:0 12px;
+
+  border:1px solid #e2e8f0;
+
+  border-radius:8px;
+
+  background:#fff;
+
+  color:#475569;
+
+  font-family:inherit;
+
+  font-size:12px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 3px 10px rgba(15,23,42,.05);
+}
+
+.back-btn:active{
+  transform:scale(.96);
+
+  background:#f8fafc;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+  background:#fff;
+
+  border:1px solid #eceef2;
+
+  border-radius:17px;
+
+  padding:16px;
+
+  margin-bottom:13px;
+
+  box-shadow:
+    0 5px 20px rgba(15,23,42,.045);
+}
+
+.card-title{
+  font-size:17px;
+
+  font-weight:900;
+
+  letter-spacing:-.2px;
+
+  margin-bottom:5px;
+}
+
+.card-subtitle{
+  color:var(--muted);
+
+  font-size:12.5px;
+
+  line-height:1.5;
+
+  margin-bottom:15px;
+}
+
+
+/* =========================
+   FUNCTION TYPES
+========================= */
+
+.function-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:9px;
+}
+
+.function-option{
+  min-height:69px;
+
+  border:1.5px solid #e5e7eb;
+
+  border-radius:13px;
+
+  background:#fff;
+
+  padding:11px;
+
+  text-align:left;
+
+  font-family:inherit;
+
+  cursor:pointer;
+
+  transition:.18s;
+}
+
+.function-option:hover{
+  border-color:#fdba74;
+}
+
+.function-option:active{
+  transform:scale(.98);
+}
+
+.function-option.selected{
+  border:2px solid var(--orange);
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff7ed,
+      #fffaf5
+    );
+
+  color:#c2410c;
+
+  box-shadow:
+    0 4px 13px rgba(249,115,22,.10);
+}
+
+.function-icon{
+  display:block;
+
+  font-size:21px;
+
+  margin-bottom:6px;
+}
+
+.function-name{
+  display:block;
+
+  font-size:13px;
+
+  font-weight:850;
+
+  line-height:1.25;
+}
+
+
+/* =========================
+   REQUIREMENTS
+========================= */
+
+.requirement-list{
+  display:grid;
+
+  gap:8px;
+}
+
+.requirement-item{
+  width:100%;
+
+  min-height:52px;
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  padding:11px 12px;
+
+  border:1.5px solid #e5e7eb;
+
+  border-radius:12px;
+
+  background:#fff;
+
+  text-align:left;
+
+  font-family:inherit;
+
+  cursor:pointer;
+
+  transition:.18s;
+}
+
+.requirement-item:active{
+  transform:scale(.99);
+}
+
+.requirement-item.selected{
+  border-color:var(--orange);
+
+  background:#fff7ed;
+}
+
+.check-box{
+  width:22px;
+
+  height:22px;
+
+  flex:0 0 22px;
+
+  border:1.7px solid #cbd5e1;
+
+  border-radius:6px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:#fff;
+
+  color:#fff;
+
+  font-size:13px;
+
+  font-weight:900;
+}
+
+.requirement-item.selected
+.check-box{
+  background:var(--orange);
+
+  border-color:var(--orange);
+}
+
+.requirement-item.selected
+.check-box::after{
+  content:"✓";
+}
+
+.requirement-name{
+  font-size:13px;
+
+  font-weight:750;
+
+  color:#374151;
+
+  line-height:1.3;
+}
+
+
+/* =========================
+   SELECTED COUNT
+========================= */
+
+.selected-bar{
+  margin-top:12px;
+
+  padding:11px 12px;
+
+  border-radius:11px;
+
+  background:#f8fafc;
+
+  border:1px solid #e5e7eb;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+}
+
+.selected-count{
+  font-size:12.5px;
+
+  font-weight:850;
+
+  color:#475569;
+}
+
+.selected-count strong{
+  color:var(--orange-dark);
+}
+
+.clear-btn{
+  border:0;
+
+  background:transparent;
+
+  color:#64748b;
+
+  font-family:inherit;
+
+  font-size:11px;
+
+  font-weight:800;
+
+  cursor:pointer;
+}
+
+
+/* =========================
+   CONTINUE BUTTON
+========================= */
+
+.continue-btn{
+  width:100%;
+
+  margin-top:12px;
+
+  padding:14px;
+
+  border:0;
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--orange),
+      var(--orange-dark)
+    );
+
+  color:#fff;
+
+  font-family:inherit;
+
+  font-size:15px;
+
+  font-weight:900;
+
+  box-shadow:
+    0 7px 18px rgba(249,115,22,.20);
+
+  cursor:pointer;
+
+  transition:.18s;
+}
+
+.continue-btn:active{
+  transform:scale(.98);
+}
+
+.continue-btn:disabled{
+  opacity:.42;
+
+  cursor:not-allowed;
+
+  box-shadow:none;
+}
+
+
+/* =========================
+   DETAIL SECTIONS
+========================= */
+
+.detail-section{
+  display:none;
+}
+
+.detail-section.show{
+  display:block;
+}
+
+.detail-title{
+  font-size:15px;
+
+  font-weight:900;
+
+  margin-bottom:12px;
+}
+
+.detail-note{
+  font-size:12px;
+
+  color:var(--muted);
+
+  margin-bottom:12px;
+
+  line-height:1.5;
+}
+
+
+/* =========================
+   SMALL OPTION BUTTONS
+========================= */
+
+.small-options{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:8px;
+}
+
+.small-option{
+  min-height:47px;
+
+  border:1.5px solid #e5e7eb;
+
+  border-radius:11px;
+
+  background:#fff;
+
+  font-family:inherit;
+
+  font-size:13px;
+
+  font-weight:750;
+
+  color:#374151;
+
+  cursor:pointer;
+}
+
+.small-option.selected{
+  border-color:var(--orange);
+
+  background:#fff7ed;
+
+  color:#c2410c;
+}
+
+
+/* =========================
+   FIELD
+========================= */
+
+.field{
+  margin-top:13px;
+}
+
+.field:first-child{
+  margin-top:0;
+}
+
+.field label{
+  display:block;
+
+  font-size:12.5px;
+
+  font-weight:850;
+
+  color:#374151;
+
+  margin-bottom:7px;
+}
+
+.field input,
+.field textarea{
+  width:100%;
+
+  border:1.5px solid #dfe4ec;
+
+  border-radius:11px;
+
+  background:#fff;
+
+  color:var(--text);
+
+  padding:12px 13px;
+
+  outline:none;
+
+  font-family:inherit;
+
+  font-size:14px;
+
+  transition:.18s;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:var(--orange);
+
+  box-shadow:
+    0 0 0 3px rgba(249,115,22,.08);
+}
+
+.field textarea{
+  min-height:90px;
+
+  resize:vertical;
+}
+
+  /* =========================
+   GUEST COUNTER
+========================= */
+
+.counter{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  border:1.5px solid #dfe4ec;
+
+  border-radius:12px;
+
+  padding:6px;
+
+  background:#fff;
+}
+
+.counter button{
+  width:40px;
+
+  height:40px;
+
+  border:0;
+
+  border-radius:10px;
+
+  background:#fff7ed;
+
+  color:var(--orange-dark);
+
+  font-size:21px;
+
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.counter button:active{
+  transform:scale(.94);
+}
+
+.counter-value{
+  flex:1;
+
+  text-align:center;
+
+  font-size:17px;
+
+  font-weight:900;
+
+  color:#111827;
+}
+
+
+/* =========================
+   DATE PICKER
+========================= */
+
+.date-input{
+  position:relative;
+}
+
+.date-display{
+  width:100%;
+
+  min-height:47px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  border:1.5px solid #dfe4ec;
+
+  border-radius:11px;
+
+  background:#fff;
+
+  padding:12px 13px;
+
+  font-family:inherit;
+
+  font-size:13px;
+
+  color:#64748b;
+
+  cursor:pointer;
+}
+
+.date-display.has-date{
+  color:#111827;
+
+  font-weight:700;
+}
+
+.date-icon{
+  font-size:17px;
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview-card{
+  display:none;
+}
+
+.preview-card.show{
+  display:block;
+}
+
+.preview-box{
+  background:#fafafa;
+
+  border:1px solid #e5e7eb;
+
+  border-radius:13px;
+
+  overflow:hidden;
+}
+
+.preview-head{
+  padding:14px;
+
+  background:#111827;
+
+  color:#fff;
+}
+
+.preview-head small{
+  display:block;
+
+  font-size:10px;
+
+  text-transform:uppercase;
+
+  letter-spacing:.7px;
+
+  opacity:.65;
+
+  margin-bottom:4px;
+}
+
+.preview-head h3{
+  font-size:18px;
+
+  font-weight:900;
+}
+
+.preview-body{
+  padding:14px;
+}
+
+.preview-row{
+  padding:9px 0;
+
+  border-bottom:1px solid #edf0f3;
+}
+
+.preview-row:last-child{
+  border-bottom:0;
+}
+
+.preview-label{
+  font-size:10px;
+
+  text-transform:uppercase;
+
+  letter-spacing:.6px;
+
+  color:#94a3b8;
+
+  font-weight:900;
+
+  margin-bottom:4px;
+}
+
+.preview-value{
+  font-size:13px;
+
+  color:#374151;
+
+  line-height:1.55;
+
+  white-space:pre-line;
+}
+
+.preview-list{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:6px;
+}
+
+.preview-tag{
+  padding:6px 8px;
+
+  background:#fff7ed;
+
+  color:#c2410c;
+
+  border:1px solid #fed7aa;
+
+  border-radius:8px;
+
+  font-size:11px;
+
+  font-weight:800;
+}
+
+
+/* =========================
+   POST BUTTON
+========================= */
+
+.post-btn{
+  width:100%;
+
+  margin-top:13px;
+
+  padding:15px;
+
+  border:0;
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f97316,
+      #ea580c
+    );
+
+  color:#fff;
+
+  font-family:inherit;
+
+  font-size:15px;
+
+  font-weight:900;
+
+  box-shadow:
+    0 7px 18px rgba(249,115,22,.20);
+
+  cursor:pointer;
+}
+
+.post-btn:active{
+  transform:scale(.98);
+}
+
+.post-btn:disabled{
+  opacity:.5;
+
+  cursor:not-allowed;
+
+  box-shadow:none;
+}
+
+
+/* =========================
+   EDIT BUTTON
+========================= */
+
+.edit-btn{
+  width:100%;
+
+  margin-top:9px;
+
+  padding:12px;
+
+  border:1px solid #e5e7eb;
+
+  border-radius:11px;
+
+  background:#fff;
+
+  color:#475569;
+
+  font-family:inherit;
+
+  font-size:13px;
+
+  font-weight:800;
+
+  cursor:pointer;
+}
+
+
+/* =========================
+   LOGIN MODAL
+========================= */
+
+.modal{
+  position:fixed;
+
+  inset:0;
+
+  display:none;
+
+  align-items:flex-end;
+
+  justify-content:center;
+
+  background:rgba(15,23,42,.58);
+
+  backdrop-filter:blur(4px);
+
+  z-index:500;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+
+  max-width:520px;
+
+  background:#fff;
+
+  border-radius:24px 24px 0 0;
+
+  padding:23px 20px;
+
+  box-shadow:
+    0 -10px 35px rgba(0,0,0,.15);
+}
+
+.modal-box h2{
+  font-size:20px;
+
+  margin-bottom:7px;
+}
+
+.modal-box p{
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.5;
+
+  margin-bottom:16px;
+}
+
+.modal-box input{
+  width:100%;
+
+  padding:14px;
+
+  border:1.5px solid #dfe4ec;
+
+  border-radius:12px;
+
+  outline:none;
+
+  font-family:inherit;
+
+  font-size:15px;
+}
+
+.modal-box input:focus{
+  border-color:var(--orange);
+}
+
+.modal-actions{
+  display:flex;
+
+  gap:9px;
+
+  margin-top:12px;
+}
+
+.modal-actions button{
+  flex:1;
+
+  padding:13px;
+
+  border:0;
+
+  border-radius:12px;
+
+  font-family:inherit;
+
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.modal-cancel{
+  background:#f1f5f9;
+
+  color:#374151;
+}
+
+.modal-continue{
+  background:var(--orange);
+
+  color:#fff;
+}
+
+
+/* =========================
+   DATE MODAL
+========================= */
+
+.date-modal{
+  position:fixed;
+
+  inset:0;
+
+  display:none;
+
+  align-items:flex-end;
+
+  justify-content:center;
+
+  background:rgba(15,23,42,.58);
+
+  backdrop-filter:blur(4px);
+
+  z-index:600;
+}
+
+.date-modal.show{
+  display:flex;
+}
+
+.date-box{
+  width:100%;
+
+  max-width:430px;
+
+  background:#fff;
+
+  border-radius:23px 23px 0 0;
+
+  padding:18px;
+
+  box-shadow:
+    0 -10px 35px rgba(0,0,0,.15);
+}
+
+.date-top{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  margin-bottom:15px;
+}
+
+.date-top h3{
+  font-size:17px;
+
+  font-weight:900;
+}
+
+.date-nav{
+  display:flex;
+
+  gap:6px;
+}
+
+.date-nav button{
+  width:35px;
+
+  height:35px;
+
+  border:1px solid #e5e7eb;
+
+  border-radius:9px;
+
+  background:#fff;
+
+  font-size:17px;
+
+  cursor:pointer;
+}
+
+.month-title{
+  text-align:center;
+
+  font-size:14px;
+
+  font-weight:900;
+
+  margin-bottom:12px;
+}
+
+.weekdays{
+  display:grid;
+
+  grid-template-columns:
+    repeat(7,1fr);
+
+  gap:4px;
+
+  margin-bottom:5px;
+}
+
+.weekdays div{
+  text-align:center;
+
+  font-size:10px;
+
+  font-weight:800;
+
+  color:#94a3b8;
+
+  padding:5px 0;
+}
+
+.calendar{
+  display:grid;
+
+  grid-template-columns:
+    repeat(7,1fr);
+
+  gap:5px;
+}
+
+.day{
+  height:40px;
+
+  border:0;
+
+  border-radius:9px;
+
+  background:#fff;
+
+  font-family:inherit;
+
+  font-size:12px;
+
+  font-weight:750;
+
+  color:#374151;
+
+  cursor:pointer;
+}
+
+.day:hover{
+  background:#fff7ed;
+}
+
+.day.empty{
+  cursor:default;
+
+  background:transparent;
+}
+
+.day.today{
+  border:1px solid #fdba74;
+
+  color:var(--orange-dark);
+}
+
+.day.selected{
+  background:var(--orange);
+
+  color:#fff;
+
+  font-weight:900;
+}
+
+.date-actions{
+  display:flex;
+
+  gap:8px;
+
+  margin-top:15px;
+}
+
+.date-actions button{
+  flex:1;
+
+  padding:13px;
+
+  border:0;
+
+  border-radius:11px;
+
+  font-family:inherit;
+
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.date-cancel{
+  background:#f1f5f9;
+
+  color:#374151;
+}
+
+.date-ok{
+  background:var(--orange);
+
+  color:#fff;
+}
+
+
+/* =========================
+   BOTTOM
+========================= */
+
+.bottom{
+  position:fixed;
+
+  left:0;
+
+  right:0;
+
+  bottom:0;
+
+  height:72px;
+
+  background:
+    rgba(255,255,255,.96);
+
+  backdrop-filter:blur(12px);
+
+  border-top:1px solid var(--border);
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:9px 13px;
+
+  z-index:90;
+}
+
+.bottom button{
+  width:100%;
+
+  max-width:430px;
+
+  border:0;
+
+  border-radius:13px;
+
+  padding:13px;
+
+  background:#111827;
+
+  color:#fff;
+
+  font-family:inherit;
+
+  font-size:14px;
+
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+
+/* =========================
+   HIDDEN
+========================= */
+
+.hidden{
+  display:none !important;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:520px){
+
+  .container{
+    padding:
+      11px
+      10px
+      25px;
+  }
+
+  .hero{
+    padding:20px 16px;
+
+    border-radius:18px;
+  }
+
+  .hero h1{
+    font-size:22px;
+  }
+
+  .function-grid{
+    grid-template-columns:1fr;
+  }
+
+  .small-options{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    padding:14px;
+
+    border-radius:16px;
+  }
+
+  .calendar{
+    gap:3px;
+  }
+
+  .day{
+    height:38px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+<div class="logo">
+    <span style="color:#ff6b1a;">Pyn</span><span style="color:#151515;">code.in</span>
+</div>
+
+  <button
+  id="headerLoginBtn"
+  class="login-btn"
+  onclick="handleHeaderAction()">
+
+  Login
+
+  </button>
+
+</header>
+
+
+<main class="container">
+
+</div>
+
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <h1>
+      Function Requirement
+    </h1>
+
+    <p>
+      Choose your function, select everything
+      you need, add a few details and post.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- FUNCTION TYPE -->
+
+<section class="card">
+
+  <div class="card-title">
+    1. What type of function?
+  </div>
+
+  <div class="card-subtitle">
+    Select one function type.
+  </div>
+
+  <div
+    id="functionTypes"
+    class="function-grid">
+  </div>
+
+</section>
+
+
+<!-- REQUIREMENTS -->
+
+<section
+  id="requirementsCard"
+  class="card hidden">
+
+  <div class="card-title">
+    2. What do you need?
+  </div>
+
+  <div class="card-subtitle">
+    Select multiple requirements.
+  </div>
+
+  <div
+    id="requirementList"
+    class="requirement-list">
+  </div>
+
+
+  <div class="selected-bar">
+
+    <div
+      id="selectedCount"
+      class="selected-count">
+
+      <strong>0</strong>
+      requirements selected
+
+    </div>
+
+    <button
+      class="clear-btn"
+      onclick="clearRequirements()">
+
+      Clear
+
+    </button>
+
+  </div>
+
+
+  <button
+    id="continueDetailsBtn"
+    class="continue-btn"
+    onclick="showDetails()"
+    disabled>
+
+    Continue →
+
+  </button>
+
+</section>
+
+
+<!-- DETAILS -->
+
+<section
+  id="detailsCard"
+  class="card hidden">
+
+  <div class="card-title">
+    3. Requirement Details
+  </div>
+
+  <div class="card-subtitle">
+    Add only the details relevant to your selection.
+  </div>
+
+
+  <!-- CATERING -->
+
+  <div
+    id="cateringDetails"
+    class="detail-section">
+
+    <div class="detail-title">
+      Catering Details
+    </div>
+
+    <div class="detail-note">
+      Tell us what type of food service you need.
+    </div>
+
+    <div class="small-options">
+
+      <button
+        class="small-option"
+        data-catering="Veg"
+        onclick="selectCatering('Veg')">
+
+        Veg
+
+      </button>
+
+      <button
+        class="small-option"
+        data-catering="Non-Veg"
+        onclick="selectCatering('Non-Veg')">
+
+        Non-Veg
+
+      </button>
+
+      <button
+        class="small-option"
+        data-catering="Both"
+        onclick="selectCatering('Both')">
+
+        Both
+
+      </button>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        Number of Guests
+      </label>
+
+      <div class="counter">
+
+        <button
+          onclick="changeGuests(-10)">
+          −
+        </button>
+
+        <div
+          id="guestValue"
+          class="counter-value">
+
+          100 Guests
+
+        </div>
+
+        <button
+          onclick="changeGuests(10)">
+          +
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- HALL -->
+
+  <div
+    id="hallDetails"
+    class="detail-section">
+
+    <div class="detail-title">
+      Wedding / Function Hall
+    </div>
+
+    <div class="detail-note">
+      Add the expected guest count and preferred area.
+    </div>
+
+    <div class="field">
+
+      <label>
+        Expected Guests
+      </label>
+
+      <input
+        id="hallGuests"
+        type="number"
+        min="1"
+        placeholder="Example: 300">
+
+    </div>
+
+  </div>
+
+
+  <!-- PHOTOGRAPHY -->
+
+  <div
+    id="photoDetails"
+    class="detail-section">
+
+    <div class="detail-title">
+      Photography Details
+    </div>
+
+    <div class="small-options">
+
+      <button
+        class="small-option"
+        data-photo="Photography"
+        onclick="selectPhoto('Photography')">
+
+        Photography
+
+      </button>
+
+      <button
+        class="small-option"
+        data-photo="Videography"
+        onclick="selectPhoto('Videography')">
+
+        Videography
+
+      </button>
+
+      <button
+        class="small-option"
+        data-photo="Both"
+        onclick="selectPhoto('Both')">
+
+        Both
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- GENERAL DETAILS -->
+
+  <div class="field">
+
+    <label>
+      Function Date
+    </label>
+
+    <button
+      id="dateDisplay"
+      class="date-display"
+      onclick="openDatePicker()">
+
+      <span id="dateText">
+        Select date
+      </span>
+
+      <span class="date-icon">
+        📅
+      </span>
+
+    </button>
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Function Location
+    </label>
+
+    <input
+      id="locationInput"
+      type="text"
+      placeholder="Example: Pallavaram, Chennai">
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Additional Requirement
+      <span style="color:#94a3b8;font-weight:600;">
+        (Optional)
+      </span>
+    </label>
+
+    <textarea
+      id="additionalInput"
+      placeholder="Anything else you need..."></textarea>
+
+  </div>
+
+
+  <button
+    class="continue-btn"
+    onclick="createPreview()">
+
+    Preview Requirement →
+
+  </button>
+
+</section>
+
+
+<!-- PREVIEW -->
+
+<section
+  id="previewCard"
+  class="card preview-card">
+
+  <div class="card-title">
+    4. Check Your Requirement
+  </div>
+
+  <div class="card-subtitle">
+    Review everything before posting.
+  </div>
+
+
+  <div class="preview-box">
+
+    <div class="preview-head">
+
+      <small>
+        Pyncode Requirement
+      </small>
+
+      <h3 id="previewFunction">
+        Function
+      </h3>
+
+    </div>
+
+
+    <div class="preview-body">
+
+      <div class="preview-row">
+
+        <div class="preview-label">
+          Requirements
+        </div>
+
+        <div
+          id="previewRequirements"
+          class="preview-list">
+        </div>
+
+      </div>
+
+
+      <div
+        id="previewCateringRow"
+        class="preview-row hidden">
+
+        <div class="preview-label">
+          Catering
+        </div>
+
+        <div
+          id="previewCatering"
+          class="preview-value">
+        </div>
+
+      </div>
+
+
+      <div
+        id="previewGuestsRow"
+        class="preview-row hidden">
+
+        <div class="preview-label">
+          Guests
+        </div>
+
+        <div
+          id="previewGuests"
+          class="preview-value">
+        </div>
+
+      </div>
+
+
+      <div
+        id="previewPhotoRow"
+        class="preview-row hidden">
+
+        <div class="preview-label">
+          Photography
+        </div>
+
+        <div
+          id="previewPhoto"
+          class="preview-value">
+        </div>
+
+      </div>
+
+
+      <div class="preview-row">
+
+        <div class="preview-label">
+          Date
+        </div>
+
+        <div
+          id="previewDate"
+          class="preview-value">
+        </div>
+
+      </div>
+
+
+      <div class="preview-row">
+
+        <div class="preview-label">
+          Location
+        </div>
+
+        <div
+          id="previewLocation"
+          class="preview-value">
+        </div>
+
+      </div>
+
+
+      <div
+        id="previewAdditionalRow"
+        class="preview-row hidden">
+
+        <div class="preview-label">
+          Additional Requirement
+        </div>
+
+        <div
+          id="previewAdditional"
+          class="preview-value">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <button
+    id="postBtn"
+    class="post-btn"
+    onclick="handlePost()">
+
+    Post My Requirement
+
+  </button>
+
+
+  <button
+    class="edit-btn"
+    onclick="editRequirement()">
+
+    ← Edit Requirement
+
+  </button>
+
+</section>
+
+
+</main>
+
+
+<div class="bottom">
+
+  <button
+    onclick="window.scrollTo({
+      top:0,
+      behavior:'smooth'
+    })">
+
+    ＋ Add Requirement
+
+  </button>
+
+</div>
+
+
+<!-- LOGIN MODAL -->
+
+<div
+  id="loginModal"
+  class="modal">
+
+  <div class="modal-box">
+
+    <h2>
+      Login to Continue
+    </h2>
+
+    <p>
+      Enter your mobile number to post your requirement.
+    </p>
+
+    <input
+      id="loginMobile"
+      type="tel"
+      inputmode="numeric"
+      maxlength="10"
+      placeholder="10 digit mobile number">
+
+    <div class="modal-actions">
+
+      <button
+        class="modal-cancel"
+        onclick="closeLogin()">
+
+        Cancel
+
+      </button>
+
+      <button
+        class="modal-continue"
+        onclick="continueLogin()">
+
+        Continue
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- DATE MODAL -->
+
+<div
+  id="dateModal"
+  class="date-modal">
+
+  <div class="date-box">
+
+    <div class="date-top">
+
+      <h3>
+        Select Function Date
+      </h3>
+
+      <div class="date-nav">
+
+        <button
+          onclick="changeMonth(-1)">
+
+          ‹
+
+        </button>
+
+        <button
+          onclick="changeMonth(1)">
+
+          ›
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <div
+      id="monthTitle"
+      class="month-title">
+    </div>
+
+    <div class="weekdays">
+
+      <div>Sun</div>
+      <div>Mon</div>
+      <div>Tue</div>
+      <div>Wed</div>
+      <div>Thu</div>
+      <div>Fri</div>
+      <div>Sat</div>
+
+    </div>
+
+    <div
+      id="calendar"
+      class="calendar">
+    </div>
+
+    <div class="date-actions">
+
+      <button
+        class="date-cancel"
+        onclick="closeDatePicker()">
+
+        Cancel
+
+      </button>
+
+      <button
+        class="date-ok"
+        onclick="confirmDate()">
+
+        OK
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  /* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+"https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+/* =========================
+   STATE
+========================= */
+
+const state = {
+
+  functionType:"",
+
+  requirements:[],
+
+  catering:"",
+
+  guests:100,
+
+  hallGuests:"",
+
+  photography:"",
+
+  date:"",
+
+  location:"",
+
+  additional:""
+
+};
+
+
+/* =========================
+   FUNCTION TYPES
+========================= */
+
+const functionTypes = [
+
+  {
+    name:"Marriage",
+    icon:"💍"
+  },
+
+  {
+    name:"1st Birthday",
+    icon:"🎂"
+  },
+
+  {
+    name:"Birthday Party",
+    icon:"🎈"
+  },
+
+  {
+    name:"Baby Shower",
+    icon:"👶"
+  },
+
+  {
+    name:"Engagement",
+    icon:"💎"
+  },
+
+  {
+    name:"Reception",
+    icon:"🥂"
+  },
+
+  {
+    name:"Housewarming",
+    icon:"🏠"
+  },
+
+  {
+    name:"Corporate Function",
+    icon:"🏢"
+  },
+
+  {
+    name:"Other Function",
+    icon:"🎉"
+  }
+
+];
+
+
+/* =========================
+   REQUIREMENTS
+========================= */
+
+const requirementMap = {
+
+  "Marriage":[
+    "Wedding Hall",
+    "Catering",
+    "Decoration",
+    "Flower Decoration",
+    "Lighting",
+    "Bridal Makeup",
+    "Mehendi",
+    "Wedding Dress",
+    "Photography & Videography",
+    "Drone Photography",
+    "Invitation Printing",
+    "Digital Invitation",
+    "DJ & Sound",
+    "Event Anchor",
+    "Entertainment",
+    "Wedding Car",
+    "Bus / Van",
+    "Cake",
+    "Sweets & Snacks",
+    "Return Gifts",
+    "Security",
+    "Jewellery Rental",
+    "Other"
+  ],
+
+  "1st Birthday":[
+    "Birthday Hall",
+    "Decoration",
+    "Catering",
+    "Cake",
+    "Photography",
+    "Return Gifts",
+    "DJ / Sound",
+    "Entertainment",
+    "Other"
+  ],
+
+  "Birthday Party":[
+    "Birthday Hall",
+    "Decoration",
+    "Catering",
+    "Cake",
+    "Photography",
+    "Return Gifts",
+    "DJ / Sound",
+    "Entertainment",
+    "Other"
+  ],
+
+  "Baby Shower":[
+    "Function Hall",
+    "Decoration",
+    "Catering",
+    "Photography",
+    "Return Gifts",
+    "Cake",
+    "Other"
+  ],
+
+  "Engagement":[
+    "Engagement Hall",
+    "Decoration",
+    "Flower Decoration",
+    "Lighting",
+    "Catering",
+    "Bridal Makeup",
+    "Mehendi",
+    "Wedding Dress",
+    "Photography & Videography",
+    "Drone Photography",
+    "Invitation Printing",
+    "Digital Invitation",
+    "DJ & Sound",
+    "Event Anchor",
+    "Entertainment",
+    "Cake",
+    "Return Gifts",
+    "Other"
+  ],
+
+  "Reception":[
+    "Reception Hall",
+    "Decoration",
+    "Flower Decoration",
+    "Lighting",
+    "Catering",
+    "Bridal Makeup",
+    "Photography & Videography",
+    "Drone Photography",
+    "Invitation Printing",
+    "Digital Invitation",
+    "DJ & Sound",
+    "Event Anchor",
+    "Entertainment",
+    "Wedding Car",
+    "Cake",
+    "Return Gifts",
+    "Other"
+  ],
+
+  "Housewarming":[
+    "Function Hall",
+    "Decoration",
+    "Flower Decoration",
+    "Lighting",
+    "Catering",
+    "Photography",
+    "Invitation Printing",
+    "Digital Invitation",
+    "Sound System",
+    "Return Gifts",
+    "Other"
+  ],
+
+  "Corporate Function":[
+    "Venue / Hall",
+    "Catering",
+    "Stage Decoration",
+    "Flower Decoration",
+    "Lighting",
+    "Photography",
+    "Videography",
+    "DJ / Sound",
+    "Event Anchor",
+    "Projector",
+    "LED Screen",
+    "Entertainment",
+    "Printing",
+    "Invitation",
+    "Transport",
+    "Security",
+    "Other"
+  ],
+
+  "Other Function":[
+    "Hall / Venue",
+    "Catering",
+    "Decoration",
+    "Flower Decoration",
+    "Lighting",
+    "Photography",
+    "Videography",
+    "Sound System",
+    "Entertainment",
+    "Transport",
+    "Other"
+  ]
+
+};
+
+
+/* =========================
+   RENDER FUNCTION TYPES
+========================= */
+
+function renderFunctionTypes(){
+
+  const box =
+    document.getElementById(
+      "functionTypes"
+    );
+
+  box.innerHTML = "";
+
+  functionTypes.forEach(function(item){
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "function-option";
+
+    button.type = "button";
+
+    button.innerHTML = `
+
+      <span class="function-icon">
+        ${item.icon}
+      </span>
+
+      <span class="function-name">
+        ${item.name}
+      </span>
+
+    `;
+
+    button.onclick = function(){
+
+      selectFunctionType(
+        item.name,
+        button
+      );
+
+    };
+
+    box.appendChild(button);
+
+  });
+
+}
+
+
+/* =========================
+   SELECT FUNCTION TYPE
+========================= */
+
+function selectFunctionType(
+  type,
+  button
+){
+
+  state.functionType = type;
+
+  state.requirements = [];
+
+  state.catering = "";
+
+  state.guests = 100;
+
+  state.hallGuests = "";
+
+  state.photography = "";
+
+  state.date = "";
+
+  state.location = "";
+
+  state.additional = "";
+
+
+  document
+    .querySelectorAll(".function-option")
+    .forEach(function(item){
+
+      item.classList.remove(
+        "selected"
+      );
+
+    });
+
+
+  button.classList.add(
+    "selected"
+  );
+
+
+  renderRequirements();
+
+
+  document
+    .getElementById(
+      "requirementsCard"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "detailsCard"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "previewCard"
+    )
+    .classList.remove(
+      "show"
+    );
+
+
+  setTimeout(function(){
+
+    document
+      .getElementById(
+        "requirementsCard"
+      )
+      .scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+  },100);
+
+}
+
+
+/* =========================
+   RENDER REQUIREMENTS
+========================= */
+
+function renderRequirements(){
+
+  const list =
+    document.getElementById(
+      "requirementList"
+    );
+
+  list.innerHTML = "";
+
+
+  const items =
+    requirementMap[
+      state.functionType
+    ] || [];
+
+
+  items.forEach(function(name){
+
+    const button =
+      document.createElement("button");
+
+    button.type = "button";
+
+    button.className =
+      "requirement-item";
+
+    button.innerHTML = `
+
+      <span class="check-box"></span>
+
+      <span class="requirement-name">
+        ${name}
+      </span>
+
+    `;
+
+
+    button.onclick = function(){
+
+      toggleRequirement(
+        name,
+        button
+      );
+
+    };
+
+
+    list.appendChild(button);
+
+  });
+
+
+  updateSelectedCount();
+
+}
+
+
+/* =========================
+   TOGGLE REQUIREMENT
+========================= */
+
+function toggleRequirement(
+  name,
+  button
+){
+
+  const index =
+    state.requirements.indexOf(
+      name
+    );
+
+
+  if(index === -1){
+
+    state.requirements.push(
+      name
+    );
+
+    button.classList.add(
+      "selected"
+    );
+
+  }else{
+
+    state.requirements.splice(
+      index,
+      1
+    );
+
+    button.classList.remove(
+      "selected"
+    );
+
+  }
+
+
+  updateSelectedCount();
+
+}
+
+
+/* =========================
+   SELECTED COUNT
+========================= */
+
+function updateSelectedCount(){
+
+  const count =
+    state.requirements.length;
+
+
+  document
+    .getElementById(
+      "selectedCount"
+    )
+    .innerHTML = `
+
+      <strong>${count}</strong>
+      ${count === 1
+        ? "requirement"
+        : "requirements"}
+      selected
+
+    `;
+
+
+  document
+    .getElementById(
+      "continueDetailsBtn"
+    )
+    .disabled =
+      count === 0;
+
+}
+
+
+/* =========================
+   CLEAR
+========================= */
+
+function clearRequirements(){
+
+  state.requirements = [];
+
+  document
+    .querySelectorAll(
+      ".requirement-item"
+    )
+    .forEach(function(item){
+
+      item.classList.remove(
+        "selected"
+      );
+
+    });
+
+
+  updateSelectedCount();
+
+}
+
+
+/* =========================
+   SHOW DETAILS
+========================= */
+
+function showDetails(){
+
+  if(
+    state.requirements.length === 0
+  ){
+
+    alert(
+      "Please select at least one requirement."
+    );
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "detailsCard"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  updateDetailSections();
+
+
+  setTimeout(function(){
+
+    document
+      .getElementById(
+        "detailsCard"
+      )
+      .scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+  },100);
+
+}
+
+
+/* =========================
+   DETAIL SECTIONS
+========================= */
+
+function updateDetailSections(){
+
+  const hasCatering =
+    state.requirements.includes(
+      "Catering"
+    );
+
+  const hasHall =
+    state.requirements.some(
+      function(item){
+
+        return (
+          item.includes("Hall") ||
+          item.includes("Venue")
+        );
+
+      }
+    );
+
+  const hasPhoto =
+    state.requirements.some(
+      function(item){
+
+        return (
+          item ===
+            "Photography" ||
+
+          item ===
+            "Photography & Videography" ||
+
+          item ===
+            "Videography"
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "cateringDetails"
+    )
+    .classList.toggle(
+      "show",
+      hasCatering
+    );
+
+
+  document
+    .getElementById(
+      "hallDetails"
+    )
+    .classList.toggle(
+      "show",
+      hasHall
+    );
+
+
+  document
+    .getElementById(
+      "photoDetails"
+    )
+    .classList.toggle(
+      "show",
+      hasPhoto
+    );
+
+}
+
+
+/* =========================
+   CATERING
+========================= */
+
+function selectCatering(type){
+
+  state.catering = type;
+
+
+  document
+    .querySelectorAll(
+      "[data-catering]"
+    )
+    .forEach(function(button){
+
+      button.classList.toggle(
+        "selected",
+        button.dataset.catering === type
+      );
+
+    });
+
+}
+
+
+/* =========================
+   GUESTS
+========================= */
+
+function changeGuests(amount){
+
+  state.guests += amount;
+
+
+  if(state.guests < 10){
+
+    state.guests = 10;
+
+  }
+
+
+  if(state.guests > 5000){
+
+    state.guests = 5000;
+
+  }
+
+
+  document
+    .getElementById(
+      "guestValue"
+    )
+    .textContent =
+      state.guests +
+      " Guests";
+
+}
+
+
+/* =========================
+   PHOTOGRAPHY
+========================= */
+
+function selectPhoto(type){
+
+  state.photography = type;
+
+
+  document
+    .querySelectorAll(
+      "[data-photo]"
+    )
+    .forEach(function(button){
+
+      button.classList.toggle(
+        "selected",
+        button.dataset.photo === type
+      );
+
+    });
+
+}
+
+
+/* =========================
+   DATE VARIABLES
+========================= */
+
+let calendarMonth =
+  new Date();
+
+calendarMonth.setDate(1);
+
+
+let selectedDate = null;
+
+
+/* =========================
+   DATE PICKER
+========================= */
+
+function openDatePicker(){
+
+  calendarMonth =
+    state.date
+      ? new Date(state.date + "T00:00:00")
+      : new Date();
+
+  calendarMonth.setDate(1);
+
+
+  selectedDate =
+    state.date
+      ? new Date(
+          state.date + "T00:00:00"
+        )
+      : null;
+
+
+  renderCalendar();
+
+
+  document
+    .getElementById(
+      "dateModal"
+    )
+    .classList.add(
+      "show"
+    );
+
+}
+
+
+/* =========================
+   CLOSE DATE PICKER
+========================= */
+
+function closeDatePicker(){
+
+  document
+    .getElementById(
+      "dateModal"
+    )
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+/* =========================
+   CHANGE MONTH
+========================= */
+
+function changeMonth(amount){
+
+  calendarMonth.setMonth(
+    calendarMonth.getMonth() +
+    amount
+  );
+
+  renderCalendar();
+
+}
+
+
+/* =========================
+   RENDER CALENDAR
+========================= */
+
+function renderCalendar(){
+
+  const year =
+    calendarMonth.getFullYear();
+
+  const month =
+    calendarMonth.getMonth();
+
+
+  const monthName =
+    calendarMonth.toLocaleString(
+      "en-IN",
+      {
+        month:"long",
+        year:"numeric"
+      }
+    );
+
+
+  document
+    .getElementById(
+      "monthTitle"
+    )
+    .textContent =
+      monthName;
+
+
+  const calendar =
+    document.getElementById(
+      "calendar"
+    );
+
+  calendar.innerHTML = "";
+
+
+  const firstDay =
+    new Date(
+      year,
+      month,
+      1
+    ).getDay();
+
+
+  const daysInMonth =
+    new Date(
+      year,
+      month + 1,
+      0
+    ).getDate();
+
+
+  for(
+    let i = 0;
+    i < firstDay;
+    i++
+  ){
+
+    const empty =
+      document.createElement(
+        "div"
+      );
+
+    empty.className =
+      "day empty";
+
+    calendar.appendChild(
+      empty
+    );
+
+  }
+
+
+  const today =
+    new Date();
+
+  today.setHours(
+    0,0,0,0
+  );
+
+
+  for(
+    let day = 1;
+    day <= daysInMonth;
+    day++
+  ){
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+    button.type = "button";
+
+    button.className =
+      "day";
+
+    button.textContent =
+      day;
+
+
+    const current =
+      new Date(
+        year,
+        month,
+        day
+      );
+
+    current.setHours(
+      0,0,0,0
+    );
+
+
+    if(
+      current.getTime() ===
+      today.getTime()
+    ){
+
+      button.classList.add(
+        "today"
+      );
+
+    }
+
+
+    if(
+      selectedDate &&
+      current.getTime() ===
+      selectedDate.getTime()
+    ){
+
+      button.classList.add(
+        "selected"
+      );
+
+    }
+
+
+    button.onclick =
+      function(){
+
+        selectedDate =
+          new Date(
+            year,
+            month,
+            day
+          );
+
+        selectedDate.setHours(
+          0,0,0,0
+        );
+
+        renderCalendar();
+
+      };
+
+
+    calendar.appendChild(
+      button
+    );
+
+  }
+
+}
+
+
+/* =========================
+   CONFIRM DATE
+========================= */
+
+function confirmDate(){
+
+  if(!selectedDate){
+
+    alert(
+      "Please select a date."
+    );
+
+    return;
+
+  }
+
+
+  const year =
+    selectedDate.getFullYear();
+
+  const month =
+    String(
+      selectedDate.getMonth() + 1
+    ).padStart(2,"0");
+
+  const day =
+    String(
+      selectedDate.getDate()
+    ).padStart(2,"0");
+
+
+  state.date =
+    `${year}-${month}-${day}`;
+
+
+  const formatted =
+    selectedDate.toLocaleDateString(
+      "en-IN",
+      {
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+      }
+    );
+
+
+  document
+    .getElementById(
+      "dateText"
+    )
+    .textContent =
+      formatted;
+
+
+  document
+    .getElementById(
+      "dateDisplay"
+    )
+    .classList.add(
+      "has-date"
+    );
+
+
+  closeDatePicker();
+
+}
+
+  /* =========================
+   CREATE PREVIEW
+========================= */
+
+function createPreview(){
+
+  const location =
+    document
+      .getElementById(
+        "locationInput"
+      )
+      .value
+      .trim();
+
+
+  const additional =
+    document
+      .getElementById(
+        "additionalInput"
+      )
+      .value
+      .trim();
+
+
+  const hallGuests =
+    document
+      .getElementById(
+        "hallGuests"
+      )
+      .value
+      .trim();
+
+
+  if(!state.date){
+
+    alert(
+      "Please select the function date."
+    );
+
+    return;
+
+  }
+
+
+  if(!location){
+
+    alert(
+      "Please enter the function location."
+    );
+
+    document
+      .getElementById(
+        "locationInput"
+      )
+      .focus();
+
+    return;
+
+  }
+
+
+  const hasCatering =
+    state.requirements.includes(
+      "Catering"
+    );
+
+
+  if(
+    hasCatering &&
+    !state.catering
+  ){
+
+    alert(
+      "Please select the catering type."
+    );
+
+    return;
+
+  }
+
+
+  state.location =
+    location;
+
+  state.additional =
+    additional;
+
+  state.hallGuests =
+    hallGuests;
+
+
+  document
+    .getElementById(
+      "previewFunction"
+    )
+    .textContent =
+      state.functionType;
+
+
+  renderPreviewRequirements();
+
+
+  /* CATERING */
+
+  const cateringRow =
+    document.getElementById(
+      "previewCateringRow"
+    );
+
+
+  if(hasCatering){
+
+    cateringRow.classList.remove(
+      "hidden"
+    );
+
+    document
+      .getElementById(
+        "previewCatering"
+      )
+      .textContent =
+        state.catering;
+
+  }else{
+
+    cateringRow.classList.add(
+      "hidden"
+    );
+
+  }
+
+
+  /* GUESTS */
+
+  const guestsRow =
+    document.getElementById(
+      "previewGuestsRow"
+    );
+
+
+  if(
+    hasCatering ||
+    state.hallGuests
+  ){
+
+    guestsRow.classList.remove(
+      "hidden"
+    );
+
+
+    let guestText = "";
+
+
+    if(hasCatering){
+
+      guestText =
+        state.guests +
+        " Guests";
+
+    }
+
+
+    if(state.hallGuests){
+
+      if(guestText){
+
+        guestText +=
+          " | Hall: " +
+          state.hallGuests;
+
+      }else{
+
+        guestText =
+          state.hallGuests +
+          " Guests";
+
+      }
+
+    }
+
+
+    document
+      .getElementById(
+        "previewGuests"
+      )
+      .textContent =
+        guestText;
+
+  }else{
+
+    guestsRow.classList.add(
+      "hidden"
+    );
+
+  }
+
+
+  /* PHOTO */
+
+  const hasPhoto =
+    state.requirements.some(
+      function(item){
+
+        return (
+          item === "Photography" ||
+          item === "Photography & Videography" ||
+          item === "Videography"
+        );
+
+      }
+    );
+
+
+  const photoRow =
+    document.getElementById(
+      "previewPhotoRow"
+    );
+
+
+  if(
+    hasPhoto &&
+    state.photography
+  ){
+
+    photoRow.classList.remove(
+      "hidden"
+    );
+
+    document
+      .getElementById(
+        "previewPhoto"
+      )
+      .textContent =
+        state.photography;
+
+  }else{
+
+    photoRow.classList.add(
+      "hidden"
+    );
+
+  }
+
+
+  /* DATE */
+
+  const dateObject =
+    new Date(
+      state.date +
+      "T00:00:00"
+    );
+
+
+  document
+    .getElementById(
+      "previewDate"
+    )
+    .textContent =
+      dateObject.toLocaleDateString(
+        "en-IN",
+        {
+          day:"numeric",
+          month:"long",
+          year:"numeric"
+        }
+      );
+
+
+  /* LOCATION */
+
+  document
+    .getElementById(
+      "previewLocation"
+    )
+    .textContent =
+      state.location;
+
+
+  /* ADDITIONAL */
+
+  const additionalRow =
+    document.getElementById(
+      "previewAdditionalRow"
+    );
+
+
+  if(state.additional){
+
+    additionalRow.classList.remove(
+      "hidden"
+    );
+
+    document
+      .getElementById(
+        "previewAdditional"
+      )
+      .textContent =
+        state.additional;
+
+  }else{
+
+    additionalRow.classList.add(
+      "hidden"
+    );
+
+  }
+
+
+  document
+    .getElementById(
+      "previewCard"
+    )
+    .classList.add(
+      "show"
+    );
+
+
+  setTimeout(function(){
+
+    document
+      .getElementById(
+        "previewCard"
+      )
+      .scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+  },100);
+
+}
+
+
+/* =========================
+   PREVIEW REQUIREMENTS
+========================= */
+
+function renderPreviewRequirements(){
+
+  const box =
+    document.getElementById(
+      "previewRequirements"
+    );
+
+  box.innerHTML = "";
+
+
+  state.requirements.forEach(
+    function(item){
+
+      const tag =
+        document.createElement(
+          "span"
+        );
+
+      tag.className =
+        "preview-tag";
+
+      tag.textContent =
+        item;
+
+      box.appendChild(
+        tag
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   EDIT
+========================= */
+
+function editRequirement(){
+
+  document
+    .getElementById(
+      "previewCard"
+    )
+    .classList.remove(
+      "show"
+    );
+
+
+  document
+    .getElementById(
+      "detailsCard"
+    )
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function openLogin(){
+
+  document
+    .getElementById(
+      "loginModal"
+    )
+    .classList.add(
+      "show"
+    );
+
+
+  setTimeout(function(){
+
+    document
+      .getElementById(
+        "loginMobile"
+      )
+      .focus();
+
+  },100);
+
+}
+
+
+function closeLogin(){
+
+  document
+    .getElementById(
+      "loginModal"
+    )
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+function continueLogin(){
+
+  const input =
+    document.getElementById(
+      "loginMobile"
+    );
+
+
+  const mobile =
+    input.value.trim();
+
+
+  if(
+    !/^[6-9]\d{9}$/.test(
+      mobile
+    )
+  ){
+
+    alert(
+      "Please enter a valid 10 digit mobile number."
+    );
+
+    input.focus();
+
+    return;
+
+  }
+
+
+  localStorage.setItem(
+    "pyncode_mobile",
+    mobile
+  );
+
+
+  closeLogin();
+
+
+  alert(
+    "Login successful."
+  );
+
+}
+
+
+/* =========================
+   LOGIN CHECK
+========================= */
+
+function isLoggedIn(){
+
+  return !!localStorage.getItem(
+    "pyncode_mobile"
+  );
+
+}
+
+  /* =========================
+   HEADER LOGIN / LOGOUT
+========================= */
+
+function updateHeaderButton(){
+
+  const button =
+    document.getElementById(
+      "headerLoginBtn"
+    );
+
+  if(!button){
+    return;
+  }
+
+  if(isLoggedIn()){
+
+    button.textContent =
+      "Logout";
+
+  }else{
+
+    button.textContent =
+      "Login";
+
+  }
+
+}
+
+
+/* =========================
+   HEADER ACTION
+========================= */
+
+function handleHeaderAction(){
+
+  if(isLoggedIn()){
+
+    logoutCustomer();
+
+  }else{
+
+    openLogin();
+
+  }
+
+}
+
+
+/* =========================
+   CUSTOMER LOGOUT
+========================= */
+
+function logoutCustomer(){
+
+  localStorage.removeItem(
+    "pyncode_name"
+  );
+
+  localStorage.removeItem(
+    "pyncode_mobile"
+  );
+
+  updateHeaderButton();
+
+  alert(
+    "You have been logged out."
+  );
+
+  window.location.href =
+    "add-requirement.html";
+
+}
+
+
+/* =========================
+   HANDLE POST
+========================= */
+
+async function handlePost(){
+
+  if(
+    state.requirements.length === 0
+  ){
+
+    alert(
+      "Please select at least one requirement."
+    );
+
+    return;
+
+  }
+
+
+  if(!state.date){
+
+    alert(
+      "Please select the function date."
+    );
+
+    return;
+
+  }
+
+
+  if(!state.location){
+
+    alert(
+      "Please enter the function location."
+    );
+
+    return;
+
+  }
+
+
+  if(!isLoggedIn()){
+
+    openLogin();
+
+    return;
+
+  }
+
+
+  const mobile =
+    localStorage.getItem(
+      "pyncode_mobile"
+    );
+
+
+  const postBtn =
+    document.getElementById(
+      "postBtn"
+    );
+
+
+  postBtn.disabled = true;
+
+  postBtn.textContent =
+    "Posting...";
+
+
+  let description =
+    "Function: " +
+    state.functionType +
+    "\n\n";
+
+
+  description +=
+    "Requirements:\n";
+
+
+  state.requirements.forEach(
+    function(item){
+
+      description +=
+        "• " +
+        item +
+        "\n";
+
+    }
+  );
+
+
+  if(state.catering){
+
+    description +=
+      "\nCatering: " +
+      state.catering +
+      "\n";
+
+    description +=
+      "Guests: " +
+      state.guests +
+      "\n";
+
+  }
+
+
+  if(state.hallGuests){
+
+    description +=
+      "Expected Hall Guests: " +
+      state.hallGuests +
+      "\n";
+
+  }
+
+
+  if(state.photography){
+
+    description +=
+      "Photography: " +
+      state.photography +
+      "\n";
+
+  }
+
+
+  if(state.additional){
+
+    description +=
+      "\nAdditional Requirement:\n" +
+      state.additional;
+
+  }
+
+
+  const payload = {
+
+    mobile:mobile,
+
+    category:"function",
+
+    location:state.location,
+
+    title:
+      state.functionType +
+      " Requirement",
+
+    description:description,
+
+    required_date:state.date,
+
+    quantity:
+      state.catering
+        ? String(state.guests)
+        : ""
+
+  };
+
+
+  try{
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/requirements",
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json",
+
+            "Prefer":
+              "return=minimal"
+
+          },
+
+          body:
+            JSON.stringify(
+              payload
+            )
+
+        }
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+      console.error(
+        errorText
+      );
+
+      throw new Error(
+        "Post failed"
+      );
+
+    }
+
+
+    alert(
+      "Requirement posted successfully!"
+    );
+
+
+    window.location.href =
+    "my-requirements.html";
+
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "Unable to post your requirement. Please try again."
+    );
+
+
+    postBtn.disabled = false;
+
+    postBtn.textContent =
+      "Post My Requirement";
+
+  }
+
+}
+
+
+/* =========================
+   MODAL CLICK OUTSIDE
+========================= */
+
+document
+  .getElementById(
+    "loginModal"
+  )
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === this
+      ){
+
+        closeLogin();
+
+      }
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "dateModal"
+  )
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === this
+      ){
+
+        closeDatePicker();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closeLogin();
+
+      closeDatePicker();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    renderFunctionTypes();
+
+    updateHeaderButton();
+
+  }
+);
+
+</script>
+
+</body>
+
+</html>

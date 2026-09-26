@@ -1,0 +1,2776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>My Proposals - Pyncode</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f7fb;
+  color:#1f2937;
+  min-height:100vh;
+}
+
+.header{
+  background:#ffffff;
+  border-bottom:1px solid #e5e7eb;
+  padding:16px 20px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header-inner{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+  color:#111827;
+}
+
+.back-btn{
+  border:none;
+  background:#f3f4f6;
+  color:#111827;
+  padding:10px 16px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.back-btn:hover{
+  background:#e5e7eb;
+}
+
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:22px 16px 50px;
+}
+
+.page-title{
+  font-size:28px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.page-subtitle{
+  color:#6b7280;
+  font-size:14px;
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.requirement-card{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,.04);
+}
+
+.requirement-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+}
+
+.requirement-title{
+  font-size:20px;
+  font-weight:800;
+  color:#111827;
+}
+
+.requirement-category{
+  display:inline-block;
+  margin-top:8px;
+  background:#eef2ff;
+  color:#4338ca;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  text-transform:capitalize;
+}
+
+.requirement-description{
+  margin-top:14px;
+  color:#4b5563;
+  line-height:1.6;
+  font-size:14px;
+}
+
+.requirement-meta{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin-top:16px;
+}
+
+.meta-item{
+  background:#f9fafb;
+  border-radius:10px;
+  padding:10px 12px;
+}
+
+.meta-label{
+  display:block;
+  font-size:11px;
+  color:#6b7280;
+  margin-bottom:4px;
+  font-weight:700;
+  text-transform:uppercase;
+}
+
+.meta-value{
+  font-size:14px;
+  color:#111827;
+  font-weight:600;
+}
+
+.proposal-summary{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:18px;
+  padding-top:16px;
+  border-top:1px solid #e5e7eb;
+}
+
+.proposal-count{
+  font-size:15px;
+  font-weight:800;
+  color:#111827;
+}
+
+.private-note{
+  color:#6b7280;
+  font-size:12px;
+}
+
+.status-box{
+  padding:10px 14px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:14px;
+}
+
+.loading{
+  background:#eff6ff;
+  color:#1d4ed8;
+}
+
+.error{
+  background:#fef2f2;
+  color:#b91c1c;
+}
+
+.empty{
+  background:#f9fafb;
+  color:#6b7280;
+  text-align:center;
+  padding:35px 20px;
+  border-radius:14px;
+  border:1px dashed #d1d5db;
+}
+
+.proposals-list{
+  display:grid;
+  gap:16px;
+}
+
+.proposal-card{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 4px 15px rgba(0,0,0,.04);
+}
+
+.proposal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.proposal-title{
+  font-size:18px;
+  font-weight:800;
+  color:#111827;
+}
+
+.status-badge{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  text-transform:capitalize;
+  white-space:nowrap;
+}
+
+.status-pending{
+  background:#fff7ed;
+  color:#c2410c;
+}
+
+.status-viewed{
+  background:#eff6ff;
+  color:#1d4ed8;
+}
+
+.status-accepted{
+  background:#ecfdf5;
+  color:#047857;
+}
+
+.status-rejected{
+  background:#fef2f2;
+  color:#b91c1c;
+}
+
+.status-withdrawn,
+.status-closed{
+  background:#f3f4f6;
+  color:#4b5563;
+}
+
+.proposal-message{
+  margin-top:14px;
+  color:#4b5563;
+  line-height:1.65;
+  font-size:14px;
+  white-space:pre-wrap;
+}
+
+.proposal-details{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin-top:16px;
+}
+
+.detail-box{
+  background:#f9fafb;
+  border-radius:10px;
+  padding:11px 12px;
+}
+
+.detail-label{
+  display:block;
+  color:#6b7280;
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+
+.detail-value{
+  color:#111827;
+  font-size:14px;
+  font-weight:700;
+}
+
+.proposal-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:17px;
+}
+
+.action-btn{
+  border:none;
+  border-radius:10px;
+  padding:11px 16px;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.view-btn{
+  background:#f3f4f6;
+  color:#111827;
+}
+
+.accept-btn{
+  background:#111827;
+  color:#ffffff;
+}
+
+.accept-btn:hover{
+  background:#000000;
+}
+
+.action-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+   
+/* Provider contact section */
+
+.provider-contact{
+  margin-top:17px;
+  padding:15px;
+  background:#ecfdf5;
+  border:1px solid #a7f3d0;
+  border-radius:13px;
+}
+
+.provider-contact-title{
+  font-size:14px;
+  font-weight:800;
+  color:#047857;
+  margin-bottom:11px;
+}
+
+.contact-loading{
+  color:#6b7280;
+  font-size:13px;
+}
+
+.contact-unavailable{
+  color:#b45309;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.contact-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:8px;
+}
+
+.contact-label{
+  font-size:12px;
+  color:#6b7280;
+  font-weight:700;
+}
+
+.contact-value{
+  font-size:14px;
+  color:#111827;
+  font-weight:800;
+  word-break:break-word;
+}
+
+.contact-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.contact-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  border-radius:9px;
+  padding:9px 12px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.call-btn{
+  background:#111827;
+  color:#ffffff;
+}
+
+.whatsapp-btn{
+  background:#16a34a;
+  color:#ffffff;
+}
+
+
+/* Modal */
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:500;
+}
+
+.modal-overlay.show{
+  display:flex;
+}
+
+.modal{
+  width:100%;
+  max-width:560px;
+  max-height:90vh;
+  overflow-y:auto;
+  background:#ffffff;
+  border-radius:18px;
+  padding:20px;
+  position:relative;
+}
+
+.modal-close{
+  position:absolute;
+  right:15px;
+  top:12px;
+  border:none;
+  background:#f3f4f6;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.modal-title{
+  font-size:21px;
+  font-weight:800;
+  padding-right:45px;
+}
+
+.modal-content{
+  margin-top:16px;
+}
+
+.modal-section{
+  margin-bottom:15px;
+}
+
+.modal-label{
+  display:block;
+  font-size:11px;
+  color:#6b7280;
+  font-weight:800;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+
+.modal-value{
+  color:#111827;
+  font-size:14px;
+  line-height:1.6;
+  white-space:pre-wrap;
+}
+
+.modal-contact{
+  margin-top:18px;
+  padding:15px;
+  background:#ecfdf5;
+  border:1px solid #a7f3d0;
+  border-radius:13px;
+}
+
+.modal-contact-title{
+  font-size:14px;
+  font-weight:800;
+  color:#047857;
+  margin-bottom:10px;
+}
+
+
+/* Mobile */
+
+@media(max-width:650px){
+
+  .page-title{
+    font-size:24px;
+  }
+
+  .requirement-top{
+    flex-direction:column;
+  }
+
+  .requirement-meta,
+  .proposal-details{
+    grid-template-columns:1fr;
+  }
+
+  .proposal-summary{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .proposal-header{
+    flex-direction:column;
+  }
+
+  .contact-row{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .modal{
+    padding:17px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+  <div class="header-inner">
+
+    <div class="logo">
+    <span style="color:#ff6b1a;">Pyn</span><span style="color:#151515;">code.in</span>
+    </div>
+    
+    <button
+      class="back-btn"
+      type="button"
+      onclick="goBack()"
+    >
+      ← Back
+    </button>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <h1 class="page-title">
+    Provider Proposals
+  </h1>
+
+  <p class="page-subtitle">
+    Review private proposals received for your requirement.
+    Only you can see these proposals.
+  </p>
+
+
+  <div id="requirementArea"></div>
+
+  <div id="statusArea"></div>
+
+  <div
+    id="proposalsList"
+    class="proposals-list"
+  ></div>
+
+</main>
+
+
+<div
+  id="proposalModal"
+  class="modal-overlay"
+>
+
+  <div class="modal">
+
+    <button
+      class="modal-close"
+      type="button"
+      onclick="closeProposalModal()"
+    >
+      ×
+    </button>
+
+    <h2
+      id="modalTitle"
+      class="modal-title"
+    >
+      Proposal Details
+    </h2>
+
+    <div
+      id="modalContent"
+      class="modal-content"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* Supabase */
+
+const SUPABASE_URL =
+  "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+
+/*
+ IMPORTANT:
+ Use your EXISTING Pyncode
+ Supabase publishable key here.
+
+ Do NOT create a new key.
+*/
+
+const SUPABASE_KEY =
+  "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+/* State */
+
+let requirement = null;
+
+let proposals = [];
+
+
+/* DOM */
+
+const requirementArea =
+  document.getElementById(
+    "requirementArea"
+  );
+
+const statusArea =
+  document.getElementById(
+    "statusArea"
+  );
+
+const proposalsList =
+  document.getElementById(
+    "proposalsList"
+  );
+
+const proposalModal =
+  document.getElementById(
+    "proposalModal"
+  );
+
+const modalTitle =
+  document.getElementById(
+    "modalTitle"
+  );
+
+const modalContent =
+  document.getElementById(
+    "modalContent"
+  );
+
+
+/* Customer mobile */
+
+function getCustomerMobile(){
+
+  const mobile =
+    localStorage.getItem(
+      "pyncode_mobile"
+    );
+
+  if(!mobile){
+    return "";
+  }
+
+  return mobile.trim();
+}
+
+
+/* Requirement ID */
+
+function getRequirementId(){
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  const id =
+    params.get("id");
+
+  if(!id){
+    return null;
+  }
+
+  const numberId =
+    Number(id);
+
+  if(
+    !Number.isInteger(numberId) ||
+    numberId <= 0
+  ){
+    return null;
+  }
+
+  return numberId;
+}
+
+
+/* HTML escape */
+
+function escapeHtml(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* Date format */
+
+function formatDate(value){
+
+  if(!value){
+    return "-";
+  }
+
+  const date =
+    new Date(value);
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+    return "-";
+  }
+
+  return date.toLocaleDateString(
+    "en-IN",
+    {
+      day:"2-digit",
+      month:"short",
+      year:"numeric"
+    }
+  );
+}
+
+
+/* Amount format */
+
+function formatAmount(value){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
+    return "Not specified";
+  }
+
+  const number =
+    Number(value);
+
+  if(Number.isNaN(number)){
+    return escapeHtml(value);
+  }
+
+  return "₹" +
+    number.toLocaleString(
+      "en-IN",
+      {
+        minimumFractionDigits:0,
+        maximumFractionDigits:2
+      }
+    );
+}
+
+
+/* Back */
+
+function goBack(){
+
+  if(document.referrer){
+
+    history.back();
+
+    return;
+  }
+
+  window.location.href =
+    "my-requirements.html";
+}
+
+
+/* Error */
+
+function showError(message){
+
+  statusArea.innerHTML = `
+
+    <div class="status-box error">
+      ${escapeHtml(message)}
+    </div>
+
+  `;
+
+}
+
+
+/* Loading */
+
+function showLoading(message){
+
+  statusArea.innerHTML = `
+
+    <div class="status-box loading">
+      ${escapeHtml(message)}
+    </div>
+
+  `;
+
+}
+
+
+/* Load requirement */
+
+async function loadRequirement(){
+
+  const requirementId =
+    getRequirementId();
+
+  const mobile =
+    getCustomerMobile();
+
+
+  if(!requirementId){
+
+    showError(
+      "Requirement ID is missing."
+    );
+
+    return false;
+  }
+
+
+  if(!mobile){
+
+    showError(
+      "Customer mobile number is missing. Please login again."
+    );
+
+    return false;
+  }
+
+
+  const url =
+    SUPABASE_URL +
+    "/rest/v1/requirements" +
+    "?id=eq." +
+    encodeURIComponent(
+      requirementId
+    ) +
+    "&mobile=eq." +
+    encodeURIComponent(
+      mobile
+    ) +
+    "&select=*";
+
+
+  try{
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+
+          headers:{
+
+            apikey:
+              SUPABASE_KEY,
+
+            Authorization:
+              "Bearer " +
+              SUPABASE_KEY
+
+          }
+
+        }
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+      console.error(
+        "Requirement error:",
+        errorText
+      );
+
+      showError(
+        "Unable to load your requirement."
+      );
+
+      return false;
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !Array.isArray(data) ||
+      data.length === 0
+    ){
+
+      showError(
+        "Requirement not found."
+      );
+
+      return false;
+    }
+
+
+    requirement =
+      data[0];
+
+
+    renderRequirement();
+
+    return true;
+
+
+  }catch(error){
+
+    console.error(
+      "Requirement load error:",
+      error
+    );
+
+    showError(
+      "Something went wrong while loading the requirement."
+    );
+
+    return false;
+
+  }
+
+}
+
+  /* Render requirement */
+
+function renderRequirement(){
+
+  if(!requirement){
+
+    requirementArea.innerHTML =
+      "";
+
+    return;
+  }
+
+
+  const title =
+    requirement.title ||
+    "My Requirement";
+
+
+  const category =
+    requirement.category ||
+    "-";
+
+
+  const description =
+    requirement.description ||
+    "No description provided.";
+
+
+  const location =
+    requirement.location ||
+    "Not specified";
+
+
+  const requiredDate =
+    requirement.required_date ||
+    "";
+
+
+  const quantity =
+    requirement.quantity ||
+    "";
+
+
+  requirementArea.innerHTML = `
+
+    <div class="requirement-card">
+
+      <div class="requirement-top">
+
+        <div>
+
+          <div class="requirement-title">
+            ${escapeHtml(title)}
+          </div>
+
+          <span class="requirement-category">
+            ${escapeHtml(category)}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="requirement-description">
+        ${escapeHtml(description)}
+      </div>
+
+
+      <div class="requirement-meta">
+
+        <div class="meta-item">
+
+          <span class="meta-label">
+            Location
+          </span>
+
+          <span class="meta-value">
+            ${escapeHtml(location)}
+          </span>
+
+        </div>
+
+
+        <div class="meta-item">
+
+          <span class="meta-label">
+            Required Date
+          </span>
+
+          <span class="meta-value">
+            ${
+              requiredDate
+              ? escapeHtml(requiredDate)
+              : "Not specified"
+            }
+          </span>
+
+        </div>
+
+
+        <div class="meta-item">
+
+          <span class="meta-label">
+            Quantity
+          </span>
+
+          <span class="meta-value">
+            ${
+              quantity
+              ? escapeHtml(quantity)
+              : "Not specified"
+            }
+          </span>
+
+        </div>
+
+
+        <div class="meta-item">
+
+          <span class="meta-label">
+            Posted On
+          </span>
+
+          <span class="meta-value">
+            ${formatDate(
+              requirement.created_at
+            )}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="proposal-summary">
+
+        <div class="proposal-count">
+          ${proposals.length}
+          Proposal${
+            proposals.length === 1
+            ? ""
+            : "s"
+          }
+        </div>
+
+        <div class="private-note">
+          🔒 Proposals are private
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* Load proposals */
+
+async function loadProposals(){
+
+  const requirementId =
+    getRequirementId();
+
+  const mobile =
+    getCustomerMobile();
+
+
+  if(
+    !requirementId ||
+    !mobile
+  ){
+    return false;
+  }
+
+
+  showLoading(
+    "Loading provider proposals..."
+  );
+
+
+  try{
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/rpc/get_customer_proposals",
+        {
+          method:"POST",
+
+          headers:{
+
+            apikey:
+              SUPABASE_KEY,
+
+            Authorization:
+              "Bearer " +
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:JSON.stringify({
+
+            p_requirement_id:
+              requirementId,
+
+            p_mobile:
+              mobile
+
+          })
+
+        }
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+      console.error(
+        "Proposal RPC error:",
+        errorText
+      );
+
+      showError(
+        "Unable to load provider proposals."
+      );
+
+      return false;
+    }
+
+
+    const data =
+      await response.json();
+
+
+    proposals =
+      Array.isArray(data)
+      ? data
+      : [];
+
+
+    statusArea.innerHTML =
+      "";
+
+
+    renderRequirement();
+
+    renderProposals();
+
+
+    return true;
+
+
+  }catch(error){
+
+    console.error(
+      "Proposal load error:",
+      error
+    );
+
+    showError(
+      "Something went wrong while loading proposals."
+    );
+
+    return false;
+
+  }
+
+  }
+
+  /* Render proposals */
+
+function renderProposals(){
+
+  if(!proposalsList){
+    return;
+  }
+
+
+  if(
+    !Array.isArray(proposals) ||
+    proposals.length === 0
+  ){
+
+    proposalsList.innerHTML = `
+
+      <div class="empty">
+
+        <div
+          style="
+            font-size:18px;
+            font-weight:800;
+            margin-bottom:8px;
+          "
+        >
+          No proposals yet
+        </div>
+
+        <div
+          style="
+            font-size:13px;
+            line-height:1.6;
+          "
+        >
+          Providers have not sent any proposals
+          for this requirement yet.
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  proposalsList.innerHTML =
+    proposals
+      .map(function(proposal){
+
+        return createProposalCard(
+          proposal
+        );
+
+      })
+      .join("");
+
+
+  /*
+    Load secure provider contact
+    only for accepted proposals.
+  */
+
+  proposals.forEach(function(proposal){
+
+    const status =
+      String(
+        proposal.status || ""
+      )
+      .toLowerCase()
+      .trim();
+
+
+    if(status !== "accepted"){
+      return;
+    }
+
+
+    const proposalId =
+      Number(proposal.id);
+
+
+    if(
+      !Number.isInteger(proposalId) ||
+      proposalId <= 0
+    ){
+      return;
+    }
+
+
+    const contactContainer =
+      document.getElementById(
+        "provider-contact-" +
+        proposalId
+      );
+
+
+    if(contactContainer){
+
+      loadProviderContact(
+        proposalId,
+        contactContainer
+      );
+
+    }
+
+  });
+
+}
+
+
+/* Status class */
+
+function getStatusClass(status){
+
+  const value =
+    String(
+      status || "pending"
+    )
+    .toLowerCase()
+    .trim();
+
+
+  const allowed = [
+
+    "pending",
+    "viewed",
+    "accepted",
+    "rejected",
+    "withdrawn",
+    "closed"
+
+  ];
+
+
+  if(
+    !allowed.includes(value)
+  ){
+
+    return "status-pending";
+
+  }
+
+
+  return "status-" + value;
+
+}
+
+
+/* Clean phone number */
+
+function cleanPhoneNumber(value){
+
+  if(!value){
+    return "";
+  }
+
+
+  let phone =
+    String(value)
+      .replace(/[^\d+]/g,"");
+
+
+  if(
+    phone.startsWith("91") &&
+    phone.length === 12
+  ){
+
+    return "+" + phone;
+
+  }
+
+
+  if(
+    phone.length === 10 &&
+    !phone.startsWith("+")
+  ){
+
+    return "+91" + phone;
+
+  }
+
+
+  return phone;
+
+}
+
+
+/* Clean WhatsApp number */
+
+function cleanWhatsAppNumber(value){
+
+  if(!value){
+    return "";
+  }
+
+
+  let whatsapp =
+    String(value)
+      .replace(/[^\d]/g,"");
+
+
+  if(
+    whatsapp.length === 10
+  ){
+
+    whatsapp =
+      "91" + whatsapp;
+
+  }
+
+
+  if(
+    whatsapp.startsWith("91") &&
+    whatsapp.length === 12
+  ){
+
+    return whatsapp;
+
+  }
+
+
+  return whatsapp;
+
+}
+
+
+/* Load accepted provider contact */
+
+async function loadProviderContact(
+  proposalId,
+  container
+){
+
+  if(!container){
+    return;
+  }
+
+
+  const mobile =
+    getCustomerMobile();
+
+
+  if(!mobile){
+
+    container.innerHTML = `
+
+      <div class="provider-contact-title">
+        ✓ Provider Contact
+      </div>
+
+      <div class="contact-unavailable">
+        Customer verification is required
+        to show provider contact details.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <div class="provider-contact-title">
+      ✓ Provider Contact
+    </div>
+
+    <div class="contact-loading">
+      Loading secure contact details...
+    </div>
+
+  `;
+
+
+  try{
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/rpc/get_accepted_provider_contact",
+        {
+          method:"POST",
+
+          headers:{
+
+            apikey:
+              SUPABASE_KEY,
+
+            Authorization:
+              "Bearer " +
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:JSON.stringify({
+
+            p_proposal_id:
+              Number(proposalId),
+
+            p_mobile:
+              mobile
+
+          })
+
+        }
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+      console.error(
+        "Provider contact RPC error:",
+        errorText
+      );
+
+
+      container.innerHTML = `
+
+        <div class="provider-contact-title">
+          ✓ Provider Contact
+        </div>
+
+        <div class="contact-unavailable">
+          Contact details are currently unavailable.
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    let contact = null;
+
+
+    if(Array.isArray(data)){
+
+      contact =
+        data.length > 0
+        ? data[0]
+        : null;
+
+    }else{
+
+      contact = data;
+
+    }
+
+
+    if(!contact){
+
+      container.innerHTML = `
+
+        <div class="provider-contact-title">
+          ✓ Provider Contact
+        </div>
+
+        <div class="contact-unavailable">
+          Provider contact details are not available
+          right now.
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    const businessName =
+      contact.business_name ||
+      "Provider";
+
+
+    const mobileNumber =
+      cleanPhoneNumber(
+        contact.mobile
+      );
+
+
+    const whatsappNumber =
+      cleanWhatsAppNumber(
+        contact.whatsapp
+      );
+
+
+    const category =
+      contact.category ||
+      "";
+
+
+    const city =
+      contact.city ||
+      "";
+
+
+    const serviceArea =
+      contact.service_area ||
+      "";
+
+
+    let buttons = "";
+
+
+    if(mobileNumber){
+
+      buttons += `
+
+        <a
+          class="contact-btn call-btn"
+          href="tel:${escapeHtml(
+            mobileNumber
+          )}"
+        >
+          📞 Call Provider
+        </a>
+
+      `;
+
+    }
+
+
+    if(whatsappNumber){
+
+      buttons += `
+
+        <a
+          class="contact-btn whatsapp-btn"
+          href="https://wa.me/${escapeHtml(
+            whatsappNumber
+          )}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          💬 WhatsApp
+        </a>
+
+      `;
+
+    }
+
+
+    container.innerHTML = `
+
+      <div class="provider-contact-title">
+        ✓ Provider Contact
+      </div>
+
+
+      <div class="contact-row">
+
+        <span class="contact-label">
+          Business
+        </span>
+
+        <span class="contact-value">
+          ${escapeHtml(
+            businessName
+          )}
+        </span>
+
+      </div>
+
+
+      ${
+        mobileNumber
+        ? `
+
+          <div class="contact-row">
+
+            <span class="contact-label">
+              Mobile
+            </span>
+
+            <span class="contact-value">
+              ${escapeHtml(
+                mobileNumber
+              )}
+            </span>
+
+          </div>
+
+        `
+        : ""
+      }
+
+
+      ${
+        category
+        ? `
+
+          <div class="contact-row">
+
+            <span class="contact-label">
+              Category
+            </span>
+
+            <span class="contact-value">
+              ${escapeHtml(
+                category
+              )}
+            </span>
+
+          </div>
+
+        `
+        : ""
+      }
+
+
+      ${
+        city
+        ? `
+
+          <div class="contact-row">
+
+            <span class="contact-label">
+              City
+            </span>
+
+            <span class="contact-value">
+              ${escapeHtml(
+                city
+              )}
+            </span>
+
+          </div>
+
+        `
+        : ""
+      }
+
+
+      ${
+        serviceArea
+        ? `
+
+          <div class="contact-row">
+
+            <span class="contact-label">
+              Service Area
+            </span>
+
+            <span class="contact-value">
+              ${escapeHtml(
+                serviceArea
+              )}
+            </span>
+
+          </div>
+
+        `
+        : ""
+      }
+
+
+      ${
+        buttons
+        ? `
+
+          <div class="contact-buttons">
+            ${buttons}
+          </div>
+
+        `
+        : `
+
+          <div class="contact-unavailable">
+            Provider contact number is not available.
+          </div>
+
+        `
+      }
+
+    `;
+
+
+  }catch(error){
+
+    console.error(
+      "Provider contact error:",
+      error
+    );
+
+
+    container.innerHTML = `
+
+      <div class="provider-contact-title">
+        ✓ Provider Contact
+      </div>
+
+      <div class="contact-unavailable">
+        Unable to load provider contact details.
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* Create proposal card */
+
+function createProposalCard(
+  proposal
+){
+
+  const proposalId =
+    Number(proposal.id);
+
+
+  const status =
+    String(
+      proposal.status ||
+      "pending"
+    )
+    .toLowerCase()
+    .trim();
+
+
+  const title =
+    proposal.proposal_title ||
+    "Provider Proposal";
+
+
+  const message =
+    proposal.proposal_message ||
+    "No proposal message provided.";
+
+
+  const availability =
+    proposal.availability ||
+    "Not specified";
+
+
+  const amount =
+    formatAmount(
+      proposal.quoted_amount
+    );
+
+
+  const createdAt =
+    formatDate(
+      proposal.created_at
+    );
+
+
+  const isAccepted =
+    status === "accepted";
+
+
+  const statusClass =
+    getStatusClass(
+      status
+    );
+
+
+  return `
+
+    <article
+      class="proposal-card"
+      data-proposal-id="${proposalId}"
+    >
+
+      <div class="proposal-header">
+
+        <div class="proposal-title">
+          ${escapeHtml(title)}
+        </div>
+
+
+        <span
+          class="status-badge ${statusClass}"
+        >
+          ${escapeHtml(status)}
+        </span>
+
+      </div>
+
+
+      <div class="proposal-message">
+        ${escapeHtml(message)}
+      </div>
+
+
+      <div class="proposal-details">
+
+        <div class="detail-box">
+
+          <span class="detail-label">
+            Quoted Amount
+          </span>
+
+          <span class="detail-value">
+            ${amount}
+          </span>
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <span class="detail-label">
+            Availability
+          </span>
+
+          <span class="detail-value">
+            ${escapeHtml(
+              availability
+            )}
+          </span>
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <span class="detail-label">
+            Received
+          </span>
+
+          <span class="detail-value">
+            ${createdAt}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="proposal-actions">
+
+        <button
+          class="action-btn view-btn"
+          type="button"
+          onclick="openProposalModal(${proposalId})"
+        >
+          View Details
+        </button>
+
+
+        ${
+          !isAccepted &&
+          (
+            status === "pending" ||
+            status === "viewed"
+          )
+          ? `
+
+            <button
+              id="accept-btn-${proposalId}"
+              class="action-btn accept-btn"
+              type="button"
+              onclick="acceptProposal(${proposalId})"
+            >
+              Accept Proposal
+            </button>
+
+          `
+          : ""
+        }
+
+      </div>
+
+
+      ${
+        isAccepted
+        ? `
+
+          <div
+            id="provider-contact-${proposalId}"
+            class="provider-contact"
+          >
+
+            <div class="provider-contact-title">
+              ✓ Provider Contact
+            </div>
+
+            <div class="contact-loading">
+              Loading secure contact details...
+            </div>
+
+          </div>
+
+        `
+        : ""
+      }
+
+
+      <div
+        style="
+          margin-top:14px;
+          color:#6b7280;
+          font-size:12px;
+          line-height:1.5;
+        "
+      >
+        🔒 This proposal is private and visible only to you.
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+  /* Open proposal modal */
+
+function openProposalModal(
+  proposalId
+){
+
+  const proposal =
+    proposals.find(
+      function(item){
+
+        return Number(item.id) ===
+          Number(proposalId);
+
+      }
+    );
+
+
+  if(!proposal){
+    return;
+  }
+
+
+  const status =
+    String(
+      proposal.status ||
+      "pending"
+    )
+    .toLowerCase()
+    .trim();
+
+
+  const title =
+    proposal.proposal_title ||
+    "Provider Proposal";
+
+
+  const message =
+    proposal.proposal_message ||
+    "No proposal message provided.";
+
+
+  const availability =
+    proposal.availability ||
+    "Not specified";
+
+
+  const amount =
+    formatAmount(
+      proposal.quoted_amount
+    );
+
+
+  const createdAt =
+    formatDate(
+      proposal.created_at
+    );
+
+
+  const isAccepted =
+    status === "accepted";
+
+
+  modalTitle.textContent =
+    title;
+
+
+  modalContent.innerHTML = `
+
+    <div class="modal-section">
+
+      <span class="modal-label">
+        Status
+      </span>
+
+      <div class="modal-value">
+        ${escapeHtml(status)}
+      </div>
+
+    </div>
+
+
+    <div class="modal-section">
+
+      <span class="modal-label">
+        Proposal Message
+      </span>
+
+      <div class="modal-value">
+        ${escapeHtml(message)}
+      </div>
+
+    </div>
+
+
+    <div class="modal-section">
+
+      <span class="modal-label">
+        Quoted Amount
+      </span>
+
+      <div class="modal-value">
+        ${amount}
+      </div>
+
+    </div>
+
+
+    <div class="modal-section">
+
+      <span class="modal-label">
+        Availability
+      </span>
+
+      <div class="modal-value">
+        ${escapeHtml(
+          availability
+        )}
+      </div>
+
+    </div>
+
+
+    <div class="modal-section">
+
+      <span class="modal-label">
+        Received
+      </span>
+
+      <div class="modal-value">
+        ${createdAt}
+      </div>
+
+    </div>
+
+
+    ${
+      isAccepted
+      ? `
+
+        <div
+          id="modal-provider-contact"
+          class="modal-contact"
+        >
+
+          <div class="modal-contact-title">
+            ✓ Provider Contact
+          </div>
+
+          <div class="contact-loading">
+            Loading secure contact details...
+          </div>
+
+        </div>
+
+      `
+      : ""
+    }
+
+
+    <div
+      style="
+        margin-top:15px;
+        padding:12px;
+        background:#f9fafb;
+        border-radius:10px;
+        color:#6b7280;
+        font-size:12px;
+        line-height:1.5;
+      "
+    >
+
+      ${
+        isAccepted
+        ? "✓ You accepted this proposal. Provider contact details are shown securely below."
+        : "🔒 This proposal is private and visible only to you."
+      }
+
+    </div>
+
+  `;
+
+
+  proposalModal.classList.add(
+    "show"
+  );
+
+
+  if(isAccepted){
+
+    const contactContainer =
+      document.getElementById(
+        "modal-provider-contact"
+      );
+
+
+    loadProviderContact(
+      proposalId,
+      contactContainer
+    );
+
+  }
+
+}
+
+
+/* Close proposal modal */
+
+function closeProposalModal(){
+
+  proposalModal.classList.remove(
+    "show"
+  );
+
+}
+
+
+/* Accept proposal */
+
+async function acceptProposal(
+  proposalId
+){
+
+  const mobile =
+    getCustomerMobile();
+
+
+  if(!mobile){
+
+    alert(
+      "Customer mobile number is missing. Please login again."
+    );
+
+    return;
+  }
+
+
+  const proposal =
+    proposals.find(
+      function(item){
+
+        return Number(item.id) ===
+          Number(proposalId);
+
+      }
+    );
+
+
+  if(!proposal){
+
+    alert(
+      "Proposal not found."
+    );
+
+    return;
+  }
+
+
+  const currentStatus =
+    String(
+      proposal.status || ""
+    )
+    .toLowerCase()
+    .trim();
+
+
+  if(
+    currentStatus === "accepted"
+  ){
+
+    openProposalModal(
+      proposalId
+    );
+
+    return;
+  }
+
+
+  if(
+    currentStatus !== "pending" &&
+    currentStatus !== "viewed"
+  ){
+
+    alert(
+      "This proposal cannot be accepted."
+    );
+
+    return;
+  }
+
+
+  const button =
+    document.getElementById(
+      "accept-btn-" +
+      Number(proposalId)
+    );
+
+
+  if(button){
+
+    button.disabled = true;
+
+    button.textContent =
+      "Accepting...";
+
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/rpc/accept_customer_proposal",
+        {
+          method:"POST",
+
+          headers:{
+
+            apikey:
+              SUPABASE_KEY,
+
+            Authorization:
+              "Bearer " +
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:JSON.stringify({
+
+            p_proposal_id:
+              Number(proposalId),
+
+            p_mobile:
+              mobile
+
+          })
+
+        }
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+
+      console.error(
+        "Accept proposal error:",
+        errorText
+      );
+
+
+      alert(
+        "Unable to accept this proposal. Please try again."
+      );
+
+
+      if(button){
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Accept Proposal";
+
+      }
+
+
+      return;
+    }
+
+
+    const result =
+      await response.json();
+
+
+    /*
+      Secure RPC returns boolean.
+    */
+
+    const accepted =
+      result === true ||
+      (
+        Array.isArray(result) &&
+        result.length > 0 &&
+        (
+          result[0] === true ||
+          result[0] === "true"
+        )
+      );
+
+
+    if(!accepted){
+
+      alert(
+        "This proposal could not be accepted."
+      );
+
+
+      if(button){
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Accept Proposal";
+
+      }
+
+
+      return;
+    }
+
+
+    /*
+      Update local proposal state.
+    */
+
+    proposals =
+      proposals.map(
+        function(item){
+
+          if(
+            Number(item.id) ===
+            Number(proposalId)
+          ){
+
+            return {
+              ...item,
+              status:"accepted"
+            };
+
+          }
+
+          return item;
+
+        }
+      );
+
+
+    renderProposals();
+
+    renderRequirement();
+
+
+    alert(
+      "Proposal accepted successfully."
+    );
+
+
+    /*
+      Open accepted proposal
+      after card is rendered.
+    */
+
+    setTimeout(
+      function(){
+
+        openProposalModal(
+          Number(proposalId)
+        );
+
+      },
+      150
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Accept proposal error:",
+      error
+    );
+
+
+    alert(
+      "Something went wrong. Please try again."
+    );
+
+
+    if(button){
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "Accept Proposal";
+
+    }
+
+  }
+
+}
+
+
+/* Modal background click */
+
+proposalModal.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target ===
+      proposalModal
+    ){
+
+      closeProposalModal();
+
+    }
+
+  }
+);
+
+
+/* Escape key */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closeProposalModal();
+
+    }
+
+  }
+);
+
+  /* Refresh proposals */
+
+async function refreshProposals(){
+
+  await loadProposals();
+
+}
+
+
+/* Initialize page */
+
+async function initializePage(){
+
+  const requirementId =
+    getRequirementId();
+
+
+  if(!requirementId){
+
+    showError(
+      "Requirement ID is missing."
+    );
+
+    return;
+  }
+
+
+  const mobile =
+    getCustomerMobile();
+
+
+  if(!mobile){
+
+    showError(
+      "Customer mobile number is missing. Please login again."
+    );
+
+    return;
+  }
+
+
+  showLoading(
+    "Loading your requirement..."
+  );
+
+
+  const requirementLoaded =
+    await loadRequirement();
+
+
+  if(!requirementLoaded){
+
+    return;
+  }
+
+
+  await loadProposals();
+
+}
+
+
+/* Auto refresh */
+
+let refreshTimer = null;
+
+
+function startAutoRefresh(){
+
+  if(refreshTimer){
+
+    clearInterval(
+      refreshTimer
+    );
+
+  }
+
+
+  refreshTimer =
+    setInterval(
+      function(){
+
+        if(
+          document.visibilityState ===
+          "visible"
+        ){
+
+          refreshProposals();
+
+        }
+
+      },
+      30000
+    );
+
+}
+
+
+/* Stop auto refresh */
+
+function stopAutoRefresh(){
+
+  if(refreshTimer){
+
+    clearInterval(
+      refreshTimer
+    );
+
+    refreshTimer = null;
+
+  }
+
+}
+
+
+/* Visibility change */
+
+document.addEventListener(
+  "visibilitychange",
+  function(){
+
+    if(
+      document.visibilityState ===
+      "visible"
+    ){
+
+      refreshProposals();
+
+    }
+
+  }
+);
+
+
+/* Page unload */
+
+window.addEventListener(
+  "beforeunload",
+  function(){
+
+    stopAutoRefresh();
+
+  }
+);
+
+
+/* Start application */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    initializePage();
+
+    startAutoRefresh();
+
+  }
+);
+
+</script>
+
+</body>
+</html>

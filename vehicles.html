@@ -1,0 +1,3858 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode - Vehicles</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:#f5f7fa;
+
+    color:#0f172a;
+
+    min-height:100vh;
+
+    padding-bottom:94px;
+}
+
+button,
+input,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    -webkit-tap-highlight-color:transparent;
+    cursor:pointer;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar{
+    height:64px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    backdrop-filter:blur(14px);
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 16px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+}
+
+.brand{
+    font-size:22px;
+
+    font-weight:950;
+
+    letter-spacing:-.8px;
+
+    color:#111827;
+}
+
+.brand-pyn{
+    color:#f97316;
+}
+
+.brand-code{
+    color:#111827;
+}
+
+.login-top,
+.login-btn{
+    height:38px;
+
+    padding:0 17px;
+
+    border:
+        1px solid #fed7aa;
+
+    border-radius:20px;
+
+    background:#fff7ed;
+
+    color:#ea580c;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.18s;
+}
+
+.login-top:active,
+.login-btn:active{
+    transform:scale(.95);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    margin:14px 12px 0;
+    padding:30px 22px;
+    border-radius:22px;
+    background:
+        linear-gradient(135deg,#111827 0%,#1e293b 65%,#273449 100%);
+    color:#fff;
+    box-shadow:
+        0 12px 30px rgba(15,23,42,.16);
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:rgba(249,115,22,.18);
+    right:-55px;
+    top:-75px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    border:1px solid rgba(249,115,22,.35);
+    right:55px;
+    bottom:-45px;
+}
+
+.hero-inner{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:720px;
+    margin:0 auto;
+}
+
+.hero h1{
+    font-size:28px;
+    line-height:1.18;
+    font-weight:950;
+    letter-spacing:-.8px;
+}
+
+.hero p{
+    margin-top:10px;
+    max-width:600px;
+    font-size:13px;
+    line-height:1.6;
+    color:rgba(255,255,255,.82);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+    width:100%;
+}
+
+.container{
+    width:100%;
+
+    max-width:720px;
+
+    margin:0 auto;
+
+    padding:
+        14px 12px 30px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    position:relative;
+
+    background:#fff;
+
+    border:
+        1px solid #e7eaf0;
+
+    border-radius:18px;
+
+    padding:17px;
+
+    margin-bottom:13px;
+
+    box-shadow:
+        0 6px 22px
+        rgba(15,23,42,.045);
+}
+
+.card-title{
+    font-size:18px;
+
+    font-weight:950;
+
+    letter-spacing:-.3px;
+
+    color:#111827;
+}
+
+.card-subtitle{
+    margin-top:6px;
+
+    color:#64748b;
+
+    font-size:12.5px;
+
+    line-height:1.55;
+}
+
+
+/* =========================
+   OPTIONS
+========================= */
+
+.options{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:9px;
+
+    margin-top:15px;
+}
+
+.option{
+    min-height:56px;
+
+    padding:11px 12px;
+
+    border:
+        1.5px solid #e5e7eb;
+
+    border-radius:13px;
+
+    background:#fff;
+
+    color:#334155;
+
+    font-size:13px;
+
+    font-weight:850;
+
+    text-align:left;
+
+    transition:
+        border-color .18s,
+        background .18s,
+        color .18s,
+        transform .12s,
+        box-shadow .18s;
+}
+
+.option:hover{
+    border-color:#fdba74;
+
+    background:#fffaf5;
+}
+
+.option:active{
+    transform:scale(.98);
+}
+
+
+/* =========================
+   FIELD
+========================= */
+
+.field{
+    margin-top:16px;
+}
+
+.field label{
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:11.5px;
+
+    font-weight:900;
+
+    color:#334155;
+}
+
+.field input,
+.field textarea{
+    width:100%;
+
+    border:
+        1.5px solid #dfe4ec;
+
+    border-radius:12px;
+
+    background:#fff;
+
+    color:#0f172a;
+
+    padding:12px 13px;
+
+    outline:none;
+
+    font-size:13px;
+
+    transition:.18s;
+}
+
+.field input{
+    min-height:48px;
+}
+
+.field input:focus,
+.field textarea:focus{
+    border-color:#f97316;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(249,115,22,.08);
+}
+
+.field textarea{
+    min-height:110px;
+
+    resize:vertical;
+
+    line-height:1.5;
+}
+
+
+/* =========================
+   TWO FIELDS
+========================= */
+
+.two-fields{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:10px;
+}
+
+
+/* =========================
+   COUNTER
+========================= */
+
+.counter{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    width:100%;
+
+    min-height:52px;
+
+    padding:5px;
+
+    border:
+        1.5px solid #dfe4ec;
+
+    border-radius:12px;
+
+    background:#f8fafc;
+}
+
+.counter button{
+    width:40px;
+
+    height:40px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#fff;
+
+    color:#ea580c;
+
+    font-size:21px;
+
+    font-weight:950;
+
+    box-shadow:
+        0 2px 8px
+        rgba(15,23,42,.08);
+
+    transition:.15s;
+}
+
+.counter button:active{
+    transform:scale(.94);
+
+    background:#fff7ed;
+}
+
+.counter span{
+    min-width:80px;
+
+    text-align:center;
+
+    font-size:16px;
+
+    font-weight:950;
+
+    color:#111827;
+}
+
+
+/* =========================
+   DATE BUTTON
+========================= */
+
+.date-button{
+    width:100%;
+
+    min-height:49px;
+
+    padding:0 13px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border:
+        1.5px solid #dfe4ec;
+
+    border-radius:12px;
+
+    background:#fff;
+
+    color:#334155;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    transition:.18s;
+}
+
+.date-button:hover{
+    border-color:#fdba74;
+
+    background:#fffaf5;
+}
+
+.date-button span:last-child{
+    color:#f97316;
+
+    font-size:16px;
+
+    font-weight:900;
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview-box{
+    margin-top:2px;
+
+    padding:16px;
+
+    border:
+        1px solid #fed7aa;
+
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7ed,
+            #fff
+        );
+}
+
+.preview-label{
+    font-size:10px;
+
+    font-weight:950;
+
+    color:#64748b;
+
+    text-transform:uppercase;
+
+    letter-spacing:.6px;
+}
+
+.preview-title{
+    margin-top:7px;
+
+    font-size:20px;
+
+    font-weight:950;
+
+    color:#111827;
+}
+
+.preview-subtitle{
+    margin-top:5px;
+
+    color:#ea580c;
+
+    font-size:13px;
+
+    font-weight:900;
+}
+
+.preview-details{
+    margin-top:13px;
+
+    padding-top:12px;
+
+    border-top:
+        1px solid #e5e7eb;
+
+    font-size:13px;
+
+    line-height:1.8;
+
+    color:#334155;
+}
+
+
+/* =========================
+   POST BUTTON
+========================= */
+
+.post-btn{
+    width:100%;
+
+    min-height:50px;
+
+    margin-top:14px;
+
+    border:0;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f97316,
+            #ea580c
+        );
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:950;
+
+    box-shadow:
+        0 8px 20px
+        rgba(249,115,22,.20);
+
+    transition:.18s;
+}
+
+.post-btn:active{
+    transform:scale(.98);
+}
+
+.post-btn:disabled{
+    opacity:.55;
+
+    cursor:not-allowed;
+
+    box-shadow:none;
+}
+
+
+/* =========================
+   BOTTOM BAR
+========================= */
+
+.bottom{
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    z-index:90;
+
+    height:76px;
+
+    padding:
+        10px 13px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        rgba(255,255,255,.97);
+
+    border-top:
+        1px solid #e5e7eb;
+
+    backdrop-filter:blur(14px);
+}
+
+.bottom-btn{
+    width:100%;
+
+    max-width:430px;
+
+    min-height:48px;
+
+    border:0;
+
+    border-radius:14px;
+
+    background:#111827;
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:950;
+
+    box-shadow:
+        0 7px 18px
+        rgba(15,23,42,.16);
+
+    transition:.18s;
+}
+
+.bottom-btn:active{
+    transform:scale(.98);
+}
+
+
+/* =========================
+   LOGIN MODAL
+========================= */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    z-index:200;
+
+    display:none;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding:0;
+
+    background:
+        rgba(15,23,42,.58);
+
+    backdrop-filter:blur(4px);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+
+    max-width:520px;
+
+    padding:23px 20px;
+
+    border-radius:
+        24px 24px 0 0;
+
+    background:#fff;
+
+    box-shadow:
+        0 -12px 40px
+        rgba(15,23,42,.18);
+}
+
+.modal-title{
+    font-size:21px;
+
+    font-weight:950;
+
+    color:#111827;
+}
+
+.modal-text{
+    margin-top:7px;
+
+    color:#64748b;
+
+    font-size:13px;
+
+    line-height:1.55;
+}
+
+.modal-actions{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:9px;
+
+    margin-top:14px;
+}
+
+.modal-cancel,
+.modal-save{
+    height:45px;
+
+    border-radius:11px;
+
+    font-size:13px;
+
+    font-weight:900;
+}
+
+.modal-cancel{
+    border:
+        1px solid #e2e8f0;
+
+    background:#f8fafc;
+
+    color:#475569;
+}
+
+.modal-save{
+    border:0;
+
+    background:#f97316;
+
+    color:#fff;
+}
+
+
+/* =========================
+   DATE MODAL
+========================= */
+
+.date-modal{
+    position:fixed;
+
+    inset:0;
+
+    z-index:300;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding:0;
+
+    background:
+        rgba(15,23,42,.58);
+
+    backdrop-filter:blur(4px);
+}
+
+.date-box{
+    width:100%;
+
+    max-width:430px;
+
+    padding:19px;
+
+    border-radius:
+        24px 24px 0 0;
+
+    background:#fff;
+
+    box-shadow:
+        0 -12px 40px
+        rgba(15,23,42,.20);
+}
+
+.date-head{
+    display:grid;
+
+    grid-template-columns:
+        42px 1fr 42px;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+.month-btn{
+    width:40px;
+
+    height:40px;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:10px;
+
+    background:#fff;
+
+    font-size:22px;
+
+    color:#334155;
+}
+
+.month-title{
+    text-align:center;
+
+    font-size:16px;
+
+    font-weight:950;
+}
+
+.weekdays{
+    display:grid;
+
+    grid-template-columns:
+        repeat(7,1fr);
+
+    gap:4px;
+
+    margin-top:15px;
+}
+
+.weekday{
+    text-align:center;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    color:#94a3b8;
+}
+
+.calendar-days{
+    display:grid;
+
+    grid-template-columns:
+        repeat(7,1fr);
+
+    gap:4px;
+
+    margin-top:6px;
+}
+
+.day-btn{
+    height:40px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#fff;
+
+    color:#334155;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+.day-btn:hover{
+    background:#fff7ed;
+}
+
+.day-btn.today{
+    border:
+        1px solid #fdba74;
+
+    color:#ea580c;
+}
+
+.day-btn.selected{
+    background:#f97316;
+
+    color:#fff;
+}
+
+.date-actions{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:9px;
+
+    margin-top:16px;
+}
+
+.date-cancel,
+.date-ok{
+    height:45px;
+
+    border-radius:11px;
+
+    font-size:13px;
+
+    font-weight:900;
+}
+
+.date-cancel{
+    border:
+        1px solid #dbe3ef;
+
+    background:#f8fafc;
+
+    color:#475569;
+}
+
+.date-ok{
+    border:0;
+
+    background:#111827;
+
+    color:#fff;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:520px){
+
+    .hero{
+        padding:
+            22px 17px;
+    }
+
+    .hero h1{
+        font-size:24px;
+    }
+
+    .hero p{
+        font-size:12.5px;
+    }
+
+    .container{
+        padding:
+            12px 10px 30px;
+    }
+
+    .card{
+        padding:15px;
+
+        border-radius:16px;
+    }
+
+    .card-title{
+        font-size:17px;
+    }
+
+    .options{
+        gap:8px;
+    }
+
+    .option{
+        min-height:54px;
+
+        font-size:12.5px;
+    }
+
+    .two-fields{
+        grid-template-columns:1fr;
+    }
+
+    .bottom{
+        height:74px;
+    }
+
+}
+
+
+/* =========================
+   SMALL DEVICES
+========================= */
+
+@media(max-width:360px){
+
+    .option{
+        font-size:12px;
+
+        padding:
+            10px;
+    }
+
+    .hero h1{
+        font-size:22px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="topbar">
+
+<div class="brand">
+    <span class="brand-pyn">Pyn</span><span class="brand-code">code.in</span>
+</div>
+
+  <button
+  id="headerLoginBtn"
+  class="login-btn"
+  onclick="handleHeaderAction()">
+
+  Login
+
+  </button>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+  <div class="hero-inner">
+
+   
+
+    <h1>
+      Vehicle Requirement
+    </h1>
+
+    <p>
+      Tell us what vehicle you need.
+      Choose your requirement and
+      post it to Pyncode.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+  <div class="container">
+
+    <div id="formArea"></div>
+
+    <div id="previewArea"></div>
+
+  </div>
+
+</main>
+
+
+<!-- =========================
+     BOTTOM
+========================= -->
+
+<div class="bottom">
+
+  <button
+    class="bottom-btn"
+    onclick="scrollToForm()"
+  >
+    ＋ Add Requirement
+  </button>
+
+</div>
+
+
+<!-- =========================
+     LOGIN MODAL
+========================= -->
+
+<div
+  id="loginModal"
+  class="modal"
+  onclick="
+    if(event.target === this)
+    closeLogin()
+  "
+>
+
+  <div class="modal-box">
+
+    <div class="modal-title">
+      Login to Pyncode
+    </div>
+
+    <div class="modal-text">
+      Enter your mobile number to
+      post your vehicle requirement.
+    </div>
+
+    <div class="field">
+
+      <label>
+        Mobile Number
+      </label>
+
+      <input
+        id="loginMobile"
+        type="tel"
+        inputmode="numeric"
+        maxlength="10"
+        placeholder="10 digit mobile number"
+      >
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        class="modal-cancel"
+        onclick="closeLogin()"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="modal-save"
+        onclick="saveLogin()"
+      >
+        Continue
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+  "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+/* =========================
+   STATE
+========================= */
+
+const state = {
+
+  vehicle:"",
+  requirementType:"",
+
+  quantity:1,
+  members:"",
+
+  fromLocation:"",
+  toLocation:"",
+
+  requiredDate:"",
+
+  model:"",
+  purchaseLocation:"",
+
+  additional:""
+
+};
+
+
+let calendarDate =
+  new Date();
+
+let selectedCalendarDate =
+  null;
+
+
+/* =========================
+   HELPER
+========================= */
+
+function $(id){
+
+  return document.getElementById(id);
+
+}
+
+
+/* =========================
+   SCROLL
+========================= */
+
+function scrollToForm(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================
+   INITIAL
+========================= */
+
+renderVehicleSelection();
+
+
+/* =========================
+   VEHICLE SELECTION
+========================= */
+
+function renderVehicleSelection(){
+
+  $("formArea").innerHTML = `
+
+    <section class="card">
+
+      <div class="card-title">
+        What vehicle do you need?
+      </div>
+
+      <div class="card-subtitle">
+        Select one vehicle.
+      </div>
+
+      <div class="options">
+
+        ${option(
+          "Car",
+          "selectVehicle('Car')"
+        )}
+
+        ${option(
+          "Bike",
+          "selectVehicle('Bike')"
+        )}
+
+        ${option(
+          "Auto",
+          "selectVehicle('Auto')"
+        )}
+
+        ${option(
+          "Van",
+          "selectVehicle('Van')"
+        )}
+
+        ${option(
+          "Mini Bus",
+          "selectVehicle('Mini Bus')"
+        )}
+
+        ${option(
+          "Bus",
+          "selectVehicle('Bus')"
+        )}
+
+        ${option(
+          "Lorry",
+          "selectVehicle('Lorry')"
+        )}
+
+        ${option(
+          "Tempo",
+          "selectVehicle('Tempo')"
+        )}
+
+      </div>
+
+    </section>
+
+    <section
+      id="detailsArea"
+    ></section>
+
+  `;
+
+}
+
+
+function option(
+  text,
+  callback
+){
+
+  return `
+
+    <button
+      type="button"
+      class="option"
+      onclick="${callback}"
+    >
+      ${text}
+    </button>
+
+  `;
+
+}
+
+
+function selectVehicle(
+  vehicle
+){
+
+  state.vehicle =
+    vehicle;
+
+  state.requirementType =
+    "";
+
+  state.quantity =
+    1;
+
+  state.members =
+    "";
+
+  state.fromLocation =
+    "";
+
+  state.toLocation =
+    "";
+
+  state.requiredDate =
+    "";
+
+  state.model =
+    "";
+
+  state.purchaseLocation =
+    "";
+
+  state.additional =
+    "";
+
+
+  renderRequirementType();
+
+  updatePreview();
+
+}
+
+  /* =========================
+   REQUIREMENT TYPE
+========================= */
+
+function renderRequirementType(){
+
+  const area =
+    $("detailsArea");
+
+  area.innerHTML = `
+
+    <section class="card">
+
+      <div class="card-title">
+        What do you need?
+      </div>
+
+      <div class="card-subtitle">
+        Select your vehicle requirement.
+      </div>
+
+      <div class="options">
+
+        ${option(
+          "Rental",
+          "selectRequirement('Rental')"
+        )}
+
+        ${option(
+          "Purchase",
+          "selectRequirement('Purchase')"
+        )}
+
+        ${option(
+          "Vehicle with Driver",
+          "selectRequirement('Vehicle with Driver')"
+        )}
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+/* =========================
+   REQUIREMENT SELECT
+========================= */
+
+function selectRequirement(
+  requirement
+){
+
+  state.requirementType =
+    requirement;
+
+  state.quantity =
+    1;
+
+  state.members =
+    "";
+
+  state.fromLocation =
+    "";
+
+  state.toLocation =
+    "";
+
+  state.requiredDate =
+    "";
+
+  state.model =
+    "";
+
+  state.purchaseLocation =
+    "";
+
+  state.additional =
+    "";
+
+
+  renderDetails();
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   DETAILS
+========================= */
+
+function renderDetails(){
+
+  const area =
+    $("detailsArea");
+
+  let html = `
+
+    <section class="card">
+
+      <div class="card-title">
+        Requirement Details
+      </div>
+
+      <div class="card-subtitle">
+        Select the quantity you need.
+      </div>
+
+      <div class="field">
+
+        <label>
+          Vehicle Quantity
+        </label>
+
+        <div class="counter">
+
+          <button
+            type="button"
+            onclick="changeQuantity(-1)"
+          >
+            −
+          </button>
+
+          <span id="quantityValue">
+            ${state.quantity}
+          </span>
+
+          <button
+            type="button"
+            onclick="changeQuantity(1)"
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+  `;
+
+
+  if(
+    state.requirementType ===
+    "Rental"
+  ){
+
+    html += rentalDetails();
+
+  }
+
+
+  if(
+    state.requirementType ===
+    "Vehicle with Driver"
+  ){
+
+    html += driverDetails();
+
+  }
+
+
+  if(
+    state.requirementType ===
+    "Purchase"
+  ){
+
+    html += purchaseDetails();
+
+  }
+
+
+  html += `
+
+      <div class="field">
+
+        <label>
+          Additional Requirement
+        </label>
+
+        <textarea
+          id="additionalInput"
+          placeholder="Anything else you need?"
+          oninput="
+            state.additional=this.value;
+            updatePreview()
+          "
+        >${escapeHtml(
+          state.additional
+        )}</textarea>
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  area.innerHTML =
+    html;
+
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   RENTAL DETAILS
+========================= */
+
+function rentalDetails(){
+
+  return `
+
+    <div class="field">
+
+      <label>
+        Number of Members
+      </label>
+
+      <div class="counter">
+
+        <button
+          type="button"
+          onclick="changeMembers(-1)"
+        >
+          −
+        </button>
+
+        <span id="membersValue">
+          ${state.members || 1}
+        </span>
+
+        <button
+          type="button"
+          onclick="changeMembers(1)"
+        >
+          +
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="two-fields">
+
+      <div class="field">
+
+        <label>
+          From Location
+        </label>
+
+        <input
+          id="fromInput"
+          type="text"
+          placeholder="Starting place"
+          value="${escapeHtml(
+            state.fromLocation
+          )}"
+          oninput="
+            state.fromLocation=this.value;
+            updatePreview()
+          "
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          To Location
+        </label>
+
+        <input
+          id="toInput"
+          type="text"
+          placeholder="Destination"
+          value="${escapeHtml(
+            state.toLocation
+          )}"
+          oninput="
+            state.toLocation=this.value;
+            updatePreview()
+          "
+        >
+
+      </div>
+
+    </div>
+
+
+    ${dateField()}
+
+  `;
+
+}
+
+
+/* =========================
+   DRIVER DETAILS
+========================= */
+
+function driverDetails(){
+
+  return `
+
+    <div class="field">
+
+      <label>
+        Number of Members
+      </label>
+
+      <div class="counter">
+
+        <button
+          type="button"
+          onclick="changeMembers(-1)"
+        >
+          −
+        </button>
+
+        <span id="membersValue">
+          ${state.members || 1}
+        </span>
+
+        <button
+          type="button"
+          onclick="changeMembers(1)"
+        >
+          +
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="two-fields">
+
+      <div class="field">
+
+        <label>
+          From Location
+        </label>
+
+        <input
+          id="fromInput"
+          type="text"
+          placeholder="Starting place"
+          value="${escapeHtml(
+            state.fromLocation
+          )}"
+          oninput="
+            state.fromLocation=this.value;
+            updatePreview()
+          "
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          To Location
+        </label>
+
+        <input
+          id="toInput"
+          type="text"
+          placeholder="Destination"
+          value="${escapeHtml(
+            state.toLocation
+          )}"
+          oninput="
+            state.toLocation=this.value;
+            updatePreview()
+          "
+        >
+
+      </div>
+
+    </div>
+
+
+    ${dateField()}
+
+  `;
+
+}
+
+
+/* =========================
+   PURCHASE DETAILS
+========================= */
+
+function purchaseDetails(){
+
+  return `
+
+    <div class="field">
+
+      <label>
+        Preferred Model / Requirement
+      </label>
+
+      <input
+        id="modelInput"
+        type="text"
+        placeholder="Example: Swift, Innova, Activa..."
+        value="${escapeHtml(
+          state.model
+        )}"
+        oninput="
+          state.model=this.value;
+          updatePreview()
+        "
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Preferred Location
+      </label>
+
+      <input
+        id="purchaseLocationInput"
+        type="text"
+        placeholder="Area / City"
+        value="${escapeHtml(
+          state.purchaseLocation
+        )}"
+        oninput="
+          state.purchaseLocation=this.value;
+          updatePreview()
+        "
+      >
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   DATE FIELD
+========================= */
+
+function dateField(){
+
+  return `
+
+    <div class="field">
+
+      <label>
+        Required Date
+      </label>
+
+      <button
+        type="button"
+        class="date-button"
+        onclick="openDatePicker()"
+      >
+
+        <span>
+
+          ${
+            state.requiredDate
+            ? formatDisplayDate(
+                state.requiredDate
+              )
+            : "Select required date"
+          }
+
+        </span>
+
+        <span>
+          📅
+        </span>
+
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================
+   QUANTITY
+========================= */
+
+function changeQuantity(
+  amount
+){
+
+  state.quantity +=
+    amount;
+
+
+  if(
+    state.quantity < 1
+  ){
+
+    state.quantity = 1;
+
+  }
+
+
+  if(
+    state.quantity > 100
+  ){
+
+    state.quantity = 100;
+
+  }
+
+
+  const element =
+    $("quantityValue");
+
+
+  if(element){
+
+    element.textContent =
+      state.quantity;
+
+  }
+
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   MEMBERS
+========================= */
+
+function changeMembers(
+  amount
+){
+
+  let current =
+    Number(
+      state.members || 1
+    );
+
+
+  current +=
+    amount;
+
+
+  if(current < 1){
+
+    current = 1;
+
+  }
+
+
+  if(current > 1000){
+
+    current = 1000;
+
+  }
+
+
+  state.members =
+    String(current);
+
+
+  const element =
+    $("membersValue");
+
+
+  if(element){
+
+    element.textContent =
+      state.members;
+
+  }
+
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   PREVIEW AREA
+========================= */
+
+function updatePreview(){
+
+  const area =
+    $("previewArea");
+
+
+  if(
+    !state.vehicle ||
+    !state.requirementType
+  ){
+
+    area.innerHTML =
+      "";
+
+    return;
+
+  }
+
+
+  let details = [];
+
+
+  details.push(
+    "Vehicle: " +
+    state.vehicle
+  );
+
+
+  details.push(
+    "Requirement: " +
+    state.requirementType
+  );
+
+
+  details.push(
+    "Quantity: " +
+    state.quantity
+  );
+
+
+  if(state.members){
+
+    details.push(
+      "Members: " +
+      state.members
+    );
+
+  }
+
+
+  if(state.fromLocation){
+
+    details.push(
+      "From: " +
+      state.fromLocation
+    );
+
+  }
+
+
+  if(state.toLocation){
+
+    details.push(
+      "To: " +
+      state.toLocation
+    );
+
+  }
+
+
+  if(state.model){
+
+    details.push(
+      "Preferred Model: " +
+      state.model
+    );
+
+  }
+
+
+  if(state.purchaseLocation){
+
+    details.push(
+      "Preferred Location: " +
+      state.purchaseLocation
+    );
+
+  }
+
+
+  area.innerHTML = `
+
+    <section class="card">
+
+      <div class="preview-box">
+
+        <div class="preview-label">
+          Vehicle Requirement
+        </div>
+
+        <div class="preview-title">
+          ${escapeHtml(
+            state.vehicle
+          )}
+        </div>
+
+        <div class="preview-subtitle">
+          ${escapeHtml(
+            state.requirementType
+          )}
+        </div>
+
+        <div class="preview-details">
+
+          ${details
+            .map(
+              item =>
+                "✓ " +
+                escapeHtml(item)
+            )
+            .join("<br>")
+          }
+
+          ${
+            state.requiredDate
+            ? `
+              <div
+                style="
+                  margin-top:8px;
+                "
+              >
+                ✓ Date:
+                ${escapeHtml(
+                  formatDisplayDate(
+                    state.requiredDate
+                  )
+                )}
+              </div>
+            `
+            : ""
+          }
+
+          ${
+            state.additional
+            ? `
+              <div
+                style="
+                  margin-top:8px;
+                "
+              >
+                ✓ Additional:
+                ${escapeHtml(
+                  state.additional
+                )}
+              </div>
+            `
+            : ""
+          }
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="post-btn"
+        onclick="preparePost()"
+      >
+        Post My Requirement
+      </button>
+
+    </section>
+
+  `;
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHtml(
+  value
+){
+
+  return String(
+    value || ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+  /* =========================
+   DATE PICKER
+========================= */
+
+function openDatePicker(){
+
+  const existing =
+    document.getElementById(
+      "dateModal"
+    );
+
+  if(existing){
+
+    existing.remove();
+
+  }
+
+
+  const today =
+    new Date();
+
+
+  calendarDate =
+    new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      1
+    );
+
+
+  if(state.requiredDate){
+
+    selectedCalendarDate =
+      new Date(
+        state.requiredDate +
+        "T00:00:00"
+      );
+
+    calendarDate =
+      new Date(
+        selectedCalendarDate.getFullYear(),
+        selectedCalendarDate.getMonth(),
+        1
+      );
+
+  }
+
+  else{
+
+    selectedCalendarDate =
+      null;
+
+  }
+
+
+  renderDateModal();
+
+}
+
+
+/* =========================
+   DATE MODAL
+========================= */
+
+function renderDateModal(){
+
+  const year =
+    calendarDate.getFullYear();
+
+  const month =
+    calendarDate.getMonth();
+
+
+  const monthName =
+    calendarDate.toLocaleString(
+      "en-US",
+      {
+        month:"long"
+      }
+    );
+
+
+  const firstDay =
+    new Date(
+      year,
+      month,
+      1
+    ).getDay();
+
+
+  const daysInMonth =
+    new Date(
+      year,
+      month + 1,
+      0
+    ).getDate();
+
+
+  let daysHtml = "";
+
+
+  for(
+    let i = 0;
+    i < firstDay;
+    i++
+  ){
+
+    daysHtml += `
+
+      <div
+        style="
+          height:40px;
+        "
+      ></div>
+
+    `;
+
+  }
+
+
+  const today =
+    new Date();
+
+
+  for(
+    let day = 1;
+    day <= daysInMonth;
+    day++
+  ){
+
+    const selected =
+      selectedCalendarDate &&
+      selectedCalendarDate.getFullYear()
+        === year &&
+      selectedCalendarDate.getMonth()
+        === month &&
+      selectedCalendarDate.getDate()
+        === day;
+
+
+    const isToday =
+      today.getFullYear()
+        === year &&
+      today.getMonth()
+        === month &&
+      today.getDate()
+        === day;
+
+
+    daysHtml += `
+
+      <button
+        type="button"
+        class="
+          day-btn
+          ${selected ? "selected" : ""}
+          ${isToday && !selected ? "today" : ""}
+        "
+        onclick="
+          selectCalendarDay(${day})
+        "
+      >
+        ${day}
+      </button>
+
+    `;
+
+  }
+
+
+  const modal =
+    document.createElement(
+      "div"
+    );
+
+
+  modal.id =
+    "dateModal";
+
+  modal.className =
+    "date-modal";
+
+
+  modal.innerHTML = `
+
+    <div class="date-box">
+
+      <div class="date-head">
+
+        <button
+          type="button"
+          class="month-btn"
+          onclick="
+            changeCalendarMonth(-1)
+          "
+        >
+          ‹
+        </button>
+
+
+        <div class="month-title">
+
+          ${monthName}
+          ${year}
+
+        </div>
+
+
+        <button
+          type="button"
+          class="month-btn"
+          onclick="
+            changeCalendarMonth(1)
+          "
+        >
+          ›
+        </button>
+
+      </div>
+
+
+      <div class="weekdays">
+
+        <div class="weekday">
+          SUN
+        </div>
+
+        <div class="weekday">
+          MON
+        </div>
+
+        <div class="weekday">
+          TUE
+        </div>
+
+        <div class="weekday">
+          WED
+        </div>
+
+        <div class="weekday">
+          THU
+        </div>
+
+        <div class="weekday">
+          FRI
+        </div>
+
+        <div class="weekday">
+          SAT
+        </div>
+
+      </div>
+
+
+      <div class="calendar-days">
+
+        ${daysHtml}
+
+      </div>
+
+
+      <div class="date-actions">
+
+        <button
+          type="button"
+          class="date-cancel"
+          onclick="
+            closeDatePicker()
+          "
+        >
+          Cancel
+        </button>
+
+
+        <button
+          type="button"
+          class="date-ok"
+          onclick="
+            confirmDate()
+          "
+        >
+          OK
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document.body.appendChild(
+    modal
+  );
+
+}
+
+
+/* =========================
+   MONTH CHANGE
+========================= */
+
+function changeCalendarMonth(
+  direction
+){
+
+  calendarDate.setMonth(
+    calendarDate.getMonth() +
+    direction
+  );
+
+
+  renderDateModal();
+
+}
+
+
+/* =========================
+   SELECT DAY
+========================= */
+
+function selectCalendarDay(
+  day
+){
+
+  selectedCalendarDate =
+    new Date(
+      calendarDate.getFullYear(),
+      calendarDate.getMonth(),
+      day
+    );
+
+
+  renderDateModal();
+
+}
+
+
+/* =========================
+   CONFIRM DATE
+========================= */
+
+function confirmDate(){
+
+  if(!selectedCalendarDate){
+
+    alert(
+      "Please select a date."
+    );
+
+    return;
+
+  }
+
+
+  const year =
+    selectedCalendarDate
+      .getFullYear();
+
+
+  const month =
+    String(
+      selectedCalendarDate
+        .getMonth() + 1
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  const day =
+    String(
+      selectedCalendarDate
+        .getDate()
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  state.requiredDate =
+    `${year}-${month}-${day}`;
+
+
+  closeDatePicker();
+
+
+  renderDetails();
+
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   CLOSE DATE
+========================= */
+
+function closeDatePicker(){
+
+  const modal =
+    document.getElementById(
+      "dateModal"
+    );
+
+
+  if(modal){
+
+    modal.remove();
+
+  }
+
+}
+
+
+/* =========================
+   DISPLAY DATE
+========================= */
+
+function formatDisplayDate(
+  dateString
+){
+
+  if(!dateString){
+
+    return "";
+
+  }
+
+
+  const parts =
+    dateString.split("-");
+
+
+  if(parts.length !== 3){
+
+    return dateString;
+
+  }
+
+
+  const year =
+    parts[0];
+
+  const month =
+    parts[1];
+
+  const day =
+    parts[2];
+
+
+  return (
+    day +
+    "/" +
+    month +
+    "/" +
+    year
+  );
+
+}
+
+
+/* =========================
+   VALIDATION
+========================= */
+
+function validateRequirement(){
+
+  if(!state.vehicle){
+
+    alert(
+      "Please select a vehicle."
+    );
+
+    return false;
+
+  }
+
+
+  if(!state.requirementType){
+
+    alert(
+      "Please select what you need."
+    );
+
+    return false;
+
+  }
+
+
+  if(
+    !state.quantity ||
+    Number(state.quantity) < 1
+  ){
+
+    alert(
+      "Please select vehicle quantity."
+    );
+
+    return false;
+
+  }
+
+
+  if(
+    state.requirementType ===
+    "Rental" ||
+    state.requirementType ===
+    "Vehicle with Driver"
+  ){
+
+    if(
+      !state.members ||
+      Number(state.members) < 1
+    ){
+
+      alert(
+        "Please select number of members."
+      );
+
+      return false;
+
+    }
+
+
+    if(
+      !state.fromLocation.trim()
+    ){
+
+      alert(
+        "Please enter the From location."
+      );
+
+      return false;
+
+    }
+
+
+    if(
+      !state.toLocation.trim()
+    ){
+
+      alert(
+        "Please enter the To location."
+      );
+
+      return false;
+
+    }
+
+
+    if(
+      !state.requiredDate
+    ){
+
+      alert(
+        "Please select the required date."
+      );
+
+      return false;
+
+    }
+
+  }
+
+
+  return true;
+
+}
+
+
+/* =========================
+   PREPARE POST
+========================= */
+
+function preparePost(){
+
+  if(
+    !validateRequirement()
+  ){
+
+    return;
+
+  }
+
+
+  const savedMobile =
+    localStorage.getItem(
+      "pyncode_mobile"
+    );
+
+
+  if(!savedMobile){
+
+    openLogin();
+
+    return;
+
+  }
+
+
+  submitRequirement(
+    savedMobile
+  );
+
+}
+/* =========================
+   LOGIN
+========================= */
+
+function openLogin(){
+
+  const modal =
+    $("loginModal");
+
+  if(modal){
+
+    modal.classList.add(
+      "show"
+    );
+
+  }
+
+
+  const input =
+    $("loginMobile");
+
+  if(input){
+
+    setTimeout(
+      function(){
+
+        input.focus();
+
+      },
+      150
+    );
+
+  }
+
+}
+
+
+/* =========================
+   CLOSE LOGIN
+========================= */
+
+function closeLogin(){
+
+  const modal =
+    $("loginModal");
+
+  if(modal){
+
+    modal.classList.remove(
+      "show"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SAVE LOGIN
+========================= */
+
+function saveLogin(){
+
+  const input =
+    $("loginMobile");
+
+  if(!input){
+
+    return;
+
+  }
+
+
+  const mobile =
+    input.value.trim();
+
+
+  if(
+    !/^[6-9]\d{9}$/.test(
+      mobile
+    )
+  ){
+
+    alert(
+      "Please enter a valid 10 digit mobile number."
+    );
+
+    input.focus();
+
+    return;
+
+  }
+
+
+  localStorage.setItem(
+    "pyncode_mobile",
+    mobile
+  );
+
+
+  closeLogin();
+
+
+  submitRequirement(
+    mobile
+  );
+
+}
+
+
+/* =========================
+   SUBMIT REQUIREMENT
+========================= */
+
+async function submitRequirement(
+  mobile
+){
+
+  if(
+    !validateRequirement()
+  ){
+
+    return;
+
+  }
+
+
+  if(!mobile){
+
+    openLogin();
+
+    return;
+
+  }
+
+
+  const payload = {
+
+    mobile:
+      mobile,
+
+    category:
+      "vehicles",
+
+    location:
+      buildLocation(),
+
+    title:
+      buildTitle(),
+
+    description:
+      buildDescription(),
+
+    required_date:
+      state.requiredDate ||
+      null,
+
+    quantity:
+      buildQuantity()
+
+  };
+
+
+  const postButton =
+    document.querySelector(
+      ".post-btn"
+    );
+
+
+  if(postButton){
+
+    postButton.disabled =
+      true;
+
+    postButton.textContent =
+      "Posting...";
+
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+
+        SUPABASE_URL +
+        "/rest/v1/requirements",
+
+        {
+
+          method:"POST",
+
+          headers:{
+
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " +
+              SUPABASE_KEY,
+
+            "Content-Type":
+              "application/json",
+
+            "Prefer":
+              "return=minimal"
+
+          },
+
+          body:
+            JSON.stringify(
+              payload
+            )
+
+        }
+
+      );
+
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+
+      console.error(
+        "Supabase error:",
+        errorText
+      );
+
+
+      throw new Error(
+        errorText ||
+        "Post failed"
+      );
+
+    }
+
+
+    alert(
+      "Requirement posted successfully!"
+    );
+
+
+    window.location.href =
+      "enquiry.html";
+
+  }
+
+
+  catch(error){
+
+    console.error(
+      error
+    );
+
+
+    alert(
+      "Could not post requirement. Please try again."
+    );
+
+
+    if(postButton){
+
+      postButton.disabled =
+        false;
+
+      postButton.textContent =
+        "Post My Requirement";
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   BUILD LOCATION
+========================= */
+
+function buildLocation(){
+
+  if(
+    state.fromLocation &&
+    state.toLocation
+  ){
+
+    return (
+      state.fromLocation.trim() +
+      " → " +
+      state.toLocation.trim()
+    );
+
+  }
+
+
+  if(
+    state.purchaseLocation
+  ){
+
+    return (
+      state.purchaseLocation.trim()
+    );
+
+  }
+
+
+  return "Not specified";
+
+}
+
+
+/* =========================
+   BUILD TITLE
+========================= */
+
+function buildTitle(){
+
+  let title =
+    state.vehicle;
+
+
+  if(
+    state.requirementType
+  ){
+
+    title +=
+      " - " +
+      state.requirementType;
+
+  }
+
+
+  return title;
+
+}
+
+
+/* =========================
+   BUILD QUANTITY
+========================= */
+
+function buildQuantity(){
+
+  let value =
+    "Vehicle: " +
+    String(
+      state.quantity || 1
+    );
+
+
+  if(
+    state.members
+  ){
+
+    value +=
+      " | Members: " +
+      String(
+        state.members
+      );
+
+  }
+
+
+  return value;
+
+}
+
+
+/* =========================
+   BUILD DESCRIPTION
+========================= */
+
+function buildDescription(){
+
+  const lines = [];
+
+
+  lines.push(
+    "Vehicle: " +
+    state.vehicle
+  );
+
+
+  lines.push(
+    "Requirement: " +
+    state.requirementType
+  );
+
+
+  lines.push(
+    "Vehicle Quantity: " +
+    state.quantity
+  );
+
+
+  if(
+    state.members
+  ){
+
+    lines.push(
+      "Members: " +
+      state.members
+    );
+
+  }
+
+
+  if(
+    state.fromLocation
+  ){
+
+    lines.push(
+      "From Location: " +
+      state.fromLocation
+    );
+
+  }
+
+
+  if(
+    state.toLocation
+  ){
+
+    lines.push(
+      "To Location: " +
+      state.toLocation
+    );
+
+  }
+
+
+  if(
+    state.model
+  ){
+
+    lines.push(
+      "Preferred Model / Requirement: " +
+      state.model
+    );
+
+  }
+
+
+  if(
+    state.purchaseLocation
+  ){
+
+    lines.push(
+      "Preferred Location: " +
+      state.purchaseLocation
+    );
+
+  }
+
+
+  if(
+    state.requiredDate
+  ){
+
+    lines.push(
+      "Required Date: " +
+      formatDisplayDate(
+        state.requiredDate
+      )
+    );
+
+  }
+
+
+  if(
+    state.additional.trim()
+  ){
+
+    lines.push(
+      "Additional Requirement: " +
+      state.additional.trim()
+    );
+
+  }
+
+
+  return lines.join(
+    "\n"
+  );
+
+}
+
+  /* =========================
+   LOGIN KEYBOARD SUPPORT
+========================= */
+
+const loginMobileInput =
+  document.getElementById(
+    "loginMobile"
+  );
+
+
+if(loginMobileInput){
+
+  loginMobileInput.addEventListener(
+    "keydown",
+    function(event){
+
+      if(
+        event.key === "Enter"
+      ){
+
+        saveLogin();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   RESTORE SAVED MOBILE
+========================= */
+
+const savedMobile =
+  localStorage.getItem(
+    "pyncode_mobile"
+  );
+
+
+if(savedMobile){
+
+  const input =
+    $("loginMobile");
+
+
+  if(input){
+
+    input.value =
+      savedMobile;
+
+  }
+
+}
+
+
+/* =========================
+   LOGIN MODAL OUTSIDE CLICK
+========================= */
+
+const loginModal =
+  document.getElementById(
+    "loginModal"
+  );
+
+
+if(loginModal){
+
+  loginModal.addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target ===
+        loginModal
+      ){
+
+        closeLogin();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   DATE MODAL OUTSIDE CLICK
+========================= */
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    const modal =
+      document.getElementById(
+        "dateModal"
+      );
+
+
+    if(
+      modal &&
+      event.target === modal
+    ){
+
+      closeDatePicker();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   MOBILE NUMBER INPUT
+========================= */
+
+if(loginMobileInput){
+
+  loginMobileInput.addEventListener(
+    "input",
+    function(){
+
+      this.value =
+        this.value
+          .replace(
+            /\D/g,
+            ""
+          )
+          .slice(
+            0,
+            10
+          );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   INITIAL PAGE STATE
+========================= */
+
+function initializePage(){
+
+  state.vehicle =
+    "";
+
+  state.requirementType =
+    "";
+
+  state.quantity =
+    1;
+
+  state.members =
+    "";
+
+  state.fromLocation =
+    "";
+
+  state.toLocation =
+    "";
+
+  state.requiredDate =
+    "";
+
+  state.model =
+    "";
+
+  state.purchaseLocation =
+    "";
+
+  state.additional =
+    "";
+
+
+  renderVehicleSelection();
+
+
+  updatePreview();
+
+}
+
+
+/* =========================
+   START PAGE
+========================= */
+
+initializePage();
+
+  /* =========================
+   PAGE READY CHECK
+========================= */
+
+window.addEventListener(
+  "load",
+  function(){
+
+    updatePreview();
+
+  }
+);
+
+
+/* =========================
+   PREVENT DOUBLE SUBMIT
+========================= */
+
+let isPosting =
+  false;
+
+
+async function safeSubmitRequirement(
+  mobile
+){
+
+  if(isPosting){
+
+    return;
+
+  }
+
+
+  isPosting =
+    true;
+
+
+  try{
+
+    await submitRequirement(
+      mobile
+    );
+
+  }
+
+  finally{
+
+    isPosting =
+      false;
+
+  }
+
+}
+
+
+/* =========================
+   IMPROVED PREPARE POST
+========================= */
+
+function handlePost(){
+
+  if(
+    !validateRequirement()
+  ){
+
+    return;
+
+  }
+
+
+  const mobile =
+    localStorage.getItem(
+      "pyncode_mobile"
+    );
+
+
+  if(!mobile){
+
+    openLogin();
+
+    return;
+
+  }
+
+
+  safeSubmitRequirement(
+    mobile
+  );
+
+}
+
+
+/* =========================
+   POST BUTTON CLICK
+========================= */
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    const button =
+      event.target.closest(
+        ".post-btn"
+      );
+
+
+    if(!button){
+
+      return;
+
+    }
+
+
+    event.preventDefault();
+
+
+    handlePost();
+
+  }
+);
+
+
+/* =========================
+   ENTER KEY FOR INPUTS
+========================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key !== "Enter"
+    ){
+
+      return;
+
+    }
+
+
+    if(
+      event.target.tagName ===
+      "TEXTAREA"
+    ){
+
+      return;
+
+    }
+
+
+    if(
+      event.target.id ===
+      "loginMobile"
+    ){
+
+      return;
+
+    }
+
+
+    const tag =
+      event.target.tagName;
+
+
+    if(
+      tag === "INPUT"
+    ){
+
+      event.preventDefault();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   PAGE VISIBILITY
+========================= */
+
+document.addEventListener(
+  "visibilitychange",
+  function(){
+
+    if(
+      !document.hidden
+    ){
+
+      updatePreview();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   RESTORE PAGE POSITION
+========================= */
+
+window.addEventListener(
+  "pageshow",
+  function(){
+
+    updatePreview();
+
+  }
+);
+
+  /* =========================
+   FINAL SAFETY CHECK
+========================= */
+
+if(
+  !document.getElementById(
+    "formArea"
+  )
+){
+
+  console.error(
+    "Pyncode Vehicles: formArea not found."
+  );
+
+}
+
+
+/* =========================
+   FINAL LOGIN CHECK
+========================= */
+
+if(
+  !document.getElementById(
+    "loginModal"
+  )
+){
+
+  console.error(
+    "Pyncode Vehicles: loginModal not found."
+  );
+
+}
+
+
+/* =========================
+   FINAL SUPABASE CHECK
+========================= */
+
+if(
+  !SUPABASE_URL ||
+  !SUPABASE_KEY
+){
+
+  console.error(
+    "Pyncode Vehicles: Supabase configuration missing."
+  );
+
+}
+
+
+/* =========================
+   UPDATE PREVIEW ON START
+========================= */
+
+setTimeout(
+  function(){
+
+    updatePreview();
+
+  },
+  50
+);
+
+
+/* =========================
+   DEBUG HELPER
+========================= */
+
+function getCurrentRequirement(){
+
+  return {
+
+    vehicle:
+      state.vehicle,
+
+    requirementType:
+      state.requirementType,
+
+    quantity:
+      state.quantity,
+
+    members:
+      state.members,
+
+    fromLocation:
+      state.fromLocation,
+
+    toLocation:
+      state.toLocation,
+
+    requiredDate:
+      state.requiredDate,
+
+    model:
+      state.model,
+
+    purchaseLocation:
+      state.purchaseLocation,
+
+    additional:
+      state.additional
+
+  };
+
+}
+
+
+/* =========================
+   PREVENT EMPTY SPACE
+========================= */
+
+window.addEventListener(
+  "resize",
+  function(){
+
+    updatePreview();
+
+  }
+);
+
+  /* =========================
+   END OF VEHICLES SCRIPT
+========================= */
+
+</script>
+
+</body>
+
+</html>
+  

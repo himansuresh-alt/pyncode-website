@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Pyncode - Provider Profile</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .header {
+            background: #111827;
+            color: white;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .logout-btn {
+            border: none;
+            background: #ef4444;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .title {
+            margin: 0 0 8px;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            margin: 0 0 25px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+            background: white;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .save-btn {
+            width: 100%;
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .save-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            margin-bottom: 18px;
+            padding: 12px 14px;
+            border-radius: 9px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .user-info {
+            margin-bottom: 20px;
+            padding: 12px 14px;
+            background: #f3f4f6;
+            border-radius: 9px;
+            font-size: 14px;
+            color: #4b5563;
+            word-break: break-word;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px 10px;
+            color: #6b7280;
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .container {
+                margin: 20px auto;
+            }
+
+            .card {
+                padding: 20px;
+                border-radius: 13px;
+            }
+
+            .title {
+                font-size: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <header class="header">
+
+        <div class="logo">
+            Pyncode
+        </div>
+
+        <button
+            class="logout-btn"
+            id="logoutBtn"
+        >
+            Logout
+        </button>
+
+    </header>
+
+
+    <main class="container">
+
+        <div class="card">
+
+            <h1 class="title">
+                Provider Profile
+            </h1>
+
+            <p class="subtitle">
+                Complete your business details to receive customer requirements and send proposals.
+            </p>
+
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+
+            <div
+                id="userInfo"
+                class="user-info"
+            >
+                Checking login...
+            </div>
+
+
+            <form id="profileForm">
+
+
+                <div class="form-group">
+
+                    <label for="businessName">
+                        Business Name <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="businessName"
+                        placeholder="Enter your business name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="ownerName">
+                        Owner / Contact Person Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="ownerName"
+                        placeholder="Enter owner name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="mobile">
+                        Mobile Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        placeholder="Enter mobile number"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="whatsapp">
+                        WhatsApp Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="whatsapp"
+                        placeholder="Enter WhatsApp number"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="category">
+                        Category
+                    </label>
+
+                    <input
+                        type="text"
+                        id="category"
+                        placeholder="Example: AC Service, Catering, Photography"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="serviceArea">
+                        Service Area
+                    </label>
+
+                    <input
+                        type="text"
+                        id="serviceArea"
+                        placeholder="Example: Chennai, Tambaram, Pallavaram"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="city">
+                        City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        placeholder="Enter city"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Business Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Tell customers about your business, services and experience..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                    id="saveBtn"
+                >
+                    Save Profile
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+<script>
+
+    /* ==========================================
+       SUPABASE CONFIG
+    ========================================== */
+
+    const SUPABASE_URL =
+        "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+    /* ==========================================
+       ELEMENTS
+    ========================================== */
+
+    const profileForm =
+        document.getElementById("profileForm");
+
+    const message =
+        document.getElementById("message");
+
+    const userInfo =
+        document.getElementById("userInfo");
+
+    const saveBtn =
+        document.getElementById("saveBtn");
+
+    const logoutBtn =
+        document.getElementById("logoutBtn");
+
+
+    /* ==========================================
+       GET URL RETURN PAGE
+    ========================================== */
+
+    const urlParams =
+        new URLSearchParams(window.location.search);
+
+    const returnUrl =
+        urlParams.get("return") || "enquiry.html";
+
+
+    /* ==========================================
+       MESSAGE
+    ========================================== */
+
+    function showMessage(text, type) {
+
+        message.textContent = text;
+
+        message.className =
+            "message " + type;
+
+    }
+
+
+    function clearMessage() {
+
+        message.textContent = "";
+
+        message.className = "message";
+
+    }
+
+
+    /* ==========================================
+       CURRENT USER
+    ========================================== */
+
+    let currentUser = null;
+
+    let existingProfile = null;
+
+
+    /* ==========================================
+       CHECK LOGIN
+    ========================================== */
+
+    async function checkLogin() {
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.getUser();
+
+
+        if (error || !data || !data.user) {
+
+            window.location.href =
+                "provider-login.html";
+
+            return;
+
+        }
+
+
+        currentUser =
+            data.user;
+
+
+        userInfo.textContent =
+            "Logged in as: " +
+            currentUser.email;
+
+
+        await loadProfile();
+
+    }
+
+
+    /* ==========================================
+       LOAD EXISTING PROFILE
+    ========================================== */
+
+    async function loadProfile() {
+
+        clearMessage();
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("provider_profiles")
+
+            .select("*")
+
+            .eq(
+                "auth_user_id",
+                currentUser.id
+            )
+
+            .maybeSingle();
+
+
+        if (error) {
+
+            console.error(
+                "Profile load error:",
+                error
+            );
+
+            showMessage(
+                "Unable to load your provider profile.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!data) {
+
+            existingProfile = null;
+
+            return;
+
+        }
+
+
+        existingProfile = data;
+
+
+        /* ======================================
+           FILL EXISTING DATA
+        ====================================== */
+
+        document.getElementById(
+            "businessName"
+        ).value =
+            data.business_name || "";
+
+
+        document.getElementById(
+            "ownerName"
+        ).value =
+            data.owner_name || "";
+
+
+        document.getElementById(
+            "mobile"
+        ).value =
+            data.mobile || "";
+
+
+        document.getElementById(
+            "whatsapp"
+        ).value =
+            data.whatsapp || "";
+
+
+        document.getElementById(
+            "category"
+        ).value =
+            data.category || "";
+
+
+        document.getElementById(
+            "serviceArea"
+        ).value =
+            data.service_area || "";
+
+
+        document.getElementById(
+            "city"
+        ).value =
+            data.city || "";
+
+
+        document.getElementById(
+            "description"
+        ).value =
+            data.description || "";
+
+
+        saveBtn.textContent =
+            "Update Profile";
+
+    }
+
+
+    /* ==========================================
+       SAVE / UPDATE PROFILE
+    ========================================== */
+
+    profileForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            clearMessage();
+
+
+            if (!currentUser) {
+
+                showMessage(
+                    "Please login again.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const businessName =
+                document
+                    .getElementById("businessName")
+                    .value
+                    .trim();
+
+
+            const ownerName =
+                document
+                    .getElementById("ownerName")
+                    .value
+                    .trim();
+
+
+            const mobile =
+                document
+                    .getElementById("mobile")
+                    .value
+                    .trim();
+
+
+            const whatsapp =
+                document
+                    .getElementById("whatsapp")
+                    .value
+                    .trim();
+
+
+            const category =
+                document
+                    .getElementById("category")
+                    .value
+                    .trim();
+
+
+            const serviceArea =
+                document
+                    .getElementById("serviceArea")
+                    .value
+                    .trim();
+
+
+            const city =
+                document
+                    .getElementById("city")
+                    .value
+                    .trim();
+
+
+            const description =
+                document
+                    .getElementById("description")
+                    .value
+                    .trim();
+
+
+            if (!businessName) {
+
+                showMessage(
+                    "Please enter your Business Name.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            saveBtn.disabled = true;
+
+            saveBtn.textContent =
+                "Saving...";
+
+
+            try {
+
+                const profileData = {
+
+                    auth_user_id:
+                        currentUser.id,
+
+                    business_name:
+                        businessName,
+
+                    owner_name:
+                        ownerName || null,
+
+                    mobile:
+                        mobile || null,
+
+                    whatsapp:
+                        whatsapp || null,
+
+                    category:
+                        category || null,
+
+                    service_area:
+                        serviceArea || null,
+
+                    city:
+                        city || null,
+
+                    description:
+                        description || null,
+
+                    active:
+                        true,
+
+                    updated_at:
+                        new Date().toISOString()
+
+                };
+
+
+                let result;
+
+
+                /* ==================================
+                   INSERT
+                ================================== */
+
+                if (!existingProfile) {
+
+                    result =
+                        await supabaseClient
+
+                            .from(
+                                "provider_profiles"
+                            )
+
+                            .insert(
+                                profileData
+                            )
+
+                            .select()
+
+                            .single();
+
+                }
+
+
+                /* ==================================
+                   UPDATE
+                ================================== */
+
+                else {
+
+                    result =
+                        await supabaseClient
+
+                            .from(
+                                "provider_profiles"
+                            )
+
+                            .update(
+                                profileData
+                            )
+
+                            .eq(
+                                "auth_user_id",
+                                currentUser.id
+                            )
+
+                            .select()
+
+                            .single();
+
+                }
+
+
+                if (result.error) {
+
+                    console.error(
+                        "Profile save error:",
+                        result.error
+                    );
+
+                    throw result.error;
+
+                }
+
+
+                existingProfile =
+                    result.data;
+
+
+                showMessage(
+                    "Provider profile saved successfully.",
+                    "success"
+                );
+
+
+                saveBtn.textContent =
+                    "Profile Saved";
+
+
+                /* ==================================
+                   RETURN TO PREVIOUS PAGE
+                ================================== */
+
+                setTimeout(
+                    function() {
+
+                        if (returnUrl) {
+
+                            window.location.href =
+                                returnUrl;
+
+                        }
+
+                    },
+                    1000
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                showMessage(
+                    error.message ||
+                    "Unable to save provider profile.",
+                    "error"
+                );
+
+
+                saveBtn.disabled = false;
+
+                saveBtn.textContent =
+                    existingProfile
+                        ? "Update Profile"
+                        : "Save Profile";
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       LOGOUT
+    ========================================== */
+
+    logoutBtn.addEventListener(
+        "click",
+        async function() {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+
+            if (error) {
+
+                showMessage(
+                    error.message,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            window.location.href =
+                "provider-login.html";
+
+        }
+    );
+
+
+    /* ==========================================
+       AUTH STATE LISTENER
+    ========================================== */
+
+    supabaseClient.auth.onAuthStateChange(
+        function(event, session) {
+
+            if (
+                event === "SIGNED_OUT" ||
+                !session
+            ) {
+
+                window.location.href =
+                    "provider-login.html";
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       START
+    ========================================== */
+
+    checkLogin();
+
+</script>
+
+
+</body>
+
+</html>

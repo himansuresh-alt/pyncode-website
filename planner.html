@@ -439,6 +439,216 @@
 
         }
 
+      /* =====================================================
+   FIXED BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:10px;
+    right:10px;
+    bottom:10px;
+
+    height:68px;
+
+    background:#151d30;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-around;
+
+    padding:6px;
+
+    z-index:9998;
+
+    box-shadow:
+        0 8px 28px
+        rgba(10,20,40,.20);
+
+}
+
+
+.bottom-nav-item{
+
+    flex:1;
+
+    min-width:0;
+
+    height:56px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    border-radius:18px;
+
+    text-decoration:none;
+
+    color:#aeb6c5;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    text-align:center;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .15s ease;
+
+}
+
+
+.bottom-nav-item .nav-icon{
+
+    font-size:20px;
+
+    line-height:1;
+
+}
+
+
+.bottom-nav-item .nav-label{
+
+    line-height:1.2;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    max-width:100%;
+
+}
+
+
+.bottom-nav-item.active{
+
+    background:#ffffff;
+
+    color:#151a28;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,.08);
+
+}
+
+
+.bottom-nav-item:active{
+
+    transform:scale(.95);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:700px){
+
+    .bottom-nav{
+
+        left:10px;
+        right:10px;
+        bottom:10px;
+
+        height:68px;
+
+        padding:6px;
+
+        border-radius:24px;
+
+    }
+
+
+    .bottom-nav-item{
+
+        height:56px;
+
+        font-size:9px;
+
+        border-radius:18px;
+
+        gap:4px;
+
+    }
+
+
+    .bottom-nav-item .nav-icon{
+
+        font-size:19px;
+
+    }
+
+
+    .bottom-nav-item .nav-label{
+
+        font-size:9px;
+
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media(max-width:380px){
+
+    .bottom-nav{
+
+        left:7px;
+        right:7px;
+        bottom:7px;
+
+        padding:5px;
+
+    }
+
+
+    .bottom-nav-item{
+
+        font-size:8px;
+
+        gap:3px;
+
+    }
+
+
+    .bottom-nav-item .nav-icon{
+
+        font-size:18px;
+
+    }
+
+
+    .bottom-nav-item .nav-label{
+
+        font-size:8px;
+
+    }
+
+}
+
     </style>
 
 </head>
@@ -913,112 +1123,112 @@
 
 
 
-    <!-- =========================================
-         FIXED BOTTOM NAVIGATION
-    ========================================== -->
+<!-- =====================================================
+     FIXED BOTTOM NAVIGATION
+===================================================== -->
 
-    <nav
-        class="fixed-navigation"
-        aria-label="Main navigation"
+<nav class="bottom-nav">
+
+    <a
+        href="shops.html"
+        class="bottom-nav-item"
     >
 
+        <span class="nav-icon">
+            🏬
+        </span>
 
-        <!-- SHOPS -->
+        <span class="nav-label">
+            Shops
+        </span>
 
-        <a
-            href="index.html"
-            class="nav-item"
-        >
-
-            <span class="nav-icon">
-                🏪
-            </span>
-
-            <span>
-                Shops
-            </span>
-
-        </a>
+    </a>
 
 
+    <a
+        href="services.html"
+        class="bottom-nav-item"
+    >
 
-        <!-- SERVICE -->
+        <span class="nav-icon">
+            🛠️
+        </span>
 
-        <a
-            href="service.html"
-            class="nav-item"
-        >
+        <span class="nav-label">
+            Services
+        </span>
 
-            <span class="nav-icon">
-                🛠️
-            </span>
-
-            <span>
-                Service
-            </span>
-
-        </a>
+    </a>
 
 
+<a
+    href="index.html"
+    class="bottom-nav-item"
+>
 
-        <!-- CATEGORY -->
+        <span class="nav-icon">
+            ▦
+        </span>
 
-        <a
-            href="category.html"
-            class="nav-item"
-        >
+        <span class="nav-label">
+            Category
+        </span>
 
-            <span class="nav-icon">
-                ▦
-            </span>
-
-            <span>
-                Category
-            </span>
-
-        </a>
+    </a>
 
 
+    <a
+        href="promotion.html"
+        class="bottom-nav-item"
+    >
 
-        <!-- PROMOTION -->
+        <span class="nav-icon">
+            📢
+        </span>
 
-        <a
-            href="promotion.html"
-            class="nav-item"
-        >
+        <span class="nav-label">
+            Promotion
+        </span>
 
-            <span class="nav-icon">
-                🎁
-            </span>
-
-            <span>
-                Promotion
-            </span>
-
-        </a>
+    </a>
 
 
+    <!-- PLANNER -->
 
-        <!-- PLANNER -->
+    <a
+    href="planner.html"
+    class="bottom-nav-item active"
+>
 
-        <a
-            href="planner.html"
-            class="nav-item active"
-        >
+        <span class="nav-icon">
+            📋
+        </span>
 
-            <span class="nav-icon">
-                📋
-            </span>
+        <span class="nav-label">
+            Planner
+        </span>
 
-            <span>
-                Planner
-            </span>
-
-        </a>
+    </a>
 
 
-    </nav>
+    <!-- PROVIDER ENQUIRY -->
 
+    <a
+        href="provider-enquiry.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            📨
+        </span>
+
+        <span class="nav-label">
+           Enquiry
+        </span>
+
+    </a>
+
+</nav>
 
 </div>
 

@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Pyncode - Provider Login</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fffaf5 0%,
+                    #f8fafc 48%,
+                    #f3f4f6 100%
+                );
+
+            color: #111827;
+
+            min-height: 100vh;
+        }
+
+
+        button,
+        input {
+            font: inherit;
+        }
+
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            height: 66px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-start;
+
+            padding: 0 20px;
+
+            background:
+                rgba(255,255,255,.94);
+
+            backdrop-filter:
+                blur(14px);
+
+            -webkit-backdrop-filter:
+                blur(14px);
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            box-shadow:
+                0 4px 18px
+                rgba(15,23,42,.04);
+        }
+
+
+        .logo {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            text-decoration: none;
+
+            font-size: 24px;
+
+            font-weight: 950;
+
+            letter-spacing: -.8px;
+
+            color: #111827;
+        }
+
+
+        .logo span {
+
+            color: #f97316;
+        }
+
+
+        /* =====================================================
+           PAGE
+        ===================================================== */
+
+        .page {
+
+            min-height:
+                calc(100vh - 66px);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding:
+                34px 16px 45px;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .page::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 330px;
+
+            height: 330px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(249,115,22,.10);
+
+            filter:
+                blur(60px);
+
+            top: -120px;
+
+            right: -120px;
+
+            pointer-events: none;
+        }
+
+
+        .page::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 260px;
+
+            height: 260px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(251,146,60,.07);
+
+            filter:
+                blur(60px);
+
+            bottom: -120px;
+
+            left: -100px;
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .card {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+
+            max-width: 450px;
+
+            background:
+                rgba(255,255,255,.97);
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 24px 60px
+                rgba(15,23,42,.10);
+
+            animation:
+                cardIn .35s ease;
+        }
+
+
+        @keyframes cardIn {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(12px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+        /* =====================================================
+           ICON
+        ===================================================== */
+
+        .icon {
+
+            width: 60px;
+
+            height: 60px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff7ed,
+                    #ffedd5
+                );
+
+            border:
+                1px solid #fed7aa;
+
+            color: #ea580c;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 27px;
+
+            margin-bottom: 19px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(249,115,22,.10);
+        }
+
+
+        /* =====================================================
+           HEADING
+        ===================================================== */
+
+        h1 {
+
+            font-size: 28px;
+
+            line-height: 1.15;
+
+            font-weight: 950;
+
+            letter-spacing: -.8px;
+
+            color: #111827;
+
+            margin-bottom: 8px;
+        }
+
+
+        .subtitle {
+
+            color: #64748b;
+
+            line-height: 1.6;
+
+            margin-bottom: 22px;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           PROVIDER NOTE
+        ===================================================== */
+
+        .provider-note {
+
+            position: relative;
+
+            background:
+                #fffaf5;
+
+            border:
+                1px solid #fed7aa;
+
+            padding:
+                13px 14px 13px 16px;
+
+            border-radius: 12px;
+
+            font-size: 12px;
+
+            color: #64748b;
+
+            line-height: 1.55;
+
+            margin-bottom: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .provider-note::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+
+            top: 0;
+
+            bottom: 0;
+
+            width: 4px;
+
+            background:
+                #f97316;
+        }
+
+
+        .provider-note strong {
+
+            color: #c2410c;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        .message {
+
+            display: none;
+
+            margin-bottom: 17px;
+
+            padding:
+                12px 13px;
+
+            border-radius: 11px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        .message.error {
+
+            display: block;
+
+            background: #fef2f2;
+
+            color: #b91c1c;
+
+            border:
+                1px solid #fecaca;
+        }
+
+
+        .message.success {
+
+            display: block;
+
+            background: #f0fdf4;
+
+            color: #15803d;
+
+            border:
+                1px solid #bbf7d0;
+        }
+
+
+        /* =====================================================
+           TABS
+        ===================================================== */
+
+        .tabs {
+
+            display: flex;
+
+            background:
+                #f1f5f9;
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 12px;
+
+            padding: 4px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .tab {
+
+            flex: 1;
+
+            border: none;
+
+            background: transparent;
+
+            padding: 11px 10px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-weight: 800;
+
+            font-size: 13px;
+
+            color: #64748b;
+
+            transition:
+                .2s ease;
+        }
+
+
+        .tab.active {
+
+            background: #ffffff;
+
+            color: #111827;
+
+            box-shadow:
+                0 3px 10px
+                rgba(15,23,42,.08);
+        }
+
+
+        .tab:active {
+
+            transform:
+                scale(.98);
+        }
+
+
+        /* =====================================================
+           FIELDS
+        ===================================================== */
+
+        .field {
+
+            margin-bottom: 16px;
+        }
+
+
+        label {
+
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding:
+                13px 14px;
+
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 11px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            color: #111827;
+
+            background: #ffffff;
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
+
+
+        input::placeholder {
+
+            color: #9ca3af;
+        }
+
+
+        input:hover {
+
+            border-color:
+                #c4cbd4;
+        }
+
+
+        input:focus {
+
+            border-color:
+                #f97316;
+
+            background:
+                #ffffff;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(249,115,22,.10);
+        }
+
+
+        /* =====================================================
+           MAIN BUTTON
+        ===================================================== */
+
+        .main-btn {
+
+            width: 100%;
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f97316,
+                    #ea580c
+                );
+
+            color: #ffffff;
+
+            padding: 14px;
+
+            border-radius: 11px;
+
+            font-size: 14px;
+
+            font-weight: 850;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+
+            box-shadow:
+                0 8px 18px
+                rgba(234,88,12,.20);
+
+            transition:
+                transform .15s ease,
+                box-shadow .15s ease,
+                opacity .15s ease;
+        }
+
+
+        .main-btn:hover {
+
+            box-shadow:
+                0 11px 24px
+                rgba(234,88,12,.26);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .main-btn:active {
+
+            transform:
+                translateY(0)
+                scale(.99);
+        }
+
+
+        .main-btn:disabled {
+
+            opacity: .65;
+
+            cursor:
+                not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        /* =====================================================
+           SMALL TEXT
+        ===================================================== */
+
+        .small-text {
+
+            text-align: center;
+
+            margin-top: 19px;
+
+            font-size: 12px;
+
+            color: #94a3b8;
+
+            line-height: 1.55;
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 480px) {
+
+            .topbar {
+
+                height: 62px;
+
+                padding:
+                    0 15px;
+            }
+
+
+            .logo {
+
+                font-size: 22px;
+            }
+
+
+            .page {
+
+                min-height:
+                    calc(100vh - 62px);
+
+                align-items:
+                    flex-start;
+
+                padding:
+                    22px 13px 35px;
+            }
+
+
+            .card {
+
+                padding:
+                    23px 18px;
+
+                border-radius:
+                    18px;
+            }
+
+
+            .icon {
+
+                width: 56px;
+
+                height: 56px;
+
+                border-radius: 15px;
+
+                font-size: 25px;
+            }
+
+
+            h1 {
+
+                font-size: 25px;
+            }
+
+
+            .subtitle {
+
+                font-size: 13px;
+
+                margin-bottom: 20px;
+            }
+
+
+            input {
+
+                padding:
+                    13px 13px;
+
+                font-size: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <header class="topbar">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            Pyn<span>code</span>
+        </a>
+
+    </header>
+
+
+    <main class="page">
+
+        <section class="card">
+
+            <div class="icon">
+                🏢
+            </div>
+
+
+            <h1>
+                Provider Account
+            </h1>
+
+
+            <p class="subtitle">
+                Login to respond to customer requirements
+                and send your proposal through Pyncode.
+            </p>
+
+
+            <div class="provider-note">
+
+                <strong>Provider account</strong><br>
+
+                This login is only for businesses and
+                service providers who want to respond
+                to customer requirements.
+
+            </div>
+
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+
+            <div class="tabs">
+
+                <button
+                    id="loginTab"
+                    class="tab active"
+                    onclick="showLogin()"
+                >
+                    Login
+                </button>
+
+
+                <button
+                    id="signupTab"
+                    class="tab"
+                    onclick="showSignup()"
+                >
+                    Create Account
+                </button>
+
+            </div>
+
+
+            <!-- LOGIN -->
+
+            <form
+                id="loginForm"
+                onsubmit="loginProvider(event)"
+            >
+
+                <div class="field">
+
+                    <label for="loginEmail">
+                        Email
+                    </label>
+
+                    <input
+                        id="loginEmail"
+                        type="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+                    <input
+                        id="loginPassword"
+                        type="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    id="loginButton"
+                    class="main-btn"
+                    type="submit"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <!-- SIGNUP -->
+
+            <form
+                id="signupForm"
+                onsubmit="createProviderAccount(event)"
+                style="display:none;"
+            >
+
+                <div class="field">
+
+                    <label for="signupName">
+                        Your Name
+                    </label>
+
+                    <input
+                        id="signupName"
+                        type="text"
+                        placeholder="Enter your name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="signupEmail">
+                        Email
+                    </label>
+
+                    <input
+                        id="signupEmail"
+                        type="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="signupPassword">
+                        Password
+                    </label>
+
+                    <input
+                        id="signupPassword"
+                        type="password"
+                        placeholder="Minimum 6 characters"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="signupConfirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        id="signupConfirmPassword"
+                        type="password"
+                        placeholder="Re-enter password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    id="signupButton"
+                    class="main-btn"
+                    type="submit"
+                >
+                    Create Provider Account
+                </button>
+
+            </form>
+
+
+            <div class="small-text">
+
+                Your provider account is separate from
+                the existing customer Name + Mobile login.
+
+            </div>
+
+        </section>
+
+    </main>
+
+  <script>
+
+
+/* =========================================================
+   PYNCODE PROVIDER AUTH
+   Existing customer login is NOT touched.
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   SUPABASE CONNECTION
+   --------------------------------------------------------- */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* ---------------------------------------------------------
+   ELEMENTS
+   --------------------------------------------------------- */
+
+const messageBox =
+    document.getElementById(
+        "message"
+    );
+
+
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
+
+
+const signupForm =
+    document.getElementById(
+        "signupForm"
+    );
+
+
+const loginTab =
+    document.getElementById(
+        "loginTab"
+    );
+
+
+const signupTab =
+    document.getElementById(
+        "signupTab"
+    );
+
+
+const loginButton =
+    document.getElementById(
+        "loginButton"
+    );
+
+
+const signupButton =
+    document.getElementById(
+        "signupButton"
+    );
+
+
+/* ---------------------------------------------------------
+   MESSAGE
+   --------------------------------------------------------- */
+
+function showMessage(
+    message,
+    type
+) {
+
+    messageBox.textContent =
+        message;
+
+
+    messageBox.className =
+        "message " + type;
+
+}
+
+
+function clearMessage() {
+
+    messageBox.textContent =
+        "";
+
+
+    messageBox.className =
+        "message";
+
+}
+
+
+/* ---------------------------------------------------------
+   TABS
+   --------------------------------------------------------- */
+
+function showLogin() {
+
+    clearMessage();
+
+
+    loginForm.style.display =
+        "block";
+
+
+    signupForm.style.display =
+        "none";
+
+
+    loginTab.classList.add(
+        "active"
+    );
+
+
+    signupTab.classList.remove(
+        "active"
+    );
+
+}
+
+
+function showSignup() {
+
+    clearMessage();
+
+
+    loginForm.style.display =
+        "none";
+
+
+    signupForm.style.display =
+        "block";
+
+
+    loginTab.classList.remove(
+        "active"
+    );
+
+
+    signupTab.classList.add(
+        "active"
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   GET RETURN PAGE
+   --------------------------------------------------------- */
+
+function getReturnPage() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const returnPage =
+        params.get("return");
+
+
+    /*
+       Allow a local HTML filename
+       and an optional query string.
+
+       Example:
+
+       provider-enquiry.html?requirement_id=7
+
+       External URLs are NOT allowed.
+    */
+
+    if (
+        returnPage &&
+        /^[a-zA-Z0-9_-]+\.html(?:\?[a-zA-Z0-9_=&.-]+)?$/
+            .test(returnPage)
+    ) {
+
+        return returnPage;
+
+    }
+
+
+    return "enquiry.html";
+
+}
+
+
+/* ---------------------------------------------------------
+   AFTER LOGIN
+   --------------------------------------------------------- */
+
+async function continueAfterLogin() {
+
+    const {
+        data: {
+            user
+        },
+        error
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    if (
+        error ||
+        !user
+    ) {
+
+        showMessage(
+            "Login session could not be verified. Please login again.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Provider profile is collected
+       on the next page.
+    */
+
+
+    const returnPage =
+        getReturnPage();
+
+
+    window.location.href =
+        "provider-profile.html?return=" +
+        encodeURIComponent(
+            returnPage
+        );
+
+}
+
+
+/* ---------------------------------------------------------
+   LOGIN
+   --------------------------------------------------------- */
+
+async function loginProvider(
+    event
+) {
+
+    event.preventDefault();
+
+
+    clearMessage();
+
+
+    const email =
+        document
+            .getElementById(
+                "loginEmail"
+            )
+            .value
+            .trim();
+
+
+    const password =
+        document
+            .getElementById(
+                "loginPassword"
+            )
+            .value;
+
+
+    if (
+        !email ||
+        !password
+    ) {
+
+        showMessage(
+            "Please enter email and password.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    loginButton.disabled =
+        true;
+
+
+    loginButton.textContent =
+        "Logging in...";
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .signInWithPassword({
+
+                    email: email,
+
+                    password: password
+
+                });
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        if (
+            !data ||
+            !data.user
+        ) {
+
+            throw new Error(
+                "Login session was not created."
+            );
+
+        }
+
+
+        await continueAfterLogin();
+
+
+    } catch (error) {
+
+        console.error(
+            "Provider login error:",
+            error
+        );
+
+
+        showMessage(
+            error.message ||
+            "Login failed. Please check your details.",
+            "error"
+        );
+
+
+    } finally {
+
+        loginButton.disabled =
+            false;
+
+
+        loginButton.textContent =
+            "Login";
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   CREATE ACCOUNT
+   --------------------------------------------------------- */
+
+async function createProviderAccount(
+    event
+) {
+
+    event.preventDefault();
+
+
+    clearMessage();
+
+
+    const name =
+        document
+            .getElementById(
+                "signupName"
+            )
+            .value
+            .trim();
+
+
+    const email =
+        document
+            .getElementById(
+                "signupEmail"
+            )
+            .value
+            .trim();
+
+
+    const password =
+        document
+            .getElementById(
+                "signupPassword"
+            )
+            .value;
+
+
+    const confirmPassword =
+        document
+            .getElementById(
+                "signupConfirmPassword"
+            )
+            .value;
+
+
+    if (!name) {
+
+        showMessage(
+            "Please enter your name.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!email) {
+
+        showMessage(
+            "Please enter your email.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        password.length < 6
+    ) {
+
+        showMessage(
+            "Password must contain at least 6 characters.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        password !==
+        confirmPassword
+    ) {
+
+        showMessage(
+            "Passwords do not match.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    signupButton.disabled =
+        true;
+
+
+    signupButton.textContent =
+        "Creating account...";
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .signUp({
+
+                    email: email,
+
+                    password: password,
+
+                    options: {
+
+                        data: {
+
+                            provider_name:
+                                name
+
+                        }
+
+                    }
+
+                });
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        /*
+           Supabase may require
+           email confirmation.
+
+           If session exists:
+           continue directly.
+
+           If no session:
+           ask user to confirm email.
+        */
+
+
+        if (
+            data &&
+            data.session
+        ) {
+
+            showMessage(
+                "Account created successfully.",
+                "success"
+            );
+
+
+            setTimeout(
+                continueAfterLogin,
+                700
+            );
+
+
+            return;
+
+        }
+
+
+        showMessage(
+            "Account created. Please check your email and confirm your email address. After confirmation, return here and login.",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Provider signup error:",
+            error
+        );
+
+
+        showMessage(
+            error.message ||
+            "Account creation failed. Please try again.",
+            "error"
+        );
+
+
+    } finally {
+
+        signupButton.disabled =
+            false;
+
+
+        signupButton.textContent =
+            "Create Provider Account";
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   EXISTING SESSION CHECK
+   ---------------------------------------------------------
+
+   If a provider is already authenticated,
+   don't force them to login again.
+   --------------------------------------------------------- */
+
+async function checkExistingSession() {
+
+    try {
+
+        const {
+            data: {
+                session
+            }
+        } =
+            await supabaseClient.auth
+                .getSession();
+
+
+        if (
+            session &&
+            session.user
+        ) {
+
+            /*
+               Do not automatically redirect.
+
+               Provider can continue using
+               this page normally.
+            */
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Session check error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   START
+   --------------------------------------------------------- */
+
+checkExistingSession();
+
+
+</script>
+
+
+</body>
+
+</html>

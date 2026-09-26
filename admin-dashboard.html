@@ -140,6 +140,10 @@
     background:#fff3e8;
       }
 
+      .enquiry-icon{
+    background:#fff0e8;
+      }
+
         .banner-icon{
             background:#f2eaff;
         }
@@ -443,6 +447,37 @@
 
 </div>
 
+      <!-- =========================
+     ENQUIRY FEED
+========================== -->
+
+<div
+    class="admin-card"
+    id="enquiryFeedCard"
+>
+
+    <div class="card-icon enquiry-icon">
+        📩
+    </div>
+
+    <h2>
+        Enquiry Feed
+    </h2>
+
+    <p>
+        View customer requirements posted
+        through Pyncode Connect and manage enquiries.
+    </p>
+
+    <button
+        type="button"
+        class="open-btn"
+    >
+        Manage Enquiries →
+    </button>
+
+</div>
+
 
 
         <!-- =========================
@@ -728,6 +763,21 @@ document
         }
     );
 
+/* =====================================================
+   ENQUIRY FEED
+===================================================== */
+
+document
+    .getElementById("enquiryFeedCard")
+    .addEventListener(
+        "click",
+        function(){
+
+            window.location.href =
+                "enquiry-admin.html";
+
+        }
+    );
 
 /* =====================================================
    BANNER MANAGER
