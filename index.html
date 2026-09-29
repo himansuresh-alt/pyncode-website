@@ -69,7 +69,7 @@ body{
 
     min-height:100vh;
 
-    padding-bottom:68px;
+    padding-bottom:90px;
 }
 
 
@@ -805,15 +805,23 @@ body{
         transform .15s ease;
 }
 
-
-.bottom-nav-item .nav-icon{
-    font-size:21px;
-
-    line-height:1;
+.bottom-nav-item{
+    flex:1;
+    height:56px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    border-radius:18px;
+    text-decoration:none;
+    color:#aeb6c5;
+    font-size:11px;
+    font-weight:800;
 }
 
-
 .bottom-nav-item .nav-label{
+    font-size:10px;
     line-height:1.2;
 }
 
@@ -1147,6 +1155,40 @@ body{
 
 .code-text{
     color:#151923;
+}
+
+  /* =====================================================
+   NEARBY SHOPS FLOATING BUTTON
+===================================================== */
+.nearby-shops-floating {
+    position: fixed;
+    right: 25px;
+    bottom: 88px;
+    z-index: 999;
+    height: 34px;
+    padding: 0 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: #ff6b00;
+    color: #ffffff;
+    border-radius: 18px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.14);
+    white-space: nowrap;
+    transition: 0.2s ease;
+}
+
+.nearby-shops-floating:hover {
+    transform: translateY(-1px);
+}
+
+.nearby-shops-icon {
+    font-size: 13px;
+    line-height: 1;
 }
 
 </style>
@@ -1708,6 +1750,19 @@ if(
 }
 
 </script>
+
+  <!-- =====================================================
+     NEARBY SHOPS FLOATING BUTTON
+===================================================== -->
+
+<a
+    href="nearby-shops.html"
+    class="nearby-shops-floating"
+    aria-label="Nearby Shops"
+>
+    <span class="nearby-shops-icon">📍</span>
+    <span>Nearby Shops</span>
+</a>
 
 
 </body>

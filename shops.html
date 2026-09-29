@@ -1509,43 +1509,55 @@ body{
 
 }
 
-  /* =====================================================
-   FIXED BOTTOM NAVIGATION — PYNCODE STYLE
+/* =====================================================
+   FIXED BOTTOM NAVIGATION
 ===================================================== */
 
 .bottom-nav{
+
     position:fixed;
 
-    left:10px;
-    right:10px;
+    left:50%;
     bottom:10px;
 
+    transform:translateX(-50%);
+
+    width:min(560px, calc(100% - 20px));
+
     height:68px;
-
-    background:#151d30;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:24px;
 
     display:flex;
 
     align-items:center;
-
     justify-content:space-around;
 
+    gap:4px;
+
     padding:6px;
+
+    background:rgba(21,29,48,.97);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:22px;
 
     z-index:9998;
 
     box-shadow:
-        0 8px 28px
-        rgba(10,20,40,.20);
+        0 10px 30px
+        rgba(10,20,40,.22);
+
+    backdrop-filter:blur(15px);
+
+    -webkit-backdrop-filter:blur(15px);
+
 }
 
-
 .bottom-nav-item{
+
     flex:1;
+
+    min-width:0;
 
     height:56px;
 
@@ -1554,84 +1566,106 @@ body{
     flex-direction:column;
 
     align-items:center;
-
     justify-content:center;
 
     gap:4px;
 
-    border-radius:18px;
+    border-radius:17px;
 
     text-decoration:none;
 
     color:#aeb6c5;
 
-    font-size:11px;
+    font-size:10px;
 
     font-weight:800;
+
+    line-height:1.1;
 
     transition:
         background .2s ease,
         color .2s ease,
         transform .15s ease;
-}
 
+}
 
 .bottom-nav-item .nav-icon{
-    font-size:21px;
+
+    font-size:20px;
 
     line-height:1;
-}
 
+}
 
 .bottom-nav-item .nav-label{
-    line-height:1.2;
+
+    white-space:nowrap;
+
 }
 
-
 .bottom-nav-item.active{
+
     background:#ffffff;
 
     color:#151a28;
 
     box-shadow:
         0 3px 10px
-        rgba(0,0,0,.08);
+        rgba(0,0,0,.12);
+
 }
 
-
 .bottom-nav-item:active{
+
     transform:scale(.95);
+
+}
+
+body{
+
+    padding-bottom:105px;
+
 }
 
 
 /* =====================================================
-   MOBILE
+   MOBILE BOTTOM NAV
 ===================================================== */
 
 @media(max-width:700px){
 
     .bottom-nav{
+
         left:10px;
-        right:10px;
+
         bottom:10px;
 
-        height:68px;
+        transform:none;
 
-        border-radius:24px;
+        width:calc(100% - 20px);
 
-        padding:6px;
+        height:64px;
+
+        border-radius:22px;
+
+        padding:5px;
+
     }
 
     .bottom-nav-item{
-        height:56px;
 
-        border-radius:18px;
+        height:54px;
 
-        font-size:10px;
+        border-radius:16px;
+
+        font-size:9px;
+
     }
 
     .bottom-nav-item .nav-icon{
-        font-size:21px;
+
+        font-size:19px;
+
     }
 
 }

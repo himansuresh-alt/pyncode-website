@@ -1275,31 +1275,49 @@ body{
 
     position:fixed;
 
-    left:0;
-    right:0;
-    bottom:0;
+    left:50%;
+    bottom:10px;
 
-    height:78px;
+    transform:translateX(-50%);
 
-    background:#fff;
+    width:min(560px, calc(100% - 20px));
 
-    border-top:
-        1px solid #e5e7eb;
+    height:68px;
 
     display:flex;
 
     align-items:center;
     justify-content:space-around;
 
-    padding:8px 10px;
+    gap:4px;
 
-    z-index:9999;
+    padding:6px;
+
+    background:rgba(21,29,48,.97);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:22px;
+
+    z-index:9998;
+
+    box-shadow:
+        0 10px 30px
+        rgba(10,20,40,.22);
+
+    backdrop-filter:blur(15px);
+
+    -webkit-backdrop-filter:blur(15px);
 
 }
 
 .bottom-nav-item{
 
     flex:1;
+
+    min-width:0;
+
+    height:56px;
 
     display:flex;
 
@@ -1310,73 +1328,105 @@ body{
 
     gap:4px;
 
+    border-radius:17px;
+
     text-decoration:none;
 
-    color:#777;
+    color:#aeb6c5;
 
-    min-width:0;
+    font-size:10px;
+
+    font-weight:800;
+
+    line-height:1.1;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .15s ease;
 
 }
 
-.nav-icon{
+.bottom-nav-item .nav-icon{
 
-    font-size:23px;
+    font-size:20px;
 
     line-height:1;
 
 }
 
-.nav-label{
+.bottom-nav-item .nav-label{
 
-    font-size:14px;
-
-    font-weight:600;
+    white-space:nowrap;
 
 }
 
 .bottom-nav-item.active{
 
-    color:#ef5b3f;
+    background:#ffffff;
+
+    color:#151a28;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0,0,0,.12);
+
+}
+
+.bottom-nav-item:active{
+
+    transform:scale(.95);
 
 }
 
 body{
 
-    padding-bottom:90px;
+    padding-bottom:105px;
 
 }
 
+
 /* =====================================================
-   MOBILE
+   MOBILE BOTTOM NAV
 ===================================================== */
 
 @media(max-width:700px){
 
-    .header{
+    .bottom-nav{
 
-        min-height:68px;
+        left:10px;
 
-        padding:
-            0 14px;
+        bottom:10px;
+
+        transform:none;
+
+        width:calc(100% - 20px);
+
+        height:64px;
+
+        border-radius:22px;
+
+        padding:5px;
+
+    }
+
+    .bottom-nav-item{
+
+        height:54px;
+
+        border-radius:16px;
+
+        font-size:9px;
 
     }
 
-    .logo{
+    .bottom-nav-item .nav-icon{
 
-        font-size:20px;
-
-    }
-
-    .logo-mark{
-
-        width:36px;
-        height:36px;
-
-        border-radius:11px;
-
-        font-size:18px;
+        font-size:19px;
 
     }
+
+}
 
     .header-actions{
 

@@ -1,0 +1,2397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pyncode Live QR - Owner</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+}
+
+.header{
+    background:#111827;
+    color:#fff;
+    padding:18px 16px;
+}
+
+.header-inner{
+    max-width:900px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.brand{
+    font-size:22px;
+    font-weight:800;
+}
+
+.live-badge{
+    background:#16a34a;
+    color:#fff;
+    padding:7px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px 15px 50px;
+}
+
+.message{
+    display:none;
+    padding:13px 15px;
+    border-radius:10px;
+    margin-bottom:15px;
+    font-size:14px;
+}
+
+.message.show{
+    display:block;
+}
+
+.message.success{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.message.error{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.loading{
+    text-align:center;
+    padding:60px 15px;
+    color:#64748b;
+}
+
+.shop-card,
+.product-card,
+.empty{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 4px 18px rgba(0,0,0,.06);
+}
+
+.shop-card{
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.shop-title{
+    font-size:25px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.shop-category{
+    color:#64748b;
+    font-size:14px;
+    margin-bottom:18px;
+}
+
+.shop-info{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.info-box{
+    background:#f8fafc;
+    border-radius:10px;
+    padding:11px;
+}
+
+.info-label{
+    color:#64748b;
+    font-size:12px;
+    margin-bottom:4px;
+}
+
+.info-value{
+    font-size:14px;
+    font-weight:700;
+    word-break:break-word;
+}
+
+.qr-section{
+    border-top:1px solid #e5e7eb;
+    margin-top:20px;
+    padding-top:20px;
+}
+
+.qr-title{
+    font-size:19px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.qr-note{
+    color:#64748b;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.qr-area{
+    margin-top:18px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+}
+
+#qrcode{
+    background:#fff;
+    padding:12px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+}
+
+.qr-url{
+    width:100%;
+    max-width:650px;
+    padding:11px;
+    border:1px solid #d1d5db;
+    border-radius:9px;
+    background:#f8fafc;
+    font-size:12px;
+}
+
+.button-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+}
+
+button{
+    border:0;
+    border-radius:9px;
+    padding:11px 15px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.primary{
+    background:#2563eb;
+    color:#fff;
+}
+
+.secondary{
+    background:#e5e7eb;
+    color:#111827;
+}
+
+.danger{
+    background:#dc2626;
+    color:#fff;
+}
+
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin:25px 0 12px;
+}
+
+.section-title{
+    font-size:21px;
+    font-weight:800;
+}
+
+.products{
+    display:grid;
+    gap:12px;
+}
+
+.product-card{
+    padding:15px;
+}
+
+.product-top{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.product-name{
+    font-size:17px;
+    font-weight:800;
+}
+
+.product-unit{
+    color:#64748b;
+    font-size:13px;
+    margin-top:4px;
+}
+
+.product-price{
+    font-size:18px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.product-status{
+    margin-top:10px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.available{
+    color:#15803d;
+}
+
+.unavailable{
+    color:#b91c1c;
+}
+
+.product-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:12px;
+}
+
+.empty{
+    padding:30px 20px;
+    text-align:center;
+    color:#64748b;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:100;
+    padding:20px;
+    overflow:auto;
+}
+
+.modal.show{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal-box{
+    width:100%;
+    max-width:500px;
+    background:#fff;
+    border-radius:18px;
+    padding:20px;
+}
+
+.modal-title{
+    font-size:21px;
+    font-weight:800;
+    margin-bottom:18px;
+}
+
+.field{
+    margin-bottom:14px;
+}
+
+.field label{
+    display:block;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.field input{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:9px;
+    font-size:15px;
+    outline:none;
+}
+
+.field input:focus{
+    border-color:#2563eb;
+}
+
+.checkbox-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:12px 0;
+}
+
+.checkbox-row input{
+    width:auto;
+}
+
+.checkbox-row label{
+    margin:0;
+    font-size:13px;
+    font-weight:700;
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:18px;
+}
+
+.hidden{
+    display:none !important;
+}
+
+@media(max-width:600px){
+
+    .shop-info{
+        grid-template-columns:1fr;
+    }
+
+    .product-top{
+        flex-direction:column;
+    }
+
+    .section-header{
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .section-header button{
+        width:100%;
+    }
+
+    .button-row{
+        width:100%;
+        flex-direction:column;
+    }
+
+    .button-row button{
+        width:100%;
+    }
+
+    .product-actions button{
+        flex:1;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="brand">
+            Pyncode Live QR
+        </div>
+
+        <div class="live-badge">
+            OWNER
+        </div>
+
+    </div>
+
+</header>
+
+<main class="container">
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        Loading your Live QR shop...
+    </div>
+
+    <section
+        id="shopSection"
+        class="shop-card hidden"
+    >
+
+        <div
+            id="shopName"
+            class="shop-title"
+        ></div>
+
+        <div
+            id="shopCategory"
+            class="shop-category"
+        ></div>
+
+        <div class="shop-info">
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Owner
+                </div>
+
+                <div
+                    id="ownerName"
+                    class="info-value"
+                ></div>
+
+            </div>
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    WhatsApp
+                </div>
+
+                <div
+                    id="shopWhatsapp"
+                    class="info-value"
+                ></div>
+
+            </div>
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Area
+                </div>
+
+                <div
+                    id="shopArea"
+                    class="info-value"
+                ></div>
+
+            </div>
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    City
+                </div>
+
+                <div
+                    id="shopCity"
+                    class="info-value"
+                ></div>
+
+            </div>
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Pincode
+                </div>
+
+                <div
+                    id="shopPincode"
+                    class="info-value"
+                ></div>
+
+            </div>
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    Live QR Status
+                </div>
+
+                <div
+                    id="qrStatus"
+                    class="info-value"
+                ></div>
+
+            </div>
+
+        </div>
+
+        <div class="qr-section">
+
+            <div class="qr-title">
+                Permanent QR Code
+            </div>
+
+            <div class="qr-note">
+                இந்த QR ஒருமுறை generate ஆனதும் இதே QR-ஐ
+                sticker, board அல்லது print-ல் பயன்படுத்தலாம்.
+                Products மற்றும் prices மட்டும் update ஆகும்.
+            </div>
+
+            <div class="qr-area">
+
+                <div id="qrcode"></div>
+
+                <input
+                    id="qrUrl"
+                    class="qr-url"
+                    type="text"
+                    readonly
+                >
+
+                <div class="button-row">
+
+                    <button
+                        type="button"
+                        class="primary"
+                        id="downloadQrBtn"
+                    >
+                        Download QR
+                    </button>
+
+                    <button
+                        type="button"
+                        class="secondary"
+                        id="printQrBtn"
+                    >
+                        Print QR
+                    </button>
+
+                    <button
+                        type="button"
+                        class="secondary"
+                        id="copyQrBtn"
+                    >
+                        Copy QR Link
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section
+        id="productsSection"
+        class="hidden"
+    >
+
+        <div class="section-header">
+
+            <div class="section-title">
+                My Products
+            </div>
+
+            <button
+                type="button"
+                class="primary"
+                id="addProductBtn"
+            >
+                + Add Product
+            </button>
+
+        </div>
+
+        <div
+            id="productsList"
+            class="products"
+        ></div>
+
+    </section>
+
+</main>
+
+<div
+    id="productModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+        <div
+            id="modalTitle"
+            class="modal-title"
+        >
+            Add Product
+        </div>
+
+        <div class="field">
+
+            <label for="productName">
+                Product Name
+            </label>
+
+            <input
+                id="productName"
+                type="text"
+                maxlength="150"
+                placeholder="Example: Aashirvaad Atta"
+            >
+
+        </div>
+
+        <div class="field">
+
+            <label for="productUnit">
+                Unit
+            </label>
+
+            <input
+                id="productUnit"
+                type="text"
+                maxlength="50"
+                placeholder="Example: 1 Kg / 500 g / Piece"
+            >
+
+        </div>
+
+        <div class="field">
+
+            <label for="productPrice">
+                Price
+            </label>
+
+            <input
+                id="productPrice"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+            >
+
+        </div>
+
+        <div class="field">
+
+            <label for="productImage">
+                Product Image URL (Optional)
+            </label>
+
+            <input
+                id="productImage"
+                type="url"
+                placeholder="https://..."
+            >
+
+        </div>
+
+        <div class="checkbox-row">
+
+            <input
+                id="productAvailable"
+                type="checkbox"
+                checked
+            >
+
+            <label for="productAvailable">
+                Product Available
+            </label>
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="secondary"
+                id="cancelProductBtn"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                class="primary"
+                id="saveProductBtn"
+            >
+                Save Product
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+  <script>
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentUser = null;
+
+let currentOwner = null;
+
+let currentShop = null;
+
+let editingProductId = null;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const message =
+    document.getElementById("message");
+
+const loading =
+    document.getElementById("loading");
+
+const shopSection =
+    document.getElementById("shopSection");
+
+const productsSection =
+    document.getElementById("productsSection");
+
+const productsList =
+    document.getElementById("productsList");
+
+const productModal =
+    document.getElementById("productModal");
+
+
+/* =====================================================
+   MESSAGE FUNCTIONS
+===================================================== */
+
+function showMessage(text, type){
+
+    message.textContent = text;
+
+    message.className =
+        "message show " + type;
+
+}
+
+
+function hideMessage(){
+
+    message.className =
+        "message";
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+async function initialize(){
+
+    hideMessage();
+
+    loading.classList.remove(
+        "hidden"
+    );
+
+    try{
+
+        /* ---------------------------------------------
+           GET CURRENT SESSION
+        --------------------------------------------- */
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        if(
+            !data ||
+            !data.session ||
+            !data.session.user
+        ){
+
+            throw new Error(
+                "Please login to your Pyncode Shop Owner account first."
+            );
+
+        }
+
+
+        currentUser =
+            data.session.user;
+
+
+   /* ---------------------------------------------
+   GET LIVE QR OWNER ACCOUNT
+--------------------------------------------- */
+
+const {
+    data: ownerAccount,
+    error: ownerError
+} =
+await supabaseClient
+    .from("live_qr_owner_accounts")
+    .select(
+        "id, shop_id, auth_user_id, owner_name, email, is_active"
+    )
+    .eq(
+        "auth_user_id",
+        currentUser.id
+    )
+    .eq(
+        "is_active",
+        true
+    )
+    .maybeSingle();
+
+
+if(ownerError){
+
+    throw ownerError;
+
+}
+
+
+if(!ownerAccount){
+
+    throw new Error(
+        "This account is not registered for Pyncode Live QR."
+    );
+
+}
+
+
+currentOwner =
+    ownerAccount;
+
+
+        /* ---------------------------------------------
+           GET OWNER SHOP
+        --------------------------------------------- */
+
+        const {
+            data: shop,
+            error: shopError
+        } =
+        await supabaseClient
+            .from("shops")
+            .select(
+                "id, shop_name, category, owner_name, mobile, whatsapp, address, area, city, pincode, description, shop_image, live_qr_enabled, live_qr_token, live_qr_status"
+            )
+            .eq(
+                "id",
+                ownerAccount.shop_id
+            )
+            .maybeSingle();
+
+
+        if(shopError){
+
+            throw shopError;
+
+        }
+
+
+        if(!shop){
+
+            throw new Error(
+                "Your registered shop could not be found."
+            );
+
+        }
+
+
+        currentShop =
+            shop;
+
+
+        /* ---------------------------------------------
+           LIVE QR STATUS CHECK
+        --------------------------------------------- */
+
+        if(
+            shop.live_qr_enabled !== true ||
+            shop.live_qr_status !== "active"
+        ){
+
+            loading.classList.add(
+                "hidden"
+            );
+
+            showMessage(
+                "Live QR is not enabled for your shop yet. Please contact Pyncode Admin.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           RENDER SHOP
+        --------------------------------------------- */
+
+        renderShop();
+
+
+        /* ---------------------------------------------
+           GENERATE QR
+        --------------------------------------------- */
+
+        generateQr();
+
+
+        /* ---------------------------------------------
+           LOAD PRODUCTS
+        --------------------------------------------- */
+
+        await loadProducts();
+
+
+        loading.classList.add(
+            "hidden"
+        );
+
+        shopSection.classList.remove(
+            "hidden"
+        );
+
+        productsSection.classList.remove(
+            "hidden"
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Live QR Owner Error:",
+            error
+        );
+
+        loading.classList.add(
+            "hidden"
+        );
+
+        showMessage(
+            error && error.message
+                ? error.message
+                : "Unable to load Live QR owner page.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER SHOP
+===================================================== */
+
+function renderShop(){
+
+    document.getElementById(
+        "shopName"
+    ).textContent =
+        currentShop.shop_name || "Shop";
+
+
+    document.getElementById(
+        "shopCategory"
+    ).textContent =
+        currentShop.category || "";
+
+document.getElementById(
+    "ownerName"
+).textContent =
+    currentOwner.owner_name ||
+    currentShop.owner_name ||
+    "-";
+
+    document.getElementById(
+        "shopWhatsapp"
+    ).textContent =
+        currentShop.whatsapp ||
+        currentShop.mobile ||
+        "-";
+
+
+    document.getElementById(
+        "shopArea"
+    ).textContent =
+        currentShop.area || "-";
+
+
+    document.getElementById(
+        "shopCity"
+    ).textContent =
+        currentShop.city || "-";
+
+
+    document.getElementById(
+        "shopPincode"
+    ).textContent =
+        currentShop.pincode || "-";
+
+
+    document.getElementById(
+        "qrStatus"
+    ).textContent =
+        "Active";
+
+}
+
+
+/* =====================================================
+   GENERATE PERMANENT QR
+===================================================== */
+
+function generateQr(){
+
+    const qrContainer =
+        document.getElementById(
+            "qrcode"
+        );
+
+
+    qrContainer.innerHTML =
+        "";
+
+
+    if(!currentShop.live_qr_token){
+
+        throw new Error(
+            "Live QR token is missing for this shop."
+        );
+
+    }
+
+
+    const shopUrl =
+        window.location.origin +
+        "/live-qr-shop.html?token=" +
+        encodeURIComponent(
+            currentShop.live_qr_token
+        );
+
+
+    document.getElementById(
+        "qrUrl"
+    ).value =
+        shopUrl;
+
+
+    new QRCode(
+        qrContainer,
+        {
+            text: shopUrl,
+            width: 220,
+            height: 220,
+            correctLevel:
+                QRCode.CorrectLevel.H
+        }
+    );
+
+}
+
+
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
+
+async function loadProducts(){
+
+    productsList.innerHTML = `
+        <div class="loading">
+            Loading products...
+        </div>
+    `;
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .from("shop_products")
+        .select(
+            "id, shop_id, product_name, unit, price, image_url, is_available, sort_order, created_at, updated_at"
+        )
+        .eq(
+            "shop_id",
+            currentShop.id
+        )
+        .order(
+            "sort_order",
+            {
+                ascending:true
+            }
+        )
+        .order(
+            "created_at",
+            {
+                ascending:true
+            }
+        );
+
+
+    if(error){
+
+        console.error(
+            "Product load error:",
+            error
+        );
+
+        productsList.innerHTML =
+            "";
+
+        throw error;
+
+    }
+
+
+    renderProducts(
+        data || []
+    );
+
+}
+
+
+/* =====================================================
+   RENDER PRODUCTS
+===================================================== */
+
+function renderProducts(products){
+
+    if(!products.length){
+
+        productsList.innerHTML = `
+
+            <div class="empty">
+
+                <div
+                    style="
+                        font-size:35px;
+                        margin-bottom:10px;
+                    "
+                >
+                    🛒
+                </div>
+
+                <strong>
+                    No products added yet.
+                </strong>
+
+                <div
+                    style="
+                        margin-top:6px;
+                    "
+                >
+                    Add your first product to start
+                    your Live QR catalog.
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    productsList.innerHTML =
+        products
+        .map(function(product){
+
+            const statusClass =
+                product.is_available
+                    ? "available"
+                    : "unavailable";
+
+
+            const statusText =
+                product.is_available
+                    ? "Available"
+                    : "Unavailable";
+
+
+            let imageHtml = "";
+
+
+            if(product.image_url){
+
+                imageHtml = `
+
+                    <div
+                        style="
+                            margin-top:10px;
+                        "
+                    >
+
+                        <img
+                            src="${escapeHtml(product.image_url)}"
+                            alt=""
+                            style="
+                                width:70px;
+                                height:70px;
+                                object-fit:cover;
+                                border-radius:8px;
+                            "
+                            onerror="
+                                this.style.display='none';
+                            "
+                        >
+
+                    </div>
+
+                `;
+
+            }
+
+
+            return `
+
+                <div class="product-card">
+
+                    <div class="product-top">
+
+                        <div>
+
+                            <div class="product-name">
+                                ${escapeHtml(
+                                    product.product_name
+                                )}
+                            </div>
+
+                            <div class="product-unit">
+                                ${escapeHtml(
+                                    product.unit || ""
+                                )}
+                            </div>
+
+                        </div>
+
+                        <div class="product-price">
+                            ₹${Number(
+                                product.price || 0
+                            ).toFixed(2)}
+                        </div>
+
+                    </div>
+
+
+                    ${imageHtml}
+
+
+                    <div
+                        class="
+                            product-status
+                            ${statusClass}
+                        "
+                    >
+                        ${statusText}
+                    </div>
+
+
+                    <div class="product-actions">
+
+                        <button
+                            type="button"
+                            class="secondary"
+                            onclick="
+                                editProduct(
+                                    ${Number(product.id)}
+                                )
+                            "
+                        >
+                            Edit
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="secondary"
+                            onclick="
+                                toggleProduct(
+                                    ${Number(product.id)},
+                                    ${product.is_available ? "true" : "false"}
+                                )
+                            "
+                        >
+                            ${
+                                product.is_available
+                                    ? "Make Unavailable"
+                                    : "Make Available"
+                            }
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="danger"
+                            onclick="
+                                deleteProduct(
+                                    ${Number(product.id)}
+                                )
+                            "
+                        >
+                            Remove
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+
+/* =====================================================
+   OPEN ADD PRODUCT
+===================================================== */
+
+function openAddProduct(){
+
+    editingProductId =
+        null;
+
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Add Product";
+
+
+    document.getElementById(
+        "productName"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "productUnit"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "productPrice"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "productImage"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "productAvailable"
+    ).checked =
+        true;
+
+
+    productModal.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   EDIT PRODUCT
+===================================================== */
+
+async function editProduct(productId){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("shop_products")
+            .select(
+                "id, shop_id, product_name, unit, price, image_url, is_available"
+            )
+            .eq(
+                "id",
+                productId
+            )
+            .eq(
+                "shop_id",
+                currentShop.id
+            )
+            .maybeSingle();
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        if(!data){
+
+            throw new Error(
+                "Product not found."
+            );
+
+        }
+
+
+        editingProductId =
+            data.id;
+
+
+        document.getElementById(
+            "modalTitle"
+        ).textContent =
+            "Edit Product";
+
+
+        document.getElementById(
+            "productName"
+        ).value =
+            data.product_name || "";
+
+
+        document.getElementById(
+            "productUnit"
+        ).value =
+            data.unit || "";
+
+
+        document.getElementById(
+            "productPrice"
+        ).value =
+            data.price ?? "";
+
+
+        document.getElementById(
+            "productImage"
+        ).value =
+            data.image_url || "";
+
+
+        document.getElementById(
+            "productAvailable"
+        ).checked =
+            data.is_available !== false;
+
+
+        productModal.classList.add(
+            "show"
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Edit product error:",
+            error
+        );
+
+        showMessage(
+            error.message ||
+            "Unable to load product.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SAVE PRODUCT - START
+===================================================== */
+
+async function saveProduct(){
+
+    const productName =
+        document.getElementById(
+            "productName"
+        )
+        .value
+        .trim();
+
+
+    const productUnit =
+        document.getElementById(
+            "productUnit"
+        )
+        .value
+        .trim();
+
+
+    const productPrice =
+        document.getElementById(
+            "productPrice"
+        )
+        .value;
+
+
+    const productImage =
+        document.getElementById(
+            "productImage"
+        )
+        .value
+        .trim();
+
+
+    const productAvailable =
+        document.getElementById(
+            "productAvailable"
+        )
+        .checked;
+
+
+    if(!productName){
+
+        alert(
+            "Please enter product name."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        productPrice === "" ||
+        Number(productPrice) < 0
+    ){
+
+        alert(
+            "Please enter a valid price."
+        );
+
+        return;
+
+    }
+
+
+    const saveButton =
+        document.getElementById(
+            "saveProductBtn"
+        );
+
+
+    saveButton.disabled =
+        true;
+
+
+    saveButton.textContent =
+        "Saving...";
+
+
+    try{
+
+        if(editingProductId){
+
+            const {
+                error
+            } =
+            await supabaseClient
+                .from("shop_products")
+                .update({
+                    product_name:
+                        productName,
+
+                    unit:
+                        productUnit || null,
+
+                    price:
+                        Number(productPrice),
+
+                    image_url:
+                        productImage || null,
+
+                    is_available:
+                        productAvailable
+                })
+                .eq(
+                    "id",
+                    editingProductId
+                )
+                .eq(
+                    "shop_id",
+                    currentShop.id
+                );
+
+
+            if(error){
+
+                throw error;
+
+            }
+
+
+            showMessage(
+                "Product updated successfully.",
+                "success"
+            );
+
+        }
+
+        else{
+
+            const {
+                error
+            } =
+            await supabaseClient
+                .from("shop_products")
+                .insert({
+                    shop_id:
+                        currentShop.id,
+
+                    product_name:
+                        productName,
+
+                    unit:
+                        productUnit || null,
+
+                    price:
+                        Number(productPrice),
+
+                    image_url:
+                        productImage || null,
+
+                    is_available:
+                        productAvailable,
+
+                    sort_order:
+                        0
+                });
+
+
+            if(error){
+
+                throw error;
+
+            }
+
+
+            showMessage(
+                "Product added successfully.",
+                "success"
+            );
+
+        }
+
+
+        closeProductModal();
+
+
+        await loadProducts();
+
+    }
+    catch(error){
+
+        console.error(
+            "Save product error:",
+            error
+        );
+
+
+        showMessage(
+            error.message ||
+            "Unable to save product.",
+            "error"
+        );
+
+    }
+    finally{
+
+        saveButton.disabled =
+            false;
+
+        saveButton.textContent =
+            "Save Product";
+
+    }
+
+}
+
+
+/* =====================================================
+   TOGGLE PRODUCT AVAILABILITY
+===================================================== */
+
+async function toggleProduct(
+    productId,
+    currentlyAvailable
+){
+
+    try{
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("shop_products")
+            .update({
+                is_available:
+                    !currentlyAvailable
+            })
+            .eq(
+                "id",
+                productId
+            )
+            .eq(
+                "shop_id",
+                currentShop.id
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        showMessage(
+            currentlyAvailable
+                ? "Product is now unavailable."
+                : "Product is now available.",
+            "success"
+        );
+
+
+        await loadProducts();
+
+    }
+    catch(error){
+
+        console.error(
+            "Toggle product error:",
+            error
+        );
+
+
+        showMessage(
+            error.message ||
+            "Unable to update product status.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   DELETE PRODUCT
+===================================================== */
+
+async function deleteProduct(
+    productId
+){
+
+    const confirmed =
+        confirm(
+            "Remove this product from your Live QR catalog?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    try{
+
+        const {
+            error
+        } =
+        await supabaseClient
+            .from("shop_products")
+            .delete()
+            .eq(
+                "id",
+                productId
+            )
+            .eq(
+                "shop_id",
+                currentShop.id
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        showMessage(
+            "Product removed successfully.",
+            "success"
+        );
+
+
+        await loadProducts();
+
+    }
+    catch(error){
+
+        console.error(
+            "Delete product error:",
+            error
+        );
+
+
+        showMessage(
+            error.message ||
+            "Unable to remove product.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CLOSE PRODUCT MODAL
+===================================================== */
+
+function closeProductModal(){
+
+    productModal.classList.remove(
+        "show"
+    );
+
+
+    editingProductId =
+        null;
+
+}
+
+
+/* =====================================================
+   DOWNLOAD QR
+===================================================== */
+
+function downloadQr(){
+
+    const canvas =
+        document.querySelector(
+            "#qrcode canvas"
+        );
+
+
+    if(canvas){
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.download =
+            (
+                currentShop.shop_name ||
+                "pyncode"
+            ) +
+            "-live-qr.png";
+
+
+        link.href =
+            canvas.toDataURL(
+                "image/png"
+            );
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        document.body.removeChild(
+            link
+        );
+
+
+        return;
+
+    }
+
+
+    const image =
+        document.querySelector(
+            "#qrcode img"
+        );
+
+
+    if(image){
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.download =
+            (
+                currentShop.shop_name ||
+                "pyncode"
+            ) +
+            "-live-qr.png";
+
+
+        link.href =
+            image.src;
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        document.body.removeChild(
+            link
+        );
+
+
+        return;
+
+    }
+
+
+    showMessage(
+        "QR code is not ready.",
+        "error"
+    );
+
+}
+
+
+/* =====================================================
+   PRINT QR
+===================================================== */
+
+function printQr(){
+
+    const shopName =
+        currentShop.shop_name ||
+        "Pyncode Shop";
+
+
+    const qrCanvas =
+        document.querySelector(
+            "#qrcode canvas"
+        );
+
+
+    let qrImage = "";
+
+
+    if(qrCanvas){
+
+        qrImage =
+            qrCanvas.toDataURL(
+                "image/png"
+            );
+
+    }
+    else{
+
+        const image =
+            document.querySelector(
+                "#qrcode img"
+            );
+
+
+        if(image){
+
+            qrImage =
+                image.src;
+
+        }
+
+    }
+
+
+    if(!qrImage){
+
+        showMessage(
+            "QR code is not ready.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const printWindow =
+        window.open(
+            "",
+            "_blank"
+        );
+
+
+    if(!printWindow){
+
+        showMessage(
+            "Please allow pop-ups to print the QR code.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const safeShopName =
+        escapeHtml(
+            shopName
+        );
+
+
+    printWindow.document.write(`
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    ${safeShopName} - Live QR
+</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:40px 20px;
+    text-align:center;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+h1{
+    margin:0 0 10px;
+    font-size:28px;
+}
+
+p{
+    margin:0 0 25px;
+    color:#555;
+    font-size:16px;
+}
+
+img{
+    width:300px;
+    height:300px;
+    object-fit:contain;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+    ${safeShopName}
+</h1>
+
+<p>
+    Scan to view products & prices
+</p>
+
+<img
+    src="${qrImage}"
+    alt="Live QR"
+>
+
+</body>
+
+</html>
+
+    `);
+
+
+    printWindow.document.close();
+
+
+    printWindow.onload =
+        function(){
+
+            printWindow.focus();
+
+            printWindow.print();
+
+        };
+
+}
+
+
+/* =====================================================
+   COPY QR LINK
+===================================================== */
+
+async function copyQrLink(){
+
+    const qrUrl =
+        document.getElementById(
+            "qrUrl"
+        ).value;
+
+
+    if(!qrUrl){
+
+        showMessage(
+            "QR link is not available.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        if(
+            navigator.clipboard &&
+            window.isSecureContext
+        ){
+
+            await navigator.clipboard.writeText(
+                qrUrl
+            );
+
+        }
+        else{
+
+            const input =
+                document.getElementById(
+                    "qrUrl"
+                );
+
+
+            input.focus();
+
+            input.select();
+
+            input.setSelectionRange(
+                0,
+                input.value.length
+            );
+
+
+            document.execCommand(
+                "copy"
+            );
+
+        }
+
+
+        showMessage(
+            "Live QR link copied.",
+            "success"
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Copy QR link error:",
+            error
+        );
+
+
+        showMessage(
+            "Unable to copy QR link.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   END OF PART 3
+===================================================== */
+
+    /* =====================================================
+   EVENT LISTENERS
+===================================================== */
+
+document
+    .getElementById("addProductBtn")
+    .addEventListener(
+        "click",
+        openAddProduct
+    );
+
+
+document
+    .getElementById("cancelProductBtn")
+    .addEventListener(
+        "click",
+        closeProductModal
+    );
+
+
+document
+    .getElementById("saveProductBtn")
+    .addEventListener(
+        "click",
+        saveProduct
+    );
+
+
+document
+    .getElementById("downloadQrBtn")
+    .addEventListener(
+        "click",
+        downloadQr
+    );
+
+
+document
+    .getElementById("printQrBtn")
+    .addEventListener(
+        "click",
+        printQr
+    );
+
+
+document
+    .getElementById("copyQrBtn")
+    .addEventListener(
+        "click",
+        copyQrLink
+    );
+
+
+/* =====================================================
+   CLOSE MODAL WHEN BACKGROUND IS CLICKED
+===================================================== */
+
+productModal.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            productModal
+        ){
+
+            closeProductModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START APPLICATION
+===================================================== */
+
+initialize();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode - Nearby Shops</title>
+
+<meta
+    name="description"
+    content="Discover nearby local shops on Pyncode."
+>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#f7f8fa;
+    color:#171717;
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root{
+
+    --primary:#ff6b00;
+    --primary-dark:#e65f00;
+    --primary-soft:#fff1e7;
+
+    --text:#171717;
+    --muted:#737373;
+
+    --border:#e7e7e7;
+
+    --white:#ffffff;
+
+    --green:#16a34a;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:
+        rgba(255,255,255,.96);
+
+    backdrop-filter:
+        blur(16px);
+
+    border-bottom:
+        1px solid rgba(0,0,0,.06);
+}
+
+.header-inner{
+
+    width:100%;
+    max-width:1180px;
+
+    min-height:70px;
+
+    margin:auto;
+
+    padding:0 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+}
+
+.brand{
+
+    color:var(--text);
+
+    text-decoration:none;
+
+    font-size:24px;
+
+    font-weight:900;
+
+    letter-spacing:-.7px;
+}
+
+.brand span{
+
+    color:var(--primary);
+}
+
+.back-button{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-height:40px;
+
+    padding:0 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
+
+    background:#fff;
+
+    color:#333;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    transition:.2s ease;
+}
+
+.back-button:hover{
+
+    color:var(--primary);
+
+    border-color:
+        var(--primary);
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8f2 0%,
+            #ffffff 55%,
+            #fff3e8 100%
+        );
+
+    border-bottom:
+        1px solid #eeeeee;
+}
+
+.hero-inner{
+
+    width:100%;
+
+    max-width:1180px;
+
+    margin:auto;
+
+    padding:
+        42px 20px 35px;
+}
+
+.breadcrumb{
+
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+    margin-bottom:18px;
+
+    font-size:12px;
+
+    color:var(--muted);
+}
+
+.breadcrumb a{
+
+    color:var(--primary-dark);
+
+    text-decoration:none;
+
+    font-weight:700;
+}
+
+.breadcrumb-separator{
+
+    color:#b7b7b7;
+}
+
+.category-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:
+        7px 12px;
+
+    margin-bottom:14px;
+
+    border-radius:30px;
+
+    background:
+        var(--primary-soft);
+
+    border:
+        1px solid #ffd9bf;
+
+    color:
+        var(--primary-dark);
+
+    font-size:11px;
+
+    font-weight:900;
+
+    letter-spacing:.3px;
+}
+
+.category-dot{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:
+        var(--primary);
+}
+
+.hero-title{
+
+    font-size:
+        clamp(30px,5vw,46px);
+
+    line-height:1.08;
+
+    letter-spacing:-1.5px;
+
+    font-weight:900;
+
+    margin-bottom:10px;
+}
+
+.hero-description{
+
+    max-width:650px;
+
+    color:var(--muted);
+
+    font-size:15px;
+
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+    width:100%;
+    max-width:1180px;
+    margin:auto;
+    padding:
+        28px 20px 70px;
+
+    flex:1;
+}
+
+
+/* =====================================================
+   TOOLBAR
+===================================================== */
+
+.toolbar{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:18px;
+
+    margin-bottom:22px;
+}
+
+.shop-count{
+
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+.shop-count strong{
+
+    color:var(--text);
+
+    font-weight:800;
+}
+
+.search-wrapper{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:360px;
+}
+
+.search-icon{
+
+    position:absolute;
+
+    left:14px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    font-size:16px;
+
+    pointer-events:none;
+}
+
+#shopSearch{
+
+    width:100%;
+
+    height:46px;
+
+    padding:
+        0 14px 0 42px;
+
+    border:
+        1px solid #dedede;
+
+    border-radius:12px;
+
+    background:#fff;
+
+    outline:none;
+
+    font-size:14px;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,.04);
+
+    transition:.2s ease;
+}
+
+#shopSearch:focus{
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(255,107,0,.09);
+}
+
+
+/* =====================================================
+   SHOP GRID
+===================================================== */
+
+.shop-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:17px;
+}
+
+
+/* =====================================================
+   SHOP CARD
+===================================================== */
+
+.shop-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-height:270px;
+
+    background:#fff;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.045);
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease;
+}
+
+.shop-card:hover{
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        #ffd1b0;
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.09);
+}
+
+
+/* =====================================================
+   SHOP VISUAL
+===================================================== */
+
+.shop-visual{
+
+    position:relative;
+
+    width:100%;
+
+    height:150px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff1e7,
+            #fffaf6
+        );
+
+    overflow:hidden;
+}
+
+.shop-visual img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+.shop-placeholder{
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:48px;
+
+    color:#ef8a4a;
+}
+
+
+/* =====================================================
+   LIVE QR BADGE
+===================================================== */
+
+.live-badge{
+
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    padding:
+        6px 9px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.95);
+
+    border:
+        1px solid rgba(255,107,0,.18);
+
+    color:
+        var(--primary-dark);
+
+    font-size:10px;
+
+    font-weight:900;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.08);
+}
+
+.live-dot{
+
+    width:6px;
+
+    height:6px;
+
+    border-radius:50%;
+
+    background:
+        var(--green);
+}
+
+
+/* =====================================================
+   SHOP CONTENT
+===================================================== */
+
+.shop-content{
+
+    flex:1;
+
+    padding:
+        17px 17px 12px;
+}
+
+.shop-name{
+
+    font-size:18px;
+
+    line-height:1.25;
+
+    font-weight:900;
+
+    letter-spacing:-.3px;
+
+    margin-bottom:6px;
+}
+
+.shop-category{
+
+    display:inline-block;
+
+    color:
+        var(--primary-dark);
+
+    font-size:11px;
+
+    font-weight:800;
+
+    margin-bottom:10px;
+}
+
+.shop-location{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:6px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.shop-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    padding:
+        0 17px 17px;
+}
+
+.view-menu-button{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-height:40px;
+
+    padding:
+        0 17px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    background:
+        var(--primary);
+
+    color:#fff;
+
+    transition:.2s ease;
+}
+
+.view-menu-button:hover{
+
+    background:
+        var(--primary-dark);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading-box{
+
+    min-height:270px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#fff;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+
+    color:var(--muted);
+
+    font-size:13px;
+}
+
+
+/* =====================================================
+   EMPTY / ERROR
+===================================================== */
+
+.state-box{
+
+    display:none;
+
+    padding:
+        55px 20px;
+
+    background:#fff;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+
+    text-align:center;
+
+    color:var(--muted);
+}
+
+.state-box.show{
+
+    display:block;
+}
+
+.state-icon{
+
+    font-size:42px;
+
+    margin-bottom:12px;
+}
+
+.state-title{
+
+    color:var(--text);
+
+    font-size:18px;
+
+    font-weight:900;
+
+    margin-bottom:7px;
+}
+
+.state-text{
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    padding:
+        25px 20px;
+
+    text-align:center;
+
+    background:#fff;
+
+    border-top:
+        1px solid #e8e8e8;
+}
+
+.footer-brand{
+
+    font-size:18px;
+
+    font-weight:900;
+
+    margin-bottom:5px;
+}
+
+.footer-brand span{
+
+    color:var(--primary);
+}
+
+.footer-text{
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+  /* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:950px){
+
+    .shop-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    .header-inner{
+
+        min-height:62px;
+
+        padding:
+            0 15px;
+    }
+
+    .brand{
+
+        font-size:21px;
+    }
+
+    .back-button{
+
+        min-height:37px;
+
+        padding:
+            0 11px;
+
+        font-size:12px;
+    }
+
+    .hero-inner{
+
+        padding:
+            32px 16px 28px;
+    }
+
+    .main{
+
+        padding:
+            22px 15px 55px;
+    }
+
+    .toolbar{
+
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    .search-wrapper{
+
+        max-width:none;
+    }
+
+    .shop-grid{
+
+        grid-template-columns:1fr;
+
+        gap:13px;
+    }
+
+    .shop-card{
+
+        min-height:240px;
+
+        border-radius:18px;
+    }
+
+    .shop-visual{
+
+        height:150px;
+    }
+
+    .shop-actions{
+
+        justify-content:flex-end;
+    }
+
+}
+
+
+@media(max-width:380px){
+
+    .view-menu-button{
+
+        width:100%;
+    }
+
+}
+
+
+/* =====================================================
+   END STYLE
+===================================================== */
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+            Pyn<span>code</span>
+        </a>
+
+
+        <a
+            href="nearby-shops.html"
+            class="back-button"
+        >
+            ← Categories
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-inner">
+
+
+        <div class="breadcrumb">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <span class="breadcrumb-separator">
+                /
+            </span>
+
+            <a href="nearby-shops.html">
+                Nearby Shops
+            </a>
+
+            <span class="breadcrumb-separator">
+                /
+            </span>
+
+            <span id="breadcrumbCategory">
+                Shops
+            </span>
+
+        </div>
+
+
+        <div class="category-badge">
+
+            <span class="category-dot"></span>
+
+            NEARBY SHOPS
+
+        </div>
+
+
+        <h1
+            id="pageTitle"
+            class="hero-title"
+        >
+            Shops
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Discover nearby registered shops in this
+            category and view their latest digital menu
+            through Pyncode.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <div class="toolbar">
+
+
+        <div
+            id="shopCount"
+            class="shop-count"
+        >
+            Loading shops...
+        </div>
+
+
+        <div class="search-wrapper">
+
+            <span class="search-icon">
+                🔎
+            </span>
+
+
+            <input
+                id="shopSearch"
+                type="search"
+                placeholder="Search nearby shops..."
+                autocomplete="off"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="shopGrid"
+        class="shop-grid"
+    >
+
+        <div class="loading-box">
+
+            Loading nearby shops...
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="emptyState"
+        class="state-box"
+    >
+
+        <div class="state-icon">
+            🏪
+        </div>
+
+
+        <div class="state-title">
+            No nearby shops found
+        </div>
+
+
+        <div class="state-text">
+
+            There are no registered nearby shops
+            in this category yet.
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="errorState"
+        class="state-box"
+    >
+
+        <div class="state-icon">
+            ⚠️
+        </div>
+
+
+        <div class="state-title">
+            Unable to load shops
+        </div>
+
+
+        <div
+            id="errorText"
+            class="state-text"
+        >
+            Please try again later.
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-brand">
+
+        Pyn<span>code</span>
+
+    </div>
+
+
+    <div class="footer-text">
+
+        Discover local businesses. Connect directly.
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- =====================================================
+     JAVASCRIPT START
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const pageTitle =
+    document.getElementById(
+        "pageTitle"
+    );
+
+
+const breadcrumbCategory =
+    document.getElementById(
+        "breadcrumbCategory"
+    );
+
+
+const shopCount =
+    document.getElementById(
+        "shopCount"
+    );
+
+
+const shopSearch =
+    document.getElementById(
+        "shopSearch"
+    );
+
+
+const shopGrid =
+    document.getElementById(
+        "shopGrid"
+    );
+
+
+const emptyState =
+    document.getElementById(
+        "emptyState"
+    );
+
+
+const errorState =
+    document.getElementById(
+        "errorState"
+    );
+
+
+const errorText =
+    document.getElementById(
+        "errorText"
+    );
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let selectedCategory = "";
+
+let allShops = [];
+
+
+/* =====================================================
+   GET CATEGORY FROM URL
+===================================================== */
+
+function getCategoryFromUrl(){
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    return (
+        params.get("category") ||
+        ""
+    ).trim();
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   GET SHOP LOCATION
+===================================================== */
+
+function getShopLocation(shop){
+
+    const parts = [];
+
+
+    if(shop.area){
+
+        parts.push(
+            shop.area
+        );
+
+    }
+
+
+    if(shop.city){
+
+        parts.push(
+            shop.city
+        );
+
+    }
+
+
+    if(shop.pincode){
+
+        parts.push(
+            shop.pincode
+        );
+
+    }
+
+
+    return parts.join(", ");
+
+}
+
+
+/* =====================================================
+   UPDATE CATEGORY HEADER
+===================================================== */
+
+function updateCategoryHeader(){
+
+    const categoryName =
+        selectedCategory ||
+        "Nearby Shops";
+
+
+    pageTitle.textContent =
+        categoryName;
+
+
+    breadcrumbCategory.textContent =
+        categoryName;
+
+
+    document.title =
+        "Pyncode - " +
+        categoryName;
+
+}
+
+
+/* =====================================================
+   LOAD REGISTERED NEARBY SHOPS
+===================================================== */
+
+async function loadShops(){
+
+    shopGrid.innerHTML = `
+
+        <div class="loading-box">
+
+            Loading nearby shops...
+
+        </div>
+
+    `;
+
+
+    emptyState.classList.remove(
+        "show"
+    );
+
+
+    errorState.classList.remove(
+        "show"
+    );
+
+
+    try{
+
+        if(!selectedCategory){
+
+            throw new Error(
+                "No category was selected."
+            );
+
+        }
+
+
+        /*
+         * IMPORTANT:
+         *
+         * nearby_shops is joined through
+         * shops.id = nearby_shops.shop_id
+         *
+         * Only:
+         * listing_type = nearby
+         * nearby_shops.is_active = true
+         *
+         * will be displayed.
+         */
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+
+            .from("shops")
+
+            .select(`
+                id,
+                shop_name,
+                category,
+                owner_name,
+                mobile,
+                whatsapp,
+                address,
+                area,
+                city,
+                pincode,
+                description,
+                shop_image,
+                listing_type,
+                live_qr_enabled,
+                live_qr_token,
+                live_qr_status,
+                created_at,
+                nearby_shops!inner(
+                    shop_id,
+                    pincode,
+                    area,
+                    city,
+                    is_active,
+                    sort_order
+                )
+            `)
+
+            .eq(
+                "category",
+                selectedCategory
+            )
+
+            .eq(
+                "listing_type",
+                "nearby"
+            )
+
+            .eq(
+                "nearby_shops.is_active",
+                true
+            )
+
+            .order(
+                "shop_name",
+                {
+                    ascending:true
+                }
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        allShops =
+            data || [];
+
+
+        updateShopCount(
+            allShops.length
+        );
+
+
+        renderShops(
+            allShops
+        );
+
+    }
+    catch(error){
+
+        console.error(
+            "Nearby Shops Error:",
+            error
+        );
+
+
+        allShops = [];
+
+
+        shopGrid.innerHTML =
+            "";
+
+
+        shopCount.textContent =
+            "Unable to load shops";
+
+
+        errorText.textContent =
+            error &&
+            error.message
+                ? error.message
+                : "Unable to load nearby shops.";
+
+
+        errorState.classList.add(
+            "show"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   UPDATE SHOP COUNT
+===================================================== */
+
+function updateShopCount(count){
+
+    if(count === 1){
+
+        shopCount.innerHTML =
+            "<strong>1</strong> nearby shop";
+
+        return;
+
+    }
+
+
+    shopCount.innerHTML =
+        "<strong>" +
+        count +
+        "</strong> nearby shops";
+
+}
+
+  /* =====================================================
+   INITIALIZE CATEGORY
+===================================================== */
+
+function initializeCategory(){
+
+    selectedCategory =
+        getCategoryFromUrl();
+
+
+    if(!selectedCategory){
+
+        pageTitle.textContent =
+            "Nearby Shops";
+
+
+        breadcrumbCategory.textContent =
+            "Shops";
+
+
+        shopCount.textContent =
+            "";
+
+
+        shopGrid.innerHTML =
+            "";
+
+
+        errorText.textContent =
+            "Please select a category first.";
+
+
+        errorState.classList.add(
+            "show"
+        );
+
+
+        return false;
+
+    }
+
+
+    updateCategoryHeader();
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   RENDER SHOP CARDS
+===================================================== */
+
+function renderShops(shops){
+
+    if(
+        !shops ||
+        !shops.length
+    ){
+
+        shopGrid.innerHTML =
+            "";
+
+
+        emptyState.classList.add(
+            "show"
+        );
+
+
+        return;
+
+    }
+
+
+    emptyState.classList.remove(
+        "show"
+    );
+
+
+    shopGrid.innerHTML =
+        shops
+            .map(
+                function(shop){
+
+                    return buildShopCard(
+                        shop
+                    );
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   BUILD SHOP CARD
+===================================================== */
+
+function buildShopCard(shop){
+
+
+    const shopName =
+        escapeHtml(
+            shop.shop_name ||
+            "Shop"
+        );
+
+
+    const category =
+        escapeHtml(
+            shop.category ||
+            ""
+        );
+
+
+    const location =
+        escapeHtml(
+            getShopLocation(shop) ||
+            "Location not available"
+        );
+
+
+    /* =================================================
+       SHOP IMAGE
+    ================================================= */
+
+    let visualHtml = `
+
+        <div class="shop-placeholder">
+
+            🏪
+
+        </div>
+
+    `;
+
+
+    if(shop.shop_image){
+
+        visualHtml = `
+
+            <img
+                src="${escapeHtml(
+                    shop.shop_image
+                )}"
+                alt="${shopName}"
+                loading="lazy"
+                onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='flex';
+                "
+            >
+
+            <div
+                class="shop-placeholder"
+                style="display:none;"
+            >
+
+                🏪
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =================================================
+       LIVE QR STATUS
+    ================================================= */
+
+    const liveQrActive =
+        shop.live_qr_enabled === true &&
+        shop.live_qr_status === "active" &&
+        !!shop.live_qr_token;
+
+
+    let liveBadgeHtml = "";
+
+
+    if(liveQrActive){
+
+        liveBadgeHtml = `
+
+            <div class="live-badge">
+
+                <span class="live-dot"></span>
+
+                LIVE QR
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =================================================
+       VIEW MENU
+    ================================================= */
+
+    let menuButtonHtml = "";
+
+
+    if(liveQrActive){
+
+        menuButtonHtml = `
+
+            <a
+                href="live-qr-shop.html?token=${encodeURIComponent(
+                    shop.live_qr_token
+                )}"
+                class="view-menu-button"
+                aria-label="View menu for ${shopName}"
+            >
+
+                View Menu
+
+            </a>
+
+        `;
+
+    }
+
+
+    /* =================================================
+       SHOP CARD
+    ================================================= */
+
+    return `
+
+        <article
+            class="shop-card"
+            data-shop-name="${escapeHtml(
+                (
+                    shop.shop_name ||
+                    ""
+                ).toLowerCase()
+            )}"
+        >
+
+
+            <div class="shop-visual">
+
+                ${visualHtml}
+
+                ${liveBadgeHtml}
+
+            </div>
+
+
+            <div class="shop-content">
+
+
+                <div class="shop-name">
+
+                    ${shopName}
+
+                </div>
+
+
+                <div class="shop-category">
+
+                    ${category}
+
+                </div>
+
+
+                <div class="shop-location">
+
+                    <span>
+                        📍
+                    </span>
+
+                    <span>
+                        ${location}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="shop-actions">
+
+                ${menuButtonHtml}
+
+            </div>
+
+
+        </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   SEARCH SHOPS
+===================================================== */
+
+function searchShops(searchText){
+
+    const normalizedText =
+        searchText
+            .trim()
+            .toLowerCase();
+
+
+    if(!normalizedText){
+
+        renderShops(
+            allShops
+        );
+
+
+        updateShopCount(
+            allShops.length
+        );
+
+
+        return;
+
+    }
+
+
+    const filteredShops =
+        allShops.filter(
+            function(shop){
+
+                const searchableText = [
+
+                    shop.shop_name,
+
+                    shop.category,
+
+                    shop.owner_name,
+
+                    shop.area,
+
+                    shop.city,
+
+                    shop.pincode
+
+                ]
+
+                .filter(Boolean)
+
+                .join(" ")
+
+                .toLowerCase();
+
+
+                return searchableText.includes(
+                    normalizedText
+                );
+
+            }
+        );
+
+
+    renderShops(
+        filteredShops
+    );
+
+
+    if(filteredShops.length === 1){
+
+        shopCount.innerHTML =
+            "<strong>1</strong> shop found";
+
+    }
+    else{
+
+        shopCount.innerHTML =
+            "<strong>" +
+            filteredShops.length +
+            "</strong> shops found";
+
+    }
+
+}
+
+
+/* =====================================================
+   SEARCH INPUT
+===================================================== */
+
+shopSearch.addEventListener(
+    "input",
+    function(){
+
+        searchShops(
+            this.value
+        );
+
+    }
+);
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+shopSearch.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            this.value = "";
+
+
+            searchShops(
+                ""
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START PAGE
+===================================================== */
+
+async function initialize(){
+
+    const categoryReady =
+        initializeCategory();
+
+
+    if(!categoryReady){
+
+        return;
+
+    }
+
+
+    await loadShops();
+
+}
+
+
+/* =====================================================
+   PAGE SHOW
+===================================================== */
+
+window.addEventListener(
+    "pageshow",
+    function(){
+
+        if(
+            selectedCategory &&
+            allShops.length
+        ){
+
+            renderShops(
+                allShops
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   FINISH
+===================================================== */
+
+console.log(
+    "Pyncode Nearby Shops loaded successfully."
+);
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+initialize();
+
+  </script>
+
+
+</body>
+
+</html>

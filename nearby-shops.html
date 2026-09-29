@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode - Nearby Shops</title>
+
+<meta
+    name="description"
+    content="Discover local shops and businesses on Pyncode."
+>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#f6f7f9;
+    color:#171717;
+
+    min-height:100vh;
+}
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root{
+
+    --orange:#ff6b00;
+    --orange-dark:#e95d00;
+    --orange-light:#fff3e9;
+
+    --black:#171717;
+    --muted:#777;
+
+    --white:#ffffff;
+
+    --border:#e8e8e8;
+
+    --shadow:
+        0 14px 40px rgba(0,0,0,.07);
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    background:
+        rgba(255,255,255,.92);
+
+    backdrop-filter:
+        blur(18px);
+
+    border-bottom:
+        1px solid rgba(0,0,0,.06);
+}
+
+.header-inner{
+
+    width:100%;
+
+    max-width:1200px;
+
+    min-height:68px;
+
+    margin:auto;
+
+    padding:
+        0 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    text-decoration:none;
+
+    color:var(--black);
+
+    font-size:24px;
+
+    font-weight:900;
+
+    letter-spacing:-1px;
+}
+
+
+
+.brand span{
+
+    color:var(--orange);
+}
+
+
+/* =====================================================
+   HEADER ACTIONS
+===================================================== */
+
+.header-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+
+/* HOME */
+
+.home-btn{
+
+    height:36px;
+
+    padding:
+        0 13px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:
+        1px solid #e6e6e6;
+
+    border-radius:18px;
+
+    background:#fff;
+
+    color:#333;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:750;
+
+    transition:.2s ease;
+}
+
+.home-btn:hover{
+
+    border-color:
+        #ffc49f;
+
+    color:
+        var(--orange);
+}
+
+
+/* ADD STORES */
+
+.add-stores-wrap{
+
+    position:relative;
+}
+
+.add-stores-btn{
+
+    height:36px;
+
+    padding:
+        0 13px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7b1a,
+            #ff5c00
+        );
+
+    color:#fff;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 7px 18px rgba(255,107,0,.20);
+
+    transition:.2s ease;
+}
+
+.add-stores-btn:hover{
+
+    transform:
+        translateY(-1px);
+}
+
+.add-stores-arrow{
+
+    font-size:14px;
+
+    line-height:1;
+}
+
+
+/* =====================================================
+   ADD STORES DROPDOWN
+===================================================== */
+
+.add-stores-menu{
+
+    position:absolute;
+
+    top:
+        calc(100% + 9px);
+
+    right:0;
+
+    width:185px;
+
+    padding:7px;
+
+    background:#fff;
+
+    border:
+        1px solid #ededed;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.14);
+
+    display:none;
+}
+
+.add-stores-menu.show{
+
+    display:block;
+}
+
+.add-stores-menu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:
+        11px 12px;
+
+    border-radius:10px;
+
+    color:#222;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:650;
+
+    transition:.18s ease;
+}
+
+.add-stores-menu a:hover{
+
+    background:
+        var(--orange-light);
+
+    color:
+        var(--orange);
+}
+
+.add-stores-menu-icon{
+
+    width:30px;
+
+    height:30px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        #fff2e8;
+
+    border-radius:9px;
+
+    font-size:15px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8f3 0%,
+            #ffffff 48%,
+            #fff0e4 100%
+        );
+
+    border-bottom:
+        1px solid #eeeeee;
+}
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:330px;
+
+    height:330px;
+
+    right:-120px;
+
+    top:-150px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,107,0,.07);
+
+    pointer-events:none;
+}
+
+.hero-inner{
+
+    position:relative;
+
+    z-index:1;
+
+    width:100%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        55px 20px 48px;
+}
+
+.hero-topline{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:17px;
+
+    padding:
+        7px 12px;
+
+    border:
+        1px solid #ffd8bf;
+
+    border-radius:30px;
+
+    background:
+        rgba(255,255,255,.75);
+
+    color:
+        var(--orange-dark);
+
+    font-size:11px;
+
+    font-weight:850;
+
+    letter-spacing:.5px;
+}
+
+.hero-dot{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:
+        var(--orange);
+}
+
+.hero h1{
+
+    max-width:700px;
+
+    font-size:
+        clamp(35px,5vw,58px);
+
+    line-height:1.02;
+
+    letter-spacing:-2.2px;
+
+    font-weight:950;
+
+    margin-bottom:17px;
+}
+
+.hero h1 span{
+
+    color:
+        var(--orange);
+}
+
+.hero-text{
+
+    max-width:650px;
+
+    color:
+        var(--muted);
+
+    font-size:15px;
+
+    line-height:1.75;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+
+    width:100%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        30px 20px 70px;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-box{
+
+    max-width:680px;
+
+    margin:
+        0 auto 34px;
+
+    position:relative;
+}
+
+.search-icon{
+
+    position:absolute;
+
+    left:18px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    font-size:17px;
+
+    pointer-events:none;
+}
+
+#categorySearch{
+
+    width:100%;
+
+    height:55px;
+
+    padding:
+        0 20px 0 48px;
+
+    border:
+        1px solid #dedede;
+
+    border-radius:17px;
+
+    outline:none;
+
+    background:#fff;
+
+    color:#222;
+
+    font-size:14px;
+
+    box-shadow:
+        0 9px 28px rgba(0,0,0,.055);
+
+    transition:.2s ease;
+}
+
+#categorySearch:focus{
+
+    border-color:
+        var(--orange);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(255,107,0,.09);
+}
+
+
+/* =====================================================
+   SECTION HEADING
+===================================================== */
+
+.section-heading{
+
+    margin-bottom:18px;
+}
+
+.section-title{
+
+    font-size:24px;
+
+    font-weight:900;
+
+    letter-spacing:-.6px;
+}
+
+.section-subtitle{
+
+    margin-top:5px;
+
+    color:
+        var(--muted);
+
+    font-size:13px;
+}
+
+
+/* =====================================================
+   CATEGORY GRID
+===================================================== */
+
+.category-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:17px;
+}
+
+
+/* =====================================================
+   CATEGORY CARD
+===================================================== */
+
+.category-card{
+
+    position:relative;
+
+    min-height:205px;
+
+    padding:22px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    border:
+        1px solid #ebebeb;
+
+    border-radius:22px;
+
+    text-decoration:none;
+
+    color:
+        var(--black);
+
+    box-shadow:
+        0 9px 28px rgba(0,0,0,.045);
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease;
+}
+
+.category-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+
+    height:150px;
+
+    right:-70px;
+
+    top:-70px;
+
+    border-radius:50%;
+
+    background:
+        var(--orange-light);
+
+    transition:.25s ease;
+}
+
+.category-card:hover{
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        #ffd1b2;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.10);
+}
+
+.category-card:hover::before{
+
+    transform:
+        scale(1.3);
+}
+
+
+/* =====================================================
+   CATEGORY ICON
+===================================================== */
+
+.category-icon{
+
+    position:relative;
+
+    width:52px;
+
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:20px;
+
+    border-radius:16px;
+
+    background:
+        var(--orange-light);
+
+    font-size:24px;
+}
+
+.category-name{
+
+    position:relative;
+
+    max-width:210px;
+
+    font-size:16px;
+
+    line-height:1.3;
+
+    font-weight:850;
+}
+
+.category-description{
+
+    position:relative;
+
+    max-width:220px;
+
+    margin-top:7px;
+
+    color:
+        var(--muted);
+
+    font-size:11.5px;
+
+    line-height:1.5;
+}
+
+.category-arrow{
+
+    position:absolute;
+
+    right:17px;
+
+    bottom:17px;
+
+    width:34px;
+
+    height:34px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#f6f6f6;
+
+    color:#555;
+
+    font-size:16px;
+
+    transition:.2s ease;
+}
+
+.category-card:hover .category-arrow{
+
+    background:
+        var(--orange);
+
+    color:#fff;
+
+    transform:
+        translateX(3px);
+}
+
+
+/* =====================================================
+   SEARCH STATES
+===================================================== */
+
+.category-card.hidden{
+
+    display:none;
+}
+
+.no-results{
+
+    display:none;
+
+    padding:
+        45px 20px;
+
+    margin-top:12px;
+
+    text-align:center;
+
+    background:#fff;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:18px;
+
+    color:
+        var(--muted);
+}
+
+.no-results.show{
+
+    display:block;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+
+    padding:
+        28px 20px;
+
+    text-align:center;
+
+    background:#fff;
+
+    border-top:
+        1px solid #e9e9e9;
+}
+
+.footer-brand{
+
+    font-size:18px;
+
+    font-weight:900;
+
+    margin-bottom:5px;
+}
+
+.footer-brand span{
+
+    color:
+        var(--orange);
+}
+
+.footer-text{
+
+    color:
+        var(--muted);
+
+    font-size:12px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:950px){
+
+    .category-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .header-inner{
+
+        min-height:62px;
+
+        padding:
+            0 14px;
+
+        gap:10px;
+    }
+
+    .brand{
+
+        font-size:21px;
+    }
+
+
+    .header-actions{
+
+        gap:5px;
+    }
+
+    .home-btn,
+    .add-stores-btn{
+
+        height:33px;
+
+        padding:
+            0 10px;
+
+        font-size:11px;
+    }
+
+    .hero-inner{
+
+        padding:
+            40px 16px 35px;
+    }
+
+    .hero h1{
+
+        font-size:37px;
+
+        letter-spacing:-1.4px;
+    }
+
+    .hero-text{
+
+        font-size:13.5px;
+    }
+
+    .main{
+
+        padding:
+            24px 15px 55px;
+    }
+
+    .category-grid{
+
+        gap:11px;
+    }
+
+    .category-card{
+
+        min-height:180px;
+
+        padding:17px;
+
+        border-radius:18px;
+    }
+
+    .category-icon{
+
+        width:44px;
+
+        height:44px;
+
+        margin-bottom:17px;
+
+        border-radius:13px;
+
+        font-size:21px;
+    }
+
+    .category-name{
+
+        font-size:14px;
+    }
+
+    .category-description{
+
+        font-size:10.5px;
+    }
+
+    .category-arrow{
+
+        right:12px;
+
+        bottom:12px;
+
+        width:29px;
+
+        height:29px;
+
+        font-size:13px;
+    }
+
+    .add-stores-menu{
+
+        width:175px;
+    }
+
+}
+
+
+@media(max-width:380px){
+
+    .brand{
+
+        font-size:19px;
+    }
+
+    .home-btn{
+
+        display:none;
+    }
+
+    .category-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .category-card{
+
+        min-height:145px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+
+            Pyn<span>code</span>.in
+
+        </a>
+
+
+        <div class="header-actions">
+
+            <a
+                href="index.html"
+                class="home-btn"
+            >
+                Home
+            </a>
+
+
+            <div class="add-stores-wrap">
+
+                <button
+                    type="button"
+                    class="add-stores-btn"
+                    id="addStoresButton"
+                >
+
+                    Add Stores
+
+                    <span class="add-stores-arrow">
+                        ⌄
+                    </span>
+
+                </button>
+
+
+                <div
+                    id="addStoresMenu"
+                    class="add-stores-menu"
+                >
+
+                    <a
+                        href="live-qr-create-account.html"
+                    >
+
+                        <span class="add-stores-menu-icon">
+                            🏪
+                        </span>
+
+                        Register Shop
+
+                    </a>
+
+
+                    <a
+                        href="live-qr-login.html"
+                    >
+
+                        <span class="add-stores-menu-icon">
+                            🔐
+                        </span>
+
+                        Owner Login
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-inner">
+
+        <div class="hero-topline">
+
+            <span class="hero-dot"></span>
+
+            PYNCODE • LOCAL BUSINESS DISCOVERY
+
+        </div>
+
+
+        <h1>
+
+            Discover shops
+            <span>near you.</span>
+
+        </h1>
+
+
+        <p class="hero-text">
+
+            Explore registered local businesses on
+            Pyncode. Choose a category and discover
+            shops, stores and local businesses in one place.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+    <div class="search-box">
+
+        <span class="search-icon">
+            🔎
+        </span>
+
+        <input
+            id="categorySearch"
+            type="search"
+            placeholder="Search categories..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <div class="section-heading">
+
+        <div class="section-title">
+            Browse Categories
+        </div>
+
+        <div class="section-subtitle">
+            Select a category to discover registered shops.
+        </div>
+
+    </div>
+
+
+    <div
+        id="categoryGrid"
+        class="category-grid"
+    >
+
+      <!-- =====================================================
+     CATEGORY 1
+===================================================== -->
+
+<a
+    href="nearby-shop-list.html?category=Grocery%20%26%20Provision%20Store"
+    class="category-card"
+    data-category="grocery provision grocery store"
+>
+
+    <div class="category-icon">
+        🛒
+    </div>
+
+    <div class="category-name">
+        Grocery & Provision Store
+    </div>
+
+    <div class="category-description">
+        Everyday groceries and household essentials
+    </div>
+
+    <div class="category-arrow">
+        →
+    </div>
+
+</a>
+
+
+<!-- =====================================================
+     CATEGORY 2
+===================================================== -->
+
+<a
+    href="nearby-shop-list.html?category=Supermarkets"
+    class="category-card"
+    data-category="supermarket supermarkets"
+>
+
+    <div class="category-icon">
+        🏪
+    </div>
+
+    <div class="category-name">
+        Supermarkets
+    </div>
+
+    <div class="category-description">
+        Browse supermarkets and daily shopping stores
+    </div>
+
+    <div class="category-arrow">
+        →
+    </div>
+
+</a>
+
+
+<!-- =====================================================
+     CATEGORY 3
+===================================================== -->
+
+<a
+    href="nearby-shop-list.html?category=Fruits%20%26%20Vegetables"
+    class="category-card"
+    data-category="fruits vegetables fruit vegetable"
+>
+
+    <div class="category-icon">
+        🥬
+    </div>
+
+    <div class="category-name">
+        Fruits & Vegetables
+    </div>
+
+    <div class="category-description">
+        Fresh fruits, vegetables and local produce
+    </div>
+
+    <div class="category-arrow">
+        →
+    </div>
+
+</a>
+
+
+<!-- =====================================================
+     CATEGORY 4
+===================================================== -->
+
+<a
+    href="nearby-shop-list.html?category=Chicken%20%26%20Mutton%20Stall"
+    class="category-card"
+    data-category="chicken mutton meat chicken stall"
+>
+
+    <div class="category-icon">
+        🍗
+    </div>
+
+    <div class="category-name">
+        Chicken & Mutton Stall
+    </div>
+
+    <div class="category-description">
+        Find nearby chicken and mutton shops
+    </div>
+
+    <div class="category-arrow">
+        →
+    </div>
+
+</a>
+
+
+<!-- =====================================================
+     CATEGORY 5
+===================================================== -->
+
+<a
+    href="nearby-shop-list.html?category=Fish%20%26%20Seafood"
+    class="category-card"
+    data-category="fish seafood fish shop"
+>
+
+    <div class="category-icon">
+        🐟
+    </div>
+
+    <div class="category-name">
+        Fish & Seafood
+    </div>
+
+    <div class="category-description">
+        Fresh fish and seafood businesses
+    </div>
+
+    <div class="category-arrow">
+        →
+    </div>
+
+</a>
+
+
+<!-- =====================================================
+     CATEGORY 6
+===================================================== -->
+
+<a
+    href="nearby-shop-list.html?category=Bakeries"
+    class="category-card"
+    data-category="bakery bakeries cake bread"
+>
+
+    <div class="category-icon">
+        🥐
+    </div>
+
+    <div class="category-name">
+        Bakeries
+    </div>
+
+    <div class="category-description">
+        Bakeries, cakes, breads and fresh bakes
+    </div>
+
+    <div class="category-arrow">
+        →
+    </div>
+
+</a>
+
+
+<!-- =====================================================
+     CATEGORY 7
+===================================================== -->
+
+<a
+    href="nearby-shop-list.html?category=Hotels%20%26%20Fast%20Food"
+    class="category-card"
+    data-category="hotel hotels fast food restaurant food"
+>
+
+    <div class="category-icon">
+        🍛
+    </div>
+
+    <div class="category-name">
+        Hotels & Fast Food
+    </div>
+
+    <div class="category-description">
+        Restaurants, hotels and quick food outlets
+    </div>
+
+    <div class="category-arrow">
+        →
+    </div>
+
+</a>
+
+
+<!-- =====================================================
+     CATEGORY 8
+===================================================== -->
+
+<a
+    href="nearby-shop-list.html?category=Wholesale%20Shops"
+    class="category-card"
+    data-category="wholesale wholesaler wholesale shops"
+>
+
+    <div class="category-icon">
+        📦
+    </div>
+
+    <div class="category-name">
+        Wholesale Shops
+    </div>
+
+    <div class="category-description">
+        Discover local wholesale suppliers and traders
+    </div>
+
+    <div class="category-arrow">
+        →
+    </div>
+
+</a>
+
+
+<!-- =====================================================
+     NO RESULTS
+===================================================== -->
+
+</div>
+
+
+<div
+    id="noResults"
+    class="no-results"
+>
+
+    <div
+        style="
+            font-size:34px;
+            margin-bottom:10px;
+        "
+    >
+        🔎
+    </div>
+
+    <strong>
+        No category found
+    </strong>
+
+    <div
+        style="
+            margin-top:6px;
+        "
+    >
+        Try another search.
+    </div>
+
+</div>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-brand">
+        Pyn<span>code</span>
+    </div>
+
+    <div class="footer-text">
+        Discover local businesses. Connect directly.
+    </div>
+
+</footer>
+
+  <script>
+
+/* =====================================================
+   ADD STORES DROPDOWN
+===================================================== */
+
+const addStoresButton =
+    document.getElementById(
+        "addStoresButton"
+    );
+
+const addStoresMenu =
+    document.getElementById(
+        "addStoresMenu"
+    );
+
+
+addStoresButton.addEventListener(
+    "click",
+    function(event){
+
+        event.stopPropagation();
+
+        addStoresMenu.classList.toggle(
+            "show"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   CLOSE ADD STORES MENU
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const wrapper =
+            document.querySelector(
+                ".add-stores-wrap"
+            );
+
+        if(
+            wrapper &&
+            !wrapper.contains(
+                event.target
+            )
+        ){
+
+            addStoresMenu.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CATEGORY SEARCH
+===================================================== */
+
+const categorySearch =
+    document.getElementById(
+        "categorySearch"
+    );
+
+const categoryCards =
+    document.querySelectorAll(
+        ".category-card"
+    );
+
+const noResults =
+    document.getElementById(
+        "noResults"
+    );
+
+
+categorySearch.addEventListener(
+    "input",
+    function(){
+
+        const searchText =
+            this.value
+                .trim()
+                .toLowerCase();
+
+
+        let visibleCount = 0;
+
+
+        categoryCards.forEach(
+            function(card){
+
+                const categoryText =
+                    (
+                        card.dataset.category ||
+                        card.textContent ||
+                        ""
+                    )
+                    .toLowerCase();
+
+
+                const isVisible =
+                    !searchText ||
+                    categoryText.includes(
+                        searchText
+                    );
+
+
+                if(isVisible){
+
+                    card.classList.remove(
+                        "hidden"
+                    );
+
+                    visibleCount++;
+
+                }
+                else{
+
+                    card.classList.add(
+                        "hidden"
+                    );
+
+                }
+
+            }
+        );
+
+
+        if(
+            visibleCount === 0
+        ){
+
+            noResults.classList.add(
+                "show"
+            );
+
+        }
+        else{
+
+            noResults.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESCAPE KEY - CLEAR SEARCH
+===================================================== */
+
+categorySearch.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            this.value = "";
+
+            this.dispatchEvent(
+                new Event("input")
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CATEGORY CARD KEYBOARD ACCESS
+===================================================== */
+
+categoryCards.forEach(
+    function(card){
+
+        card.addEventListener(
+            "keydown",
+            function(event){
+
+                if(
+                    event.key === "Enter" ||
+                    event.key === " "
+                ){
+
+                    event.preventDefault();
+
+                    this.click();
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PAGE READY
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        if(categorySearch){
+
+            categorySearch.setAttribute(
+                "aria-label",
+                "Search nearby shop categories"
+            );
+
+        }
+
+    }
+);
+
+  </script>
+
+  <!-- =====================================================
+     FINAL PAGE POLISH
+===================================================== -->
+
+<style>
+
+/* =====================================================
+   MOBILE HEADER POLISH
+===================================================== */
+
+@media(max-width:600px){
+
+    .header-inner{
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+    .header-actions{
+        flex-shrink:0;
+    }
+
+    .add-stores-btn{
+        box-shadow:
+            0 5px 14px
+            rgba(255,107,0,.16);
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media(max-width:340px){
+
+    .brand-mark{
+        display:none;
+    }
+
+    .brand{
+        font-size:18px;
+    }
+
+    .add-stores-btn{
+        padding:
+            0 9px;
+    }
+
+}
+
+
+/* =====================================================
+   TOUCH DEVICE
+===================================================== */
+
+@media(hover:none){
+
+    .category-card:hover{
+
+        transform:none;
+
+        box-shadow:
+            0 9px 28px
+            rgba(0,0,0,.045);
+    }
+
+    .category-card:active{
+
+        transform:
+            scale(.985);
+    }
+
+}
+
+
+/* =====================================================
+   ACCESSIBILITY
+===================================================== */
+
+.home-btn:focus-visible,
+.add-stores-btn:focus-visible,
+.add-stores-menu a:focus-visible,
+.category-card:focus-visible,
+#categorySearch:focus-visible{
+
+    outline:
+        3px solid
+        rgba(255,107,0,.25);
+
+    outline-offset:3px;
+}
+
+
+/* =====================================================
+   PAGE READY
+===================================================== */
+
+body{
+    overflow-x:hidden;
+}
+
+</style>
+
+
+</body>
+
+</html>

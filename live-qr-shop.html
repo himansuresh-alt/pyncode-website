@@ -1,0 +1,2735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+>
+
+<title>Pyncode Live QR</title>
+
+<meta
+    name="theme-color"
+    content="#D96510"
+>
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#FFF9F3;
+
+    color:#24201D;
+
+    min-height:100vh;
+
+    padding-bottom:115px;
+
+    -webkit-font-smoothing:antialiased;
+
+}
+
+button{
+    font-family:inherit;
+    border:0;
+    cursor:pointer;
+}
+
+button:focus{
+    outline:none;
+}
+
+button:active{
+    transform:scale(.97);
+}
+
+.page{
+
+    width:100%;
+
+    max-width:680px;
+
+    min-height:100vh;
+
+    margin:0 auto;
+
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading-screen{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:25px;
+
+}
+
+.loading-content{
+
+    width:100%;
+
+    max-width:320px;
+
+    text-align:center;
+
+}
+
+.loading-logo{
+
+    width:58px;
+
+    height:58px;
+
+    margin:0 auto 18px;
+
+    border-radius:18px;
+
+    background:#D96510;
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:23px;
+
+    font-weight:850;
+
+    box-shadow:
+        0 15px 35px rgba(217,101,16,.22);
+
+}
+
+.loading-title{
+
+    font-size:20px;
+
+    font-weight:750;
+
+    margin-bottom:7px;
+
+}
+
+.loading-text{
+
+    color:#9A8D84;
+
+    font-size:13px;
+
+}
+
+.loading-spinner{
+
+    width:28px;
+
+    height:28px;
+
+    margin:20px auto 0;
+
+    border:3px solid #F0DCCE;
+
+    border-top-color:#D96510;
+
+    border-radius:50%;
+
+    animation:
+        loadingSpin .8s linear infinite;
+
+}
+
+@keyframes loadingSpin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.error-screen{
+
+    min-height:100vh;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:25px;
+
+}
+
+.error-card{
+
+    width:100%;
+
+    max-width:390px;
+
+    background:#FFFFFF;
+
+    border-radius:25px;
+
+    padding:34px 24px;
+
+    text-align:center;
+
+    border:1px solid #F1DED0;
+
+    box-shadow:
+        0 18px 50px rgba(120,65,25,.08);
+
+}
+
+.error-icon{
+
+    width:60px;
+
+    height:60px;
+
+    margin:0 auto 18px;
+
+    border-radius:50%;
+
+    background:#FFF0E2;
+
+    color:#C4570B;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:25px;
+
+}
+
+.error-title{
+
+    font-size:20px;
+
+    font-weight:800;
+
+    margin-bottom:8px;
+
+}
+
+.error-text{
+
+    color:#8C7D73;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+#mainContent{
+    display:none;
+}
+
+
+/* =========================================
+   SHOP HERO
+========================================= */
+
+.shop-hero{
+
+    position:relative;
+
+    overflow:hidden;
+
+    min-height:265px;
+
+    padding:24px 20px 30px;
+
+    color:#fff;
+
+    background:
+
+        radial-gradient(
+            circle at 88% 12%,
+            rgba(255,255,255,.20),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 15% 90%,
+            rgba(255,255,255,.10),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            145deg,
+            #B94F0A 0%,
+            #D96510 52%,
+            #E87516 100%
+        );
+
+    border-radius:
+        0 0 32px 32px;
+
+    box-shadow:
+        0 20px 48px rgba(180,76,8,.20);
+
+}
+
+.shop-hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    right:-70px;
+
+    bottom:-80px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.12);
+
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.brand-row{
+
+    position:relative;
+
+    z-index:2;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:46px;
+
+}
+
+.pyncode-brand{
+
+    font-size:11px;
+
+    font-weight:850;
+
+    letter-spacing:2.3px;
+
+    color:rgba(255,255,255,.78);
+
+}
+
+.live-badge{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:7px 11px;
+
+    border-radius:999px;
+
+    border:1px solid rgba(255,255,255,.22);
+
+    background:rgba(255,255,255,.12);
+
+    color:#fff;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+}
+
+.live-dot{
+
+    width:6px;
+
+    height:6px;
+
+    border-radius:50%;
+
+    background:#FFFFFF;
+
+    box-shadow:
+        0 0 9px rgba(255,255,255,.9);
+
+}
+
+
+/* =========================================
+   SHOP NAME
+========================================= */
+
+.shop-name{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:580px;
+
+    font-size:
+        clamp(28px,7vw,42px);
+
+    line-height:1.04;
+
+    font-weight:850;
+
+    letter-spacing:-1.1px;
+
+    word-break:break-word;
+
+    margin-bottom:11px;
+
+}
+
+.shop-category{
+
+    position:relative;
+
+    z-index:2;
+
+    color:rgba(255,255,255,.72);
+
+    font-size:13px;
+
+    font-weight:550;
+
+    margin-bottom:23px;
+
+}
+
+.shop-location{
+
+    position:relative;
+
+    z-index:2;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:rgba(255,255,255,.84);
+
+    font-size:13px;
+
+    line-height:1.4;
+
+}
+
+.location-dot{
+    font-size:14px;
+}
+
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.action-row{
+
+    position:relative;
+
+    z-index:5;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+    margin:-24px 18px 0;
+
+}
+
+.action-button{
+
+    min-height:51px;
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    box-shadow:
+        0 10px 28px rgba(120,65,25,.12);
+
+    transition:.18s;
+
+}
+
+.call-button{
+
+    background:#FFFFFF;
+
+    color:#C4570B;
+
+    border:1px solid #F1DED0;
+
+}
+
+.whatsapp-button{
+
+    background:#20A464;
+
+    color:#FFFFFF;
+
+}
+
+
+/* =========================================
+   SHOP INFO
+========================================= */
+
+.shop-info{
+
+    margin:25px 18px 0;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+}
+
+.info-pill{
+
+    background:#FFFFFF;
+
+    border:1px solid #F1DED0;
+
+    border-radius:12px;
+
+    padding:9px 12px;
+
+    color:#766960;
+
+    font-size:11px;
+
+    font-weight:650;
+
+    box-shadow:
+        0 5px 18px rgba(120,65,25,.035);
+
+}
+
+
+/* =========================================
+   PRODUCTS
+========================================= */
+
+.products-section{
+
+    margin:36px 18px 0;
+
+}
+
+.products-heading{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    margin-bottom:16px;
+
+}
+
+.products-title{
+
+    font-size:24px;
+
+    font-weight:820;
+
+    letter-spacing:-.5px;
+
+    color:#24201D;
+
+}
+
+.products-count{
+
+    color:#A28F82;
+
+    font-size:12px;
+
+    font-weight:650;
+
+}
+
+
+/* =========================================
+   PRODUCT LIST
+========================================= */
+
+.products-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.product-card{
+
+    width:100%;
+
+    min-height:88px;
+
+    background:#FFFFFF;
+
+    border:1px solid #F1DED0;
+
+    border-radius:19px;
+
+    padding:16px 15px 16px 17px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:14px;
+
+    box-shadow:
+        0 7px 23px rgba(120,65,25,.045);
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+
+}
+
+.product-card.selected{
+
+    border-color:#E87516;
+
+    box-shadow:
+        0 10px 28px rgba(217,101,16,.10);
+
+}
+
+.product-details{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+.product-name{
+
+    color:#24201D;
+
+    font-size:15px;
+
+    font-weight:780;
+
+    line-height:1.35;
+
+    word-break:break-word;
+
+}
+
+.product-unit{
+
+    margin-top:5px;
+
+    color:#A28F82;
+
+    font-size:11px;
+
+    font-weight:600;
+
+}
+
+.product-actions{
+
+    flex-shrink:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-end;
+
+    gap:9px;
+
+}
+
+.product-price{
+
+    color:#C4570B;
+
+    font-size:16px;
+
+    font-weight:850;
+
+}
+
+
+/* =========================================
+   ADD BUTTON
+========================================= */
+
+.add-button{
+
+    min-width:70px;
+
+    height:34px;
+
+    padding:0 13px;
+
+    border:1px solid #E87516;
+
+    border-radius:10px;
+
+    background:#FFF9F3;
+
+    color:#C4570B;
+
+    font-size:12px;
+
+    font-weight:800;
+
+}
+
+
+/* =========================================
+   QUANTITY
+========================================= */
+
+.quantity-control{
+
+    display:none;
+
+    height:34px;
+
+    border:1px solid #E5BFA4;
+
+    border-radius:11px;
+
+    overflow:hidden;
+
+}
+
+.quantity-control.visible{
+
+    display:flex;
+
+}
+
+.quantity-button{
+
+    width:32px;
+
+    height:34px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#FFF0E2;
+
+    color:#C4570B;
+
+    font-size:17px;
+
+}
+
+.quantity-value{
+
+    min-width:31px;
+
+    height:34px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#FFFFFF;
+
+    color:#24201D;
+
+    font-size:12px;
+
+    font-weight:850;
+
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty-products{
+
+    display:none;
+
+    background:#FFFFFF;
+
+    border:1px solid #F1DED0;
+
+    border-radius:20px;
+
+    padding:38px 20px;
+
+    text-align:center;
+
+}
+
+.empty-products-icon{
+
+    font-size:28px;
+
+    color:#D96510;
+
+    margin-bottom:10px;
+
+}
+
+.empty-products-title{
+
+    font-size:16px;
+
+    font-weight:750;
+
+    margin-bottom:6px;
+
+}
+
+.empty-products-text{
+
+    color:#A28F82;
+
+    font-size:12px;
+
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.site-footer{
+
+    padding:38px 20px 25px;
+
+    text-align:center;
+
+    color:#B1A097;
+
+    font-size:10px;
+
+    letter-spacing:.5px;
+
+}
+
+.site-footer strong{
+
+    color:#C4570B;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- LOADING -->
+
+<div
+    id="loadingScreen"
+    class="loading-screen"
+>
+
+    <div class="loading-content">
+
+        <div class="loading-logo">
+            P
+        </div>
+
+        <div class="loading-title">
+            Loading shop
+        </div>
+
+        <div class="loading-text">
+            Please wait...
+        </div>
+
+        <div class="loading-spinner"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ERROR -->
+
+<div
+    id="errorScreen"
+    class="error-screen"
+>
+
+    <div class="error-card">
+
+        <div class="error-icon">
+            ⚠
+        </div>
+
+        <div
+            id="errorTitle"
+            class="error-title"
+        >
+            Shop unavailable
+        </div>
+
+        <div
+            id="errorMessage"
+            class="error-text"
+        >
+            This Live QR link is invalid or unavailable.
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<main
+    id="mainContent"
+    class="page"
+>
+
+
+    <!-- SHOP HERO -->
+
+    <section class="shop-hero">
+
+        <div class="brand-row">
+
+            <div class="pyncode-brand">
+                PYNCODE
+            </div>
+
+            <div class="live-badge">
+
+                <span class="live-dot"></span>
+
+                LIVE QR
+
+            </div>
+
+        </div>
+
+
+        <h1
+            id="shopName"
+            class="shop-name"
+        >
+            Shop Name
+        </h1>
+
+
+        <div
+            id="shopCategory"
+            class="shop-category"
+        >
+            Local Shop
+        </div>
+
+
+        <div class="shop-location">
+
+            <span class="location-dot">
+                ●
+            </span>
+
+            <span id="shopLocation">
+                Location
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACTION BUTTONS -->
+
+    <div class="action-row">
+
+        <button
+            id="callButton"
+            class="action-button call-button"
+            type="button"
+        >
+            ☎
+            <span>Call</span>
+        </button>
+
+
+        <button
+            id="whatsappButton"
+            class="action-button whatsapp-button"
+            type="button"
+        >
+            ◉
+            <span>WhatsApp</span>
+        </button>
+
+    </div>
+
+
+    <!-- SHOP INFO -->
+
+    <div
+        id="shopInfo"
+        class="shop-info"
+    ></div>
+
+
+    <!-- PRODUCTS -->
+
+    <section class="products-section">
+
+        <div class="products-heading">
+
+            <h2 class="products-title">
+                Products
+            </h2>
+
+            <span
+                id="productCount"
+                class="products-count"
+            >
+                0 items
+            </span>
+
+        </div>
+
+
+        <div
+            id="productsList"
+            class="products-list"
+        ></div>
+
+
+        <div
+            id="emptyProducts"
+            class="empty-products"
+        >
+
+            <div class="empty-products-icon">
+                ◌
+            </div>
+
+            <div class="empty-products-title">
+                No products available
+            </div>
+
+            <div class="empty-products-text">
+                Please check again later.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer class="site-footer">
+
+        Powered by
+        <strong>Pyncode</strong>
+
+    </footer>
+
+
+</main>
+
+  <!-- =========================================
+     ORDER FOOTER
+========================================= -->
+
+<div
+    id="orderFooter"
+    style="
+        position:fixed;
+        left:50%;
+        bottom:0;
+        transform:translateX(-50%);
+        width:100%;
+        max-width:680px;
+        padding:10px 14px 14px;
+        background:linear-gradient(
+            to top,
+            #FFF9F3 65%,
+            rgba(255,249,243,.93)
+        );
+        z-index:100;
+        display:none;
+    "
+>
+
+    <div
+        style="
+            min-height:62px;
+            background:#B94F0A;
+            color:#fff;
+            border-radius:19px;
+            padding:9px 10px 9px 16px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            box-shadow:0 12px 35px rgba(180,76,8,.25);
+        "
+    >
+
+        <div>
+
+            <div
+                id="orderItems"
+                style="
+                    font-size:10px;
+                    color:rgba(255,255,255,.72);
+                    margin-bottom:3px;
+                    font-weight:600;
+                "
+            >
+                0 Items
+            </div>
+
+            <div
+                id="orderTotal"
+                style="
+                    font-size:17px;
+                    font-weight:850;
+                "
+            >
+                ₹0
+            </div>
+
+        </div>
+
+
+        <button
+            id="placeOrderButton"
+            type="button"
+            style="
+                min-height:45px;
+                padding:0 17px;
+                border:0;
+                border-radius:13px;
+                background:#E87516;
+                color:#fff;
+                font-size:12px;
+                font-weight:850;
+                white-space:nowrap;
+                box-shadow:0 5px 15px rgba(0,0,0,.12);
+            "
+        >
+            💬 PLACE ORDER
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    style="
+        position:fixed;
+        left:50%;
+        bottom:92px;
+        transform:translate(-50%,20px);
+        opacity:0;
+        pointer-events:none;
+        z-index:200;
+        background:#B94F0A;
+        color:#fff;
+        padding:11px 16px;
+        border-radius:12px;
+        font-size:12px;
+        font-weight:650;
+        box-shadow:0 10px 30px rgba(120,65,25,.20);
+        transition:.25s;
+        white-space:nowrap;
+    "
+>
+    Added
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================
+   STATE
+========================================= */
+
+let currentShop = null;
+
+let products = [];
+
+let cart = {};
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const loadingScreen =
+    document.getElementById(
+        "loadingScreen"
+    );
+
+const errorScreen =
+    document.getElementById(
+        "errorScreen"
+    );
+
+const errorTitle =
+    document.getElementById(
+        "errorTitle"
+    );
+
+const errorMessage =
+    document.getElementById(
+        "errorMessage"
+    );
+
+const mainContent =
+    document.getElementById(
+        "mainContent"
+    );
+
+const shopName =
+    document.getElementById(
+        "shopName"
+    );
+
+const shopCategory =
+    document.getElementById(
+        "shopCategory"
+    );
+
+const shopLocation =
+    document.getElementById(
+        "shopLocation"
+    );
+
+const shopInfo =
+    document.getElementById(
+        "shopInfo"
+    );
+
+const productsList =
+    document.getElementById(
+        "productsList"
+    );
+
+const productCount =
+    document.getElementById(
+        "productCount"
+    );
+
+const emptyProducts =
+    document.getElementById(
+        "emptyProducts"
+    );
+
+const callButton =
+    document.getElementById(
+        "callButton"
+    );
+
+const whatsappButton =
+    document.getElementById(
+        "whatsappButton"
+    );
+
+const orderFooter =
+    document.getElementById(
+        "orderFooter"
+    );
+
+const orderItems =
+    document.getElementById(
+        "orderItems"
+    );
+
+const orderTotal =
+    document.getElementById(
+        "orderTotal"
+    );
+
+const placeOrderButton =
+    document.getElementById(
+        "placeOrderButton"
+    );
+
+const toast =
+    document.getElementById(
+        "toast"
+    );
+
+
+/* =========================================
+   TOKEN
+========================================= */
+
+function getLiveQrToken(){
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    return params.get("token");
+
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+function showError(
+    title,
+    message
+){
+
+    loadingScreen.style.display =
+        "none";
+
+    mainContent.style.display =
+        "none";
+
+    errorScreen.style.display =
+        "flex";
+
+    errorTitle.textContent =
+        title ||
+        "Shop unavailable";
+
+    errorMessage.textContent =
+        message ||
+        "This Live QR link is unavailable.";
+
+}
+
+
+/* =========================================
+   PRICE
+========================================= */
+
+function formatPrice(value){
+
+    const number =
+        Number(value || 0);
+
+    return "₹" +
+        number.toLocaleString(
+            "en-IN",
+            {
+                minimumFractionDigits:
+                    number % 1 === 0
+                        ? 0
+                        : 2,
+
+                maximumFractionDigits:2
+            }
+        );
+
+}
+
+
+/* =========================================
+   PHONE
+========================================= */
+
+function normalizePhone(phone){
+
+    if(!phone){
+        return "";
+    }
+
+    let value =
+        String(phone)
+            .replace(/\D/g,"");
+
+
+    if(
+        value.length === 10
+    ){
+
+        value =
+            "91" + value;
+
+    }
+
+
+    if(
+        value.startsWith("0") &&
+        value.length === 11
+    ){
+
+        value =
+            "91" +
+            value.substring(1);
+
+    }
+
+
+    return value;
+
+}
+
+
+/* =========================================
+   LOCATION
+========================================= */
+
+function buildLocation(shop){
+
+    const parts = [];
+
+
+    if(shop.area){
+
+        parts.push(
+            shop.area
+        );
+
+    }
+
+
+    if(shop.city){
+
+        parts.push(
+            shop.city
+        );
+
+    }
+
+
+    if(shop.pincode){
+
+        parts.push(
+            shop.pincode
+        );
+
+    }
+
+
+    if(
+        parts.length === 0 &&
+        shop.address
+    ){
+
+        parts.push(
+            shop.address
+        );
+
+    }
+
+
+    if(
+        parts.length === 0
+    ){
+
+        return "Local shop";
+
+    }
+
+
+    return parts.join(
+        " · "
+    );
+
+}
+
+
+/* =========================================
+   RENDER SHOP
+========================================= */
+
+function renderShop(){
+
+    shopName.textContent =
+        currentShop.shop_name ||
+        "Shop";
+
+
+    shopCategory.textContent =
+        currentShop.category ||
+        "Local Shop";
+
+
+    shopLocation.textContent =
+        buildLocation(
+            currentShop
+        );
+
+
+    shopInfo.innerHTML = "";
+
+
+    if(
+        currentShop.address
+    ){
+
+        const pill =
+            document.createElement(
+                "div"
+            );
+
+        pill.className =
+            "info-pill";
+
+        pill.textContent =
+            "📍 " +
+            currentShop.address;
+
+        shopInfo.appendChild(
+            pill
+        );
+
+    }
+
+
+    if(
+        currentShop.pincode
+    ){
+
+        const pill =
+            document.createElement(
+                "div"
+            );
+
+        pill.className =
+            "info-pill";
+
+        pill.textContent =
+            "PIN " +
+            currentShop.pincode;
+
+        shopInfo.appendChild(
+            pill
+        );
+
+    }
+
+
+    if(
+        currentShop.owner_name
+    ){
+
+        const pill =
+            document.createElement(
+                "div"
+            );
+
+        pill.className =
+            "info-pill";
+
+        pill.textContent =
+            "Owner · " +
+            currentShop.owner_name;
+
+        shopInfo.appendChild(
+            pill
+        );
+
+    }
+
+
+    const phone =
+        String(
+            currentShop.mobile ||
+            currentShop.whatsapp ||
+            ""
+        )
+        .replace(
+            /\D/g,
+            ""
+        );
+
+
+    if(phone){
+
+        callButton.style.display =
+            "flex";
+
+
+        callButton.onclick =
+            function(){
+
+                window.location.href =
+                    "tel:" + phone;
+
+            };
+
+    }
+    else{
+
+        callButton.style.display =
+            "none";
+
+    }
+
+
+    const whatsapp =
+        normalizePhone(
+            currentShop.whatsapp ||
+            currentShop.mobile
+        );
+
+
+    if(whatsapp){
+
+        whatsappButton.style.display =
+            "flex";
+
+
+        whatsappButton.onclick =
+            function(){
+
+                window.open(
+                    "https://wa.me/" +
+                    whatsapp,
+                    "_blank"
+                );
+
+            };
+
+    }
+    else{
+
+        whatsappButton.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================
+   LOAD SHOP
+========================================= */
+
+async function loadShop(){
+
+    const token =
+        getLiveQrToken();
+
+
+    if(!token){
+
+        showError(
+            "Invalid Live QR link",
+            "Please scan the permanent QR code provided by the shop."
+        );
+
+        return false;
+
+    }
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+
+            .from("shops")
+
+            .select(`
+                id,
+                shop_name,
+                category,
+                owner_name,
+                mobile,
+                whatsapp,
+                address,
+                area,
+                city,
+                pincode,
+                description,
+                shop_image,
+                live_qr_enabled,
+                live_qr_token,
+                live_qr_status
+            `)
+
+            .eq(
+                "live_qr_token",
+                token
+            )
+
+            .eq(
+                "live_qr_enabled",
+                true
+            )
+
+            .eq(
+                "live_qr_status",
+                "active"
+            )
+
+            .maybeSingle();
+
+
+    if(error){
+
+        console.error(
+            "Shop loading error:",
+            error
+        );
+
+        showError(
+            "Unable to load shop",
+            "Please refresh and try again."
+        );
+
+        return false;
+
+    }
+
+
+    if(!data){
+
+        showError(
+            "Shop unavailable",
+            "This Live QR is invalid, disabled, or unavailable."
+        );
+
+        return false;
+
+    }
+
+
+    currentShop =
+        data;
+
+
+    renderShop();
+
+
+    return true;
+
+}
+
+/* =========================================
+   LOAD PRODUCTS
+========================================= */
+
+async function loadProducts(){
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+
+            .from("shop_products")
+
+            .select(`
+                id,
+                shop_id,
+                product_name,
+                unit,
+                price,
+                image_url,
+                is_available,
+                sort_order,
+                created_at
+            `)
+
+            .eq(
+                "shop_id",
+                currentShop.id
+            )
+
+            .eq(
+                "is_available",
+                true
+            )
+
+            .order(
+                "sort_order",
+                {
+                    ascending:true
+                }
+            )
+
+            .order(
+                "created_at",
+                {
+                    ascending:true
+                }
+            );
+
+
+    if(error){
+
+        console.error(
+            "Product loading error:",
+            error
+        );
+
+        showError(
+            "Unable to load products",
+            "Please refresh and try again."
+        );
+
+        return false;
+
+    }
+
+
+    products =
+        data || [];
+
+
+    renderProducts();
+
+
+    return true;
+
+}
+
+
+/* =========================================
+   RENDER PRODUCTS
+========================================= */
+
+function renderProducts(){
+
+    productsList.innerHTML = "";
+
+
+    productCount.textContent =
+        products.length +
+        (
+            products.length === 1
+                ? " item"
+                : " items"
+        );
+
+
+    if(
+        products.length === 0
+    ){
+
+        emptyProducts.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    emptyProducts.style.display =
+        "none";
+
+
+    products.forEach(
+        function(product){
+
+            const card =
+                createProductCard(
+                    product
+                );
+
+            productsList.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   CREATE PRODUCT CARD
+========================================= */
+
+function createProductCard(
+    product
+){
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+    card.className =
+        "product-card";
+
+
+    const details =
+        document.createElement(
+            "div"
+        );
+
+    details.className =
+        "product-details";
+
+
+    const name =
+        document.createElement(
+            "div"
+        );
+
+    name.className =
+        "product-name";
+
+    name.textContent =
+        product.product_name ||
+        "Product";
+
+
+    const unit =
+        document.createElement(
+            "div"
+        );
+
+    unit.className =
+        "product-unit";
+
+    unit.textContent =
+        product.unit ||
+        "Available";
+
+
+    details.appendChild(
+        name
+    );
+
+    details.appendChild(
+        unit
+    );
+
+
+    const actions =
+        document.createElement(
+            "div"
+        );
+
+    actions.className =
+        "product-actions";
+
+
+    const price =
+        document.createElement(
+            "div"
+        );
+
+    price.className =
+        "product-price";
+
+    price.textContent =
+        formatPrice(
+            product.price
+        );
+
+
+    const addButton =
+        document.createElement(
+            "button"
+        );
+
+    addButton.type =
+        "button";
+
+    addButton.className =
+        "add-button";
+
+    addButton.textContent =
+        "Add";
+
+
+    const quantityControl =
+        document.createElement(
+            "div"
+        );
+
+    quantityControl.className =
+        "quantity-control";
+
+
+    const minusButton =
+        document.createElement(
+            "button"
+        );
+
+    minusButton.type =
+        "button";
+
+    minusButton.className =
+        "quantity-button";
+
+    minusButton.textContent =
+        "−";
+
+
+    const quantityValue =
+        document.createElement(
+            "span"
+        );
+
+    quantityValue.className =
+        "quantity-value";
+
+    quantityValue.textContent =
+        "1";
+
+
+    const plusButton =
+        document.createElement(
+            "button"
+        );
+
+    plusButton.type =
+        "button";
+
+    plusButton.className =
+        "quantity-button";
+
+    plusButton.textContent =
+        "+";
+
+
+    quantityControl.appendChild(
+        minusButton
+    );
+
+    quantityControl.appendChild(
+        quantityValue
+    );
+
+    quantityControl.appendChild(
+        plusButton
+    );
+
+
+    actions.appendChild(
+        price
+    );
+
+    actions.appendChild(
+        addButton
+    );
+
+    actions.appendChild(
+        quantityControl
+    );
+
+
+    card.appendChild(
+        details
+    );
+
+    card.appendChild(
+        actions
+    );
+
+
+    function refreshCard(){
+
+        const quantity =
+            Number(
+                cart[
+                    product.id
+                ] || 0
+            );
+
+
+        if(
+            quantity > 0
+        ){
+
+            card.classList.add(
+                "selected"
+            );
+
+            addButton.style.display =
+                "none";
+
+            quantityControl.classList.add(
+                "visible"
+            );
+
+            quantityValue.textContent =
+                quantity;
+
+        }
+        else{
+
+            card.classList.remove(
+                "selected"
+            );
+
+            addButton.style.display =
+                "block";
+
+            quantityControl.classList.remove(
+                "visible"
+            );
+
+            quantityValue.textContent =
+                "1";
+
+        }
+
+    }
+
+
+    addButton.onclick =
+        function(){
+
+            cart[
+                product.id
+            ] = 1;
+
+
+            refreshCard();
+
+            updateOrderFooter();
+
+            showToast(
+                "Added to order"
+            );
+
+        };
+
+
+    minusButton.onclick =
+        function(){
+
+            const current =
+                Number(
+                    cart[
+                        product.id
+                    ] || 0
+                );
+
+
+            if(
+                current <= 1
+            ){
+
+                delete cart[
+                    product.id
+                ];
+
+            }
+            else{
+
+                cart[
+                    product.id
+                ] =
+                    current - 1;
+
+            }
+
+
+            refreshCard();
+
+            updateOrderFooter();
+
+        };
+
+
+    plusButton.onclick =
+        function(){
+
+            const current =
+                Number(
+                    cart[
+                        product.id
+                    ] || 0
+                );
+
+
+            cart[
+                product.id
+            ] =
+                current + 1;
+
+
+            refreshCard();
+
+            updateOrderFooter();
+
+        };
+
+
+    refreshCard();
+
+
+    return card;
+
+}
+
+
+/* =========================================
+   SELECTED PRODUCTS
+========================================= */
+
+function getSelectedProducts(){
+
+    return products.filter(
+        function(product){
+
+            return (
+                Number(
+                    cart[
+                        product.id
+                    ] || 0
+                ) > 0
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   TOTAL ITEMS
+========================================= */
+
+function getTotalItems(){
+
+    return getSelectedProducts()
+        .reduce(
+            function(total,product){
+
+                return total +
+                    Number(
+                        cart[
+                            product.id
+                        ] || 0
+                    );
+
+            },
+            0
+        );
+
+}
+
+
+/* =========================================
+   TOTAL PRICE
+========================================= */
+
+function getTotalPrice(){
+
+    return getSelectedProducts()
+        .reduce(
+            function(total,product){
+
+                const quantity =
+                    Number(
+                        cart[
+                            product.id
+                        ] || 0
+                    );
+
+                const price =
+                    Number(
+                        product.price || 0
+                    );
+
+
+                return total +
+                    (
+                        quantity *
+                        price
+                    );
+
+            },
+            0
+        );
+
+}
+
+
+/* =========================================
+   UPDATE ORDER FOOTER
+========================================= */
+
+function updateOrderFooter(){
+
+    const totalItems =
+        getTotalItems();
+
+    const totalPrice =
+        getTotalPrice();
+
+
+    if(
+        totalItems <= 0
+    ){
+
+        orderFooter.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    orderFooter.style.display =
+        "block";
+
+
+    orderItems.textContent =
+        totalItems +
+        (
+            totalItems === 1
+                ? " Item"
+                : " Items"
+        );
+
+
+    orderTotal.textContent =
+        formatPrice(
+            totalPrice
+        );
+
+}
+
+/* =========================================
+   BUILD WHATSAPP MESSAGE
+========================================= */
+
+function buildWhatsAppMessage(){
+
+    const selectedProducts =
+        getSelectedProducts();
+
+
+    const lines = [];
+
+
+    lines.push(
+        "🛒 PYNCODE ORDER"
+    );
+
+
+    lines.push("");
+
+
+    lines.push(
+        "Shop: " +
+        (
+            currentShop.shop_name ||
+            ""
+        )
+    );
+
+
+    lines.push("");
+
+
+    selectedProducts.forEach(
+        function(product,index){
+
+            const quantity =
+                Number(
+                    cart[
+                        product.id
+                    ] || 0
+                );
+
+
+            const price =
+                Number(
+                    product.price || 0
+                );
+
+
+            const lineTotal =
+                quantity *
+                price;
+
+
+            let line =
+                (
+                    index + 1
+                ) +
+                ". " +
+                (
+                    product.product_name ||
+                    "Product"
+                );
+
+
+            if(
+                product.unit
+            ){
+
+                line +=
+                    " (" +
+                    product.unit +
+                    ")";
+
+            }
+
+
+            line +=
+                " × " +
+                quantity +
+                " = " +
+                formatPrice(
+                    lineTotal
+                );
+
+
+            lines.push(
+                line
+            );
+
+        }
+    );
+
+
+    lines.push("");
+
+
+    lines.push(
+        "TOTAL: " +
+        formatPrice(
+            getTotalPrice()
+        )
+    );
+
+
+    lines.push("");
+
+
+    lines.push(
+        "Please confirm my order."
+    );
+
+
+    return lines.join(
+        "\n"
+    );
+
+}
+
+
+/* =========================================
+   PLACE ORDER
+========================================= */
+
+function placeOrderOnWhatsApp(){
+
+    const selectedProducts =
+        getSelectedProducts();
+
+
+    if(
+        selectedProducts.length === 0
+    ){
+
+        showToast(
+            "Please select a product"
+        );
+
+        return;
+
+    }
+
+
+    const whatsappNumber =
+        normalizePhone(
+            currentShop.whatsapp ||
+            currentShop.mobile
+        );
+
+
+    if(
+        !whatsappNumber
+    ){
+
+        showToast(
+            "WhatsApp number unavailable"
+        );
+
+        return;
+
+    }
+
+
+    const message =
+        buildWhatsAppMessage();
+
+
+    const whatsappUrl =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        encodeURIComponent(
+            message
+        );
+
+
+    window.open(
+        whatsappUrl,
+        "_blank"
+    );
+
+}
+
+
+/* =========================================
+   ORDER BUTTON
+========================================= */
+
+placeOrderButton.addEventListener(
+    "click",
+    placeOrderOnWhatsApp
+);
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+let toastTimer = null;
+
+
+function showToast(
+    message
+){
+
+    toast.textContent =
+        message;
+
+
+    toast.style.opacity =
+        "1";
+
+
+    toast.style.transform =
+        "translate(-50%,0)";
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            function(){
+
+                toast.style.opacity =
+                    "0";
+
+
+                toast.style.transform =
+                    "translate(-50%,20px)";
+
+            },
+            1800
+        );
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+async function startLiveQrPage(){
+
+    try{
+
+        const shopLoaded =
+            await loadShop();
+
+
+        if(
+            !shopLoaded
+        ){
+
+            return;
+
+        }
+
+
+        const productsLoaded =
+            await loadProducts();
+
+
+        if(
+            !productsLoaded
+        ){
+
+            return;
+
+        }
+
+
+        loadingScreen.style.display =
+            "none";
+
+
+        errorScreen.style.display =
+            "none";
+
+
+        mainContent.style.display =
+            "block";
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Live QR page error:",
+            error
+        );
+
+
+        showError(
+            "Something went wrong",
+            "Please refresh the page and try again."
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+startLiveQrPage();
+
+</script>
+
+</body>
+
+</html>
