@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode.in - Live QR Create Account</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+}
+
+
+/* ===============================
+   HEADER
+================================ */
+
+.header{
+    width:100%;
+    background:#ffffff;
+    border-bottom:1px solid #e5e7eb;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    min-height:64px;
+    padding:0 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    text-decoration:none;
+    color:#111827;
+    font-size:23px;
+    font-weight:800;
+    letter-spacing:-.5px;
+}
+
+.logo span{
+    color:#2563eb;
+}
+
+.header-label{
+    font-size:13px;
+    font-weight:700;
+    color:#64748b;
+}
+
+
+/* ===============================
+   PAGE
+================================ */
+
+.page{
+    min-height:calc(100vh - 64px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:30px 16px 50px;
+}
+
+
+/* ===============================
+   CARD
+================================ */
+
+.card{
+    width:100%;
+    max-width:470px;
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    padding:28px 24px;
+
+    box-shadow:
+        0 10px 35px rgba(15,23,42,.08);
+}
+
+.icon{
+    width:62px;
+    height:62px;
+
+    margin:0 auto 16px;
+
+    border-radius:16px;
+
+    background:#eff6ff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:29px;
+}
+
+.title{
+    text-align:center;
+
+    font-size:25px;
+    font-weight:800;
+
+    color:#111827;
+
+    margin-bottom:7px;
+}
+
+.subtitle{
+    text-align:center;
+
+    color:#64748b;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    margin-bottom:24px;
+}
+
+
+/* ===============================
+   MESSAGE
+================================ */
+
+.message{
+    display:none;
+
+    padding:12px 14px;
+
+    border-radius:10px;
+
+    margin-bottom:16px;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+.message.show{
+    display:block;
+}
+
+.message.error{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.message.success{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.message.info{
+    background:#dbeafe;
+    color:#1e40af;
+}
+
+
+/* ===============================
+   FORM
+================================ */
+
+.field{
+    margin-bottom:16px;
+}
+
+.field label{
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:#374151;
+}
+
+.field input,
+.field select{
+    width:100%;
+
+    padding:13px 14px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    outline:none;
+
+    background:#ffffff;
+
+    color:#111827;
+
+    font-size:15px;
+
+    transition:.2s;
+}
+
+.field input:focus,
+.field select:focus{
+    border-color:#2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.10);
+}
+
+.field select{
+    cursor:pointer;
+}
+
+
+/* ===============================
+   PASSWORD
+================================ */
+
+.password-wrap{
+    position:relative;
+}
+
+.password-wrap input{
+    padding-right:78px;
+}
+
+.password-toggle{
+    position:absolute;
+
+    right:8px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:0;
+
+    background:transparent;
+
+    color:#2563eb;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    padding:7px;
+
+    cursor:pointer;
+}
+
+
+/* ===============================
+   SECTION TITLE
+================================ */
+
+.section-title{
+    margin-top:6px;
+    margin-bottom:14px;
+
+    padding-bottom:8px;
+
+    border-bottom:1px solid #eef2f7;
+
+    color:#111827;
+
+    font-size:14px;
+
+    font-weight:800;
+}
+
+
+/* ===============================
+   BUTTON
+================================ */
+
+.create-button{
+    width:100%;
+
+    border:0;
+
+    border-radius:11px;
+
+    padding:13px 16px;
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.create-button:hover{
+    background:#1d4ed8;
+}
+
+.create-button:disabled{
+    opacity:.6;
+
+    cursor:not-allowed;
+}
+
+
+/* ===============================
+   LOGIN LINK
+================================ */
+
+.login-link{
+    margin-top:18px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    color:#64748b;
+}
+
+.login-link a{
+    color:#2563eb;
+
+    font-weight:700;
+
+    text-decoration:none;
+}
+
+.login-link a:hover{
+    text-decoration:underline;
+}
+
+
+/* ===============================
+   INFO
+================================ */
+
+.info-box{
+    margin-top:20px;
+
+    padding:13px 14px;
+
+    background:#f8fafc;
+
+    border-radius:10px;
+
+    color:#64748b;
+
+    font-size:12px;
+
+    line-height:1.6;
+
+    text-align:center;
+}
+
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media(max-width:600px){
+
+    .header-inner{
+        min-height:58px;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .header-label{
+        font-size:12px;
+    }
+
+    .page{
+        padding:22px 14px 35px;
+    }
+
+    .card{
+        padding:25px 18px;
+        border-radius:17px;
+    }
+
+    .title{
+        font-size:23px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            Pyncode<span>.in</span>
+        </a>
+
+        <div class="header-label">
+            Live QR
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="page">
+
+<section class="card">
+
+
+    <div class="icon">
+        📱
+    </div>
+
+
+    <div class="title">
+        Create Live QR Account
+    </div>
+
+
+    <div class="subtitle">
+        Create your Live QR account and
+        register your shop.
+    </div>
+
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+    <form id="createAccountForm">
+
+              <!-- ===============================
+             OWNER DETAILS
+        ================================ -->
+
+        <div class="section-title">
+            Owner Details
+        </div>
+
+
+        <div class="field">
+
+            <label for="ownerName">
+                Owner Name
+            </label>
+
+            <input
+                id="ownerName"
+                type="text"
+                autocomplete="name"
+                placeholder="Enter owner name"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                id="email"
+                type="email"
+                autocomplete="email"
+                placeholder="Enter email address"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="password">
+                Password
+            </label>
+
+            <div class="password-wrap">
+
+                <input
+                    id="password"
+                    type="password"
+                    autocomplete="new-password"
+                    placeholder="Create password"
+                    minlength="6"
+                    required
+                >
+
+                <button
+                    type="button"
+                    id="togglePassword"
+                    class="password-toggle"
+                >
+                    Show
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="confirmPassword">
+                Confirm Password
+            </label>
+
+            <input
+                id="confirmPassword"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Re-enter password"
+                minlength="6"
+                required
+            >
+
+        </div>
+
+
+        <!-- ===============================
+             SHOP DETAILS
+        ================================ -->
+
+        <div class="section-title">
+            Shop Details
+        </div>
+
+
+        <div class="field">
+
+            <label for="shopName">
+                Shop Name
+            </label>
+
+            <input
+                id="shopName"
+                type="text"
+                autocomplete="organization"
+                placeholder="Enter shop name"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="category">
+                Select Category
+            </label>
+
+           <select
+    id="category"
+    required
+>
+
+    <option value="">
+        Select Category
+    </option>
+
+    <option value="Grocery & Provision Stores">
+        Grocery & Provision Stores
+    </option>
+
+    <option value="Supermarkets">
+        Supermarkets
+    </option>
+
+    <option value="Fruits & Vegetable Shops">
+        Fruits & Vegetable Shops
+    </option>
+
+    <option value="Milk & Dairy Shops">
+        Milk & Dairy Shops
+    </option>
+
+    <option value="Chicken & Mutton Shops">
+        Chicken & Mutton Shops
+    </option>
+
+    <option value="Fish & Seafood Shops">
+        Fish & Seafood Shops
+    </option>
+
+    <option value="Bakeries">
+        Bakeries
+    </option>
+
+    <option value="Cleaning & Home Care Stores">
+        Cleaning & Home Care Stores
+    </option>
+
+    <option value="Hotels & Fast Food">
+        Hotels & Fast Food
+    </option>
+
+    <option value="Tea, Juice & Snacks Shops">
+        Tea, Juice & Snacks Shops
+    </option>
+
+    <option value="Clothing Stores">
+        Clothing Stores
+    </option>
+
+    <option value="Footwear Stores">
+        Footwear Stores
+    </option>
+
+    <option value="Mobile & Accessories Shops">
+        Mobile & Accessories Shops
+    </option>
+
+    <option value="Computer & Electronics Stores">
+        Computer & Electronics Stores
+    </option>
+
+    <option value="Pharmacy & Medical Shops">
+        Pharmacy & Medical Shops
+    </option>
+
+    <option value="Cosmetics & Fancy Stores">
+        Cosmetics & Fancy Stores
+    </option>
+
+    <option value="Gift Shops">
+        Gift Shops
+    </option>
+
+    <option value="Home & Kitchen Stores">
+        Home & Kitchen Stores
+    </option>
+
+    <option value="Kids & Baby Stores">
+        Kids & Baby Stores
+    </option>
+
+    <option value="Stationery & Book Shops">
+        Stationery & Book Shops
+    </option>
+
+    <option value="Hardware & Electrical Shops">
+        Hardware & Electrical Shops
+    </option>
+
+    <option value="Paint & Plumbing Stores">
+        Paint & Plumbing Stores
+    </option>
+
+    <option value="Furniture Stores">
+        Furniture Stores
+    </option>
+
+    <option value="Plants & Gardening Stores">
+        Plants & Gardening Stores
+    </option>
+
+    <option value="Auto Spare Parts & Service">
+        Auto Spare Parts & Service
+    </option>
+
+    <option value="Tyre & Battery Shops">
+        Tyre & Battery Shops
+    </option>
+
+    <option value="Salon & Beauty Parlours">
+        Salon & Beauty Parlours
+    </option>
+
+    <option value="Pet Supplies & Pet Shops">
+        Pet Supplies & Pet Shops
+    </option>
+
+    <option value="Wholesale Shops">
+        Wholesale Shops
+    </option>
+
+    <option value="Online Sellers & E-commerce">
+        Online Sellers & E-commerce
+    </option>
+
+           </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="mobile">
+                Mobile Number
+            </label>
+
+            <input
+                id="mobile"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel"
+                placeholder="Enter mobile number"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="whatsapp">
+                WhatsApp Number
+            </label>
+
+            <input
+                id="whatsapp"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel"
+                placeholder="Enter WhatsApp number"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="area">
+                Area
+            </label>
+
+            <input
+                id="area"
+                type="text"
+                autocomplete="address-level3"
+                placeholder="Enter area"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="city">
+                City
+            </label>
+
+            <input
+                id="city"
+                type="text"
+                autocomplete="address-level2"
+                placeholder="Enter city"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="pincode">
+                Pincode
+            </label>
+
+            <input
+                id="pincode"
+                type="text"
+                inputmode="numeric"
+                autocomplete="postal-code"
+                placeholder="Enter pincode"
+                maxlength="6"
+                required
+            >
+
+        </div>
+
+
+        <!-- ===============================
+             CREATE BUTTON
+        ================================ -->
+
+        <button
+            type="submit"
+            id="createButton"
+            class="create-button"
+        >
+            Create Live QR Account
+        </button>
+
+
+    </form>
+
+
+    <!-- ===============================
+         LOGIN LINK
+    ================================ -->
+
+    <div class="login-link">
+
+        Already have a Live QR account?
+
+        <a href="live-qr-login.html">
+            Login
+        </a>
+
+    </div>
+
+
+    <!-- ===============================
+         INFO BOX
+    ================================ -->
+
+    <div class="info-box">
+
+        Your Live QR account and shop will be
+        activated immediately after registration.
+
+    </div>
+
+
+</section>
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE CONFIG
+===================================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   FORM ELEMENTS
+===================================================== */
+
+const createAccountForm =
+    document.getElementById(
+        "createAccountForm"
+    );
+
+
+const ownerNameInput =
+    document.getElementById(
+        "ownerName"
+    );
+
+
+const emailInput =
+    document.getElementById(
+        "email"
+    );
+
+
+const passwordInput =
+    document.getElementById(
+        "password"
+    );
+
+
+const confirmPasswordInput =
+    document.getElementById(
+        "confirmPassword"
+    );
+
+
+const shopNameInput =
+    document.getElementById(
+        "shopName"
+    );
+
+
+const categorySelect =
+    document.getElementById(
+        "category"
+    );
+
+
+const mobileInput =
+    document.getElementById(
+        "mobile"
+    );
+
+
+const whatsappInput =
+    document.getElementById(
+        "whatsapp"
+    );
+
+
+const areaInput =
+    document.getElementById(
+        "area"
+    );
+
+
+const cityInput =
+    document.getElementById(
+        "city"
+    );
+
+
+const pincodeInput =
+    document.getElementById(
+        "pincode"
+    );
+
+
+const createButton =
+    document.getElementById(
+        "createButton"
+    );
+
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+const togglePassword =
+    document.getElementById(
+        "togglePassword"
+    );
+
+
+/* =====================================================
+   MESSAGE FUNCTIONS
+===================================================== */
+
+function showMessage(
+    text,
+    type
+){
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message show " + type;
+
+}
+
+
+function hideMessage(){
+
+    message.textContent =
+        "";
+
+    message.className =
+        "message";
+
+}
+
+
+/* =====================================================
+   PASSWORD TOGGLE
+===================================================== */
+
+togglePassword.addEventListener(
+    "click",
+    function(){
+
+        if(
+            passwordInput.type ===
+            "password"
+        ){
+
+            passwordInput.type =
+                "text";
+
+            togglePassword.textContent =
+                "Hide";
+
+        }
+        else{
+
+            passwordInput.type =
+                "password";
+
+            togglePassword.textContent =
+                "Show";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   INPUT CLEANING
+===================================================== */
+
+mobileInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value.replace(
+                /[^0-9+]/g,
+                ""
+            );
+
+    }
+);
+
+
+whatsappInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value.replace(
+                /[^0-9+]/g,
+                ""
+            );
+
+    }
+);
+
+
+pincodeInput.addEventListener(
+    "input",
+    function(){
+
+        this.value =
+            this.value.replace(
+                /[^0-9]/g,
+                ""
+            )
+            .slice(
+                0,
+                6
+            );
+
+    }
+);
+
+  /* =====================================================
+   CREATE LIVE QR ACCOUNT
+===================================================== */
+
+createAccountForm.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+        hideMessage();
+
+
+        /* ---------------------------------------------
+           GET FORM VALUES
+        --------------------------------------------- */
+
+        const ownerName =
+            ownerNameInput.value.trim();
+
+        const email =
+            emailInput.value
+                .trim()
+                .toLowerCase();
+
+        const password =
+            passwordInput.value;
+
+        const confirmPassword =
+            confirmPasswordInput.value;
+
+        const shopName =
+            shopNameInput.value.trim();
+
+        const category =
+            categorySelect.value;
+
+        const mobile =
+            mobileInput.value.trim();
+
+        const whatsapp =
+            whatsappInput.value.trim();
+
+        const area =
+            areaInput.value.trim();
+
+        const city =
+            cityInput.value.trim();
+
+        const pincode =
+            pincodeInput.value.trim();
+
+
+        /* ---------------------------------------------
+           BASIC VALIDATION
+        --------------------------------------------- */
+
+        if(!ownerName){
+
+            showMessage(
+                "Please enter owner name.",
+                "error"
+            );
+
+            ownerNameInput.focus();
+
+            return;
+        }
+
+
+        if(!email){
+
+            showMessage(
+                "Please enter email address.",
+                "error"
+            );
+
+            emailInput.focus();
+
+            return;
+        }
+
+
+        if(password.length < 6){
+
+            showMessage(
+                "Password must contain at least 6 characters.",
+                "error"
+            );
+
+            passwordInput.focus();
+
+            return;
+        }
+
+
+        if(password !== confirmPassword){
+
+            showMessage(
+                "Password and Confirm Password do not match.",
+                "error"
+            );
+
+            confirmPasswordInput.focus();
+
+            return;
+        }
+
+
+        if(!shopName){
+
+            showMessage(
+                "Please enter shop name.",
+                "error"
+            );
+
+            shopNameInput.focus();
+
+            return;
+        }
+
+
+        if(!category){
+
+            showMessage(
+                "Please select a shop category.",
+                "error"
+            );
+
+            categorySelect.focus();
+
+            return;
+        }
+
+
+        if(!mobile){
+
+            showMessage(
+                "Please enter mobile number.",
+                "error"
+            );
+
+            mobileInput.focus();
+
+            return;
+        }
+
+
+        if(!whatsapp){
+
+            showMessage(
+                "Please enter WhatsApp number.",
+                "error"
+            );
+
+            whatsappInput.focus();
+
+            return;
+        }
+
+
+        if(!area){
+
+            showMessage(
+                "Please enter area.",
+                "error"
+            );
+
+            areaInput.focus();
+
+            return;
+        }
+
+
+        if(!city){
+
+            showMessage(
+                "Please enter city.",
+                "error"
+            );
+
+            cityInput.focus();
+
+            return;
+        }
+
+
+        if(pincode.length !== 6){
+
+            showMessage(
+                "Please enter a valid 6 digit pincode.",
+                "error"
+            );
+
+            pincodeInput.focus();
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           BUTTON STATE
+        --------------------------------------------- */
+
+        createButton.disabled = true;
+
+        createButton.textContent =
+            "Creating Account...";
+
+
+        try{
+
+            /* -----------------------------------------
+               CREATE SUPABASE AUTH USER
+            ----------------------------------------- */
+
+            const {
+                data: authData,
+                error: authError
+            } =
+            await supabaseClient.auth.signUp({
+
+                email: email,
+
+                password: password
+
+            });
+
+
+            if(authError){
+
+                throw authError;
+
+            }
+
+
+            if(
+                !authData ||
+                !authData.user
+            ){
+
+                throw new Error(
+                    "Unable to create Live QR account."
+                );
+
+            }
+
+
+            const authUser =
+                authData.user;
+
+
+            /* -----------------------------------------
+               CHECK AUTH SESSION
+            ----------------------------------------- */
+
+            const {
+                data: sessionData,
+                error: sessionError
+            } =
+            await supabaseClient.auth.getSession();
+
+
+            if(sessionError){
+
+                throw sessionError;
+
+            }
+
+
+            if(
+                !sessionData ||
+                !sessionData.session
+            ){
+
+                throw new Error(
+                    "Account created, but no active session was found. Please check your email verification settings and try again."
+                );
+
+            }
+
+
+            /* -----------------------------------------
+               CREATE SHOP + LIVE QR OWNER MAPPING
+               USING SECURE RPC
+            ----------------------------------------- */
+
+            const {
+                data: registrationData,
+                error: registrationError
+            } =
+            await supabaseClient.rpc(
+                "create_live_qr_registration",
+                {
+                    p_shop_name:
+                        shopName,
+
+                    p_category:
+                        category,
+
+                    p_owner_name:
+                        ownerName,
+
+                    p_email:
+                        email,
+
+                    p_mobile:
+                        mobile,
+
+                    p_whatsapp:
+                        whatsapp,
+
+                    p_area:
+                        area,
+
+                    p_city:
+                        city,
+
+                    p_pincode:
+                        pincode
+                }
+            );
+
+
+            if(registrationError){
+
+                console.error(
+                    "Live QR registration error:",
+                    registrationError
+                );
+
+                throw registrationError;
+
+            }
+
+
+            if(
+                !registrationData ||
+                !registrationData.length
+            ){
+
+                throw new Error(
+                    "Live QR registration was not completed."
+                );
+
+            }
+
+
+            /* -----------------------------------------
+               GET CREATED SHOP DATA
+            ----------------------------------------- */
+
+            const registration =
+                registrationData[0];
+
+
+            const shopId =
+                registration.shop_id;
+
+
+            const liveQrToken =
+                registration.live_qr_token;
+
+
+            if(!shopId){
+
+                throw new Error(
+                    "Shop ID was not returned."
+                );
+
+            }
+
+
+            if(!liveQrToken){
+
+                throw new Error(
+                    "Live QR token was not generated."
+                );
+
+            }
+
+
+            /* -----------------------------------------
+               STORE LIVE QR SESSION DATA
+            ----------------------------------------- */
+
+            sessionStorage.setItem(
+                "pyncode_live_qr_owner_id",
+                String(authUser.id)
+            );
+
+
+            sessionStorage.setItem(
+                "pyncode_live_qr_shop_id",
+                String(shopId)
+            );
+
+
+            sessionStorage.setItem(
+                "pyncode_live_qr_token",
+                String(liveQrToken)
+            );
+
+
+            /* -----------------------------------------
+               SUCCESS
+            ----------------------------------------- */
+
+            showMessage(
+                "Live QR account created successfully. Opening your Live QR dashboard...",
+                "success"
+            );
+
+
+            createButton.textContent =
+                "Account Created";
+
+
+            /* -----------------------------------------
+               REDIRECT
+            ----------------------------------------- */
+
+            setTimeout(
+                function(){
+
+                    window.location.href =
+                        "live-qr-owner.html";
+
+                },
+                1200
+            );
+
+        }
+        catch(error){
+
+            console.error(
+                "Create Live QR account error:",
+                error
+            );
+
+
+            showMessage(
+                error &&
+                error.message
+                    ? error.message
+                    : "Unable to create Live QR account.",
+                "error"
+            );
+
+
+            createButton.disabled =
+                false;
+
+
+            createButton.textContent =
+                "Create Live QR Account";
+
+        }
+
+    }
+);
+
+  /* =====================================================
+   PAGE INITIAL CHECK
+===================================================== */
+
+async function pageInitialCheck(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+
+        if(error){
+
+            console.error(
+                "Initial session check error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * If an old Pyncode session exists,
+         * do not reuse it for Live QR registration.
+         */
+
+        if(
+            data &&
+            data.session
+        ){
+
+            await supabaseClient
+                .auth
+                .signOut();
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Page initial check failed:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   PREVENT DOUBLE SUBMIT
+===================================================== */
+
+let accountCreationStarted =
+    false;
+
+
+createAccountForm.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Enter" &&
+            accountCreationStarted
+        ){
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   FORM SUBMIT LOCK
+===================================================== */
+
+createAccountForm.addEventListener(
+    "submit",
+    function(){
+
+        accountCreationStarted =
+            true;
+
+    },
+    {
+        once:false
+    }
+);
+
+
+/* =====================================================
+   START PAGE
+===================================================== */
+
+pageInitialCheck();
+
+  </script>
+
+</body>
+
+</html> 

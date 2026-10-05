@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#fffaf7"
+>
+
+<title>Pyncode Local - Customer Request</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#fffaf7;
+    color:#171717;
+    min-height:100vh;
+}
+
+button,
+input,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.topbar{
+    height:68px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 14px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #eeeeee;
+}
+
+.topbar-inner{
+    width:100%;
+    max-width:700px;
+    margin:0 auto;
+
+    display:flex;
+    align-items:center;
+}
+
+.back-button{
+    width:46px;
+    height:46px;
+
+    border:0;
+    border-radius:15px;
+
+    background:#fff1eb;
+
+    color:#ef5b3f;
+
+    font-size:22px;
+}
+
+.page-title{
+    flex:1;
+
+    text-align:center;
+
+    font-size:18px;
+    font-weight:800;
+
+    margin-right:46px;
+}
+
+main{
+    width:100%;
+    max-width:700px;
+
+    margin:0 auto;
+
+    padding:18px 14px 80px;
+}
+
+.card{
+    background:#ffffff;
+
+    border:1px solid #eeeeee;
+
+    border-radius:24px;
+
+    padding:20px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.05);
+}
+
+.icon-box{
+    width:58px;
+    height:58px;
+
+    border-radius:18px;
+
+    background:#fff1eb;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+
+    margin-bottom:14px;
+}
+
+.heading{
+    font-size:23px;
+    font-weight:850;
+
+    color:#171717;
+}
+
+.subheading{
+    margin-top:7px;
+
+    color:#777;
+
+    font-size:14px;
+
+    line-height:1.5;
+}
+
+.post-box{
+    margin-top:20px;
+
+    padding:15px;
+
+    border-radius:17px;
+
+    background:#fff8f4;
+
+    border:1px solid #ffe1d6;
+}
+
+.post-label{
+    color:#999;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+.post-title{
+    margin-top:4px;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    color:#222;
+}
+
+.action-label{
+    display:inline-block;
+
+    margin-top:9px;
+
+    padding:6px 10px;
+
+    border-radius:999px;
+
+    background:#ef5b3f;
+
+    color:#ffffff;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    text-transform:capitalize;
+}
+
+.form-group{
+    margin-top:18px;
+}
+
+.form-label{
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    color:#333;
+}
+
+.required{
+    color:#ef5b3f;
+}
+
+.form-input,
+.form-textarea{
+    width:100%;
+
+    border:1px solid #dddddd;
+
+    border-radius:15px;
+
+    background:#ffffff;
+
+    color:#222;
+
+    outline:none;
+
+    padding:14px;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.form-input{
+    height:52px;
+}
+
+.form-textarea{
+    min-height:125px;
+
+    resize:vertical;
+}
+
+.form-input:focus,
+.form-textarea:focus{
+    border-color:#ef5b3f;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(239,91,63,.10);
+}
+
+.helper{
+    margin-top:6px;
+
+    color:#999;
+
+    font-size:11px;
+}
+
+.status{
+    display:none;
+
+    margin-top:18px;
+
+    padding:13px 15px;
+
+    border-radius:14px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    line-height:1.5;
+}
+
+.status.show{
+    display:block;
+}
+
+.status.error{
+    background:#fff1f0;
+
+    color:#c53030;
+
+    border:1px solid #ffd2cf;
+}
+
+.status.success{
+    background:#ecfdf3;
+
+    color:#167345;
+
+    border:1px solid #c7f0d8;
+}
+
+.submit-button{
+    width:100%;
+
+    min-height:54px;
+
+    margin-top:20px;
+
+    border:0;
+
+    border-radius:17px;
+
+    background:#ef5b3f;
+
+    color:#ffffff;
+
+    font-size:16px;
+
+    font-weight:850;
+
+    box-shadow:
+        0 8px 20px
+        rgba(239,91,63,.20);
+}
+
+.submit-button:disabled{
+    opacity:.55;
+
+    cursor:not-allowed;
+
+    box-shadow:none;
+}
+
+.note{
+    margin-top:14px;
+
+    text-align:center;
+
+    color:#999;
+
+    font-size:11px;
+
+    line-height:1.5;
+}
+
+.success-box{
+    display:none;
+
+    text-align:center;
+
+    padding:25px 10px 10px;
+}
+
+.success-icon{
+    font-size:55px;
+}
+
+.success-title{
+    margin-top:12px;
+
+    font-size:21px;
+
+    font-weight:850;
+}
+
+.success-text{
+    margin-top:8px;
+
+    color:#777;
+
+    font-size:14px;
+
+    line-height:1.6;
+}
+
+.back-post-button{
+    margin-top:20px;
+
+    width:100%;
+
+    min-height:50px;
+
+    border:1px solid #e5e5e5;
+
+    border-radius:15px;
+
+    background:#ffffff;
+
+    color:#333;
+
+    font-weight:750;
+}
+
+@media(max-width:520px){
+
+    main{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .card{
+        padding:17px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <button
+            type="button"
+            class="back-button"
+            id="backButton"
+        >
+            ←
+        </button>
+
+        <div class="page-title">
+            Customer Request
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="card">
+
+        <div class="icon-box">
+            💬
+        </div>
+
+        <div class="heading">
+            Send Request
+        </div>
+
+        <div class="subheading">
+            Enter your details and the seller will contact you.
+        </div>
+
+
+        <div
+            class="post-box"
+            id="postBox"
+        >
+
+            <div class="post-label">
+                POST
+            </div>
+
+            <div
+                class="post-title"
+                id="postTitle"
+            >
+                Loading...
+            </div>
+
+            <div
+                class="action-label"
+                id="actionLabel"
+            >
+                Request
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="customerName"
+            >
+                Your Name
+                <span class="required">*</span>
+            </label>
+
+            <input
+                type="text"
+                id="customerName"
+                class="form-input"
+                placeholder="Enter your name"
+                autocomplete="name"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="customerPhone"
+            >
+                Phone Number
+                <span class="required">*</span>
+            </label>
+
+            <input
+                type="tel"
+                id="customerPhone"
+                class="form-input"
+                placeholder="Enter your phone number"
+                inputmode="numeric"
+                maxlength="15"
+                autocomplete="tel"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="customerMessage"
+            >
+                Message / Requirement
+            </label>
+
+            <textarea
+                id="customerMessage"
+                class="form-textarea"
+                placeholder="Write your requirement..."
+                maxlength="500"
+            ></textarea>
+
+            <div class="helper">
+                Tell the seller what you need.
+            </div>
+
+        </div>
+
+
+        <div
+            id="statusBox"
+            class="status"
+        ></div>
+
+
+        <button
+            type="button"
+            class="submit-button"
+            id="submitButton"
+        >
+            Send Request
+        </button>
+
+
+        <div class="note">
+            Your request will be sent to the post owner.
+        </div>
+
+
+        <div
+            class="success-box"
+            id="successBox"
+        >
+
+            <div class="success-icon">
+                ✅
+            </div>
+
+            <div class="success-title">
+                Request Sent Successfully
+            </div>
+
+            <div class="success-text">
+                The seller has received your request.
+                They can contact you using the phone number you provided.
+            </div>
+
+            <button
+                type="button"
+                class="back-post-button"
+                id="backPostButton"
+            >
+                Back to Post
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+"use strict";
+
+
+/* ==========================================
+   SUPABASE
+   ========================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+            auth:{
+                persistSession:true,
+                autoRefreshToken:true,
+                detectSessionInUrl:true,
+                storageKey:"pyncode-local-auth"
+            }
+        }
+    );
+
+
+/* ==========================================
+   DOM
+   ========================================== */
+
+const customerName =
+    document.getElementById(
+        "customerName"
+    );
+
+const customerPhone =
+    document.getElementById(
+        "customerPhone"
+    );
+
+const customerMessage =
+    document.getElementById(
+        "customerMessage"
+    );
+
+const submitButton =
+    document.getElementById(
+        "submitButton"
+    );
+
+const statusBox =
+    document.getElementById(
+        "statusBox"
+    );
+
+const successBox =
+    document.getElementById(
+        "successBox"
+    );
+
+const postTitle =
+    document.getElementById(
+        "postTitle"
+    );
+
+const actionLabel =
+    document.getElementById(
+        "actionLabel"
+    );
+
+const backButton =
+    document.getElementById(
+        "backButton"
+    );
+
+const backPostButton =
+    document.getElementById(
+        "backPostButton"
+    );
+
+
+/* ==========================================
+   URL
+   ========================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const postId =
+    params.get("post_id") ||
+    params.get("id");
+
+const selectedAction =
+    String(
+        params.get("action") ||
+        "enquire"
+    ).toLowerCase();
+
+
+/* ==========================================
+   STATUS
+   ========================================== */
+
+function setStatus(
+    message,
+    type
+){
+
+    statusBox.textContent =
+        message || "";
+
+    statusBox.className =
+        "status";
+
+    if(message){
+
+        statusBox.classList.add(
+            "show"
+        );
+
+    }
+
+    if(
+        type === "error" ||
+        type === "success"
+    ){
+
+        statusBox.classList.add(
+            type
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   ACTION TEXT
+   ========================================== */
+
+function getActionText(
+    action
+){
+
+    if(action === "order"){
+        return "Order Request";
+    }
+
+    if(action === "apply"){
+        return "Application";
+    }
+
+    if(action === "contact"){
+        return "Contact Request";
+    }
+
+    return "Enquiry";
+
+}
+
+
+/* ==========================================
+   LOAD POST TITLE
+   ========================================== */
+
+async function loadPost(){
+
+    if(!postId){
+
+        postTitle.textContent =
+            "Post information missing";
+
+        submitButton.disabled =
+            true;
+
+        setStatus(
+            "Post information is missing.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    actionLabel.textContent =
+        getActionText(
+            selectedAction
+        );
+
+
+    try{
+
+        /*
+         * IMPORTANT:
+         *
+         * We already have the exact post_id.
+         *
+         * So there is no need to use
+         * pyncode_local_nearby_posts here.
+         *
+         * This avoids depending on location
+         * just to display the post title.
+         */
+
+        const response =
+            await fetch(
+                SUPABASE_URL +
+                "/functions/v1/pyncode-local-public" +
+                "?post_id=" +
+                encodeURIComponent(
+                    String(postId)
+                )
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Unable to load post."
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        /*
+         * The public function may return
+         * the post in different response
+         * wrappers, so support the existing
+         * response structure safely.
+         */
+
+        const post =
+            result?.post ||
+            result?.data ||
+            result;
+
+
+        if(
+            post &&
+            post.title
+        ){
+
+            postTitle.textContent =
+                post.title;
+
+            return;
+
+        }
+
+
+        throw new Error(
+            "Post title not found."
+        );
+
+
+    }catch(error){
+
+        console.warn(
+            "Post title load warning:",
+            error
+        );
+
+
+        /*
+         * Do not block the customer request
+         * only because title loading failed.
+         *
+         * The submit RPC will independently
+         * verify the post before creating
+         * the customer request.
+         */
+
+        postTitle.textContent =
+            "Selected Local Post";
+
+    }
+
+}
+
+
+/* ==========================================
+   SUBMIT REQUEST
+   ========================================== */
+
+async function submitRequest(){
+
+    if(
+        !postId
+    ){
+
+        setStatus(
+            "Post information is missing.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    const name =
+        customerName.value.trim();
+
+    const phone =
+        customerPhone.value.trim();
+
+    const message =
+        customerMessage.value.trim();
+
+
+    if(!name){
+
+        setStatus(
+            "Please enter your name.",
+            "error"
+        );
+
+        customerName.focus();
+
+        return;
+
+    }
+
+
+    if(!phone){
+
+        setStatus(
+            "Please enter your phone number.",
+            "error"
+        );
+
+        customerPhone.focus();
+
+        return;
+
+    }
+
+
+    if(
+        !/^\d{10,15}$/.test(
+            phone
+        )
+    ){
+
+        setStatus(
+            "Please enter a valid phone number.",
+            "error"
+        );
+
+        customerPhone.focus();
+
+        return;
+
+    }
+
+
+    submitButton.disabled =
+        true;
+
+    submitButton.textContent =
+        "Sending...";
+
+    setStatus(
+        "",
+        ""
+    );
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .rpc(
+                "pyncode_create_customer_request",
+                {
+                    p_post_id:
+                        Number(
+                            postId
+                        ),
+
+                    p_customer_name:
+                        name,
+
+                    p_customer_phone:
+                        phone,
+
+                    p_message:
+                        message || null
+                }
+            );
+
+
+    if(error){
+
+        console.error(
+            "Customer request error:",
+            error
+        );
+
+        throw new Error(
+            error.message ||
+            "Unable to send request."
+        );
+
+    }
+
+
+    if(!data){
+
+        throw new Error(
+            "Request could not be created."
+        );
+
+    }
+
+
+    setStatus(
+        "Request sent successfully.",
+        "success"
+    );
+
+    submitButton.style.display =
+        "none";
+
+    successBox.style.display =
+        "block";
+
+
+    }catch(error){
+
+        console.error(
+            "Request submit error:",
+            error
+        );
+
+        setStatus(
+            error.message ||
+            "Unable to send request. Please try again.",
+            "error"
+        );
+
+        submitButton.disabled =
+            false;
+
+        submitButton.textContent =
+            "Send Request";
+
+    }
+
+}
+
+
+/* ==========================================
+   BACK TO POST
+   ========================================== */
+
+function backToPost(){
+
+    if(!postId){
+
+        window.history.back();
+
+        return;
+
+    }
+
+    window.location.href =
+        "current-post-details.html" +
+        "?post_id=" +
+        encodeURIComponent(
+            String(postId)
+        );
+
+}
+
+
+/* ==========================================
+   EVENTS
+   ========================================== */
+
+submitButton.onclick =
+    submitRequest;
+
+backButton.onclick =
+    backToPost;
+
+backPostButton.onclick =
+    backToPost;
+
+
+/* ==========================================
+   START
+   ========================================== */
+
+loadPost();
+
+</script>
+
+  </body>
+
+</html>
