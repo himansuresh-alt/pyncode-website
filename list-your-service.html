@@ -148,6 +148,53 @@ main{
 }
 
 
+/* LOCATION */
+
+.location-box{
+    border:1px solid #e0e0e0;
+    border-radius:12px;
+    padding:16px;
+    background:#fafafa;
+}
+
+.location-button{
+    width:100%;
+    border:1px solid #111;
+    background:#fff;
+    color:#111;
+    padding:13px 15px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.location-button:hover{
+    background:#111;
+    color:#fff;
+}
+
+.location-button:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+.location-status{
+    margin-top:9px;
+    font-size:13px;
+    line-height:1.5;
+    color:#777;
+}
+
+.location-status.success{
+    color:#16803c;
+}
+
+.location-status.error{
+    color:#d62828;
+}
+
+
 /* PHOTO */
 
 #serviceImagePreview img{
@@ -556,8 +603,7 @@ main{
 
             </div>
 
-
-            <!-- MOBILE + WHATSAPP -->
+                      <!-- MOBILE + WHATSAPP -->
 
             <div class="form-row">
 
@@ -596,7 +642,7 @@ main{
 
             </div>
 
-                      
+
             <!-- ADDRESS -->
 
             <div class="form-group">
@@ -671,6 +717,48 @@ main{
                     title="Please enter a valid 6 digit pincode"
                     required
                 >
+
+            </div>
+
+
+            <!-- SERVICE LOCATION -->
+
+            <div class="form-group">
+
+                <label>
+                    Service Location *
+                </label>
+
+                <div class="location-box">
+
+                    <button
+                        type="button"
+                        id="useLocationButton"
+                        class="location-button"
+                    >
+                        📍 Use My Current Location
+                    </button>
+
+                    <div
+                        id="locationStatus"
+                        class="location-status"
+                    >
+                        Add your exact service location so customers can find you nearby.
+                    </div>
+
+                    <input
+                        type="hidden"
+                        id="latitude"
+                        value=""
+                    >
+
+                    <input
+                        type="hidden"
+                        id="longitude"
+                        value=""
+                    >
+
+                </div>
 
             </div>
 
@@ -816,8 +904,7 @@ main{
 
 </footer>
 
-
-<script>
+  <script>
 
 
 /* =========================
@@ -866,6 +953,214 @@ const serviceImagePreview =
     document.getElementById(
         "serviceImagePreview"
     );
+
+
+/* =========================
+   LOCATION ELEMENTS
+========================= */
+
+const useLocationButton =
+    document.getElementById(
+        "useLocationButton"
+    );
+
+const locationStatus =
+    document.getElementById(
+        "locationStatus"
+    );
+
+const latitudeInput =
+    document.getElementById(
+        "latitude"
+    );
+
+const longitudeInput =
+    document.getElementById(
+        "longitude"
+    );
+
+
+/* =========================
+   LOCATION STATUS
+========================= */
+
+function setLocationStatus(
+    text,
+    type = ""
+){
+
+    locationStatus.textContent =
+        text;
+
+    locationStatus.className =
+        "location-status";
+
+    if(type){
+
+        locationStatus.classList.add(
+            type
+        );
+
+    }
+
+}
+
+
+/* =========================
+   GET CURRENT LOCATION
+========================= */
+
+useLocationButton.addEventListener(
+    "click",
+    function(){
+
+        if(
+            !navigator.geolocation
+        ){
+
+            setLocationStatus(
+                "Location is not supported by this browser.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        useLocationButton.disabled =
+            true;
+
+        useLocationButton.textContent =
+            "📍 Getting Location...";
+
+
+        setLocationStatus(
+            "Please allow location access when your browser asks."
+        );
+
+
+        navigator.geolocation.getCurrentPosition(
+
+            function(position){
+
+                const latitude =
+                    Number(
+                        position.coords.latitude
+                    );
+
+                const longitude =
+                    Number(
+                        position.coords.longitude
+                    );
+
+
+                if(
+                    !Number.isFinite(latitude) ||
+                    !Number.isFinite(longitude)
+                ){
+
+                    setLocationStatus(
+                        "Unable to get a valid location.",
+                        "error"
+                    );
+
+                    useLocationButton.disabled =
+                        false;
+
+                    useLocationButton.textContent =
+                        "📍 Use My Current Location";
+
+                    return;
+
+                }
+
+
+                latitudeInput.value =
+                    latitude;
+
+                longitudeInput.value =
+                    longitude;
+
+
+                setLocationStatus(
+                    "✓ Service location added successfully.",
+                    "success"
+                );
+
+
+                useLocationButton.disabled =
+                    false;
+
+                useLocationButton.textContent =
+                    "📍 Location Added ✓";
+
+            },
+
+            function(error){
+
+                console.error(
+                    "Location error:",
+                    error
+                );
+
+
+                let errorMessage =
+                    "Unable to get your location.";
+
+                if(
+                    error.code ===
+                    error.PERMISSION_DENIED
+                ){
+
+                    errorMessage =
+                        "Location permission was denied. Please allow location access.";
+
+                }
+                else if(
+                    error.code ===
+                    error.POSITION_UNAVAILABLE
+                ){
+
+                    errorMessage =
+                        "Your location is currently unavailable.";
+
+                }
+                else if(
+                    error.code ===
+                    error.TIMEOUT
+                ){
+
+                    errorMessage =
+                        "Location request timed out. Please try again.";
+
+                }
+
+
+                setLocationStatus(
+                    errorMessage,
+                    "error"
+                );
+
+
+                useLocationButton.disabled =
+                    false;
+
+                useLocationButton.textContent =
+                    "📍 Use My Current Location";
+
+            },
+
+            {
+                enableHighAccuracy:true,
+                timeout:15000,
+                maximumAge:0
+            }
+
+        );
+
+    }
+);
 
 
 /* =========================
@@ -950,8 +1245,7 @@ pincodeInput.addEventListener(
     }
 );
 
-
-/* =========================
+    /* =========================
    FORM SUBMIT
 ========================= */
 
@@ -1068,6 +1362,51 @@ serviceForm.addEventListener(
 
 
         /* =========================
+           GET LOCATION VALUES
+        ========================= */
+
+        const latitude =
+            latitudeInput.value
+                ? Number(
+                    latitudeInput.value
+                  )
+                : null;
+
+
+        const longitude =
+            longitudeInput.value
+                ? Number(
+                    longitudeInput.value
+                  )
+                : null;
+
+
+        /* =========================
+           LOCATION VALIDATION
+        ========================= */
+
+        if(
+            !Number.isFinite(latitude) ||
+            !Number.isFinite(longitude)
+        ){
+
+            message.textContent =
+                "Please add your service location using the location button.";
+
+            message.className =
+                "message error";
+
+            locationStatus.scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
+
+            return;
+
+        }
+
+
+        /* =========================
            PINCODE VALIDATION
         ========================= */
 
@@ -1139,7 +1478,8 @@ serviceForm.addEventListener(
 
         }
 
-              /* =========================
+
+        /* =========================
            SERVICE PHOTO UPLOAD
         ========================= */
 
@@ -1272,8 +1612,7 @@ serviceForm.addEventListener(
         submitButton.textContent =
             "Submitting...";
 
-
-        /* =========================
+              /* =========================
            SUPABASE INSERT
         ========================= */
 
@@ -1322,7 +1661,13 @@ serviceForm.addEventListener(
                             description,
 
                         shop_image:
-                            serviceImageUrl
+                            serviceImageUrl,
+
+                        latitude:
+                            latitude,
+
+                        longitude:
+                            longitude
 
                     }
                 ])
@@ -1363,6 +1708,18 @@ serviceForm.addEventListener(
                 "";
 
 
+            latitudeInput.value =
+                "";
+
+            longitudeInput.value =
+                "";
+
+
+            setLocationStatus(
+                "Service location was saved successfully."
+            );
+
+
             submitButton.textContent =
                 "Submitted ✓";
 
@@ -1380,13 +1737,19 @@ serviceForm.addEventListener(
                 2500
             );
 
-          setTimeout(function(){
 
-    window.location.href =
-        "service-category.html?category=" +
-        encodeURIComponent(serviceCategory);
+            setTimeout(
+                function(){
 
-}, 1200);
+                    window.location.href =
+                        "service-category.html?category=" +
+                        encodeURIComponent(
+                            serviceCategory
+                        );
+
+                },
+                1200
+            );
 
 
         }

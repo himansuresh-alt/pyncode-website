@@ -1,0 +1,2655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#fffaf7"
+>
+
+<title>
+Pyncode Local - Post Details
+</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#fffaf7;
+    color:#171717;
+    min-height:100vh;
+}
+
+button,
+input,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.page{
+    min-height:100vh;
+}
+
+.topbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:74px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 18px;
+
+    background:rgba(
+        255,
+        255,
+        255,
+        .96
+    );
+
+    border-bottom:
+        1px solid #eeeeee;
+
+    backdrop-filter:blur(12px);
+}
+
+.topbar-inner{
+    width:100%;
+    max-width:760px;
+    margin:0 auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.back-button{
+    width:48px;
+    height:48px;
+
+    border:0;
+    border-radius:16px;
+
+    background:#fff4ee;
+
+    color:#ef5b3f;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.back-button:active{
+    transform:scale(.95);
+}
+
+.page-title{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+
+    font-size:20px;
+    font-weight:800;
+
+    color:#181818;
+
+    white-space:nowrap;
+}
+
+.header-spacer{
+    width:48px;
+    height:48px;
+}
+
+main{
+    width:100%;
+    max-width:760px;
+    margin:0 auto;
+
+    padding:
+        18px
+        18px
+        100px;
+}
+
+.loading-box{
+    min-height:
+        calc(100vh - 180px);
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:16px;
+
+    color:#777;
+
+    font-size:16px;
+}
+
+.spinner{
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    border:
+        6px solid #ffe2d8;
+
+    border-top-color:#ef5b3f;
+
+    animation:
+        spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.empty-box{
+    display:none;
+
+    margin-top:40px;
+
+    padding:34px 24px;
+
+    text-align:center;
+
+    background:#ffffff;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius:24px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.05);
+
+    font-size:28px;
+}
+
+.empty-title{
+    font-size:20px;
+    font-weight:800;
+
+    margin-bottom:8px;
+}
+
+.empty-text{
+    color:#777;
+    line-height:1.6;
+
+    font-size:14px;
+}
+
+.empty-button{
+    margin-top:20px;
+
+    border:0;
+
+    border-radius:14px;
+
+    padding:13px 20px;
+
+    background:#ef5b3f;
+    color:#fff;
+
+    font-weight:700;
+}
+
+#postContainer{
+    display:none;
+}
+
+.post-card{
+    background:#ffffff;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.06);
+}
+
+.post-image-wrap{
+    width:100%;
+
+    background:#f3f3f3;
+
+    position:relative;
+}
+
+.post-image{
+    display:block;
+
+    width:100%;
+
+    max-height:520px;
+
+    object-fit:cover;
+}
+
+.post-image-placeholder{
+    min-height:240px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff1eb,
+            #fff8f5
+        );
+
+    color:#ef5b3f;
+
+    font-size:48px;
+}
+
+.post-content{
+    padding:22px;
+}
+
+.post-category{
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:7px 11px;
+
+    border-radius:999px;
+
+    background:#fff1eb;
+
+    color:#ef5b3f;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    text-transform:capitalize;
+}
+
+.post-title{
+    margin-top:13px;
+
+    font-size:26px;
+
+    line-height:1.25;
+
+    font-weight:850;
+
+    color:#171717;
+}
+
+.post-description{
+    margin-top:12px;
+
+    color:#666;
+
+    font-size:15px;
+
+    line-height:1.65;
+
+    white-space:pre-wrap;
+}
+
+.price-box{
+    margin-top:18px;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    background:#fff8f4;
+
+    border:
+        1px solid #ffe1d6;
+}
+
+.price-label{
+    color:#888;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+.price-value{
+    margin-top:4px;
+
+    color:#ef5b3f;
+
+    font-size:25px;
+
+    font-weight:850;
+}
+
+.meta-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:10px;
+
+    margin-top:18px;
+}
+
+.meta-item{
+    padding:13px;
+
+    background:#fafafa;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius:15px;
+}
+
+.meta-label{
+    display:block;
+
+    color:#999;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    margin-bottom:4px;
+}
+
+.meta-value{
+    display:block;
+
+    color:#333;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    line-height:1.4;
+}
+
+.location-box{
+    margin-top:16px;
+
+    padding:15px;
+
+    border-radius:17px;
+
+    background:#f8fafc;
+
+    border:
+        1px solid #e8edf2;
+}
+
+.location-title{
+    font-size:13px;
+
+    font-weight:800;
+
+    color:#333;
+}
+
+.location-text{
+    margin-top:5px;
+
+    color:#666;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+.seller-box{
+    margin-top:18px;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    background:#f8f8f8;
+
+    border:
+        1px solid #eeeeee;
+}
+
+.seller-title{
+    font-size:12px;
+
+    color:#999;
+
+    font-weight:700;
+}
+
+.seller-name{
+    margin-top:4px;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    color:#222;
+}
+
+.status-box{
+    display:none;
+
+    margin-bottom:14px;
+
+    padding:13px 15px;
+
+    border-radius:14px;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    font-weight:700;
+}
+
+.status-box.show{
+    display:block;
+}
+
+.status-box.success{
+    background:#ecfdf3;
+
+    color:#167345;
+
+    border:
+        1px solid #c7f0d8;
+}
+
+.status-box.error{
+    background:#fff1f0;
+
+    color:#c53030;
+
+    border:
+        1px solid #ffd2cf;
+}
+
+.action-area{
+    margin-top:20px;
+
+    padding-top:18px;
+
+    border-top:
+        1px solid #eeeeee;
+}
+
+.main-action{
+    width:100%;
+
+    min-height:54px;
+
+    border:0;
+
+    border-radius:17px;
+
+    background:#ef5b3f;
+
+    color:#ffffff;
+
+    font-size:16px;
+
+    font-weight:850;
+
+    box-shadow:
+        0 8px 20px
+        rgba(239,91,63,.20);
+
+    transition:
+        transform .2s ease,
+        opacity .2s ease;
+}
+
+.main-action:active{
+    transform:scale(.98);
+}
+
+.main-action:disabled{
+    opacity:.55;
+
+    cursor:not-allowed;
+
+    box-shadow:none;
+}
+
+.secondary-actions{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:10px;
+
+    margin-top:10px;
+}
+
+.secondary-button{
+    min-height:48px;
+
+    border:
+        1px solid #e5e5e5;
+
+    border-radius:15px;
+
+    background:#ffffff;
+
+    color:#333;
+
+    font-size:14px;
+
+    font-weight:750;
+}
+
+.secondary-button:active{
+    transform:scale(.98);
+}
+
+@media(max-width:520px){
+
+    main{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .topbar{
+        height:68px;
+
+        padding:
+            0 12px;
+    }
+
+    .page-title{
+        font-size:18px;
+    }
+
+    .post-content{
+        padding:17px;
+    }
+
+    .post-title{
+        font-size:22px;
+    }
+
+    .meta-grid{
+        grid-template-columns:
+            1fr;
+    }
+
+    .secondary-actions{
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+<header class="topbar">
+
+    <div class="topbar-inner">
+
+        <button
+            type="button"
+            class="back-button"
+            id="backButton"
+            aria-label="Go back"
+        >
+            ←
+        </button>
+
+        <div class="page-title">
+            Post Details
+        </div>
+
+        <div
+            class="header-spacer"
+            aria-hidden="true"
+        ></div>
+
+    </div>
+
+</header>
+
+<main>
+
+    <div
+        id="loadingBox"
+        class="loading-box"
+    >
+
+        <div class="spinner"></div>
+
+        <div>
+            Loading post...
+        </div>
+
+    </div>
+
+    <div
+        id="statusBox"
+        class="status-box"
+    ></div>
+
+    <section
+        id="emptyBox"
+        class="empty-box"
+    >
+
+        <div class="empty-icon">
+            📍
+        </div>
+
+        <div class="empty-title">
+            Post not available
+        </div>
+
+        <div class="empty-text">
+            This post could not be loaded
+            or may no longer be available.
+        </div>
+
+        <button
+            type="button"
+            class="empty-button"
+            id="emptyHomeButton"
+        >
+            Browse Local Posts
+        </button>
+
+    </section>
+
+    <section
+        id="postContainer"
+    ></section>
+
+</main>
+
+</div>
+
+<script>
+
+"use strict";
+
+/* ==========================================
+   SUPABASE CONFIG
+   ========================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: true,
+                storageKey: "pyncode-local-auth"
+            }
+        }
+    );
+
+
+/* ==========================================
+   API CONFIG
+   ========================================== */
+
+const PUBLIC_API =
+    SUPABASE_URL +
+    "/functions/v1/pyncode-local-public";
+
+
+const CONFIG = {
+
+    homePage:
+        "index.html",
+
+    accountPage:
+        "current-account.html",
+
+    bookingPage:
+        "current-booking.html",
+
+    postDetailsPage:
+        "current-post-details.html"
+
+};
+
+
+/* ==========================================
+   DOM
+   ========================================== */
+
+const loadingBox =
+    document.getElementById(
+        "loadingBox"
+    );
+
+const emptyBox =
+    document.getElementById(
+        "emptyBox"
+    );
+
+const postContainer =
+    document.getElementById(
+        "postContainer"
+    );
+
+const statusBox =
+    document.getElementById(
+        "statusBox"
+    );
+
+const backButton =
+    document.getElementById(
+        "backButton"
+    );
+
+const emptyHomeButton =
+    document.getElementById(
+        "emptyHomeButton"
+    );
+
+
+/* ==========================================
+   STATE
+   ========================================== */
+
+let currentPost =
+    null;
+
+let currentUser =
+    null;
+
+let actionLocked =
+    false;
+
+
+/* ==========================================
+   STATUS
+   ========================================== */
+
+function setStatus(
+    message,
+    type
+){
+
+    if(!statusBox){
+        return;
+    }
+
+    statusBox.textContent =
+        message || "";
+
+    statusBox.className =
+        "status-box";
+
+    if(message){
+        statusBox.classList.add(
+            "show"
+        );
+    }
+
+    if(
+        type === "success" ||
+        type === "error"
+    ){
+
+        statusBox.classList.add(
+            type
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   HTML ESCAPE
+   ========================================== */
+
+function escapeHtml(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* ==========================================
+   GET URL POST ID
+   ========================================== */
+
+function getPostId(){
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    return params.get(
+        "id"
+    ) || params.get(
+        "post_id"
+    );
+
+}
+
+
+/* ==========================================
+   LOCATION
+   ========================================== */
+
+function getUserLocation(){
+
+    return new Promise(
+        function(resolve){
+
+            try{
+
+                const saved =
+                    localStorage.getItem(
+                        "pyncode_local_location"
+                    );
+
+                if(saved){
+
+                    const location =
+                        JSON.parse(saved);
+
+                    const latitude =
+                        Number(
+                            location.latitude
+                        );
+
+                    const longitude =
+                        Number(
+                            location.longitude
+                        );
+
+                    if(
+                        Number.isFinite(latitude) &&
+                        Number.isFinite(longitude)
+                    ){
+
+                        resolve({
+
+                            latitude:
+                                latitude,
+
+                            longitude:
+                                longitude
+
+                        });
+
+                        return;
+
+                    }
+
+                }
+
+            }catch(error){
+
+                console.warn(
+                    "Saved location error:",
+                    error
+                );
+
+            }
+
+
+            if(
+                !navigator.geolocation
+            ){
+
+                resolve(null);
+
+                return;
+
+            }
+
+            navigator.geolocation.getCurrentPosition(
+
+                function(position){
+
+                    resolve({
+
+                        latitude:
+                            Number(
+                                position.coords.latitude
+                            ),
+
+                        longitude:
+                            Number(
+                                position.coords.longitude
+                            )
+
+                    });
+
+                },
+
+                function(){
+
+                    resolve(null);
+
+                },
+
+                {
+                    enableHighAccuracy:true,
+
+                    timeout:10000,
+
+                    maximumAge:300000
+
+                }
+
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   GET CURRENT USER
+   ========================================== */
+
+async function getCurrentUser(){
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+        if(error){
+
+            console.error(
+                "Supabase session error:",
+                error
+            );
+
+            return null;
+
+        }
+
+        return (
+            data &&
+            data.session &&
+            data.session.user
+        ) || null;
+
+    }catch(error){
+
+        console.error(
+            "Supabase user error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+/* ==========================================
+   FETCH POST
+   ========================================== */
+
+async function findPost(
+    postId
+){
+
+    if(
+        postId === null ||
+        postId === undefined ||
+        postId === ""
+    ){
+
+        return null;
+
+    }
+
+
+    try{
+
+        /*
+         * Directly get the post from Supabase RPC.
+         * Location is NOT required here.
+         */
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .rpc(
+                "pyncode_local_get_post_by_id",
+                {
+                    p_post_id:
+                        Number(postId)
+                }
+            );
+
+
+        if(error){
+
+            console.error(
+                "Post RPC error:",
+                error
+            );
+
+            setStatus(
+                error.message ||
+                "Unable to load this post.",
+                "error"
+            );
+
+            return null;
+
+        }
+
+
+        return data || null;
+
+
+    }catch(error){
+
+        console.error(
+            "Post fetch error:",
+            error
+        );
+
+        setStatus(
+            "Unable to load this post. Please try again.",
+            "error"
+        );
+
+        return null;
+
+    }
+
+}
+
+
+  /* ==========================================
+   DATE HELPERS
+   ========================================== */
+
+function isPostExpired(
+    post
+){
+
+    if(
+        !post ||
+        !post.expires_at
+    ){
+
+        return false;
+
+    }
+
+    const expiry =
+        new Date(
+            post.expires_at
+        ).getTime();
+
+    if(
+        !Number.isFinite(
+            expiry
+        )
+    ){
+
+        return false;
+
+    }
+
+    return (
+        expiry <= Date.now()
+    );
+
+}
+
+
+function isPostAvailable(
+    post
+){
+
+    if(!post){
+
+        return false;
+
+    }
+
+    if(
+        post.status &&
+        String(
+            post.status
+        ).toLowerCase() !==
+        "published"
+    ){
+
+        return false;
+
+    }
+
+    if(
+        isPostExpired(
+            post
+        )
+    ){
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+
+/* ==========================================
+   POST OWNER CHECK
+   ========================================== */
+
+function isPostOwner(
+    post
+){
+
+    if(
+        !post ||
+        !currentUser
+    ){
+
+        return false;
+
+    }
+
+    if(
+        !post.user_id ||
+        !currentUser.id
+    ){
+
+        return false;
+
+    }
+
+    return (
+        String(
+            post.user_id
+        ) ===
+        String(
+            currentUser.id
+        )
+    );
+
+}
+
+
+/* ==========================================
+   ACTION SAFETY
+   ========================================== */
+
+function canInteractWithPost(
+    post
+){
+
+    if(!post){
+
+        return {
+            allowed:false,
+            message:
+                "Post information is missing."
+        };
+
+    }
+
+    if(
+        post.status &&
+        String(
+            post.status
+        ).toLowerCase() !==
+        "published"
+    ){
+
+        return {
+            allowed:false,
+            message:
+                "This post is currently unavailable."
+        };
+
+    }
+
+    if(
+        isPostExpired(
+            post
+        )
+    ){
+
+        return {
+            allowed:false,
+            message:
+                "This post has expired."
+        };
+
+    }
+
+    if(
+        isPostOwner(
+            post
+        )
+    ){
+
+        return {
+            allowed:false,
+            message:
+                "You cannot request your own post."
+        };
+
+    }
+
+    return {
+        allowed:true,
+        message:""
+    };
+
+}
+
+
+/* ==========================================
+   ACTION LABEL
+   ========================================== */
+
+function getActionLabel(
+    action
+){
+
+    const value =
+        String(
+            action || "enquire"
+        ).toLowerCase();
+
+    if(
+        value === "order"
+    ){
+
+        return "Order Now";
+
+    }
+
+    if(
+        value === "book"
+    ){
+
+        return "Book Now";
+
+    }
+
+    if(
+        value === "apply"
+    ){
+
+        return "Apply Now";
+
+    }
+
+    if(
+        value === "contact"
+    ){
+
+        return "Contact";
+
+    }
+
+    return "Send Enquiry";
+
+}
+
+
+/* ==========================================
+   FORMAT PRICE
+   ========================================== */
+
+function formatPrice(
+    price
+){
+
+    if(
+        price === null ||
+        price === undefined ||
+        price === ""
+    ){
+
+        return "";
+
+    }
+
+    const numeric =
+        Number(
+            price
+        );
+
+    if(
+        !Number.isFinite(
+            numeric
+        )
+    ){
+
+        return String(
+            price
+        );
+
+    }
+
+    return new Intl.NumberFormat(
+        "en-IN",
+        {
+            style:"currency",
+            currency:"INR",
+            maximumFractionDigits:2
+        }
+    ).format(
+        numeric
+    );
+
+}
+
+
+/* ==========================================
+   FORMAT DATE
+   ========================================== */
+
+function formatDate(
+    value
+){
+
+    if(!value){
+
+        return "";
+
+    }
+
+    const date =
+        new Date(
+            value
+        );
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "";
+
+    }
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"numeric",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* ==========================================
+   CATEGORY LABEL
+   ========================================== */
+
+function formatCategory(
+    category
+){
+
+    const value =
+        String(
+            category || ""
+        )
+        .trim();
+
+    if(!value){
+
+        return "Local";
+
+    }
+
+    return value
+        .replace(
+            /[_-]+/g,
+            " "
+        )
+        .replace(
+            /\b\w/g,
+            function(letter){
+                return letter.toUpperCase();
+            }
+        );
+
+}
+
+
+/* ==========================================
+   IMAGE CHECK
+   ========================================== */
+
+function hasValidImage(
+    post
+){
+
+    return !!(
+        post &&
+        post.image_url &&
+        String(
+            post.image_url
+        ).trim()
+    );
+
+}
+
+
+/* ==========================================
+   LOCATION TEXT
+   ========================================== */
+
+function getLocationText(
+    post
+){
+
+    if(!post){
+
+        return "Local area";
+
+    }
+
+    const parts = [];
+
+    if(post.area){
+
+        parts.push(
+            String(
+                post.area
+            )
+        );
+
+    }
+
+    if(
+        post.city &&
+        String(
+            post.city
+        ) !==
+        String(
+            post.area || ""
+        )
+    ){
+
+        parts.push(
+            String(
+                post.city
+            )
+        );
+
+    }
+
+    if(
+        post.pincode
+    ){
+
+        parts.push(
+            String(
+                post.pincode
+            )
+        );
+
+    }
+
+    if(!parts.length){
+
+        if(
+            post.public_location
+        ){
+
+            return String(
+                post.public_location
+            );
+
+        }
+
+        return "Local area";
+
+    }
+
+    return parts.join(
+        ", "
+    );
+
+}
+
+
+/* ==========================================
+   DISTANCE TEXT
+   ========================================== */
+
+function getDistanceText(
+    post
+){
+
+    if(
+        !post ||
+        post.distance_km === null ||
+        post.distance_km === undefined
+    ){
+
+        return "";
+
+    }
+
+    const distance =
+        Number(
+            post.distance_km
+        );
+
+    if(
+        !Number.isFinite(
+            distance
+        )
+    ){
+
+        return "";
+
+    }
+
+    if(
+        distance < 1
+    ){
+
+        return (
+            Math.round(
+                distance * 1000
+            ) +
+            " m away"
+        );
+
+    }
+
+    return (
+        distance.toFixed(1) +
+        " km away"
+    );
+
+}
+
+
+/* ==========================================
+   POST IMAGE HTML
+   ========================================== */
+
+function getPostImageHtml(
+    post
+){
+
+    if(
+        hasValidImage(
+            post
+        )
+    ){
+
+        return `
+            <div class="post-image-wrap">
+
+                <img
+                    class="post-image"
+                    src="${escapeHtml(post.image_url)}"
+                    alt="${escapeHtml(post.title || "Local post")}"
+                    loading="eager"
+                    onerror="
+                        this.style.display='none';
+                        this.nextElementSibling.style.display='flex';
+                    "
+                >
+
+                <div
+                    class="post-image-placeholder"
+                    style="display:none;"
+                >
+                    📍
+                </div>
+
+            </div>
+        `;
+
+    }
+
+    return `
+        <div class="post-image-wrap">
+
+            <div class="post-image-placeholder">
+                📍
+            </div>
+
+        </div>
+    `;
+
+}
+
+
+/* ==========================================
+   RENDER POST
+   ========================================== */
+
+function renderPost(
+    post
+){
+
+    if(!post){
+
+        return;
+
+    }
+
+    const category =
+        formatCategory(
+            post.category
+        );
+
+    const title =
+        escapeHtml(
+            post.title ||
+            "Local Post"
+        );
+
+    const description =
+        escapeHtml(
+            post.description ||
+            ""
+        );
+
+    const location =
+        escapeHtml(
+            getLocationText(
+                post
+            )
+        );
+
+    const distance =
+        getDistanceText(
+            post
+        );
+
+    const actionLabel =
+        getActionLabel(
+            post.action_type
+        );
+
+    const price =
+        formatPrice(
+            post.price
+        );
+
+    const quantity =
+        post.quantity
+            ? escapeHtml(
+                post.quantity
+            )
+            : "";
+
+    const createdDate =
+        formatDate(
+            post.created_at
+        );
+
+    const expiryDate =
+        formatDate(
+            post.expires_at
+        );
+
+    const imageHtml =
+        getPostImageHtml(
+            post
+        );
+
+    postContainer.innerHTML = `
+
+        <article
+            class="post-card"
+        >
+
+            ${imageHtml}
+
+            <div
+                class="post-content"
+            >
+
+                <div
+                    class="post-category"
+                >
+                    ${escapeHtml(category)}
+                </div>
+
+
+                <h1
+                    class="post-title"
+                >
+                    ${title}
+                </h1>
+
+
+                ${
+                    description
+                        ? `
+                            <div
+                                class="post-description"
+                            >
+                                ${description}
+                            </div>
+                          `
+                        : ""
+                }
+
+
+                ${
+                    price
+                        ? `
+                            <div
+                                class="price-box"
+                            >
+
+                                <div
+                                    class="price-label"
+                                >
+                                    Price
+                                </div>
+
+                                <div
+                                    class="price-value"
+                                >
+                                    ${escapeHtml(price)}
+                                </div>
+
+                            </div>
+                          `
+                        : ""
+                }
+
+
+                <div
+                    class="meta-grid"
+                >
+
+                    ${
+                        quantity
+                            ? `
+                                <div
+                                    class="meta-item"
+                                >
+
+                                    <span
+                                        class="meta-label"
+                                    >
+                                        Quantity
+                                    </span>
+
+                                    <span
+                                        class="meta-value"
+                                    >
+                                        ${quantity}
+                                    </span>
+
+                                </div>
+                              `
+                            : ""
+                    }
+
+
+                    ${
+                        createdDate
+                            ? `
+                                <div
+                                    class="meta-item"
+                                >
+
+                                    <span
+                                        class="meta-label"
+                                    >
+                                        Posted
+                                    </span>
+
+                                    <span
+                                        class="meta-value"
+                                    >
+                                        ${escapeHtml(createdDate)}
+                                    </span>
+
+                                </div>
+                              `
+                            : ""
+                    }
+
+
+                    ${
+                        expiryDate
+                            ? `
+                                <div
+                                    class="meta-item"
+                                >
+
+                                    <span
+                                        class="meta-label"
+                                    >
+                                        Available Until
+                                    </span>
+
+                                    <span
+                                        class="meta-value"
+                                    >
+                                        ${escapeHtml(expiryDate)}
+                                    </span>
+
+                                </div>
+                              `
+                            : ""
+                    }
+
+
+                    ${
+                        distance
+                            ? `
+                                <div
+                                    class="meta-item"
+                                >
+
+                                    <span
+                                        class="meta-label"
+                                    >
+                                        Distance
+                                    </span>
+
+                                    <span
+                                        class="meta-value"
+                                    >
+                                        ${escapeHtml(distance)}
+                                    </span>
+
+                                </div>
+                              `
+                            : ""
+                    }
+
+                </div>
+
+
+                <div
+                    class="location-box"
+                >
+
+                    <div
+                        class="location-title"
+                    >
+                        📍 Location
+                    </div>
+
+                    <div
+                        class="location-text"
+                    >
+                        ${location}
+                    </div>
+
+                </div>
+
+
+                ${
+                    post.seller_contact
+                        ? `
+                            <div
+                                class="seller-box"
+                            >
+
+                                <div
+                                    class="seller-title"
+                                >
+                                    Seller / Provider
+                                </div>
+
+                                <div
+                                    class="seller-name"
+                                >
+                                    ${escapeHtml(
+                                        post.seller_contact
+                                    )}
+                                </div>
+
+                            </div>
+                          `
+                        : ""
+                }
+
+
+                <div
+                    class="action-area"
+                >
+
+                    <button
+                        type="button"
+                        class="main-action"
+                        id="mainActionButton"
+                    >
+                        ${escapeHtml(
+                            actionLabel
+                        )}
+                    </button>
+
+
+                    <div
+                        class="secondary-actions"
+                    >
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="shareButton"
+                        >
+                            ↗ Share Post
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="homeActionButton"
+                        >
+                            ← Browse Local
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+
+
+    postContainer.style.display =
+        "block";
+
+
+    updateActionState();
+
+    attachPostActions();
+
+}
+
+
+/* ==========================================
+   UPDATE ACTION BUTTON
+   ========================================== */
+
+function updateActionState(){
+
+    if(!currentPost){
+
+        return;
+
+    }
+
+    const button =
+        document.getElementById(
+            "mainActionButton"
+        );
+
+    if(!button){
+
+        return;
+
+    }
+
+    const result =
+        canInteractWithPost(
+            currentPost
+        );
+
+    if(
+        !result.allowed
+    ){
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            result.message;
+
+        return;
+
+    }
+
+    button.disabled =
+        false;
+
+    button.textContent =
+        getActionLabel(
+            currentPost.action_type
+        );
+
+}
+
+
+/* ==========================================
+   ATTACH POST ACTIONS
+   ========================================== */
+
+function attachPostActions(){
+
+    const mainActionButton =
+        document.getElementById(
+            "mainActionButton"
+        );
+
+    const shareButton =
+        document.getElementById(
+            "shareButton"
+        );
+
+    const homeActionButton =
+        document.getElementById(
+            "homeActionButton"
+        );
+
+
+    if(
+        mainActionButton
+    ){
+
+        mainActionButton.onclick =
+            handleMainAction;
+
+    }
+
+
+    if(
+        shareButton
+    ){
+
+        shareButton.onclick =
+            sharePost;
+
+    }
+
+
+    if(
+        homeActionButton
+    ){
+
+        homeActionButton.onclick =
+            goHome;
+
+    }
+
+}
+
+  /* ==========================================
+   MAIN ACTION
+   ========================================== */
+
+async function handleMainAction(){
+
+    if(actionLocked){
+
+        return;
+
+    }
+
+    if(!currentPost){
+
+        setStatus(
+            "This post is not available.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    const result =
+        canInteractWithPost(
+            currentPost
+        );
+
+    if(
+        !result.allowed
+    ){
+
+        setStatus(
+            result.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+    actionLocked =
+        true;
+
+    const button =
+        document.getElementById(
+            "mainActionButton"
+        );
+
+    if(button){
+
+        button.disabled =
+            true;
+
+    }
+
+    try{
+
+        const action =
+            String(
+                currentPost.action_type ||
+                "enquire"
+            ).toLowerCase();
+
+        /*
+         * ORDER / BOOK / ENQUIRE /
+         * APPLY / CONTACT
+         *
+         * All customer actions now use
+         * the simple guest customer request
+         * flow.
+         *
+         * Existing booking function is kept
+         * below and is NOT deleted.
+         */
+
+        const postId =
+            currentPost.id;
+
+        window.location.href =
+            "current-customer-request.html" +
+            "?post_id=" +
+            encodeURIComponent(
+                String(postId)
+            ) +
+            "&action=" +
+            encodeURIComponent(
+                action
+            );
+
+    }finally{
+
+        actionLocked =
+            false;
+
+        updateActionState();
+
+    }
+
+}
+
+
+/* ==========================================
+   OPEN BOOKING PAGE
+   ========================================== */
+
+async function openBookingPage(){
+
+    const postId =
+        currentPost &&
+        currentPost.id;
+
+    if(
+        postId === null ||
+        postId === undefined ||
+        postId === ""
+    ){
+
+        setStatus(
+            "Post information is missing.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    currentUser =
+        await getCurrentUser();
+
+    if(!currentUser){
+
+        setStatus(
+            "Please login to continue.",
+            "error"
+        );
+
+        setTimeout(
+            function(){
+
+                window.location.href =
+                    CONFIG.accountPage;
+
+            },
+            700
+        );
+
+        return;
+
+    }
+
+    /*
+     * Backup post ID.
+     * This helps booking page recover
+     * the selected post even if the URL
+     * query is lost.
+     */
+
+    sessionStorage.setItem(
+        "pyncode_booking_post_id",
+        String(postId)
+    );
+
+    window.location.href =
+        CONFIG.bookingPage +
+        "?post_id=" +
+        encodeURIComponent(
+            String(postId)
+        );
+
+}
+
+
+/* ==========================================
+   SHARE POST
+   ========================================== */
+
+async function sharePost(){
+
+    if(!currentPost){
+
+        return;
+
+    }
+
+    const shareUrl =
+        window.location.href;
+
+    const shareTitle =
+        currentPost.title ||
+        "Pyncode Local Post";
+
+    const shareText =
+        "Check this local post on Pyncode.in";
+
+    try{
+
+        if(
+            navigator.share
+        ){
+
+            await navigator.share({
+
+                title:
+                    shareTitle,
+
+                text:
+                    shareText,
+
+                url:
+                    shareUrl
+
+            });
+
+            return;
+
+        }
+
+        if(
+            navigator.clipboard &&
+            navigator.clipboard.writeText
+        ){
+
+            await navigator.clipboard.writeText(
+                shareUrl
+            );
+
+            setStatus(
+                "Post link copied.",
+                "success"
+            );
+
+            return;
+
+        }
+
+        setStatus(
+            shareUrl,
+            "success"
+        );
+
+    }catch(error){
+
+        if(
+            error &&
+            error.name ===
+            "AbortError"
+        ){
+
+            return;
+
+        }
+
+        console.error(
+            "Share error:",
+            error
+        );
+
+        setStatus(
+            "Unable to share this post.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   GO HOME
+   ========================================== */
+
+function goHome(){
+
+    window.location.href =
+        CONFIG.homePage;
+
+}
+
+
+/* ==========================================
+   BACK BUTTON
+   ========================================== */
+
+if(backButton){
+
+    backButton.onclick =
+        function(){
+
+            if(
+                window.history.length > 1
+            ){
+
+                window.history.back();
+
+                return;
+
+            }
+
+            goHome();
+
+        };
+
+}
+
+
+/* ==========================================
+   EMPTY HOME BUTTON
+   ========================================== */
+
+if(emptyHomeButton){
+
+    emptyHomeButton.onclick =
+        goHome;
+
+}
+
+
+/* ==========================================
+   INITIALISE POST DETAILS
+   ========================================== */
+
+async function initialisePage(){
+
+    loadingBox.style.display =
+        "flex";
+
+    emptyBox.style.display =
+        "none";
+
+    postContainer.style.display =
+        "none";
+
+    setStatus(
+        "",
+        ""
+    );
+
+    const postId =
+        getPostId();
+
+    if(
+        postId === null ||
+        postId === undefined ||
+        postId === ""
+    ){
+
+        loadingBox.style.display =
+            "none";
+
+        emptyBox.style.display =
+            "block";
+
+        setStatus(
+            "Post information is missing.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    try{
+
+        currentUser =
+            await getCurrentUser();
+
+        const post =
+            await findPost(
+                postId
+            );
+
+        if(!post){
+
+            loadingBox.style.display =
+                "none";
+
+            emptyBox.style.display =
+                "block";
+
+            return;
+
+        }
+
+        if(
+            !isPostAvailable(
+                post
+            )
+        ){
+
+            loadingBox.style.display =
+                "none";
+
+            emptyBox.style.display =
+                "block";
+
+            setStatus(
+                "This post is no longer available.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        currentPost =
+            post;
+
+        renderPost(
+            post
+        );
+
+        loadingBox.style.display =
+            "none";
+
+        emptyBox.style.display =
+            "none";
+
+        postContainer.style.display =
+            "block";
+
+        updateActionState();
+
+        attachPostActions();
+
+    }catch(error){
+
+        console.error(
+            "Post details error:",
+            error
+        );
+
+        loadingBox.style.display =
+            "none";
+
+        emptyBox.style.display =
+            "block";
+
+        setStatus(
+            "Unable to load this post. Please try again.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   DOM READY
+   ========================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        initialisePage();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
+

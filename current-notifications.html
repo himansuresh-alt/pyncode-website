@@ -1,0 +1,3055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#FF6B35">
+
+<title>Notifications | Pyncode Local</title>
+
+<style>
+
+:root{
+    --primary:#FF6B35;
+    --primary-dark:#E85220;
+    --accent:#FF9F43;
+    --dark:#17202A;
+    --text:#273444;
+    --muted:#6B7280;
+    --light:#F7F8FA;
+    --white:#FFFFFF;
+    --border:#E5E7EB;
+    --green:#16A34A;
+    --green-bg:#ECFDF3;
+    --yellow:#D97706;
+    --yellow-bg:#FFF7ED;
+    --red:#DC2626;
+    --red-bg:#FEF2F2;
+    --blue:#2563EB;
+    --blue-bg:#EFF6FF;
+    --shadow:0 8px 25px rgba(23,32,42,.07);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    background:var(--light);
+    color:var(--text);
+    min-height:100vh;
+}
+
+body.modal-open{
+    overflow:hidden;
+}
+
+button{
+    font:inherit;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+}
+
+a{
+    text-decoration:none;
+}
+
+/* HEADER */
+
+.top-header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    height:64px;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 16px;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:0;
+}
+
+.back-button{
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:12px;
+    background:#FFF1EB;
+    color:var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+}
+
+.header-title{
+    font-size:18px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+}
+
+.mark-read-button{
+    border:1px solid #FFD5C7;
+    background:#FFF7F3;
+    color:var(--primary-dark);
+    border-radius:10px;
+    padding:8px 10px;
+    font-size:11px;
+    font-weight:800;
+}
+
+/* PAGE */
+
+.page{
+    width:100%;
+    max-width:760px;
+    margin:0 auto;
+    padding:18px 14px 90px;
+}
+
+/* INTRO */
+
+.intro-card{
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--accent)
+        );
+    color:#fff;
+    border-radius:22px;
+    padding:22px 18px;
+    box-shadow:var(--shadow);
+    margin-bottom:16px;
+}
+
+.intro-card h1{
+    font-size:23px;
+    line-height:1.2;
+    margin-bottom:7px;
+}
+
+.intro-card p{
+    font-size:13px;
+    line-height:1.55;
+    opacity:.94;
+}
+
+/* SUMMARY */
+
+.summary-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:14px;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    box-shadow:0 5px 18px rgba(23,32,42,.04);
+}
+
+.summary-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.summary-icon{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:#FFF1EB;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+}
+
+.summary-text strong{
+    display:block;
+    color:var(--dark);
+    font-size:14px;
+    margin-bottom:2px;
+}
+
+.summary-text span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.unread-count{
+    min-width:30px;
+    height:30px;
+    padding:0 8px;
+    border-radius:999px;
+    background:var(--primary);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:800;
+}
+
+/* FILTER */
+
+.filter-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:12px;
+    margin-bottom:16px;
+}
+
+.filter-scroll{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.filter-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+.filter-button{
+    flex:0 0 auto;
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--muted);
+    border-radius:999px;
+    padding:9px 14px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.filter-button.active{
+    background:var(--primary);
+    border-color:var(--primary);
+    color:#fff;
+}
+
+.status-message{
+    display:none;
+    padding:12px 14px;
+    border-radius:13px;
+    margin-bottom:14px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.status-message.show{
+    display:block;
+}
+
+.status-message.success{
+    background:var(--green-bg);
+    color:var(--green);
+}
+
+.status-message.error{
+    background:var(--red-bg);
+    color:var(--red);
+}
+
+.loading-box{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:25px 15px;
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    font-weight:600;
+}
+
+.notifications-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.notification-card{
+    position:relative;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:14px;
+    box-shadow:0 5px 18px rgba(23,32,42,.04);
+    cursor:pointer;
+}
+
+.notification-card.unread{
+    border-color:#FFD1C1;
+    background:#FFFBF9;
+}
+
+.notification-row{
+    display:flex;
+    align-items:flex-start;
+    gap:11px;
+}
+
+.notification-icon{
+    width:42px;
+    height:42px;
+    flex:0 0 42px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    background:#FFF1EB;
+}
+
+.notification-icon.booking{
+    background:var(--blue-bg);
+}
+
+.notification-icon.customer_request{
+    background:#FFF1EB;
+}
+
+.notification-icon.accepted,
+.notification-icon.completed{
+    background:var(--green-bg);
+}
+
+.notification-icon.rejected{
+    background:var(--red-bg);
+}
+
+.notification-icon.cancelled{
+    background:var(--yellow-bg);
+}
+
+.notification-content{
+    flex:1;
+    min-width:0;
+}
+
+.notification-title{
+    color:var(--dark);
+    font-size:14px;
+    font-weight:800;
+    line-height:1.35;
+    margin-bottom:4px;
+}
+
+.notification-message{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.5;
+}
+
+.notification-time{
+    margin-top:7px;
+    color:#9CA3AF;
+    font-size:10px;
+}
+
+.unread-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--primary);
+    flex:0 0 8px;
+    margin-top:5px;
+}
+
+.notification-action{
+    display:inline-flex;
+    margin-top:10px;
+    padding:8px 11px;
+    border:1px solid #FFD5C7;
+    border-radius:9px;
+    background:#FFF7F3;
+    color:var(--primary-dark);
+    font-size:11px;
+    font-weight:800;
+}
+
+.empty-box{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:35px 20px;
+    text-align:center;
+}
+
+.empty-icon{
+    width:62px;
+    height:62px;
+    border-radius:50%;
+    background:#FFF1EB;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 13px;
+    font-size:28px;
+}
+
+.empty-box h3{
+    font-size:17px;
+    color:var(--dark);
+    margin-bottom:7px;
+}
+
+.empty-box p{
+    max-width:340px;
+    margin:0 auto 18px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.55;
+}
+
+.browse-button{
+    border:0;
+    background:var(--primary);
+    color:#fff;
+    border-radius:12px;
+    padding:11px 18px;
+    font-size:13px;
+    font-weight:800;
+}
+
+.bottom-space{
+    height:20px;
+}
+
+/* CUSTOMER REQUEST MODAL */
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    background:rgba(23,32,42,.55);
+    backdrop-filter:blur(5px);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.modal-overlay.show{
+    display:flex;
+}
+
+.request-modal{
+    width:100%;
+    max-width:620px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:#fff;
+    border-radius:24px 24px 0 0;
+    padding:18px 16px 24px;
+}
+
+.modal-handle{
+    width:42px;
+    height:4px;
+    border-radius:99px;
+    background:#D1D5DB;
+    margin:0 auto 15px;
+}
+
+.modal-header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:16px;
+}
+
+.modal-title-wrap{
+    min-width:0;
+}
+
+.modal-title{
+    color:var(--dark);
+    font-size:20px;
+    font-weight:850;
+    margin-bottom:4px;
+}
+
+.modal-subtitle{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.45;
+}
+
+.modal-close{
+    width:36px;
+    height:36px;
+    border:0;
+    border-radius:11px;
+    background:#F3F4F6;
+    color:#374151;
+    font-size:19px;
+}
+
+.request-status{
+    display:inline-flex;
+    padding:6px 10px;
+    border-radius:999px;
+    background:#FFF7ED;
+    color:var(--yellow);
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:14px;
+}
+
+.request-info{
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:15px;
+}
+
+.info-row{
+    display:flex;
+    gap:12px;
+    padding:13px;
+    border-bottom:1px solid var(--border);
+}
+
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-icon{
+    width:34px;
+    height:34px;
+    flex:0 0 34px;
+    border-radius:10px;
+    background:#FFF1EB;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.info-body{
+    flex:1;
+    min-width:0;
+}
+
+.info-label{
+    color:#9CA3AF;
+    font-size:10px;
+    font-weight:700;
+    margin-bottom:3px;
+    text-transform:uppercase;
+}
+
+.info-value{
+    color:var(--dark);
+    font-size:13px;
+    line-height:1.5;
+    word-break:break-word;
+}
+
+.request-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.request-action{
+    min-height:46px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:800;
+}
+
+.call-button{
+    border:1px solid #BBF7D0;
+    background:var(--green-bg);
+    color:#15803D;
+}
+
+.whatsapp-button{
+    border:1px solid #BBF7D0;
+    background:#F0FDF4;
+    color:#15803D;
+}
+
+.modal-footer{
+    margin-top:14px;
+    color:#9CA3AF;
+    font-size:10px;
+    text-align:center;
+}
+
+@media(max-width:420px){
+
+    .page{
+        padding-left:11px;
+        padding-right:11px;
+    }
+
+    .mark-read-button{
+        padding:8px;
+        font-size:10px;
+    }
+
+    .notification-card{
+        padding:13px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="top-header">
+
+<div class="header-left">
+
+<button
+    type="button"
+    class="back-button"
+    id="backButton"
+>
+←
+</button>
+
+<div class="header-title">
+Notifications
+</div>
+
+</div>
+
+<div class="header-right">
+
+<button
+    type="button"
+    class="mark-read-button"
+    id="markAllReadButton"
+>
+Mark all read
+</button>
+
+</div>
+
+</header>
+
+
+<main class="page">
+
+<section class="intro-card">
+
+<h1>Notifications</h1>
+
+<p>
+Stay updated with your local customer
+requests, bookings and post activity.
+</p>
+
+</section>
+
+
+<section class="summary-card">
+
+<div class="summary-left">
+
+<div class="summary-icon">
+🔔
+</div>
+
+<div class="summary-text">
+
+<strong>
+Notification Center
+</strong>
+
+<span>
+Your latest Pyncode Local updates
+</span>
+
+</div>
+
+</div>
+
+<div
+    class="unread-count"
+    id="unreadCount"
+>
+0
+</div>
+
+</section>
+
+
+<section class="filter-card">
+
+<div class="filter-scroll">
+
+<button
+    type="button"
+    class="filter-button active"
+    data-filter="all"
+>
+All
+</button>
+
+<button
+    type="button"
+    class="filter-button"
+    data-filter="unread"
+>
+Unread
+</button>
+
+<button
+    type="button"
+    class="filter-button"
+    data-filter="customer_request"
+>
+Customer Requests
+</button>
+
+<button
+    type="button"
+    class="filter-button"
+    data-filter="booking"
+>
+Bookings
+</button>
+
+<button
+    type="button"
+    class="filter-button"
+    data-filter="status"
+>
+Status Updates
+</button>
+
+</div>
+
+</section>
+
+
+<div
+    class="status-message"
+    id="statusMessage"
+></div>
+
+
+<div
+    class="loading-box"
+    id="loadingBox"
+>
+Loading notifications...
+</div>
+
+
+<section
+    class="notifications-list"
+    id="notificationsList"
+></section>
+
+
+<section
+    class="empty-box"
+    id="emptyBox"
+    style="display:none;"
+>
+
+<div class="empty-icon">
+🔔
+</div>
+
+<h3>
+No notifications
+</h3>
+
+<p>
+New customer requests, bookings
+and status updates will appear here.
+</p>
+
+<button
+    type="button"
+    class="browse-button"
+    id="browseButton"
+>
+Browse Local
+</button>
+
+</section>
+
+
+<div class="bottom-space"></div>
+
+</main>
+
+
+<!-- CUSTOMER REQUEST MODAL -->
+
+<div
+    class="modal-overlay"
+    id="requestModalOverlay"
+>
+
+<div class="request-modal">
+
+<div class="modal-handle"></div>
+
+<div class="modal-header">
+
+<div class="modal-title-wrap">
+
+<div class="modal-title">
+Customer Request
+</div>
+
+<div
+    class="modal-subtitle"
+    id="requestModalSubtitle"
+>
+Customer enquiry details
+</div>
+
+</div>
+
+<button
+    type="button"
+    class="modal-close"
+    id="closeRequestModal"
+>
+×
+</button>
+
+</div>
+
+<div
+    class="request-status"
+    id="requestStatus"
+>
+Pending
+</div>
+
+<div class="request-info">
+
+<div class="info-row">
+
+<div class="info-icon">
+👤
+</div>
+
+<div class="info-body">
+
+<div class="info-label">
+Customer Name
+</div>
+
+<div
+    class="info-value"
+    id="requestCustomerName"
+>
+-
+</div>
+
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-icon">
+📞
+</div>
+
+<div class="info-body">
+
+<div class="info-label">
+Phone Number
+</div>
+
+<div
+    class="info-value"
+    id="requestCustomerPhone"
+>
+-
+</div>
+
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-icon">
+💬
+</div>
+
+<div class="info-body">
+
+<div class="info-label">
+Message
+</div>
+
+<div
+    class="info-value"
+    id="requestCustomerMessage"
+>
+-
+</div>
+
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-icon">
+🕒
+</div>
+
+<div class="info-body">
+
+<div class="info-label">
+Received
+</div>
+
+<div
+    class="info-value"
+    id="requestCreatedAt"
+>
+-
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="request-actions">
+
+<a
+    class="request-action call-button"
+    id="callCustomerButton"
+    href="#"
+>
+📞 Call Customer
+</a>
+
+<a
+    class="request-action whatsapp-button"
+    id="whatsappCustomerButton"
+    href="#"
+    target="_blank"
+    rel="noopener"
+>
+💬 WhatsApp
+</a>
+
+</div>
+
+<div class="modal-footer">
+Contact the customer directly using the options above.
+</div>
+
+</div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+"use strict";
+
+
+/* CONFIG */
+
+const CONFIG = {
+
+    supabaseUrl:
+        "https://mtuspuehsxsjoaxoenen.supabase.co",
+
+    supabaseKey:
+        "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6",
+
+    authFunction:
+        "pyncode-local-auth",
+
+    homePage:
+        "index.html",
+
+    accountPage:
+        "current-account.html",
+
+    bookingsPage:
+        "current-my-bookings.html"
+
+};
+
+
+/* SUPABASE */
+
+const supabaseClient =
+    window.supabase.createClient(
+        CONFIG.supabaseUrl,
+        CONFIG.supabaseKey,
+        {
+            auth:{
+                storageKey:
+                    "pyncode-local-auth",
+                persistSession:true,
+                autoRefreshToken:true,
+                detectSessionInUrl:true
+            }
+        }
+    );
+
+
+/* API */
+
+const AUTH_API =
+    CONFIG.supabaseUrl +
+    "/functions/v1/" +
+    CONFIG.authFunction;
+
+
+/* STATE */
+
+let currentUser = null;
+
+let notifications = [];
+
+let customerRequests = [];
+
+let activeFilter = "all";
+
+let refreshTimer = null;
+
+let actionInProgress = false;
+
+
+/* ELEMENTS */
+
+const backButton =
+    document.getElementById(
+        "backButton"
+    );
+
+const markAllReadButton =
+    document.getElementById(
+        "markAllReadButton"
+    );
+
+const unreadCount =
+    document.getElementById(
+        "unreadCount"
+    );
+
+const statusMessage =
+    document.getElementById(
+        "statusMessage"
+    );
+
+const loadingBox =
+    document.getElementById(
+        "loadingBox"
+    );
+
+const notificationsList =
+    document.getElementById(
+        "notificationsList"
+    );
+
+const emptyBox =
+    document.getElementById(
+        "emptyBox"
+    );
+
+const browseButton =
+    document.getElementById(
+        "browseButton"
+    );
+
+const requestModalOverlay =
+    document.getElementById(
+        "requestModalOverlay"
+    );
+
+const closeRequestModal =
+    document.getElementById(
+        "closeRequestModal"
+    );
+
+const requestStatus =
+    document.getElementById(
+        "requestStatus"
+    );
+
+const requestModalSubtitle =
+    document.getElementById(
+        "requestModalSubtitle"
+    );
+
+const requestCustomerName =
+    document.getElementById(
+        "requestCustomerName"
+    );
+
+const requestCustomerPhone =
+    document.getElementById(
+        "requestCustomerPhone"
+    );
+
+const requestCustomerMessage =
+    document.getElementById(
+        "requestCustomerMessage"
+    );
+
+const requestCreatedAt =
+    document.getElementById(
+        "requestCreatedAt"
+    );
+
+const callCustomerButton =
+    document.getElementById(
+        "callCustomerButton"
+    );
+
+const whatsappCustomerButton =
+    document.getElementById(
+        "whatsappCustomerButton"
+    );
+
+
+/* HELPERS */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+function normalizeText(value){
+
+    return String(
+        value ?? ""
+    )
+    .trim()
+    .replace(
+        /\s+/g,
+        " "
+    );
+
+}
+
+
+function formatDate(value){
+
+    if(!value){
+
+        return "-";
+
+    }
+
+    const date =
+        new Date(value);
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "-";
+
+    }
+
+    return date.toLocaleString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    );
+
+}
+
+
+function setStatus(
+    message,
+    type
+){
+
+    statusMessage.textContent =
+        message || "";
+
+    statusMessage.className =
+        "status-message";
+
+
+    if(
+        message
+    ){
+
+        statusMessage.classList.add(
+            "show"
+        );
+
+    }
+
+
+    if(
+        type === "success" ||
+        type === "error"
+    ){
+
+        statusMessage.classList.add(
+            type
+        );
+
+    }
+
+}
+
+
+function goTo(url){
+
+    window.location.href =
+        url;
+
+}
+
+
+function getNotificationType(
+    notification
+){
+
+    const type =
+        String(
+            notification?.type ||
+            ""
+        )
+        .toLowerCase();
+
+
+    if(
+        type ===
+        "customer_request"
+    ){
+
+        return "customer_request";
+
+    }
+
+
+    if(
+        type.includes("accept")
+    ){
+
+        return "accepted";
+
+    }
+
+
+    if(
+        type.includes("reject")
+    ){
+
+        return "rejected";
+
+    }
+
+
+    if(
+        type.includes("complete")
+    ){
+
+        return "completed";
+
+    }
+
+
+    if(
+        type.includes("cancel")
+    ){
+
+        return "cancelled";
+
+    }
+
+
+    if(
+        type.includes("booking")
+    ){
+
+        return "booking";
+
+    }
+
+
+    return "booking";
+
+}
+
+
+/* ICON */
+
+function getNotificationIcon(
+    notification
+){
+
+    const type =
+        getNotificationType(
+            notification
+        );
+
+    const icons = {
+
+        customer_request:"🛒",
+
+        booking:"📋",
+
+        accepted:"✅",
+
+        rejected:"❌",
+
+        completed:"🎉",
+
+        cancelled:"↩️"
+
+    };
+
+    return (
+        icons[type] ||
+        "🔔"
+    );
+
+}
+
+
+/* AUTH API */
+
+async function getSession(){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient.auth.getSession();
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+
+    return data?.session ||
+        null;
+
+}
+
+
+async function callAuthApi(
+    action,
+    extraData = {}
+){
+
+    const session =
+        await getSession();
+
+
+    if(
+        !session ||
+        !session.access_token
+    ){
+
+        throw new Error(
+            "Please login again."
+        );
+
+    }
+
+
+    const response =
+        await fetch(
+            AUTH_API,
+            {
+
+                method:"POST",
+
+                headers:{
+
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        CONFIG.supabaseKey,
+
+                    "Authorization":
+                        "Bearer " +
+                    session.access_token
+
+                },
+
+                body:
+                    JSON.stringify({
+
+                        action:
+                            action,
+
+                        ...extraData
+
+                    })
+
+            }
+        );
+
+
+    const result =
+        await response.json()
+        .catch(
+            function(){
+
+                return {};
+
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            result?.error ||
+            "Request failed."
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* LOAD NOTIFICATIONS */
+
+async function loadNotifications(){
+
+    const result =
+        await callAuthApi(
+            "my_notifications"
+        );
+
+
+    return Array.isArray(
+        result?.notifications
+    )
+        ? result.notifications
+        : [];
+
+}
+
+
+/* LOAD CUSTOMER REQUESTS */
+
+async function loadCustomerRequests(){
+
+    const result =
+        await callAuthApi(
+            "my_customer_requests"
+        );
+
+
+    return Array.isArray(
+        result?.requests
+    )
+        ? result.requests
+        : [];
+
+}
+
+
+/* FIND REQUEST */
+
+function findCustomerRequest(
+    notification
+){
+
+    /*
+     * New notifications contain
+     * the exact post_id.
+     *
+     * This is the primary mapping.
+     */
+
+    const notificationPostId =
+        notification?.post_id;
+
+
+    if(
+        notificationPostId !== null &&
+        notificationPostId !== undefined &&
+        notificationPostId !== ""
+    ){
+
+        const exactPostMatch =
+            customerRequests.find(
+                function(request){
+
+                    return String(
+                        request.post_id
+                    ) ===
+                    String(
+                        notificationPostId
+                    );
+
+                }
+            );
+
+
+        if(exactPostMatch){
+
+            /*
+             * If several requests exist
+             * for the same post, use the
+             * newest pending request.
+             */
+
+            const samePost =
+                customerRequests.filter(
+                    function(request){
+
+                        return String(
+                            request.post_id
+                        ) ===
+                        String(
+                            notificationPostId
+                        );
+
+                    }
+                );
+
+
+            const pending =
+                samePost.find(
+                    function(request){
+
+                        return request.status ===
+                            "pending";
+
+                    }
+                );
+
+
+            return (
+                pending ||
+                samePost[0] ||
+                exactPostMatch
+            );
+
+        }
+
+    }
+
+
+    /*
+     * Backward compatibility for
+     * older notifications.
+     */
+
+    const message =
+        normalizeText(
+            notification?.message
+        );
+
+
+    const match =
+        message.match(
+            /"([^"]+)"/
+        );
+
+
+    if(match){
+
+        const title =
+            normalizeText(
+                match[1]
+            );
+
+
+        const found =
+            customerRequests.find(
+                function(request){
+
+                    return normalizeText(
+                        request.post_title
+                    ) === title;
+
+                }
+            );
+
+
+        if(found){
+
+            return found;
+
+        }
+
+    }
+
+
+    return (
+        customerRequests.find(
+            function(request){
+
+                return request.status ===
+                    "pending";
+
+            }
+        ) ||
+        customerRequests[0] ||
+        null
+    );
+
+}
+
+
+/* FILTER */
+
+function getFilteredNotifications(){
+
+    if(
+        activeFilter ===
+        "all"
+    ){
+
+        return [
+            ...notifications
+        ];
+
+    }
+
+
+    if(
+        activeFilter ===
+        "unread"
+    ){
+
+        return notifications.filter(
+            function(item){
+
+                return item.is_read !== true;
+
+            }
+        );
+
+    }
+
+
+    if(
+        activeFilter ===
+        "customer_request"
+    ){
+
+        return notifications.filter(
+            function(item){
+
+                return (
+                    getNotificationType(
+                        item
+                    ) ===
+                    "customer_request"
+                );
+
+            }
+        );
+
+    }
+
+
+    if(
+        activeFilter ===
+        "booking"
+    ){
+
+        return notifications.filter(
+            function(item){
+
+                return (
+                    getNotificationType(
+                        item
+                    ) ===
+                    "booking"
+                );
+
+            }
+        );
+
+    }
+
+
+    if(
+        activeFilter ===
+        "status"
+    ){
+
+        return notifications.filter(
+            function(item){
+
+                const type =
+                    getNotificationType(
+                        item
+                    );
+
+
+                return (
+                    type === "accepted" ||
+                    type === "rejected" ||
+                    type === "completed" ||
+                    type === "cancelled"
+                );
+
+            }
+        );
+
+    }
+
+
+    return [
+        ...notifications
+    ];
+
+}
+
+
+/* SORT */
+
+function sortNotifications(
+    list
+){
+
+    return [
+        ...list
+    ].sort(
+        function(a,b){
+
+            return (
+                new Date(
+                    b.created_at || 0
+                ).getTime() -
+                new Date(
+                    a.created_at || 0
+                ).getTime()
+            );
+
+        }
+    );
+
+}
+
+
+/* UNREAD */
+
+function updateUnreadCount(){
+
+    const count =
+        notifications.filter(
+            function(item){
+
+                return item.is_read !== true;
+
+            }
+        ).length;
+
+
+    unreadCount.textContent =
+        count;
+
+}
+
+
+/* RENDER */
+
+function renderNotifications(){
+
+    const filtered =
+        sortNotifications(
+            getFilteredNotifications()
+        );
+
+
+    loadingBox.style.display =
+        "none";
+
+
+    if(
+        filtered.length === 0
+    ){
+
+        notificationsList.innerHTML =
+            "";
+
+
+        notificationsList.style.display =
+            "none";
+
+
+        emptyBox.style.display =
+            "block";
+
+
+        emptyBox.innerHTML = `
+
+            <div class="empty-icon">
+                🔔
+            </div>
+
+            <h3>
+                No notifications
+            </h3>
+
+            <p>
+                No notifications match
+                this filter.
+            </p>
+
+            <button
+                type="button"
+                class="browse-button"
+                id="browseFilteredButton"
+            >
+                Browse Local
+            </button>
+
+        `;
+
+
+        document
+            .getElementById(
+                "browseFilteredButton"
+            )
+            ?.addEventListener(
+                "click",
+                function(){
+
+                    goTo(
+                        CONFIG.homePage
+                    );
+
+                }
+            );
+
+
+        return;
+
+    }
+
+
+    emptyBox.style.display =
+        "none";
+
+
+    notificationsList.style.display =
+        "flex";
+
+
+    notificationsList.innerHTML =
+        filtered.map(
+            function(notification){
+
+                const type =
+                    getNotificationType(
+                        notification
+                    );
+
+
+                const unread =
+                    notification.is_read !== true;
+
+
+                const bookingId =
+                    notification.booking_id;
+
+
+                const postId =
+                    notification.post_id;
+
+
+                const actionText =
+                    type ===
+                    "customer_request"
+                        ? "View Customer Request"
+                        : "View Details";
+
+
+                return `
+
+                    <article
+                        class="notification-card ${
+                            unread
+                                ? "unread"
+                                : ""
+                        }"
+                        data-notification-id="${escapeHtml(
+                            String(
+                                notification.id
+                            )
+                        )}"
+                        data-booking-id="${
+                            bookingId !== null &&
+                            bookingId !== undefined
+                                ? escapeHtml(
+                                    String(
+                                        bookingId
+                                    )
+                                )
+                                : ""
+                        }"
+                        data-post-id="${
+                            postId !== null &&
+                            postId !== undefined
+                                ? escapeHtml(
+                                    String(
+                                        postId
+                                    )
+                                )
+                                : ""
+                        }"
+                    >
+
+                        <div class="notification-row">
+
+                            <div
+                                class="notification-icon ${escapeHtml(
+                                    type
+                                )}"
+                            >
+                                ${getNotificationIcon(
+                                    notification
+                                )}
+                            </div>
+
+
+                            <div class="notification-content">
+
+                                <div class="notification-title">
+                                    ${escapeHtml(
+                                        notification.title ||
+                                        "Notification"
+                                    )}
+                                </div>
+
+
+                                <div class="notification-message">
+                                    ${escapeHtml(
+                                        notification.message ||
+                                        ""
+                                    )}
+                                </div>
+
+
+                                <div class="notification-time">
+                                    ${escapeHtml(
+                                        formatDate(
+                                            notification.created_at
+                                        )
+                                    )}
+                                </div>
+
+
+                                ${
+                                    type ===
+                                    "customer_request"
+                                        ? `
+                                            <div
+                                                class="notification-action"
+                                            >
+                                                ${actionText}
+                                            </div>
+                                        `
+                                        : ""
+                                }
+
+                            </div>
+
+
+                            ${
+                                unread
+                                    ? `
+                                        <span
+                                            class="unread-dot"
+                                        ></span>
+                                    `
+                                    : ""
+                            }
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* OPEN CUSTOMER REQUEST MODAL */
+
+function openCustomerRequestModal(
+    request
+){
+
+    if(!request){
+
+        setStatus(
+            "Customer request could not be found.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    requestCustomerName.textContent =
+        request.customer_name ||
+        "-";
+
+
+    requestCustomerPhone.textContent =
+        request.customer_phone ||
+        "-";
+
+
+    requestCustomerMessage.textContent =
+        request.message ||
+        "No message provided.";
+
+
+    requestCreatedAt.textContent =
+        formatDate(
+            request.created_at
+        );
+
+
+    const status =
+        normalizeText(
+            request.status ||
+            "pending"
+        );
+
+
+    requestStatus.textContent =
+        status
+            .charAt(0)
+            .toUpperCase() +
+        status.slice(1);
+
+
+    requestModalSubtitle.textContent =
+        request.post_title
+            ? "Request for " +
+              request.post_title
+            : "Customer enquiry details";
+
+
+    const phone =
+        String(
+            request.customer_phone ||
+            ""
+        ).replace(
+            /\D/g,
+            ""
+        );
+
+
+    callCustomerButton.href =
+        phone
+            ? "tel:" + phone
+            : "#";
+
+
+    whatsappCustomerButton.href =
+        phone
+            ? "https://wa.me/" +
+              phone
+            : "#";
+
+
+    requestModalOverlay.classList.add(
+        "show"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+/* CLOSE CUSTOMER REQUEST MODAL */
+
+function closeCustomerRequestModal(){
+
+    requestModalOverlay.classList.remove(
+        "show"
+    );
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+/* MARK SINGLE READ */
+
+async function markNotificationAsRead(
+    notificationId
+){
+
+    if(!notificationId){
+
+        return;
+
+    }
+
+
+    try{
+
+        await callAuthApi(
+            "mark_notification_read",
+            {
+                notification_id:
+                    Number(
+                        notificationId
+                    )
+            }
+        );
+
+
+        notifications =
+            notifications.map(
+                function(item){
+
+                    if(
+                        String(item.id) ===
+                        String(notificationId)
+                    ){
+
+                        return {
+                            ...item,
+                            is_read:true
+                        };
+
+                    }
+
+
+                    return item;
+
+                }
+            );
+
+
+        updateUnreadCount();
+
+
+    }catch(error){
+
+        console.error(
+            "Mark notification read error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* FILTER BUTTONS */
+
+document
+    .querySelectorAll(
+        ".filter-button"
+    )
+    .forEach(
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    document
+                        .querySelectorAll(
+                            ".filter-button"
+                        )
+                        .forEach(
+                            function(item){
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    activeFilter =
+                        button.dataset.filter ||
+                        "all";
+
+
+                    renderNotifications();
+
+                }
+            );
+
+        }
+    );
+
+
+/* NOTIFICATION CLICK */
+
+notificationsList.addEventListener(
+    "click",
+    async function(event){
+
+        const card =
+            event.target.closest(
+                ".notification-card"
+            );
+
+
+        if(!card){
+
+            return;
+
+        }
+
+
+        const notificationId =
+            card.dataset.notificationId;
+
+
+        const notification =
+            notifications.find(
+                function(item){
+
+                    return String(
+                        item.id
+                    ) ===
+                    String(
+                        notificationId
+                    );
+
+                }
+            );
+
+
+        if(!notification){
+
+            return;
+
+        }
+
+
+        const type =
+            getNotificationType(
+                notification
+            );
+
+
+        if(notificationId){
+
+            await markNotificationAsRead(
+                notificationId
+            );
+
+        }
+
+
+        if(
+            type ===
+            "customer_request"
+        ){
+
+            const request =
+                findCustomerRequest(
+                    notification
+                );
+
+
+            openCustomerRequestModal(
+                request
+            );
+
+
+            return;
+
+        }
+
+
+        const bookingId =
+            card.dataset.bookingId;
+
+
+        if(bookingId){
+
+            window.location.href =
+                CONFIG.bookingsPage +
+                "?booking_id=" +
+                encodeURIComponent(
+                    bookingId
+                );
+
+        }
+
+    }
+);
+
+
+/* MARK ALL READ */
+
+async function markAllAsRead(){
+
+    if(actionInProgress){
+
+        return;
+
+    }
+
+
+    const hasUnread =
+        notifications.some(
+            function(item){
+
+                return item.is_read !== true;
+
+            }
+        );
+
+
+    if(!hasUnread){
+
+        setStatus(
+            "All notifications are already read.",
+            "success"
+        );
+
+        return;
+
+    }
+
+
+    actionInProgress = true;
+
+    markAllReadButton.disabled =
+        true;
+
+
+    try{
+
+        await callAuthApi(
+            "mark_all_notifications_read"
+        );
+
+
+        notifications =
+            notifications.map(
+                function(item){
+
+                    return {
+                        ...item,
+                        is_read:true
+                    };
+
+                }
+            );
+
+
+        updateUnreadCount();
+
+        renderNotifications();
+
+
+        setStatus(
+            "All notifications marked as read.",
+            "success"
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Mark all read error:",
+            error
+        );
+
+
+        setStatus(
+            error?.message ||
+            "Unable to update notifications.",
+            "error"
+        );
+
+
+    }finally{
+
+        actionInProgress = false;
+
+        markAllReadButton.disabled =
+            false;
+
+    }
+
+}
+
+
+/* MARK ALL */
+
+markAllReadButton.addEventListener(
+    "click",
+    markAllAsRead
+);
+
+
+/* CLOSE MODAL */
+
+closeRequestModal.addEventListener(
+    "click",
+    closeCustomerRequestModal
+);
+
+
+requestModalOverlay.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            requestModalOverlay
+        ){
+
+            closeCustomerRequestModal();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            closeCustomerRequestModal();
+
+        }
+
+    }
+);
+
+
+/* NAVIGATION */
+
+backButton.addEventListener(
+    "click",
+    function(){
+
+        if(
+            document.referrer &&
+            document.referrer.indexOf(
+                window.location.origin
+            ) === 0
+        ){
+
+            window.history.back();
+
+            return;
+
+        }
+
+
+        goTo(
+            CONFIG.accountPage
+        );
+
+    }
+);
+
+
+browseButton.addEventListener(
+    "click",
+    function(){
+
+        goTo(
+            CONFIG.homePage
+        );
+
+    }
+);
+
+
+/* LOGIN REQUIRED */
+
+function showLoginRequired(){
+
+    loadingBox.style.display =
+        "none";
+
+
+    notificationsList.style.display =
+        "none";
+
+
+    emptyBox.style.display =
+        "block";
+
+
+    emptyBox.innerHTML = `
+
+        <div class="empty-icon">
+            🔐
+        </div>
+
+        <h3>
+            Login required
+        </h3>
+
+        <p>
+            Please login to view your
+            Pyncode Local notifications.
+        </p>
+
+        <button
+            type="button"
+            class="browse-button"
+            id="loginButton"
+        >
+            Login / Create Account
+        </button>
+
+    `;
+
+
+    document
+        .getElementById(
+            "loginButton"
+        )
+        ?.addEventListener(
+            "click",
+            function(){
+
+                goTo(
+                    CONFIG.accountPage
+                );
+
+            }
+        );
+
+
+    unreadCount.textContent =
+        "0";
+
+}
+
+
+/* NO NOTIFICATIONS */
+
+function showNoNotifications(){
+
+    loadingBox.style.display =
+        "none";
+
+
+    notificationsList.style.display =
+        "none";
+
+
+    emptyBox.style.display =
+        "block";
+
+
+    emptyBox.innerHTML = `
+
+        <div class="empty-icon">
+            🔔
+        </div>
+
+        <h3>
+            No notifications
+        </h3>
+
+        <p>
+            New customer requests, bookings
+            and status updates will appear here.
+        </p>
+
+        <button
+            type="button"
+            class="browse-button"
+            id="browseEmptyButton"
+        >
+            Browse Local
+        </button>
+
+    `;
+
+
+    document
+        .getElementById(
+            "browseEmptyButton"
+        )
+        ?.addEventListener(
+            "click",
+            function(){
+
+                goTo(
+                    CONFIG.homePage
+                );
+
+            }
+        );
+
+}
+
+
+/* REFRESH */
+
+async function refreshPageData(){
+
+    try{
+
+        const session =
+            await getSession();
+
+
+        if(
+            !session ||
+            !session.user
+        ){
+
+            currentUser =
+                null;
+
+
+            showLoginRequired();
+
+            return;
+
+        }
+
+
+        currentUser =
+            session.user;
+
+
+        loadingBox.style.display =
+            "block";
+
+
+        notificationsList.style.display =
+            "none";
+
+
+        emptyBox.style.display =
+            "none";
+
+
+        /*
+         * Existing notifications
+         * + customer requests.
+         */
+
+        const results =
+            await Promise.all([
+                loadNotifications(),
+                loadCustomerRequests()
+            ]);
+
+
+        notifications =
+            results[0] || [];
+
+
+        customerRequests =
+            results[1] || [];
+
+
+        updateUnreadCount();
+
+
+        if(
+            notifications.length === 0
+        ){
+
+            showNoNotifications();
+
+            return;
+
+        }
+
+
+        renderNotifications();
+
+
+        loadingBox.style.display =
+            "none";
+
+
+    }catch(error){
+
+        console.error(
+            "Notification load error:",
+            error
+        );
+
+
+        loadingBox.style.display =
+            "none";
+
+
+        notificationsList.style.display =
+            "none";
+
+
+        emptyBox.style.display =
+            "none";
+
+
+        setStatus(
+            error?.message ||
+            "Unable to load notifications.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* AUTH STATE */
+
+supabaseClient
+    .auth
+    .onAuthStateChange(
+        function(
+            event,
+            session
+        ){
+
+            if(
+                event ===
+                "SIGNED_OUT"
+            ){
+
+                currentUser =
+                    null;
+
+
+                notifications =
+                    [];
+
+
+                customerRequests =
+                    [];
+
+
+                updateUnreadCount();
+
+                showLoginRequired();
+
+                return;
+
+            }
+
+
+            if(
+                session &&
+                session.user
+            ){
+
+                currentUser =
+                    session.user;
+
+
+                refreshPageData();
+
+            }
+
+        }
+    );
+
+
+/*
+ * IMPORTANT:
+ *
+ * Realtime subscription is intentionally
+ * NOT used for pyncode_local.
+ *
+ * Previous error:
+ * "Invalid schema: pyncode_local"
+ *
+ * We use automatic refresh instead.
+ */
+
+
+/* AUTO REFRESH */
+
+function startRefreshTimer(){
+
+    if(refreshTimer){
+
+        clearInterval(
+            refreshTimer
+        );
+
+    }
+
+
+    refreshTimer =
+        setInterval(
+            function(){
+
+                if(
+                    document.visibilityState !==
+                    "visible"
+                ){
+
+                    return;
+
+                }
+
+
+                refreshPageData();
+
+            },
+            30000
+        );
+
+}
+
+
+/* STOP */
+
+function stopRefreshTimer(){
+
+    if(refreshTimer){
+
+        clearInterval(
+            refreshTimer
+        );
+
+        refreshTimer =
+            null;
+
+    }
+
+}
+
+
+window.addEventListener(
+    "beforeunload",
+    stopRefreshTimer
+);
+
+
+window.addEventListener(
+    "pagehide",
+    stopRefreshTimer
+);
+
+
+/* VISIBILITY */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            document.visibilityState ===
+            "visible"
+        ){
+
+            refreshPageData();
+
+        }
+
+    }
+);
+
+
+/* FOCUS */
+
+window.addEventListener(
+    "focus",
+    function(){
+
+        refreshPageData();
+
+    }
+);
+
+
+/* BUTTON PRESS */
+
+document.addEventListener(
+    "pointerdown",
+    function(event){
+
+        const button =
+            event.target.closest(
+                "button"
+            );
+
+
+        if(
+            button &&
+            !button.disabled
+        ){
+
+            button.style.transform =
+                "scale(.97)";
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "pointerup",
+    function(event){
+
+        const button =
+            event.target.closest(
+                "button"
+            );
+
+
+        if(button){
+
+            button.style.transform =
+                "";
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "pointercancel",
+    function(event){
+
+        const button =
+            event.target.closest(
+                "button"
+            );
+
+
+        if(button){
+
+            button.style.transform =
+                "";
+
+        }
+
+    }
+);
+
+
+/* START */
+
+clearStatus();
+
+startRefreshTimer();
+
+refreshPageData();
+
+</script>
+
+</body>
+</html>

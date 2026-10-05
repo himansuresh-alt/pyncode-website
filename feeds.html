@@ -1,0 +1,6598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#111827"
+>
+
+<title>
+    Pyncode Local | Feeds
+</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* =====================================================
+   ROOT
+===================================================== */
+
+:root{
+
+    --primary:#ff5a36;
+    --primary-dark:#e74727;
+    --primary-soft:#fff1ec;
+
+    --navy:#111827;
+    --navy-2:#1f2937;
+
+    --text:#172033;
+    --muted:#737b8c;
+
+    --bg:#f5f7fa;
+    --white:#ffffff;
+
+    --line:#e7eaf0;
+
+    --green:#16a34a;
+    --green-soft:#ecfdf3;
+
+    --blue:#2563eb;
+    --blue-soft:#eff6ff;
+
+    --purple:#7c3aed;
+    --purple-soft:#f5f3ff;
+
+    --shadow:
+        0 12px 35px rgba(17,24,39,.08);
+
+    --radius:22px;
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0,
+            #f7f8fb 240px,
+            #f5f7fa 100%
+        );
+
+    color:var(--text);
+
+    min-height:100vh;
+
+    padding-bottom:105px;
+
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app{
+    width:100%;
+    min-height:100vh;
+}
+
+.container{
+
+    width:
+        min(
+            100% - 28px,
+            920px
+        );
+
+    margin:
+        0 auto;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.top-header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:5000;
+
+    background:
+        rgba(255,255,255,.92);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    border-bottom:
+        1px solid rgba(231,234,240,.9);
+
+}
+
+.header-inner{
+
+    width:
+        min(
+            100% - 28px,
+            920px
+        );
+
+    min-height:68px;
+
+    margin:0 auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:14px;
+
+}
+
+.brand{
+
+    text-decoration:none;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+}
+
+.brand-mark{
+
+    width:38px;
+    height:38px;
+
+    border-radius:13px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5a36,
+            #ff3f68
+        );
+
+    box-shadow:
+        0 8px 18px rgba(255,90,54,.25);
+
+}
+
+.brand-text{
+
+    font-size:18px;
+
+    font-weight:800;
+
+    letter-spacing:-.5px;
+
+}
+
+.brand-text span{
+    color:var(--primary);
+}
+
+.header-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+.header-icon-btn{
+
+    width:40px;
+    height:40px;
+
+    border:1px solid var(--line);
+
+    background:#fff;
+
+    border-radius:13px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:18px;
+
+    position:relative;
+
+}
+
+.notification-dot{
+
+    position:absolute;
+
+    top:7px;
+    right:7px;
+
+    width:7px;
+    height:7px;
+
+    background:#ef4444;
+
+    border:2px solid #fff;
+
+    border-radius:50%;
+
+}
+
+.account-btn{
+
+    border:0;
+
+    background:var(--navy);
+
+    color:#fff;
+
+    min-height:40px;
+
+    padding:
+        0 14px;
+
+    border-radius:13px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   LOCATION BAR
+===================================================== */
+
+.location-bar{
+
+    width:
+        min(
+            100% - 28px,
+            920px
+        );
+
+    margin:
+        12px auto 0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    background:#fff;
+
+    border:1px solid var(--line);
+
+    border-radius:16px;
+
+    padding:
+        10px 12px;
+
+    box-shadow:
+        0 5px 18px rgba(17,24,39,.04);
+
+}
+
+.location-info{
+
+    min-width:0;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+}
+
+.location-pin{
+
+    width:34px;
+    height:34px;
+
+    flex:0 0 34px;
+
+    border-radius:11px;
+
+    background:var(--primary-soft);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.location-copy{
+    min-width:0;
+}
+
+.location-label{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.7px;
+
+}
+
+.location-name{
+
+    display:block;
+
+    margin-top:2px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    max-width:240px;
+
+}
+
+.change-location{
+
+    border:0;
+
+    background:#f4f5f7;
+
+    color:var(--navy);
+
+    border-radius:10px;
+
+    padding:
+        8px 11px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    padding:
+        22px 0 10px;
+
+}
+
+.hero-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:
+        26px;
+
+    padding:
+        24px 21px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827 0%,
+            #1f2937 55%,
+            #26364e 100%
+        );
+
+    box-shadow:
+        0 16px 40px rgba(17,24,39,.16);
+
+}
+
+.hero-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    right:-65px;
+    top:-80px;
+
+    background:
+        rgba(255,90,54,.22);
+
+}
+
+.hero-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    right:60px;
+    bottom:-85px;
+
+    background:
+        rgba(255,255,255,.06);
+
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero-eyebrow{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:
+        7px 10px;
+
+    border-radius:999px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:.6px;
+
+    text-transform:uppercase;
+
+}
+
+.hero-dot{
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#ff7b5e;
+
+}
+
+.hero-title{
+
+    margin-top:14px;
+
+    font-size:
+        clamp(
+            27px,
+            7vw,
+            42px
+        );
+
+    line-height:1.08;
+
+    letter-spacing:-1.3px;
+
+    font-weight:850;
+
+    max-width:650px;
+
+}
+
+.hero-title span{
+    color:#ff795b;
+}
+
+.hero-text{
+
+    margin-top:10px;
+
+    max-width:650px;
+
+    color:#c9d0dc;
+
+    font-size:13px;
+
+    line-height:1.65;
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-wrap{
+
+    margin-top:14px;
+
+    background:#fff;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:18px;
+
+    padding:7px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    box-shadow:
+        0 7px 24px rgba(17,24,39,.05);
+
+}
+
+.search-icon{
+
+    width:40px;
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:var(--muted);
+
+    font-size:18px;
+
+}
+
+#searchInput{
+
+    flex:1;
+
+    min-width:0;
+
+    border:0;
+
+    outline:0;
+
+    background:transparent;
+
+    color:var(--text);
+
+    font-size:14px;
+
+}
+
+#searchInput::placeholder{
+    color:#9aa2b1;
+}
+
+.search-clear{
+
+    width:34px;
+    height:34px;
+
+    border:0;
+
+    background:#f3f4f6;
+
+    color:#6b7280;
+
+    border-radius:10px;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:15px;
+
+}
+
+
+/* =====================================================
+   PART 1 END
+===================================================== */
+
+  /* =====================================================
+   CATEGORY SECTION
+===================================================== */
+
+.category-section{
+
+    margin-top:20px;
+
+}
+
+.section-heading{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-bottom:11px;
+
+}
+
+.section-title{
+
+    font-size:18px;
+
+    font-weight:850;
+
+    letter-spacing:-.4px;
+
+}
+
+.section-subtitle{
+
+    margin-top:3px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.5;
+
+}
+
+.view-all-btn{
+
+    border:0;
+
+    background:transparent;
+
+    color:var(--primary);
+
+    font-size:11px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+}
+
+
+/* =====================================================
+   CATEGORY CHIPS
+===================================================== */
+
+.category-scroll{
+
+    display:flex;
+
+    gap:8px;
+
+    overflow-x:auto;
+
+    padding:
+        2px 1px 7px;
+
+    scrollbar-width:none;
+
+}
+
+.category-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+.category-chip{
+
+    flex:0 0 auto;
+
+    border:
+        1px solid var(--line);
+
+    background:#fff;
+
+    color:#4b5563;
+
+    border-radius:13px;
+
+    min-height:38px;
+
+    padding:
+        0 13px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    font-size:11px;
+
+    font-weight:750;
+
+    transition:
+        .2s ease;
+
+}
+
+.category-chip:hover{
+    border-color:#ffc0b2;
+}
+
+.category-chip.active{
+
+    color:#fff;
+
+    border-color:var(--primary);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5a36,
+            #ff4661
+        );
+
+    box-shadow:
+        0 6px 15px rgba(255,90,54,.20);
+
+}
+
+
+/* =====================================================
+   MORE CATEGORY
+===================================================== */
+
+.more-category{
+
+    border:
+        1px dashed #cdd2da;
+
+    background:#fff;
+
+    color:var(--navy);
+
+}
+
+.more-category.active{
+    background:var(--navy);
+    border-color:var(--navy);
+}
+
+
+/* =====================================================
+   POST TYPE
+===================================================== */
+
+.post-type-section{
+
+    margin-top:17px;
+
+}
+
+.post-type-scroll{
+
+    display:flex;
+
+    gap:8px;
+
+    overflow-x:auto;
+
+    padding:
+        2px 1px 5px;
+
+    scrollbar-width:none;
+
+}
+
+.post-type-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+.post-type-chip{
+
+    flex:0 0 auto;
+
+    min-height:34px;
+
+    padding:
+        0 11px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:11px;
+
+    background:#fff;
+
+    color:#667085;
+
+    font-size:10px;
+
+    font-weight:750;
+
+}
+
+.post-type-chip.active{
+
+    background:#111827;
+
+    color:#fff;
+
+    border-color:#111827;
+
+}
+
+
+/* =====================================================
+   TOOLBAR
+===================================================== */
+
+.feed-toolbar{
+
+    margin-top:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:9px;
+
+}
+
+.result-summary{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    font-weight:650;
+
+}
+
+.toolbar-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+}
+
+.tool-btn{
+
+    min-height:35px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:11px;
+
+    background:#fff;
+
+    color:#4b5563;
+
+    padding:
+        0 10px;
+
+    font-size:10px;
+
+    font-weight:750;
+
+}
+
+.tool-btn.active{
+
+    border-color:#d6dae2;
+
+    color:var(--navy);
+
+}
+
+
+/* =====================================================
+   DROPDOWN
+===================================================== */
+
+.tool-wrap{
+
+    position:relative;
+
+}
+
+.tool-menu{
+
+    position:absolute;
+
+    top:
+        calc(100% + 7px);
+
+    right:0;
+
+    width:155px;
+
+    padding:6px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:14px;
+
+    background:#fff;
+
+    box-shadow:
+        0 15px 35px rgba(17,24,39,.14);
+
+    z-index:200;
+
+    display:none;
+
+}
+
+.tool-menu.show{
+    display:block;
+}
+
+.tool-menu button{
+
+    width:100%;
+
+    border:0;
+
+    background:#fff;
+
+    text-align:left;
+
+    border-radius:9px;
+
+    padding:
+        9px 10px;
+
+    font-size:11px;
+
+    color:#4b5563;
+
+}
+
+.tool-menu button:hover{
+    background:#f5f6f8;
+}
+
+.tool-menu button.active{
+
+    background:var(--primary-soft);
+
+    color:var(--primary);
+
+    font-weight:800;
+
+}
+
+
+/* =====================================================
+   FEED HEADER
+===================================================== */
+
+.feed-section{
+
+    margin-top:17px;
+
+    padding-bottom:20px;
+
+}
+
+.feed-header{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:11px;
+
+}
+
+.feed-heading{
+
+    font-size:20px;
+
+    line-height:1.15;
+
+    font-weight:850;
+
+    letter-spacing:-.5px;
+
+}
+
+.feed-heading span{
+    color:var(--primary);
+}
+
+.feed-live{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    color:#16a34a;
+
+    font-size:10px;
+
+    font-weight:800;
+
+}
+
+.live-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#16a34a;
+
+    box-shadow:
+        0 0 0 4px rgba(22,163,74,.10);
+
+}
+
+
+/* =====================================================
+   FEED GRID
+===================================================== */
+
+.feed-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0,1fr)
+        );
+
+    gap:12px;
+
+}
+
+
+/* =====================================================
+   FEED CARD
+===================================================== */
+
+.feed-card{
+
+    min-width:0;
+
+    background:#fff;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 8px 25px rgba(17,24,39,.055);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+.feed-card:hover{
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 13px 30px rgba(17,24,39,.09);
+
+}
+
+
+/* =====================================================
+   CARD MEDIA
+===================================================== */
+
+.feed-media{
+
+    position:relative;
+
+    height:145px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f2f4f8,
+            #e9edf3
+        );
+
+    overflow:hidden;
+
+}
+
+.feed-media img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+.feed-media-placeholder{
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:38px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff2ed,
+            #f4f0ff
+        );
+
+}
+
+.feed-type-badge{
+
+    position:absolute;
+
+    left:9px;
+    top:9px;
+
+    max-width:calc(100% - 18px);
+
+    padding:
+        6px 8px;
+
+    border-radius:9px;
+
+    color:#fff;
+
+    background:
+        rgba(17,24,39,.82);
+
+    backdrop-filter:
+        blur(8px);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+.feed-distance{
+
+    position:absolute;
+
+    right:9px;
+    bottom:9px;
+
+    padding:
+        5px 7px;
+
+    border-radius:8px;
+
+    color:#fff;
+
+    background:
+        rgba(17,24,39,.78);
+
+    font-size:9px;
+
+    font-weight:750;
+
+}
+
+
+/* =====================================================
+   CARD BODY
+===================================================== */
+
+.feed-body{
+
+    padding:
+        12px;
+
+}
+
+.feed-topline{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:6px;
+
+}
+
+.feed-category-label{
+
+    color:var(--primary);
+
+    font-size:9px;
+
+    font-weight:850;
+
+    text-transform:uppercase;
+
+    letter-spacing:.4px;
+
+}
+
+.feed-time{
+
+    color:#9aa2af;
+
+    font-size:9px;
+
+    white-space:nowrap;
+
+}
+
+.feed-title{
+
+    margin-top:7px;
+
+    font-size:14px;
+
+    line-height:1.3;
+
+    font-weight:850;
+
+    letter-spacing:-.15px;
+
+    display:
+        -webkit-box;
+
+    -webkit-line-clamp:2;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
+
+}
+
+.feed-description{
+
+    margin-top:6px;
+
+    color:#667085;
+
+    font-size:10px;
+
+    line-height:1.55;
+
+    display:
+        -webkit-box;
+
+    -webkit-line-clamp:3;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
+
+}
+
+.feed-location{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    margin-top:9px;
+
+    color:#6b7280;
+
+    font-size:9px;
+
+    line-height:1.3;
+
+}
+
+.feed-location span:last-child{
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+}
+
+
+/* =====================================================
+   VALUE ROW
+===================================================== */
+
+.feed-value-row{
+
+    margin-top:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:8px;
+
+}
+
+.feed-price{
+
+    font-size:14px;
+
+    font-weight:850;
+
+    color:var(--navy);
+
+}
+
+.feed-quantity{
+
+    color:#8a93a3;
+
+    font-size:9px;
+
+}
+
+
+/* =====================================================
+   ACTION ROW
+===================================================== */
+
+.feed-action-row{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    margin-top:11px;
+
+}
+
+.feed-view-button{
+
+    flex:1;
+
+    min-width:0;
+
+    min-height:35px;
+
+    border:0;
+
+    border-radius:10px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5a36,
+            #ff4562
+        );
+
+    font-size:10px;
+
+    font-weight:800;
+
+    padding:
+        0 10px;
+
+}
+
+.feed-action-icon{
+
+    width:35px;
+    height:35px;
+
+    flex:0 0 35px;
+
+    border:
+        1px solid var(--line);
+
+    background:#fff;
+
+    color:var(--navy);
+
+    border-radius:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.feed-action-icon svg{
+
+    width:16px;
+    height:16px;
+
+}
+
+
+/* =====================================================
+   PART 2 END
+===================================================== */
+
+  /* =====================================================
+   SPECIAL CARD TYPES
+===================================================== */
+
+.feed-card.offer .feed-type-badge{
+    background:#ea580c;
+}
+
+.feed-card.service .feed-type-badge{
+    background:#2563eb;
+}
+
+.feed-card.event .feed-type-badge{
+    background:#7c3aed;
+}
+
+.feed-card.job .feed-type-badge{
+    background:#059669;
+}
+
+.feed-card.property .feed-type-badge{
+    background:#9333ea;
+}
+
+.feed-card.vehicle .feed-type-badge{
+    background:#475569;
+}
+
+.feed-card.business .feed-type-badge{
+    background:#b45309;
+}
+
+
+/* =====================================================
+   FEATURED CARD
+===================================================== */
+
+.feed-card.featured{
+
+    grid-column:
+        1 / -1;
+
+}
+
+.feed-card.featured .feed-media{
+
+    height:205px;
+
+}
+
+.feed-card.featured .feed-title{
+
+    font-size:17px;
+
+}
+
+.feed-card.featured .feed-description{
+
+    -webkit-line-clamp:4;
+
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-state{
+
+    grid-column:
+        1 / -1;
+
+    background:#fff;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:22px;
+
+    padding:
+        34px 20px;
+
+    text-align:center;
+
+    box-shadow:
+        0 8px 25px rgba(17,24,39,.04);
+
+}
+
+.empty-icon{
+
+    width:64px;
+    height:64px;
+
+    margin:
+        0 auto 12px;
+
+    border-radius:20px;
+
+    background:
+        var(--primary-soft);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:28px;
+
+}
+
+.empty-title{
+
+    font-size:16px;
+
+    font-weight:850;
+
+}
+
+.empty-text{
+
+    max-width:420px;
+
+    margin:
+        7px auto 0;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.6;
+
+}
+
+.empty-button{
+
+    margin-top:14px;
+
+    min-height:38px;
+
+    padding:
+        0 14px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:var(--navy);
+
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:800;
+
+}
+
+
+/* =====================================================
+   LOCATION REQUIRED
+===================================================== */
+
+.location-required{
+
+    grid-column:
+        1 / -1;
+
+    background:#fff;
+
+    border:
+        1px solid #ffd6cb;
+
+    border-radius:22px;
+
+    padding:
+        28px 20px;
+
+    text-align:center;
+
+}
+
+.location-required-icon{
+
+    width:58px;
+    height:58px;
+
+    margin:
+        0 auto 11px;
+
+    border-radius:18px;
+
+    background:var(--primary-soft);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:26px;
+
+}
+
+.location-required-title{
+
+    font-size:16px;
+
+    font-weight:850;
+
+}
+
+.location-required-text{
+
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.6;
+
+}
+
+.location-required-button{
+
+    margin-top:13px;
+
+    min-height:39px;
+
+    padding:
+        0 15px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5a36,
+            #ff4562
+        );
+
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:800;
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading-grid{
+
+    grid-column:
+        1 / -1;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0,1fr)
+        );
+
+    gap:12px;
+
+}
+
+.loading-card{
+
+    height:340px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f0f2f5 20%,
+            #f8f9fb 40%,
+            #f0f2f5 60%
+        );
+
+    background-size:
+        300% 100%;
+
+    animation:
+        shimmer 1.4s infinite;
+
+}
+
+@keyframes shimmer{
+
+    0%{
+        background-position:
+            100% 0;
+    }
+
+    100%{
+        background-position:
+            -100% 0;
+    }
+
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.feed-error{
+
+    grid-column:
+        1 / -1;
+
+    padding:
+        25px 18px;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    border:
+        1px solid #fecaca;
+
+    text-align:center;
+
+}
+
+.feed-error-icon{
+
+    font-size:27px;
+
+}
+
+.feed-error-title{
+
+    margin-top:8px;
+
+    font-size:15px;
+
+    font-weight:850;
+
+}
+
+.feed-error-text{
+
+    margin-top:5px;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    line-height:1.5;
+
+}
+
+.feed-error-button{
+
+    margin-top:12px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:var(--navy);
+
+    color:#fff;
+
+    padding:
+        9px 13px;
+
+    font-size:10px;
+
+    font-weight:800;
+
+}
+
+
+/* =====================================================
+   POST NEAR ME
+===================================================== */
+
+.post-near-button{
+
+    position:fixed;
+
+    right:18px;
+    bottom:91px;
+
+    z-index:4000;
+
+    border:0;
+
+    min-height:48px;
+
+    padding:
+        0 16px;
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5a36,
+            #ff3f68
+        );
+
+    box-shadow:
+        0 12px 28px rgba(255,90,54,.30);
+
+    font-size:11px;
+
+    font-weight:850;
+
+}
+
+.post-near-button span:first-child{
+
+    font-size:17px;
+
+}
+
+
+/* =====================================================
+   LOCATION MODAL
+===================================================== */
+
+.modal-backdrop{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9000;
+
+    background:
+        rgba(15,23,42,.56);
+
+    backdrop-filter:
+        blur(6px);
+
+    display:none;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding:14px;
+
+}
+
+.modal-backdrop.show{
+    display:flex;
+}
+
+.location-modal{
+
+    width:
+        min(
+            100%,
+            480px
+        );
+
+    background:#fff;
+
+    border-radius:
+        25px 25px 20px 20px;
+
+    padding:
+        20px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.25);
+
+}
+
+.modal-top{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+.modal-title{
+
+    font-size:18px;
+
+    font-weight:850;
+
+}
+
+.modal-close{
+
+    width:35px;
+    height:35px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:#f3f4f6;
+
+    color:#374151;
+
+    font-size:18px;
+
+}
+
+.modal-description{
+
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.55;
+
+}
+
+.detect-location-button{
+
+    width:100%;
+
+    min-height:46px;
+
+    margin-top:16px;
+
+    border:0;
+
+    border-radius:13px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5a36,
+            #ff4562
+        );
+
+    font-size:12px;
+
+    font-weight:800;
+
+}
+
+.manual-divider{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:
+        17px 0;
+
+    color:#a0a6b2;
+
+    font-size:10px;
+
+}
+
+.manual-divider::before,
+.manual-divider::after{
+
+    content:"";
+
+    flex:1;
+
+    height:1px;
+
+    background:var(--line);
+
+}
+
+.manual-input{
+
+    width:100%;
+
+    min-height:44px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:12px;
+
+    outline:0;
+
+    padding:
+        0 12px;
+
+    font-size:12px;
+
+}
+
+.manual-input:focus{
+
+    border-color:
+        rgba(255,90,54,.5);
+
+    box-shadow:
+        0 0 0 4px rgba(255,90,54,.08);
+
+}
+
+.manual-save{
+
+    width:100%;
+
+    min-height:44px;
+
+    margin-top:8px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:var(--navy);
+
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:800;
+
+}
+
+.location-status-modal{
+
+    margin-top:10px;
+
+    min-height:18px;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    line-height:1.4;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:91px;
+
+    z-index:9500;
+
+    transform:
+        translate(
+            -50%,
+            20px
+        );
+
+    opacity:0;
+
+    pointer-events:none;
+
+    max-width:
+        calc(100% - 32px);
+
+    background:#111827;
+
+    color:#fff;
+
+    border-radius:12px;
+
+    padding:
+        10px 14px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.18);
+
+    transition:
+        .25s ease;
+
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:
+        translate(
+            -50%,
+            0
+        );
+
+}
+
+
+/* =====================================================
+   PART 3 END
+===================================================== */
+
+  /* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:10px;
+    right:10px;
+    bottom:10px;
+
+    z-index:5000;
+
+    height:68px;
+
+    padding:
+        7px 8px;
+
+    border-radius:22px;
+
+    background:#111827;
+
+    box-shadow:
+        0 10px 30px rgba(17,24,39,.25);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-around;
+
+}
+
+.bottom-nav-item{
+
+    flex:1;
+
+    height:100%;
+
+    min-width:0;
+
+    border-radius:16px;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:4px;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+
+}
+
+.bottom-nav-item.active{
+
+    background:
+        rgba(255,255,255,.11);
+
+}
+
+.bottom-nav-item:active{
+
+    transform:
+        scale(.96);
+
+}
+
+.nav-icon{
+
+    height:23px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:21px;
+
+    line-height:1;
+
+}
+
+.nav-label{
+
+    color:#fff;
+
+    font-size:9px;
+
+    line-height:1.1;
+
+    font-weight:650;
+
+    white-space:nowrap;
+
+}
+
+.bottom-nav-item.active .nav-label{
+
+    font-weight:850;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(min-width:700px){
+
+    .container{
+        width:min(100% - 40px,920px);
+    }
+
+    .header-inner{
+        width:min(100% - 40px,920px);
+    }
+
+    .location-bar{
+        width:min(100% - 40px,920px);
+    }
+
+    .feed-grid{
+
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0,1fr)
+            );
+
+    }
+
+    .loading-grid{
+
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0,1fr)
+            );
+
+    }
+
+    .feed-card.featured{
+        grid-column:
+            span 2;
+    }
+
+    .feed-card.featured .feed-media{
+        height:190px;
+    }
+
+    .modal-backdrop{
+        align-items:center;
+    }
+
+    .location-modal{
+        border-radius:25px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:480px){
+
+    body{
+        padding-bottom:96px;
+    }
+
+    .header-inner{
+        min-height:62px;
+    }
+
+    .brand-mark{
+        width:35px;
+        height:35px;
+        border-radius:12px;
+    }
+
+    .brand-text{
+        font-size:16px;
+    }
+
+    .account-btn{
+        padding:0 11px;
+        font-size:10px;
+    }
+
+    .hero-card{
+        padding:21px 18px;
+        border-radius:23px;
+    }
+
+    .hero-title{
+        font-size:27px;
+    }
+
+    .feed-grid{
+        gap:9px;
+    }
+
+    .feed-card{
+        border-radius:17px;
+    }
+
+    .feed-media{
+        height:125px;
+    }
+
+    .feed-body{
+        padding:10px;
+    }
+
+    .feed-title{
+        font-size:13px;
+    }
+
+    .feed-description{
+        font-size:9px;
+    }
+
+    .feed-view-button{
+        font-size:9px;
+    }
+
+    .feed-action-icon{
+        width:32px;
+        height:32px;
+        flex-basis:32px;
+    }
+
+    .post-near-button{
+        right:14px;
+        bottom:88px;
+        min-height:44px;
+        padding:0 13px;
+    }
+
+    .bottom-nav{
+        left:8px;
+        right:8px;
+        bottom:8px;
+        height:66px;
+        border-radius:20px;
+    }
+
+    .nav-icon{
+        font-size:19px;
+    }
+
+    .nav-label{
+        font-size:8px;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE
+===================================================== */
+
+@media(max-width:360px){
+
+    .brand-text{
+        display:none;
+    }
+
+    .account-btn{
+        display:none;
+    }
+
+    .header-actions{
+        gap:5px;
+    }
+
+    .header-icon-btn{
+        width:37px;
+        height:37px;
+    }
+
+    .feed-grid{
+        grid-template-columns:1fr;
+    }
+
+    .feed-card.featured{
+        grid-column:auto;
+    }
+
+    .loading-grid{
+        grid-template-columns:1fr;
+    }
+
+    .loading-card{
+        height:270px;
+    }
+
+}
+
+
+/* =====================================================
+   END CSS
+===================================================== */
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="top-header">
+
+    <div class="header-inner">
+
+        <a
+            href="index.html"
+            class="brand"
+            aria-label="Pyncode Local Home"
+        >
+
+            <span class="brand-mark">
+                P
+            </span>
+
+            <span class="brand-text">
+                Pyncode <span>Local</span>
+            </span>
+
+        </a>
+
+
+        <div class="header-actions">
+
+            <button
+                type="button"
+                class="header-icon-btn"
+                id="notificationButton"
+                aria-label="Notifications"
+            >
+
+                🔔
+
+                <span
+                    class="notification-dot"
+                    id="notificationDot"
+                    style="display:none"
+                ></span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="account-btn"
+                id="accountButton"
+            >
+                Account
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     LOCATION BAR
+===================================================== -->
+
+<div class="location-bar">
+
+    <div class="location-info">
+
+        <div class="location-pin">
+            📍
+        </div>
+
+        <div class="location-copy">
+
+            <span class="location-label">
+                Your location
+            </span>
+
+            <span
+                class="location-name"
+                id="locationName"
+            >
+                Location not selected
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <button
+        type="button"
+        class="change-location"
+        id="changeLocationButton"
+    >
+        Change
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-card">
+
+        <div class="hero-content">
+
+            <div class="hero-eyebrow">
+
+                <span class="hero-dot"></span>
+
+                PYNCODE • LOCAL FEED
+
+            </div>
+
+
+            <h1 class="hero-title">
+
+                What's available
+                <span>near you?</span>
+
+            </h1>
+
+
+            <p class="hero-text">
+
+                Discover local offers, services,
+                businesses, jobs, events, products,
+                requirements and opportunities around you.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-wrap">
+
+        <span class="search-icon">
+            🔎
+        </span>
+
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search near you..."
+            autocomplete="off"
+        >
+
+        <button
+            type="button"
+            class="search-clear"
+            id="searchClear"
+            aria-label="Clear search"
+        >
+            ×
+        </button>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     CATEGORY
+===================================================== -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <div class="section-title">
+                Explore
+            </div>
+
+            <div class="section-subtitle">
+                Find what you need around you
+            </div>
+
+        </div>
+
+        <button
+            type="button"
+            class="view-all-btn"
+            id="resetCategoryButton"
+        >
+            Clear
+        </button>
+
+    </div>
+
+
+    <div
+        class="category-scroll"
+        id="categoryScroll"
+    >
+
+        <!-- ALL -->
+
+        <button
+            type="button"
+            class="category-chip active"
+            data-category=""
+        >
+            ✨ All
+        </button>
+
+
+        <!-- FOOD PRODUCTS -->
+
+        <button
+            type="button"
+            class="category-chip"
+            data-category="Food Products"
+        >
+            🍱 Food Products
+        </button>
+
+
+        <!-- PRODUCTS -->
+
+        <button
+            type="button"
+            class="category-chip"
+            data-category="Products"
+        >
+            🛍️ Products
+        </button>
+
+
+        <!-- JOBS -->
+
+        <button
+            type="button"
+            class="category-chip"
+            data-category="Jobs"
+        >
+            💼 Jobs
+        </button>
+
+
+        <!-- SERVICES -->
+
+        <button
+            type="button"
+            class="category-chip"
+            data-category="Services"
+        >
+            🛠️ Services
+        </button>
+
+
+        <!-- PROFESSIONALS -->
+
+        <button
+            type="button"
+            class="category-chip"
+            data-category="Professionals"
+        >
+            👨‍💼 Professionals
+        </button>
+
+
+        <!-- RENTAL -->
+
+        <button
+            type="button"
+            class="category-chip"
+            data-category="Rental"
+        >
+            🏠 Rental
+        </button>
+
+
+        <!-- EDUCATION -->
+
+        <button
+            type="button"
+            class="category-chip"
+            data-category="Education"
+        >
+            📚 Education
+        </button>
+
+
+        <!-- EVENTS -->
+
+        <button
+            type="button"
+            class="category-chip"
+            data-category="Events"
+        >
+            🎉 Events
+        </button>
+
+
+        <!-- OTHER -->
+
+        <button
+            type="button"
+            class="category-chip"
+            data-category="Other"
+        >
+            📌 Other
+        </button>
+
+
+        <!-- MORE -->
+
+        <button
+            type="button"
+            class="category-chip more-category"
+            id="moreCategoryButton"
+            data-category="__more__"
+        >
+            ＋ More
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     POST TYPE
+===================================================== -->
+
+<section class="post-type-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <div class="section-title">
+                Post Type
+            </div>
+
+            <div class="section-subtitle">
+                Filter by what people are posting
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="post-type-scroll"
+        id="postTypeScroll"
+    >
+
+        <button
+            type="button"
+            class="post-type-chip active"
+            data-post-type=""
+        >
+            All
+        </button>
+
+        <button
+            type="button"
+            class="post-type-chip"
+            data-post-type="offer"
+        >
+            🟢 Offer
+        </button>
+
+        <button
+            type="button"
+            class="post-type-chip"
+            data-post-type="requirement"
+        >
+            🔵 Requirement
+        </button>
+
+        <button
+            type="button"
+            class="post-type-chip"
+            data-post-type="announcement"
+        >
+            🟠 Announcement
+        </button>
+
+        <button
+            type="button"
+            class="post-type-chip"
+            data-post-type="request"
+        >
+            🟣 Request
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PART 4 END
+===================================================== -->
+
+  <!-- =====================================================
+     TOOLBAR
+===================================================== -->
+
+<div class="feed-toolbar">
+
+    <div
+        class="result-summary"
+        id="resultSummary"
+    >
+        Nearby posts
+    </div>
+
+
+    <div class="toolbar-actions">
+
+
+        <!-- RADIUS -->
+
+        <div class="tool-wrap">
+
+            <button
+                type="button"
+                class="tool-btn"
+                id="radiusButton"
+            >
+                📍 <span id="radiusLabel">10 km</span>
+            </button>
+
+
+            <div
+                class="tool-menu"
+                id="radiusMenu"
+            >
+
+                <button
+                    type="button"
+                    data-radius="2"
+                >
+                    Within 2 km
+                </button>
+
+                <button
+                    type="button"
+                    data-radius="5"
+                >
+                    Within 5 km
+                </button>
+
+                <button
+                    type="button"
+                    data-radius="10"
+                    class="active"
+                >
+                    Within 10 km
+                </button>
+
+                <button
+                    type="button"
+                    data-radius="25"
+                >
+                    Within 25 km
+                </button>
+
+                <button
+                    type="button"
+                    data-radius="50"
+                >
+                    Within 50 km
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SORT -->
+
+        <div class="tool-wrap">
+
+            <button
+                type="button"
+                class="tool-btn"
+                id="sortButton"
+            >
+                ⇅ Sort
+            </button>
+
+
+            <div
+                class="tool-menu"
+                id="sortMenu"
+            >
+
+                <button
+                    type="button"
+                    data-sort="nearest"
+                    class="active"
+                >
+                    Nearest
+                </button>
+
+                <button
+                    type="button"
+                    data-sort="latest"
+                >
+                    Latest
+                </button>
+
+                <button
+                    type="button"
+                    data-sort="oldest"
+                >
+                    Oldest
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FEED
+===================================================== -->
+
+<section class="feed-section">
+
+    <div class="feed-header">
+
+        <div>
+
+            <h2 class="feed-heading">
+                Near <span>You</span>
+            </h2>
+
+        </div>
+
+
+        <div class="feed-live">
+
+            <span class="live-dot"></span>
+
+            Live Local Feed
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="feed-grid"
+        id="feedGrid"
+    >
+
+        <div class="loading-grid">
+
+            <div class="loading-card"></div>
+
+            <div class="loading-card"></div>
+
+            <div class="loading-card"></div>
+
+            <div class="loading-card"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     POST NEAR ME
+===================================================== -->
+
+<button
+    type="button"
+    class="post-near-button"
+    id="postNearButton"
+>
+
+    <span>
+        ＋
+    </span>
+
+    <span>
+        Post Near Me
+    </span>
+
+</button>
+
+
+<!-- =====================================================
+     LOCATION MODAL
+===================================================== -->
+
+<div
+    class="modal-backdrop"
+    id="locationModal"
+>
+
+    <div
+        class="location-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="locationModalTitle"
+    >
+
+        <div class="modal-top">
+
+            <div
+                class="modal-title"
+                id="locationModalTitle"
+            >
+                Choose your location
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                id="modalCloseButton"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <p class="modal-description">
+
+            Allow location access to discover
+            posts available around you.
+
+        </p>
+
+
+        <button
+            type="button"
+            class="detect-location-button"
+            id="detectLocationButton"
+        >
+            📍 Detect My Location
+        </button>
+
+
+        <div
+            class="location-status-modal"
+            id="locationModalStatus"
+        ></div>
+
+
+        <div class="manual-divider">
+            OR
+        </div>
+
+
+        <input
+            type="text"
+            class="manual-input"
+            id="manualLocationInput"
+            placeholder="Enter area / city"
+            maxlength="80"
+        >
+
+
+        <button
+            type="button"
+            class="manual-save"
+            id="manualLocationButton"
+        >
+            Use This Location
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+></div>
+
+
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
+
+<nav
+    class="bottom-nav"
+    aria-label="Main navigation"
+>
+
+    <a
+        href="shops.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            🏪
+        </span>
+
+        <span class="nav-label">
+            Shops
+        </span>
+
+    </a>
+
+
+    <a
+        href="services_matched.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            🛠️
+        </span>
+
+        <span class="nav-label">
+            Services
+        </span>
+
+    </a>
+
+
+    <a
+        href="nearby-shops.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            📱
+        </span>
+
+        <span class="nav-label">
+            QR Stores
+        </span>
+
+    </a>
+
+
+    <a
+        href="#"
+        class="bottom-nav-item active"
+        onclick="return false;"
+    >
+
+        <span class="nav-icon">
+            📰
+        </span>
+
+        <span class="nav-label">
+            Feeds
+        </span>
+
+    </a>
+
+
+    <a
+        href="promotion.html"
+        class="bottom-nav-item"
+    >
+
+        <span class="nav-icon">
+            📢
+        </span>
+
+        <span class="nav-label">
+            Promotion
+        </span>
+
+    </a>
+
+</nav>
+
+
+<!-- =====================================================
+     SCRIPT
+===================================================== -->
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY,
+    {
+        auth: {
+            persistSession: true,
+            autoRefreshToken: true,
+            detectSessionInUrl: true,
+            storageKey: "pyncode-local-auth"
+        }
+    }
+);
+
+/* =====================================================
+   STATE
+===================================================== */
+
+const state = {
+
+    latitude:null,
+
+    longitude:null,
+
+    locationName:"Location not selected",
+
+    radius:10,
+
+    category:"",
+
+    postType:"",
+
+    search:"",
+
+    sort:"nearest",
+
+    posts:[],
+
+    filteredPosts:[],
+
+    locationReady:false
+
+};
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+const LOCATION_STORAGE_KEY =
+    "pyncode_local_location";
+
+
+/* =====================================================
+   DOM
+===================================================== */
+
+const locationNameElement =
+    document.getElementById(
+        "locationName"
+    );
+
+const locationModal =
+    document.getElementById(
+        "locationModal"
+    );
+
+const locationModalStatus =
+    document.getElementById(
+        "locationModalStatus"
+    );
+
+const manualLocationInput =
+    document.getElementById(
+        "manualLocationInput"
+    );
+
+const feedGrid =
+    document.getElementById(
+        "feedGrid"
+    );
+
+const resultSummary =
+    document.getElementById(
+        "resultSummary"
+    );
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+const searchClear =
+    document.getElementById(
+        "searchClear"
+    );
+
+const radiusLabel =
+    document.getElementById(
+        "radiusLabel"
+    );
+
+const toastElement =
+    document.getElementById(
+        "toast"
+    );
+
+
+/* =====================================================
+   PART 5 END
+===================================================== */
+
+  /* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer = null;
+
+function showToast(message){
+
+    if(!toastElement){
+        return;
+    }
+
+    toastElement.textContent =
+        message || "";
+
+    toastElement.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        toastTimer
+    );
+
+    toastTimer =
+        setTimeout(
+            function(){
+
+                toastElement.classList.remove(
+                    "show"
+                );
+
+            },
+            2600
+        );
+
+}
+
+
+/* =====================================================
+   SAVE LOCATION
+===================================================== */
+
+function saveLocation(){
+
+    try{
+
+        localStorage.setItem(
+
+            LOCATION_STORAGE_KEY,
+
+            JSON.stringify({
+
+                latitude:
+                    state.latitude,
+
+                longitude:
+                    state.longitude,
+
+                locationName:
+                    state.locationName
+
+            })
+
+        );
+
+    }catch(error){
+
+        console.warn(
+            "Location storage failed",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD LOCATION
+===================================================== */
+
+function loadSavedLocation(){
+
+    try{
+
+        const raw =
+            localStorage.getItem(
+                LOCATION_STORAGE_KEY
+            );
+
+        if(!raw){
+            return false;
+        }
+
+        const saved =
+            JSON.parse(raw);
+
+        if(
+            !Number.isFinite(
+                Number(saved.latitude)
+            )
+            ||
+            !Number.isFinite(
+                Number(saved.longitude)
+            )
+        ){
+
+            return false;
+
+        }
+
+        state.latitude =
+            Number(
+                saved.latitude
+            );
+
+        state.longitude =
+            Number(
+                saved.longitude
+            );
+
+        state.locationName =
+            saved.locationName ||
+            "Your location";
+
+        state.locationReady =
+            true;
+
+        updateLocationUI();
+
+        return true;
+
+    }catch(error){
+
+        console.warn(
+            "Saved location failed",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   LOCATION UI
+===================================================== */
+
+function updateLocationUI(){
+
+    if(locationNameElement){
+
+        locationNameElement.textContent =
+            state.locationName ||
+            "Location not selected";
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN LOCATION MODAL
+===================================================== */
+
+function openLocationModal(){
+
+    locationModal.classList.add(
+        "show"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+
+    if(locationModalStatus){
+
+        locationModalStatus.textContent =
+            state.locationReady
+                ? "Current location is already available."
+                : "";
+
+    }
+
+}
+
+
+/* =====================================================
+   CLOSE LOCATION MODAL
+===================================================== */
+
+function closeLocationModal(){
+
+    locationModal.classList.remove(
+        "show"
+    );
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =====================================================
+   DETECT LOCATION
+===================================================== */
+
+function detectLocation(){
+
+    if(
+        !navigator.geolocation
+    ){
+
+        locationModalStatus.textContent =
+            "Location is not supported by this browser.";
+
+        return;
+
+    }
+
+
+    locationModalStatus.textContent =
+        "Requesting your location...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            const latitude =
+                Number(
+                    position.coords.latitude
+                );
+
+            const longitude =
+                Number(
+                    position.coords.longitude
+                );
+
+
+            if(
+                !Number.isFinite(latitude)
+                ||
+                !Number.isFinite(longitude)
+            ){
+
+                locationModalStatus.textContent =
+                    "Unable to read your location.";
+
+                return;
+
+            }
+
+
+            state.latitude =
+                latitude;
+
+            state.longitude =
+                longitude;
+
+            state.locationReady =
+                true;
+
+            state.locationName =
+                "Current location";
+
+
+            saveLocation();
+
+            updateLocationUI();
+
+            closeLocationModal();
+
+            showToast(
+                "Location detected successfully"
+            );
+
+            loadPosts();
+
+        },
+
+        function(error){
+
+            let message =
+                "Unable to detect your location.";
+
+            if(
+                error.code ===
+                error.PERMISSION_DENIED
+            ){
+
+                message =
+                    "Location permission was denied.";
+
+            }
+
+            if(
+                error.code ===
+                error.POSITION_UNAVAILABLE
+            ){
+
+                message =
+                    "Location is currently unavailable.";
+
+            }
+
+            locationModalStatus.textContent =
+                message;
+
+        },
+
+        {
+
+            enableHighAccuracy:true,
+
+            timeout:12000,
+
+            maximumAge:300000
+
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   MANUAL LOCATION
+===================================================== */
+
+function saveManualLocation(){
+
+    const value =
+        manualLocationInput.value.trim();
+
+    if(!value){
+
+        locationModalStatus.textContent =
+            "Please enter your area or city.";
+
+        return;
+
+    }
+
+
+    if(!state.locationReady){
+
+        locationModalStatus.textContent =
+            "For nearby feed results, please use Detect My Location.";
+
+        return;
+
+    }
+
+
+    state.locationName =
+        value;
+
+    saveLocation();
+
+    updateLocationUI();
+
+    closeLocationModal();
+
+    showToast(
+        "Location name updated"
+    );
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function handleSearch(){
+
+    state.search =
+        searchInput.value.trim();
+
+    searchClear.style.display =
+        state.search
+            ? "flex"
+            : "none";
+
+    applyFilters();
+
+}
+
+
+/* =====================================================
+   CLEAR SEARCH
+===================================================== */
+
+function clearSearch(){
+
+    searchInput.value =
+        "";
+
+    state.search =
+        "";
+
+    searchClear.style.display =
+        "none";
+
+    applyFilters();
+
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+function setCategory(category){
+
+    state.category =
+        category || "";
+
+    document
+        .querySelectorAll(
+            ".category-chip"
+        )
+        .forEach(
+            function(button){
+
+                button.classList.toggle(
+
+                    "active",
+
+                    button.dataset.category ===
+                    state.category
+
+                );
+
+            }
+        );
+
+    applyFilters();
+
+}
+
+
+/* =====================================================
+   POST TYPE
+===================================================== */
+
+function setPostType(type){
+
+    state.postType =
+        type || "";
+
+    document
+        .querySelectorAll(
+            ".post-type-chip"
+        )
+        .forEach(
+            function(button){
+
+                button.classList.toggle(
+
+                    "active",
+
+                    button.dataset.postType ===
+                    state.postType
+
+                );
+
+            }
+        );
+
+    applyFilters();
+
+}
+
+
+/* =====================================================
+   PART 6 END
+===================================================== */
+
+  /* =====================================================
+   RADIUS
+===================================================== */
+
+function setRadius(radius){
+
+    const value =
+        Number(radius);
+
+    if(
+        !Number.isFinite(value)
+    ){
+
+        return;
+
+    }
+
+    state.radius =
+        value;
+
+    radiusLabel.textContent =
+        value + " km";
+
+
+    document
+        .querySelectorAll(
+            "[data-radius]"
+        )
+        .forEach(
+            function(button){
+
+                button.classList.toggle(
+
+                    "active",
+
+                    Number(
+                        button.dataset.radius
+                    ) === value
+
+                );
+
+            }
+        );
+
+
+    closeMenus();
+
+    if(state.locationReady){
+
+        loadPosts();
+
+    }else{
+
+        applyFilters();
+
+    }
+
+}
+
+
+/* =====================================================
+   SORT
+===================================================== */
+
+function setSort(sort){
+
+    state.sort =
+        sort || "nearest";
+
+
+    document
+        .querySelectorAll(
+            "[data-sort]"
+        )
+        .forEach(
+            function(button){
+
+                button.classList.toggle(
+
+                    "active",
+
+                    button.dataset.sort ===
+                    state.sort
+
+                );
+
+            }
+        );
+
+
+    closeMenus();
+
+    applyFilters();
+
+}
+
+
+/* =====================================================
+   CLOSE MENUS
+===================================================== */
+
+function closeMenus(){
+
+    document
+        .querySelectorAll(
+            ".tool-menu"
+        )
+        .forEach(
+            function(menu){
+
+                menu.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   LOAD POSTS
+===================================================== */
+
+async function loadPosts(){
+
+    if(!state.locationReady){
+
+        renderLocationRequired();
+
+        return;
+
+    }
+
+
+    renderLoading();
+
+
+    try{
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.rpc(
+
+                "pyncode_local_nearby_posts",
+
+                {
+
+                    p_lat:
+                        state.latitude,
+
+                    p_lng:
+                        state.longitude,
+
+                    p_radius_km:
+                        state.radius
+
+                }
+
+            );
+
+
+        if(error){
+
+            console.error(
+                "Feed RPC error:",
+                error
+            );
+
+            renderFeedError(
+                "Unable to load local posts right now."
+            );
+
+            return;
+
+        }
+
+
+        const posts =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+        state.posts =
+            posts
+                .filter(
+                    function(post){
+
+                        if(!post){
+                            return false;
+                        }
+
+                        if(
+                            post.status &&
+                            String(
+                                post.status
+                            ).toLowerCase() !==
+                            "published"
+                        ){
+
+                            return false;
+
+                        }
+
+                        if(
+                            post.expires_at
+                        ){
+
+                            const expiry =
+                                new Date(
+                                    post.expires_at
+                                );
+
+                            if(
+                                !Number.isNaN(
+                                    expiry.getTime()
+                                )
+                                &&
+                                expiry.getTime()
+                                <
+                                Date.now()
+                            ){
+
+                                return false;
+
+                            }
+
+                        }
+
+                        return true;
+
+                    }
+                )
+                .map(
+                    normalizePost
+                );
+
+
+        applyFilters();
+
+
+    }catch(error){
+
+        console.error(
+            "Feed loading error:",
+            error
+        );
+
+        renderFeedError(
+            "Something went wrong while loading the feed."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   NORMALIZE POST
+===================================================== */
+
+function normalizePost(post){
+
+    const safePost =
+        post || {};
+
+
+    const latitude =
+        Number(
+            safePost.latitude ??
+            safePost.lat
+        );
+
+    const longitude =
+        Number(
+            safePost.longitude ??
+            safePost.lng ??
+            safePost.lon
+        );
+
+
+    return {
+
+        ...safePost,
+
+        id:
+            safePost.id ??
+            safePost.post_id,
+
+        title:
+            safePost.title ??
+            "Local Post",
+
+        description:
+            safePost.description ??
+            "",
+
+        category:
+            safePost.category ??
+            "Local",
+
+        post_type:
+            safePost.post_type ??
+            safePost.type ??
+            "",
+
+        action_type:
+            safePost.action_type ??
+            safePost.action ??
+            "contact",
+
+        price:
+            safePost.price,
+
+        quantity:
+            safePost.quantity,
+
+        area:
+            safePost.area ??
+            "",
+
+        city:
+            safePost.city ??
+            "",
+
+        pincode:
+            safePost.pincode ??
+            "",
+
+        public_location:
+            safePost.public_location ??
+            "",
+
+        image_url:
+            safePost.image_url ??
+            safePost.image ??
+            "",
+
+        created_at:
+            safePost.created_at ??
+            safePost.createdAt,
+
+        latitude:
+            Number.isFinite(latitude)
+                ? latitude
+                : null,
+
+        longitude:
+            Number.isFinite(longitude)
+                ? longitude
+                : null
+
+    };
+
+}
+
+
+/* =====================================================
+   DISTANCE
+===================================================== */
+
+function calculateDistanceKm(
+    lat1,
+    lon1,
+    lat2,
+    lon2
+){
+
+    if(
+        !Number.isFinite(lat1)
+        ||
+        !Number.isFinite(lon1)
+        ||
+        !Number.isFinite(lat2)
+        ||
+        !Number.isFinite(lon2)
+    ){
+
+        return null;
+
+    }
+
+
+    const earthRadius =
+        6371;
+
+
+    const dLat =
+        (
+            lat2 - lat1
+        )
+        *
+        Math.PI
+        /
+        180;
+
+
+    const dLon =
+        (
+            lon2 - lon1
+        )
+        *
+        Math.PI
+        /
+        180;
+
+
+    const a =
+        Math.sin(
+            dLat / 2
+        )
+        *
+        Math.sin(
+            dLat / 2
+        )
+        +
+        Math.cos(
+            lat1 *
+            Math.PI /
+            180
+        )
+        *
+        Math.cos(
+            lat2 *
+            Math.PI /
+            180
+        )
+        *
+        Math.sin(
+            dLon / 2
+        )
+        *
+        Math.sin(
+            dLon / 2
+        );
+
+
+    const c =
+        2 *
+        Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1 - a)
+        );
+
+
+    return earthRadius * c;
+
+}
+
+
+/* =====================================================
+   POST DISTANCE
+===================================================== */
+
+function getPostDistance(post){
+
+    if(
+        Number.isFinite(
+            Number(post.distance_km)
+        )
+    ){
+
+        return Number(
+            post.distance_km
+        );
+
+    }
+
+
+    return calculateDistanceKm(
+
+        state.latitude,
+
+        state.longitude,
+
+        post.latitude,
+
+        post.longitude
+
+    );
+
+}
+
+
+/* =====================================================
+   FORMAT DISTANCE
+===================================================== */
+
+function formatDistance(distance){
+
+    if(
+        !Number.isFinite(
+            Number(distance)
+        )
+    ){
+
+        return "";
+
+    }
+
+
+    const value =
+        Number(distance);
+
+
+    if(value < 1){
+
+        return (
+            Math.round(
+                value * 1000
+            )
+            +
+            " m away"
+        );
+
+    }
+
+
+    return (
+        value.toFixed(
+            value < 10
+                ? 1
+                : 0
+        )
+        +
+        " km away"
+    );
+
+}
+
+
+/* =====================================================
+   PART 7 END
+===================================================== */
+
+  /* =====================================================
+   TIME FORMAT
+===================================================== */
+
+function formatPostTime(
+    dateValue
+){
+
+    if(!dateValue){
+
+        return "";
+
+    }
+
+
+    const date =
+        new Date(
+            dateValue
+        );
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "";
+
+    }
+
+
+    const diff =
+        Date.now()
+        -
+        date.getTime();
+
+
+    const minute =
+        60 * 1000;
+
+    const hour =
+        60 * minute;
+
+    const day =
+        24 * hour;
+
+
+    if(diff < minute){
+
+        return "Just now";
+
+    }
+
+
+    if(diff < hour){
+
+        return (
+            Math.floor(
+                diff / minute
+            )
+            +
+            "m ago"
+        );
+
+    }
+
+
+    if(diff < day){
+
+        return (
+            Math.floor(
+                diff / hour
+            )
+            +
+            "h ago"
+        );
+
+    }
+
+
+    if(diff < 7 * day){
+
+        return (
+            Math.floor(
+                diff / day
+            )
+            +
+            "d ago"
+        );
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"numeric",
+            month:"short"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   PRICE
+===================================================== */
+
+function formatPrice(
+    price
+){
+
+    if(
+        price === null ||
+        price === undefined ||
+        price === ""
+    ){
+
+        return "";
+
+    }
+
+
+    const numeric =
+        Number(
+            String(price)
+                .replace(
+                    /[^0-9.]/g,
+                    ""
+                )
+        );
+
+
+    if(
+        !Number.isFinite(
+            numeric
+        )
+    ){
+
+        return String(
+            price
+        );
+
+    }
+
+
+    return (
+        "₹"
+        +
+        numeric.toLocaleString(
+            "en-IN"
+        )
+    );
+
+}
+
+
+/* =====================================================
+   LOCATION TEXT
+===================================================== */
+
+function getPostLocation(
+    post
+){
+
+    const parts = [];
+
+    if(
+        post.public_location
+    ){
+
+        parts.push(
+            post.public_location
+        );
+
+    }
+
+    if(
+        post.area &&
+        !parts.includes(
+            post.area
+        )
+    ){
+
+        parts.push(
+            post.area
+        );
+
+    }
+
+    if(
+        post.city &&
+        !parts.includes(
+            post.city
+        )
+    ){
+
+        parts.push(
+            post.city
+        );
+
+    }
+
+
+    if(
+        !parts.length &&
+        post.pincode
+    ){
+
+        parts.push(
+            post.pincode
+        );
+
+    }
+
+
+    return parts.join(
+        ", "
+    )
+    ||
+    "Nearby";
+
+
+}
+
+
+/* =====================================================
+   CATEGORY NORMALIZE
+===================================================== */
+
+function normalizeCategory(
+    value
+){
+
+    return String(
+        value || ""
+    )
+    .trim()
+    .toLowerCase();
+
+}
+
+
+/* =====================================================
+   FILTER POSTS
+===================================================== */
+
+function applyFilters(){
+
+    let results =
+        Array.isArray(
+            state.posts
+        )
+            ? [
+                ...state.posts
+            ]
+            : [];
+
+
+    const search =
+        normalizeCategory(
+            state.search
+        );
+
+
+    if(search){
+
+        results =
+            results.filter(
+                function(post){
+
+                    const text = [
+
+                        post.title,
+
+                        post.description,
+
+                        post.category,
+
+                        post.area,
+
+                        post.city,
+
+                        post.public_location
+
+                    ]
+                    .filter(Boolean)
+                    .join(" ")
+                    .toLowerCase();
+
+
+                    return text.includes(
+                        search
+                    );
+
+                }
+            );
+
+    }
+
+
+    if(state.category){
+
+        const wanted =
+            normalizeCategory(
+                state.category
+            );
+
+
+        results =
+            results.filter(
+                function(post){
+
+                    const category =
+                        normalizeCategory(
+                            post.category
+                        );
+
+
+                    const title =
+                        normalizeCategory(
+                            post.title
+                        );
+
+
+                    return (
+
+                        category === wanted
+
+                        ||
+
+                        category.includes(
+                            wanted
+                        )
+
+                        ||
+
+                        title.includes(
+                            wanted
+                        )
+
+                    );
+
+                }
+            );
+
+    }
+
+
+    if(state.postType){
+
+        const wanted =
+            normalizeCategory(
+                state.postType
+            );
+
+
+        results =
+            results.filter(
+                function(post){
+
+                    const type =
+                        normalizeCategory(
+                            post.post_type
+                        );
+
+
+                    const action =
+                        normalizeCategory(
+                            post.action_type
+                        );
+
+
+                    return (
+
+                        type === wanted
+
+                        ||
+
+                        type.includes(
+                            wanted
+                        )
+
+                        ||
+
+                        action === wanted
+
+                    );
+
+                }
+            );
+
+    }
+
+
+    results =
+        results.map(
+            function(post){
+
+                return {
+
+                    ...post,
+
+                    _distance:
+                        getPostDistance(
+                            post
+                        )
+
+                };
+
+            }
+        );
+
+
+    if(
+        state.sort ===
+        "latest"
+    ){
+
+        results.sort(
+            function(a,b){
+
+                return (
+                    new Date(
+                        b.created_at || 0
+                    )
+                    -
+                    new Date(
+                        a.created_at || 0
+                    )
+                );
+
+            }
+        );
+
+    }
+    else if(
+        state.sort ===
+        "oldest"
+    ){
+
+        results.sort(
+            function(a,b){
+
+                return (
+                    new Date(
+                        a.created_at || 0
+                    )
+                    -
+                    new Date(
+                        b.created_at || 0
+                    )
+                );
+
+            }
+        );
+
+    }
+    else{
+
+        results.sort(
+            function(a,b){
+
+                const ad =
+                    Number.isFinite(
+                        a._distance
+                    )
+                        ? a._distance
+                        : 999999;
+
+                const bd =
+                    Number.isFinite(
+                        b._distance
+                    )
+                        ? b._distance
+                        : 999999;
+
+
+                return ad - bd;
+
+            }
+        );
+
+    }
+
+
+    state.filteredPosts =
+        results;
+
+
+    updateResultCount();
+
+    renderPosts();
+
+}
+
+
+/* =====================================================
+   RESULT COUNT
+===================================================== */
+
+function updateResultCount(){
+
+    if(!resultSummary){
+        return;
+    }
+
+
+    const count =
+        state.filteredPosts.length;
+
+
+    resultSummary.textContent =
+        count === 1
+            ? "1 post nearby"
+            : count + " posts nearby";
+
+}
+
+
+/* =====================================================
+   PART 8 END
+===================================================== */
+
+  /* =====================================================
+   LOADING UI
+===================================================== */
+
+function renderLoading(){
+
+    feedGrid.innerHTML = `
+
+        <div class="loading-grid">
+
+            <div class="loading-card"></div>
+
+            <div class="loading-card"></div>
+
+            <div class="loading-card"></div>
+
+            <div class="loading-card"></div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   LOCATION REQUIRED
+===================================================== */
+
+function renderLocationRequired(){
+
+    feedGrid.innerHTML = `
+
+        <div class="location-required">
+
+            <div class="location-required-icon">
+                📍
+            </div>
+
+            <div class="location-required-title">
+                Turn on your location
+            </div>
+
+            <div class="location-required-text">
+                Use your current location to discover
+                local posts, offers, services and
+                opportunities around you.
+            </div>
+
+            <button
+                type="button"
+                class="location-required-button"
+                onclick="openLocationModal()"
+            >
+                Detect My Location
+            </button>
+
+        </div>
+
+    `;
+
+
+    resultSummary.textContent =
+        "Location required";
+
+}
+
+
+/* =====================================================
+   ERROR UI
+===================================================== */
+
+function renderFeedError(
+    message
+){
+
+    feedGrid.innerHTML = `
+
+        <div class="feed-error">
+
+            <div class="feed-error-icon">
+                ⚠️
+            </div>
+
+            <div class="feed-error-title">
+                Feed couldn't load
+            </div>
+
+            <div class="feed-error-text">
+                ${escapeHtml(
+                    message ||
+                    "Please try again."
+                )}
+            </div>
+
+            <button
+                type="button"
+                class="feed-error-button"
+                onclick="loadPosts()"
+            >
+                Try Again
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+function renderEmptyResults(){
+
+    feedGrid.innerHTML = `
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                🔎
+            </div>
+
+            <div class="empty-title">
+                Nothing found nearby
+            </div>
+
+            <div class="empty-text">
+                Try another category, search term
+                or a larger nearby radius.
+            </div>
+
+            <button
+                type="button"
+                class="empty-button"
+                onclick="resetFeedFilters()"
+            >
+                Clear Filters
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   RESET FILTERS
+===================================================== */
+
+function resetFeedFilters(){
+
+    state.category =
+        "";
+
+    state.postType =
+        "";
+
+    state.search =
+        "";
+
+    state.sort =
+        "nearest";
+
+
+    searchInput.value =
+        "";
+
+    searchClear.style.display =
+        "none";
+
+
+    document
+        .querySelectorAll(
+            ".category-chip"
+        )
+        .forEach(
+            function(button){
+
+                button.classList.toggle(
+
+                    "active",
+
+                    button.dataset.category === ""
+
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".post-type-chip"
+        )
+        .forEach(
+            function(button){
+
+                button.classList.toggle(
+
+                    "active",
+
+                    button.dataset.postType === ""
+
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "[data-sort]"
+        )
+        .forEach(
+            function(button){
+
+                button.classList.toggle(
+
+                    "active",
+
+                    button.dataset.sort ===
+                    "nearest"
+
+                );
+
+            }
+        );
+
+
+    applyFilters();
+
+}
+
+
+/* =====================================================
+   RENDER POSTS
+===================================================== */
+
+function renderPosts(){
+
+    if(
+        !state.locationReady
+    ){
+
+        renderLocationRequired();
+
+        return;
+
+    }
+
+
+    if(
+        !state.filteredPosts.length
+    ){
+
+        renderEmptyResults();
+
+        return;
+
+    }
+
+
+    feedGrid.innerHTML =
+        state.filteredPosts
+            .map(
+                function(post,index){
+
+                    return createPostCard(
+                        post,
+                        index === 0
+                    );
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   CATEGORY EMOJI
+===================================================== */
+
+function getCategoryEmoji(
+    category
+){
+
+    const value =
+        normalizeCategory(
+            category
+        );
+
+
+    if(
+        value.includes("offer")
+    ){
+        return "🏷️";
+    }
+
+    if(
+        value.includes("event")
+    ){
+        return "🎉";
+    }
+
+    if(
+        value.includes("service")
+    ){
+        return "🛠️";
+    }
+
+    if(
+        value.includes("job")
+    ){
+        return "👷";
+    }
+
+    if(
+        value.includes("property")
+    ){
+        return "🏠";
+    }
+
+    if(
+        value.includes("vehicle")
+    ){
+        return "🚗";
+    }
+
+    if(
+        value.includes("business")
+    ){
+        return "🏪";
+    }
+
+    if(
+        value.includes("food")
+    ){
+        return "🍱";
+    }
+
+    if(
+        value.includes("product")
+    ){
+        return "🛍️";
+    }
+
+    if(
+        value.includes("community")
+    ){
+        return "🤝";
+    }
+
+    if(
+        value.includes("education")
+    ){
+        return "📚";
+    }
+
+    if(
+        value.includes("rent")
+    ){
+        return "🔑";
+    }
+
+    if(
+        value.includes("help")
+    ){
+        return "🆘";
+    }
+
+    if(
+        value.includes("lost")
+    ){
+        return "🔎";
+    }
+
+    return "📢";
+
+}
+
+
+/* =====================================================
+   PART 9 END
+===================================================== */
+
+  /* =====================================================
+   ACTION LABEL
+===================================================== */
+
+function getActionLabel(
+    action
+){
+
+    const value =
+        String(
+            action ||
+            "contact"
+        )
+        .toLowerCase()
+        .trim();
+
+
+    if(value === "book"){
+
+        return "Book Now";
+
+    }
+
+
+    if(value === "order"){
+
+        return "Order Now";
+
+    }
+
+
+    if(value === "enquire"){
+
+        return "Enquire";
+
+    }
+
+
+    if(value === "apply"){
+
+        return "Apply Now";
+
+    }
+
+
+    if(value === "contact"){
+
+        return "Contact";
+
+    }
+
+
+    return "View Details";
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE ATTRIBUTE
+===================================================== */
+
+function escapeAttribute(
+    value
+){
+
+    return escapeHtml(
+        value
+    );
+
+}
+
+
+/* =====================================================
+   CREATE POST CARD
+===================================================== */
+
+function createPostCard(
+    post,
+    featured
+){
+
+    const safeId =
+        String(
+            post.id ?? ""
+        );
+
+
+    const category =
+        post.category ||
+        "Local";
+
+
+    const emoji =
+        getCategoryEmoji(
+            category
+        );
+
+
+    const title =
+        post.title ||
+        "Local Post";
+
+
+    const description =
+        post.description ||
+        "Discover more details about this local post.";
+
+
+    const action =
+        getActionLabel(
+            post.action_type
+        );
+
+
+    const distance =
+        formatDistance(
+            post._distance
+        );
+
+
+    const time =
+        formatPostTime(
+            post.created_at
+        );
+
+
+    const location =
+        getPostLocation(
+            post
+        );
+
+
+    const price =
+        formatPrice(
+            post.price
+        );
+
+
+    const quantity =
+        post.quantity
+            ? String(
+                post.quantity
+            )
+            : "";
+
+
+    const imageUrl =
+        post.image_url ||
+        "";
+
+
+    const cardClass =
+        featured
+            ? "feed-card featured"
+            : "feed-card";
+
+
+    let media = "";
+
+
+    if(imageUrl){
+
+        media = `
+
+            <img
+                src="${escapeAttribute(imageUrl)}"
+                alt="${escapeAttribute(title)}"
+                loading="lazy"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            >
+
+            <div
+                class="feed-media-placeholder"
+                style="display:none"
+            >
+                ${emoji}
+            </div>
+
+        `;
+
+    }else{
+
+        media = `
+
+            <div class="feed-media-placeholder">
+                ${emoji}
+            </div>
+
+        `;
+
+    }
+
+
+    const valueRow =
+        price || quantity
+            ? `
+
+                <div class="feed-value-row">
+
+                    <span class="feed-price">
+                        ${escapeHtml(price)}
+                    </span>
+
+                    <span class="feed-quantity">
+                        ${escapeHtml(quantity)}
+                    </span>
+
+                </div>
+
+            `
+            : "";
+
+
+    return `
+
+        <article
+            class="${cardClass}"
+            data-post-id="${escapeAttribute(safeId)}"
+        >
+
+            <div class="feed-media">
+
+                ${media}
+
+                <div class="feed-type-badge">
+                    ${emoji}
+                    ${escapeHtml(category)}
+                </div>
+
+                ${
+                    distance
+                        ? `
+                            <div class="feed-distance">
+                                ${escapeHtml(distance)}
+                            </div>
+                        `
+                        : ""
+                }
+
+            </div>
+
+
+            <div class="feed-body">
+
+                <div class="feed-topline">
+
+                    <span class="feed-category-label">
+                        ${escapeHtml(category)}
+                    </span>
+
+                    <span class="feed-time">
+                        ${escapeHtml(time)}
+                    </span>
+
+                </div>
+
+
+                <div class="feed-title">
+                    ${escapeHtml(title)}
+                </div>
+
+
+                <div class="feed-description">
+                    ${escapeHtml(description)}
+                </div>
+
+
+                <div class="feed-location">
+
+                    <span>
+                        📍
+                    </span>
+
+                    <span>
+                        ${escapeHtml(location)}
+                    </span>
+
+                </div>
+
+
+                ${valueRow}
+
+
+                <div class="feed-action-row">
+
+                    <button
+                        class="feed-view-button"
+                        type="button"
+                        onclick="openPost('${escapeAttribute(safeId)}')"
+                    >
+                        ${escapeHtml(action)}
+                    </button>
+
+
+                    <button
+                        class="feed-action-icon"
+                        type="button"
+                        aria-label="View post"
+                        onclick="openPost('${escapeAttribute(safeId)}')"
+                    >
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        >
+
+                            <path
+                                d="M5 12h14"
+                            />
+
+                            <path
+                                d="m13 6 6 6-6 6"
+                            />
+
+                        </svg>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   PART 10 END
+===================================================== */
+
+  /* =====================================================
+   OPEN POST
+===================================================== */
+
+function openPost(
+    postId
+){
+
+    if(
+        postId === null ||
+        postId === undefined ||
+        postId === ""
+    ){
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "current-post-details.html?id="
+        +
+        encodeURIComponent(
+            postId
+        );
+
+}
+
+
+/* =====================================================
+   OPEN POST ACTION
+===================================================== */
+
+function openPostAction(
+    post
+){
+
+    if(!post){
+
+        return;
+
+    }
+
+
+    const id =
+        post.id;
+
+
+    const action =
+        String(
+            post.action_type ||
+            ""
+        )
+        .toLowerCase();
+
+
+    if(
+        action === "book"
+        ||
+        action === "order"
+        ||
+        action === "enquire"
+        ||
+        action === "apply"
+    ){
+
+        window.location.href =
+            "current-booking.html?post_id="
+            +
+            encodeURIComponent(
+                id
+            );
+
+        return;
+
+    }
+
+
+    openPost(
+        id
+    );
+
+}
+
+
+/* =====================================================
+   ACCOUNT
+===================================================== */
+
+function openAccount(){
+
+    window.location.href =
+        "current-account.html";
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function openNotifications(){
+
+    window.location.href =
+        "current-notifications.html";
+
+}
+
+
+/* =====================================================
+   CREATE POST
+===================================================== */
+
+function createLocalPost(){
+
+    window.location.href =
+        "current-create-post.html";
+
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+function openHome(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =====================================================
+   CARD CLICK DELEGATION
+===================================================== */
+
+feedGrid.addEventListener(
+    "click",
+    function(event){
+
+        const card =
+            event.target.closest(
+                ".feed-card"
+            );
+
+
+        if(!card){
+            return;
+        }
+
+
+        if(
+            event.target.closest(
+                "button"
+            )
+        ){
+
+            return;
+
+        }
+
+
+        const postId =
+            card.dataset.postId;
+
+
+        if(postId){
+
+            openPost(
+                postId
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOCATION EVENTS
+===================================================== */
+
+document
+    .getElementById(
+        "changeLocationButton"
+    )
+    .addEventListener(
+        "click",
+        openLocationModal
+    );
+
+
+document
+    .getElementById(
+        "modalCloseButton"
+    )
+    .addEventListener(
+        "click",
+        closeLocationModal
+    );
+
+
+document
+    .getElementById(
+        "detectLocationButton"
+    )
+    .addEventListener(
+        "click",
+        detectLocation
+    );
+
+
+document
+    .getElementById(
+        "manualLocationButton"
+    )
+    .addEventListener(
+        "click",
+        saveManualLocation
+    );
+
+
+locationModal.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            locationModal
+        ){
+
+            closeLocationModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SEARCH EVENTS
+===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    handleSearch
+);
+
+
+searchClear.addEventListener(
+    "click",
+    clearSearch
+);
+
+
+/* =====================================================
+   CATEGORY EVENTS
+===================================================== */
+
+document
+    .querySelectorAll(
+        ".category-chip"
+    )
+    .forEach(
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    const value =
+                        button.dataset.category;
+
+                    if(
+                        value ===
+                        "__more__"
+                    ){
+
+                        showToast(
+                            "More local categories coming soon"
+                        );
+
+                        return;
+
+                    }
+
+
+                    setCategory(
+                        value
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   POST TYPE EVENTS
+===================================================== */
+
+document
+    .querySelectorAll(
+        ".post-type-chip"
+    )
+    .forEach(
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    setPostType(
+                        button.dataset.postType
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   CLEAR CATEGORY
+===================================================== */
+
+document
+    .getElementById(
+        "resetCategoryButton"
+    )
+    .addEventListener(
+        "click",
+        resetFeedFilters
+    );
+
+
+/* =====================================================
+   PART 11 END
+===================================================== */
+
+  /* =====================================================
+   RADIUS MENU
+===================================================== */
+
+document
+    .getElementById(
+        "radiusButton"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            event.stopPropagation();
+
+            const menu =
+                document.getElementById(
+                    "radiusMenu"
+                );
+
+            const sortMenu =
+                document.getElementById(
+                    "sortMenu"
+                );
+
+
+            sortMenu.classList.remove(
+                "show"
+            );
+
+            menu.classList.toggle(
+                "show"
+            );
+
+        }
+    );
+
+
+document
+    .querySelectorAll(
+        "[data-radius]"
+    )
+    .forEach(
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    setRadius(
+                        button.dataset.radius
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   SORT MENU
+===================================================== */
+
+document
+    .getElementById(
+        "sortButton"
+    )
+    .addEventListener(
+        "click",
+        function(event){
+
+            event.stopPropagation();
+
+            const menu =
+                document.getElementById(
+                    "sortMenu"
+                );
+
+            const radiusMenu =
+                document.getElementById(
+                    "radiusMenu"
+                );
+
+
+            radiusMenu.classList.remove(
+                "show"
+            );
+
+            menu.classList.toggle(
+                "show"
+            );
+
+        }
+    );
+
+
+document
+    .querySelectorAll(
+        "[data-sort]"
+    )
+    .forEach(
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    setSort(
+                        button.dataset.sort
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   OUTSIDE CLICK
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            !event.target.closest(
+                ".tool-wrap"
+            )
+        ){
+
+            closeMenus();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   POST BUTTON
+===================================================== */
+
+document
+    .getElementById(
+        "postNearButton"
+    )
+    .addEventListener(
+        "click",
+        createLocalPost
+    );
+
+
+/* =====================================================
+   ACCOUNT BUTTON
+===================================================== */
+
+document
+    .getElementById(
+        "accountButton"
+    )
+    .addEventListener(
+        "click",
+        openAccount
+    );
+
+
+/* =====================================================
+   NOTIFICATION BUTTON
+===================================================== */
+
+document
+    .getElementById(
+        "notificationButton"
+    )
+    .addEventListener(
+        "click",
+        openNotifications
+    );
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            closeMenus();
+
+            closeLocationModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PART 12 END
+===================================================== */
+
+  /* =====================================================
+   MORE CATEGORY MESSAGE
+===================================================== */
+
+const moreCategoryButton =
+    document.getElementById(
+        "moreCategoryButton"
+    );
+
+
+if(moreCategoryButton){
+
+    moreCategoryButton.addEventListener(
+        "click",
+        function(){
+
+            showToast(
+                "More categories will be added soon"
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   MANUAL LOCATION ENTER KEY
+===================================================== */
+
+manualLocationInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Enter"
+        ){
+
+            event.preventDefault();
+
+            saveManualLocation();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   INITIALIZE LOCATION
+===================================================== */
+
+function initializeLocation(){
+
+    const restored =
+        loadSavedLocation();
+
+
+    if(restored){
+
+        loadPosts();
+
+        return;
+
+    }
+
+
+    renderLocationRequired();
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+function initializeFeed(){
+
+    radiusLabel.textContent =
+        state.radius +
+        " km";
+
+
+    updateLocationUI();
+
+
+    initializeLocation();
+
+}
+
+
+/* =====================================================
+   PAGE VISIBILITY
+===================================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            document.visibilityState ===
+            "visible"
+            &&
+            state.locationReady
+        ){
+
+            loadPosts();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   WINDOW FOCUS
+===================================================== */
+
+window.addEventListener(
+    "focus",
+    function(){
+
+        if(
+            state.locationReady
+        ){
+
+            loadPosts();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START APP
+===================================================== */
+
+initializeFeed();
+
+
+/* =====================================================
+   PART 13 END
+===================================================== */
+
+  /* =====================================================
+   FINAL SAFETY CHECKS
+===================================================== */
+
+window.openPost =
+    openPost;
+
+window.openLocationModal =
+    openLocationModal;
+
+window.closeLocationModal =
+    closeLocationModal;
+
+window.loadPosts =
+    loadPosts;
+
+window.resetFeedFilters =
+    resetFeedFilters;
+
+
+/* =====================================================
+   PREVENT EMPTY POST ID NAVIGATION
+===================================================== */
+
+window.addEventListener(
+    "error",
+    function(event){
+
+        console.warn(
+            "Pyncode Local runtime warning:",
+            event.message
+        );
+
+    }
+);
+
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+</script>
+
+</div>
+
+</body>
+
+</html>

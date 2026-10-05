@@ -152,6 +152,45 @@ main{
 }
 
 
+/* BUSINESS LOCATION */
+
+.location-btn{
+    width:100%;
+    border:1px solid #111;
+    background:#fff;
+    color:#111;
+    padding:14px;
+    border-radius:11px;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.location-btn:hover{
+    background:#f7f7f7;
+}
+
+.location-btn:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+}
+
+.location-status{
+    margin-top:9px;
+    font-size:13px;
+    line-height:1.5;
+    color:#777;
+}
+
+.location-status.success{
+    color:#16803c;
+}
+
+.location-status.error{
+    color:#d62828;
+}
+
+
 /* SUBMIT */
 
 .submit-btn{
@@ -579,8 +618,7 @@ main{
 
             </div>
 
-
-            <div class="form-group">
+                      <div class="form-group">
 
                 <label for="address">
                     Address *
@@ -647,6 +685,43 @@ main{
                     pattern="[1-9][0-9]{5}"
                     title="Please enter a valid 6 digit pincode"
                     required
+                >
+
+            </div>
+
+
+            <!-- =========================
+                 BUSINESS LOCATION
+            ========================== -->
+
+            <div class="form-group">
+
+                <label>
+                    Business Location *
+                </label>
+
+                <button
+                    type="button"
+                    id="useLocationButton"
+                    class="location-btn"
+                >
+                    📍 Use My Current Location
+                </button>
+
+                <div
+                    id="locationStatus"
+                    class="location-status"
+                    aria-live="polite"
+                ></div>
+
+                <input
+                    type="hidden"
+                    id="latitude"
+                >
+
+                <input
+                    type="hidden"
+                    id="longitude"
                 >
 
             </div>
@@ -819,6 +894,128 @@ const shopImageInput =
 const shopImagePreview =
     document.getElementById("shopImagePreview");
 
+const useLocationButton =
+    document.getElementById("useLocationButton");
+
+const locationStatus =
+    document.getElementById("locationStatus");
+
+const latitudeInput =
+    document.getElementById("latitude");
+
+const longitudeInput =
+    document.getElementById("longitude");
+
+
+/* =========================
+   BUSINESS LOCATION
+========================= */
+
+useLocationButton.addEventListener(
+    "click",
+    function(){
+
+        if(!navigator.geolocation){
+
+            locationStatus.textContent =
+                "Location is not supported by this browser.";
+
+            locationStatus.className =
+                "location-status error";
+
+            return;
+
+        }
+
+        useLocationButton.disabled = true;
+
+        useLocationButton.textContent =
+            "📍 Getting Location...";
+
+        locationStatus.textContent =
+            "Please allow location access.";
+
+        locationStatus.className =
+            "location-status";
+
+        navigator.geolocation.getCurrentPosition(
+
+            function(position){
+
+                const latitude =
+                    position.coords.latitude;
+
+                const longitude =
+                    position.coords.longitude;
+
+                latitudeInput.value =
+                    latitude.toFixed(8);
+
+                longitudeInput.value =
+                    longitude.toFixed(8);
+
+                locationStatus.textContent =
+                    "✓ Location added successfully.";
+
+                locationStatus.className =
+                    "location-status success";
+
+                useLocationButton.textContent =
+                    "✓ Location Added";
+
+                useLocationButton.disabled =
+                    false;
+
+            },
+
+            function(error){
+
+                console.error(
+                    "Location error:",
+                    error
+                );
+
+                latitudeInput.value =
+                    "";
+
+                longitudeInput.value =
+                    "";
+
+                let text =
+                    "Unable to get your location. Please allow location access and try again.";
+
+                if(error.code === 1){
+
+                    text =
+                        "Location permission was denied. Please allow location access and try again.";
+
+                }
+
+                locationStatus.textContent =
+                    text;
+
+                locationStatus.className =
+                    "location-status error";
+
+                useLocationButton.textContent =
+                    "📍 Use My Current Location";
+
+                useLocationButton.disabled =
+                    false;
+
+            },
+
+            {
+                enableHighAccuracy:true,
+                timeout:15000,
+                maximumAge:0
+            }
+
+        );
+
+    }
+);
+
 
 /* =========================
    SHOP IMAGE AUTO COMPRESSOR
@@ -961,8 +1158,7 @@ async function compressShopImage(file){
 
                 }
 
-
-                /* =========================
+                              /* =========================
                    START QUALITY
                 ========================= */
 
@@ -1466,6 +1662,18 @@ shopForm.addEventListener(
             .trim();
 
 
+        const latitude =
+            latitudeInput.value
+                ? Number(latitudeInput.value)
+                : null;
+
+
+        const longitude =
+            longitudeInput.value
+                ? Number(longitudeInput.value)
+                : null;
+
+
         const description =
             document
             .getElementById(
@@ -1477,6 +1685,32 @@ shopForm.addEventListener(
 
         const shopImageFile =
             shopImageInput.files[0];
+
+
+        /* =========================
+           LOCATION VALIDATION
+        ========================= */
+
+        if(
+            !Number.isFinite(latitude) ||
+            !Number.isFinite(longitude)
+        ){
+
+            message.textContent =
+                "Please add your business location using the location button.";
+
+            message.className =
+                "message error";
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "Submit Your Shop";
+
+            return;
+
+        }
 
 
         /* =========================
@@ -1569,8 +1803,7 @@ shopForm.addEventListener(
 
         }
 
-
-        /* =========================
+              /* =========================
            FINAL COMPRESSED FILE
         ========================= */
 
@@ -1635,7 +1868,8 @@ shopForm.addEventListener(
         let uploadedFileName =
             null;
 
-              try{
+
+        try{
 
             /* =========================
                SHOP PHOTO UPLOAD
@@ -1826,6 +2060,12 @@ shopForm.addEventListener(
                         pincode:
                             pincode,
 
+                        latitude:
+                            latitude,
+
+                        longitude:
+                            longitude,
+
                         description:
                             description,
 
@@ -1856,8 +2096,7 @@ shopForm.addEventListener(
 
             }
 
-
-            /* =========================
+                      /* =========================
                SUCCESS
             ========================= */
 
@@ -1874,6 +2113,22 @@ shopForm.addEventListener(
 
             shopImagePreview.innerHTML =
                 "";
+
+
+            latitudeInput.value =
+                "";
+
+            longitudeInput.value =
+                "";
+
+            locationStatus.textContent =
+                "";
+
+            locationStatus.className =
+                "location-status";
+
+            useLocationButton.textContent =
+                "📍 Use My Current Location";
 
 
             submitButton.textContent =
@@ -1973,3 +2228,4 @@ shopForm.addEventListener(
 </body>
 
 </html>
+

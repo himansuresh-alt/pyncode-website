@@ -1,0 +1,2851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#FF6B35"
+>
+
+<title>Pyncode Local - My Posts</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fffaf7;
+    color:#222;
+    min-height:100vh;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+button{
+    -webkit-tap-highlight-color:transparent;
+}
+
+/* HEADER */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 16px;
+    background:#fff;
+    border-bottom:1px solid #eee;
+}
+
+.back-button{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:12px;
+    background:#fff3ed;
+    color:#e85220;
+    font-size:20px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.header-title{
+    flex:1;
+    text-align:center;
+    margin:0 10px;
+    font-size:17px;
+    font-weight:800;
+    color:#222;
+}
+
+.header-action{
+    width:40px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    border-radius:12px;
+    background:#fff3ed;
+    color:#e85220;
+    font-size:20px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* PAGE */
+
+.page{
+    width:100%;
+    max-width:700px;
+    margin:0 auto;
+    padding:16px;
+}
+
+/* INTRO */
+
+.intro-card{
+    background:linear-gradient(
+        135deg,
+        #ff6b35,
+        #e85220
+    );
+    color:#fff;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:14px;
+    box-shadow:
+        0 10px 25px
+        rgba(232,82,32,.18);
+}
+
+.intro-title{
+    font-size:22px;
+    font-weight:900;
+    line-height:1.25;
+}
+
+.intro-text{
+    margin-top:7px;
+    font-size:12px;
+    line-height:1.5;
+    opacity:.92;
+}
+
+/* STATS */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:9px;
+    margin-bottom:15px;
+}
+
+.stat-card{
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:14px;
+    padding:13px 9px;
+    text-align:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.04);
+}
+
+.stat-number{
+    font-size:20px;
+    font-weight:900;
+    color:#e85220;
+}
+
+.stat-label{
+    margin-top:4px;
+    font-size:10px;
+    color:#888;
+    font-weight:700;
+}
+
+/* FILTER */
+
+.filter-card{
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:16px;
+    padding:13px;
+    margin-bottom:14px;
+}
+
+.filter-row{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.filter-row::-webkit-scrollbar{
+    display:none;
+}
+
+.filter-button{
+    flex-shrink:0;
+    border:1px solid #eee;
+    border-radius:20px;
+    padding:8px 12px;
+    background:#fff;
+    color:#666;
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.filter-button.active{
+    background:#ff6b35;
+    border-color:#ff6b35;
+    color:#fff;
+}
+
+/* STATUS */
+
+.status-message{
+    display:none;
+    padding:12px 14px;
+    margin-bottom:12px;
+    border-radius:12px;
+    font-size:13px;
+    line-height:1.45;
+    font-weight:600;
+}
+
+.status-message.show{
+    display:block;
+}
+
+.status-message.success{
+    background:#effaf2;
+    border:1px solid #bfe7c8;
+    color:#237a3b;
+}
+
+.status-message.error{
+    background:#fff0f0;
+    border:1px solid #ffcaca;
+    color:#c62828;
+}
+
+/* LOADING */
+
+.loading-box{
+    min-height:45vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    color:#777;
+}
+
+.loader{
+    width:36px;
+    height:36px;
+    border:4px solid #ffe0d2;
+    border-top-color:#ff6b35;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* POSTS */
+
+.posts-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.post-card{
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:17px;
+    padding:15px;
+    box-shadow:0 5px 18px rgba(0,0,0,.05);
+}
+
+.post-image{
+    width:100%;
+    height:190px;
+    margin-bottom:13px;
+    overflow:hidden;
+    border-radius:13px;
+    background:#fff3ed;
+}
+
+.post-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.post-image-placeholder{
+    width:100%;
+    height:150px;
+    margin-bottom:13px;
+    border-radius:13px;
+    background:#fff5ef;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:38px;
+}
+
+.post-card-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.post-info{
+    flex:1;
+    min-width:0;
+}
+
+.category-badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    background:#fff0e9;
+    color:#e85220;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.post-title{
+    margin-top:8px;
+    font-size:17px;
+    line-height:1.3;
+    font-weight:800;
+    color:#222;
+    word-break:break-word;
+}
+
+.post-description{
+    margin-top:5px;
+    font-size:12px;
+    line-height:1.45;
+    color:#777;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.post-price{
+    margin-top:9px;
+    font-size:16px;
+    font-weight:900;
+    color:#e85220;
+}
+
+.status-badge{
+    flex-shrink:0;
+    padding:6px 9px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:800;
+}
+
+.status-published{
+    background:#eaf8ee;
+    color:#26753d;
+}
+
+.status-paused{
+    background:#fff5df;
+    color:#8a651c;
+}
+
+.status-expired{
+    background:#f1f1f1;
+    color:#777;
+}
+
+.post-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:10px;
+}
+
+.meta-chip{
+    padding:5px 8px;
+    border-radius:20px;
+    background:#f7f7f7;
+    color:#666;
+    font-size:10px;
+    font-weight:700;
+}
+
+.request-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:11px;
+    padding:10px 11px;
+    border-radius:11px;
+    background:#fafafa;
+}
+
+.request-label{
+    font-size:11px;
+    color:#777;
+    font-weight:700;
+}
+
+.request-count{
+    min-width:28px;
+    height:26px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 8px;
+    border-radius:20px;
+    background:#ff6b35;
+    color:#fff;
+    font-size:11px;
+    font-weight:800;
+}
+
+.post-actions{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:7px;
+    margin-top:13px;
+    padding-top:12px;
+    border-top:1px solid #eee;
+}
+
+.post-action{
+    min-height:40px;
+    border:1px solid #eee;
+    border-radius:10px;
+    background:#fff;
+    color:#555;
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.post-action.primary{
+    background:#fff3ed;
+    border-color:#ffd5c5;
+    color:#e85220;
+}
+
+.post-action.danger{
+    color:#c62828;
+    background:#fff5f5;
+    border-color:#ffdada;
+}
+
+.post-action:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.post-action-hint{
+    margin-top:9px;
+    color:#999;
+    font-size:10px;
+    line-height:1.4;
+}
+
+.expiry-text{
+    color:#999;
+    font-size:10px;
+    text-align:right;
+}
+
+/* EMPTY */
+
+.empty-box{
+    min-height:45vh;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px 20px;
+    background:#fff;
+    border:1px solid #eee;
+    border-radius:18px;
+}
+
+.empty-icon{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.empty-title{
+    font-size:19px;
+    font-weight:800;
+    color:#222;
+}
+
+.empty-text{
+    max-width:330px;
+    margin-top:7px;
+    font-size:13px;
+    line-height:1.5;
+    color:#777;
+}
+
+.create-button{
+    margin-top:16px;
+    border:none;
+    border-radius:13px;
+    padding:13px 18px;
+    background:#ff6b35;
+    color:#fff;
+    font-size:13px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+/* MODAL */
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    z-index:500;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    background:rgba(0,0,0,.45);
+}
+
+.modal-overlay.show{
+    display:flex;
+}
+
+.modal-card{
+    width:100%;
+    max-width:390px;
+    background:#fff;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,.18);
+}
+
+.modal-title{
+    font-size:18px;
+    font-weight:900;
+}
+
+.modal-text{
+    margin-top:7px;
+    font-size:13px;
+    line-height:1.5;
+    color:#777;
+}
+
+.modal-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:18px;
+}
+
+.modal-button{
+    min-height:44px;
+    border-radius:12px;
+    border:1px solid #eee;
+    background:#fff;
+    color:#555;
+    font-size:13px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.modal-button.confirm{
+    border-color:#ff6b35;
+    background:#ff6b35;
+    color:#fff;
+}
+
+.bottom-space{
+    height:30px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+@media(max-width:600px){
+
+    .page{
+        padding:12px;
+    }
+
+    .intro-title{
+        font-size:20px;
+    }
+
+    .post-actions{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+<button
+    type="button"
+    class="back-button"
+    id="backButton"
+>
+←
+</button>
+
+<div class="header-title">
+My Posts
+</div>
+
+<button
+    type="button"
+    class="header-action"
+    id="createHeaderButton"
+>
++
+</button>
+
+</header>
+
+<main class="page">
+
+<section class="intro-card">
+
+<div class="intro-title">
+Manage Your Posts
+</div>
+
+<div class="intro-text">
+View, update and manage everything you
+have posted on Pyncode Local.
+</div>
+
+</section>
+
+<section class="stats-grid">
+
+<div class="stat-card">
+<div
+    class="stat-number"
+    id="totalCount"
+>
+0
+</div>
+<div class="stat-label">
+Total
+</div>
+</div>
+
+<div class="stat-card">
+<div
+    class="stat-number"
+    id="publishedCount"
+>
+0
+</div>
+<div class="stat-label">
+Published
+</div>
+</div>
+
+<div class="stat-card">
+<div
+    class="stat-number"
+    id="requestCount"
+>
+0
+</div>
+<div class="stat-label">
+Requests
+</div>
+</div>
+
+</section>
+
+<section class="filter-card">
+
+<div class="filter-row">
+
+<button
+    type="button"
+    class="filter-button active"
+    data-filter="all"
+>
+All
+</button>
+
+<button
+    type="button"
+    class="filter-button"
+    data-filter="published"
+>
+Published
+</button>
+
+<button
+    type="button"
+    class="filter-button"
+    data-filter="paused"
+>
+Paused
+</button>
+
+<button
+    type="button"
+    class="filter-button"
+    data-filter="expired"
+>
+Expired
+</button>
+
+</div>
+
+</section>
+
+<div
+    class="status-message"
+    id="statusMessage"
+></div>
+
+<div
+    class="loading-box"
+    id="loadingBox"
+>
+
+<div class="loader"></div>
+
+<div>
+Loading your posts...
+</div>
+
+</div>
+
+<section
+    class="posts-list"
+    id="postsList"
+    style="display:none;"
+>
+</section>
+
+<section
+    class="empty-box"
+    id="emptyBox"
+>
+
+<div class="empty-icon">
+📋
+</div>
+
+<div class="empty-title">
+No posts yet
+</div>
+
+<div class="empty-text">
+Create your first local post
+and reach people nearby.
+</div>
+
+<button
+    type="button"
+    class="create-button"
+    id="createButton"
+>
++ Create New Post
+</button>
+
+</section>
+
+<div class="bottom-space"></div>
+
+</main>
+
+<div
+    class="modal-overlay"
+    id="deleteModal"
+>
+
+<div class="modal-card">
+
+<div class="modal-title">
+Delete this post?
+</div>
+
+<div class="modal-text">
+This will remove the post from Pyncode Local.
+This action cannot be undone.
+</div>
+
+<div class="modal-actions">
+
+<button
+    type="button"
+    class="modal-button"
+    id="cancelDelete"
+>
+Cancel
+</button>
+
+<button
+    type="button"
+    class="modal-button confirm"
+    id="confirmDelete"
+>
+Delete
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+"use strict";
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: true,
+                storageKey: "pyncode-local-auth"
+            }
+        }
+    );
+
+const AUTH_API =
+    SUPABASE_URL +
+    "/functions/v1/pyncode-local-auth";
+
+
+const CONFIG = {
+
+    accountPage:
+        "current-account.html",
+
+    createPostPage:
+        "current-create-post.html",
+
+    detailsPage:
+        "current-post-details.html",
+
+    manageBookingsPage:
+        "current-manage-bookings.html"
+
+};
+
+
+const backButton =
+    document.getElementById(
+        "backButton"
+    );
+
+const createHeaderButton =
+    document.getElementById(
+        "createHeaderButton"
+    );
+
+const createButton =
+    document.getElementById(
+        "createButton"
+    );
+
+const loadingBox =
+    document.getElementById(
+        "loadingBox"
+    );
+
+const postsList =
+    document.getElementById(
+        "postsList"
+    );
+
+const emptyBox =
+    document.getElementById(
+        "emptyBox"
+    );
+
+const statusMessage =
+    document.getElementById(
+        "statusMessage"
+    );
+
+const totalCount =
+    document.getElementById(
+        "totalCount"
+    );
+
+const publishedCount =
+    document.getElementById(
+        "publishedCount"
+    );
+
+const requestCount =
+    document.getElementById(
+        "requestCount"
+    );
+
+const filterButtons =
+    document.querySelectorAll(
+        ".filter-button"
+    );
+
+const deleteModal =
+    document.getElementById(
+        "deleteModal"
+    );
+
+const cancelDelete =
+    document.getElementById(
+        "cancelDelete"
+    );
+
+const confirmDelete =
+    document.getElementById(
+        "confirmDelete"
+    );
+
+
+let currentUser = null;
+
+let myPosts = [];
+
+let activeFilter = "all";
+
+let postToDelete = null;
+
+let actionInProgress = false;
+
+let bookingsByPost = {};
+
+
+/* ==========================================
+   HELPERS
+   ========================================== */
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function normalizeText(value){
+
+    return String(
+        value ?? ""
+    )
+    .trim()
+    .replace(/\s+/g," ");
+
+}
+
+
+function setStatus(
+    message,
+    type
+){
+
+    statusMessage.textContent =
+        message || "";
+
+    statusMessage.className =
+        "status-message";
+
+    if(message){
+
+        statusMessage.classList.add(
+            "show"
+        );
+
+    }
+
+    if(
+        type === "success" ||
+        type === "error"
+    ){
+
+        statusMessage.classList.add(
+            type
+        );
+
+    }
+
+}
+
+
+function clearStatus(){
+
+    statusMessage.textContent =
+        "";
+
+    statusMessage.className =
+        "status-message";
+
+}
+
+
+function goTo(page){
+
+    window.location.href =
+        page;
+
+}
+
+
+/* ==========================================
+   SESSION
+   ========================================== */
+
+async function getCurrentUser(){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .auth
+        .getSession();
+
+    if(error){
+
+        console.error(
+            "Session error:",
+            error
+        );
+
+        return null;
+
+    }
+
+    return (
+        data?.session?.user ||
+        null
+    );
+
+}
+
+
+/* ==========================================
+   AUTH TOKEN
+   ========================================== */
+
+async function getAccessToken(){
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .auth
+        .getSession();
+
+    if(error){
+
+        throw error;
+
+    }
+
+    return (
+        data?.session?.access_token ||
+        ""
+    );
+
+}
+
+
+/* ==========================================
+   AUTH API
+   ========================================== */
+
+async function callAuthApi(
+    action,
+    extraData = {}
+){
+
+    const token =
+        await getAccessToken();
+
+    if(!token){
+
+        throw new Error(
+            "Please login again."
+        );
+
+    }
+
+    const response =
+        await fetch(
+            AUTH_API,
+            {
+
+                method:"POST",
+
+                headers:{
+
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        "Bearer " +
+                        token
+
+                },
+
+                body:
+                    JSON.stringify({
+
+                        action:
+                            action,
+
+                        ...extraData
+
+                    })
+
+            }
+        );
+
+
+    const result =
+        await response.json()
+        .catch(
+            function(){
+
+                return {};
+
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            result?.error ||
+            "Request failed."
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* ==========================================
+   LOAD POSTS FROM SERVER
+   ========================================== */
+
+async function loadPosts(){
+
+    const result =
+        await callAuthApi(
+            "my_posts"
+        );
+
+
+    return Array.isArray(
+        result?.posts
+    )
+        ? result.posts
+        : [];
+
+}
+
+  /* ==========================================
+   LOAD CUSTOMER REQUEST COUNTS
+   ========================================== */
+
+async function loadBookingCounts(){
+
+    try{
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .rpc(
+                "pyncode_get_my_customer_requests"
+            );
+
+
+        if(error){
+
+            console.error(
+                "Customer request count error:",
+                error
+            );
+
+            bookingsByPost = {};
+
+            return 0;
+
+        }
+
+
+        const requests =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+        const map = {};
+
+
+        requests.forEach(
+            function(request){
+
+                const key =
+                    String(
+                        request.post_id
+                    );
+
+
+                map[key] =
+                    (
+                        map[key] ||
+                        0
+                    ) + 1;
+
+            }
+        );
+
+
+        bookingsByPost =
+            map;
+
+
+        return requests.length;
+
+
+    }catch(error){
+
+        console.error(
+            "Customer request count error:",
+            error
+        );
+
+        bookingsByPost = {};
+
+        return 0;
+
+    }
+
+}
+
+
+/* ==========================================
+   CATEGORY
+   ========================================== */
+
+function getCategoryLabel(
+    category
+){
+
+    const labels = {
+
+        food:"Food",
+        products:"Products",
+        jobs:"Jobs",
+        services:"Services",
+        professionals:"Professionals",
+        rental:"Rental",
+        education:"Education",
+        events:"Events",
+        other:"Other"
+
+    };
+
+    return (
+        labels[category] ||
+        "Other"
+    );
+
+}
+
+
+/* ==========================================
+   ACTION
+   ========================================== */
+
+function getActionLabel(
+    action
+){
+
+    const labels = {
+
+        book:"Book",
+        order:"Order",
+        enquire:"Enquire",
+        apply:"Apply",
+        contact:"Contact"
+
+    };
+
+    return (
+        labels[action] ||
+        "Enquire"
+    );
+
+}
+
+
+/* ==========================================
+   PRICE
+   ========================================== */
+
+function formatPrice(
+    price
+){
+
+    if(
+        price === null ||
+        price === undefined ||
+        price === ""
+    ){
+
+        return "Price on enquiry";
+
+    }
+
+    const value =
+        Number(price);
+
+    if(
+        !Number.isFinite(value)
+    ){
+
+        return "Price on enquiry";
+
+    }
+
+    return (
+        "₹" +
+        value.toLocaleString(
+            "en-IN",
+            {
+                maximumFractionDigits:2
+            }
+        )
+    );
+
+}
+
+
+/* ==========================================
+   DATE
+   ========================================== */
+
+function formatDate(
+    value
+){
+
+    if(!value){
+
+        return "";
+
+    }
+
+    const date =
+        new Date(value);
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "";
+
+    }
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* ==========================================
+   STATUS
+   ========================================== */
+
+function getPostStatus(
+    post
+){
+
+    if(!post){
+
+        return "expired";
+
+    }
+
+    if(
+        post.status ===
+        "expired"
+    ){
+
+        return "expired";
+
+    }
+
+    if(
+        post.expires_at &&
+        new Date(
+            post.expires_at
+        ).getTime() <=
+        Date.now()
+    ){
+
+        return "expired";
+
+    }
+
+    if(
+        post.status ===
+        "paused"
+    ){
+
+        return "paused";
+
+    }
+
+    return "published";
+
+}
+
+
+function getStatusLabel(
+    status
+){
+
+    const labels = {
+
+        published:"Published",
+        paused:"Paused",
+        expired:"Expired"
+
+    };
+
+    return (
+        labels[status] ||
+        "Expired"
+    );
+
+}
+
+
+/* ==========================================
+   LOCATION
+   ========================================== */
+
+function getLocationText(
+    post
+){
+
+    const area =
+        normalizeText(
+            post.area
+        );
+
+    const city =
+        normalizeText(
+            post.city
+        );
+
+    if(
+        area &&
+        city
+    ){
+
+        return (
+            area +
+            ", " +
+            city
+        );
+
+    }
+
+    return (
+        area ||
+        city ||
+        normalizeText(
+            post.public_location
+        ) ||
+        "Location available"
+    );
+
+}
+
+
+/* ==========================================
+   EXPIRY
+   ========================================== */
+
+function getExpiryText(
+    post,
+    status
+){
+
+    if(
+        status ===
+        "expired"
+    ){
+
+        return "Expired";
+
+    }
+
+    if(
+        !post.expires_at
+    ){
+
+        return "No expiry set";
+
+    }
+
+    return (
+        "Expires " +
+        formatDate(
+            post.expires_at
+        )
+    );
+
+}
+
+
+/* ==========================================
+   FILTER
+   ========================================== */
+
+function getFilteredPosts(){
+
+    if(
+        activeFilter ===
+        "all"
+    ){
+
+        return [
+            ...myPosts
+        ];
+
+    }
+
+    return myPosts.filter(
+        function(post){
+
+            return (
+                getPostStatus(
+                    post
+                ) ===
+                activeFilter
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   SORT
+   ========================================== */
+
+function sortPosts(
+    posts
+){
+
+    return [
+        ...posts
+    ].sort(
+        function(a,b){
+
+            return (
+                new Date(
+                    b.created_at || 0
+                ).getTime() -
+                new Date(
+                    a.created_at || 0
+                ).getTime()
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   STATS
+   ========================================== */
+
+function updateStats(){
+
+    const total =
+        myPosts.length;
+
+    const published =
+        myPosts.filter(
+            function(post){
+
+                return (
+                    getPostStatus(
+                        post
+                    ) ===
+                    "published"
+                );
+
+            }
+        ).length;
+
+
+    const requests =
+        Object.values(
+            bookingsByPost
+        ).reduce(
+            function(sum,value){
+
+                return (
+                    sum +
+                    Number(value || 0)
+                );
+
+            },
+            0
+        );
+
+
+    totalCount.textContent =
+        total;
+
+    publishedCount.textContent =
+        published;
+
+    requestCount.textContent =
+        requests;
+
+}
+
+
+/* ==========================================
+   IMAGE
+   ========================================== */
+
+function getPostImage(
+    post
+){
+
+    return (
+        normalizeText(
+            post.image_url
+        ) ||
+        normalizeText(
+            post.image
+        ) ||
+        ""
+    );
+
+}
+
+
+function getImageHtml(
+    post
+){
+
+    const image =
+        getPostImage(
+            post
+        );
+
+
+    if(!image){
+
+        return `
+            <div class="post-image-placeholder">
+                📍
+            </div>
+        `;
+
+    }
+
+
+    return `
+        <div class="post-image">
+            <img
+                src="${escapeHtml(image)}"
+                alt="${escapeHtml(
+                    post.title ||
+                    "Post image"
+                )}"
+                loading="lazy"
+                onerror="this.parentElement.outerHTML='<div class=&quot;post-image-placeholder&quot;>📍</div>'"
+            >
+        </div>
+    `;
+
+}
+
+
+/* ==========================================
+   RENDER
+   ========================================== */
+
+function renderPosts(){
+
+    const posts =
+        sortPosts(
+            getFilteredPosts()
+        );
+
+
+    postsList.innerHTML =
+        "";
+
+
+    if(
+        posts.length ===
+        0
+    ){
+
+        postsList.style.display =
+            "none";
+
+        emptyBox.style.display =
+            "flex";
+
+        return;
+
+    }
+
+
+    postsList.style.display =
+        "flex";
+
+    emptyBox.style.display =
+        "none";
+
+
+    posts.forEach(
+        function(post){
+
+            postsList.appendChild(
+                createPostCard(
+                    post
+                )
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   POST CARD
+   ========================================== */
+
+function createPostCard(
+    post
+){
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+    card.className =
+        "post-card";
+
+    card.dataset.postId =
+        String(post.id);
+
+
+    const status =
+        getPostStatus(
+            post
+        );
+
+    const requests =
+        bookingsByPost[
+            String(post.id)
+        ] || 0;
+
+    const location =
+        getLocationText(
+            post
+        );
+
+    const action =
+        getActionLabel(
+            post.action_type
+        );
+
+
+    const title =
+        normalizeText(
+            post.title
+        ) ||
+        "Untitled post";
+
+
+    const description =
+        normalizeText(
+            post.description
+        );
+
+
+    card.innerHTML = `
+
+        ${getImageHtml(post)}
+
+        <div class="post-card-top">
+
+            <div class="post-info">
+
+                <span class="category-badge">
+                    ${escapeHtml(
+                        getCategoryLabel(
+                            post.category
+                        )
+                    )}
+                </span>
+
+                <h3 class="post-title">
+                    ${escapeHtml(title)}
+                </h3>
+
+                ${
+                    description
+                        ? `
+                            <p class="post-description">
+                                ${escapeHtml(
+                                    description
+                                )}
+                            </p>
+                        `
+                        : ""
+                }
+
+                <div class="post-price">
+                    ${escapeHtml(
+                        formatPrice(
+                            post.price
+                        )
+                    )}
+                </div>
+
+            </div>
+
+
+            <span class="status-badge status-${escapeHtml(status)}">
+                ${escapeHtml(
+                    getStatusLabel(
+                        status
+                    )
+                )}
+            </span>
+
+        </div>
+
+
+        <div class="post-meta">
+
+            <span class="meta-chip">
+                📍
+                ${escapeHtml(location)}
+            </span>
+
+            ${
+                post.quantity
+                    ? `
+                        <span class="meta-chip">
+                            📦
+                            ${escapeHtml(
+                                post.quantity
+                            )}
+                        </span>
+                    `
+                    : ""
+            }
+
+            ${
+                post.created_at
+                    ? `
+                        <span class="meta-chip">
+                            📅
+                            ${escapeHtml(
+                                formatDate(
+                                    post.created_at
+                                )
+                            )}
+                        </span>
+                    `
+                    : ""
+            }
+
+        </div>
+
+
+        <div class="request-row">
+
+            <span class="request-label">
+                ${escapeHtml(action)}
+                requests
+            </span>
+
+            <span class="request-count">
+                ${requests}
+            </span>
+
+        </div>
+
+
+        <div class="post-actions">
+
+            <button
+                type="button"
+                class="post-action primary"
+                data-action="view"
+                data-post-id="${escapeHtml(
+                    String(post.id)
+                )}"
+            >
+                View
+            </button>
+
+
+            <button
+                type="button"
+                class="post-action primary"
+                data-action="manage"
+                data-post-id="${escapeHtml(
+                    String(post.id)
+                )}"
+            >
+                View Requests
+            </button>
+
+
+            ${
+                status !== "expired"
+                    ? `
+                        <button
+                            type="button"
+                            class="post-action"
+                            data-action="toggle"
+                            data-post-id="${escapeHtml(
+                                String(post.id)
+                            )}"
+                        >
+                            ${
+                                status ===
+                                "paused"
+                                    ? "Resume"
+                                    : "Pause"
+                            }
+                        </button>
+                    `
+                    : ""
+            }
+
+
+            <button
+                type="button"
+                class="post-action danger"
+                data-action="delete"
+                data-post-id="${escapeHtml(
+                    String(post.id)
+                )}"
+            >
+                Delete
+            </button>
+
+        </div>
+
+
+        <div class="post-action-hint">
+            View and manage customer requests for this post.
+        </div>
+
+
+        <div class="expiry-text">
+            ${escapeHtml(
+                getExpiryText(
+                    post,
+                    status
+                )
+            )}
+        </div>
+
+    `;
+
+
+    return card;
+
+}
+
+
+/* ==========================================
+   FILTER BUTTONS
+   ========================================== */
+
+filterButtons.forEach(
+    function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                activeFilter =
+                    button.dataset.filter ||
+                    "all";
+
+
+                filterButtons.forEach(
+                    function(item){
+
+                        item.classList.toggle(
+                            "active",
+                            item ===
+                            button
+                        );
+
+                    }
+                );
+
+
+                renderPosts();
+
+            }
+        );
+
+    }
+);
+
+  /* ==========================================
+   NAVIGATION
+   ========================================== */
+
+backButton.addEventListener(
+    "click",
+    function(){
+
+        if(
+            document.referrer &&
+            document.referrer.indexOf(
+                window.location.origin
+            ) === 0
+        ){
+
+            window.history.back();
+
+        }else{
+
+            goTo(
+                CONFIG.accountPage
+            );
+
+        }
+
+    }
+);
+
+
+createHeaderButton.addEventListener(
+    "click",
+    function(){
+
+        goTo(
+            CONFIG.createPostPage
+        );
+
+    }
+);
+
+
+createButton.addEventListener(
+    "click",
+    function(){
+
+        goTo(
+            CONFIG.createPostPage
+        );
+
+    }
+);
+
+
+/* ==========================================
+   FIND POST
+   ========================================== */
+
+function findPost(
+    postId
+){
+
+    return myPosts.find(
+        function(post){
+
+            return (
+                String(post.id) ===
+                String(postId)
+            );
+
+        }
+    ) || null;
+
+}
+
+
+/* ==========================================
+   VIEW
+   ========================================== */
+
+function viewPost(
+    postId
+){
+
+    const post =
+        findPost(
+            postId
+        );
+
+
+    if(!post){
+
+        setStatus(
+            "Post not found.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    goTo(
+        CONFIG.detailsPage +
+        "?id=" +
+        encodeURIComponent(
+            String(post.id)
+        )
+    );
+
+}
+
+
+/* ==========================================
+   UPDATE STATUS
+   ========================================== */
+
+async function togglePostStatus(
+    postId
+){
+
+    if(actionInProgress){
+
+        return;
+
+    }
+
+
+    const post =
+        findPost(
+            postId
+        );
+
+
+    if(!post){
+
+        setStatus(
+            "Post not found.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const currentStatus =
+        getPostStatus(
+            post
+        );
+
+
+    if(
+        currentStatus ===
+        "expired"
+    ){
+
+        setStatus(
+            "Expired posts cannot be resumed.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const newStatus =
+        currentStatus ===
+        "paused"
+            ? "published"
+            : "paused";
+
+
+    actionInProgress =
+        true;
+
+
+    try{
+
+        setStatus(
+            newStatus === "paused"
+                ? "Pausing post..."
+                : "Publishing post again...",
+            ""
+        );
+
+
+        await callAuthApi(
+            "update_post_status",
+            {
+                post_id:
+                    postId,
+
+                status:
+                    newStatus
+            }
+        );
+
+
+        await refreshPageData();
+
+
+        setStatus(
+            newStatus === "paused"
+                ? "Post paused successfully."
+                : "Post published again.",
+            "success"
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Status update error:",
+            error
+        );
+
+
+        setStatus(
+            error?.message ||
+            "Unable to update post status.",
+            "error"
+        );
+
+
+    }finally{
+
+        actionInProgress =
+            false;
+
+    }
+
+}
+
+
+/* ==========================================
+   DELETE MODAL
+   ========================================== */
+
+function openDeleteModal(
+    postId
+){
+
+    if(!findPost(postId)){
+
+        setStatus(
+            "Post not found.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    postToDelete =
+        postId;
+
+
+    deleteModal.classList.add(
+        "show"
+    );
+
+}
+
+
+function closeDeleteModal(){
+
+    deleteModal.classList.remove(
+        "show"
+    );
+
+    postToDelete =
+        null;
+
+}
+
+
+cancelDelete.addEventListener(
+    "click",
+    closeDeleteModal
+);
+
+
+deleteModal.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            deleteModal
+        ){
+
+            closeDeleteModal();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            closeDeleteModal();
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   DELETE POST
+   ========================================== */
+
+async function deletePost(
+    postId
+){
+
+    if(actionInProgress){
+
+        return;
+
+    }
+
+
+    actionInProgress =
+        true;
+
+
+    confirmDelete.disabled =
+        true;
+
+    confirmDelete.textContent =
+        "Deleting...";
+
+
+    try{
+
+        await callAuthApi(
+            "delete_post",
+            {
+                post_id:
+                    postId
+            }
+        );
+
+
+        closeDeleteModal();
+
+
+        await refreshPageData();
+
+
+        setStatus(
+            "Post deleted successfully.",
+            "success"
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Delete error:",
+            error
+        );
+
+
+        setStatus(
+            error?.message ||
+            "Unable to delete post.",
+            "error"
+        );
+
+    }finally{
+
+        actionInProgress =
+            false;
+
+        confirmDelete.disabled =
+            false;
+
+        confirmDelete.textContent =
+            "Delete";
+
+    }
+
+}
+
+
+/* ==========================================
+   CONFIRM DELETE
+   ========================================== */
+
+confirmDelete.addEventListener(
+    "click",
+    function(){
+
+        if(
+            postToDelete ===
+            null
+        ){
+
+            closeDeleteModal();
+
+            return;
+
+        }
+
+
+        deletePost(
+            postToDelete
+        );
+
+    }
+);
+
+
+/* ==========================================
+   CARD ACTIONS
+   ========================================== */
+
+postsList.addEventListener(
+    "click",
+    function(event){
+
+        const button =
+            event.target.closest(
+                "button[data-action]"
+            );
+
+
+        if(!button){
+
+            return;
+
+        }
+
+
+        const action =
+            button.dataset.action;
+
+        const postId =
+            button.dataset.postId;
+
+
+        if(!postId){
+
+            return;
+
+        }
+
+
+        if(
+            action ===
+            "view"
+        ){
+
+            viewPost(
+                postId
+            );
+
+            return;
+
+        }
+
+
+        if(
+            action ===
+            "manage"
+        ){
+
+            /*
+             * Existing route is intentionally
+             * preserved so current functionality
+             * is not disturbed.
+             */
+
+            goTo(
+                CONFIG.manageBookingsPage +
+                "?post_id=" +
+                encodeURIComponent(
+                    postId
+                )
+            );
+
+            return;
+
+        }
+
+
+        if(
+            action ===
+            "toggle"
+        ){
+
+            togglePostStatus(
+                postId
+            );
+
+            return;
+
+        }
+
+
+        if(
+            action ===
+            "delete"
+        ){
+
+            openDeleteModal(
+                postId
+            );
+
+        }
+
+    }
+);
+
+  /* ==========================================
+   REFRESH DATA
+   ========================================== */
+
+async function refreshPageData(){
+
+    try{
+
+        const user =
+            await getCurrentUser();
+
+
+        if(!user){
+
+            currentUser =
+                null;
+
+            myPosts =
+                [];
+
+            bookingsByPost =
+                {};
+
+            updateStats();
+
+            postsList.innerHTML =
+                "";
+
+            postsList.style.display =
+                "none";
+
+            loadingBox.style.display =
+                "none";
+
+            emptyBox.style.display =
+                "flex";
+
+
+            emptyBox.innerHTML = `
+
+                <div class="empty-icon">
+                    🔐
+                </div>
+
+                <div class="empty-title">
+                    Login required
+                </div>
+
+                <div class="empty-text">
+                    Please login to manage
+                    your Pyncode Local posts.
+                </div>
+
+                <button
+                    type="button"
+                    class="create-button"
+                    id="loginButton"
+                >
+                    Login / Create Account
+                </button>
+
+            `;
+
+
+            document
+                .getElementById(
+                    "loginButton"
+                )
+                ?.addEventListener(
+                    "click",
+                    function(){
+
+                        goTo(
+                            CONFIG.accountPage
+                        );
+
+                    }
+                );
+
+
+            return;
+
+        }
+
+
+        currentUser =
+            user;
+
+
+        loadingBox.style.display =
+            "flex";
+
+
+        postsList.style.display =
+            "none";
+
+
+        emptyBox.style.display =
+            "none";
+
+
+        myPosts =
+            await loadPosts();
+
+
+        await loadBookingCounts();
+
+
+        updateStats();
+
+
+        renderPosts();
+
+
+        loadingBox.style.display =
+            "none";
+
+
+    }catch(error){
+
+        console.error(
+            "Refresh error:",
+            error
+        );
+
+
+        loadingBox.style.display =
+            "none";
+
+
+        postsList.style.display =
+            "none";
+
+
+        emptyBox.style.display =
+            "none";
+
+
+        setStatus(
+            error?.message ||
+            "Unable to load your posts.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   AUTH STATE
+   ========================================== */
+
+supabaseClient
+    .auth
+    .onAuthStateChange(
+        function(
+            event,
+            session
+        ){
+
+            if(
+                event ===
+                "SIGNED_OUT"
+            ){
+
+                currentUser =
+                    null;
+
+                myPosts =
+                    [];
+
+                bookingsByPost =
+                    {};
+
+                updateStats();
+
+                postsList.innerHTML =
+                    "";
+
+                postsList.style.display =
+                    "none";
+
+                emptyBox.style.display =
+                    "flex";
+
+                return;
+
+            }
+
+
+            if(
+                session &&
+                session.user
+            ){
+
+                refreshPageData();
+
+            }
+
+        }
+    );
+
+
+/* ==========================================
+   PAGE VISIBILITY
+   ========================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            document.visibilityState ===
+            "visible"
+        ){
+
+            refreshPageData();
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   WINDOW FOCUS
+   ========================================== */
+
+window.addEventListener(
+    "focus",
+    function(){
+
+        refreshPageData();
+
+    }
+);
+
+
+/* ==========================================
+   START
+   ========================================== */
+
+refreshPageData();
+
+
+</script>
+
+</body>
+</html>

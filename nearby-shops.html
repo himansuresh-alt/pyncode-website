@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
+    content="width=device-width,initial-scale=1.0"
 >
-
-<title>Pyncode - Nearby Shops</title>
 
 <meta
     name="description"
-    content="Discover local shops and businesses on Pyncode."
+    content="Discover registered QR Stores near you on Pyncode.in."
 >
 
-<style>
+<title>QR Stores Near You | Pyncode.in</title>
 
-/* =====================================================
-   RESET
-===================================================== */
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
 
 *{
     box-sizing:border-box;
@@ -34,2165 +31,2332 @@ html{
 }
 
 body{
-    font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
-
-    background:#f6f7f9;
-    color:#171717;
-
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        linear-gradient(
+            180deg,
+            #f7faff 0%,
+            #f4f6fb 55%,
+            #ffffff 100%
+        );
+    color:#151a28;
     min-height:100vh;
+    padding-bottom:100px;
 }
-
-
-/* =====================================================
-   VARIABLES
-===================================================== */
-
-:root{
-
-    --orange:#ff6b00;
-    --orange-dark:#e95d00;
-    --orange-light:#fff3e9;
-
-    --black:#171717;
-    --muted:#777;
-
-    --white:#ffffff;
-
-    --border:#e8e8e8;
-
-    --shadow:
-        0 14px 40px rgba(0,0,0,.07);
-
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
 
 .header{
-
-    position:sticky;
-
-    top:0;
-
-    z-index:1000;
-
-    background:
-        rgba(255,255,255,.92);
-
-    backdrop-filter:
-        blur(18px);
-
-    border-bottom:
-        1px solid rgba(0,0,0,.06);
-}
-
-.header-inner{
-
-    width:100%;
-
-    max-width:1200px;
-
-    min-height:68px;
-
-    margin:auto;
-
-    padding:
-        0 20px;
-
+    min-height:76px;
+    background:#ffffff;
+    border-bottom:1px solid #e6e9ef;
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
-    gap:20px;
+    gap:15px;
+    padding:0 4%;
+    box-shadow:0 5px 20px rgba(20,30,60,.05);
 }
 
-
-/* =====================================================
-   BRAND
-===================================================== */
-
-.brand{
-
-    display:inline-flex;
-
+.logo{
+    display:flex;
     align-items:center;
-
-    text-decoration:none;
-
-    color:var(--black);
-
-    font-size:24px;
-
+    gap:9px;
+    color:#151a28;
+    font-size:21px;
     font-weight:900;
-
-    letter-spacing:-1px;
+    text-decoration:none;
 }
 
-
-
-.brand span{
-
-    color:var(--orange);
+.logo-mark{
+    width:68px;
+    height:44px;
+    border-radius:12px;
+    overflow:hidden;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
+.logo-mark img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
 
-/* =====================================================
-   HEADER ACTIONS
-===================================================== */
+.pyn-text{
+    color:#ef603e;
+}
+
+.code-text{
+    color:#151923;
+}
 
 .header-actions{
-
     display:flex;
-
     align-items:center;
-
     gap:8px;
 }
 
-
-/* HOME */
-
-.home-btn{
-
-    height:36px;
-
-    padding:
-        0 13px;
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border:
-        1px solid #e6e6e6;
-
-    border-radius:18px;
-
-    background:#fff;
-
-    color:#333;
-
-    text-decoration:none;
-
+.list-shop-btn,
+.interested-btn{
+    height:42px;
+    border-radius:12px;
+    padding:0 14px;
     font-size:12px;
-
-    font-weight:750;
-
-    transition:.2s ease;
+    font-weight:900;
+    white-space:nowrap;
 }
 
-.home-btn:hover{
-
-    border-color:
-        #ffc49f;
-
-    color:
-        var(--orange);
-}
-
-
-/* ADD STORES */
-
-.add-stores-wrap{
-
-    position:relative;
-}
-
-.add-stores-btn{
-
-    height:36px;
-
-    padding:
-        0 13px;
-
+.list-shop-btn{
     display:inline-flex;
-
     align-items:center;
-
     justify-content:center;
-
-    gap:5px;
-
-    border:none;
-
-    border-radius:18px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff7b1a,
-            #ff5c00
-        );
-
+    background:#151a28;
     color:#fff;
-
-    font-size:12px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 7px 18px rgba(255,107,0,.20);
-
-    transition:.2s ease;
-}
-
-.add-stores-btn:hover{
-
-    transform:
-        translateY(-1px);
-}
-
-.add-stores-arrow{
-
-    font-size:14px;
-
-    line-height:1;
-}
-
-
-/* =====================================================
-   ADD STORES DROPDOWN
-===================================================== */
-
-.add-stores-menu{
-
-    position:absolute;
-
-    top:
-        calc(100% + 9px);
-
-    right:0;
-
-    width:185px;
-
-    padding:7px;
-
-    background:#fff;
-
-    border:
-        1px solid #ededed;
-
-    border-radius:15px;
-
-    box-shadow:
-        0 18px 45px rgba(0,0,0,.14);
-
-    display:none;
-}
-
-.add-stores-menu.show{
-
-    display:block;
-}
-
-.add-stores-menu a{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    padding:
-        11px 12px;
-
-    border-radius:10px;
-
-    color:#222;
-
     text-decoration:none;
-
-    font-size:13px;
-
-    font-weight:650;
-
-    transition:.18s ease;
 }
 
-.add-stores-menu a:hover{
-
-    background:
-        var(--orange-light);
-
-    color:
-        var(--orange);
+.interested-btn{
+    border:0;
+    background:#25d366;
+    color:#fff;
+    cursor:pointer;
 }
-
-.add-stores-menu-icon{
-
-    width:30px;
-
-    height:30px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:
-        #fff2e8;
-
-    border-radius:9px;
-
-    font-size:15px;
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero{
-
-    position:relative;
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff8f3 0%,
-            #ffffff 48%,
-            #fff0e4 100%
-        );
-
-    border-bottom:
-        1px solid #eeeeee;
-}
-
-.hero::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:330px;
-
-    height:330px;
-
-    right:-120px;
-
-    top:-150px;
-
-    border-radius:50%;
-
-    background:
-        rgba(255,107,0,.07);
-
-    pointer-events:none;
-}
-
-.hero-inner{
-
-    position:relative;
-
-    z-index:1;
-
-    width:100%;
-
-    max-width:1200px;
-
-    margin:auto;
-
-    padding:
-        55px 20px 48px;
-}
-
-.hero-topline{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    margin-bottom:17px;
-
-    padding:
-        7px 12px;
-
-    border:
-        1px solid #ffd8bf;
-
-    border-radius:30px;
-
-    background:
-        rgba(255,255,255,.75);
-
-    color:
-        var(--orange-dark);
-
-    font-size:11px;
-
-    font-weight:850;
-
-    letter-spacing:.5px;
-}
-
-.hero-dot{
-
-    width:7px;
-
-    height:7px;
-
-    border-radius:50%;
-
-    background:
-        var(--orange);
-}
-
-.hero h1{
-
-    max-width:700px;
-
-    font-size:
-        clamp(35px,5vw,58px);
-
-    line-height:1.02;
-
-    letter-spacing:-2.2px;
-
-    font-weight:950;
-
-    margin-bottom:17px;
-}
-
-.hero h1 span{
-
-    color:
-        var(--orange);
-}
-
-.hero-text{
-
-    max-width:650px;
-
-    color:
-        var(--muted);
-
-    font-size:15px;
-
-    line-height:1.75;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
 
 .main{
-
     width:100%;
-
     max-width:1200px;
-
     margin:auto;
-
-    padding:
-        30px 20px 70px;
+    padding:42px 4% 80px;
 }
 
-
-/* =====================================================
-   SEARCH
-===================================================== */
+.search-title{
+    font-size:18px;
+    font-weight:900;
+    margin-bottom:12px;
+}
 
 .search-box{
-
-    max-width:680px;
-
-    margin:
-        0 auto 34px;
-
-    position:relative;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    background:#fff;
+    border:1px solid #dfe4ea;
+    border-radius:18px;
+    padding:7px 8px 7px 16px;
+    box-shadow:0 7px 22px rgba(25,40,70,.05);
 }
 
 .search-icon{
-
-    position:absolute;
-
-    left:18px;
-
-    top:50%;
-
-    transform:
-        translateY(-50%);
-
-    font-size:17px;
-
-    pointer-events:none;
+    font-size:21px;
 }
 
-#categorySearch{
-
-    width:100%;
-
-    height:55px;
-
-    padding:
-        0 20px 0 48px;
-
-    border:
-        1px solid #dedede;
-
-    border-radius:17px;
-
-    outline:none;
-
-    background:#fff;
-
-    color:#222;
-
+.pincode-input{
+    flex:1;
+    min-width:0;
+    height:45px;
+    border:0;
+    outline:0;
     font-size:14px;
-
-    box-shadow:
-        0 9px 28px rgba(0,0,0,.055);
-
-    transition:.2s ease;
+    color:#202633;
 }
 
-#categorySearch:focus{
-
-    border-color:
-        var(--orange);
-
-    box-shadow:
-        0 0 0 4px
-        rgba(255,107,0,.09);
-}
-
-
-/* =====================================================
-   SECTION HEADING
-===================================================== */
-
-.section-heading{
-
-    margin-bottom:18px;
-}
-
-.section-title{
-
-    font-size:24px;
-
-    font-weight:900;
-
-    letter-spacing:-.6px;
-}
-
-.section-subtitle{
-
-    margin-top:5px;
-
-    color:
-        var(--muted);
-
+.search-btn{
+    height:45px;
+    padding:0 20px;
+    border:0;
+    border-radius:13px;
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+    color:#fff;
     font-size:13px;
+    font-weight:900;
+    cursor:pointer;
 }
 
-
-/* =====================================================
-   CATEGORY GRID
-===================================================== */
-
-.category-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:17px;
+  .location-area{
+    margin-top:16px;
+    padding:16px;
+    background:#fffaf7;
+    border:1px solid #f0ddd5;
+    border-radius:18px;
 }
 
-
-/* =====================================================
-   CATEGORY CARD
-===================================================== */
-
-.category-card{
-
-    position:relative;
-
-    min-height:205px;
-
-    padding:22px;
-
-    overflow:hidden;
-
-    background:#fff;
-
-    border:
-        1px solid #ebebeb;
-
-    border-radius:22px;
-
-    text-decoration:none;
-
-    color:
-        var(--black);
-
-    box-shadow:
-        0 9px 28px rgba(0,0,0,.045);
-
-    transition:
-        transform .22s ease,
-        box-shadow .22s ease,
-        border-color .22s ease;
-}
-
-.category-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:150px;
-
-    height:150px;
-
-    right:-70px;
-
-    top:-70px;
-
-    border-radius:50%;
-
-    background:
-        var(--orange-light);
-
-    transition:.25s ease;
-}
-
-.category-card:hover{
-
-    transform:
-        translateY(-5px);
-
-    border-color:
-        #ffd1b2;
-
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.10);
-}
-
-.category-card:hover::before{
-
-    transform:
-        scale(1.3);
-}
-
-
-/* =====================================================
-   CATEGORY ICON
-===================================================== */
-
-.category-icon{
-
-    position:relative;
-
-    width:52px;
-
-    height:52px;
-
+.location-content{
     display:flex;
-
     align-items:center;
-
-    justify-content:center;
-
-    margin-bottom:20px;
-
-    border-radius:16px;
-
-    background:
-        var(--orange-light);
-
-    font-size:24px;
+    justify-content:space-between;
+    gap:15px;
 }
 
-.category-name{
-
-    position:relative;
-
-    max-width:210px;
-
-    font-size:16px;
-
-    line-height:1.3;
-
-    font-weight:850;
+.location-title{
+    font-size:14px;
+    font-weight:900;
 }
 
-.category-description{
-
-    position:relative;
-
-    max-width:220px;
-
-    margin-top:7px;
-
-    color:
-        var(--muted);
-
-    font-size:11.5px;
-
+.location-status{
+    margin-top:5px;
+    color:#7e8795;
+    font-size:11px;
     line-height:1.5;
 }
 
-.category-arrow{
-
-    position:absolute;
-
-    right:17px;
-
-    bottom:17px;
-
-    width:34px;
-
-    height:34px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:#f6f6f6;
-
-    color:#555;
-
-    font-size:16px;
-
-    transition:.2s ease;
-}
-
-.category-card:hover .category-arrow{
-
-    background:
-        var(--orange);
-
-    color:#fff;
-
-    transform:
-        translateX(3px);
-}
-
-
-/* =====================================================
-   SEARCH STATES
-===================================================== */
-
-.category-card.hidden{
-
-    display:none;
-}
-
-.no-results{
-
-    display:none;
-
-    padding:
-        45px 20px;
-
-    margin-top:12px;
-
-    text-align:center;
-
+.location-button{
+    height:42px;
+    padding:0 17px;
+    border:1px solid #ef603e;
+    border-radius:11px;
     background:#fff;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:18px;
-
-    color:
-        var(--muted);
-}
-
-.no-results.show{
-
-    display:block;
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.footer{
-
-    padding:
-        28px 20px;
-
-    text-align:center;
-
-    background:#fff;
-
-    border-top:
-        1px solid #e9e9e9;
-}
-
-.footer-brand{
-
-    font-size:18px;
-
-    font-weight:900;
-
-    margin-bottom:5px;
-}
-
-.footer-brand span{
-
-    color:
-        var(--orange);
-}
-
-.footer-text{
-
-    color:
-        var(--muted);
-
+    color:#ef603e;
     font-size:12px;
+    font-weight:900;
+    cursor:pointer;
+    white-space:nowrap;
 }
 
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media(max-width:950px){
-
-    .category-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-    }
-
+.location-button.active{
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+    color:#fff;
 }
 
+.location-button:disabled{
+    opacity:.6;
+    cursor:wait;
+}
 
-@media(max-width:600px){
+.section-heading{
+    margin-top:28px;
+    margin-bottom:11px;
+}
 
-    .header-inner{
+.section-heading-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
 
-        min-height:62px;
+.section-title{
+    font-size:18px;
+    font-weight:900;
+}
 
-        padding:
-            0 14px;
+.view-all-btn{
+    height:37px;
+    padding:0 14px;
+    border-radius:10px;
+    background:#151a28;
+    color:#fff;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:900;
+    white-space:nowrap;
+}
 
-        gap:10px;
+.category-filter{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding:2px 0 9px;
+    scrollbar-width:none;
+}
+
+.category-filter::-webkit-scrollbar{
+    display:none;
+}
+
+.category-chip{
+    flex-shrink:0;
+    min-height:40px;
+    padding:0 16px;
+    border:1px solid #dfe4ea;
+    border-radius:22px;
+    background:#fff;
+    color:#5d6674;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.category-chip.active{
+    background:#151a28;
+    color:#fff;
+    border-color:#151a28;
+}
+
+.shop-section{
+    margin-top:28px;
+}
+
+.shop-list-header{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:14px;
+}
+
+.shop-list-title{
+    font-size:25px;
+    font-weight:900;
+}
+
+.shop-list-count{
+    margin-top:5px;
+    color:#8b93a0;
+    font-size:12px;
+    font-weight:700;
+}
+
+.shop-location{
+    color:#ef603e;
+    font-size:12px;
+    font-weight:800;
+    text-align:right;
+}
+
+.shop-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0,1fr)
+        );
+    gap:15px;
+}
+
+  .shop-card{
+    overflow:hidden;
+    background:#fff;
+    border:1px solid #e1e5eb;
+    border-radius:18px;
+    box-shadow:
+        0 7px 22px
+        rgba(25,40,70,.055);
+}
+
+.shop-image-wrap{
+    height:190px;
+    position:relative;
+    overflow:hidden;
+    background:#eef1f5;
+}
+
+.shop-image{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+}
+
+.verified-badge,
+.distance-badge{
+    position:absolute;
+    padding:6px 9px;
+    border-radius:9px;
+    font-size:10px;
+    font-weight:900;
+}
+
+.verified-badge{
+    top:10px;
+    left:10px;
+    background:#fff;
+    color:#15894b;
+}
+
+.distance-badge{
+    right:10px;
+    bottom:10px;
+    background:rgba(21,26,40,.9);
+    color:#fff;
+    border-radius:999px;
+}
+
+.shop-card-body{
+    padding:14px;
+}
+
+.shop-name{
+    font-size:16px;
+    font-weight:900;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.shop-category{
+    margin-top:6px;
+    color:#ef603e;
+    font-size:11px;
+    font-weight:800;
+}
+
+.shop-location-text{
+    margin-top:8px;
+    color:#727b89;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.shop-actions{
+    display:flex;
+    gap:7px;
+    margin-top:13px;
+}
+
+.shop-action{
+    flex:1;
+    min-width:0;
+    height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:10px;
+    font-weight:900;
+    text-align:center;
+}
+
+.call-action{
+    background:#f3f5f8;
+    color:#303744;
+    border:1px solid #e0e4e9;
+}
+
+.whatsapp-action{
+    background:#25d366;
+    color:#fff;
+    border:1px solid #25d366;
+}
+
+.directions-action{
+    background:#fff4ef;
+    color:#ef603e;
+    border:1px solid #f6d2c7;
+}
+
+.visit-action{
+    background:#151a28;
+    color:#fff;
+    border:1px solid #151a28;
+}
+
+.shop-action.disabled{
+    opacity:.45;
+    pointer-events:none;
+}
+
+.shop-empty{
+    min-height:190px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:#fff;
+    border:1px dashed #d8dee7;
+    border-radius:18px;
+    padding:25px;
+    grid-column:1/-1;
+}
+
+.shop-empty-icon{
+    font-size:35px;
+}
+
+.shop-empty-title{
+    margin-top:9px;
+    font-size:15px;
+    font-weight:900;
+}
+
+.shop-empty-text{
+    margin-top:6px;
+    color:#9299a5;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.bottom-nav{
+    position:fixed;
+    left:50%;
+    bottom:10px;
+    transform:translateX(-50%);
+    width:min(
+        560px,
+        calc(100% - 20px)
+    );
+    height:68px;
+    background:rgba(21,29,48,.98);
+    border-radius:23px;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    gap:4px;
+    padding:6px;
+    z-index:9998;
+    box-shadow:
+        0 10px 30px
+        rgba(10,20,40,.22);
+}
+
+.bottom-nav-item{
+    flex:1;
+    height:56px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    border-radius:17px;
+    text-decoration:none;
+    color:#aeb6c5;
+    font-size:9px;
+    font-weight:800;
+}
+
+.bottom-nav-item .nav-icon{
+    font-size:20px;
+    line-height:1;
+}
+
+.bottom-nav-item.active{
+    background:#fff;
+    color:#151a28;
+}
+
+  @media(max-width:700px){
+
+    .header{
+        min-height:72px;
+        padding:0 10px;
     }
 
-    .brand{
-
-        font-size:21px;
+    .logo{
+        font-size:17px;
+        gap:6px;
     }
 
+    .logo-mark{
+        width:58px;
+        height:40px;
+    }
 
     .header-actions{
-
         gap:5px;
     }
 
-    .home-btn,
-    .add-stores-btn{
-
-        height:33px;
-
-        padding:
-            0 10px;
-
-        font-size:11px;
-    }
-
-    .hero-inner{
-
-        padding:
-            40px 16px 35px;
-    }
-
-    .hero h1{
-
-        font-size:37px;
-
-        letter-spacing:-1.4px;
-    }
-
-    .hero-text{
-
-        font-size:13.5px;
+    .list-shop-btn,
+    .interested-btn{
+        height:40px;
+        padding:0 9px;
+        font-size:10px;
     }
 
     .main{
-
-        padding:
-            24px 15px 55px;
+        padding:30px 4% 70px;
     }
 
-    .category-grid{
-
-        gap:11px;
+    .location-content{
+        flex-direction:column;
+        align-items:stretch;
     }
 
-    .category-card{
-
-        min-height:180px;
-
-        padding:17px;
-
-        border-radius:18px;
+    .location-button{
+        width:100%;
     }
 
-    .category-icon{
-
-        width:44px;
-
-        height:44px;
-
-        margin-bottom:17px;
-
-        border-radius:13px;
-
-        font-size:21px;
-    }
-
-    .category-name{
-
-        font-size:14px;
-    }
-
-    .category-description{
-
-        font-size:10.5px;
-    }
-
-    .category-arrow{
-
-        right:12px;
-
-        bottom:12px;
-
-        width:29px;
-
-        height:29px;
-
-        font-size:13px;
-    }
-
-    .add-stores-menu{
-
-        width:175px;
-    }
-
-}
-
-
-@media(max-width:380px){
-
-    .brand{
-
-        font-size:19px;
-    }
-
-    .home-btn{
-
-        display:none;
-    }
-
-    .category-grid{
-
+    .shop-grid{
         grid-template-columns:1fr;
     }
 
-    .category-card{
+    .shop-image-wrap{
+        height:200px;
+    }
 
-        min-height:145px;
+    .shop-list-title{
+        font-size:22px;
+    }
+
+    .bottom-nav{
+        left:10px;
+        transform:none;
+        width:calc(100% - 20px);
+        height:64px;
+    }
+
+    .bottom-nav-item{
+        height:54px;
+        font-size:8px;
+    }
+
+    .bottom-nav-item .nav-icon{
+        font-size:19px;
     }
 
 }
 
-</style>
+.shop-name-board{
+    position:absolute;
+    left:50%;
+    bottom:12px;
+    transform:translateX(-50%);
+    width:calc(100% - 70px);
+    max-width:340px;
+    padding:8px 14px;
+    background:rgba(255,255,255,.96);
+    border:1.5px solid #151a28;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,.16);
+    text-align:center;
+    z-index:4;
+}
 
+.shop-name-board-text{
+    display:block;
+    color:#151a28;
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:.6px;
+    line-height:1.2;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    text-transform:uppercase;
+}
+
+</style>
 </head>
 
 <body>
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header class="header">
 
-    <div class="header-inner">
+<a
+    href="index.html"
+    class="logo"
+>
 
-        <a
-            href="index.html"
-            class="brand"
+    <div class="logo-mark">
+
+        <img
+            src="pyncode-logo.png"
+            alt="Pyncode.in"
         >
 
-            Pyn<span>code</span>.in
+    </div>
 
-        </a>
+    <div>
 
-
-        <div class="header-actions">
-
-            <a
-                href="index.html"
-                class="home-btn"
-            >
-                Home
-            </a>
-
-
-            <div class="add-stores-wrap">
-
-                <button
-                    type="button"
-                    class="add-stores-btn"
-                    id="addStoresButton"
-                >
-
-                    Add Stores
-
-                    <span class="add-stores-arrow">
-                        ⌄
-                    </span>
-
-                </button>
-
-
-                <div
-                    id="addStoresMenu"
-                    class="add-stores-menu"
-                >
-
-                    <a
-                        href="live-qr-create-account.html"
-                    >
-
-                        <span class="add-stores-menu-icon">
-                            🏪
-                        </span>
-
-                        Register Shop
-
-                    </a>
-
-
-                    <a
-                        href="live-qr-login.html"
-                    >
-
-                        <span class="add-stores-menu-icon">
-                            🔐
-                        </span>
-
-                        Owner Login
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
+        <span class="pyn-text">Pyn</span><span class="code-text">code</span><span class="pyn-text">.in</span>
 
     </div>
+
+</a>
+
+<div class="header-actions">
+
+<a
+    href="live-qr-create-account.html"
+    class="list-shop-btn"
+>
+    + Register QR Store
+</a>
+
+<a
+    href="live-qr-login.html"
+    class="interested-btn"
+    style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;"
+>
+    🔐 Login
+</a>
+
+</div>
 
 </header>
 
+<main class="main">
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+<section>
 
-<section class="hero">
+<div class="search-title">
+    Find QR Stores Near You
+</div>
 
-    <div class="hero-inner">
+<div class="search-box">
 
-        <div class="hero-topline">
+<span class="search-icon">
+    📍
+</span>
 
-            <span class="hero-dot"></span>
+<input
+    id="pincodeInput"
+    class="pincode-input"
+    type="text"
+    inputmode="numeric"
+    maxlength="6"
+    placeholder="Enter your pincode"
+    autocomplete="postal-code"
+>
 
-            PYNCODE • LOCAL BUSINESS DISCOVERY
+<button
+    id="searchButton"
+    class="search-btn"
+    type="button"
+>
+    Search
+</button>
 
-        </div>
+</div>
 
+</section>
 
-        <h1>
+  <section class="location-area">
 
-            Discover shops
-            <span>near you.</span>
+<div class="location-content">
 
-        </h1>
+<div>
 
+<div class="location-title">
+    📍 Find QR Stores Near You
+</div>
 
-        <p class="hero-text">
+<div
+    id="locationStatus"
+    class="location-status"
+>
+    Use your current location to see nearby registered QR Stores sorted by distance.
+</div>
 
-            Explore registered local businesses on
-            Pyncode. Choose a category and discover
-            shops, stores and local businesses in one place.
+</div>
 
-        </p>
+<button
+    id="useLocationButton"
+    class="location-button"
+    type="button"
+>
+    📍 Use My Location
+</button>
 
-    </div>
+</div>
 
 </section>
 
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
+<section>
 
-<main class="main">
+<div class="section-heading">
 
-    <div class="search-box">
+<div class="section-heading-row">
 
-        <span class="search-icon">
-            🔎
-        </span>
+<div class="section-title">
+    Browse Store Categories
+</div>
 
-        <input
-            id="categorySearch"
-            type="search"
-            placeholder="Search categories..."
-            autocomplete="off"
-        >
-
-    </div>
-
-
-    <div class="section-heading">
-
-        <div class="section-title">
-            Browse Categories
-        </div>
-
-        <div class="section-subtitle">
-            Select a category to discover registered shops.
-        </div>
-
-    </div>
-
-
- <div
-    id="categoryGrid"
-    class="category-grid"
+<a
+    href="nearby-shops.html"
+    class="view-all-btn"
 >
+    View All →
+</a>
 
-    <!-- CATEGORY 1 -->
-    <a
-        href="nearby-shop-list.html?category=Grocery%20%26%20Provision%20Stores"
-        class="category-card"
-        data-category="grocery provision grocery store"
-    >
-        <div class="category-icon">🛒</div>
+</div>
 
-        <div class="category-name">
-            Grocery & Provision Stores
-        </div>
+</div>
 
-        <div class="category-description">
-            Everyday groceries and household essentials
-        </div>
+<div
+    id="categoryFilter"
+    class="category-filter"
+>
+</div>
 
-        <div class="category-arrow">→</div>
-    </a>
+</section>
 
 
-    <!-- CATEGORY 2 -->
-    <a
-        href="nearby-shop-list.html?category=Supermarkets"
-        class="category-card"
-        data-category="supermarket supermarkets"
-    >
-        <div class="category-icon">🏪</div>
+<section class="shop-section">
 
-        <div class="category-name">
-            Supermarkets
-        </div>
+<div class="shop-list-header">
 
-        <div class="category-description">
-            Supermarkets and daily shopping stores
-        </div>
+<div>
 
-        <div class="category-arrow">→</div>
-    </a>
+<div
+    id="shopListTitle"
+    class="shop-list-title"
+>
+    All QR Stores
+</div>
 
+<div
+    id="shopListCount"
+    class="shop-list-count"
+>
+    Loading registered QR Stores...
+</div>
 
-    <!-- CATEGORY 3 -->
-    <a
-        href="nearby-shop-list.html?category=Fruits%20%26%20Vegetable%20Shops"
-        class="category-card"
-        data-category="fruits vegetables fruit vegetable"
-    >
-        <div class="category-icon">🥬</div>
+</div>
 
-        <div class="category-name">
-            Fruits & Vegetable Shops
-        </div>
-
-        <div class="category-description">
-            Fresh fruits, vegetables and local produce
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 4 -->
-    <a
-        href="nearby-shop-list.html?category=Milk%20%26%20Dairy%20Shops"
-        class="category-card"
-        data-category="milk dairy dairy shops"
-    >
-        <div class="category-icon">🥛</div>
-
-        <div class="category-name">
-            Milk & Dairy Shops
-        </div>
-
-        <div class="category-description">
-            Milk, curd, dairy products and essentials
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 5 -->
-    <a
-        href="nearby-shop-list.html?category=Chicken%20%26%20Mutton%20Shops"
-        class="category-card"
-        data-category="chicken mutton meat chicken shop mutton shop"
-    >
-        <div class="category-icon">🍗</div>
-
-        <div class="category-name">
-            Chicken & Mutton Shops
-        </div>
-
-        <div class="category-description">
-            Fresh chicken, mutton and meat shops
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 6 -->
-    <a
-        href="nearby-shop-list.html?category=Fish%20%26%20Seafood%20Shops"
-        class="category-card"
-        data-category="fish seafood fish shop seafood"
-    >
-        <div class="category-icon">🐟</div>
-
-        <div class="category-name">
-            Fish & Seafood Shops
-        </div>
-
-        <div class="category-description">
-            Fresh fish and seafood businesses
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 7 -->
-    <a
-        href="nearby-shop-list.html?category=Bakeries"
-        class="category-card"
-        data-category="bakery bakeries cake bread"
-    >
-        <div class="category-icon">🥐</div>
-
-        <div class="category-name">
-            Bakeries
-        </div>
-
-        <div class="category-description">
-            Cakes, breads, snacks and fresh bakes
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 8 -->
-    <a
-        href="nearby-shop-list.html?category=Cleaning%20%26%20Home%20Care%20Stores"
-        class="category-card"
-        data-category="cleaning home care detergent cleaners cleaning products"
-    >
-        <div class="category-icon">🧴</div>
-
-        <div class="category-name">
-            Cleaning & Home Care Stores
-        </div>
-
-        <div class="category-description">
-            Cleaning products and home care essentials
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 9 -->
-    <a
-        href="nearby-shop-list.html?category=Hotels%20%26%20Fast%20Food"
-        class="category-card"
-        data-category="hotel hotels fast food restaurant food"
-    >
-        <div class="category-icon">🍛</div>
-
-        <div class="category-name">
-            Hotels & Fast Food
-        </div>
-
-        <div class="category-description">
-            Restaurants, hotels and quick food outlets
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 10 -->
-    <a
-        href="nearby-shop-list.html?category=Tea%2C%20Juice%20%26%20Snacks%20Shops"
-        class="category-card"
-        data-category="tea coffee juice snacks tea shop juice shop"
-    >
-        <div class="category-icon">☕</div>
-
-        <div class="category-name">
-            Tea, Juice & Snacks Shops
-        </div>
-
-        <div class="category-description">
-            Tea, coffee, juices and quick snacks
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 11 -->
-    <a
-        href="nearby-shop-list.html?category=Clothing%20Stores"
-        class="category-card"
-        data-category="clothing clothes dress fashion garments"
-    >
-        <div class="category-icon">👕</div>
-
-        <div class="category-name">
-            Clothing Stores
-        </div>
-
-        <div class="category-description">
-            Men's, women's and kids clothing
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 12 -->
-    <a
-        href="nearby-shop-list.html?category=Footwear%20Stores"
-        class="category-card"
-        data-category="footwear shoes sandals slippers"
-    >
-        <div class="category-icon">👟</div>
-
-        <div class="category-name">
-            Footwear Stores
-        </div>
-
-        <div class="category-description">
-            Shoes, sandals, slippers and footwear
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 13 -->
-    <a
-        href="nearby-shop-list.html?category=Mobile%20%26%20Accessories%20Shops"
-        class="category-card"
-        data-category="mobile mobiles smartphone accessories"
-    >
-        <div class="category-icon">📱</div>
-
-        <div class="category-name">
-            Mobile & Accessories Shops
-        </div>
-
-        <div class="category-description">
-            Mobiles, chargers, cases and accessories
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 14 -->
-    <a
-        href="nearby-shop-list.html?category=Computer%20%26%20Electronics%20Stores"
-        class="category-card"
-        data-category="computer electronics laptop computers electronic"
-    >
-        <div class="category-icon">💻</div>
-
-        <div class="category-name">
-            Computer & Electronics Stores
-        </div>
-
-        <div class="category-description">
-            Computers, laptops and electronic products
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 15 -->
-    <a
-        href="nearby-shop-list.html?category=Pharmacy%20%26%20Medical%20Shops"
-        class="category-card"
-        data-category="pharmacy medical medicals medicine"
-    >
-        <div class="category-icon">💊</div>
-
-        <div class="category-name">
-            Pharmacy & Medical Shops
-        </div>
-
-        <div class="category-description">
-            Pharmacies and everyday medical needs
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 16 -->
-    <a
-        href="nearby-shop-list.html?category=Cosmetics%20%26%20Fancy%20Stores"
-        class="category-card"
-        data-category="cosmetics fancy beauty makeup accessories"
-    >
-        <div class="category-icon">💄</div>
-
-        <div class="category-name">
-            Cosmetics & Fancy Stores
-        </div>
-
-        <div class="category-description">
-            Cosmetics, beauty products and accessories
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 17 -->
-    <a
-        href="nearby-shop-list.html?category=Gift%20Shops"
-        class="category-card"
-        data-category="gift gifts presents"
-    >
-        <div class="category-icon">🎁</div>
-
-        <div class="category-name">
-            Gift Shops
-        </div>
-
-        <div class="category-description">
-            Gifts, presents and special occasion items
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 18 -->
-    <a
-        href="nearby-shop-list.html?category=Home%20%26%20Kitchen%20Stores"
-        class="category-card"
-        data-category="home kitchen household utensils cookware"
-    >
-        <div class="category-icon">🏠</div>
-
-        <div class="category-name">
-            Home & Kitchen Stores
-        </div>
-
-        <div class="category-description">
-            Kitchen, household and home essentials
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 19 -->
-    <a
-        href="nearby-shop-list.html?category=Kids%20%26%20Baby%20Stores"
-        class="category-card"
-        data-category="kids baby children toys baby products"
-    >
-        <div class="category-icon">🧸</div>
-
-        <div class="category-name">
-            Kids & Baby Stores
-        </div>
-
-        <div class="category-description">
-            Baby products, kids items and toys
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 20 -->
-    <a
-        href="nearby-shop-list.html?category=Stationery%20%26%20Book%20Shops"
-        class="category-card"
-        data-category="stationery books book school office supplies"
-    >
-        <div class="category-icon">📚</div>
-
-        <div class="category-name">
-            Stationery & Book Shops
-        </div>
-
-        <div class="category-description">
-            Books, stationery and school essentials
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 21 -->
-    <a
-        href="nearby-shop-list.html?category=Hardware%20%26%20Electrical%20Shops"
-        class="category-card"
-        data-category="hardware electrical tools hardware shop"
-    >
-        <div class="category-icon">🔨</div>
-
-        <div class="category-name">
-            Hardware & Electrical Shops
-        </div>
-
-        <div class="category-description">
-            Hardware, electrical items and tools
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 22 -->
-    <a
-        href="nearby-shop-list.html?category=Paint%20%26%20Plumbing%20Stores"
-        class="category-card"
-        data-category="paint plumbing pipes fittings paint shop"
-    >
-        <div class="category-icon">🎨</div>
-
-        <div class="category-name">
-            Paint & Plumbing Stores
-        </div>
-
-        <div class="category-description">
-            Paints, plumbing materials and fittings
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 23 -->
-    <a
-        href="nearby-shop-list.html?category=Furniture%20Stores"
-        class="category-card"
-        data-category="furniture sofa chairs tables beds"
-    >
-        <div class="category-icon">🛋️</div>
-
-        <div class="category-name">
-            Furniture Stores
-        </div>
-
-        <div class="category-description">
-            Furniture for home, office and business
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 24 -->
-    <a
-        href="nearby-shop-list.html?category=Plants%20%26%20Gardening%20Stores"
-        class="category-card"
-        data-category="plants gardening nursery garden pots"
-    >
-        <div class="category-icon">🌱</div>
-
-        <div class="category-name">
-            Plants & Gardening Stores
-        </div>
-
-        <div class="category-description">
-            Plants, pots and gardening essentials
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 25 -->
-    <a
-        href="nearby-shop-list.html?category=Auto%20Spare%20Parts%20%26%20Service"
-        class="category-card"
-        data-category="auto spare parts car bike service automobile"
-    >
-        <div class="category-icon">🚗</div>
-
-        <div class="category-name">
-            Auto Spare Parts & Service
-        </div>
-
-        <div class="category-description">
-            Auto spare parts, repairs and service
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 26 -->
-    <a
-        href="nearby-shop-list.html?category=Tyre%20%26%20Battery%20Shops"
-        class="category-card"
-        data-category="tyre tires battery car bike tyre battery"
-    >
-        <div class="category-icon">🛞</div>
-
-        <div class="category-name">
-            Tyre & Battery Shops
-        </div>
-
-        <div class="category-description">
-            Vehicle tyres, batteries and related services
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 27 -->
-    <a
-        href="nearby-shop-list.html?category=Salon%20%26%20Beauty%20Parlours"
-        class="category-card"
-        data-category="salon beauty parlour hair haircut spa"
-    >
-        <div class="category-icon">💇</div>
-
-        <div class="category-name">
-            Salon & Beauty Parlours
-        </div>
-
-        <div class="category-description">
-            Hair, beauty, grooming and salon services
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 28 -->
-    <a
-        href="nearby-shop-list.html?category=Pet%20Supplies%20%26%20Pet%20Shops"
-        class="category-card"
-        data-category="pet pets dog cat pet shop pet supplies"
-    >
-        <div class="category-icon">🐾</div>
-
-        <div class="category-name">
-            Pet Supplies & Pet Shops
-        </div>
-
-        <div class="category-description">
-            Pet food, supplies and pet care products
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 29 -->
-    <a
-        href="nearby-shop-list.html?category=Wholesale%20Shops"
-        class="category-card"
-        data-category="wholesale wholesaler wholesale shops"
-    >
-        <div class="category-icon">📦</div>
-
-        <div class="category-name">
-            Wholesale Shops
-        </div>
-
-        <div class="category-description">
-            Local wholesale suppliers and traders
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
-
-    <!-- CATEGORY 30 -->
-    <a
-        href="nearby-shop-list.html?category=Online%20Sellers%20%26%20E-commerce"
-        class="category-card"
-        data-category="online seller ecommerce e-commerce amazon flipkart meesho instagram whatsapp"
-    >
-        <div class="category-icon">🛍️</div>
-
-        <div class="category-name">
-            Online Sellers & E-commerce
-        </div>
-
-        <div class="category-description">
-            Online sellers, marketplace and home businesses
-        </div>
-
-        <div class="category-arrow">→</div>
-    </a>
-
- </div>
-
-
-<!-- =====================================================
-     NO RESULTS
-===================================================== -->
+<div
+    id="shopLocation"
+    class="shop-location"
+>
+</div>
 
 </div>
 
 
 <div
-    id="noResults"
-    class="no-results"
+    id="shopGrid"
+    class="shop-grid"
 >
 
-    <div
-        style="
-            font-size:34px;
-            margin-bottom:10px;
-        "
-    >
-        🔎
-    </div>
+<div class="shop-empty">
 
-    <strong>
-        No category found
-    </strong>
+<div class="shop-empty-icon">
+    ⏳
+</div>
 
-    <div
-        style="
-            margin-top:6px;
-        "
-    >
-        Try another search.
-    </div>
+<div class="shop-empty-title">
+    Loading QR Stores...
+</div>
+
+<div class="shop-empty-text">
+    Please wait while registered QR Stores are loaded.
+</div>
 
 </div>
 
+</div>
+
+</section>
 
 </main>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+<nav
+    class="bottom-nav"
+    aria-label="Main navigation"
+>
 
-<footer class="footer">
+<a
+    href="shops.html"
+    class="bottom-nav-item"
+>
+    <span class="nav-icon">🏪</span>
+    <span>Shops</span>
+</a>
 
-    <div class="footer-brand">
-        Pyn<span>code</span>
-    </div>
+<a href="services_matched.html" class="bottom-nav-item">
+    <span class="nav-icon">🛠️</span>
+    <span>Services</span>
+</a>
 
-    <div class="footer-text">
-        Discover local businesses. Connect directly.
-    </div>
+<a
+    href="nearby-shops.html"
+    class="bottom-nav-item active"
+>
+    <span class="nav-icon">📱</span>
+    <span>QR Stores</span>
+</a>
 
-</footer>
+<a
+    href="feeds.html"
+    class="bottom-nav-item"
+>
+    <span class="nav-icon">📰</span>
+    <span class="nav-label">
+        Feeds
+    </span>
+</a>
 
-  <script>
+<a
+    href="promotion.html"
+    class="bottom-nav-item"
+>
+    <span class="nav-icon">📢</span>
+    <span>Promotion</span>
+</a>
 
-/* =====================================================
-   ADD STORES DROPDOWN
-===================================================== */
+</nav>
 
-const addStoresButton =
-    document.getElementById(
-        "addStoresButton"
+
+<script>
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
     );
 
-const addStoresMenu =
-    document.getElementById(
-        "addStoresMenu"
+
+const LOCATION_STORAGE_KEY =
+    "pyncode_user_location";
+
+
+let allShops = [];
+
+let selectedCategory = "";
+
+let selectedPincode = "";
+
+let userLatitude = null;
+
+let userLongitude = null;
+
+
+const categories = [
+
+    "Grocery & Provision Stores",
+
+    "Supermarkets",
+
+    "Fruits & Vegetable Shops",
+
+    "Milk & Dairy Shops",
+
+    "Chicken & Mutton Shops",
+
+    "Fish & Seafood Shops",
+
+    "Bakeries",
+
+    "Cleaning & Home Care Stores",
+
+    "Hotels & Fast Food",
+
+    "Tea, Juice & Snacks Shops",
+
+    "Clothing Stores",
+
+    "Footwear Stores",
+
+    "Mobile & Accessories Shops",
+
+    "Computer & Electronics Stores",
+
+    "Pharmacy & Medical Shops",
+
+    "Cosmetics & Fancy Stores",
+
+    "Gift Shops",
+
+    "Home & Kitchen Stores",
+
+    "Kids & Baby Stores",
+
+    "Stationery & Book Shops",
+
+    "Hardware & Electrical Shops",
+
+    "Paint & Plumbing Stores",
+
+    "Furniture Stores",
+
+    "Plants & Gardening Stores",
+
+    "Auto Spare Parts & Service",
+
+    "Tyre & Battery Shops",
+
+    "Salon & Beauty Parlours",
+
+    "Pet Supplies & Pet Shops",
+
+    "Wholesale Shops",
+
+    "Online Sellers & E-commerce"
+
+];
+
+
+function escapeHtml(value){
+
+    return String(
+        value ?? ""
+    )
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function cleanPhone(value){
+
+    let phone =
+        String(
+            value ?? ""
+        ).replace(
+            /\D/g,
+            ""
+        );
+
+    if(
+        phone.startsWith("91") &&
+        phone.length === 12
+    ){
+
+        phone =
+            phone.slice(2);
+
+    }
+
+    return phone.length === 10
+        ? phone
+        : "";
+
+}
+
+  function validCoordinate(
+    latitude,
+    longitude
+){
+
+    const lat =
+        Number(latitude);
+
+    const lng =
+        Number(longitude);
+
+    return (
+        Number.isFinite(lat) &&
+        Number.isFinite(lng) &&
+        lat >= -90 &&
+        lat <= 90 &&
+        lng >= -180 &&
+        lng <= 180
     );
 
+}
 
-addStoresButton.addEventListener(
-    "click",
-    function(event){
 
-        event.stopPropagation();
+function calculateDistance(
+    lat1,
+    lon1,
+    lat2,
+    lon2
+){
 
-        addStoresMenu.classList.toggle(
-            "show"
+    const earthRadiusKm =
+        6371;
+
+    const dLat =
+        (lat2 - lat1) *
+        Math.PI / 180;
+
+    const dLon =
+        (lon2 - lon1) *
+        Math.PI / 180;
+
+    const a =
+        Math.sin(dLat / 2) *
+        Math.sin(dLat / 2) +
+
+        Math.cos(
+            lat1 * Math.PI / 180
+        ) *
+
+        Math.cos(
+            lat2 * Math.PI / 180
+        ) *
+
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+    const c =
+        2 *
+        Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1 - a)
+        );
+
+    return earthRadiusKm * c;
+
+}
+
+
+function formatDistance(
+    distance
+){
+
+    if(
+        !Number.isFinite(distance)
+    ){
+
+        return "";
+
+    }
+
+    if(distance < 1){
+
+        return (
+            Math.round(
+                distance * 1000
+            ) +
+            " m away"
         );
 
     }
-);
+
+    return (
+        distance.toFixed(1) +
+        " km away"
+    );
+
+}
 
 
-/* =====================================================
-   CLOSE ADD STORES MENU
-===================================================== */
+function buildDirectionsUrl(
+    latitude,
+    longitude
+){
 
-document.addEventListener(
-    "click",
-    function(event){
+    if(
+        !validCoordinate(
+            latitude,
+            longitude
+        )
+    ){
 
-        const wrapper =
-            document.querySelector(
-                ".add-stores-wrap"
+        return "";
+
+    }
+
+    return (
+        "https://www.google.com/maps/dir/?api=1&destination=" +
+        encodeURIComponent(
+            latitude + "," + longitude
+        )
+    );
+
+}
+
+
+function saveUserLocation(){
+
+    if(
+        !validCoordinate(
+            userLatitude,
+            userLongitude
+        )
+    ){
+
+        return;
+
+    }
+
+    localStorage.setItem(
+
+        LOCATION_STORAGE_KEY,
+
+        JSON.stringify({
+
+            latitude:
+                userLatitude,
+
+            longitude:
+                userLongitude,
+
+            savedAt:
+                Date.now()
+
+        })
+
+    );
+
+}
+
+
+function restoreUserLocation(){
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    LOCATION_STORAGE_KEY
+                ) || "null"
             );
 
         if(
-            wrapper &&
-            !wrapper.contains(
-                event.target
+            validCoordinate(
+                saved?.latitude,
+                saved?.longitude
             )
         ){
 
-            addStoresMenu.classList.remove(
-                "show"
+            userLatitude =
+                Number(
+                    saved.latitude
+                );
+
+            userLongitude =
+                Number(
+                    saved.longitude
+                );
+
+            const button =
+                document.getElementById(
+                    "useLocationButton"
+                );
+
+            button.classList.add(
+                "active"
             );
+
+            button.textContent =
+                "📍 Location Added";
+
+            document.getElementById(
+                "locationStatus"
+            ).textContent =
+                "Saved location is active. Showing nearest QR Stores first.";
+
+            return true;
 
         }
 
     }
-);
+    catch(error){
+
+        console.warn(
+            "Location restore failed:",
+            error
+        );
+
+    }
+
+    return false;
+
+}
 
 
-/* =====================================================
-   CATEGORY SEARCH
-===================================================== */
+function requestUserLocation(){
 
-const categorySearch =
+    const button =
+        document.getElementById(
+            "useLocationButton"
+        );
+
+    if(
+        !navigator.geolocation
+    ){
+
+        document.getElementById(
+            "locationStatus"
+        ).textContent =
+            "Location is not supported by this browser.";
+
+        return;
+
+    }
+
+    button.disabled = true;
+
+    button.textContent =
+        "📍 Getting Location...";
+
     document.getElementById(
-        "categorySearch"
-    );
+        "locationStatus"
+    ).textContent =
+        "Please allow location access in your browser.";
 
-const categoryCards =
-    document.querySelectorAll(
-        ".category-card"
-    );
+    navigator.geolocation.getCurrentPosition(
 
-const noResults =
-    document.getElementById(
-        "noResults"
-    );
+        function(position){
 
+            userLatitude =
+                Number(
+                    position.coords.latitude
+                );
 
-categorySearch.addEventListener(
-    "input",
-    function(){
+            userLongitude =
+                Number(
+                    position.coords.longitude
+                );
 
-        const searchText =
-            this.value
-                .trim()
-                .toLowerCase();
+            saveUserLocation();
 
+            button.disabled = false;
 
-        let visibleCount = 0;
+            button.classList.add(
+                "active"
+            );
 
+            button.textContent =
+                "📍 Location Added";
 
-        categoryCards.forEach(
-            function(card){
+            document.getElementById(
+                "locationStatus"
+            ).textContent =
+                "Location added. Showing nearest QR Stores first.";
 
-                const categoryText =
-                    (
-                        card.dataset.category ||
-                        card.textContent ||
-                        ""
-                    )
-                    .toLowerCase();
+            renderShops(
+                allShops
+            );
 
+        },
 
-                const isVisible =
-                    !searchText ||
-                    categoryText.includes(
-                        searchText
-                    );
+        function(error){
 
+            button.disabled = false;
 
-                if(isVisible){
+            button.classList.remove(
+                "active"
+            );
 
-                    card.classList.remove(
-                        "hidden"
-                    );
+            button.textContent =
+                "📍 Use My Location";
 
-                    visibleCount++;
+            let message =
+                "Unable to get your location. Please try again.";
 
-                }
-                else{
+            if(
+                error.code === 1
+            ){
 
-                    card.classList.add(
-                        "hidden"
-                    );
-
-                }
+                message =
+                    "Location permission was denied. Please allow location access and try again.";
 
             }
+
+            document.getElementById(
+                "locationStatus"
+            ).textContent =
+                message;
+
+        },
+
+        {
+
+            enableHighAccuracy:true,
+
+            timeout:15000,
+
+            maximumAge:300000
+
+        }
+
+    );
+
+}
+
+  function loadCategories(){
+
+    const container =
+        document.getElementById(
+            "categoryFilter"
+        );
+
+    container.innerHTML = "";
+
+    const allButton =
+        document.createElement(
+            "button"
+        );
+
+    allButton.type =
+        "button";
+
+    allButton.className =
+        "category-chip active";
+
+    allButton.textContent =
+        "All";
+
+    allButton.onclick =
+        function(){
+
+            selectedCategory = "";
+
+            updateActiveCategory();
+
+            renderShops(
+                allShops
+            );
+
+        };
+
+    container.appendChild(
+        allButton
+    );
+
+
+    categories.forEach(
+        function(category){
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.type =
+                "button";
+
+            button.className =
+                "category-chip";
+
+            button.textContent =
+                category;
+
+            button.onclick =
+                function(){
+
+                    window.location.href =
+                        "nearby-shop-list.html?category=" +
+                        encodeURIComponent(
+                            category
+                        );
+
+                };
+
+            container.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+function updateActiveCategory(){
+
+    const buttons =
+        document.querySelectorAll(
+            ".category-chip"
+        );
+
+    buttons.forEach(
+        function(button,index){
+
+            if(
+                index === 0 &&
+                !selectedCategory
+            ){
+
+                button.classList.add(
+                    "active"
+                );
+
+            }
+            else{
+
+                button.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+function normalizeShop(shop){
+
+    const latitude =
+        validCoordinate(
+            shop.latitude,
+            shop.longitude
+        )
+        ?
+        Number(shop.latitude)
+        :
+        null;
+
+    const longitude =
+        validCoordinate(
+            shop.latitude,
+            shop.longitude
+        )
+        ?
+        Number(shop.longitude)
+        :
+        null;
+
+
+    return {
+
+        id:
+            shop.id,
+
+        name:
+            shop.shop_name ||
+            "Unnamed QR Store",
+
+        category:
+            shop.category ||
+            "Local Business",
+
+        owner:
+            shop.owner_name ||
+            "",
+
+        phone:
+            shop.mobile ||
+            "",
+
+        whatsapp:
+            shop.whatsapp ||
+            shop.mobile ||
+            "",
+
+        address:
+            shop.address ||
+            "",
+
+        area:
+            shop.area ||
+            "",
+
+        city:
+            shop.city ||
+            "",
+
+        pincode:
+            shop.pincode ||
+            "",
+
+        image:
+            shop.shop_image ||
+            "icon-512.png",
+
+        listingType:
+            shop.listing_type ||
+            "",
+
+        liveQrEnabled:
+            shop.live_qr_enabled === true,
+
+        liveQrStatus:
+            shop.live_qr_status ||
+            "",
+
+        liveQrToken:
+            shop.live_qr_token ||
+            "",
+
+        latitude:
+            latitude,
+
+        longitude:
+            longitude
+
+    };
+
+}
+
+
+function buildShopLocation(
+    shop
+){
+
+    const locationParts = [
+
+        shop.area,
+
+        shop.city,
+
+        shop.pincode
+
+    ].filter(
+        function(value){
+
+            return String(
+                value || ""
+            ).trim() !== "";
+
+        }
+    );
+
+    if(
+        locationParts.length
+    ){
+
+        return locationParts.join(
+            ", "
+        );
+
+    }
+
+    if(shop.address){
+
+        return shop.address;
+
+    }
+
+    return "Location details unavailable";
+
+}
+
+  function buildShopCard(
+    shop
+){
+
+    const phone =
+        cleanPhone(
+            shop.phone
+        );
+
+    const whatsapp =
+        cleanPhone(
+            shop.whatsapp ||
+            shop.phone
+        );
+
+    const distanceText =
+        formatDistance(
+            shop.distance
+        );
+
+    const directionsUrl =
+        buildDirectionsUrl(
+            shop.latitude,
+            shop.longitude
         );
 
 
-        if(
-            visibleCount === 0
-        ){
+    let visitUrl = "";
 
-            noResults.classList.add(
-                "show"
+    if(
+        shop.liveQrToken
+    ){
+
+        visitUrl =
+            "live-qr-shop.html?token=" +
+            encodeURIComponent(
+                shop.liveQrToken
             );
-
-        }
-        else{
-
-            noResults.classList.remove(
-                "show"
-            );
-
-        }
 
     }
-);
 
 
-/* =====================================================
-   ESCAPE KEY - CLEAR SEARCH
-===================================================== */
+    return `
 
-categorySearch.addEventListener(
-    "keydown",
-    function(event){
+<article class="shop-card">
 
-        if(
-            event.key === "Escape"
-        ){
+<div class="shop-image-wrap">
 
-            this.value = "";
+<img
+    class="shop-image"
+    src="${escapeHtml(shop.image)}"
+    alt="${escapeHtml(shop.name)}"
+    loading="lazy"
+    onerror="this.src='icon-512.png'"
+>
+<div class="shop-name-board">
+    <span class="shop-name-board-text">
+        ${escapeHtml(shop.name)}
+    </span>
+</div>
 
-            this.dispatchEvent(
-                new Event("input")
+<div class="verified-badge">
+    ✓ QR Store
+</div>
+
+${
+    distanceText
+    ?
+    `
+    <div class="distance-badge">
+        📏 ${escapeHtml(distanceText)}
+    </div>
+    `
+    :
+    ""
+}
+
+</div>
+
+
+<div class="shop-card-body">
+
+<div class="shop-name">
+    ${escapeHtml(shop.name)}
+</div>
+
+<div class="shop-category">
+    ${escapeHtml(shop.category)}
+</div>
+
+<div class="shop-location-text">
+    📍 ${escapeHtml(
+        buildShopLocation(shop)
+    )}
+</div>
+
+
+<div class="shop-actions">
+
+${
+    phone
+    ?
+    `
+    <a
+        href="tel:+91${phone}"
+        class="shop-action call-action"
+    >
+        📞 Call
+    </a>
+    `
+    :
+    `
+    <span
+        class="shop-action call-action disabled"
+    >
+        📞 Call
+    </span>
+    `
+}
+
+${
+    whatsapp
+    ?
+    `
+    <a
+        href="https://wa.me/91${whatsapp}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="shop-action whatsapp-action"
+    >
+        💬 WhatsApp
+    </a>
+    `
+    :
+    `
+    <span
+        class="shop-action whatsapp-action disabled"
+    >
+        💬 WhatsApp
+    </span>
+    `
+}
+
+</div>
+
+
+<div class="shop-actions">
+
+${
+    directionsUrl
+    ?
+    `
+    <a
+        href="${directionsUrl}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="shop-action directions-action"
+    >
+        🧭 Directions
+    </a>
+    `
+    :
+    `
+    <span
+        class="shop-action directions-action disabled"
+    >
+        🧭 Directions
+    </span>
+    `
+}
+
+${
+    visitUrl
+    ?
+    `
+    <a
+        href="${visitUrl}"
+        class="shop-action visit-action"
+    >
+        🏪 Visit Store
+    </a>
+    `
+    :
+    `
+    <span
+        class="shop-action visit-action disabled"
+    >
+        🏪 Visit Store
+    </span>
+    `
+}
+
+</div>
+
+</div>
+
+</article>
+
+`;
+
+}
+
+
+function renderShops(
+    shops
+){
+
+    let results =
+        [...(
+            shops || []
+        )];
+
+
+    if(
+        selectedCategory
+    ){
+
+        results =
+            results.filter(
+                function(shop){
+
+                    return String(
+                        shop.category || ""
+                    ).toLowerCase() ===
+                    selectedCategory.toLowerCase();
+
+                }
             );
 
-        }
+    }
+
+
+    if(
+        selectedPincode
+    ){
+
+        results =
+            results.filter(
+                function(shop){
+
+                    return String(
+                        shop.pincode || ""
+                    ).trim() ===
+                    selectedPincode;
+
+                }
+            );
 
     }
-);
 
 
-/* =====================================================
-   CATEGORY CARD KEYBOARD ACCESS
-===================================================== */
+    results =
+        results.map(
+            function(shop){
 
-categoryCards.forEach(
-    function(card){
-
-        card.addEventListener(
-            "keydown",
-            function(event){
+                const copy = {
+                    ...shop,
+                    distance:null
+                };
 
                 if(
-                    event.key === "Enter" ||
-                    event.key === " "
+                    validCoordinate(
+                        userLatitude,
+                        userLongitude
+                    ) &&
+                    validCoordinate(
+                        copy.latitude,
+                        copy.longitude
+                    )
                 ){
 
-                    event.preventDefault();
-
-                    this.click();
+                    copy.distance =
+                        calculateDistance(
+                            userLatitude,
+                            userLongitude,
+                            copy.latitude,
+                            copy.longitude
+                        );
 
                 }
+
+                return copy;
+
+            }
+        );
+
+      if(
+        validCoordinate(
+            userLatitude,
+            userLongitude
+        )
+    ){
+
+        results.sort(
+            function(a,b){
+
+                const distanceA =
+                    Number.isFinite(
+                        a.distance
+                    )
+                    ?
+                    a.distance
+                    :
+                    Infinity;
+
+                const distanceB =
+                    Number.isFinite(
+                        b.distance
+                    )
+                    ?
+                    b.distance
+                    :
+                    Infinity;
+
+                return distanceA -
+                       distanceB;
 
             }
         );
 
     }
-);
 
 
-/* =====================================================
-   PAGE READY
-===================================================== */
+    const title =
+        document.getElementById(
+            "shopListTitle"
+        );
+
+    const count =
+        document.getElementById(
+            "shopListCount"
+        );
+
+    const location =
+        document.getElementById(
+            "shopLocation"
+        );
+
+
+    title.textContent =
+        selectedCategory ||
+        "All QR Stores";
+
+
+    count.textContent =
+        results.length +
+        (
+            results.length === 1
+            ?
+            " registered QR Store found"
+            :
+            " registered QR Stores found"
+        );
+
+
+    if(
+        validCoordinate(
+            userLatitude,
+            userLongitude
+        )
+    ){
+
+        location.textContent =
+            "📍 Nearest first";
+
+    }
+    else if(
+        selectedPincode
+    ){
+
+        location.textContent =
+            "📍 Pincode: " +
+            selectedPincode;
+
+    }
+    else{
+
+        location.textContent =
+            "";
+
+    }
+
+
+    const grid =
+        document.getElementById(
+            "shopGrid"
+        );
+
+
+    if(
+        !results.length
+    ){
+
+        grid.innerHTML = `
+
+<div class="shop-empty">
+
+<div class="shop-empty-icon">
+    🔍
+</div>
+
+<div class="shop-empty-title">
+    No registered QR Stores found
+</div>
+
+<div class="shop-empty-text">
+    Try another category or pincode.
+</div>
+
+</div>
+
+`;
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        results
+        .map(
+            buildShopCard
+        )
+        .join("");
+
+}
+
+
+async function loadShops(){
+
+    const grid =
+        document.getElementById(
+            "shopGrid"
+        );
+
+
+    grid.innerHTML = `
+
+<div class="shop-empty">
+
+<div class="shop-empty-icon">
+    ⏳
+</div>
+
+<div class="shop-empty-title">
+    Loading QR Stores...
+</div>
+
+<div class="shop-empty-text">
+    Loading registered QR Stores from Pyncode.
+</div>
+
+</div>
+
+`;
+
+
+    try{
+
+        /*
+         * IMPORTANT
+         *
+         * QR Stores are identified by
+         * active Live QR records.
+         *
+         * Existing "nearby" records are
+         * also supported.
+         */
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+
+            .from("shops")
+
+            .select(`
+                id,
+                shop_name,
+                category,
+                owner_name,
+                mobile,
+                whatsapp,
+                address,
+                area,
+                city,
+                pincode,
+                description,
+                shop_image,
+                listing_type,
+                live_qr_enabled,
+                live_qr_token,
+                live_qr_status,
+                latitude,
+                longitude,
+                created_at
+            `)
+
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            );
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        const rows =
+            data || [];
+
+
+        /*
+         * Show active Live QR stores.
+         *
+         * Also keep old nearby
+         * records when they have
+         * Live QR enabled.
+         */
+
+        allShops =
+            rows
+
+            .filter(
+                function(shop){
+
+                    return (
+
+                        (
+                            shop.live_qr_enabled === true &&
+                            shop.live_qr_status === "active"
+                        )
+
+                        ||
+
+                        (
+                            shop.listing_type === "nearby"
+                        )
+
+                    );
+
+                }
+            )
+
+            .map(
+                normalizeShop
+            );
+
+
+        renderShops(
+            allShops
+        );
+
+          }
+    catch(error){
+
+        console.error(
+            "QR Stores loading error:",
+            error
+        );
+
+
+        document.getElementById(
+            "shopListCount"
+        ).textContent =
+            "Unable to load QR Stores";
+
+
+        grid.innerHTML = `
+
+<div class="shop-empty">
+
+<div class="shop-empty-icon">
+    ⚠️
+</div>
+
+<div class="shop-empty-title">
+    Unable to load QR Stores
+</div>
+
+<div class="shop-empty-text">
+    ${escapeHtml(
+        error?.message ||
+        "Please refresh the page and try again."
+    )}
+</div>
+
+</div>
+
+`;
+
+    }
+
+}
+
+
+function searchPincode(){
+
+    const input =
+        document.getElementById(
+            "pincodeInput"
+        );
+
+    const value =
+        input.value.trim();
+
+
+    if(
+        value &&
+        !/^\d{6}$/.test(
+            value
+        )
+    ){
+
+        alert(
+            "Please enter a valid 6 digit pincode."
+        );
+
+        return;
+
+    }
+
+
+    selectedPincode =
+        value;
+
+
+    renderShops(
+        allShops
+    );
+
+}
+
+
+function openInterestedWhatsApp(){
+
+    const message =
+        "Hi Pyncode.in, I am interested in registering my QR Store.";
+
+    window.open(
+
+        "https://wa.me/?text=" +
+        encodeURIComponent(
+            message
+        ),
+
+        "_blank",
+
+        "noopener,noreferrer"
+
+    );
+
+}
+
+
+function setupPincodeInput(){
+
+    const input =
+        document.getElementById(
+            "pincodeInput"
+        );
+
+
+    input.addEventListener(
+        "input",
+        function(event){
+
+            event.target.value =
+                event.target.value
+                .replace(
+                    /\D/g,
+                    ""
+                )
+                .slice(
+                    0,
+                    6
+                );
+
+        }
+    );
+
+
+    input.addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key === "Enter"
+            ){
+
+                event.preventDefault();
+
+                searchPincode();
+
+            }
+
+        }
+    );
+
+}
+
+function setupButtons(){
+
+    document.getElementById(
+        "useLocationButton"
+    ).addEventListener(
+        "click",
+        requestUserLocation
+    );
+
+    document.getElementById(
+        "searchButton"
+    ).addEventListener(
+        "click",
+        searchPincode
+    );
+
+}
+
 
 document.addEventListener(
     "DOMContentLoaded",
     function(){
 
-        if(categorySearch){
+        loadCategories();
 
-            categorySearch.setAttribute(
-                "aria-label",
-                "Search nearby shop categories"
-            );
+        restoreUserLocation();
 
-        }
+        setupPincodeInput();
+
+        setupButtons();
+
+        loadShops();
 
     }
 );
 
-  </script>
-
-  <!-- =====================================================
-     FINAL PAGE POLISH
-===================================================== -->
-
-<style>
-
-/* =====================================================
-   MOBILE HEADER POLISH
-===================================================== */
-
-@media(max-width:600px){
-
-    .header-inner{
-        padding-left:14px;
-        padding-right:14px;
-    }
-
-    .header-actions{
-        flex-shrink:0;
-    }
-
-    .add-stores-btn{
-        box-shadow:
-            0 5px 14px
-            rgba(255,107,0,.16);
-    }
-
-}
-
-
-/* =====================================================
-   VERY SMALL MOBILE
-===================================================== */
-
-@media(max-width:340px){
-
-    .brand-mark{
-        display:none;
-    }
-
-    .brand{
-        font-size:18px;
-    }
-
-    .add-stores-btn{
-        padding:
-            0 9px;
-    }
-
-}
-
-
-/* =====================================================
-   TOUCH DEVICE
-===================================================== */
-
-@media(hover:none){
-
-    .category-card:hover{
-
-        transform:none;
-
-        box-shadow:
-            0 9px 28px
-            rgba(0,0,0,.045);
-    }
-
-    .category-card:active{
-
-        transform:
-            scale(.985);
-    }
-
-}
-
-
-/* =====================================================
-   ACCESSIBILITY
-===================================================== */
-
-.home-btn:focus-visible,
-.add-stores-btn:focus-visible,
-.add-stores-menu a:focus-visible,
-.category-card:focus-visible,
-#categorySearch:focus-visible{
-
-    outline:
-        3px solid
-        rgba(255,107,0,.25);
-
-    outline-offset:3px;
-}
-
-
-/* =====================================================
-   PAGE READY
-===================================================== */
-
-body{
-    overflow-x:hidden;
-}
-
-</style>
-
+</script>
 
 </body>
-
 </html>

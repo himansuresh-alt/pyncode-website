@@ -1,0 +1,2681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Pyncode Local - Profile</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --primary:#FF6B35;
+    --primary-dark:#E85220;
+    --accent:#FF9F43;
+    --dark:#222;
+    --muted:#777;
+    --light:#f7f7f7;
+    --white:#ffffff;
+    --border:#e7e7e7;
+    --danger:#d93025;
+}
+
+body{
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:var(--light);
+    color:var(--dark);
+    min-height:100vh;
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.header{
+    height:64px;
+
+    background:var(--white);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 16px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.back-button{
+    width:40px;
+    height:40px;
+
+    border:0;
+    border-radius:50%;
+
+    background:#f4f4f4;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.back-button:active{
+    transform:scale(.95);
+}
+
+.logo{
+    font-size:20px;
+    font-weight:800;
+    color:var(--primary);
+}
+
+.header-spacer{
+    width:40px;
+}
+
+/* ==========================================
+   MAIN
+   ========================================== */
+
+.container{
+    width:100%;
+    max-width:680px;
+
+    margin:0 auto;
+
+    padding:
+        22px
+        16px
+        100px;
+}
+
+.page-title{
+    font-size:28px;
+    font-weight:800;
+
+    margin-bottom:5px;
+}
+
+.page-subtitle{
+    color:var(--muted);
+    font-size:14px;
+
+    margin-bottom:20px;
+}
+
+/* ==========================================
+   STATUS
+   ========================================== */
+
+.status-box{
+    display:none;
+
+    padding:12px 14px;
+
+    border-radius:12px;
+
+    font-size:13px;
+    font-weight:600;
+
+    margin-bottom:16px;
+}
+
+.status-success{
+    background:#eaf8ef;
+    color:#16733b;
+}
+
+.status-error{
+    background:#fff0ef;
+    color:#c62828;
+}
+
+.status-info{
+    background:#eef5ff;
+    color:#2457a6;
+}
+
+/* ==========================================
+   PROFILE CARD
+   ========================================== */
+
+.profile-card{
+    background:var(--white);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    margin-bottom:16px;
+}
+
+.profile-header{
+    display:flex;
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:22px;
+}
+
+.avatar{
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--accent)
+        );
+
+    color:var(--white);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+    font-weight:800;
+
+    flex-shrink:0;
+}
+
+.profile-name{
+    font-size:21px;
+    font-weight:800;
+
+    word-break:break-word;
+}
+
+.profile-email{
+    color:var(--muted);
+    font-size:13px;
+
+    margin-top:4px;
+
+    word-break:break-word;
+}
+
+/* ==========================================
+   FORM
+   ========================================== */
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-label{
+    display:block;
+
+    font-size:13px;
+    font-weight:700;
+
+    margin-bottom:7px;
+}
+
+.form-input{
+    width:100%;
+    height:48px;
+
+    border:
+        1px solid
+        #dcdcdc;
+
+    border-radius:11px;
+
+    background:var(--white);
+
+    padding:
+        0 13px;
+
+    font-size:15px;
+
+    outline:none;
+}
+
+.form-input:focus{
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(255,107,53,.10);
+}
+
+.form-input:disabled{
+    background:#f3f3f3;
+    color:#777;
+}
+
+.form-note{
+    margin-top:6px;
+
+    font-size:11px;
+    color:#999;
+}
+
+/* ==========================================
+   SAVE BUTTON
+   ========================================== */
+
+.save-button{
+    width:100%;
+    height:50px;
+
+    border:0;
+    border-radius:12px;
+
+    background:var(--primary);
+
+    color:var(--white);
+
+    font-size:16px;
+    font-weight:800;
+
+    cursor:pointer;
+
+    margin-top:4px;
+}
+
+.save-button:active{
+    transform:scale(.98);
+}
+
+.save-button:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+}
+
+/* ==========================================
+   MENU CARD
+   ========================================== */
+
+.menu-card{
+    background:var(--white);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-bottom:16px;
+}
+
+.menu-item{
+    min-height:58px;
+
+    padding:
+        0 17px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border-bottom:
+        1px solid
+        #eeeeee;
+
+    cursor:pointer;
+}
+
+.menu-item:last-child{
+    border-bottom:0;
+}
+
+.menu-item:active{
+    background:#fafafa;
+}
+
+.menu-left{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+}
+
+.menu-icon{
+    width:36px;
+    height:36px;
+
+    border-radius:10px;
+
+    background:#fff1eb;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:18px;
+}
+
+.menu-title{
+    font-size:14px;
+    font-weight:700;
+}
+
+.menu-arrow{
+    color:#999;
+    font-size:20px;
+}
+
+/* ==========================================
+   LOGOUT
+   ========================================== */
+
+.logout-item{
+    color:var(--danger);
+}
+
+.logout-item .menu-icon{
+    background:#fff0ef;
+}
+
+/* ==========================================
+   LOADING
+   ========================================== */
+
+.loading{
+    opacity:.65;
+    pointer-events:none;
+}
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media(max-width:480px){
+
+    .container{
+        padding:
+            20px
+            14px
+            90px;
+    }
+
+    .page-title{
+        font-size:25px;
+    }
+
+    .profile-card{
+        padding:17px;
+    }
+
+    .avatar{
+        width:62px;
+        height:62px;
+        font-size:25px;
+    }
+
+    .profile-name{
+        font-size:19px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <button
+        type="button"
+        class="back-button"
+        id="backButton"
+        aria-label="Go back"
+    >
+        ←
+    </button>
+
+    <div class="logo">
+        Pyncode Local
+    </div>
+
+    <div class="header-spacer"></div>
+
+</header>
+
+<main class="container">
+
+    <h1 class="page-title">
+        My Profile
+    </h1>
+
+    <p class="page-subtitle">
+        Manage your Pyncode Local account
+    </p>
+
+    <div
+        id="statusBox"
+        class="status-box"
+    ></div>
+
+    <section class="profile-card">
+
+        <div class="profile-header">
+
+            <div
+                class="avatar"
+                id="avatar"
+            >
+                U
+            </div>
+
+            <div>
+
+                <div
+                    class="profile-name"
+                    id="profileName"
+                >
+                    User
+                </div>
+
+                <div
+                    class="profile-email"
+                    id="profileEmail"
+                >
+                    -
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="nameInput"
+            >
+                Name
+            </label>
+
+            <input
+                type="text"
+                id="nameInput"
+                class="form-input"
+                placeholder="Enter your name"
+                maxlength="80"
+                autocomplete="name"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="phoneInput"
+            >
+                Phone
+            </label>
+
+            <input
+                type="tel"
+                id="phoneInput"
+                class="form-input"
+                placeholder="Enter phone number"
+                maxlength="15"
+                autocomplete="tel"
+            >
+
+            <div class="form-note">
+                Phone number for customer contact.
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="areaInput"
+            >
+                Area
+            </label>
+
+            <input
+                type="text"
+                id="areaInput"
+                class="form-input"
+                placeholder="Your area"
+                maxlength="100"
+            >
+
+            <div class="form-note">
+                Your local area.
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="cityInput"
+            >
+                City
+            </label>
+
+            <input
+                type="text"
+                id="cityInput"
+                class="form-input"
+                placeholder="Your city"
+                maxlength="100"
+            >
+
+            <div class="form-note">
+                Your city.
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="emailInput"
+            >
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="emailInput"
+                class="form-input"
+                disabled
+            >
+
+        </div>
+
+        <button
+            type="button"
+            class="save-button"
+            id="saveButton"
+        >
+            Save Changes
+        </button>
+
+    </section>
+
+    <section class="menu-card">
+
+        <div
+            class="menu-item"
+            id="myPostsButton"
+        >
+
+            <div class="menu-left">
+
+                <div class="menu-icon">
+                    📦
+                </div>
+
+                <div class="menu-title">
+                    My Posts
+                </div>
+
+            </div>
+
+            <div class="menu-arrow">
+                ›
+            </div>
+
+        </div>
+
+        <div
+            class="menu-item"
+            id="myBookingsButton"
+        >
+
+            <div class="menu-left">
+
+                <div class="menu-icon">
+                    📋
+                </div>
+
+                <div class="menu-title">
+                    My Bookings
+                </div>
+
+            </div>
+
+            <div class="menu-arrow">
+                ›
+            </div>
+
+        </div>
+
+        <div
+            class="menu-item"
+            id="notificationsButton"
+        >
+
+            <div class="menu-left">
+
+                <div class="menu-icon">
+                    🔔
+                </div>
+
+                <div class="menu-title">
+                    Notifications
+                </div>
+
+            </div>
+
+            <div class="menu-arrow">
+                ›
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="menu-card">
+
+        <div
+            class="menu-item logout-item"
+            id="logoutButton"
+        >
+
+            <div class="menu-left">
+
+                <div class="menu-icon">
+                    🚪
+                </div>
+
+                <div class="menu-title">
+                    Logout
+                </div>
+
+            </div>
+
+            <div class="menu-arrow">
+                ›
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script>
+
+  "use strict";
+
+/* ==========================================
+   SUPABASE CONFIG
+   ========================================== */
+
+const SUPABASE_URL =
+    "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+            auth:{
+                persistSession:true,
+                autoRefreshToken:true,
+                detectSessionInUrl:true,
+                storageKey:"pyncode-local-auth"
+            }
+        }
+    );
+
+
+/* ==========================================
+   AUTH API
+   ========================================== */
+
+const AUTH_API =
+    SUPABASE_URL +
+    "/functions/v1/pyncode-local-auth";
+
+
+/* ==========================================
+   PAGE CONFIG
+   ========================================== */
+
+const CONFIG = {
+
+    homePage:
+        "index.html",
+
+    accountPage:
+        "current-account.html",
+
+    myPostsPage:
+        "current-my-posts.html",
+
+    myBookingsPage:
+        "current-my-bookings.html",
+
+    notificationsPage:
+        "current-notifications.html"
+
+};
+
+
+/* ==========================================
+   DOM REFERENCES
+   ========================================== */
+
+const backButton =
+    document.getElementById(
+        "backButton"
+    );
+
+const avatar =
+    document.getElementById(
+        "avatar"
+    );
+
+const profileName =
+    document.getElementById(
+        "profileName"
+    );
+
+const profileEmail =
+    document.getElementById(
+        "profileEmail"
+    );
+
+const nameInput =
+    document.getElementById(
+        "nameInput"
+    );
+
+const phoneInput =
+    document.getElementById(
+        "phoneInput"
+    );
+
+const areaInput =
+    document.getElementById(
+        "areaInput"
+    );
+
+const cityInput =
+    document.getElementById(
+        "cityInput"
+    );
+
+const emailInput =
+    document.getElementById(
+        "emailInput"
+    );
+
+const saveButton =
+    document.getElementById(
+        "saveButton"
+    );
+
+const statusBox =
+    document.getElementById(
+        "statusBox"
+    );
+
+const myPostsButton =
+    document.getElementById(
+        "myPostsButton"
+    );
+
+const myBookingsButton =
+    document.getElementById(
+        "myBookingsButton"
+    );
+
+const notificationsButton =
+    document.getElementById(
+        "notificationsButton"
+    );
+
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
+
+
+/* ==========================================
+   STATE
+   ========================================== */
+
+let currentUser = null;
+
+let currentProfile = null;
+
+let navigationLocked = false;
+
+let originalProfileState = null;
+
+let loadingProfile = false;
+
+let savingProfile = false;
+
+
+/* ==========================================
+   SHOW STATUS
+   ========================================== */
+
+function showStatus(
+    message,
+    type
+){
+
+    statusBox.textContent =
+        message;
+
+    statusBox.className =
+        "status-box";
+
+    if(
+        type === "success"
+    ){
+
+        statusBox.classList.add(
+            "status-success"
+        );
+
+    }else if(
+        type === "info"
+    ){
+
+        statusBox.classList.add(
+            "status-info"
+        );
+
+    }else{
+
+        statusBox.classList.add(
+            "status-error"
+        );
+
+    }
+
+    statusBox.style.display =
+        "block";
+
+    window.clearTimeout(
+        showStatus.timer
+    );
+
+    showStatus.timer =
+        window.setTimeout(
+            function(){
+
+                statusBox.style.display =
+                    "none";
+
+            },
+            3500
+        );
+
+}
+
+
+/* ==========================================
+   GET CURRENT SUPABASE USER
+   ========================================== */
+
+async function getCurrentUser(){
+
+    try{
+
+        const result =
+            await supabaseClient.auth.getSession();
+
+        if(
+            result.error
+        ){
+
+            console.error(
+                "Session error:",
+                result.error
+            );
+
+            return null;
+        }
+
+        const session =
+            result.data &&
+            result.data.session;
+
+        if(
+            !session ||
+            !session.user
+        ){
+
+            return null;
+        }
+
+        return session.user;
+
+    }catch(error){
+
+        console.error(
+            "Current user error:",
+            error
+        );
+
+        return null;
+    }
+
+}
+
+
+/* ==========================================
+   AUTH TOKEN
+   ========================================== */
+
+async function getAccessToken(){
+
+    try{
+
+        const result =
+            await supabaseClient.auth.getSession();
+
+        if(
+            result.error
+        ){
+
+            console.error(
+                "Token error:",
+                result.error
+            );
+
+            return null;
+        }
+
+        const session =
+            result.data &&
+            result.data.session;
+
+        if(
+            !session
+        ){
+
+            return null;
+        }
+
+        return session.access_token || null;
+
+    }catch(error){
+
+        console.error(
+            "Access token error:",
+            error
+        );
+
+        return null;
+    }
+
+}
+
+
+/* ==========================================
+   AUTH API REQUEST
+   ========================================== */
+
+async function authRequest(
+    payload
+){
+
+    const token =
+        await getAccessToken();
+
+    if(
+        !token
+    ){
+
+        throw new Error(
+            "Your login session has expired. Please login again."
+        );
+    }
+
+    const response =
+        await fetch(
+            AUTH_API,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "application/json",
+
+                    "Authorization":
+                        "Bearer " +
+                        token
+                },
+
+                body:
+                    JSON.stringify(
+                        payload
+                    )
+            }
+        );
+
+    let result = null;
+
+    try{
+
+        result =
+            await response.json();
+
+    }catch(error){
+
+        result = null;
+
+    }
+
+    if(
+        !response.ok
+    ){
+
+        const message =
+            result &&
+            (
+                result.error ||
+                result.message
+            );
+
+        throw new Error(
+            message ||
+            "Profile service request failed."
+        );
+    }
+
+    if(
+        result &&
+        result.success === false
+    ){
+
+        throw new Error(
+            result.error ||
+            result.message ||
+            "Profile request failed."
+        );
+    }
+
+    return result;
+
+}
+
+  /* ==========================================
+   GET PROFILE FROM SUPABASE
+   ========================================== */
+
+async function getUserProfile(){
+
+    const result =
+        await authRequest(
+            {
+                action:
+                    "get_profile"
+            }
+        );
+
+    if(
+        result &&
+        result.profile
+    ){
+
+        return result.profile;
+    }
+
+    return null;
+
+}
+
+
+/* ==========================================
+   NORMALIZE PROFILE
+   ========================================== */
+
+function normalizeProfile(
+    user,
+    profile
+){
+
+    const source =
+        profile || {};
+
+    return {
+
+        id:
+            user.id,
+
+        name:
+            String(
+                source.name ||
+                ""
+            ).trim(),
+
+        email:
+            user.email ||
+            "",
+
+    phone:
+    String(
+        source.phone ||
+        ""
+    ).trim(),
+
+area:
+    String(
+        source.area ||
+        ""
+    ).trim(),
+
+city:
+    String(
+        source.city ||
+        ""
+    ).trim(),
+        created_at:
+            source.created_at ||
+            null,
+
+        updated_at:
+            source.updated_at ||
+            null
+
+    };
+
+}
+
+
+/* ==========================================
+   GET DISPLAY NAME
+   ========================================== */
+
+function getUserName(){
+
+    if(
+        currentProfile &&
+        currentProfile.name
+    ){
+
+        return String(
+            currentProfile.name
+        ).trim();
+
+    }
+
+    if(
+        currentUser &&
+        currentUser.user_metadata &&
+        currentUser.user_metadata.name
+    ){
+
+        return String(
+            currentUser.user_metadata.name
+        ).trim();
+
+    }
+
+    if(
+        currentUser &&
+        currentUser.email
+    ){
+
+        return String(
+            currentUser.email
+        )
+        .split("@")[0]
+        .trim();
+
+    }
+
+    return "User";
+
+}
+
+
+/* ==========================================
+   GET INITIAL
+   ========================================== */
+
+function getInitial(
+    name
+){
+
+    const cleanName =
+        String(
+            name || ""
+        ).trim();
+
+    if(
+        !cleanName
+    ){
+
+        return "U";
+    }
+
+    return cleanName
+        .charAt(0)
+        .toUpperCase();
+
+}
+
+
+/* ==========================================
+   RENDER PROFILE
+   ========================================== */
+
+function renderProfile(){
+
+    if(
+        !currentUser
+    ){
+
+        return;
+    }
+
+    const displayName =
+        getUserName();
+
+    profileName.textContent =
+        displayName;
+
+    profileEmail.textContent =
+        currentUser.email ||
+        "-";
+
+    avatar.textContent =
+        getInitial(
+            displayName
+        );
+
+    nameInput.value =
+        currentProfile &&
+        currentProfile.name
+            ? currentProfile.name
+            : "";
+
+    emailInput.value =
+        currentUser.email ||
+        "";
+
+  phoneInput.value =
+    currentProfile &&
+    currentProfile.phone
+        ? currentProfile.phone
+        : "";
+
+areaInput.value =
+    currentProfile &&
+    currentProfile.area
+        ? currentProfile.area
+        : "";
+
+cityInput.value =
+    currentProfile &&
+    currentProfile.city
+        ? currentProfile.city
+        : "";
+}
+
+
+/* ==========================================
+   LOAD PROFILE
+   ========================================== */
+
+async function loadProfile(){
+
+    if(
+        loadingProfile
+    ){
+
+        return;
+    }
+
+    loadingProfile =
+        true;
+
+    try{
+
+        currentUser =
+            await getCurrentUser();
+
+        if(
+            !currentUser
+        ){
+
+            window.location.href =
+                CONFIG.accountPage;
+
+            return;
+        }
+
+        const savedProfile =
+            await getUserProfile();
+
+        currentProfile =
+            normalizeProfile(
+                currentUser,
+                savedProfile
+            );
+
+        renderProfile();
+
+        updateOriginalProfileState();
+
+    }catch(error){
+
+        console.error(
+            "Load profile error:",
+            error
+        );
+
+        showStatus(
+            error.message ||
+            "Unable to load your profile.",
+            "error"
+        );
+
+    }finally{
+
+        loadingProfile =
+            false;
+
+    }
+
+}
+
+
+/* ==========================================
+   VALIDATE NAME
+   ========================================== */
+
+function validateName(
+    value
+){
+
+    const name =
+        String(
+            value || ""
+        ).trim();
+
+    if(
+        !name
+    ){
+
+        return {
+            valid:false,
+            message:
+                "Please enter your name."
+        };
+
+    }
+
+    if(
+        name.length < 2
+    ){
+
+        return {
+            valid:false,
+            message:
+                "Name must contain at least 2 characters."
+        };
+
+    }
+
+    if(
+        name.length > 80
+    ){
+
+        return {
+            valid:false,
+            message:
+                "Name is too long."
+        };
+
+    }
+
+    return {
+        valid:true,
+        message:""
+    };
+
+}
+
+
+/* ==========================================
+   VALIDATE PROFILE
+   ========================================== */
+
+function validateProfile(){
+
+    const result =
+        validateName(
+            nameInput.value
+        );
+
+    if(
+        !result.valid
+    ){
+
+        showStatus(
+            result.message,
+            "error"
+        );
+
+        nameInput.focus();
+
+        return false;
+    }
+
+    return true;
+
+}
+
+  /* ==========================================
+   SAVE PROFILE TO SUPABASE
+   ========================================== */
+
+async function saveProfile(){
+
+    if(
+        savingProfile
+    ){
+
+        return;
+    }
+
+    if(
+        !currentUser
+    ){
+
+        window.location.href =
+            CONFIG.accountPage;
+
+        return;
+    }
+
+    if(
+        !validateProfile()
+    ){
+
+        return;
+    }
+
+    savingProfile =
+        true;
+
+    saveButton.disabled =
+        true;
+
+    saveButton.textContent =
+        "Saving...";
+
+    try{
+
+        const name =
+            nameInput.value
+                .trim();
+
+  const phone =
+    phoneInput.value
+        .trim();
+
+const area =
+    areaInput.value
+        .trim();
+
+const city =
+    cityInput.value
+        .trim();
+
+        const result =
+            await authRequest(
+                {
+                    action:
+                        "upsert_profile",
+
+    name:name,
+    phone:phone,
+    area:area,
+    city:city
+                  
+                }
+            );
+
+        if(
+            result &&
+            result.profile
+        ){
+
+            currentProfile =
+                normalizeProfile(
+                    currentUser,
+                    result.profile
+                );
+
+        }else{
+
+            currentProfile =
+                normalizeProfile(
+                    currentUser,
+                    {
+                        name:name
+                    }
+                );
+
+        }
+
+        renderProfile();
+
+        updateOriginalProfileState();
+
+        showStatus(
+            "Profile updated successfully.",
+            "success"
+        );
+
+    }catch(error){
+
+        console.error(
+            "Save profile error:",
+            error
+        );
+
+        showStatus(
+            error.message ||
+            "Unable to save your profile.",
+            "error"
+        );
+
+    }finally{
+
+        savingProfile =
+            false;
+
+        saveButton.disabled =
+            false;
+
+        saveButton.textContent =
+            "Save Changes";
+
+    }
+
+}
+
+
+/* ==========================================
+   CURRENT FORM STATE
+   ========================================== */
+function getCurrentFormState(){
+
+   return {
+
+    name:
+        nameInput.value
+            .trim(),
+
+    phone:
+        phoneInput.value
+            .trim(),
+
+    area:
+        areaInput.value
+            .trim(),
+
+    city:
+        cityInput.value
+            .trim()
+
+    };
+
+}
+
+/* ==========================================
+   UPDATE ORIGINAL STATE
+   ========================================== */
+
+function updateOriginalProfileState(){
+
+    originalProfileState =
+        getCurrentFormState();
+
+}
+
+
+/* ==========================================
+   UNSAVED CHANGES
+   ========================================== */
+
+function hasUnsavedChanges(){
+
+    if(
+        !originalProfileState
+    ){
+
+        return false;
+    }
+
+    const currentState =
+        getCurrentFormState();
+
+    return (
+        currentState.name !==
+        originalProfileState.name
+    );
+
+}
+
+/* ==========================================
+   NAME LIVE UPDATE
+   ========================================== */
+
+nameInput.addEventListener(
+    "input",
+    function(){
+
+        const value =
+            nameInput.value.trim();
+
+        profileName.textContent =
+            value ||
+            "User";
+
+        avatar.textContent =
+            getInitial(
+                value
+            );
+
+    }
+);
+
+
+/* ==========================================
+   NAME CLEANUP
+   ========================================== */
+
+nameInput.addEventListener(
+    "blur",
+    function(){
+
+        nameInput.value =
+            nameInput.value
+                .trim()
+                .replace(
+                    /\s+/g,
+                    " "
+                );
+
+    }
+);
+
+
+/* ==========================================
+   BACK BUTTON
+   ========================================== */
+
+backButton.addEventListener(
+    "click",
+    function(){
+
+        if(
+            navigationLocked
+        ){
+
+            return;
+        }
+
+        if(
+            hasUnsavedChanges()
+        ){
+
+            const leave =
+                window.confirm(
+                    "You have unsaved changes. Leave this page?"
+                );
+
+            if(
+                !leave
+            ){
+
+                return;
+            }
+
+        }
+
+        navigationLocked =
+            true;
+
+        if(
+            document.referrer &&
+            document.referrer.indexOf(
+                window.location.origin
+            ) === 0
+        ){
+
+            window.history.back();
+
+            return;
+        }
+
+        window.location.href =
+            CONFIG.accountPage;
+
+    }
+);
+
+
+/* ==========================================
+   PROTECTED NAVIGATION
+   ========================================== */
+
+async function openProtectedPage(
+    page
+){
+
+    if(
+        navigationLocked
+    ){
+
+        return;
+    }
+
+    const user =
+        await getCurrentUser();
+
+    if(
+        !user
+    ){
+
+        window.location.href =
+            CONFIG.accountPage;
+
+        return;
+    }
+
+    if(
+        hasUnsavedChanges()
+    ){
+
+        const leave =
+            window.confirm(
+                "You have unsaved changes. Leave this page?"
+            );
+
+        if(
+            !leave
+        ){
+
+            return;
+        }
+
+    }
+
+    navigationLocked =
+        true;
+
+    window.location.href =
+        page;
+
+}
+
+  /* ==========================================
+   MY POSTS
+   ========================================== */
+
+myPostsButton.addEventListener(
+    "click",
+    function(){
+
+        openProtectedPage(
+            CONFIG.myPostsPage
+        );
+
+    }
+);
+
+
+/* ==========================================
+   MY BOOKINGS
+   ========================================== */
+
+myBookingsButton.addEventListener(
+    "click",
+    function(){
+
+        openProtectedPage(
+            CONFIG.myBookingsPage
+        );
+
+    }
+);
+
+
+/* ==========================================
+   NOTIFICATIONS
+   ========================================== */
+
+notificationsButton.addEventListener(
+    "click",
+    function(){
+
+        openProtectedPage(
+            CONFIG.notificationsPage
+        );
+
+    }
+);
+
+
+/* ==========================================
+   LOGOUT
+   ========================================== */
+
+async function logoutUser(){
+
+    if(
+        navigationLocked
+    ){
+
+        return;
+    }
+
+    const confirmed =
+        window.confirm(
+            "Are you sure you want to logout?"
+        );
+
+    if(
+        !confirmed
+    ){
+
+        return;
+    }
+
+    navigationLocked =
+        true;
+
+    logoutButton.style.pointerEvents =
+        "none";
+
+    try{
+
+        const result =
+            await supabaseClient.auth.signOut();
+
+        if(
+            result.error
+        ){
+
+            throw result.error;
+        }
+
+        currentUser =
+            null;
+
+        currentProfile =
+            null;
+
+        window.location.href =
+            CONFIG.accountPage;
+
+    }catch(error){
+
+        navigationLocked =
+            false;
+
+        logoutButton.style.pointerEvents =
+            "";
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+        showStatus(
+            error.message ||
+            "Unable to logout. Please try again.",
+            "error"
+        );
+
+    }
+
+}
+
+logoutButton.addEventListener(
+    "click",
+    function(){
+
+        logoutUser();
+
+    }
+);
+
+
+/* ==========================================
+   AUTH STATE LISTENER
+   ========================================== */
+
+supabaseClient.auth.onAuthStateChange(
+    function(
+        event,
+        session
+    ){
+
+        if(
+            event === "SIGNED_OUT"
+        ){
+
+            currentUser =
+                null;
+
+            currentProfile =
+                null;
+
+            if(
+                !navigationLocked
+            ){
+
+                window.location.href =
+                    CONFIG.accountPage;
+            }
+
+            return;
+        }
+
+        if(
+            event === "SIGNED_IN" &&
+            session &&
+            session.user
+        ){
+
+            currentUser =
+                session.user;
+
+            if(
+                !loadingProfile &&
+                !savingProfile
+            ){
+
+                loadProfile();
+            }
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   PAGE VISIBILITY
+   ========================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            document.visibilityState !==
+            "visible"
+        ){
+
+            return;
+        }
+
+        if(
+            navigationLocked
+        ){
+
+            return;
+        }
+
+        if(
+            hasUnsavedChanges()
+        ){
+
+            return;
+        }
+
+        loadProfile();
+
+    }
+);
+
+
+/* ==========================================
+   WINDOW FOCUS
+   ========================================== */
+
+window.addEventListener(
+    "focus",
+    function(){
+
+        if(
+            navigationLocked
+        ){
+
+            return;
+        }
+
+        if(
+            hasUnsavedChanges()
+        ){
+
+            return;
+        }
+
+        loadProfile();
+
+    }
+);
+
+
+/* ==========================================
+   BEFORE LEAVING PAGE
+   ========================================== */
+
+window.addEventListener(
+    "beforeunload",
+    function(event){
+
+        if(
+            hasUnsavedChanges()
+        ){
+
+            event.preventDefault();
+
+            event.returnValue = "";
+
+        }
+
+    }
+);
+
+  /* ==========================================
+   REFRESH PROFILE FROM SERVER
+   ========================================== */
+
+async function refreshProfile(){
+
+    if(
+        navigationLocked
+    ){
+
+        return;
+    }
+
+    if(
+        hasUnsavedChanges()
+    ){
+
+        return;
+    }
+
+    try{
+
+        const user =
+            await getCurrentUser();
+
+        if(
+            !user
+        ){
+
+            window.location.href =
+                CONFIG.accountPage;
+
+            return;
+        }
+
+        currentUser =
+            user;
+
+        const profile =
+            await getUserProfile();
+
+        currentProfile =
+            normalizeProfile(
+                currentUser,
+                profile
+            );
+
+        renderProfile();
+
+        updateOriginalProfileState();
+
+    }catch(error){
+
+        console.error(
+            "Refresh profile error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   ACCOUNT STATE CHECK
+   ========================================== */
+
+async function checkAccountState(){
+
+    const user =
+        await getCurrentUser();
+
+    if(
+        !user
+    ){
+
+        currentUser =
+            null;
+
+        currentProfile =
+            null;
+
+        if(
+            !navigationLocked
+        ){
+
+            window.location.href =
+                CONFIG.accountPage;
+        }
+
+        return false;
+    }
+
+    currentUser =
+        user;
+
+    return true;
+
+}
+
+
+/* ==========================================
+   COMPLETE PROFILE REFRESH
+   ========================================== */
+
+async function refreshCompleteProfile(){
+
+    const valid =
+        await checkAccountState();
+
+    if(
+        !valid
+    ){
+
+        return false;
+    }
+
+    if(
+        hasUnsavedChanges()
+    ){
+
+        return false;
+    }
+
+    try{
+
+        const profile =
+            await getUserProfile();
+
+        currentProfile =
+            normalizeProfile(
+                currentUser,
+                profile
+            );
+
+        renderProfile();
+
+        updateOriginalProfileState();
+
+        return true;
+
+    }catch(error){
+
+        console.error(
+            "Complete profile refresh error:",
+            error
+        );
+
+        return false;
+    }
+
+}
+
+
+/* ==========================================
+   EMAIL REFRESH
+   ========================================== */
+
+function refreshAccountEmail(){
+
+    if(
+        !currentUser
+    ){
+
+        return;
+    }
+
+    const email =
+        currentUser.email ||
+        "";
+
+    emailInput.value =
+        email;
+
+    profileEmail.textContent =
+        email ||
+        "-";
+
+}
+
+
+/* ==========================================
+   PROFILE HEADER REFRESH
+   ========================================== */
+
+function refreshProfileHeader(){
+
+    if(
+        !currentProfile
+    ){
+
+        return;
+    }
+
+    const name =
+        getUserName();
+
+    profileName.textContent =
+        name;
+
+    avatar.textContent =
+        getInitial(
+            name
+        );
+
+}
+
+
+/* ==========================================
+   FORM REFRESH
+   ========================================== */
+
+function refreshProfileForm(){
+
+    if(
+        !currentProfile
+    ){
+
+        return;
+    }
+
+    nameInput.value =
+        currentProfile.name ||
+        "";
+
+    emailInput.value =
+        currentUser &&
+        currentUser.email
+            ? currentUser.email
+            : "";
+
+phoneInput.value =
+    currentProfile.phone ||
+    "";
+
+areaInput.value =
+    currentProfile.area ||
+    "";
+
+cityInput.value =
+    currentProfile.city ||
+    "";
+  
+}
+
+
+/* ==========================================
+   SYNC COMPLETE UI
+   ========================================== */
+
+function syncProfileDisplay(){
+
+    if(
+        !currentUser
+    ){
+
+        return;
+    }
+
+    refreshProfileHeader();
+
+    refreshAccountEmail();
+
+    refreshProfileForm();
+
+    }
+
+  /* ==========================================
+   NAVIGATION SAFETY
+   ========================================== */
+
+function navigateOnce(
+    url
+){
+
+    if(
+        navigationLocked
+    ){
+
+        return;
+    }
+
+    navigationLocked =
+        true;
+
+    window.location.href =
+        url;
+
+}
+
+
+/* ==========================================
+   INITIALIZE PROFILE PAGE
+   ========================================== */
+
+async function initializeProfilePage(){
+
+    if(
+        loadingProfile
+    ){
+
+        return;
+    }
+
+    loadingProfile =
+        true;
+
+    try{
+
+        currentUser =
+            await getCurrentUser();
+
+        if(
+            !currentUser
+        ){
+
+            window.location.href =
+                CONFIG.accountPage;
+
+            return;
+        }
+
+        const profile =
+            await getUserProfile();
+
+        currentProfile =
+            normalizeProfile(
+                currentUser,
+                profile
+            );
+
+        syncProfileDisplay();
+
+        updateOriginalProfileState();
+
+    }catch(error){
+
+        console.error(
+            "Profile initialization error:",
+            error
+        );
+
+        showStatus(
+            error.message ||
+            "Unable to load your profile.",
+            "error"
+        );
+
+    }finally{
+
+        loadingProfile =
+            false;
+
+    }
+
+}
+
+
+/* ==========================================
+   SAVE BUTTON LOADING PROTECTION
+   ========================================== */
+
+function setSavingState(
+    isSaving
+){
+
+    savingProfile =
+        isSaving;
+
+    saveButton.disabled =
+        isSaving;
+
+    saveButton.textContent =
+        isSaving
+            ? "Saving..."
+            : "Save Changes";
+
+}
+
+
+/* ==========================================
+   PROFILE SAVE GUARD
+   ========================================== */
+
+saveButton.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            savingProfile
+        ){
+
+            return;
+        }
+
+        const valid =
+            await checkAccountState();
+
+        if(
+            !valid
+        ){
+
+            return;
+        }
+
+        if(
+            !validateProfile()
+        ){
+
+            return;
+        }
+
+        await saveProfile();
+
+    }
+);
+
+
+/* ==========================================
+   DOUBLE CLICK PROTECTION
+   ========================================== */
+
+[
+    myPostsButton,
+    myBookingsButton,
+    notificationsButton,
+    backButton,
+    logoutButton
+].forEach(
+    function(button){
+
+        if(
+            !button
+        ){
+
+            return;
+        }
+
+        button.addEventListener(
+            "dblclick",
+            function(event){
+
+                event.preventDefault();
+
+            }
+        );
+
+    }
+);
+
+
+/* ==========================================
+   FINAL PROFILE CHECK
+   ========================================== */
+
+async function finalProfileCheck(){
+
+    const user =
+        await getCurrentUser();
+
+    if(
+        !user
+    ){
+
+        return false;
+    }
+
+    currentUser =
+        user;
+
+    return true;
+
+}
+
+
+/* ==========================================
+   FINAL INITIALIZATION
+   ========================================== */
+
+async function finalInitialization(){
+
+    const valid =
+        await finalProfileCheck();
+
+    if(
+        !valid
+    ){
+
+        window.location.href =
+            CONFIG.accountPage;
+
+        return;
+    }
+
+    await initializeProfilePage();
+
+}
+
+
+/* ==========================================
+   ERROR SAFETY
+   ========================================== */
+
+window.addEventListener(
+    "error",
+    function(event){
+
+        console.error(
+            "Pyncode Local Profile Error:",
+            event.error
+        );
+
+    }
+);
+
+
+/* ==========================================
+   UNHANDLED PROMISE SAFETY
+   ========================================== */
+
+window.addEventListener(
+    "unhandledrejection",
+    function(event){
+
+        console.error(
+            "Pyncode Local Profile Promise Error:",
+            event.reason
+        );
+
+    }
+);
+
+  /* ==========================================
+   START
+   ========================================== */
+
+finalInitialization();
+
+
+
+</script>
+
+</body>
+
+</html>
