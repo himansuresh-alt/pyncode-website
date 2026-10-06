@@ -815,6 +815,39 @@ body{
 
         </div>
 
+      <!-- ===============================
+     SHOP LOCATION
+================================ -->
+
+<div class="field">
+
+    <label>
+        Shop Location
+    </label>
+
+    <button
+        type="button"
+        id="getLocationButton"
+        class="create-button"
+        style="background:#f97316;"
+    >
+        📍 Use My Current Location
+    </button>
+
+    <div
+        id="locationStatus"
+        style="
+            margin-top:8px;
+            font-size:12px;
+            color:#64748b;
+            line-height:1.5;
+        "
+    >
+        Shop location is required for nearby QR Store results.
+    </div>
+
+</div>
+
 
         <!-- ===============================
              CREATE BUTTON
@@ -976,6 +1009,137 @@ const togglePassword =
         "togglePassword"
     );
 
+/* =====================================================
+   SHOP LOCATION
+===================================================== */
+
+const getLocationButton =
+    document.getElementById(
+        "getLocationButton"
+    );
+
+const locationStatus =
+    document.getElementById(
+        "locationStatus"
+    );
+
+
+let shopLatitude = null;
+let shopLongitude = null;
+let shopLocationAccuracy = null;
+
+
+getLocationButton.addEventListener(
+    "click",
+    function(){
+
+        if(!navigator.geolocation){
+
+            locationStatus.textContent =
+                "Location is not supported by this browser.";
+
+            locationStatus.style.color =
+                "#dc2626";
+
+            return;
+        }
+
+
+        getLocationButton.disabled = true;
+
+        getLocationButton.textContent =
+            "📍 Getting Location...";
+
+        locationStatus.textContent =
+            "Please allow location access when your browser asks.";
+
+        locationStatus.style.color =
+            "#2563eb";
+
+
+        navigator.geolocation.getCurrentPosition(
+
+            function(position){
+
+                shopLatitude =
+                    position.coords.latitude;
+
+                shopLongitude =
+                    position.coords.longitude;
+
+                shopLocationAccuracy =
+                    position.coords.accuracy;
+
+
+                getLocationButton.disabled =
+                    false;
+
+                getLocationButton.textContent =
+                    "✓ Location Captured";
+
+
+                locationStatus.textContent =
+                    "Shop location captured successfully.";
+
+                locationStatus.style.color =
+                    "#16a34a";
+
+
+                console.log(
+                    "Shop Latitude:",
+                    shopLatitude
+                );
+
+                console.log(
+                    "Shop Longitude:",
+                    shopLongitude
+                );
+
+            },
+
+            function(error){
+
+                shopLatitude =
+                    null;
+
+                shopLongitude =
+                    null;
+
+                shopLocationAccuracy =
+                    null;
+
+
+                getLocationButton.disabled =
+                    false;
+
+                getLocationButton.textContent =
+                    "📍 Use My Current Location";
+
+
+                locationStatus.textContent =
+                    "Unable to get location. Please allow location access and try again.";
+
+                locationStatus.style.color =
+                    "#dc2626";
+
+
+                console.error(
+                    "Shop location error:",
+                    error
+                );
+
+            },
+
+            {
+                enableHighAccuracy:true,
+                timeout:15000,
+                maximumAge:0
+            }
+
+        );
+
+    }
+);
 
 /* =====================================================
    MESSAGE FUNCTIONS
@@ -1407,8 +1571,14 @@ createAccountForm.addEventListener(
                     p_city:
                         city,
 
-                    p_pincode:
-                        pincode
+                   p_pincode:
+                    pincode,
+
+p_latitude:
+    shopLatitude,
+
+p_longitude:
+    shopLongitude
                 }
             );
 
