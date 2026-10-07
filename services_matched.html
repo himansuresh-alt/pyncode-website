@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -328,8 +329,7 @@ body{
 
     margin:0 auto;
 
-    padding:
-        38px 4% 100px;
+    padding:38px 4% 100px;
 }
 
 
@@ -544,10 +544,136 @@ body{
 
 
 /* =====================================================
+   RADIUS
+===================================================== */
+
+.radius-section{
+
+    margin:
+        12px 4% 0;
+
+    padding:
+        17px 22px 16px;
+
+    background:#fff;
+
+    border:
+        1px solid #e1e5eb;
+
+    border-radius:16px;
+
+    box-shadow:
+        0 6px 20px
+        rgba(25,40,70,.055);
+}
+
+
+.radius-top{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    flex-wrap:wrap;
+}
+
+
+.radius-title{
+
+    color:#4b5361;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    white-space:nowrap;
+}
+
+
+.radius-buttons{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+
+.radius-button{
+
+    height:38px;
+
+    min-width:82px;
+
+    padding:0 17px;
+
+    border:
+        1px solid #dfe4ea;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    color:#596170;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.18s ease;
+}
+
+
+.radius-button:hover{
+
+    border-color:#ef603e;
+}
+
+
+.radius-button.active{
+
+    border-color:#ef603e;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7619,
+            #ff416d
+        );
+
+    color:#fff;
+
+    box-shadow:
+        0 6px 16px
+        rgba(255,90,70,.20);
+}
+
+
+.radius-note{
+
+    margin-top:11px;
+
+    color:#9299a5;
+
+    font-size:11px;
+
+    line-height:1.4;
+}
+
+
+/* =====================================================
    CATEGORY
 ===================================================== */
 
 .filter-section{
+
     margin-top:22px;
 }
 
@@ -638,6 +764,7 @@ body{
 
 
 .category-filter::-webkit-scrollbar{
+
     display:none;
 }
 
@@ -705,8 +832,7 @@ body{
     color:#fff;
 }
 
-
-/* =====================================================
+  /* =====================================================
    SERVICE PROVIDER SECTION
 ===================================================== */
 
@@ -963,7 +1089,8 @@ body{
     line-height:1.4;
 }
 
-  .shop-rating{
+
+.shop-rating{
 
     display:flex;
 
@@ -982,6 +1109,7 @@ body{
 
 
 .rating-star{
+
     color:#f4a623;
 }
 
@@ -1238,6 +1366,40 @@ body{
         width:100%;
     }
 
+
+    .radius-section{
+
+        margin:
+            10px 16px 0;
+
+        padding:
+            16px;
+    }
+
+
+    .radius-top{
+
+        align-items:flex-start;
+
+        flex-direction:column;
+
+        gap:12px;
+    }
+
+
+    .radius-buttons{
+
+        width:100%;
+    }
+
+
+    .radius-button{
+
+        flex:1;
+
+        min-width:0;
+    }
+
 }
 
 </style>
@@ -1265,8 +1427,21 @@ body{
 
 </div>
 
+
 <div>
-<span class="pyn-text">Pyn</span><span class="code-text">code</span><span class="pyn-text">.in</span>
+
+<span class="pyn-text">
+    Pyn
+</span>
+
+<span class="code-text">
+    code
+</span>
+
+<span class="pyn-text">
+    .in
+</span>
+
 </div>
 
 </div>
@@ -1280,6 +1455,7 @@ body{
 >
     + List Your Service
 </a>
+
 
 <button
     type="button"
@@ -1360,6 +1536,61 @@ body{
 >
     📍 Use My Location
 </button>
+
+</section>
+
+
+<section
+    class="radius-section"
+    id="radiusSection"
+>
+
+<div class="radius-top">
+
+<div class="radius-title">
+    📏 Show services within
+</div>
+
+
+<div class="radius-buttons">
+
+<button
+    type="button"
+    class="radius-button"
+    data-radius="2"
+>
+    2 KM
+</button>
+
+
+<button
+    type="button"
+    class="radius-button active"
+    data-radius="5"
+>
+    5 KM
+</button>
+
+
+<button
+    type="button"
+    class="radius-button"
+    data-radius="10"
+>
+    10 KM
+</button>
+
+</div>
+
+</div>
+
+
+<div
+    class="radius-note"
+    id="radiusNote"
+>
+    Use your location to show services within 5 KM.
+</div>
 
 </section>
 
@@ -1461,16 +1692,21 @@ body{
     aria-label="Main navigation"
 >
 
-    <a
-        href="shops.html"
-        class="bottom-nav-item"
-    >
-        <span class="nav-icon">🏪</span>
-        <span class="nav-label">Shops</span>
-    </a>
+<a
+    href="shops.html"
+    class="bottom-nav-item"
+>
+    <span class="nav-icon">
+        🏪
+    </span>
+
+    <span class="nav-label">
+        Shops
+    </span>
+</a>
 
 
-  <a
+<a
     href="services_matched.html"
     class="bottom-nav-item active"
 >
@@ -1481,41 +1717,56 @@ body{
     <span class="nav-label">
         Services
     </span>
-  </a>
-
-    <a
-        href="nearby-shops.html"
-        class="bottom-nav-item"
-    >
-        <span class="nav-icon">📱</span>
-        <span class="nav-label">QR Stores</span>
-    </a>
+</a>
 
 
-  <a
+<a
+    href="nearby-shops.html"
+    class="bottom-nav-item"
+>
+    <span class="nav-icon">
+        📱
+    </span>
+
+    <span class="nav-label">
+        QR Stores
+    </span>
+</a>
+
+
+<a
     href="feeds.html"
     class="bottom-nav-item"
 >
-    <span class="nav-icon">📰</span>
+    <span class="nav-icon">
+        📰
+    </span>
+
     <span class="nav-label">
         Feeds
     </span>
-  </a>
+</a>
 
-    <a
-        href="promotion.html"
-        class="bottom-nav-item"
-    >
-        <span class="nav-icon">📢</span>
-        <span class="nav-label">Promotion</span>
-    </a>
+
+<a
+    href="promotion.html"
+    class="bottom-nav-item"
+>
+    <span class="nav-icon">
+        📢
+    </span>
+
+    <span class="nav-label">
+        Promotion
+    </span>
+</a>
 
 </nav>
 
 
 <script>
 
-  const categories = [
+const categories = [
 
 "AC Service & Repair",
 "Plumbing Services",
@@ -1568,13 +1819,20 @@ window.supabase.createClient(
 
 let allShops = [];
 
+
 let selectedCategory = "";
+
 
 let selectedPincode = "";
 
+
 let userLatitude = null;
 
+
 let userLongitude = null;
+
+
+let selectedRadiusKm = 5;
 
 
 const LOCATION_STORAGE_KEY =
@@ -1618,8 +1876,10 @@ phone.slice(2);
 
 
 return phone.length === 10
-? phone
-: "";
+?
+phone
+:
+"";
 
 }
 
@@ -1631,6 +1891,7 @@ longitude
 
 latitude =
 Number(latitude);
+
 
 longitude =
 Number(longitude);
@@ -1767,10 +2028,9 @@ Number(longitude)
 )
 );
 
-}
+              }
 
-
-function saveUserLocation(
+  function saveUserLocation(
 latitude,
 longitude
 ){
@@ -1853,6 +2113,102 @@ return null;
 }
 
 
+function updateRadiusButtons(){
+
+document
+.querySelectorAll(
+".radius-button"
+)
+.forEach(
+function(button){
+
+button.classList.toggle(
+"active",
+Number(button.dataset.radius) ===
+selectedRadiusKm
+);
+
+}
+);
+
+}
+
+
+function updateRadiusNote(){
+
+const note =
+document.getElementById(
+"radiusNote"
+);
+
+
+if(!note){
+
+return;
+
+}
+
+
+if(
+hasValidCoordinates(
+userLatitude,
+userLongitude
+)
+){
+
+note.textContent =
+"Showing services within " +
+selectedRadiusKm +
+" KM from your location.";
+
+}
+
+else{
+
+note.textContent =
+"Use your location to show services within " +
+selectedRadiusKm +
+" KM.";
+
+}
+
+}
+
+
+function selectRadius(
+radius
+){
+
+const value =
+Number(radius);
+
+
+if(
+![2,5,10].includes(value)
+){
+
+return;
+
+}
+
+
+selectedRadiusKm =
+value;
+
+
+updateRadiusButtons();
+
+
+updateRadiusNote();
+
+
+renderShops(
+allShops
+);
+
+}
+
+
 function setLocationStatus(
 message,
 type = ""
@@ -1873,6 +2229,7 @@ return;
 
 element.textContent =
 message;
+
 
 element.dataset.type =
 type;
@@ -1941,6 +2298,7 @@ return false;
 userLatitude =
 saved.latitude;
 
+
 userLongitude =
 saved.longitude;
 
@@ -1949,9 +2307,14 @@ refreshLocationButton();
 
 
 setLocationStatus(
-"Saved location is active. Showing nearest registered service providers first.",
+"Saved location is active. Showing services within " +
+selectedRadiusKm +
+" KM, nearest first.",
 "success"
 );
+
+
+updateRadiusNote();
 
 
 return true;
@@ -2031,9 +2394,14 @@ refreshLocationButton();
 
 
 setLocationStatus(
-"Your location is ready. Showing nearest registered service providers first.",
+"Your location is ready. Showing services within " +
+selectedRadiusKm +
+" KM, nearest first.",
 "success"
 );
+
+
+updateRadiusNote();
 
 
 renderShops(
@@ -2042,7 +2410,7 @@ allShops
 
 },
 
-  function(error){
+function(error){
 
 if(button){
 
@@ -2202,9 +2570,11 @@ category;
 button.onclick =
 function(){
 
-    window.location.href =
-        "service-category.html?category=" +
-        encodeURIComponent(category);
+window.location.href =
+"service-category.html?category=" +
+encodeURIComponent(
+category
+);
 
 };
 
@@ -2215,7 +2585,6 @@ button
 
 }
 );
-
 
 }
 
@@ -2366,10 +2735,9 @@ encodeURIComponent(message),
 "noopener"
 );
 
-}
+  }
 
-
-function buildShopCard(
+  function buildShopCard(
 shop
 ){
 
@@ -2721,6 +3089,32 @@ userLongitude
 )
 ){
 
+results =
+results.filter(
+function(shop){
+
+return (
+Number.isFinite(
+shop.distance
+)
+&&
+shop.distance <=
+selectedRadiusKm
+);
+
+}
+);
+
+}
+
+
+if(
+hasValidCoordinates(
+userLatitude,
+userLongitude
+)
+){
+
 results.sort(
 function(a,b){
 
@@ -2753,11 +3147,36 @@ Infinity
 
 }
 
-  if(title){
+
+if(title){
+
+if(
+selectedCategory
+){
 
 title.textContent =
-selectedCategory ||
+selectedCategory;
+
+}
+
+else if(
+hasValidCoordinates(
+userLatitude,
+userLongitude
+)
+){
+
+title.textContent =
+"Nearby Services";
+
+}
+
+else{
+
+title.textContent =
 "All Services";
+
+}
 
 }
 
@@ -2783,7 +3202,9 @@ userLatitude,
 userLongitude
 )
 ?
-"📍 Nearest first"
+"📍 Within " +
+selectedRadiusKm +
+" KM • Nearest first"
 :
 selectedPincode
 ?
@@ -2793,6 +3214,9 @@ selectedPincode
 "";
 
 }
+
+
+updateRadiusNote();
 
 
 if(
@@ -2814,7 +3238,7 @@ No registered service providers found
 
 
 <div class="shop-empty-text">
-Try another service category or pincode.
+Try another service category, radius or pincode.
 </div>
 
 </div>
@@ -2836,8 +3260,7 @@ buildShopCard
 
 }
 
-
-async function loadShopsFromSupabase(){
+  async function loadShopsFromSupabase(){
 
 const grid =
 document.getElementById(
@@ -3063,6 +3486,7 @@ currentPage
 }
 );
 
+
 }
 
 
@@ -3149,6 +3573,34 @@ locationButton.onclick =
 requestUserLocation;
 
 }
+
+
+document
+.querySelectorAll(
+".radius-button"
+)
+.forEach(
+function(button){
+
+button.addEventListener(
+"click",
+function(){
+
+selectRadius(
+button.dataset.radius
+);
+
+}
+);
+
+}
+);
+
+
+updateRadiusButtons();
+
+
+updateRadiusNote();
 
 
 restoreSavedLocation();

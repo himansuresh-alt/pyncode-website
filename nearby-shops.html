@@ -178,7 +178,7 @@ body{
     cursor:pointer;
 }
 
-  .location-area{
+.location-area{
     margin-top:16px;
     padding:16px;
     background:#fffaf7;
@@ -231,6 +231,53 @@ body{
 .location-button:disabled{
     opacity:.6;
     cursor:wait;
+}
+
+.radius-box{
+    margin-top:16px;
+    padding:16px;
+    background:#fff;
+    border:1px solid #e1e5eb;
+    border-radius:18px;
+    box-shadow:0 7px 22px rgba(25,40,70,.04);
+}
+
+.radius-title{
+    font-size:13px;
+    font-weight:900;
+    color:#4b5360;
+}
+
+.radius-buttons{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:12px;
+}
+
+.radius-button{
+    height:56px;
+    border:1px solid #dfe4ea;
+    border-radius:28px;
+    background:#fff;
+    color:#59616e;
+    font-size:13px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.radius-button.active{
+    border-color:transparent;
+    background:linear-gradient(135deg,#ff7619,#ff416d);
+    color:#fff;
+    box-shadow:0 8px 18px rgba(255,82,65,.18);
+}
+
+.radius-status{
+    margin-top:11px;
+    color:#8b93a0;
+    font-size:11px;
+    line-height:1.5;
 }
 
 .section-heading{
@@ -338,7 +385,7 @@ body{
     gap:15px;
 }
 
-  .shop-card{
+.shop-card{
     overflow:hidden;
     background:#fff;
     border:1px solid #e1e5eb;
@@ -375,7 +422,8 @@ body{
     top:10px;
     left:10px;
     background:#fff;
-    color:#15894b;
+
+      color:#15894b;
 }
 
 .distance-badge{
@@ -540,7 +588,7 @@ body{
     color:#151a28;
 }
 
-  @media(max-width:700px){
+@media(max-width:700px){
 
     .header{
         min-height:72px;
@@ -579,6 +627,15 @@ body{
 
     .location-button{
         width:100%;
+    }
+
+    .radius-buttons{
+        gap:8px;
+    }
+
+    .radius-button{
+        height:52px;
+        font-size:12px;
     }
 
     .shop-grid{
@@ -726,7 +783,7 @@ body{
 
 </section>
 
-  <section class="location-area">
+<section class="location-area">
 
 <div class="location-content">
 
@@ -757,6 +814,33 @@ body{
 
 </section>
 
+<section class="radius-box">
+
+<div class="radius-title">
+    📏 Show QR Stores within
+</div>
+
+<div class="radius-buttons">
+
+<button type="button" class="radius-button" data-radius="2">
+    2 KM
+</button>
+
+<button type="button" class="radius-button active" data-radius="5">
+    5 KM
+</button>
+
+<button type="button" class="radius-button" data-radius="10">
+    10 KM
+</button>
+
+</div>
+
+<div id="radiusStatus" class="radius-status">
+    Use your location to show registered QR Stores within 5 KM.
+</div>
+
+</section>
 
 <section>
 
@@ -786,7 +870,6 @@ body{
 </div>
 
 </section>
-
 
 <section class="shop-section">
 
@@ -818,7 +901,6 @@ body{
 
 </div>
 
-
 <div
     id="shopGrid"
     class="shop-grid"
@@ -845,7 +927,6 @@ body{
 </section>
 
 </main>
-
 
 <nav
     class="bottom-nav"
@@ -893,10 +974,9 @@ body{
 
 </nav>
 
-
 <script>
 
-const SUPABASE_URL =
+  const SUPABASE_URL =
     "https://mtuspuehsxsjoaxoenen.supabase.co";
 
 const SUPABASE_KEY =
@@ -922,6 +1002,8 @@ let selectedPincode = "";
 let userLatitude = null;
 
 let userLongitude = null;
+
+let selectedRadiusKm = 5;
 
 
 const categories = [
@@ -1029,7 +1111,80 @@ function cleanPhone(value){
 
 }
 
-  function validCoordinate(
+
+function updateRadiusButtons(){
+
+    document.querySelectorAll(
+        ".radius-button"
+    ).forEach(
+        function(button){
+
+            button.classList.toggle(
+                "active",
+                Number(
+                    button.dataset.radius
+                ) === selectedRadiusKm
+            );
+
+        }
+    );
+
+}
+
+
+function updateRadiusStatus(){
+
+    const status =
+        document.getElementById(
+            "radiusStatus"
+        );
+
+    if(!status){
+        return;
+    }
+
+    if(
+        validCoordinate(
+            userLatitude,
+            userLongitude
+        )
+    ){
+
+        status.textContent =
+            "Showing registered QR Stores within " +
+            selectedRadiusKm +
+            " KM, nearest first.";
+
+    }
+    else{
+
+        status.textContent =
+            "Use your location to show registered QR Stores within " +
+            selectedRadiusKm +
+            " KM.";
+
+    }
+
+}
+
+
+function selectRadius(radius){
+
+    selectedRadiusKm =
+        Number(radius) || 5;
+
+    updateRadiusButtons();
+
+    updateRadiusStatus();
+
+    renderShops(
+        allShops
+    );
+
+}
+
+
+function validCoordinate(
     latitude,
     longitude
 ){
@@ -1232,7 +1387,9 @@ function restoreUserLocation(){
             document.getElementById(
                 "locationStatus"
             ).textContent =
-                "Saved location is active. Showing nearest QR Stores first.";
+                "Saved location is active. Showing nearby QR Stores.";
+
+            updateRadiusStatus();
 
             return true;
 
@@ -1311,7 +1468,9 @@ function requestUserLocation(){
             document.getElementById(
                 "locationStatus"
             ).textContent =
-                "Location added. Showing nearest QR Stores first.";
+                "Location added. Showing nearby QR Stores.";
+
+            updateRadiusStatus();
 
             renderShops(
                 allShops
@@ -1363,7 +1522,8 @@ function requestUserLocation(){
 
 }
 
-  function loadCategories(){
+
+function loadCategories(){
 
     const container =
         document.getElementById(
@@ -1568,10 +1728,9 @@ function normalizeShop(shop){
 
     };
 
-}
+              }
 
-
-function buildShopLocation(
+  function buildShopLocation(
     shop
 ){
 
@@ -1613,7 +1772,8 @@ function buildShopLocation(
 
 }
 
-  function buildShopCard(
+
+function buildShopCard(
     shop
 ){
 
@@ -1668,10 +1828,15 @@ function buildShopLocation(
     loading="lazy"
     onerror="this.src='icon-512.png'"
 >
+
 <div class="shop-name-board">
-    <span class="shop-name-board-text">
-        ${escapeHtml(shop.name)}
-    </span>
+
+<span class="shop-name-board-text">
+
+${escapeHtml(shop.name)}
+
+</span>
+
 </div>
 
 <div class="verified-badge">
@@ -1864,74 +2029,69 @@ function renderShops(
     }
 
 
-    results =
-        results.map(
-            function(shop){
-
-                const copy = {
-                    ...shop,
-                    distance:null
-                };
-
-                if(
-                    validCoordinate(
-                        userLatitude,
-                        userLongitude
-                    ) &&
-                    validCoordinate(
-                        copy.latitude,
-                        copy.longitude
-                    )
-                ){
-
-                    copy.distance =
-                        calculateDistance(
-                            userLatitude,
-                            userLongitude,
-                            copy.latitude,
-                            copy.longitude
-                        );
-
-                }
-
-                return copy;
-
-            }
-        );
-
-      if(
+    if(
         validCoordinate(
             userLatitude,
             userLongitude
         )
     ){
 
+        results =
+            results.map(
+                function(shop){
+
+                    const copy = {
+                        ...shop,
+                        distance:null
+                    };
+
+                    if(
+                        validCoordinate(
+                            copy.latitude,
+                            copy.longitude
+                        )
+                    ){
+
+                        copy.distance =
+                            calculateDistance(
+                                userLatitude,
+                                userLongitude,
+                                copy.latitude,
+                                copy.longitude
+                            );
+
+                    }
+
+                    return copy;
+
+                }
+            )
+
+            .filter(
+                function(shop){
+
+                    return (
+                        Number.isFinite(shop.distance) &&
+                        shop.distance <= selectedRadiusKm
+                    );
+
+                }
+            );
+
         results.sort(
             function(a,b){
 
-                const distanceA =
-                    Number.isFinite(
-                        a.distance
-                    )
-                    ?
-                    a.distance
-                    :
-                    Infinity;
-
-                const distanceB =
-                    Number.isFinite(
-                        b.distance
-                    )
-                    ?
-                    b.distance
-                    :
-                    Infinity;
-
-                return distanceA -
-                       distanceB;
+                return a.distance - b.distance;
 
             }
         );
+
+    }
+    else if(
+        !selectedPincode
+    ){
+
+        results = [];
 
     }
 
@@ -1954,7 +2114,7 @@ function renderShops(
 
     title.textContent =
         selectedCategory ||
-        "All QR Stores";
+        "QR Stores Near You";
 
 
     count.textContent =
@@ -1976,7 +2136,9 @@ function renderShops(
     ){
 
         location.textContent =
-            "📍 Nearest first";
+            "📍 Within " +
+            selectedRadiusKm +
+            " KM • Nearest first";
 
     }
     else if(
@@ -1991,7 +2153,7 @@ function renderShops(
     else{
 
         location.textContent =
-            "";
+            "📍 Location required";
 
     }
 
@@ -2006,6 +2168,32 @@ function renderShops(
         !results.length
     ){
 
+        let emptyText =
+            "No registered QR Stores found within " +
+            selectedRadiusKm +
+            " KM. Try a larger radius.";
+
+        if(
+            !validCoordinate(
+                userLatitude,
+                userLongitude
+            ) &&
+            !selectedPincode
+        ){
+
+            emptyText =
+                "Use My Location to find registered QR Stores near you.";
+
+        }
+        else if(
+            selectedPincode
+        ){
+
+            emptyText =
+                "No registered QR Stores found for this pincode.";
+
+        }
+
         grid.innerHTML = `
 
 <div class="shop-empty">
@@ -2019,7 +2207,7 @@ function renderShops(
 </div>
 
 <div class="shop-empty-text">
-    Try another category or pincode.
+    ${escapeHtml(emptyText)}
 </div>
 
 </div>
@@ -2040,8 +2228,7 @@ function renderShops(
 
 }
 
-
-async function loadShops(){
+  async function loadShops(){
 
     const grid =
         document.getElementById(
@@ -2075,11 +2262,8 @@ async function loadShops(){
         /*
          * IMPORTANT
          *
-         * QR Stores are identified by
-         * active Live QR records.
-         *
-         * Existing "nearby" records are
-         * also supported.
+         * Existing QR Store query
+         * is preserved.
          */
 
         const {
@@ -2131,14 +2315,6 @@ async function loadShops(){
             data || [];
 
 
-        /*
-         * Show active Live QR stores.
-         *
-         * Also keep old nearby
-         * records when they have
-         * Live QR enabled.
-         */
-
         allShops =
             rows
 
@@ -2172,7 +2348,7 @@ async function loadShops(){
             allShops
         );
 
-          }
+    }
     catch(error){
 
         console.error(
@@ -2320,7 +2496,33 @@ function setupPincodeInput(){
 
 }
 
+
 function setupButtons(){
+
+    document.querySelectorAll(
+        ".radius-button"
+    ).forEach(
+        function(button){
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    selectRadius(
+                        button.dataset.radius
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    updateRadiusButtons();
+
+    updateRadiusStatus();
+
 
     document.getElementById(
         "useLocationButton"
@@ -2328,6 +2530,7 @@ function setupButtons(){
         "click",
         requestUserLocation
     );
+
 
     document.getElementById(
         "searchButton"
@@ -2356,7 +2559,7 @@ document.addEventListener(
     }
 );
 
-</script>
+  </script>
 
 </body>
 </html>
