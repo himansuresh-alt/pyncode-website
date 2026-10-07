@@ -1,42 +1,866 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="Find registered local shops near you on Pyncode.in.">
-<link rel="icon" type="image/png" href="/icon-192.png">
-<link rel="apple-touch-icon" href="/icon-192.png">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0"
+>
+
+<meta
+name="description"
+content="Find registered local shops near you on Pyncode.in."
+>
+
+<link
+rel="icon"
+type="image/png"
+href="/icon-192.png"
+>
+
+<link
+rel="apple-touch-icon"
+href="/icon-192.png"
+>
+
 <title>Shops Near You | Pyncode.in</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#f8fbff,#f5f7fb 55%,#fff);color:#151a28;min-height:100vh;padding-bottom:105px}.header{width:100%;min-height:76px;background:rgba(255,255,255,.97);border-bottom:1px solid #e6e9ef;display:flex;align-items:center;justify-content:space-between;padding:0 4%;position:relative;z-index:20;box-shadow:0 5px 20px rgba(20,30,60,.045)}.logo{display:flex;align-items:center;gap:10px;color:#151a28;font-size:23px;font-weight:900;letter-spacing:-.5px;cursor:pointer}.logo-mark{width:70px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:13px;overflow:hidden;background:linear-gradient(135deg,#ff7619,#ff416d);box-shadow:0 8px 20px rgba(255,90,70,.22)}.logo-mark img{width:100%;height:140%;object-fit:contain}.pyn-text{color:#ef603e}.code-text{color:#151923}.header-actions{display:flex;align-items:center;gap:6px}.list-shop-btn,.interested-btn{height:44px;padding:0 14px;border-radius:12px;font-size:13px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}.list-shop-btn{background:linear-gradient(135deg,#151a24,#252b36);color:#fff;text-decoration:none}.interested-btn{border:1px solid #25D366;background:#25D366;color:#fff;cursor:pointer}.main{width:100%;max-width:1200px;margin:0 auto;padding:38px 4% 100px}.search-section{margin:18px 4% 0}.search-title,.filter-title{font-size:16px;font-weight:900;margin-bottom:9px}.search-box{width:100%;min-height:54px;display:flex;align-items:center;gap:8px;padding:6px 7px 6px 16px;background:#fff;border:1px solid #dfe4ea;border-radius:15px;box-shadow:0 6px 20px rgba(25,40,70,.055)}.search-icon
 
-  {font-size:20px}.pincode-input{flex:1;min-width:0;height:42px;border:0;outline:0;background:transparent;color:#151a28;font-size:14px}.pincode-input::placeholder{color:#9aa1ac}.search-btn{height:42px;padding:0 18px;border:0;border-radius:11px;background:linear-gradient(135deg,#ff7619,#ff416d);color:#fff;font-size:13px;font-weight:900;cursor:pointer}.location-area{margin:14px 4% 0;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff9f6;border:1px solid #f1ddd6;border-radius:15px;box-shadow:0 5px 16px rgba(25,40,70,.035)}.location-info{min-width:0}.location-title{font-size:13px;font-weight:900}.location-status{margin-top:4px;color:#7d8592;font-size:11px;line-height:1.45}.location-button{height:40px;padding:0 15px;border:1px solid #ef603e;border-radius:10px;background:#fff;color:#ef603e;font-size:12px;font-weight:900;cursor:pointer}.location-button.active{background:linear-gradient(135deg,#ff7619,#ff416d);color:#fff}.location-button:disabled{opacity:.65;cursor:wait}.filter-section{margin-top:22px}.category-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 4%;margin-bottom:10px}.filter-title{padding:0;margin:0}.view-all-btn{flex-shrink:0;height:36px;padding:0 13px;display:inline-flex;align-items:center;justify-content:center;gap:5px;border:1px solid #151a28;border-radius:10px;background:#151a28;color:#fff;text-decoration:none;font-size:11px;font-weight:900;box-shadow:0 5px 14px rgba(21,26,40,.12)}.view-all-btn span{font-size:14px;line-height:1}.category-filter{display:flex;gap:9px;overflow-x:auto;padding:2px 4% 8px;scrollbar-width:none}.category-filter::-webkit-scrollbar{display:none}.category-chip{flex-shrink:0;min-height:38px;padding:0 15px;display:flex;align-items:center;justify-content:center;border:1px solid #dfe4ea;border-radius:20px;background:#fff;color:#596170;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap}.category-chip.active{border-color:#ef603e;background:linear-gradient(135deg,#ff7619,#ff416d);color:#fff;box-shadow:0 5px 14px rgba(255,90,70,.18)}.view-all-category{text-decoration:none;border-color:#151a28;background:#151a28;color:#fff}.shop-section{margin:24px 4% 0}.shop-list-header{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:13px}.shop-list-title{font-size:22px;font-weight:900;letter-spacing:-.4px}.shop-list-count{margin-top:4px;color:#858d9a;font-size:12px;font-weight:700}.shop-location{color:#ef603e;font-size:12px;font-weight:800}.shop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.shop-card{overflow:hidden;background:#fff;border:1px solid #e1e5eb;border-radius:18px;box-shadow:0 6px 20px rgba(25,40,70,.055)}.shop-image-wrap{width:100%;height:190px;position:relative;overflow:hidden;background:#eef1f5}.shop-image{width:100%;height:100%;display:block;object-fit:cover}.verified-badge,.distance-badge{position:absolute;padding:6px 9px;border-radius:9px;font-size:10px;font-weight:900;box-shadow:0 4px 12px rgba(0,0,0,.1)}.verified-badge{top:10px;left:10px;background:rgba(255,255,255,.94);color:#16894a}.distance-badge{right:10px;bottom:10px;border-radius:999px;background:rgba(21,26,40,.88);color:#fff}.shop-card-body{padding:14px}.shop-name-row{display:flex;align-items:center;justify-content:space-between;gap:10px}.shop-name{min-width:0;color:#171c28;font-size:16px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.shop-arrow{width:30px;height:30px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#f4f6f9;color:#7c8491}.shop-category{margin-top:6px;color:#ef603e;font-size:11px;font-weight:800}.shop-location{display:flex;align-items:center;gap:5px;margin-top:8px;color:#727b89;font-size:12px;line-height:1.4}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box
+}
 
-.shop-rating{display:flex;align-items:center;gap:5px;margin-top:9px;color:#4d5665;font-size:11px;font-weight:800}.rating-star{color:#f4a623}.shop-actions{display:flex;gap:7px;margin-top:13px}.shop-action{flex:1;height:38px;display:flex;align-items:center;justify-content:center;border-radius:10px;text-decoration:none;font-size:11px;font-weight:900}.call-action,.offers-action{background:#f3f5f8;color:#303744;border:1px solid #e0e4e9}.whatsapp-action{background:#25D366;color:#fff;border:1px solid #25D366}.directions-action{background:#fff4ef;color:#ef603e;border:1px solid #f6d2c7}.shop-empty{width:100%;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#fff;border:1px dashed #d9dee6;border-radius:18px;padding:25px}.shop-empty-icon{font-size:34px;margin-bottom:9px}.shop-empty-title{font-size:15px;font-weight:900}.shop-empty-text{margin-top:5px;color:#9299a5;font-size:12px;line-height:1.5;max-width:300px}.bottom-nav{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);width:min(560px,calc(100% - 20px));height:68px;display:flex;align-items:center;justify-content:space-around;gap:4px;padding:6px;background:rgba(21,29,48,.97);border-radius:22px;z-index:9998;box-shadow:0 10px 30px rgba(10,20,40,.22)}.bottom-nav-item{flex:1;min-width:0;height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-radius:17px;text-decoration:none;color:#aeb6c5;font-size:10px;font-weight:800}.bottom-nav-item .nav-icon{font-size:20px}.bottom-nav-item.active{background:#fff;color:#151a28}.bottom-nav-item .nav-label{white-space:nowrap}@media(max-width:700px){.category-heading{padding:0 16px}.category-filter{padding-left:16px;padding-right:16px}.shop-grid{grid-template-columns:1fr}.bottom-nav{left:10px;bottom:10px;transform:none;width:calc(100% - 20px);height:64px}.bottom-nav-item{height:54px;font-size:9px}}@media(max-width:600px){.header{min-height:64px;padding:0 10px}.logo{gap:5px;font-size:17px}.logo-mark{width:55px;height:40px;border-radius:9px}.header-actions{gap:4px}.list-shop-btn{width:76px;padding:0 7px;font-size:10px}.interested-btn{height:38px;padding:0 9px;font-size:10px}.location-area{margin:12px 16px 0;align-items:stretch;flex-direction:column}.location-button{width:100%}}
+html{
+scroll-behavior:smooth
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(
+180deg,
+#f8fbff,
+#f5f7fb 55%,
+#fff
+);
+color:#151a28;
+min-height:100vh;
+padding-bottom:105px
+}
+
+.header{
+width:100%;
+min-height:76px;
+background:rgba(255,255,255,.97);
+border-bottom:1px solid #e6e9ef;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 4%;
+position:relative;
+z-index:20;
+box-shadow:0 5px 20px rgba(20,30,60,.045)
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+color:#151a28;
+font-size:23px;
+font-weight:900;
+letter-spacing:-.5px;
+cursor:pointer
+}
+
+.logo-mark{
+width:70px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:13px;
+overflow:hidden;
+background:linear-gradient(
+135deg,
+#ff7619,
+#ff416d
+);
+box-shadow:0 8px 20px rgba(255,90,70,.22)
+}
+
+.logo-mark img{
+width:100%;
+height:140%;
+object-fit:contain
+}
+
+.pyn-text{
+color:#ef603e
+}
+
+.code-text{
+color:#151923
+}
+
+.header-actions{
+display:flex;
+align-items:center;
+gap:6px
+}
+
+.list-shop-btn,
+.interested-btn{
+height:44px;
+padding:0 14px;
+border-radius:12px;
+font-size:13px;
+font-weight:900;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+white-space:nowrap
+}
+
+.list-shop-btn{
+background:linear-gradient(
+135deg,
+#151a24,
+#252b36
+);
+color:#fff;
+text-decoration:none
+}
+
+.interested-btn{
+border:1px solid #25D366;
+background:#25D366;
+color:#fff;
+cursor:pointer
+}
+
+.main{
+width:100%;
+max-width:1200px;
+margin:0 auto;
+padding:38px 4% 100px
+}
+
+.search-section{
+margin:18px 4% 0
+}
+
+.search-title,
+.filter-title{
+font-size:16px;
+font-weight:900;
+margin-bottom:9px
+}
+
+.search-box{
+width:100%;
+min-height:54px;
+display:flex;
+align-items:center;
+gap:8px;
+padding:6px 7px 6px 16px;
+background:#fff;
+border:1px solid #dfe4ea;
+border-radius:15px;
+box-shadow:0 6px 20px rgba(25,40,70,.055)
+}
+
+.search-icon{
+font-size:20px
+}
+
+.pincode-input{
+flex:1;
+min-width:0;
+height:42px;
+border:0;
+outline:0;
+background:transparent;
+color:#151a28;
+font-size:14px
+}
+
+.pincode-input::placeholder{
+color:#9aa1ac
+}
+
+.search-btn{
+height:42px;
+padding:0 18px;
+border:0;
+border-radius:11px;
+background:linear-gradient(
+135deg,
+#ff7619,
+#ff416d
+);
+color:#fff;
+font-size:13px;
+font-weight:900;
+cursor:pointer
+}
+
+.location-area{
+margin:14px 4% 0;
+padding:14px 16px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+background:#fff9f6;
+border:1px solid #f1ddd6;
+border-radius:15px;
+box-shadow:0 5px 16px rgba(25,40,70,.035)
+}
+
+.location-info{
+min-width:0
+}
+
+.location-title{
+font-size:13px;
+font-weight:900
+}
+
+.location-status{
+margin-top:4px;
+color:#7d8592;
+font-size:11px;
+line-height:1.45
+}
+
+.location-button{
+height:40px;
+padding:0 15px;
+border:1px solid #ef603e;
+border-radius:10px;
+background:#fff;
+color:#ef603e;
+font-size:12px;
+font-weight:900;
+cursor:pointer
+}
+
+.location-button.active{
+background:linear-gradient(
+135deg,
+#ff7619,
+#ff416d
+);
+color:#fff
+}
+
+.location-button:disabled{
+opacity:.65;
+cursor:wait
+}
+
+
+/* =========================
+   RADIUS FILTER
+========================= */
+
+.radius-section{
+margin:12px 4% 0;
+padding:12px 14px;
+display:flex;
+align-items:center;
+gap:10px;
+flex-wrap:wrap;
+background:#fff;
+border:1px solid #e5e8ed;
+border-radius:14px;
+box-shadow:0 5px 16px rgba(25,40,70,.035)
+}
+
+.radius-title{
+font-size:12px;
+font-weight:900;
+color:#424957;
+white-space:nowrap
+}
+
+.radius-buttons{
+display:flex;
+align-items:center;
+gap:7px;
+flex-wrap:wrap
+}
+
+.radius-button{
+height:34px;
+min-width:62px;
+padding:0 13px;
+border:1px solid #dfe4ea;
+border-radius:999px;
+background:#f8fafc;
+color:#596170;
+font-size:11px;
+font-weight:900;
+cursor:pointer;
+transition:.18s ease
+}
+
+.radius-button:hover{
+border-color:#ef603e
+}
+
+.radius-button.active{
+border-color:#ef603e;
+background:linear-gradient(
+135deg,
+#ff7619,
+#ff416d
+);
+color:#fff;
+box-shadow:0 5px 14px rgba(255,90,70,.18)
+}
+
+.radius-note{
+width:100%;
+font-size:10px;
+color:#8a929f;
+line-height:1.4
+}
+
+
+/* =========================
+   CATEGORY
+========================= */
+
+.filter-section{
+margin-top:22px
+}
+
+.category-heading{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+padding:0 4%;
+margin-bottom:10px
+}
+
+.filter-title{
+padding:0;
+margin:0
+}
+
+.view-all-btn{
+flex-shrink:0;
+height:36px;
+padding:0 13px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:5px;
+border:1px solid #151a28;
+border-radius:10px;
+background:#151a28;
+color:#fff;
+text-decoration:none;
+font-size:11px;
+font-weight:900;
+box-shadow:0 5px 14px rgba(21,26,40,.12)
+}
+
+.view-all-btn span{
+font-size:14px;
+line-height:1
+}
+
+.category-filter{
+display:flex;
+gap:9px;
+overflow-x:auto;
+padding:2px 4% 8px;
+scrollbar-width:none
+}
+
+.category-filter::-webkit-scrollbar{
+display:none
+}
+
+.category-chip{
+flex-shrink:0;
+min-height:38px;
+padding:0 15px;
+display:flex;
+align-items:center;
+justify-content:center;
+border:1px solid #dfe4ea;
+border-radius:20px;
+background:#fff;
+color:#596170;
+font-size:12px;
+font-weight:800;
+cursor:pointer;
+white-space:nowrap
+}
+
+.category-chip.active{
+border-color:#ef603e;
+background:linear-gradient(
+135deg,
+#ff7619,
+#ff416d
+);
+color:#fff;
+box-shadow:0 5px 14px rgba(255,90,70,.18)
+}
+
+
+/* =========================
+   SHOP LIST
+========================= */
+
+.shop-section{
+margin:24px 4% 0
+}
+
+.shop-list-header{
+display:flex;
+align-items:flex-end;
+justify-content:space-between;
+gap:15px;
+margin-bottom:13px
+}
+
+.shop-list-title{
+font-size:22px;
+font-weight:900;
+letter-spacing:-.4px
+}
+
+.shop-list-count{
+margin-top:4px;
+color:#858d9a;
+font-size:12px;
+font-weight:700
+}
+
+.shop-location{
+color:#ef603e;
+font-size:12px;
+font-weight:800
+}
+
+.shop-grid{
+display:grid;
+grid-template-columns:repeat(
+2,
+minmax(0,1fr)
+);
+gap:14px
+}
+
+  .shop-card{
+overflow:hidden;
+background:#fff;
+border:1px solid #e1e5eb;
+border-radius:18px;
+box-shadow:0 6px 20px rgba(25,40,70,.055)
+}
+
+.shop-image-wrap{
+width:100%;
+height:190px;
+position:relative;
+overflow:hidden;
+background:#eef1f5
+}
+
+.shop-image{
+width:100%;
+height:100%;
+display:block;
+object-fit:cover
+}
+
+.verified-badge,
+.distance-badge{
+position:absolute;
+padding:6px 9px;
+border-radius:9px;
+font-size:10px;
+font-weight:900;
+box-shadow:0 4px 12px rgba(0,0,0,.1)
+}
+
+.verified-badge{
+top:10px;
+left:10px;
+background:rgba(255,255,255,.94);
+color:#16894a
+}
+
+.distance-badge{
+right:10px;
+bottom:10px;
+border-radius:999px;
+background:rgba(21,26,40,.88);
+color:#fff
+}
+
+.shop-card-body{
+padding:14px
+}
+
+.shop-name-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px
+}
+
+.shop-name{
+min-width:0;
+color:#171c28;
+font-size:16px;
+font-weight:900;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis
+}
+
+.shop-arrow{
+width:30px;
+height:30px;
+flex-shrink:0;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+background:#f4f6f9;
+color:#7c8491
+}
+
+.shop-category{
+margin-top:6px;
+color:#ef603e;
+font-size:11px;
+font-weight:800
+}
+
+.shop-location{
+display:flex;
+align-items:center;
+gap:5px;
+margin-top:8px;
+color:#727b89;
+font-size:12px;
+line-height:1.4
+}
+
+.shop-rating{
+display:flex;
+align-items:center;
+gap:5px;
+margin-top:9px;
+color:#4d5665;
+font-size:11px;
+font-weight:800
+}
+
+.rating-star{
+color:#f4a623
+}
+
+.shop-actions{
+display:flex;
+gap:7px;
+margin-top:13px
+}
+
+.shop-action{
+flex:1;
+height:38px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+text-decoration:none;
+font-size:11px;
+font-weight:900
+}
+
+.call-action,
+.offers-action{
+background:#f3f5f8;
+color:#303744;
+border:1px solid #e0e4e9
+}
+
+.whatsapp-action{
+background:#25D366;
+color:#fff;
+border:1px solid #25D366
+}
+
+.directions-action{
+background:#fff4ef;
+color:#ef603e;
+border:1px solid #f6d2c7
+}
+
+.shop-empty{
+width:100%;
+min-height:180px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+background:#fff;
+border:1px dashed #d9dee6;
+border-radius:18px;
+padding:25px
+}
+
+.shop-empty-icon{
+font-size:34px;
+margin-bottom:9px
+}
+
+.shop-empty-title{
+font-size:15px;
+font-weight:900
+}
+
+.shop-empty-text{
+margin-top:5px;
+color:#9299a5;
+font-size:12px;
+line-height:1.5;
+max-width:300px
+}
+
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+position:fixed;
+left:50%;
+bottom:10px;
+transform:translateX(-50%);
+width:min(
+560px,
+calc(100% - 20px)
+);
+height:68px;
+display:flex;
+align-items:center;
+justify-content:space-around;
+gap:4px;
+padding:6px;
+background:rgba(21,29,48,.97);
+border-radius:22px;
+z-index:9998;
+box-shadow:0 10px 30px rgba(10,20,40,.22)
+}
+
+.bottom-nav-item{
+flex:1;
+min-width:0;
+height:56px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:4px;
+border-radius:17px;
+text-decoration:none;
+color:#aeb6c5;
+font-size:10px;
+font-weight:800
+}
+
+.bottom-nav-item .nav-icon{
+font-size:20px
+}
+
+.bottom-nav-item.active{
+background:#fff;
+color:#151a28
+}
+
+.bottom-nav-item .nav-label{
+white-space:nowrap
+}
+
+
+@media(max-width:700px){
+
+.category-heading{
+padding:0 16px
+}
+
+.category-filter{
+padding-left:16px;
+padding-right:16px
+}
+
+.shop-grid{
+grid-template-columns:1fr
+}
+
+.bottom-nav{
+left:10px;
+bottom:10px;
+transform:none;
+width:calc(100% - 20px);
+height:64px
+}
+
+.bottom-nav-item{
+height:54px;
+font-size:9px
+}
+
+}
+
+
+@media(max-width:600px){
+
+.header{
+min-height:64px;
+padding:0 10px
+}
+
+.logo{
+gap:5px;
+font-size:17px
+}
+
+.logo-mark{
+width:55px;
+height:40px;
+border-radius:9px
+}
+
+.header-actions{
+gap:4px
+}
+
+.list-shop-btn{
+width:76px;
+padding:0 7px;
+font-size:10px
+}
+
+.interested-btn{
+height:38px;
+padding:0 9px;
+font-size:10px
+}
+
+.location-area{
+margin:12px 16px 0;
+align-items:stretch;
+flex-direction:column
+}
+
+.location-button{
+width:100%
+}
+
+.radius-section{
+margin:10px 16px 0;
+align-items:flex-start;
+flex-direction:column;
+gap:7px
+}
+
+.radius-buttons{
+width:100%
+}
+
+.radius-button{
+flex:1;
+min-width:0
+}
+
+}
+
 </style>
 </head>
+
 <body>
 
 <header class="header">
-<div class="logo" onclick="window.location.href='index.html'" aria-label="Pyncode.in Home">
-<div class="logo-mark"><img src="/pyncode-logo.png" alt="Pyncode.in"></div>
-<div><span class="pyn-text">Pyn</span><span class="code-text">code</span><span class="pyn-text">.in</span></div>
+
+<div
+class="logo"
+onclick="window.location.href='index.html'"
+aria-label="Pyncode.in Home"
+>
+
+<div class="logo-mark">
+
+<img
+src="/pyncode-logo.png"
+alt="Pyncode.in"
+>
+
+</div>
+
+<div>
+
+<span class="pyn-text">Pyn</span>
+<span class="code-text">code</span>
+<span class="pyn-text">.in</span>
+
+</div>
+
 </div>
 
 <div class="header-actions">
-<a href="list-your-shop.html" class="list-shop-btn">+ List Your Shop</a>
-<button type="button" class="interested-btn" onclick="openInterestedWhatsApp()">I'm Interested</button>
+
+<a
+href="list-your-shop.html"
+class="list-shop-btn"
+>
++ List Your Shop
+</a>
+
+<button
+type="button"
+class="interested-btn"
+onclick="openInterestedWhatsApp()"
+>
+I'm Interested
+</button>
+
 </div>
+
 </header>
 
 <main class="main">
 
 <section class="search-section">
-<div class="search-title">Find Shops Near You</div>
+
+<div class="search-title">
+Find Shops Near You
+</div>
 
 <div class="search-box">
-<span class="search-icon">📍</span>
+
+<span class="search-icon">
+📍
+</span>
 
 <input
 type="text"
@@ -56,13 +880,14 @@ Search
 </button>
 
 </div>
+
 </section>
 
 <section class="location-area">
 
 <div class="location-info">
 
-  <div class="location-title">
+<div class="location-title">
 📍 Find Businesses Near You
 </div>
 
@@ -85,9 +910,56 @@ class="location-button"
 
 </section>
 
-<section class="filter-section">
+<section
+class="radius-section"
+id="radiusSection"
+>
+
+<div class="radius-title">
+📏 Show shops within
+</div>
+
+<div class="radius-buttons">
+
+<button
+type="button"
+class="radius-button"
+data-radius="2"
+>
+2 KM
+</button>
+
+<button
+type="button"
+class="radius-button active"
+data-radius="5"
+>
+5 KM
+</button>
+
+<button
+type="button"
+class="radius-button"
+data-radius="10"
+>
+10 KM
+</button>
+
+</div>
+
+<div
+class="radius-note"
+id="radiusNote"
+>
+Default radius: 5 KM. Use your location to filter nearby shops.
+</div>
+
+</section>
+
+  <section class="filter-section">
 
 <div class="category-heading">
+
 <div class="filter-title">
 Browse Categories
 </div>
@@ -98,6 +970,7 @@ class="view-all-btn"
 >
 View All <span>→</span>
 </a>
+
 </div>
 
 <div
@@ -118,14 +991,14 @@ id="categoryFilter"
 class="shop-list-title"
 id="shopListTitle"
 >
-All Shops
+Nearby Shops
 </div>
 
 <div
 class="shop-list-count"
 id="shopListCount"
 >
-Loading registered shops...
+Getting your location...
 </div>
 
 </div>
@@ -134,6 +1007,7 @@ Loading registered shops...
 class="shop-location"
 id="shopLocation"
 >
+📍 Location required
 </div>
 
 </div>
@@ -146,15 +1020,15 @@ id="shopGrid"
 <div class="shop-empty">
 
 <div class="shop-empty-icon">
-⏳
+📍
 </div>
 
-  <div class="shop-empty-title">
-Loading shops...
+<div class="shop-empty-title">
+Find Shops Near You
 </div>
 
 <div class="shop-empty-text">
-Please wait while we load registered shops.
+Please allow location access to see registered shops near you.
 </div>
 
 </div>
@@ -166,50 +1040,84 @@ Please wait while we load registered shops.
 </main>
 
 <nav
-    class="bottom-nav"
-    aria-label="Main navigation"
+class="bottom-nav"
+aria-label="Main navigation"
 >
 
-    <a
-        href="shops.html"
-        class="bottom-nav-item active"
-    >
-        <span class="nav-icon">🏪</span>
-        <span class="nav-label">Shops</span>
-    </a>
-
-
-   <a href="services_matched.html" class="bottom-nav-item">
-        <span class="nav-icon">🛠️</span>
-        <span class="nav-label">Services</span>
-    </a>
-
-
-    <a
-        href="nearby-shops.html"
-        class="bottom-nav-item"
-    >
-        <span class="nav-icon">📱</span>
-        <span class="nav-label">QR Stores</span>
-    </a>
-
-
-  <a
-    href="feeds.html"
-    class="bottom-nav-item"
+<a
+href="shops.html"
+class="bottom-nav-item active"
 >
-    <span class="nav-icon">📰</span>
-    <span class="nav-label">Feeds</span>
-  </a>
 
+<span class="nav-icon">
+🏪
+</span>
 
-    <a
-        href="promotion.html"
-        class="bottom-nav-item"
-    >
-        <span class="nav-icon">📢</span>
-        <span class="nav-label">Promotion</span>
-    </a>
+<span class="nav-label">
+Shops
+</span>
+
+</a>
+
+<a
+href="services_matched.html"
+class="bottom-nav-item"
+>
+
+<span class="nav-icon">
+🛠️
+</span>
+
+<span class="nav-label">
+Services
+</span>
+
+</a>
+
+<a
+href="nearby-shops.html"
+class="bottom-nav-item"
+>
+
+<span class="nav-icon">
+📱
+</span>
+
+<span class="nav-label">
+QR Stores
+</span>
+
+</a>
+
+<a
+href="feeds.html"
+class="bottom-nav-item"
+>
+
+<span class="nav-icon">
+📰
+</span>
+
+<span class="nav-label">
+Feeds
+</span>
+
+</a>
+
+<a
+href="promotion.html"
+class="bottom-nav-item"
+>
+
+<span class="nav-icon">
+📢
+</span>
+
+<span class="nav-label">
+Promotion
+</span>
+
+</a>
 
 </nav>
 
@@ -290,22 +1198,26 @@ const categories = [
 "Manpower / Staffing Services",
 "Construction & Contractors",
 "Online Business",
-
-  "Courier Services",
+"Courier Services",
 "Manufacturer & Suppliers"
+
 ];
+
 
 const SUPABASE_URL =
 "https://mtuspuehsxsjoaxoenen.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
 
 const supabaseClient =
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
+
 
 let allShops = [];
 
@@ -317,10 +1229,17 @@ let userLatitude = null;
 
 let userLongitude = null;
 
+
+/* DEFAULT RADIUS = 5 KM */
+
+let selectedRadiusKm = 5;
+
+
 const LOCATION_STORAGE_KEY =
 "pyncode_user_location";
 
-  function escapeHtml(value){
+
+function escapeHtml(value){
 
 return String(value ?? "")
 .replace(/&/g,"&amp;")
@@ -343,6 +1262,7 @@ return "";
 let phone =
 String(value).replace(/\D/g,"");
 
+
 if(
 phone.startsWith("91") &&
 phone.length === 12
@@ -353,9 +1273,12 @@ phone.slice(2);
 
 }
 
+
 return phone.length === 10
-? phone
-: "";
+?
+phone
+:
+"";
 
 }
 
@@ -370,6 +1293,7 @@ Number(latitude);
 
 longitude =
 Number(longitude);
+
 
 return (
 Number.isFinite(latitude) &&
@@ -393,6 +1317,7 @@ lon2
 const earthRadiusKm =
 6371;
 
+
 const dLat =
 (
 Number(lat2) -
@@ -400,6 +1325,7 @@ Number(lat1)
 ) *
 Math.PI /
 180;
+
 
 const dLon =
 (
@@ -409,17 +1335,28 @@ Number(lon1)
 Math.PI /
 180;
 
+
 const a =
-Math.sin(dLat / 2) ** 2 +
+Math.sin(
+dLat / 2
+) ** 2
++
 Math.cos(
 Number(lat1) *
-Math.PI / 180
-) *
+Math.PI /
+180
+)
+*
 Math.cos(
 Number(lat2) *
-Math.PI / 180
-) *
-Math.sin(dLon / 2) ** 2;
+Math.PI /
+180
+)
+*
+Math.sin(
+dLon / 2
+) ** 2;
+
 
 const c =
 2 *
@@ -427,6 +1364,7 @@ Math.atan2(
 Math.sqrt(a),
 Math.sqrt(1 - a)
 );
+
 
 return (
 earthRadiusKm *
@@ -448,6 +1386,7 @@ return "";
 
 }
 
+
 if(
 distance < 1
 ){
@@ -461,14 +1400,16 @@ distance * 1000
 
 }
 
+
 return (
 distance.toFixed(1) +
 " km away"
 );
 
-  }
+}
 
-  function buildDirectionsUrl(
+
+function buildDirectionsUrl(
 latitude,
 longitude
 ){
@@ -483,6 +1424,7 @@ longitude
 return "";
 
 }
+
 
 return (
 "https://www.google.com/maps/dir/?api=1&destination=" +
@@ -543,6 +1485,7 @@ LOCATION_STORAGE_KEY
 ) || "null"
 );
 
+
 if(
 saved &&
 hasValidCoordinates(
@@ -563,6 +1506,7 @@ Number(saved.longitude)
 
 }
 
+
 return null;
 
 }
@@ -574,7 +1518,8 @@ return null;
 
 }
 
-  function setLocationStatus(
+
+function setLocationStatus(
 message,
 type = ""
 ){
@@ -584,17 +1529,141 @@ document.getElementById(
 "locationStatus"
 );
 
+
 if(!element){
 
 return;
 
 }
 
+
 element.textContent =
 message;
 
+
 element.dataset.type =
 type;
+
+}
+
+
+function updateRadiusNote(){
+
+const note =
+document.getElementById(
+"radiusNote"
+);
+
+
+if(!note){
+
+return;
+
+}
+
+
+if(
+hasValidCoordinates(
+userLatitude,
+userLongitude
+)
+){
+
+note.textContent =
+"Showing shops within " +
+selectedRadiusKm +
+" KM from your location.";
+
+}
+else{
+
+note.textContent =
+"Default radius: " +
+selectedRadiusKm +
+" KM. Use your location to filter nearby shops.";
+
+}
+
+}
+
+  function updateRadiusButtons(){
+
+document
+.querySelectorAll(
+".radius-button"
+)
+.forEach(
+function(button){
+
+const radius =
+Number(
+button.dataset.radius
+);
+
+
+button.classList.toggle(
+"active",
+radius === selectedRadiusKm
+);
+
+}
+);
+
+}
+
+
+function setupRadiusFilter(){
+
+const buttons =
+document.querySelectorAll(
+".radius-button"
+);
+
+
+buttons.forEach(
+function(button){
+
+button.addEventListener(
+"click",
+function(){
+
+const radius =
+Number(
+this.dataset.radius
+);
+
+
+if(
+![2,5,10].includes(radius)
+){
+
+return;
+
+}
+
+
+selectedRadiusKm =
+radius;
+
+
+updateRadiusButtons();
+
+updateRadiusNote();
+
+renderShops(
+allShops
+);
+
+}
+);
+
+}
+);
+
+
+updateRadiusButtons();
+
+updateRadiusNote();
 
 }
 
@@ -606,11 +1675,13 @@ document.getElementById(
 "useLocationButton"
 );
 
+
 if(!button){
 
 return;
 
 }
+
 
 if(
 hasValidCoordinates(
@@ -646,11 +1717,15 @@ function restoreSavedLocation(){
 const saved =
 getSavedUserLocation();
 
+
 if(!saved){
+
+updateRadiusNote();
 
 return false;
 
 }
+
 
 userLatitude =
 saved.latitude;
@@ -658,12 +1733,20 @@ saved.latitude;
 userLongitude =
 saved.longitude;
 
+
 refreshLocationButton();
 
+
 setLocationStatus(
-"Saved location is active. Showing nearest registered shops first.",
+"Saved location is active. Showing shops within " +
+selectedRadiusKm +
+" KM.",
 "success"
 );
+
+
+updateRadiusNote();
+
 
 return true;
 
@@ -676,6 +1759,7 @@ const button =
 document.getElementById(
 "useLocationButton"
 );
+
 
 if(
 !navigator.geolocation
@@ -690,6 +1774,7 @@ return;
 
 }
 
+
 if(button){
 
 button.disabled =
@@ -700,10 +1785,12 @@ button.textContent =
 
 }
 
+
 setLocationStatus(
 "Please allow location access in your browser.",
 "loading"
 );
+
 
 navigator.geolocation.getCurrentPosition(
 
@@ -719,10 +1806,12 @@ Number(
 position.coords.longitude
 );
 
+
 saveUserLocation(
 userLatitude,
 userLongitude
 );
+
 
 if(button){
 
@@ -731,18 +1820,26 @@ false;
 
 }
 
+
 refreshLocationButton();
 
+
 setLocationStatus(
-"Your location is ready. Showing nearest registered shops first.",
+"Your location is ready. Showing shops within " +
+selectedRadiusKm +
+" KM.",
 "success"
 );
+
+
+updateRadiusNote();
+
 
 renderShops(
 allShops
 );
 
-  },
+},
 
 function(error){
 
@@ -753,10 +1850,13 @@ false;
 
 }
 
+
 refreshLocationButton();
+
 
 let message =
 "Unable to get your location.";
+
 
 if(
 error.code ===
@@ -786,6 +1886,7 @@ message =
 
 }
 
+
 setLocationStatus(
 message,
 "error"
@@ -808,20 +1909,24 @@ maximumAge:
 
 );
 
+
 }
 
-  function loadCategoryFilter(){
+
+function loadCategoryFilter(){
 
 const container =
 document.getElementById(
 "categoryFilter"
 );
 
+
 if(!container){
 
 return;
 
 }
+
 
 container.innerHTML =
 "";
@@ -832,6 +1937,7 @@ document.createElement(
 "button"
 );
 
+
 allButton.type =
 "button";
 
@@ -840,6 +1946,7 @@ allButton.className =
 
 allButton.textContent =
 "All";
+
 
 allButton.onclick =
 function(){
@@ -855,6 +1962,7 @@ allShops
 
 };
 
+
 container.appendChild(
 allButton
 );
@@ -868,6 +1976,7 @@ document.createElement(
 "button"
 );
 
+
 button.type =
 "button";
 
@@ -879,6 +1988,7 @@ category;
 
 button.textContent =
 category;
+
 
 button.onclick =
 function(){
@@ -894,13 +2004,13 @@ allShops
 
 };
 
+
 container.appendChild(
 button
 );
 
 }
 );
-
 
 }
 
@@ -918,6 +2028,7 @@ button.classList.toggle(
 "active",
 (
 button.dataset.category ||
+
 ""
 ) ===
 selectedCategory
@@ -928,17 +2039,20 @@ selectedCategory
 
 }
 
-  function loadCategoryFromURL(){
+
+function loadCategoryFromURL(){
 
 const params =
 new URLSearchParams(
 window.location.search
 );
 
+
 const category =
 params.get(
 "category"
 );
+
 
 if(!category){
 
@@ -946,10 +2060,12 @@ return;
 
 }
 
+
 const decoded =
 decodeURIComponent(
 category
 ).trim();
+
 
 const matched =
 categories.find(
@@ -962,6 +2078,7 @@ decoded.toLowerCase()
 
 }
 );
+
 
 selectedCategory =
 matched ||
@@ -977,14 +2094,17 @@ document.getElementById(
 "pincodeInput"
 );
 
+
 if(!input){
 
 return;
 
 }
 
+
 const value =
 input.value.trim();
+
 
 if(!value){
 
@@ -998,6 +2118,7 @@ allShops
 return;
 
 }
+
 
 if(
 !/^\d{6}$/.test(value)
@@ -1013,8 +2134,10 @@ return;
 
 }
 
+
 selectedPincode =
 value;
+
 
 renderShops(
 allShops
@@ -1022,10 +2145,12 @@ allShops
 
 }
 
-  function openInterestedWhatsApp(){
+
+function openInterestedWhatsApp(){
 
 const message =
 "Hi Pyncode.in, I am interested in listing my business on Pyncode.";
+
 
 window.open(
 "https://wa.me/?text=" +
@@ -1034,12 +2159,9 @@ encodeURIComponent(message),
 "noopener"
 );
 
-}
+  }
 
-
-function buildShopCard(
-shop
-){
+  function buildShopCard(shop){
 
 const name =
 escapeHtml(
@@ -1047,11 +2169,13 @@ shop.name ||
 "Unnamed Business"
 );
 
+
 const category =
 escapeHtml(
 shop.category ||
 "Business"
 );
+
 
 const location =
 escapeHtml(
@@ -1060,14 +2184,17 @@ shop.address ||
 "Location available"
 );
 
+
 const image =
 shop.image ||
 "/icon-512.png";
+
 
 const phone =
 cleanPhoneNumber(
 shop.phone
 );
+
 
 const whatsapp =
 cleanPhoneNumber(
@@ -1075,10 +2202,12 @@ shop.whatsapp ||
 shop.phone
 );
 
+
 const distance =
 formatDistance(
 shop.distance
 );
+
 
 const directions =
 buildDirectionsUrl(
@@ -1118,7 +2247,8 @@ shop.id
 :
 "";
 
-  return `
+
+return `
 
 <article class="shop-card">
 
@@ -1174,7 +2304,9 @@ ${category}
 
 <div class="shop-location">
 
-<span>📍</span>
+<span>
+📍
+</span>
 
 <span>
 ${location}
@@ -1238,31 +2370,67 @@ ${offersButton}
 
 }
 
-  function renderShops(
-shops
-){
 
-const grid =
-document.getElementById(
-"shopGrid"
-);
+/* =====================================================
+   RENDER SHOPS
+===================================================== */
 
-const title =
-document.getElementById(
-"shopListTitle"
-);
+function renderShops(shops){
 
-const count =
-document.getElementById(
-"shopListCount"
-);
+const grid = document.getElementById("shopGrid");
+const title = document.getElementById("shopListTitle");
+const count = document.getElementById("shopListCount");
+const locationLabel = document.getElementById("shopLocation");
 
-const locationLabel =
-document.getElementById(
-"shopLocation"
-);
+if(!grid) return;
 
-if(!grid){
+if(!hasValidCoordinates(userLatitude,userLongitude)){
+
+if(title)
+title.textContent =
+"Nearby Shops";
+
+if(count)
+count.textContent =
+"Location required";
+
+if(locationLabel)
+locationLabel.textContent =
+"📍 Turn on location to find nearby shops";
+
+
+grid.innerHTML = `
+
+<div class="shop-empty">
+
+<div class="shop-empty-icon">
+📍
+</div>
+
+<div class="shop-empty-title">
+Find Shops Near You
+</div>
+
+<div class="shop-empty-text">
+
+Allow your location to see registered shops within
+${selectedRadiusKm} KM.
+
+<br><br>
+
+<button
+type="button"
+class="location-button"
+onclick="requestUserLocation()"
+>
+📍 Use My Location
+</button>
+
+</div>
+
+</div>
+
+`;
 
 return;
 
@@ -1270,14 +2438,10 @@ return;
 
 
 let results =
-[
-...(shops || [])
-];
+[...(shops || [])];
 
 
-if(
-selectedCategory
-){
+if(selectedCategory){
 
 results =
 results.filter(
@@ -1299,9 +2463,7 @@ selectedCategory.toLowerCase()
 }
 
 
-if(
-selectedPincode
-){
+if(selectedPincode){
 
 results =
 results.filter(
@@ -1311,7 +2473,8 @@ return (
 String(
 shop.pincode ||
 ""
-).trim()
+)
+.trim()
 ===
 selectedPincode
 );
@@ -1321,7 +2484,8 @@ selectedPincode
 
 }
 
-    results =
+
+results =
 results.map(
 function(shop){
 
@@ -1332,11 +2496,6 @@ distance:null
 
 
 if(
-hasValidCoordinates(
-userLatitude,
-userLongitude
-)
-&&
 hasValidCoordinates(
 item.latitude,
 item.longitude
@@ -1360,86 +2519,59 @@ return item;
 );
 
 
-if(
-hasValidCoordinates(
-userLatitude,
-userLongitude
+results =
+results.filter(
+function(shop){
+
+return (
+Number.isFinite(
+shop.distance
 )
-){
+&&
+shop.distance <=
+selectedRadiusKm
+);
+
+}
+);
+
 
 results.sort(
 function(a,b){
 
 return (
-Number.isFinite(
-a.distance
-)
-?
-a.distance
-:
-Infinity
-)
--
-(
-Number.isFinite(
+a.distance -
 b.distance
-)
-?
-b.distance
-:
-Infinity
 );
 
 }
 );
 
-}
 
-
-if(title){
-
+if(title)
 title.textContent =
 selectedCategory ||
-"All Shops";
-
-}
+"Nearby Shops";
 
 
-if(count){
-
+if(count)
 count.textContent =
 results.length === 1
 ?
-"1 registered shop found"
+"1 nearby shop found"
 :
 results.length +
-" registered shops found";
-
-}
+" nearby shops found";
 
 
-if(locationLabel){
-
+if(locationLabel)
 locationLabel.textContent =
-hasValidCoordinates(
-userLatitude,
-userLongitude
-)
-?
-"📍 Nearest first"
-:
-selectedPincode
-?
-"📍 Pincode: " +
-selectedPincode
-:
-"";
+"📍 Within " +
+selectedRadiusKm +
+" KM • Nearest first";
 
-}
 
-if(
-results.length === 0
-){
+if(results.length === 0){
 
 grid.innerHTML = `
 
@@ -1450,11 +2582,16 @@ grid.innerHTML = `
 </div>
 
 <div class="shop-empty-title">
-No registered shops found
+No shops nearby
 </div>
 
 <div class="shop-empty-text">
-Try another category or pincode.
+
+No registered shops found within
+${selectedRadiusKm} KM.
+
+Try a larger radius.
+
 </div>
 
 </div>
@@ -1473,32 +2610,31 @@ buildShopCard
 )
 .join("");
 
-  }
+}
 
-  async function loadShopsFromSupabase(){
+
+/* =====================================================
+   LOAD FROM SUPABASE
+===================================================== */
+
+async function loadShopsFromSupabase(){
 
 const grid =
 document.getElementById(
 "shopGrid"
 );
 
+
 try{
 
-const {
-data,
-error
-} =
+const result =
 await supabaseClient
-
 .from("shops")
-
 .select("*")
-
 .eq(
 "listing_type",
 "shop"
 )
-
 .order(
 "created_at",
 {
@@ -1507,20 +2643,25 @@ ascending:false
 );
 
 
+const data =
+result.data;
+
+
+const error =
+result.error;
+
+
 if(error){
 
 throw error;
 
 }
 
-  /*
-   Extra safety filter:
-   ONLY normal registered shops.
-*/
+
+/* SAFETY FILTER + MAP */
 
 allShops =
 (data || [])
-
 .filter(
 function(shop){
 
@@ -1531,9 +2672,15 @@ shop.listing_type ===
 
 }
 )
-
 .map(
 function(shop){
+
+const validCoordinates =
+hasValidCoordinates(
+shop.latitude,
+shop.longitude
+);
+
 
 return {
 
@@ -1582,20 +2729,14 @@ shop.rating ||
 "",
 
 latitude:
-hasValidCoordinates(
-shop.latitude,
-shop.longitude
-)
+validCoordinates
 ?
 Number(shop.latitude)
 :
 null,
 
 longitude:
-hasValidCoordinates(
-shop.latitude,
-shop.longitude
-)
+validCoordinates
 ?
 Number(shop.longitude)
 :
@@ -1611,8 +2752,7 @@ renderShops(
 allShops
 );
 
-
-}
+  }
 catch(error){
 
 console.error(
@@ -1637,7 +2777,6 @@ Unable to load shops
 
 <div class="shop-empty-text">
 Please refresh the page and try again.
-
 </div>
 
 </div>
@@ -1648,10 +2787,14 @@ Please refresh the page and try again.
 
 }
 
+}
 
-  }
 
-  function setupBottomNavigation(){
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+function setupBottomNavigation(){
 
 const currentPage =
 window.location.pathname
@@ -1690,6 +2833,10 @@ currentPage
 }
 
 
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
 function initialize(){
 
 loadCategoryFromURL();
@@ -1699,10 +2846,13 @@ loadCategoryFilter();
 updateActiveCategory();
 
 
+/* PINCODE SEARCH */
+
 const searchButton =
 document.getElementById(
 "searchButton"
 );
+
 
 if(searchButton){
 
@@ -1716,6 +2866,7 @@ const pincodeInput =
 document.getElementById(
 "pincodeInput"
 );
+
 
 if(pincodeInput){
 
@@ -1757,10 +2908,13 @@ event.target.value
 }
 
 
+/* LOCATION */
+
 const locationButton =
 document.getElementById(
 "useLocationButton"
 );
+
 
 if(locationButton){
 
@@ -1770,15 +2924,49 @@ requestUserLocation;
 }
 
 
+/* RADIUS */
+
+setupRadiusFilter();
+
+
+/* RESTORE SAVED LOCATION */
+
 restoreSavedLocation();
+
+
+/* BOTTOM NAVIGATION */
 
 setupBottomNavigation();
 
-loadShopsFromSupabase();
+
+/* LOAD SHOPS */
+
+loadShopsFromSupabase()
+.then(
+function(){
+
+if(
+!hasValidCoordinates(
+userLatitude,
+userLongitude
+)
+){
+
+requestUserLocation();
 
 }
 
-  document.addEventListener(
+}
+);
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+document.addEventListener(
 "DOMContentLoaded",
 initialize
 );
@@ -1787,4 +2975,3 @@ initialize
 
 </body>
 </html>
-
