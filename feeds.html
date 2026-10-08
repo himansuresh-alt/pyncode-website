@@ -2845,7 +2845,7 @@ a{
             </span>
 
             <span class="brand-text">
-                Pyncode <span>Local</span>
+                Pyncode <span>Featured</span>
             </span>
 
         </a>
@@ -2859,7 +2859,7 @@ a{
                 class="account-btn"
                 id="accountButton"
             >
-                Account
+                My Account
             </button>
 
         </div>
@@ -2931,24 +2931,22 @@ a{
 
                 <span class="hero-dot"></span>
 
-                PYNCODE • LOCAL FEED
+                PYNCODE • FEED
 
             </div>
 
 
             <h1 class="hero-title">
 
-                What's available
-                <span>near you?</span>
+                Discover
+                <span>what's around you?</span>
 
             </h1>
 
 
             <p class="hero-text">
 
-                Discover local offers, services,
-                businesses, jobs, events, products,
-                requirements and opportunities around you.
+                Discover offers, services, businesses, jobs, events, products and opportunities around you.
 
             </p>
 
@@ -2996,11 +2994,11 @@ a{
         <div>
 
             <div class="section-title">
-                Explore
+                Discover
             </div>
 
             <div class="section-subtitle">
-                Find what you need around you
+                Find what you're looking for
             </div>
 
         </div>
@@ -3158,11 +3156,11 @@ a{
         <div>
 
             <div class="section-title">
-                Post Type
+                Explore By
             </div>
 
             <div class="section-subtitle">
-                Filter by what people are posting
+                Explore offers, requirements and opportunities
             </div>
 
         </div>
@@ -3369,7 +3367,7 @@ a{
 
             <span class="live-dot"></span>
 
-            Live Local Feed
+            Live Feed
 
         </div>
 
@@ -3416,7 +3414,7 @@ a{
     </span>
 
     <span>
-        Post Near Me
+        Publish a Post
     </span>
 
 </button>
@@ -5332,9 +5330,7 @@ function renderLocationRequired(){
             </div>
 
             <div class="location-required-text">
-                Use your current location to discover
-                local posts, offers, services and
-                opportunities around you.
+                Use your location to discover relevant offers, services and opportunities nearby.
             </div>
 
             <button
@@ -6141,13 +6137,45 @@ function openAccount(){
    CREATE POST
 ===================================================== */
 
-function createLocalPost(){
+async function createLocalPost(){
 
-    window.location.href =
-        "current-create-post.html";
+    try{
+
+        const {
+            data
+        } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+        const session =
+            data?.session;
+
+        if(session){
+
+            window.location.href =
+                "current-create-post.html";
+
+            return;
+
+        }
+
+        window.location.href =
+            "current-account.html";
+
+    }catch(error){
+
+        console.error(
+            "Publish post session check error:",
+            error
+        );
+
+        window.location.href =
+            "current-account.html";
+
+    }
 
 }
-
 
 /* =====================================================
    HOME
