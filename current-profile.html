@@ -663,52 +663,6 @@ body{
 
         </div>
 
-        <div
-            class="menu-item"
-            id="myBookingsButton"
-        >
-
-            <div class="menu-left">
-
-                <div class="menu-icon">
-                    📋
-                </div>
-
-                <div class="menu-title">
-                    My Bookings
-                </div>
-
-            </div>
-
-            <div class="menu-arrow">
-                ›
-            </div>
-
-        </div>
-
-        <div
-            class="menu-item"
-            id="notificationsButton"
-        >
-
-            <div class="menu-left">
-
-                <div class="menu-icon">
-                    🔔
-                </div>
-
-                <div class="menu-title">
-                    Notifications
-                </div>
-
-            </div>
-
-            <div class="menu-arrow">
-                ›
-            </div>
-
-        </div>
-
     </section>
 
     <section class="menu-card">
@@ -791,13 +745,7 @@ const CONFIG = {
         "current-account.html",
 
     myPostsPage:
-        "current-my-posts.html",
-
-    myBookingsPage:
-        "current-my-bookings.html",
-
-    notificationsPage:
-        "current-notifications.html"
+        "current-my-posts.html"
 
 };
 
@@ -864,16 +812,6 @@ const statusBox =
 const myPostsButton =
     document.getElementById(
         "myPostsButton"
-    );
-
-const myBookingsButton =
-    document.getElementById(
-        "myBookingsButton"
-    );
-
-const notificationsButton =
-    document.getElementById(
-        "notificationsButton"
     );
 
 const logoutButton =
@@ -1878,37 +1816,6 @@ myPostsButton.addEventListener(
 );
 
 
-/* ==========================================
-   MY BOOKINGS
-   ========================================== */
-
-myBookingsButton.addEventListener(
-    "click",
-    function(){
-
-        openProtectedPage(
-            CONFIG.myBookingsPage
-        );
-
-    }
-);
-
-
-/* ==========================================
-   NOTIFICATIONS
-   ========================================== */
-
-notificationsButton.addEventListener(
-    "click",
-    function(){
-
-        openProtectedPage(
-            CONFIG.notificationsPage
-        );
-
-    }
-);
-
 
 /* ==========================================
    LOGOUT
@@ -2558,8 +2465,6 @@ saveButton.addEventListener(
 
 [
     myPostsButton,
-    myBookingsButton,
-    notificationsButton,
     backButton,
     logoutButton
 ].forEach(

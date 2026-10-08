@@ -558,7 +558,7 @@ a{
 
 .hero-dot{
 
-    width:6px;
+      width:6px;
     height:6px;
 
     border-radius:50%;
@@ -1119,7 +1119,7 @@ a{
     color:var(--primary);
 }
 
-.feed-live{
+  .feed-live{
 
     display:flex;
 
@@ -1681,7 +1681,7 @@ a{
 
     max-width:420px;
 
-    margin:
+      margin:
         7px auto 0;
 
     color:var(--muted);
@@ -2242,7 +2242,7 @@ a{
 
     opacity:0;
 
-    pointer-events:none;
+      pointer-events:none;
 
     max-width:
         calc(100% - 32px);
@@ -2598,6 +2598,235 @@ a{
 }
 
 
+
+/* =====================================================
+   DIRECT CONTACT BUTTONS
+===================================================== */
+
+.feed-contact-row{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:6px;
+
+    margin-top:11px;
+
+}
+
+.feed-contact-button{
+
+    min-width:0;
+
+    min-height:34px;
+
+    padding:0 7px;
+
+    border:1px solid var(--line);
+
+    border-radius:10px;
+
+    background:#fff;
+
+    color:var(--navy);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-decoration:none;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    transition:.18s ease;
+
+}
+
+.feed-contact-button:hover{
+    transform:translateY(-1px);
+    box-shadow:0 5px 12px rgba(17,24,39,.08);
+}
+
+.feed-contact-button.website{
+    background:var(--blue-soft);
+    border-color:#dbeafe;
+    color:#1d4ed8;
+}
+
+.feed-contact-button.instagram{
+    background:var(--purple-soft);
+    border-color:#e9d5ff;
+    color:#7e22ce;
+}
+
+.feed-contact-button.whatsapp{
+    background:var(--green-soft);
+    border-color:#bbf7d0;
+    color:#15803d;
+}
+
+.feed-contact-empty{
+
+    margin-top:11px;
+
+    min-height:34px;
+
+    border:1px dashed #d7dbe2;
+
+    border-radius:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#98a1af;
+
+    font-size:9px;
+
+    font-weight:700;
+
+}
+
+
+/* =====================================================
+   FUTURISTIC 3D HEADER
+===================================================== */
+
+.top-header{
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.96),
+            rgba(242,246,252,.94)
+        );
+
+    border-bottom:1px solid rgba(255,255,255,.9);
+
+    box-shadow:
+        0 14px 35px rgba(17,24,39,.10);
+
+}
+
+.header-inner{
+
+    min-height:76px;
+
+    padding:7px 0;
+
+}
+
+.brand-mark{
+
+    width:48px;
+    height:48px;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ff5a36 0%,
+            #ff4661 55%,
+            #d92f78 100%
+        );
+
+    box-shadow:
+        0 10px 18px rgba(255,70,97,.25),
+        inset 0 1px 1px rgba(255,255,255,.55),
+        inset 0 -5px 10px rgba(120,20,50,.12);
+
+    transform:
+        perspective(500px)
+        rotateX(2deg);
+
+}
+
+.brand-text{
+    font-size:19px;
+    letter-spacing:-.6px;
+    text-shadow:0 1px 0 #fff;
+}
+
+.account-btn{
+
+    min-height:46px;
+
+    padding:0 17px;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #182235,
+            #080f1d
+        );
+
+    box-shadow:
+        0 8px 16px rgba(17,24,39,.20),
+        inset 0 1px 1px rgba(255,255,255,.12),
+        inset 0 -4px 8px rgba(0,0,0,.18);
+
+    transform:
+        perspective(500px)
+        translateZ(0);
+
+}
+
+.account-btn:active,
+.brand-mark:active{
+    transform:translateY(1px) scale(.98);
+}
+
+@media(max-width:560px){
+
+    .header-inner{
+        width:calc(100% - 20px);
+        min-height:70px;
+    }
+
+    .brand-mark{
+
+              width:44px;
+        height:44px;
+        border-radius:14px;
+    }
+
+    .brand-text{
+        font-size:17px;
+    }
+
+    .account-btn{
+        min-height:43px;
+        padding:0 14px;
+    }
+
+    .feed-contact-row{
+        gap:5px;
+    }
+
+    .feed-contact-button{
+        font-size:8px;
+        padding:0 5px;
+    }
+
+}
+
 /* =====================================================
    END CSS
 ===================================================== */
@@ -2638,23 +2867,6 @@ a{
 
 
         <div class="header-actions">
-
-            <button
-                type="button"
-                class="header-icon-btn"
-                id="notificationButton"
-                aria-label="Notifications"
-            >
-
-                🔔
-
-                <span
-                    class="notification-dot"
-                    id="notificationDot"
-                    style="display:none"
-                ></span>
-
-            </button>
 
 
             <button
@@ -3151,8 +3363,7 @@ a{
 
 </div>
 
-
-<!-- =====================================================
+  <!-- =====================================================
      FEED
 ===================================================== -->
 
@@ -3714,7 +3925,7 @@ function updateLocationUI(){
    OPEN LOCATION MODAL
 ===================================================== */
 
-function openLocationModal(){
+  function openLocationModal(){
 
     locationModal.classList.add(
         "show"
@@ -4274,7 +4485,7 @@ async function loadPosts(){
 
     }catch(error){
 
-        console.error(
+              console.error(
             "Feed loading error:",
             error
         );
@@ -4834,7 +5045,7 @@ function applyFilters(){
 
     if(search){
 
-        results =
+              results =
             results.filter(
                 function(post){
 
@@ -5061,6 +5272,7 @@ function applyFilters(){
 
     renderPosts();
 
+
 }
 
 
@@ -5155,6 +5367,7 @@ function renderLocationRequired(){
 
     resultSummary.textContent =
         "Location required";
+
 
 }
 
@@ -5591,86 +5804,208 @@ function escapeAttribute(
    CREATE POST CARD
 ===================================================== */
 
+function normalizeWebsiteUrl(value){
+
+    const raw = String(value || "").trim();
+
+    if(!raw){
+        return "";
+    }
+
+    if(/^https?:\/\//i.test(raw)){
+        return raw;
+    }
+
+    return "https://" + raw;
+
+}
+
+
+function normalizeInstagramUrl(value){
+
+    const raw = String(value || "").trim();
+
+    if(!raw){
+        return "";
+    }
+
+    if(/^https?:\/\//i.test(raw)){
+        return raw;
+    }
+
+    if(raw.startsWith("@")){
+        return "https://www.instagram.com/" + raw.slice(1);
+    }
+
+    if(!raw.includes("/")){
+        return "https://www.instagram.com/" + raw;
+    }
+
+    return "https://" + raw;
+
+}
+
+
+function normalizeWhatsAppNumber(value){
+
+    let raw = String(value || "").trim();
+
+    if(!raw){
+        return "";
+    }
+
+    raw = raw.replace(/[^0-9+]/g, "");
+
+    if(raw.startsWith("+")){
+        raw = raw.slice(1);
+    }
+
+    /* Indian 10-digit number fallback */
+    if(raw.length === 10){
+        raw = "91" + raw;
+    }
+
+    return raw;
+
+}
+
+
+function createContactButtons(post){
+
+    const buttons = [];
+
+    const website = normalizeWebsiteUrl(
+        post.website_link
+    );
+
+    const instagram = normalizeInstagramUrl(
+        post.instagram_link
+    );
+
+    const whatsapp = normalizeWhatsAppNumber(
+        post.whatsapp_number || post.seller_contact
+    );
+
+
+    if(website){
+
+        buttons.push(`
+            <a
+                class="feed-contact-button website"
+                href="${escapeAttribute(website)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open website"
+            >
+                🌐 Website
+            </a>
+        `);
+
+    }
+
+
+    if(instagram){
+
+        buttons.push(`
+            <a
+                class="feed-contact-button instagram"
+                href="${escapeAttribute(instagram)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Instagram"
+            >
+                ◎ Instagram
+            </a>
+        `);
+
+    }
+
+
+    if(whatsapp){
+
+        buttons.push(`
+            <a
+                class="feed-contact-button whatsapp"
+                href="https://wa.me/${escapeAttribute(whatsapp)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Contact on WhatsApp"
+            >
+                WhatsApp
+            </a>
+        `);
+
+    }
+
+
+    if(!buttons.length){
+
+        return `
+            <div class="feed-contact-empty">
+                Contact details not provided
+            </div>
+        `;
+
+    }
+
+
+    return `
+        <div class="feed-contact-row">
+            ${buttons.join("")}
+        </div>
+    `;
+
+}
+
+
 function createPostCard(
     post,
     featured
 ){
 
-    const safeId =
-        String(
-            post.id ?? ""
-        );
-
+    const safeId = String(
+        post.id ?? ""
+    );
 
     const category =
-        post.category ||
-        "Local";
+        post.category || "Local";
 
-
-    const emoji =
-        getCategoryEmoji(
-            category
-        );
-
+    const emoji = getCategoryEmoji(
+        category
+    );
 
     const title =
-        post.title ||
-        "Local Post";
-
+        post.title || "Local Post";
 
     const description =
-        post.description ||
-        "Discover more details about this local post.";
+        post.description || "";
 
+    const distance = formatDistance(
+        post._distance
+    );
 
-    const action =
-        getActionLabel(
-            post.action_type
-        );
+    const time = formatPostTime(
+        post.created_at
+    );
 
+    const location = getPostLocation(
+        post
+    );
 
-    const distance =
-        formatDistance(
-            post._distance
-        );
+    const price = formatPrice(
+        post.price
+    );
 
-
-    const time =
-        formatPostTime(
-            post.created_at
-        );
-
-
-    const location =
-        getPostLocation(
-            post
-        );
-
-
-    const price =
-        formatPrice(
-            post.price
-        );
-
-
-    const quantity =
-        post.quantity
-            ? String(
-                post.quantity
-            )
-            : "";
-
+    const quantity = post.quantity
+        ? String(post.quantity)
+        : "";
 
     const imageUrl =
-        post.image_url ||
-        "";
+        post.image_url || "";
 
-
-    const cardClass =
-        featured
-            ? "feed-card featured"
-            : "feed-card";
-
+    const cardClass = featured
+        ? "feed-card featured"
+        : "feed-card";
 
     let media = "";
 
@@ -5678,7 +6013,6 @@ function createPostCard(
     if(imageUrl){
 
         media = `
-
             <img
                 src="${escapeAttribute(imageUrl)}"
                 alt="${escapeAttribute(title)}"
@@ -5692,17 +6026,14 @@ function createPostCard(
             >
                 ${emoji}
             </div>
-
         `;
 
     }else{
 
         media = `
-
             <div class="feed-media-placeholder">
                 ${emoji}
             </div>
-
         `;
 
     }
@@ -5711,25 +6042,19 @@ function createPostCard(
     const valueRow =
         price || quantity
             ? `
-
                 <div class="feed-value-row">
-
                     <span class="feed-price">
                         ${escapeHtml(price)}
                     </span>
-
                     <span class="feed-quantity">
                         ${escapeHtml(quantity)}
                     </span>
-
                 </div>
-
             `
             : "";
 
 
     return `
-
         <article
             class="${cardClass}"
             data-post-id="${escapeAttribute(safeId)}"
@@ -5777,70 +6102,31 @@ function createPostCard(
                 </div>
 
 
-                <div class="feed-description">
-                    ${escapeHtml(description)}
-                </div>
+                ${
+                    description
+                        ? `
+                            <div class="feed-description">
+                                ${escapeHtml(description)}
+                            </div>
+                        `
+                        : ""
+                }
 
 
                 <div class="feed-location">
-
-                    <span>
-                        📍
-                    </span>
-
-                    <span>
-                        ${escapeHtml(location)}
-                    </span>
-
+                    <span>📍</span>
+                    <span>${escapeHtml(location)}</span>
                 </div>
 
 
                 ${valueRow}
 
 
-                <div class="feed-action-row">
-
-                    <button
-                        class="feed-view-button"
-                        type="button"
-                        onclick="openPost('${escapeAttribute(safeId)}')"
-                    >
-                        ${escapeHtml(action)}
-                    </button>
-
-
-                    <button
-                        class="feed-action-icon"
-                        type="button"
-                        aria-label="View post"
-                        onclick="openPost('${escapeAttribute(safeId)}')"
-                    >
-
-                        <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                        >
-
-                            <path
-                                d="M5 12h14"
-                            />
-
-                            <path
-                                d="m13 6 6 6-6 6"
-                            />
-
-                        </svg>
-
-                    </button>
-
-                </div>
+                ${createContactButtons(post)}
 
             </div>
 
         </article>
-
     `;
 
 }
@@ -5854,87 +6140,6 @@ function createPostCard(
    OPEN POST
 ===================================================== */
 
-function openPost(
-    postId
-){
-
-    if(
-        postId === null ||
-        postId === undefined ||
-        postId === ""
-    ){
-
-        return;
-
-    }
-
-
-    window.location.href =
-        "current-post-details.html?id="
-        +
-        encodeURIComponent(
-            postId
-        );
-
-}
-
-
-/* =====================================================
-   OPEN POST ACTION
-===================================================== */
-
-function openPostAction(
-    post
-){
-
-    if(!post){
-
-        return;
-
-    }
-
-
-    const id =
-        post.id;
-
-
-    const action =
-        String(
-            post.action_type ||
-            ""
-        )
-        .toLowerCase();
-
-
-    if(
-        action === "book"
-        ||
-        action === "order"
-        ||
-        action === "enquire"
-        ||
-        action === "apply"
-    ){
-
-        window.location.href =
-            "current-booking.html?post_id="
-            +
-            encodeURIComponent(
-                id
-            );
-
-        return;
-
-    }
-
-
-    openPost(
-        id
-    );
-
-}
-
-
 /* =====================================================
    ACCOUNT
 ===================================================== */
@@ -5943,18 +6148,6 @@ function openAccount(){
 
     window.location.href =
         "current-account.html";
-
-}
-
-
-/* =====================================================
-   NOTIFICATIONS
-===================================================== */
-
-function openNotifications(){
-
-    window.location.href =
-        "current-notifications.html";
 
 }
 
@@ -5975,58 +6168,12 @@ function createLocalPost(){
    HOME
 ===================================================== */
 
-function openHome(){
+  function openHome(){
 
     window.location.href =
         "index.html";
 
 }
-
-
-/* =====================================================
-   CARD CLICK DELEGATION
-===================================================== */
-
-feedGrid.addEventListener(
-    "click",
-    function(event){
-
-        const card =
-            event.target.closest(
-                ".feed-card"
-            );
-
-
-        if(!card){
-            return;
-        }
-
-
-        if(
-            event.target.closest(
-                "button"
-            )
-        ){
-
-            return;
-
-        }
-
-
-        const postId =
-            card.dataset.postId;
-
-
-        if(postId){
-
-            openPost(
-                postId
-            );
-
-        }
-
-    }
-);
 
 
 /* =====================================================
@@ -6361,18 +6508,6 @@ document
     );
 
 
-/* =====================================================
-   NOTIFICATION BUTTON
-===================================================== */
-
-document
-    .getElementById(
-        "notificationButton"
-    )
-    .addEventListener(
-        "click",
-        openNotifications
-    );
 
 
 /* =====================================================
@@ -6552,8 +6687,6 @@ initializeFeed();
    FINAL SAFETY CHECKS
 ===================================================== */
 
-window.openPost =
-    openPost;
 
 window.openLocationModal =
     openLocationModal;
@@ -6596,3 +6729,4 @@ window.addEventListener(
 </body>
 
 </html>
+

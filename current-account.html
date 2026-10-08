@@ -841,67 +841,6 @@ Already have an account?
 </button>
 
 
-<!-- MY BOOKINGS -->
-
-<button
-    type="button"
-    class="menu-item"
-    data-page="bookings"
->
-
-<div class="menu-icon">
-    🗓
-</div>
-
-<div class="menu-text">
-
-<div class="menu-name">
-    My Bookings
-</div>
-
-<div class="menu-description">
-    Track your orders and bookings
-</div>
-
-</div>
-
-<div class="menu-arrow">
-    ›
-</div>
-
-</button>
-
-
-<!-- NOTIFICATIONS -->
-
-<button
-    type="button"
-    class="menu-item"
-    data-page="notifications"
->
-
-<div class="menu-icon">
-    🔔
-</div>
-
-<div class="menu-text">
-
-<div class="menu-name">
-    Notifications
-</div>
-
-<div class="menu-description">
-    Booking and account updates
-</div>
-
-</div>
-
-<div class="menu-arrow">
-    ›
-</div>
-
-</button>
-
 
 <!-- PROFILE -->
 
@@ -941,11 +880,6 @@ Already have an account?
 >
     Logout
 </button>
-
-<div class="account-note">
-    Your Pyncode Local account helps you
-    manage posts, bookings and local activity.
-</div>
 
 </section>
 
@@ -1009,10 +943,6 @@ const CONFIG = {
     homePage: "index.html",
 
     myPosts: "current-my-posts.html",
-
-    myBookings: "current-my-bookings.html",
-
-    notifications: "current-notifications.html",
 
     profile: "current-profile.html"
 
@@ -1837,12 +1767,6 @@ document
 
                     posts:
                         CONFIG.myPosts,
-
-                    bookings:
-                        CONFIG.myBookings,
-
-                    notifications:
-                        CONFIG.notifications,
 
                     profile:
                         CONFIG.profile
