@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e0e9dc">
+<title>Create Account | Pyncode Ads</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --cream:#faf7f0;
+  --green:#496650;
+  --sage:#e0e9dc;
+  --dark:#293a30;
+  --muted:#788078;
+  --border:#e1e3dc;
+  --white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--cream);
+  color:var(--dark);
+  min-height:100vh;
+}
+.header{
+  background:var(--sage);
+  padding:22px 20px;
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  max-width:1050px;margin:auto;
+  display:flex;justify-content:space-between;
+  align-items:center;gap:12px;
+}
+.brand h1{font-size:26px;letter-spacing:-.7px}
+.brand p{margin-top:5px;color:var(--muted);font-size:13px}
+.header-link{color:var(--green);text-decoration:none;font-weight:bold;font-size:14px}
+main{
+  max-width:1050px;margin:38px auto;padding:0 20px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:30px;align-items:center;
+}
+.intro{padding:20px}
+.eyebrow{
+  display:inline-block;background:var(--sage);color:var(--green);
+  padding:8px 12px;border-radius:30px;font-size:12px;
+  font-weight:bold;margin-bottom:22px;
+}
+.intro h2{
+  font-size:clamp(32px,4vw,47px);
+  line-height:1.12;letter-spacing:-1.3px;margin-bottom:18px;
+}
+.intro>p{color:var(--muted);font-size:15px;line-height:1.8}
+.benefits{margin-top:27px;display:grid;gap:15px}
+.benefit{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:bold}
+.check{
+  width:30px;height:30px;flex-shrink:0;display:grid;
+  place-items:center;background:var(--sage);color:var(--green);
+  border-radius:50%;
+}
+.card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:22px;padding:30px;
+  box-shadow:0 8px 30px rgba(41,58,48,.04);
+}
+.card h2{font-size:27px;margin-bottom:9px}
+.card-subtitle{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:24px}
+.field{margin-bottom:17px}
+label{display:block;font-size:13px;font-weight:bold;margin-bottom:8px}
+input{
+  display:block;width:100%;padding:14px 13px;
+  border:1px solid var(--border);border-radius:10px;
+  background:#fff;color:var(--dark);font-size:15px;
+  outline:none;min-height:48px;
+}
+input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(73,102,80,.1)}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:72px}
+.toggle-password{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  border:0;background:transparent;color:var(--green);
+  font-weight:bold;cursor:pointer;padding:8px;
+}
+.submit-btn{
+  width:100%;padding:15px;border:0;border-radius:11px;
+  background:var(--green);color:white;font-size:15px;
+  font-weight:bold;cursor:pointer;margin-top:4px;
+}
+.submit-btn:disabled{opacity:.6;cursor:wait}
+.notice{
+  display:none;padding:12px;border-radius:10px;
+  margin-bottom:17px;font-size:13px;line-height:1.6;
+  overflow-wrap:anywhere;
+}
+.notice.error{display:block;background:#fff0ed;color:#a13a2c}
+.notice.success{display:block;background:#e8f3e8;color:#315c39}
+.terms{font-size:12px;color:var(--muted);line-height:1.7;margin-top:15px}
+.login-line{text-align:center;margin-top:23px;font-size:14px;color:var(--muted)}
+.login-line a{color:var(--green);font-weight:bold;text-decoration:none}
+.footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
+@media(max-width:760px){
+  main{grid-template-columns:1fr;gap:22px;margin:22px auto}
+  .intro{padding:10px 4px}
+  .intro h2{font-size:35px}
+  .benefits{grid-template-columns:1fr 1fr;gap:12px}
+  .benefit{font-size:12px}
+  .card{padding:23px 19px}
+  .brand h1{font-size:22px}
+}
+</style>
+</head>
+
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <h1>Pyncode Ads</h1>
+      <p>Advertise your business</p>
+    </div>
+    <a class="header-link" href="ads-login.html">Already have an account? Login</a>
+  </div>
+</header>
+
+<main>
+  <section class="intro">
+    <span class="eyebrow">YOUR BUSINESS. MORE VISIBILITY.</span>
+    <h2>Grow your business with Pyncode Ads.</h2>
+    <p>Create your advertiser account and manage your campaigns, connect with customers, and track ad performance from one dashboard.</p>
+
+    <div class="benefits">
+      <div class="benefit"><span class="check">✓</span><span>Create ad campaigns</span></div>
+      <div class="benefit"><span class="check">✓</span><span>Target your audience</span></div>
+      <div class="benefit"><span class="check">✓</span><span>Track ad performance</span></div>
+      <div class="benefit"><span class="check">✓</span><span>Manage your ads</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Create your account</h2>
+    <p class="card-subtitle">Enter your business details to get started.</p>
+
+    <div id="notice" class="notice" role="status" aria-live="polite"></div>
+
+    <form id="signupForm">
+      <div class="field">
+        <label for="businessName">Business Name *</label>
+        <input id="businessName" name="businessName" type="text"
+          placeholder="Enter your business name" maxlength="120" required>
+      </div>
+
+      <div class="field">
+        <label for="ownerName">Owner Name *</label>
+        <input id="ownerName" name="ownerName" type="text"
+          placeholder="Enter owner's full name" maxlength="120" required>
+      </div>
+
+      <div class="field">
+        <label for="email">Email Address *</label>
+        <input id="email" name="email" type="email"
+          placeholder="you@example.com" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="password">Password *</label>
+        <div class="password-wrap">
+          <input id="password" name="password" type="password"
+            placeholder="At least 8 characters" minlength="8"
+            autocomplete="new-password" required>
+          <button class="toggle-password" id="togglePassword"
+            type="button">Show</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="confirmPassword">Confirm Password *</label>
+        <div class="password-wrap">
+          <input id="confirmPassword" name="confirmPassword" type="password"
+            placeholder="Enter password again" minlength="8"
+            autocomplete="new-password" required>
+          <button class="toggle-password" id="toggleConfirmPassword"
+            type="button">Show</button>
+        </div>
+      </div>
+
+      <button id="submitBtn" class="submit-btn" type="submit">
+        Create Account →
+      </button>
+
+      <p class="terms">
+        By creating an account, you agree to use Pyncode Ads responsibly.
+        Keep your password private.
+      </p>
+    </form>
+
+    <div class="login-line">
+      Already registered? <a href="ads-login.html">Login here</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">© 2026 Pyncode Ads. All rights reserved.</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  const SUPABASE_URL = "https://mtuspuehsxsjoaxoenen.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+  const notice = document.getElementById("notice");
+  const form = document.getElementById("signupForm");
+  const submitBtn = document.getElementById("submitBtn");
+
+  function showNotice(message, type){
+    notice.textContent = message;
+    notice.className = "notice " + type;
+    notice.scrollIntoView({behavior:"smooth",block:"nearest"});
+  }
+
+  function toggleField(inputId, buttonId){
+    const field = document.getElementById(inputId);
+    const button = document.getElementById(buttonId);
+    button.addEventListener("click", function(){
+      const show = field.type === "password";
+      field.type = show ? "text" : "password";
+      button.textContent = show ? "Hide" : "Show";
+    });
+  }
+
+  toggleField("password","togglePassword");
+  toggleField("confirmPassword","toggleConfirmPassword");
+
+  if(!window.supabase){
+    showNotice("Supabase library load aagala. Internet connection check pannitu page refresh pannunga.","error");
+    submitBtn.disabled = true;
+    return;
+  }
+
+  const client = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+  form.addEventListener("submit", async function(event){
+    event.preventDefault();
+
+    const businessName = document.getElementById("businessName").value.trim();
+    const ownerName = document.getElementById("ownerName").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if(!businessName || !ownerName || !email || !password){
+      showNotice("Ella required fields-um fill pannunga.","error");
+      return;
+    }
+
+    if(password.length < 8){
+      showNotice("Password minimum 8 characters irukkanum.","error");
+      return;
+    }
+
+    if(password !== confirmPassword){
+      showNotice("Password and Confirm Password match aagala.","error");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Creating account...";
+
+    try{
+      const result = await client.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            business_name: businessName,
+            owner_name: ownerName
+          }
+        }
+      });
+
+      if(result.error) throw result.error;
+
+      const user = result.data.user;
+      const session = result.data.session;
+
+      if(!user){
+        throw new Error("Account create result kidaikkala. Please try again.");
+      }
+
+      /*
+       * When email confirmation is disabled, Supabase normally returns
+       * a session immediately. Create the advertiser profile if logged in.
+       */
+      if(session){
+        const profileResult = await client
+          .from("advertiser_profiles")
+          .upsert({
+            user_id: user.id,
+            business_name: businessName,
+            owner_name: ownerName,
+            updated_at: new Date().toISOString()
+          }, {onConflict:"user_id"});
+
+        if(profileResult.error){
+          console.error("Profile save error:",profileResult.error);
+          showNotice(
+            "Account create aagiduchu. Aana business profile save aagala. Dashboard-la login aagi continue pannunga.",
+            "success"
+          );
+          setTimeout(function(){
+            window.location.href = "ads-dashboard.html";
+          },1800);
+          return;
+        }
+
+        showNotice("Account created successfully! Dashboard-ku redirect aagudhu...","success");
+
+        setTimeout(function(){
+          window.location.href = "ads-dashboard.html";
+        },900);
+
+        return;
+      }
+
+      /*
+       * No session usually means email confirmation is still enabled.
+       * Do not claim that the account is ready to use.
+       */
+      showNotice(
+        "Account request create aagiduchu, aana Supabase email confirmation require pannudhu. Supabase Dashboard → Authentication → Sign In / Providers → Email-la Confirm email OFF pannunga. Appuram indha page-la account create pannunga.",
+        "error"
+      );
+
+    }catch(error){
+      console.error("Signup error:",error);
+
+      let message = error && error.message
+        ? error.message
+        : "Account create panna mudiyala. Please try again.";
+
+      if(/already registered|already exists|user already/i.test(message)){
+        message = "Indha email-ku account already irukku. Login page-la login pannunga.";
+      }else if(/password should be at least/i.test(message)){
+        message = "Password minimum 8 characters irukkanum.";
+      }else if(/rate limit/i.test(message)){
+        message = "Romba attempts pannirukeenga. Konjam neram kazhichu try pannunga.";
+      }
+
+      showNotice(message,"error");
+    }finally{
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Create Account →";
+    }
+  });
+})();
+</script>
+</body>
+</html>

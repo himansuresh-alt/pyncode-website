@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e7eee6">
+<title>Pyncode Ads Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root{
+  --cream:#faf8f1;
+  --white:#fff;
+  --sage:#6d8b74;
+  --sage-light:#e7eee6;
+  --ink:#26372d;
+  --muted:#6d786f;
+  --line:#e1e7df;
+  --danger:#b94040;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:Arial,Helvetica,sans-serif;font-size:15px;
+}
+header{
+  position:sticky;top:0;z-index:10;background:var(--white);
+  border-bottom:1px solid var(--line);padding:14px 16px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+.brand{font-size:21px;font-weight:800;color:var(--sage)}
+.small{font-size:12px;color:var(--muted);line-height:1.5}
+button,.button{
+  border:0;border-radius:10px;padding:12px 15px;
+  background:var(--sage);color:white;font-weight:700;
+  cursor:pointer;font-size:14px;
+}
+button:disabled{opacity:.55;cursor:not-allowed}
+.secondary{background:var(--sage-light);color:var(--ink)}
+.danger{background:#fae8e6;color:var(--danger)}
+.layout{max-width:1100px;margin:auto;padding:16px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+nav button{background:var(--white);color:var(--ink);border:1px solid var(--line)}
+nav button.active{background:var(--sage);color:white}
+.view{display:none}
+.view.active{display:block}
+.card{
+  background:var(--white);border:1px solid var(--line);
+  border-radius:16px;padding:18px;margin-bottom:15px;
+}
+h1{font-size:25px;margin:4px 0 8px}
+h2{font-size:19px;margin:0 0 14px}
+h3{font-size:16px;margin:0 0 8px}
+p{line-height:1.5}
+label{display:block;font-weight:700;margin:14px 0 6px}
+input,select,textarea{
+  width:100%;padding:12px;border:1px solid #d7dfd5;
+  border-radius:10px;background:#fff;color:var(--ink);
+  font-size:15px;outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--sage)}
+textarea{min-height:90px;resize:vertical}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.notice{
+  padding:12px;border-radius:10px;background:var(--sage-light);
+  margin:12px 0;line-height:1.5;overflow-wrap:anywhere;
+}
+.error{background:#fae8e6;color:#922f2f}
+.muted{color:var(--muted)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.stat{font-size:27px;font-weight:800;margin-top:7px}
+.campaign{
+  border:1px solid var(--line);border-radius:12px;
+  padding:13px;margin:10px 0;overflow-wrap:anywhere;
+}
+.campaign img{
+  width:100%;max-height:220px;object-fit:contain;
+  border-radius:8px;background:var(--cream);margin-bottom:10px;
+}
+.preview{
+  display:none;width:100%;max-height:250px;object-fit:contain;
+  margin-top:10px;border-radius:10px;background:var(--cream);
+}
+.status{
+  display:inline-block;padding:5px 9px;border-radius:20px;
+  background:var(--sage-light);font-size:12px;font-weight:700;
+}
+.campaign-stats{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;margin-top:12px;
+}
+.campaign-stats>div{
+  background:var(--cream);border-radius:10px;padding:10px;
+  overflow-wrap:anywhere;
+}
+.campaign-stats strong{display:block;font-size:20px;margin-top:5px}
+footer{text-align:center;padding:25px 15px;color:var(--muted);font-size:12px}
+.hidden{display:none!important}
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr}
+  .layout{padding:10px}
+  .card{padding:14px}
+  h1{font-size:22px}
+  nav button{flex:1}
+  .campaign-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">Pyncode Ads</div>
+    <div class="small">Advertiser Dashboard</div>
+  </div>
+  <button id="logoutBtn" class="secondary" type="button">Logout</button>
+</header>
+
+<div class="layout">
+  <div id="globalNotice" class="notice hidden"></div>
+  <div class="small" id="userEmail"></div>
+
+  <nav>
+    <button type="button" class="active" data-view="overview">Overview</button>
+    <button type="button" data-view="campaigns">My Ads</button>
+    <button type="button" data-view="create">Create Ad</button>
+    <button type="button" data-view="analytics">Analytics</button>
+  </nav>
+
+  <section id="view-overview" class="view active">
+    <div class="card">
+      <h1>Welcome to Pyncode Ads</h1>
+      <p class="muted">Create campaigns and reach the right audience.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="small">My campaigns</div>
+          <div id="campaignCount" class="stat">0</div>
+        </div>
+        <div class="card">
+          <div class="small">Account</div>
+          <div class="stat" style="font-size:18px">Advertiser</div>
+        </div>
+      </div>
+
+      <button type="button" data-go="create">Create an advertisement</button>
+    </div>
+
+    <div class="card">
+      <h2>Recent campaigns</h2>
+      <div id="recentList" class="muted">Loading campaigns...</div>
+    </div>
+  </section>
+
+  <section id="view-campaigns" class="view">
+    <div class="card">
+      <h1>My Advertisements</h1>
+      <p class="muted">View your saved campaigns and their status.</p>
+      <div id="campaignList">Loading campaigns...</div>
+    </div>
+  </section>
+
+  <section id="view-create" class="view">
+    <div class="card">
+      <h1 id="formTitle">Create Advertisement</h1>
+      <p class="muted">Add your poster, contact links and target audience.</p>
+      <div id="formNotice" class="notice hidden"></div>
+
+      <form id="campaignForm">
+        <label for="campaignName">Campaign name *</label>
+        <input id="campaignName" required maxlength="100"
+          placeholder="Example: New showroom opening">
+
+        <div class="grid">
+          <div>
+            <label for="businessCategory">Main category *</label>
+            <select id="businessCategory" required>
+              <option value="">Select category</option>
+            </select>
+          </div>
+          <div>
+            <label for="businessSubcategory">Subcategory *</label>
+            <select id="businessSubcategory" required>
+              <option value="">Select main category first</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="adText">Advertisement description *</label>
+        <textarea id="adText" required maxlength="1000"
+          placeholder="Describe your product, service or offer"></textarea>
+
+        <label for="adImage">Advertisement poster *</label>
+        <input id="adImage" type="file" accept="image/*">
+        <div id="posterHelp" class="small">Poster is required when creating a new ad. Images are compressed before upload (target: 200–300 KB). While editing, leave empty to keep the current poster.</div>
+        <div id="imageCompressionStatus" class="small" role="status"></div>
+        <img id="imagePreview" class="preview" alt="Poster preview">
+
+        <h2 style="margin-top:24px">Contact links</h2>
+        <p class="small">All contact fields are optional.</p>
+
+        <label for="whatsappLink">WhatsApp number or link</label>
+        <input id="whatsappLink"
+          placeholder="919876543210 or https://wa.me/919876543210">
+
+        <label for="instagramLink">Instagram profile link</label>
+        <input id="instagramLink" type="url"
+          placeholder="https://www.instagram.com/yourprofile">
+
+        <label for="websiteLink">Website link</label>
+        <input id="websiteLink" type="url"
+          placeholder="https://example.com">
+
+        <h2 style="margin-top:24px">Advertiser location</h2>
+        <div class="notice">
+          Try GPS detection first. If GPS fails, enter the business pincode
+          and area manually.
+        </div>
+
+        <button type="button" id="detectLocationBtn">Detect my location</button>
+        <div id="locationStatus" class="notice" role="status">
+          Location has not been detected yet.
+        </div>
+
+        <div class="grid">
+          <div>
+            <label for="audiencePincode">Business / target pincode *</label>
+            <input id="audiencePincode" inputmode="numeric"
+              maxlength="6" pattern="[1-9][0-9]{5}"
+              placeholder="6-digit Indian pincode" required>
+          </div>
+          <div>
+            <label for="audienceLocation">Area / locality *</label>
+            <input id="audienceLocation" maxlength="120"
+              placeholder="e.g. Anna Nagar, Chennai" required>
+          </div>
+        </div>
+
+        <label for="targetRadius">Nearby ad radius *</label>
+        <select id="targetRadius" required>
+          <option value="3">3 km</option>
+          <option value="5" selected>5 km</option>
+          <option value="10">10 km</option>
+          <option value="15">15 km</option>
+        </select>
+
+        <label for="audienceInterest">Interests (optional, comma-separated)</label>
+        <input id="audienceInterest"
+          placeholder="e.g. shopping, food, business">
+
+        <div class="notice">
+          New campaigns are saved as drafts. Open My Ads and publish
+          the advertisement when you are ready.
+        </div>
+
+        <div class="row">
+          <button id="saveCampaignBtn" type="submit">Save advertisement</button>
+          <button id="cancelEditBtn" type="button" class="secondary hidden">Cancel edit</button>
+          <button id="clearForm" type="reset" class="secondary">Clear form</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="view-analytics" class="view">
+    <div class="card">
+      <h1>Ad Analytics</h1>
+      <p class="muted">
+        Check how often your ads appear and how customers interact with them.
+      </p>
+
+      <div class="row" style="margin:18px 0">
+        <button type="button" id="refreshAnalyticsBtn">Refresh Analytics</button>
+      </div>
+
+      <div id="analyticsNotice" class="notice">
+        Open Analytics to load campaign performance.
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="small">Total Impressions</div>
+          <div id="totalImpressions" class="stat">—</div>
+        </div>
+        <div class="card">
+          <div class="small">Total Clicks</div>
+          <div id="totalClicks" class="stat">—</div>
+        </div>
+        <div class="card">
+          <div class="small">WhatsApp Clicks</div>
+          <div id="totalWhatsAppClicks" class="stat">—</div>
+        </div>
+        <div class="card">
+          <div class="small">Instagram Clicks</div>
+          <div id="totalInstagramClicks" class="stat">—</div>
+        </div>
+        <div class="card">
+          <div class="small">Website Clicks</div>
+          <div id="totalWebsiteClicks" class="stat">—</div>
+        </div>
+        <div class="card">
+          <div class="small">Call Clicks</div>
+          <div id="totalCallClicks" class="stat">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Campaign Performance</h2>
+      <div id="analyticsCampaignList">
+        Campaign performance will appear here.
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>Pyncode Ads · Business opportunities and advertising</footer>
+<script>
+"use strict";
+
+const SUPABASE_URL =
+  "https://mtuspuehsxsjoaxoenen.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+let currentUser = null;
+let campaigns = [];
+let gpsLatitude = null;
+let gpsLongitude = null;
+let gpsAttempted = false;
+let editingCampaignId = null;
+let editingPosterUrl = "";
+
+const $ = id => document.getElementById(id);
+
+const categoryData = {
+  "Business & Franchise":[
+    "Franchise","Dealership","Distributorship","Business Opportunities",
+    "Business Consultancy","Startup Support","Investment Opportunities"
+  ],
+  "Shops & Retail":[
+    "Grocery","Supermarket","Clothing","Footwear","Mobile Shops",
+    "Electronics","Home Appliances","Gift Shops","Stationery",
+    "Hardware","Jewellery"
+  ],
+  "Food & Beverages":[
+    "Restaurants","Hotels","Tea Shops","Bakeries","Catering",
+    "Cloud Kitchens","Snacks","Sweets","Juice Shops","Food Products"
+  ],
+  "Home Services":[
+    "Plumbing","Electrician","Carpentry","Painting","Cleaning",
+    "Pest Control","AC Service","Appliance Repair","Waterproofing",
+    "Home Maintenance"
+  ],
+  "Professional Services":[
+    "Accounting","Tax Consultant","Legal Services","Business Consultant",
+    "Insurance","Financial Services","HR Consultancy","Documentation"
+  ],
+  "Construction & Real Estate":[
+    "Builders","Civil Contractors","Architects","Interior Design",
+    "Real Estate","Rental Properties","Building Materials","Modular Kitchens"
+  ],
+  "Manufacturing & Industrial":[
+    "Small-Scale Manufacturing","Factories","Machinery","Industrial Equipment",
+    "Packaging","Raw Materials","Private Label","OEM Manufacturing"
+  ],
+  "Wholesale & Distribution":[
+    "FMCG Wholesale","Grocery Wholesale","Clothing Wholesale",
+    "Electronics Wholesale","Cosmetics Wholesale","Import & Export",
+    "Bulk Suppliers"
+  ],
+  "Education & Training":[
+    "Schools","Colleges","Tuition","Coaching","Skill Training",
+    "Online Courses","Computer Training","Language Training","Business Training"
+  ],
+  "Health & Wellness":[
+    "Clinics","Hospitals","Diagnostic Labs","Fitness Centres","Yoga",
+    "Physiotherapy","Dental Clinics","Medical Equipment"
+  ],
+  "Beauty & Personal Care":[
+    "Beauty Parlours","Salons","Spas","Makeup Artists","Bridal Makeup",
+    "Cosmetics","Skincare","Haircare"
+  ],
+  "Events & Wedding":[
+    "Event Management","Wedding Planners","Catering","Photography",
+    "Videography","Decoration","Sound & Lighting","Stage Setup","Event Rentals"
+  ],
+  "Automobile & Transport":[
+    "Car Dealers","Bike Dealers","Car Service","Bike Service","Car Wash",
+    "Tyres","Spare Parts","Vehicle Rentals","Logistics","Packers & Movers"
+  ],
+  "Technology & Digital":[
+    "Website Development","App Development","Software","Digital Marketing",
+    "SEO","Graphic Design","Video Editing","IT Support","AI Tools"
+  ],
+  "Agriculture & Farming":[
+    "Seeds","Fertilizers","Farm Equipment","Dairy Farming","Poultry",
+    "Livestock","Organic Farming","Irrigation","Agricultural Products"
+  ],
+  "Clothing & Textiles":[
+    "Readymade Garments","Textile Shops","Sarees","Kidswear","Menswear",
+    "Womenswear","Uniforms","Tailoring","Boutique","Fabric Wholesale"
+  ],
+  "Beauty, Fashion & Lifestyle Products":[
+    "Fashion Accessories","Bags","Watches","Perfumes","Handmade Products",
+    "Home Decor","Lifestyle Products"
+  ],
+  "Cleaning & Chemical Products":[
+    "Detergents","Dishwash Liquid","Floor Cleaner","Toilet Cleaner",
+    "Car Shampoo","Industrial Chemicals","Cleaning Equipment",
+    "Housekeeping Supplies"
+  ],
+  "E-commerce & Online Business":[
+    "Online Stores","Marketplace Sellers","Reselling","Dropshipping",
+    "D2C Brands","Seller Services","Product Listing","Packaging & Shipping"
+  ],
+  "Travel & Hospitality":[
+    "Travel Agencies","Tour Packages","Hotels","Resorts","Homestays",
+    "Tourist Transport","Ticket Booking","Visa Assistance"
+  ],
+  "Photography & Creative Services":[
+    "Photographers","Videographers","Photo Studios","Printing",
+    "Invitation Design","Content Creators","Advertising Agencies"
+  ],
+  "Mobile & Electronics Services":[
+    "Mobile Repair","Laptop Repair","Computer Sales","CCTV","Networking",
+    "Security Systems","Electronics Repair"
+  ],
+  "Rental Services":[
+    "Car Rental","Bike Rental","Furniture Rental","Equipment Rental",
+    "Camera Rental","Event Materials","VR Headset Rental"
+  ],
+  "Cleaning & Facility Management":[
+    "Office Cleaning","Housekeeping","Commercial Cleaning",
+    "Facility Management","Manpower Supply","Sanitation"
+  ],
+  "Printing & Packaging":[
+    "Printing Press","Digital Printing","Flex & Banner","Labels","Stickers",
+    "Packaging Boxes","Paper Products"
+  ],
+  "Pets & Animal Services":[
+    "Pet Shops","Pet Grooming","Pet Boarding","Veterinary Services",
+    "Pet Food","Livestock Services"
+  ],
+  "Finance & Insurance":[
+    "Loans","Insurance Agents","Financial Planning","Business Funding",
+    "Accounting Services","Investment Education"
+  ],
+  "Jobs & Recruitment":[
+    "Job Consultancy","Recruitment Agencies","Staffing","Part-Time Jobs",
+    "Work-From-Home Opportunities","Skill-Based Jobs"
+  ],
+  "Local Products & Handmade":[
+    "Handicrafts","Homemade Foods","Pickles","Masala Powders",
+    "Handmade Gifts","Cottage Industries","Regional Products"
+  ],
+  "Other Business Opportunities":[
+    "New Business Ideas","Emerging Products","Business Partnerships",
+    "B2B Services","Other Products & Services"
+  ]
+};
+
+  function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[ch]));
+}
+
+function showNotice(id, message, isError=false) {
+  const el = $(id);
+  if (!el) return;
+  el.textContent = message;
+  el.classList.remove("hidden", "error");
+  if (isError) el.classList.add("error");
+}
+
+function hideNotice(id) {
+  $(id)?.classList.add("hidden");
+}
+
+function fillCategories() {
+  const main = $("businessCategory");
+  Object.keys(categoryData).forEach(name => {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    main.appendChild(option);
+  });
+}
+
+function fillSubcategories() {
+  const main = $("businessCategory").value;
+  const sub = $("businessSubcategory");
+  sub.innerHTML = '<option value="">Select subcategory</option>';
+
+  (categoryData[main] || []).forEach(name => {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    sub.appendChild(option);
+  });
+}
+
+function showView(name) {
+  document.querySelectorAll(".view").forEach(el =>
+    el.classList.remove("active")
+  );
+
+  $("view-" + name)?.classList.add("active");
+
+  document.querySelectorAll("nav button[data-view]").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.view === name);
+  });
+
+  if (name === "campaigns" || name === "overview") {
+    loadCampaigns();
+  }
+
+  if (name === "analytics") {
+    loadAnalytics();
+  }
+}
+
+document.querySelectorAll("nav button[data-view]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (btn.dataset.view === "create" && !editingCampaignId) {
+      resetEditorState();
+    }
+    showView(btn.dataset.view);
+  });
+});
+
+document.querySelectorAll("[data-go]").forEach(btn => {
+  btn.addEventListener("click", () => showView(btn.dataset.go));
+});
+
+$("businessCategory").addEventListener("change", fillSubcategories);
+
+async function checkSession() {
+  const { data, error } = await db.auth.getSession();
+  if (error) throw error;
+
+  currentUser = data.session?.user || null;
+
+  if (!currentUser) {
+    location.href = "ads-login.html";
+    return false;
+  }
+
+  $("userEmail").textContent = currentUser.email || "Signed in";
+  return true;
+}
+
+$("logoutBtn").addEventListener("click", async () => {
+  await db.auth.signOut();
+  location.href = "ads-login.html";
+});
+
+async function loadCampaigns() {
+  if (!currentUser) return;
+
+  $("campaignList").textContent = "Loading campaigns...";
+  $("recentList").textContent = "Loading campaigns...";
+
+  try {
+    const { data, error } = await db
+      .from("ad_campaigns")
+      .select("id,campaign_name,category,description,poster_url,status,created_at,starts_at,ends_at")
+      .eq("advertiser_id", currentUser.id)
+      .order("created_at", { ascending:false });
+
+    if (error) throw error;
+
+    campaigns = data || [];
+    $("campaignCount").textContent = campaigns.length;
+
+    if (!campaigns.length) {
+      $("campaignList").textContent =
+        "No advertisements yet. Create your first ad.";
+      $("recentList").textContent =
+        "Your recent ads will appear here.";
+      return;
+    }
+
+    const renderCampaign = c => `
+      <div class="campaign">
+        ${c.poster_url ? `
+          <img src="${escapeHtml(c.poster_url)}"
+               alt="Advertisement poster" loading="lazy">
+        ` : ""}
+
+        <h3>${escapeHtml(c.campaign_name || "Untitled Ad")}</h3>
+        <div class="small">${escapeHtml(c.category || "")}</div>
+        <p>${escapeHtml(c.description || "")}</p>
+
+        <div class="row">
+          <span class="status">
+            ${escapeHtml(c.status === "active" ? "Published" : (c.status || "draft"))}
+          </span>
+
+          <button type="button" class="secondary"
+            data-edit="${escapeHtml(c.id)}">Edit Ad</button>
+
+          <button type="button" class="danger"
+            data-delete="${escapeHtml(c.id)}">Delete Ad</button>
+
+          ${c.status !== "active" ? `
+            <button type="button"
+              data-publish="${escapeHtml(c.id)}">
+              Publish Advertisement
+            </button>
+          ` : `
+            <span class="small">Advertisement is published.</span>
+          `}
+
+          <button type="button" class="secondary"
+            data-refresh="1">Refresh list</button>
+        </div>
+      </div>
+    `;
+
+    $("campaignList").innerHTML = campaigns.map(renderCampaign).join("");
+    $("recentList").innerHTML =
+      campaigns.slice(0, 3).map(renderCampaign).join("");
+
+    document.querySelectorAll("[data-refresh]").forEach(btn => {
+      btn.addEventListener("click", loadCampaigns);
+    });
+
+    document.querySelectorAll("[data-edit]").forEach(btn => {
+      btn.addEventListener("click", () =>
+        editCampaign(btn.dataset.edit, btn)
+      );
+    });
+
+    document.querySelectorAll("[data-delete]").forEach(btn => {
+      btn.addEventListener("click", () =>
+        deleteCampaign(btn.dataset.delete, btn)
+      );
+    });
+
+    document.querySelectorAll("[data-publish]").forEach(btn => {
+      btn.addEventListener("click", () =>
+        publishCampaign(btn.dataset.publish, btn)
+      );
+    });
+
+  } catch (error) {
+    $("campaignList").textContent =
+      "Could not load campaigns: " + error.message;
+    $("recentList").textContent = "Could not load campaigns.";
+  }
+}
+
+async function deleteCampaign(campaignId, button) {
+  if (!currentUser) {
+    showNotice("globalNotice", "Please sign in again.", true);
+    return;
+  }
+
+  const campaign = campaigns.find(
+    c => String(c.id) === String(campaignId)
+  );
+
+  if (!campaign) {
+    showNotice(
+      "globalNotice",
+      "Advertisement not found in your campaign list.",
+      true
+    );
+    return;
+  }
+
+  if (!window.confirm(
+    'Permanently delete "' +
+    (campaign.campaign_name || "this advertisement") +
+    '"? This cannot be undone.'
+  )) return;
+
+  const originalText = button?.textContent || "Delete Ad";
+
+  if (button) {
+    button.disabled = true;
+    button.textContent = "Deleting...";
+  }
+
+  try {
+    const { error: targetingError } = await db
+      .from("ad_targeting")
+      .delete()
+      .eq("campaign_id", campaignId);
+
+    if (targetingError) throw targetingError;
+
+    const { error: eventsError } = await db
+      .from("ad_events")
+      .delete()
+      .eq("campaign_id", campaignId);
+
+    if (eventsError) {
+      throw new Error(
+        "Could not remove campaign analytics. Check the ad_events DELETE policy: " +
+        eventsError.message
+      );
+    }
+
+    const { data, error } = await db
+      .from("ad_campaigns")
+      .delete()
+      .eq("id", campaignId)
+      .eq("advertiser_id", currentUser.id)
+      .select("id")
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (!data) {
+      throw new Error(
+        "Delete was not confirmed. Check the ad_campaigns DELETE policy for campaign owners."
+      );
+    }
+
+    showNotice("globalNotice", "Advertisement deleted successfully.");
+    await loadCampaigns();
+
+  } catch (error) {
+    console.error("Delete campaign failed:", error);
+
+    showNotice(
+      "globalNotice",
+      "Could not delete advertisement: " +
+      (error.message || "Unknown error") +
+      ". Check Supabase DELETE policies and related-table permissions.",
+      true
+    );
+
+    if (button) {
+      button.disabled = false;
+      button.textContent = originalText;
+    }
+  }
+}
+
+  function resetEditorState() {
+  editingCampaignId = null;
+  editingPosterUrl = "";
+  $("formTitle").textContent = "Create Advertisement";
+  $("saveCampaignBtn").textContent = "Save advertisement";
+  $("cancelEditBtn").classList.add("hidden");
+  $("adImage").required = false;
+  $("posterHelp").textContent =
+    "Poster is required when creating a new ad. While editing, leave empty to keep the current poster.";
+  $("campaignForm").reset();
+  gpsLatitude = null;
+  gpsLongitude = null;
+  gpsAttempted = false;
+  $("imagePreview").style.display = "none";
+  $("imagePreview").removeAttribute("src");
+  $("imageCompressionStatus").textContent = "";
+  $("locationStatus").textContent = "Location has not been detected yet.";
+  fillSubcategories();
+  hideNotice("formNotice");
+}
+
+async function editCampaign(campaignId, button) {
+  if (!currentUser) {
+    showNotice("globalNotice", "Please sign in again.", true);
+    return;
+  }
+
+  const originalText = button?.textContent || "Edit Ad";
+
+  if (button) {
+    button.disabled = true;
+    button.textContent = "Loading...";
+  }
+
+  try {
+    const { data: campaign, error: campaignError } = await db
+      .from("ad_campaigns")
+      .select("*")
+      .eq("id", campaignId)
+      .eq("advertiser_id", currentUser.id)
+      .single();
+
+    if (campaignError) throw campaignError;
+    if (!campaign) {
+      throw new Error("Advertisement not found or access denied.");
+    }
+
+    const { data: target, error: targetError } = await db
+      .from("ad_targeting")
+      .select("*")
+      .eq("campaign_id", campaignId)
+      .maybeSingle();
+
+    if (targetError) throw targetError;
+
+    resetEditorState();
+    editingCampaignId = String(campaign.id);
+    editingPosterUrl = campaign.poster_url || "";
+
+    $("campaignName").value = campaign.campaign_name || "";
+    $("businessCategory").value = campaign.category || "";
+    fillSubcategories();
+
+    const description = campaign.description || "";
+    const subMatch = description.match(/(?:^|\n)Subcategory:\s*(.+)\s*$/i);
+    const subcategory = subMatch ? subMatch[1].trim() : "";
+
+    $("adText").value = subMatch
+      ? description.replace(/\n?Subcategory:\s*.+\s*$/i, "").trim()
+      : description;
+
+    if (
+      subcategory &&
+      [...$("businessSubcategory").options].some(o => o.value === subcategory)
+    ) {
+      $("businessSubcategory").value = subcategory;
+    }
+
+    $("whatsappLink").value = campaign.whatsapp_url || "";
+    $("instagramLink").value = campaign.instagram_url || "";
+    $("websiteLink").value =
+      campaign.website_url || campaign.destination || "";
+
+    const pincode = target?.pincodes;
+    $("audiencePincode").value = Array.isArray(pincode)
+      ? (pincode[0] || "")
+      : (pincode || "");
+
+    const areas = target?.areas;
+    $("audienceLocation").value = Array.isArray(areas)
+      ? (areas[0] || "")
+      : (areas || "");
+
+    $("targetRadius").value = String(target?.radius_km || 5);
+
+    const interests = target?.interests;
+    $("audienceInterest").value = Array.isArray(interests)
+      ? interests.join(", ")
+      : (interests || "");
+
+    gpsLatitude =
+      target?.latitude == null ? null : Number(target.latitude);
+    gpsLongitude =
+      target?.longitude == null ? null : Number(target.longitude);
+
+    gpsAttempted = true;
+
+    $("locationStatus").textContent =
+      gpsLatitude != null && gpsLongitude != null
+        ? "Saved GPS location loaded. Detect location again if you want to change it."
+        : "No GPS coordinates saved for this ad. You can keep the current targeting or detect GPS again.";
+
+    $("adImage").required = false;
+    $("posterHelp").textContent =
+      "Optional while editing. Select a new image only if you want to replace the current poster.";
+
+    if (editingPosterUrl) {
+      $("imagePreview").src = editingPosterUrl;
+      $("imagePreview").style.display = "block";
+    }
+
+    $("formTitle").textContent = "Edit Advertisement";
+    $("saveCampaignBtn").textContent = "Save changes";
+    $("cancelEditBtn").classList.remove("hidden");
+
+    hideNotice("formNotice");
+    showView("create");
+
+    showNotice(
+      "formNotice",
+      "Editing this advertisement. Saving changes updates the existing ad; its analytics remain attached."
+    );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+  } catch (error) {
+    showNotice(
+      "globalNotice",
+      "Could not open ad for editing: " +
+      (error.message || "Unknown error"),
+      true
+    );
+  } finally {
+    if (button) {
+      button.disabled = false;
+      button.textContent = originalText;
+    }
+  }
+}
+
+$("cancelEditBtn").addEventListener("click", () => {
+  resetEditorState();
+  showView("campaigns");
+});
+
+async function publishCampaign(campaignId, button) {
+  if (!currentUser) {
+    showNotice("globalNotice", "Please sign in again.", true);
+    return;
+  }
+
+  if (!window.confirm(
+    "Publish this advertisement on the public Pyncode Ads page?"
+  )) return;
+
+  const originalText = button.textContent;
+  button.disabled = true;
+  button.textContent = "Publishing...";
+
+  try {
+    const { data, error } = await db
+      .from("ad_campaigns")
+      .update({ status: "active" })
+      .eq("id", campaignId)
+      .eq("advertiser_id", currentUser.id)
+      .select("id,status")
+      .single();
+
+    if (error) throw error;
+
+    if (!data || data.status !== "active") {
+      throw new Error(
+        "Campaign was not published. Check Supabase update policy."
+      );
+    }
+
+    showNotice("globalNotice", "Advertisement published successfully.");
+    await loadCampaigns();
+
+  } catch (error) {
+    showNotice("globalNotice", "Publish failed: " + error.message, true);
+    button.disabled = false;
+    button.textContent = originalText;
+  }
+}
+
+const MAX_AD_IMAGE_BYTES = 300 * 1024;
+const MIN_AD_IMAGE_BYTES = 200 * 1024;
+
+function canvasToJpegBlob(canvas, quality) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(blob => {
+      if (blob) resolve(blob);
+      else reject(new Error("The browser could not compress this image."));
+    }, "image/jpeg", quality);
+  });
+}
+
+async function compressAdImage(file) {
+  if (!file || !file.type.startsWith("image/")) {
+    throw new Error("Please select a valid image file.");
+  }
+
+  let bitmap;
+
+  try {
+    bitmap = await createImageBitmap(file);
+  } catch {
+    throw new Error(
+      "This image format could not be opened. Please choose JPG, PNG or WebP."
+    );
+  }
+
+  try {
+    const maxDimension = 1600;
+    const scale = Math.min(
+      1,
+      maxDimension / Math.max(bitmap.width, bitmap.height)
+    );
+
+    let width = Math.max(1, Math.round(bitmap.width * scale));
+    let height = Math.max(1, Math.round(bitmap.height * scale));
+    let bestBlob = null;
+
+    for (let dimensionPass = 0; dimensionPass < 7; dimensionPass++) {
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext("2d", { alpha: false });
+
+      if (!ctx) {
+        throw new Error("Image compression is not supported by this browser.");
+      }
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, width, height);
+      ctx.drawImage(bitmap, 0, 0, width, height);
+
+      for (const quality of [0.86, 0.78, 0.70, 0.62, 0.54, 0.46, 0.38]) {
+        const blob = await canvasToJpegBlob(canvas, quality);
+
+        if (!bestBlob || blob.size < bestBlob.size) {
+          bestBlob = blob;
+        }
+
+        if (blob.size <= MAX_AD_IMAGE_BYTES) {
+          const compressed = new File(
+            [blob],
+            (file.name.replace(/\.[^.]+$/, "") || "advertisement") + ".jpg",
+            { type: "image/jpeg", lastModified: Date.now() }
+          );
+
+          return {
+            file: compressed,
+            originalSize: file.size,
+            targetMin: MIN_AD_IMAGE_BYTES
+          };
+        }
+      }
+
+      canvas.width = 0;
+      canvas.height = 0;
+
+      width = Math.max(320, Math.round(width * 0.82));
+      height = Math.max(320, Math.round(height * 0.82));
+
+      if (width === 320 && height === 320) break;
+    }
+
+    if (bestBlob && bestBlob.size <= MAX_AD_IMAGE_BYTES) {
+      return {
+        file: new File(
+          [bestBlob],
+          "advertisement.jpg",
+          { type: "image/jpeg" }
+        ),
+        originalSize: file.size,
+        targetMin: MIN_AD_IMAGE_BYTES
+      };
+    }
+
+    throw new Error(
+      "This image could not be reduced below 300 KB. Please choose a smaller image."
+    );
+
+  } finally {
+    bitmap.close?.();
+  }
+}
+
+$("adImage").addEventListener("change", () => {
+  const file = $("adImage").files[0];
+  const img = $("imagePreview");
+
+  $("imageCompressionStatus").textContent = "";
+
+  if (!file) {
+    img.style.display = "none";
+    img.removeAttribute("src");
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    showNotice("formNotice", "Please select an image file.", true);
+    $("adImage").value = "";
+    return;
+  }
+
+  img.src = URL.createObjectURL(file);
+  img.style.display = "block";
+
+  $("imageCompressionStatus").textContent =
+    "Selected: " + (file.size / 1024).toFixed(0) +
+    " KB. It will be compressed to 300 KB or less before upload.";
+});
+
+function updateLocationStatus(message, isError=false) {
+  showNotice("locationStatus", message, isError);
+}
+
+function detectGPS() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error("GPS is not supported by this browser."));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      resolve,
+      reject,
+      { enableHighAccuracy:true, timeout:15000, maximumAge:60000 }
+    );
+  });
+}
+
+$("detectLocationBtn").addEventListener("click", async () => {
+  const btn = $("detectLocationBtn");
+
+  gpsAttempted = true;
+  btn.disabled = true;
+  btn.textContent = "Detecting...";
+  updateLocationStatus("Requesting GPS permission...");
+
+  try {
+    const position = await detectGPS();
+
+    gpsLatitude = position.coords.latitude;
+    gpsLongitude = position.coords.longitude;
+
+    updateLocationStatus(
+      "GPS detected. Latitude: " + gpsLatitude.toFixed(5) +
+      ", Longitude: " + gpsLongitude.toFixed(5) +
+      ". Enter your business pincode and area too."
+    );
+
+  } catch (error) {
+    gpsLatitude = null;
+    gpsLongitude = null;
+
+    updateLocationStatus(
+      "GPS unavailable or permission denied. Enter your business pincode and area manually.",
+      true
+    );
+
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Detect my location";
+  }
+});
+
+  $("audiencePincode").addEventListener("input", () => {
+  $("audiencePincode").value =
+    $("audiencePincode").value.replace(/\D/g, "").slice(0, 6);
+});
+
+$("clearForm").addEventListener("click", () => {
+  setTimeout(() => {
+    resetEditorState();
+  }, 0);
+});
+
+$("campaignForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!currentUser) {
+    showNotice("formNotice", "Please login again.", true);
+    return;
+  }
+
+  const campaignName = $("campaignName").value.trim();
+  const category = $("businessCategory").value;
+  const subcategory = $("businessSubcategory").value;
+  const description = $("adText").value.trim();
+  const pincode = $("audiencePincode").value.trim();
+  const area = $("audienceLocation").value.trim();
+  const radius = Number($("targetRadius").value);
+  let imageFile = $("adImage").files[0];
+
+  if (!campaignName || !category || !subcategory ||
+      !description || !pincode || !area) {
+    showNotice("formNotice", "Please complete all required fields.", true);
+    return;
+  }
+
+  if (!/^[1-9][0-9]{5}$/.test(pincode)) {
+    showNotice("formNotice", "Enter a valid 6-digit pincode.", true);
+    return;
+  }
+
+  if (imageFile && !imageFile.type.startsWith("image/")) {
+    showNotice("formNotice", "Please choose a valid image.", true);
+    return;
+  }
+
+  if (!editingCampaignId && !imageFile) {
+    showNotice("formNotice", "Please select an advertisement poster.", true);
+    return;
+  }
+
+  const saveButton = $("saveCampaignBtn");
+  saveButton.disabled = true;
+  saveButton.textContent = "Saving...";
+
+  let uploadedPosterUrl = editingPosterUrl;
+
+  try {
+    if (imageFile) {
+      showNotice("formNotice", "Compressing image before upload...");
+
+      const compression = await compressAdImage(imageFile);
+      imageFile = compression.file;
+
+      if (imageFile.size > MAX_AD_IMAGE_BYTES) {
+        throw new Error(
+          "Compressed image is still larger than 300 KB. It was not uploaded."
+        );
+      }
+
+      $("imageCompressionStatus").textContent =
+        "Compressed: " + (compression.originalSize / 1024).toFixed(0) +
+        " KB → " + (imageFile.size / 1024).toFixed(0) + " KB.";
+
+      const path = currentUser.id + "/" + Date.now() + ".jpg";
+
+      const { error: uploadError } = await db.storage
+        .from("ads-creatives")
+        .upload(path, imageFile, {
+          upsert: false,
+          contentType: "image/jpeg"
+        });
+
+      if (uploadError) throw uploadError;
+
+      const { data: publicData } = db.storage
+        .from("ads-creatives")
+        .getPublicUrl(path);
+
+      uploadedPosterUrl = publicData.publicUrl;
+    }
+
+    const campaignPayload = {
+      campaign_name: campaignName,
+      category: category,
+      description: description + "\nSubcategory: " + subcategory,
+      poster_url: uploadedPosterUrl,
+      whatsapp_url: $("whatsappLink").value.trim() || null,
+      instagram_url: $("instagramLink").value.trim() || null,
+      website_url: $("websiteLink").value.trim() || null
+    };
+
+    let campaignId = editingCampaignId;
+
+    if (editingCampaignId) {
+      const { data, error } = await db
+        .from("ad_campaigns")
+        .update(campaignPayload)
+        .eq("id", editingCampaignId)
+        .eq("advertiser_id", currentUser.id)
+        .select("id")
+        .single();
+
+      if (error) throw error;
+      if (!data) throw new Error("Ad update was not confirmed.");
+
+      campaignId = data.id;
+
+    } else {
+      const { data, error } = await db
+        .from("ad_campaigns")
+        .insert({
+          ...campaignPayload,
+          advertiser_id: currentUser.id,
+          status: "draft"
+        })
+        .select("id")
+        .single();
+
+      if (error) throw error;
+      campaignId = data.id;
+    }
+
+    const targetingPayload = {
+      campaign_id: campaignId,
+      pincodes: [pincode],
+      areas: [area],
+      radius_km: radius,
+      latitude: gpsLatitude,
+      longitude: gpsLongitude,
+      interests: $("audienceInterest").value
+        .split(",")
+        .map(value => value.trim())
+        .filter(Boolean)
+    };
+
+    const { data: existingTarget, error: targetReadError } = await db
+      .from("ad_targeting")
+      .select("campaign_id")
+      .eq("campaign_id", campaignId)
+      .maybeSingle();
+
+    if (targetReadError) throw targetReadError;
+
+    if (existingTarget) {
+      const { error } = await db
+        .from("ad_targeting")
+        .update(targetingPayload)
+        .eq("campaign_id", campaignId);
+
+      if (error) throw error;
+
+    } else {
+      const { error } = await db
+        .from("ad_targeting")
+        .insert(targetingPayload);
+
+      if (error) throw error;
+    }
+
+    showNotice(
+      "formNotice",
+      editingCampaignId
+        ? "Changes saved. Your existing campaign status and analytics are preserved."
+        : "Advertisement saved as draft. Publish it from My Ads when ready."
+    );
+
+    resetEditorState();
+    await loadCampaigns();
+    showView("campaigns");
+
+  } catch (error) {
+    console.error("Campaign save failed:", error);
+
+    showNotice(
+      "formNotice",
+      "Could not save advertisement: " +
+      (error.message || "Unknown error") +
+      ". Check Supabase table columns and Storage/RLS policies.",
+      true
+    );
+
+  } finally {
+    saveButton.disabled = false;
+    saveButton.textContent = "Save advertisement";
+  }
+});
+
+function setAnalyticsLoading() {
+  $("analyticsNotice").textContent = "Loading analytics...";
+
+  [
+    "totalImpressions",
+    "totalClicks",
+    "totalWhatsAppClicks",
+    "totalInstagramClicks",
+    "totalWebsiteClicks",
+    "totalCallClicks"
+  ].forEach(id => {
+    $(id).textContent = "—";
+  });
+
+  $("analyticsCampaignList").textContent = "Loading performance...";
+}
+
+async function loadAnalytics() {
+  if (!currentUser) return;
+
+  setAnalyticsLoading();
+
+  try {
+    const { data: myCampaigns, error } = await db
+      .from("ad_campaigns")
+      .select("id,campaign_name,status,created_at")
+      .eq("advertiser_id", currentUser.id)
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    const ownCampaigns = myCampaigns || [];
+    const ids = ownCampaigns.map(c => c.id);
+
+    if (!ids.length) {
+      [
+        "totalImpressions",
+        "totalClicks",
+        "totalWhatsAppClicks",
+        "totalInstagramClicks",
+        "totalWebsiteClicks",
+        "totalCallClicks"
+      ].forEach(id => $(id).textContent = "0");
+
+      $("analyticsCampaignList").textContent = "No campaigns yet.";
+      showNotice("analyticsNotice", "No campaigns found.");
+      return;
+    }
+
+    const { data: events, error: eventsError } = await db
+      .from("ad_events")
+      .select("campaign_id,event_type")
+      .in("campaign_id", ids);
+
+    if (eventsError) throw eventsError;
+
+    const stats = {};
+
+    ownCampaigns.forEach(c => {
+      stats[String(c.id)] = {
+        impressions: 0,
+        clicks: 0,
+        whatsapp: 0,
+        instagram: 0,
+        website: 0,
+        call: 0
+      };
+    });
+
+    (events || []).forEach(e => {
+      const s = stats[String(e.campaign_id)];
+      if (!s) return;
+
+      const type = String(e.event_type || "").toLowerCase();
+
+      if (type === "impression") s.impressions++;
+
+      if ([
+        "click",
+        "cta_click",
+        "whatsapp_click",
+        "instagram_click",
+        "website_click",
+        "destination_click",
+        "call_click"
+      ].includes(type)) s.clicks++;
+
+      if (type === "whatsapp_click") s.whatsapp++;
+      if (type === "instagram_click") s.instagram++;
+      if (type === "website_click") s.website++;
+      if (type === "call_click") s.call++;
+    });
+
+    const totals = {
+      impressions: 0,
+      clicks: 0,
+      whatsapp: 0,
+      instagram: 0,
+      website: 0,
+      call: 0
+    };
+
+    Object.values(stats).forEach(s => {
+      Object.keys(totals).forEach(key => totals[key] += s[key]);
+    });
+
+    $("totalImpressions").textContent = totals.impressions.toLocaleString();
+    $("totalClicks").textContent = totals.clicks.toLocaleString();
+    $("totalWhatsAppClicks").textContent = totals.whatsapp.toLocaleString();
+    $("totalInstagramClicks").textContent = totals.instagram.toLocaleString();
+    $("totalWebsiteClicks").textContent = totals.website.toLocaleString();
+    $("totalCallClicks").textContent = totals.call.toLocaleString();
+
+    $("analyticsCampaignList").innerHTML = ownCampaigns.map(c => {
+      const s = stats[String(c.id)];
+
+      return `
+        <div class="campaign">
+          <h3>${escapeHtml(c.campaign_name || "Untitled Ad")}</h3>
+          <span class="status">${escapeHtml(c.status || "draft")}</span>
+
+          <div class="campaign-stats">
+            <div><span class="small">Impressions</span>
+              <strong>${s.impressions}</strong></div>
+            <div><span class="small">Total clicks</span>
+              <strong>${s.clicks}</strong></div>
+            <div><span class="small">WhatsApp</span>
+              <strong>${s.whatsapp}</strong></div>
+            <div><span class="small">Instagram</span>
+              <strong>${s.instagram}</strong></div>
+            <div><span class="small">Website</span>
+              <strong>${s.website}</strong></div>
+            <div><span class="small">Calls</span>
+              <strong>${s.call}</strong></div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    showNotice("analyticsNotice", "Analytics loaded successfully.");
+
+  } catch (error) {
+    console.error(error);
+
+    showNotice(
+      "analyticsNotice",
+      "Analytics error: " + error.message +
+      ". Check ad_events SELECT permissions.",
+      true
+    );
+  }
+}
+
+$("refreshAnalyticsBtn").addEventListener("click", loadAnalytics);
+
+async function startDashboard() {
+  fillCategories();
+  fillSubcategories();
+
+  try {
+    const loggedIn = await checkSession();
+    if (loggedIn) await loadCampaigns();
+  } catch (error) {
+    showNotice("globalNotice", error.message, true);
+  }
+}
+
+startDashboard();
+</script>
+</body>
+</html>

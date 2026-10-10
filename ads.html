@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8f8f1">
+<title>Pyncode Ads</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --cream:#f8f8f1;--sage:#e7f0e3;--green:#176344;
+ --green2:#2d7955;--dark:#172e25;--muted:#6c7a71;
+ --white:#fff;--border:#e0e7df
+}
+html{scroll-behavior:smooth}
+body{
+ font-family:Arial,Helvetica,sans-serif;
+ background:var(--cream);color:var(--dark);line-height:1.45
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+header{
+ position:sticky;top:0;z-index:20;
+ background:rgba(248,248,241,.97);
+ backdrop-filter:blur(12px);border-bottom:1px solid var(--border);
+ box-shadow:0 5px 20px #18332408
+}
+.header-inner{
+ max-width:1240px;margin:auto;padding:13px 22px;
+ display:flex;align-items:center;justify-content:space-between;gap:12px
+}
+.brand-row{display:flex;align-items:center;gap:11px}
+.brand-mark{
+ width:43px;height:43px;display:grid;place-items:center;
+ background:var(--green);color:#fff;border-radius:14px;
+ font-size:23px;font-weight:900;box-shadow:0 6px 16px #17634422
+}
+.logo{font-size:25px;font-weight:900;letter-spacing:-1px;color:var(--dark)}
+.logo span{color:var(--green2)}
+.header-tag{font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:1px}
+.advertise{
+ background:#d8f36a;color:#183324;text-decoration:none;
+ padding:12px 16px;border-radius:999px;font-size:13px;
+ font-weight:900;white-space:nowrap;box-shadow:0 5px 16px #18332412
+}
+main{max-width:1240px;margin:auto;padding:18px 22px 35px}
+
+/* FEATURED ADS CAROUSEL: 3 ON DESKTOP, 1 ON PHONE */
+.hero{
+ position:relative;width:100%;height:clamp(260px,32vw,430px);
+ overflow:hidden;border-radius:22px;background:#dce9d8;margin-bottom:15px;
+ box-shadow:0 12px 28px #18332412
+}
+.featured-carousel{position:absolute;inset:0;overflow:hidden}
+.featured-track{
+ display:flex;width:100%;height:100%;transition:transform .45s ease;gap:3px
+}
+.feature-slide{
+ position:relative;flex:0 0 calc((100% - 6px)/3);
+ width:calc((100% - 6px)/3);height:100%;overflow:hidden;border-radius:14px
+}
+.feature-slide img{
+ display:block;width:100%;height:100%;object-fit:cover;
+ object-position:center;background:var(--sage)
+}
+.feature-slide:after{
+ content:"";position:absolute;inset:45% 0 0;
+ background:linear-gradient(transparent,rgba(0,0,0,.7));pointer-events:none
+}
+.feature-label{
+ position:absolute;top:12px;left:12px;z-index:2;
+ background:#fff;color:var(--green);font-size:10px;
+ font-weight:900;padding:7px 10px;border-radius:30px
+}
+.feature-caption{
+ position:absolute;z-index:2;bottom:23px;left:15px;right:12px;color:#fff
+}
+.feature-caption strong{
+ display:block;font-size:clamp(16px,1.7vw,25px);line-height:1.15
+}
+.feature-caption span{display:block;font-size:12px;margin-top:5px}
+.feature-caption a{
+ display:inline-block;margin-top:10px;background:#d8f36a;color:#183324;
+ text-decoration:none;padding:8px 11px;border-radius:9px;
+ font-size:11px;font-weight:900
+}
+.carousel-arrow{
+ position:absolute;z-index:4;top:50%;transform:translateY(-50%);
+ width:39px;height:39px;border:0;border-radius:50%;
+ background:#ffffffed;color:var(--green);font-size:25px;
+ box-shadow:0 3px 12px #0002
+}
+.carousel-arrow.prev{left:12px}
+.carousel-arrow.next{right:12px}
+.carousel-dots{
+ position:absolute;z-index:4;bottom:11px;left:50%;
+ transform:translateX(-50%);display:flex;gap:6px
+}
+.carousel-dots button{
+ border:0;width:7px;height:7px;border-radius:20px;
+ background:#ffffff9c;padding:0
+}
+.carousel-dots button.active{width:20px;background:#fff}
+
+/* FEATURED ADVERTISER DETAILS */
+.featured-details{
+ display:flex;align-items:center;gap:12px;padding:12px 16px;
+ background:#fff;border:1px solid var(--border);border-radius:17px;
+ box-shadow:0 6px 20px #18332409;margin-bottom:18px
+}
+.featured-avatar{
+ width:52px;height:52px;flex:0 0 52px;border-radius:50%;
+ display:grid;place-items:center;background:var(--sage);
+ color:var(--green);font-size:20px;font-weight:900;overflow:hidden
+}
+.featured-avatar img{width:100%;height:100%;object-fit:cover}
+.featured-info{flex:1;min-width:0}
+.featured-info strong{display:block;font-size:16px}
+.featured-info span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.featured-contact{display:flex;gap:8px;flex-wrap:wrap}
+.featured-contact a{
+ display:inline-block;text-decoration:none;background:var(--green);
+ color:#fff;padding:10px 13px;border-radius:10px;
+ font-size:12px;font-weight:800
+}
+.featured-contact a.secondary{background:#f0f4ee;color:var(--dark)}
+
+/* SEARCH AND FILTERS */
+.filter-panel{
+ background:#fff;border:1px solid var(--border);border-radius:17px;
+ padding:12px;box-shadow:0 7px 20px #1b473508;margin-bottom:12px
+}
+.filters{
+ display:grid;
+ grid-template-columns:minmax(180px,1.5fr) minmax(135px,.9fr)
+ minmax(110px,.6fr) minmax(130px,.8fr) auto;
+ gap:9px
+}
+.field-wrap{position:relative;min-width:0}
+.field-icon{
+ position:absolute;left:12px;top:50%;transform:translateY(-50%);
+ font-size:17px;pointer-events:none
+}
+input,select{
+ width:100%;min-width:0;padding:13px 11px;
+ border:1px solid var(--border);border-radius:11px;
+ background:#fff;color:var(--dark);font-size:13px;outline:none
+}
+.field-wrap input,.field-wrap select{padding-left:36px}
+input:focus,select:focus{
+ border-color:var(--green2);box-shadow:0 0 0 3px #2b795415
+}
+.btn{
+ border:0;padding:12px 15px;border-radius:11px;
+ background:var(--green);color:#fff;font-size:13px;font-weight:800
+}
+.btn.secondary{background:#eaf2e7;color:var(--green)}
+.filter-buttons{display:flex;gap:8px;margin-top:9px}
+.filter-buttons .btn{flex:1}
+
+  /* LOCATION */
+.location-banner{
+ display:flex;align-items:center;gap:12px;padding:13px 15px;
+ background:linear-gradient(90deg,#e6f0e2,#f0f5eb);
+ border-radius:15px;margin-bottom:23px
+}
+.location-icon{
+ display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;
+ border-radius:50%;background:#fff;color:var(--green);font-size:21px
+}
+.location-copy{flex:1;min-width:0}
+.location-copy strong{display:block;font-size:14px}
+.location-copy span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+
+/* ADVERTISEMENT FEED */
+.section-heading{
+ display:flex;justify-content:space-between;align-items:center;
+ margin:22px 0 12px;gap:10px
+}
+.section-heading h2{font-size:21px;letter-spacing:-.4px}
+.section-kicker{font-size:12px;color:var(--muted);margin-top:3px}
+.count{font-size:12px;color:var(--muted);white-space:nowrap}
+.ads-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.ad-card{
+ background:#fff;border:1px solid var(--border);border-radius:16px;
+ overflow:hidden;min-width:0;box-shadow:0 5px 18px #1c38240a
+}
+.poster-wrap{position:relative;background:var(--sage);overflow:hidden;aspect-ratio:1.2/1}
+.poster{width:100%;height:100%;object-fit:cover;display:block;background:var(--sage)}
+.ad-badge{
+ position:absolute;left:9px;top:9px;background:#fff;color:var(--green);
+ font-size:10px;font-weight:900;padding:6px 8px;border-radius:30px
+}
+.distance-badge{
+ position:absolute;right:8px;top:8px;background:var(--green);color:#fff;
+ font-size:10px;font-weight:800;padding:6px 8px;border-radius:30px
+}
+.ad-content{padding:11px}
+.ad-category{font-size:11px;color:var(--green2);font-weight:800;margin-bottom:5px}
+.ad-title{font-size:15px;line-height:1.3;margin-bottom:5px;overflow-wrap:anywhere}
+.ad-description{
+ font-size:12px;color:var(--muted);line-height:1.5;
+ white-space:pre-wrap;overflow-wrap:anywhere;
+ display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden
+}
+.ad-location{font-size:11px;color:var(--muted);margin-top:8px;overflow-wrap:anywhere}
+.ad-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.ad-actions a{
+ text-align:center;text-decoration:none;padding:9px 7px;border-radius:9px;
+ background:#eaf2e7;color:var(--dark);font-size:11px;font-weight:800;
+ overflow-wrap:anywhere;min-width:0;flex:1
+}
+.ad-actions a.primary{background:var(--green);color:#fff}
+.message{
+ background:#fff;border:1px solid var(--border);padding:25px 14px;
+ border-radius:15px;text-align:center;color:var(--muted);
+ line-height:1.6;grid-column:1/-1
+}
+.load-more-wrap{text-align:center;margin:22px 0 4px}
+.load-more{
+ border:1px solid #cfe0ce;background:#f2f7ef;color:var(--green);
+ border-radius:12px;padding:13px 22px;font-weight:800;font-size:13px
+}
+footer{
+ text-align:center;color:var(--muted);padding:26px 12px;
+ font-size:12px;border-top:1px solid var(--border)
+}
+
+/* FIXED BOTTOM NAVIGATION */
+.bottom-nav{
+ position:fixed;z-index:50;left:12px;right:12px;bottom:10px;
+ max-width:720px;margin:auto;height:68px;padding:5px;
+ display:flex;align-items:center;justify-content:space-around;gap:3px;
+ background:#123c2b;border-radius:21px;box-shadow:0 10px 30px #10251b35
+}
+.bottom-nav a{
+ flex:1;min-width:0;height:57px;display:flex;flex-direction:column;
+ align-items:center;justify-content:center;gap:3px;border-radius:15px;
+ text-decoration:none;color:#d5e1d5;font-weight:800
+}
+.bottom-nav a span{font-size:19px;line-height:1.1}
+.bottom-nav a small{font-size:10px}
+.bottom-nav a.active{background:#d8f36a;color:#183324}
+@media(min-width:701px){
+ .bottom-nav{display:none}
+ main{padding-bottom:35px}
+}
+@media(max-width:1000px){
+ .filters{grid-template-columns:1.3fr 1fr 1fr}
+ .search-field,.search-button{grid-column:1/-1}
+ .ads-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+ .header-inner{padding:11px 13px}
+ .brand-row{gap:8px}
+ .brand-mark{width:37px;height:37px;font-size:20px;border-radius:12px}
+ .logo{font-size:20px}
+ .header-tag{font-size:8px;letter-spacing:.6px}
+ .advertise{padding:10px 11px;font-size:10px}
+ main{padding:12px 12px 90px}
+ .hero{
+  height:clamp(300px,112vw,570px);width:min(100%,390px);
+  border-radius:16px;margin-bottom:12px
+ }
+ .featured-track{gap:0}
+ .feature-slide{flex:0 0 100%;width:100%;border-radius:0}
+ .feature-label{top:10px;left:10px;font-size:10px;padding:7px 9px}
+ .feature-caption{left:14px;right:14px;bottom:27px}
+ .feature-caption strong{font-size:22px}
+ .feature-caption span{font-size:12px}
+ .featured-details{
+  padding:10px;gap:9px;border-radius:14px;margin-bottom:13px
+ }
+ .featured-avatar{width:43px;height:43px;flex-basis:43px}
+ .featured-info strong{font-size:13px}
+ .featured-info span{font-size:11px}
+ .featured-contact{flex-direction:column;gap:5px}
+ .featured-contact a{padding:8px 9px;font-size:10px;text-align:center}
+ .carousel-arrow{width:34px;height:34px;font-size:22px}
+ .carousel-arrow.prev{left:8px}
+ .carousel-arrow.next{right:8px}
+ .filter-panel{padding:9px;border-radius:15px}
+ .filters{grid-template-columns:1fr 1fr;gap:8px}
+ .search-field,.search-button{grid-column:1/-1}
+ .filters .btn{width:100%}
+ .location-banner{padding:11px;align-items:flex-start;flex-wrap:wrap}
+ .location-copy{flex:1}
+ .location-copy strong{font-size:12px}
+ .location-copy span{font-size:11px}
+ .location-banner .btn{width:100%}
+ .section-heading{margin:20px 0 11px}
+ .section-heading h2{font-size:18px}
+ .ads-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .ad-content{padding:9px}
+ .ad-title{font-size:14px}
+ .ad-description{font-size:11px}
+ .ad-actions{gap:5px}
+ .ad-actions a{font-size:10px;padding:9px 5px}
+ .poster-wrap{aspect-ratio:1/0.88}
+}
+@media(max-width:360px){
+ .filters{grid-template-columns:1fr}
+ .search-field,.search-button{grid-column:1}
+ .ads-grid{grid-template-columns:1fr}
+ .poster-wrap{aspect-ratio:1.5/1}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="header-inner">
+  <div class="brand-row">
+   <div class="brand-mark">P</div>
+   <div>
+    <div class="logo">Pyncode<span> Ads</span></div>
+    <div class="header-tag">OPPORTUNITIES · CONNECTIONS · GROWTH</div>
+   </div>
+  </div>
+  <a class="advertise" href="ads-login.html">＋ Advertise Now</a>
+ </div>
+</header>
+
+<main>
+ <section class="hero">
+  <div class="featured-carousel" id="featuredCarousel">
+   <div class="featured-track" id="featuredTrack">
+    <div class="feature-slide">
+     <div style="height:100%;display:grid;place-items:center;color:#315c39;font-weight:bold">
+      Loading advertisement posters…
+     </div>
+    </div>
+   </div>
+   <button class="carousel-arrow prev" id="carouselPrev" aria-label="Previous poster">‹</button>
+   <button class="carousel-arrow next" id="carouselNext" aria-label="Next poster">›</button>
+   <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+ </section>
+
+ <section class="featured-details" id="featuredDetails">
+  <div class="featured-avatar" id="featuredAvatar">P</div>
+  <div class="featured-info">
+   <strong id="featuredBusinessName">Featured advertiser</strong>
+   <span id="featuredBusinessMeta">Business category</span>
+   <span id="featuredBusinessLocation">Advertiser location</span>
+  </div>
+  <div class="featured-contact" id="featuredContact"></div>
+ </section>
+
+ <section class="filter-panel" id="filters">
+  <div class="filters">
+   <div class="field-wrap search-field">
+    <span class="field-icon">⌕</span>
+    <input id="searchInput" type="search" placeholder="Search business, product or service">
+   </div>
+   <div class="field-wrap">
+    <span class="field-icon">▦</span>
+    <select id="categoryFilter">
+     <option value="">All Categories</option>
+     <option>Business &amp; Franchise</option>
+     <option>Shops &amp; Retail</option>
+     <option>Food &amp; Beverages</option>
+     <option>Home Services</option>
+     <option>Professional Services</option>
+     <option>Construction &amp; Real Estate</option>
+     <option>Manufacturing &amp; Industrial</option>
+     <option>Wholesale &amp; Distribution</option>
+     <option>Education &amp; Training</option>
+     <option>Health &amp; Wellness</option>
+     <option>Beauty &amp; Personal Care</option>
+     <option>Events &amp; Wedding</option>
+     <option>Automobile &amp; Transport</option>
+     <option>Technology &amp; Digital</option>
+     <option>Agriculture &amp; Farming</option>
+     <option>Clothing &amp; Textiles</option>
+     <option>Beauty, Fashion &amp; Lifestyle Products</option>
+     <option>Cleaning &amp; Chemical Products</option>
+     <option>E-commerce &amp; Online Business</option>
+     <option>Travel &amp; Hospitality</option>
+     <option>Photography &amp; Creative Services</option>
+     <option>Mobile &amp; Electronics Services</option>
+     <option>Rental Services</option>
+     <option>Cleaning &amp; Facility Management</option>
+     <option>Printing &amp; Packaging</option>
+     <option>Pets &amp; Animal Services</option>
+     <option>Finance &amp; Insurance</option>
+     <option>Jobs &amp; Recruitment</option>
+     <option>Local Products &amp; Handmade</option>
+     <option>Other Business Opportunities</option>
+    </select>
+   </div>
+   <div class="field-wrap">
+    <span class="field-icon">⌖</span>
+    <input id="pincodeInput" inputmode="numeric" maxlength="6" placeholder="Pincode">
+   </div>
+   <div class="field-wrap">
+    <span class="field-icon">⌖</span>
+    <input id="areaInput" placeholder="Area / city">
+   </div>
+   <div class="field-wrap">
+    <span class="field-icon">◎</span>
+    <select id="radiusFilter" aria-label="Search radius">
+     <option value="5">Within 5 km</option>
+     <option value="10" selected>Within 10 km</option>
+     <option value="25">Within 25 km</option>
+     <option value="50">Within 50 km</option>
+     <option value="100">Within 100 km</option>
+    </select>
+   </div>
+   <button class="btn search-button" id="searchBtn">Search Ads</button>
+  </div>
+  <div class="filter-buttons">
+   <button class="btn secondary" id="resetBtn" type="button">Reset Filters</button>
+  </div>
+ </section>
+
+   <section class="location-banner">
+  <div class="location-icon">◎</div>
+  <div class="location-copy">
+   <strong id="locationTitle">Find advertisements near you</strong>
+   <span id="locationStatus">Allow location access to sort ads by distance when advertiser coordinates are available.</span>
+  </div>
+  <button class="btn secondary" id="locationBtn">Detect My Location</button>
+ </section>
+
+ <div class="section-heading" id="advertisements">
+  <div>
+   <h2>All Advertisements</h2>
+   <div class="section-kicker" id="nearbySubtitle">Browse all active business promotions, products and services</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:7px">
+   <span class="count" id="resultCount">Loading…</span>
+   <select id="sortFilter" aria-label="Sort ads" style="width:auto;max-width:140px;padding:10px">
+    <option value="nearest">Nearest First</option>
+    <option value="latest">Latest First</option>
+   </select>
+  </div>
+ </div>
+
+ <section id="adsGrid" class="ads-grid">
+  <div class="message">Loading advertisements…</div>
+ </section>
+
+ <div class="load-more-wrap">
+  <button class="load-more" id="loadMoreBtn">Load More Advertisements　⌄</button>
+ </div>
+</main>
+
+<footer>Pyncode Ads · Explore. Connect. Grow.</footer>
+
+<nav class="bottom-nav" aria-label="Main navigation">
+ <a href="shops.html"><span>🏪</span><small>Shops</small></a>
+ <a href="services_matched.html"><span>🛠️</span><small>Services</small></a>
+ <a href="nearby-shops.html"><span>📱</span><small>QR Stores</small></a>
+ <a href="feeds.html"><span>📰</span><small>Feeds</small></a>
+ <a class="active" href="ads.html"><span>📢</span><small>Ads</small></a>
+</nav>
+
+<script>
+const SUPABASE_URL = "https://mtuspuehsxsjoaxoenen.supabase.co";
+const SUPABASE_KEY = "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const grid = document.getElementById("adsGrid");
+const count = document.getElementById("resultCount");
+
+let allAds = [];
+let targetingMap = {};
+let viewerLat = null;
+let viewerLng = null;
+let carouselIndex = 0;
+let carouselTimer = null;
+let visibleLimit = 12;
+
+function safeText(value){
+ return String(value||"").replace(/[&<>"']/g,char=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[char]));
+}
+
+function validUrl(value){
+ try{
+  const url=new URL(value);
+  if(url.protocol==="https:"||url.protocol==="http:")return url.href;
+ }catch(e){}
+ return "";
+}
+
+function activeNow(ad){
+ const now=Date.now();
+ if(ad.starts_at&&new Date(ad.starts_at).getTime()>now)return false;
+ if(ad.ends_at&&new Date(ad.ends_at).getTime()<now)return false;
+ return true;
+}
+
+function distanceKm(lat1,lng1,lat2,lng2){
+ const rad=n=>n*Math.PI/180;
+ const dLat=rad(lat2-lat1),dLng=rad(lng2-lng1);
+ const a=Math.sin(dLat/2)**2+
+  Math.cos(rad(lat1))*Math.cos(rad(lat2))*Math.sin(dLng/2)**2;
+ return 6371*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+
+function getTarget(ad){
+ return targetingMap[String(ad.id)]||null;
+}
+
+function getDistance(ad){
+ const target=getTarget(ad);
+ if(viewerLat===null||viewerLng===null||!target||
+    target.latitude==null||target.longitude==null)return null;
+
+ return distanceKm(
+  viewerLat,viewerLng,Number(target.latitude),Number(target.longitude)
+ );
+}
+
+async function trackAdEvent(campaignId,eventType){
+ if(campaignId==null||!eventType)return;
+ try{
+  const {error}=await db.from("ad_events").insert({
+   campaign_id:campaignId,event_type:eventType
+  });
+  if(error)console.warn("Analytics event error:",error.message);
+ }catch(error){
+  console.warn("Analytics tracking error:",error);
+ }
+}
+
+function trackImpressionOnce(ad){
+ const key="pyncode_ad_impression_"+String(ad.id);
+ try{
+  if(sessionStorage.getItem(key))return;
+  sessionStorage.setItem(key,"1");
+ }catch(error){}
+ trackAdEvent(ad.id,"impression");
+}
+
+function matchesLocation(ad){
+ const target=getTarget(ad);
+ if(!target)return true;
+
+ const wantedPin=document.getElementById("pincodeInput").value.trim();
+ const wantedArea=document.getElementById("areaInput").value.trim().toLowerCase();
+
+ const pins=Array.isArray(target.pincodes)?target.pincodes.map(String):[];
+ const areas=Array.isArray(target.areas)
+  ?target.areas.map(x=>String(x).toLowerCase()):[];
+
+ if(wantedPin&&pins.length&&!pins.includes(wantedPin))return false;
+ if(wantedArea&&areas.length&&!areas.some(x=>x.includes(wantedArea)))return false;
+
+ const distance=getDistance(ad);
+ if(distance!==null){
+  const radius=Number(document.getElementById("radiusFilter").value||10);
+  const campaignRadius=Number(target.radius_km||radius);
+  if(distance>Math.min(radius,campaignRadius))return false;
+ }
+ return true;
+}
+
+function matchesSearch(ad){
+ const search=document.getElementById("searchInput").value.trim().toLowerCase();
+ const category=document.getElementById("categoryFilter").value;
+ const text=[ad.campaign_name,ad.category,ad.description].join(" ").toLowerCase();
+
+ if(search&&!text.includes(search))return false;
+ if(category&&ad.category!==category)return false;
+ return matchesLocation(ad);
+}
+
+function createActions(ad){
+ const actions=[];
+ const whatsapp=validUrl(ad.whatsapp_url);
+ const instagram=validUrl(ad.instagram_url);
+ const website=validUrl(ad.website_url);
+ const destination=validUrl(ad.destination);
+
+ if(whatsapp)actions.push(
+  '<a class="primary" target="_blank" rel="noopener" href="'+safeText(whatsapp)+'">WhatsApp</a>'
+ );
+ if(instagram)actions.push(
+  '<a target="_blank" rel="noopener" href="'+safeText(instagram)+'">Instagram</a>'
+ );
+ if(website)actions.push(
+  '<a target="_blank" rel="noopener" href="'+safeText(website)+'">Website</a>'
+ );
+ if(destination&&destination!==whatsapp&&destination!==instagram&&destination!==website){
+  actions.push(
+   '<a target="_blank" rel="noopener" href="'+safeText(destination)+'">View Details</a>'
+  );
+ }
+ return actions.length
+  ?'<div class="ad-actions">'+actions.slice(0,2).join("")+'</div>'
+  :"";
+}
+
+function adCard(ad){
+ const poster=validUrl(ad.poster_url);
+ const distance=getDistance(ad);
+ const target=getTarget(ad);
+ const locations=[];
+
+ if(target){
+  if(Array.isArray(target.areas))locations.push(...target.areas);
+  if(Array.isArray(target.pincodes))locations.push(...target.pincodes);
+ }
+ if(distance!==null){
+  locations.unshift(distance<10?distance.toFixed(1)+" km away":Math.round(distance)+" km away");
+ }
+
+ const posterHtml=poster
+  ?'<img class="poster" src="'+safeText(poster)+'" alt="'+safeText(ad.campaign_name)+'" loading="lazy">'
+  :'';
+
+ return '<article class="ad-card" data-campaign-id="'+safeText(ad.id)+'">'+
+  '<div class="poster-wrap">'+posterHtml+
+  '<span class="ad-badge">ADVERTISEMENT</span>'+
+  (distance!==null
+   ?'<span class="distance-badge">'+(distance<10?distance.toFixed(1):Math.round(distance))+' km</span>'
+   :'')+
+  '</div>'+
+  '<div class="ad-content">'+
+  '<div class="ad-category">'+safeText(ad.category||"Business promotion")+'</div>'+
+  '<h3 class="ad-title">'+safeText(ad.campaign_name||"Business Promotion")+'</h3>'+
+  '<p class="ad-description">'+safeText(ad.description||"Explore this advertisement to learn more.")+'</p>'+
+  (locations.length
+   ?'<div class="ad-location">⌖ '+safeText(locations.filter(Boolean).slice(0,3).join(" · "))+'</div>'
+   :'')+
+  createActions(ad)+
+  '</div></article>';
+}
+
+function sortedAds(ads){
+ const sort=document.getElementById("sortFilter").value;
+ return ads.slice().sort((a,b)=>{
+  if(sort==="latest"){
+   return new Date(b.created_at||0)-new Date(a.created_at||0);
+  }
+  const da=getDistance(a),dbb=getDistance(b);
+  if(da!==null&&dbb!==null)return da-dbb;
+  if(da!==null)return -1;
+  if(dbb!==null)return 1;
+  return new Date(b.created_at||0)-new Date(a.created_at||0);
+ });
+}
+
+function renderAds(){
+ const filtered=sortedAds(allAds.filter(ad=>activeNow(ad)&&matchesSearch(ad)));
+ count.textContent=filtered.length+" ads found";
+
+ if(!filtered.length){
+  grid.innerHTML='<div class="message">No matching advertisements found.<br>Try another category, pincode, area or search term.</div>';
+  document.getElementById("loadMoreBtn").style.display="none";
+ }else{
+  const shown=filtered.slice(0,visibleLimit);
+  shown.forEach(trackImpressionOnce);
+  grid.innerHTML=shown.map(ad=>adCard(ad)).join("");
+  document.getElementById("loadMoreBtn").style.display=
+   filtered.length>visibleLimit?"inline-block":"none";
+ }
+
+ document.getElementById("nearbySubtitle").textContent=
+  viewerLat!==null
+   ?"Location detected · nearest first where advertiser coordinates are available"
+   :"Browse all active business promotions, products and services";
+}
+
+  function visibleCarouselCount(){
+ return window.matchMedia("(max-width:700px)").matches ? 1 : 3;
+}
+
+function renderCarousel(){
+ const track=document.getElementById("featuredTrack");
+ const dots=document.getElementById("carouselDots");
+ const items=allAds.filter(ad=>activeNow(ad)&&validUrl(ad.poster_url)).slice(0,12);
+ const visible=visibleCarouselCount();
+
+ if(!items.length){
+  track.innerHTML='<div class="feature-slide"><div style="height:100%;display:grid;place-items:center;padding:20px;text-align:center;color:#315c39;font-weight:bold">Advertise your business on Pyncode Ads</div></div>';
+  dots.innerHTML="";
+  document.getElementById("featuredBusinessName").textContent="Advertise on Pyncode";
+  document.getElementById("featuredBusinessMeta").textContent="Business promotion";
+  document.getElementById("featuredBusinessLocation").textContent="Your advertisement can appear here";
+  document.getElementById("featuredContact").innerHTML="";
+  if(carouselTimer)clearInterval(carouselTimer);
+  return;
+ }
+
+ const maxIndex=Math.max(0,items.length-visible);
+ carouselIndex=Math.min(Math.max(0,carouselIndex),maxIndex);
+
+ track.innerHTML=items.map((ad,i)=>{
+  const link=validUrl(ad.destination)||validUrl(ad.website_url)||validUrl(ad.whatsapp_url);
+  return '<div class="feature-slide">'+
+   '<img src="'+safeText(validUrl(ad.poster_url))+'" alt="'+safeText(ad.campaign_name||"Advertisement")+'" loading="'+(i<visible?"eager":"lazy")+'">'+
+   '<span class="feature-label">Featured Ad</span>'+
+   '<div class="feature-caption"><strong>'+safeText(ad.campaign_name||"Business Promotion")+'</strong>'+
+   '<span>'+safeText(ad.category||"Business opportunity")+'</span>'+
+   (link?'<a href="'+safeText(link)+'" target="_blank" rel="noopener">Explore ↗</a>':'')+
+   '</div></div>';
+ }).join("");
+
+ track.style.transform="translateX(-"+(carouselIndex*(100/visible))+"%)";
+
+ dots.innerHTML=items.slice(0,Math.max(items.length-visible+1,1)).map((_,i)=>
+  '<button class="'+(i===carouselIndex?"active":"")+'" data-slide="'+i+'" aria-label="Show poster group '+(i+1)+'"></button>'
+ ).join("");
+
+ dots.querySelectorAll("button").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+   carouselIndex=Number(btn.dataset.slide);
+   renderCarousel();
+   restartCarousel();
+  });
+ });
+
+ const ad=items[Math.min(carouselIndex,items.length-1)];
+ const target=getTarget(ad);
+ const areas=target&&Array.isArray(target.areas)?target.areas:[];
+ const pins=target&&Array.isArray(target.pincodes)?target.pincodes:[];
+ const location=areas.concat(pins).filter(Boolean).slice(0,3).join(" · ");
+
+ document.getElementById("featuredBusinessName").textContent=
+  ad.advertiser_name||ad.business_name||ad.campaign_name||"Business Promotion";
+ document.getElementById("featuredBusinessMeta").textContent=
+  ad.category||"Business promotion";
+ document.getElementById("featuredBusinessLocation").textContent=
+  location||"Explore this advertisement";
+
+ const avatar=document.getElementById("featuredAvatar");
+ avatar.textContent=(ad.advertiser_name||ad.business_name||ad.campaign_name||"P").trim().charAt(0).toUpperCase();
+
+ const contact=[];
+ const wa=validUrl(ad.whatsapp_url);
+ const site=validUrl(ad.website_url);
+ const insta=validUrl(ad.instagram_url);
+ const dest=validUrl(ad.destination);
+
+ if(wa)contact.push('<a target="_blank" rel="noopener" href="'+safeText(wa)+'">WhatsApp</a>');
+ if(site)contact.push('<a class="secondary" target="_blank" rel="noopener" href="'+safeText(site)+'">Website</a>');
+ else if(insta)contact.push('<a class="secondary" target="_blank" rel="noopener" href="'+safeText(insta)+'">Instagram</a>');
+ else if(dest)contact.push('<a class="secondary" target="_blank" rel="noopener" href="'+safeText(dest)+'">Know More</a>');
+
+ document.getElementById("featuredContact").innerHTML=contact.join("");
+}
+
+function restartCarousel(){
+ if(carouselTimer)clearInterval(carouselTimer);
+
+ const total=allAds.filter(ad=>
+  activeNow(ad)&&validUrl(ad.poster_url)
+ ).slice(0,12).length;
+
+ const maxIndex=Math.max(0,total-visibleCarouselCount());
+
+ if(maxIndex>0){
+  carouselTimer=setInterval(()=>{
+   carouselIndex=carouselIndex>=maxIndex?0:carouselIndex+1;
+   renderCarousel();
+  },5000);
+ }
+}
+
+window.addEventListener("resize",()=>{
+ carouselIndex=0;
+ renderCarousel();
+ restartCarousel();
+});
+
+async function loadAds(){
+ grid.innerHTML='<div class="message">Loading advertisements…</div>';
+
+ try{
+  const {data:ads,error}=await db
+   .from("ad_campaigns")
+   .select("*")
+   .eq("status","active")
+   .not("poster_url","is",null)
+   .order("created_at",{ascending:false});
+
+  if(error)throw error;
+
+  allAds=(ads||[]).filter(activeNow);
+
+  const {data:targets,error:targetError}=await db
+   .from("ad_targeting")
+   .select("*");
+
+  if(targetError){
+   console.warn("Targeting could not be loaded:",targetError.message);
+   targetingMap={};
+  }else{
+   targetingMap={};
+   (targets||[]).forEach(target=>{
+    if(target.campaign_id!=null){
+     targetingMap[String(target.campaign_id)]=target;
+    }
+   });
+  }
+
+  renderCarousel();
+  restartCarousel();
+  renderAds();
+
+ }catch(error){
+  console.error(error);
+  count.textContent="";
+  grid.innerHTML=
+   '<div class="message">Ads load ஆகவில்லை.<br>Supabase permissions மற்றும் RLS policies check செய்யவும்.</div>';
+ }
+}
+
+/* Contact button analytics */
+grid.addEventListener("click",event=>{
+ const link=event.target.closest(".ad-actions a");
+ if(!link)return;
+
+ const card=link.closest(".ad-card");
+ if(!card)return;
+
+ const label=(link.textContent||"").trim().toLowerCase();
+ let eventType="cta_click";
+
+ if(label.includes("whatsapp"))eventType="whatsapp_click";
+ else if(label.includes("instagram"))eventType="instagram_click";
+ else if(label.includes("website"))eventType="website_click";
+ else if(label.includes("view details"))eventType="destination_click";
+
+ trackAdEvent(card.getAttribute("data-campaign-id"),eventType);
+});
+
+/* Search and filter controls */
+document.getElementById("searchBtn").addEventListener("click",()=>{
+ visibleLimit=12;
+ renderAds();
+});
+
+document.getElementById("searchInput").addEventListener("input",()=>{
+ visibleLimit=12;
+ renderAds();
+});
+
+document.getElementById("categoryFilter").addEventListener("change",()=>{
+ visibleLimit=12;
+ renderAds();
+});
+
+document.getElementById("pincodeInput").addEventListener("input",()=>{
+ visibleLimit=12;
+ renderAds();
+});
+
+document.getElementById("areaInput").addEventListener("input",()=>{
+ visibleLimit=12;
+ renderAds();
+});
+
+document.getElementById("radiusFilter").addEventListener("change",()=>{
+ visibleLimit=12;
+ renderAds();
+});
+
+document.getElementById("sortFilter").addEventListener("change",renderAds);
+
+document.getElementById("loadMoreBtn").addEventListener("click",()=>{
+ visibleLimit+=12;
+ renderAds();
+});
+
+/* Reset filters */
+document.getElementById("resetBtn").addEventListener("click",()=>{
+ document.getElementById("searchInput").value="";
+ document.getElementById("categoryFilter").value="";
+ document.getElementById("pincodeInput").value="";
+ document.getElementById("areaInput").value="";
+ document.getElementById("radiusFilter").value="10";
+ document.getElementById("sortFilter").value="nearest";
+
+ viewerLat=null;
+ viewerLng=null;
+ visibleLimit=12;
+
+ document.getElementById("locationTitle").textContent="Find advertisements near you";
+ document.getElementById("locationStatus").textContent=
+  "Allow location access to sort ads by distance when advertiser coordinates are available.";
+
+ const btn=document.getElementById("locationBtn");
+ btn.disabled=false;
+ btn.textContent="Detect My Location";
+
+ renderAds();
+});
+
+/* GPS detection */
+document.getElementById("locationBtn").addEventListener("click",()=>{
+ if(!navigator.geolocation){
+  alert("இந்த browser location support செய்யவில்லை.");
+  return;
+ }
+
+ const btn=document.getElementById("locationBtn");
+ btn.disabled=true;
+ btn.textContent="Detecting…";
+
+ navigator.geolocation.getCurrentPosition(position=>{
+  viewerLat=position.coords.latitude;
+  viewerLng=position.coords.longitude;
+
+  document.getElementById("locationTitle").textContent="Your location is detected";
+  document.getElementById("locationStatus").textContent=
+   "Ads are sorted by distance when advertiser coordinates are available.";
+
+  btn.disabled=false;
+  btn.textContent="Location Detected ✓";
+  visibleLimit=12;
+  renderAds();
+
+ },()=>{
+  btn.disabled=false;
+  btn.textContent="Detect My Location";
+  alert("Location access கிடைக்கவில்லை. HTTPS website-ல் location permission allow செய்யவும்.");
+ },{
+  enableHighAccuracy:true,
+  timeout:10000,
+  maximumAge:60000
+ });
+});
+
+/* Carousel arrows */
+document.getElementById("carouselPrev").addEventListener("click",()=>{
+ carouselIndex--;
+ renderCarousel();
+ restartCarousel();
+});
+
+document.getElementById("carouselNext").addEventListener("click",()=>{
+ carouselIndex++;
+ renderCarousel();
+ restartCarousel();
+});
+
+loadAds();
+</script>
+</body>
+</html>
