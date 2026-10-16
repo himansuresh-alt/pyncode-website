@@ -1,2565 +1,632 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width,initial-scale=1.0"
->
-
-<meta
-    name="description"
-    content="Discover registered QR Stores near you on Pyncode.in."
->
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Discover registered QR Stores near you on Pyncode.in.">
 <title>QR Stores Near You | Pyncode.in</title>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:
-        linear-gradient(
-            180deg,
-            #f7faff 0%,
-            #f4f6fb 55%,
-            #ffffff 100%
-        );
-    color:#151a28;
-    min-height:100vh;
-    padding-bottom:100px;
-}
-
-.header{
-    min-height:76px;
-    background:#ffffff;
-    border-bottom:1px solid #e6e9ef;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    padding:0 4%;
-    box-shadow:0 5px 20px rgba(20,30,60,.05);
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    color:#151a28;
-    font-size:21px;
-    font-weight:900;
-    text-decoration:none;
-}
-
-.logo-mark{
-    width:68px;
-    height:44px;
-    border-radius:12px;
-    overflow:hidden;
-    background:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.logo-mark img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-.pyn-text{
-    color:#ef603e;
-}
-
-.code-text{
-    color:#151923;
-}
-
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.list-shop-btn,
-.interested-btn{
-    height:42px;
-    border-radius:12px;
-    padding:0 14px;
-    font-size:12px;
-    font-weight:900;
-    white-space:nowrap;
-}
-
-.list-shop-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    background:#151a28;
-    color:#fff;
-    text-decoration:none;
-}
-
-.interested-btn{
-    border:0;
-    background:#25d366;
-    color:#fff;
-    cursor:pointer;
-}
-
-.main{
-    width:100%;
-    max-width:1200px;
-    margin:auto;
-    padding:42px 4% 80px;
-}
-
-.search-title{
-    font-size:18px;
-    font-weight:900;
-    margin-bottom:12px;
-}
-
-.search-box{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    background:#fff;
-    border:1px solid #dfe4ea;
-    border-radius:18px;
-    padding:7px 8px 7px 16px;
-    box-shadow:0 7px 22px rgba(25,40,70,.05);
-}
-
-.search-icon{
-    font-size:21px;
-}
-
-.pincode-input{
-    flex:1;
-    min-width:0;
-    height:45px;
-    border:0;
-    outline:0;
-    font-size:14px;
-    color:#202633;
-}
-
-.search-btn{
-    height:45px;
-    padding:0 20px;
-    border:0;
-    border-radius:13px;
-    background:
-        linear-gradient(
-            135deg,
-            #ff7619,
-            #ff416d
-        );
-    color:#fff;
-    font-size:13px;
-    font-weight:900;
-    cursor:pointer;
-}
-
-.location-area{
-    margin-top:16px;
-    padding:16px;
-    background:#fffaf7;
-    border:1px solid #f0ddd5;
-    border-radius:18px;
-}
-
-.location-content{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-}
-
-.location-title{
-    font-size:14px;
-    font-weight:900;
-}
-
-.location-status{
-    margin-top:5px;
-    color:#7e8795;
-    font-size:11px;
-    line-height:1.5;
-}
-
-.location-button{
-    height:42px;
-    padding:0 17px;
-    border:1px solid #ef603e;
-    border-radius:11px;
-    background:#fff;
-    color:#ef603e;
-    font-size:12px;
-    font-weight:900;
-    cursor:pointer;
-    white-space:nowrap;
-}
-
-.location-button.active{
-    background:
-        linear-gradient(
-            135deg,
-            #ff7619,
-            #ff416d
-        );
-    color:#fff;
-}
-
-.location-button:disabled{
-    opacity:.6;
-    cursor:wait;
-}
-
-.radius-box{
-    margin-top:16px;
-    padding:16px;
-    background:#fff;
-    border:1px solid #e1e5eb;
-    border-radius:18px;
-    box-shadow:0 7px 22px rgba(25,40,70,.04);
-}
-
-.radius-title{
-    font-size:13px;
-    font-weight:900;
-    color:#4b5360;
-}
-
-.radius-buttons{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-top:12px;
-}
-
-.radius-button{
-    height:56px;
-    border:1px solid #dfe4ea;
-    border-radius:28px;
-    background:#fff;
-    color:#59616e;
-    font-size:13px;
-    font-weight:900;
-    cursor:pointer;
-}
-
-.radius-button.active{
-    border-color:transparent;
-    background:linear-gradient(135deg,#ff7619,#ff416d);
-    color:#fff;
-    box-shadow:0 8px 18px rgba(255,82,65,.18);
-}
-
-.radius-status{
-    margin-top:11px;
-    color:#8b93a0;
-    font-size:11px;
-    line-height:1.5;
-}
-
-.section-heading{
-    margin-top:28px;
-    margin-bottom:11px;
-}
-
-.section-heading-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-}
-
-.section-title{
-    font-size:18px;
-    font-weight:900;
-}
-
-.view-all-btn{
-    height:37px;
-    padding:0 14px;
-    border-radius:10px;
-    background:#151a28;
-    color:#fff;
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:11px;
-    font-weight:900;
-    white-space:nowrap;
-}
-
-.category-filter{
-    display:flex;
-    gap:9px;
-    overflow-x:auto;
-    padding:2px 0 9px;
-    scrollbar-width:none;
-}
-
-.category-filter::-webkit-scrollbar{
-    display:none;
-}
-
-.category-chip{
-    flex-shrink:0;
-    min-height:40px;
-    padding:0 16px;
-    border:1px solid #dfe4ea;
-    border-radius:22px;
-    background:#fff;
-    color:#5d6674;
-    font-size:12px;
-    font-weight:800;
-    cursor:pointer;
-    white-space:nowrap;
-}
-
-.category-chip.active{
-    background:#151a28;
-    color:#fff;
-    border-color:#151a28;
-}
-
-.shop-section{
-    margin-top:28px;
-}
-
-.shop-list-header{
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:15px;
-    margin-bottom:14px;
-}
-
-.shop-list-title{
-    font-size:25px;
-    font-weight:900;
-}
-
-.shop-list-count{
-    margin-top:5px;
-    color:#8b93a0;
-    font-size:12px;
-    font-weight:700;
-}
-
-.shop-location{
-    color:#ef603e;
-    font-size:12px;
-    font-weight:800;
-    text-align:right;
-}
-
-.shop-grid{
-    display:grid;
-    grid-template-columns:
-        repeat(
-            2,
-            minmax(0,1fr)
-        );
-    gap:15px;
-}
-
-.shop-card{
-    overflow:hidden;
-    background:#fff;
-    border:1px solid #e1e5eb;
-    border-radius:18px;
-    box-shadow:
-        0 7px 22px
-        rgba(25,40,70,.055);
-}
-
-.shop-image-wrap{
-    height:190px;
-    position:relative;
-    overflow:hidden;
-    background:#eef1f5;
-}
-
-.shop-image{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-}
-
-.verified-badge,
-.distance-badge{
-    position:absolute;
-    padding:6px 9px;
-    border-radius:9px;
-    font-size:10px;
-    font-weight:900;
-}
-
-.verified-badge{
-    top:10px;
-    left:10px;
-    background:#fff;
-
-      color:#15894b;
-}
-
-.distance-badge{
-    right:10px;
-    bottom:10px;
-    background:rgba(21,26,40,.9);
-    color:#fff;
-    border-radius:999px;
-}
-
-.shop-card-body{
-    padding:14px;
-}
-
-.shop-name{
-    font-size:16px;
-    font-weight:900;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.shop-category{
-    margin-top:6px;
-    color:#ef603e;
-    font-size:11px;
-    font-weight:800;
-}
-
-.shop-location-text{
-    margin-top:8px;
-    color:#727b89;
-    font-size:12px;
-    line-height:1.5;
-}
-
-.shop-actions{
-    display:flex;
-    gap:7px;
-    margin-top:13px;
-}
-
-.shop-action{
-    flex:1;
-    min-width:0;
-    height:38px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:10px;
-    text-decoration:none;
-    font-size:10px;
-    font-weight:900;
-    text-align:center;
-}
-
-.call-action{
-    background:#f3f5f8;
-    color:#303744;
-    border:1px solid #e0e4e9;
-}
-
-.whatsapp-action{
-    background:#25d366;
-    color:#fff;
-    border:1px solid #25d366;
-}
-
-.directions-action{
-    background:#fff4ef;
-    color:#ef603e;
-    border:1px solid #f6d2c7;
-}
-
-.visit-action{
-    background:#151a28;
-    color:#fff;
-    border:1px solid #151a28;
-}
-
-.shop-action.disabled{
-    opacity:.45;
-    pointer-events:none;
-}
-
-.shop-empty{
-    min-height:190px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    background:#fff;
-    border:1px dashed #d8dee7;
-    border-radius:18px;
-    padding:25px;
-    grid-column:1/-1;
-}
-
-.shop-empty-icon{
-    font-size:35px;
-}
-
-.shop-empty-title{
-    margin-top:9px;
-    font-size:15px;
-    font-weight:900;
-}
-
-.shop-empty-text{
-    margin-top:6px;
-    color:#9299a5;
-    font-size:12px;
-    line-height:1.5;
-}
-
-.bottom-nav{
-    position:fixed;
-    left:50%;
-    bottom:10px;
-    transform:translateX(-50%);
-    width:min(
-        560px,
-        calc(100% - 20px)
-    );
-    height:68px;
-    background:rgba(21,29,48,.98);
-    border-radius:23px;
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-    gap:4px;
-    padding:6px;
-    z-index:9998;
-    box-shadow:
-        0 10px 30px
-        rgba(10,20,40,.22);
-}
-
-.bottom-nav-item{
-    flex:1;
-    height:56px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:4px;
-    border-radius:17px;
-    text-decoration:none;
-    color:#aeb6c5;
-    font-size:9px;
-    font-weight:800;
-}
-
-.bottom-nav-item .nav-icon{
-    font-size:20px;
-    line-height:1;
-}
-
-.bottom-nav-item.active{
-    background:#fff;
-    color:#151a28;
-}
+:root{--brand:#ef603e;--g:linear-gradient(135deg,#ff7a1a,#ff3d77 60%,#a63cff);--ink:#12172a;--mute:#6b7488;--line:#e8ebf3;--bg:#f5f6fb;--r:22px;--sh:0 10px 30px rgba(30,40,90,.08)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding-bottom:110px}
+a{-webkit-user-drag:none}
+
+.header{position:sticky;top:0;z-index:60;min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 4%;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-size:20px;font-weight:800;letter-spacing:-.02em}
+.logo-mark{width:60px;height:40px;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.logo-mark img{width:100%;height:100%;object-fit:contain}
+.pyn-text{color:var(--brand)}
+.code-text{color:var(--ink)}
+.header-actions{display:flex;align-items:center;gap:8px}
+.list-shop-btn,.interested-btn{height:40px;padding:0 15px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;border:0;cursor:pointer;transition:.2s}
+.list-shop-btn{background:var(--ink);color:#fff}
+.interested-btn{background:#e8faf0;color:#0f8f46;border:1px solid #bdeed1}
+.list-shop-btn:hover,.interested-btn:hover{transform:translateY(-1px)}
+
+.main{width:100%;max-width:1180px;margin:auto;padding:18px 4% 40px}
+
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:30px 22px 22px;color:#fff;background:radial-gradient(70% 90% at 0% 0%,rgba(255,122,26,.75),transparent 60%),radial-gradient(70% 90% at 100% 10%,rgba(166,60,255,.65),transparent 60%),radial-gradient(60% 80% at 60% 120%,rgba(255,61,119,.6),transparent 60%),#12172a;box-shadow:0 24px 50px rgba(18,23,42,.25)}
+.hero-tag{display:inline-flex;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);font-size:11px;font-weight:700}
+.search-title{margin-top:14px;font-size:clamp(26px,5vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.hero-sub{margin-top:8px;font-size:13px;font-weight:500;color:rgba(255,255,255,.75)}
+.search-box{margin-top:20px;display:flex;align-items:center;gap:8px;background:#fff;border-radius:20px;padding:7px 7px 7px 16px;box-shadow:0 14px 34px rgba(0,0,0,.28)}
+.search-icon{font-size:20px}
+.pincode-input{flex:1;min-width:0;height:46px;border:0;outline:0;background:transparent;font:inherit;font-size:15px;font-weight:600;letter-spacing:.04em;color:var(--ink)}
+.search-btn{height:46px;padding:0 24px;border:0;border-radius:14px;background:var(--g);color:#fff;font:inherit;font-size:13px;font-weight:800;cursor:pointer;transition:.2s}
+.search-btn:active{transform:scale(.96)}
+
+.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.location-area,.radius-box{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+.location-content{display:flex;flex-direction:column;gap:14px}
+.location-title,.radius-title{font-size:14px;font-weight:800}
+.location-status,.radius-status{margin-top:6px;color:var(--mute);font-size:12px;font-weight:500;line-height:1.55}
+.location-button{width:100%;height:46px;border-radius:14px;background:#fff1ec;color:var(--brand);border:1px dashed #f7b9a6;font:inherit;font-size:13px;font-weight:800;cursor:pointer;transition:.2s}
+.location-button.active{background:var(--g);color:#fff;border-color:transparent;box-shadow:0 10px 22px rgba(255,61,119,.25)}
+.location-button:disabled{opacity:.6;cursor:wait}
+.radius-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:14px;padding:4px;background:#f0f2f8;border-radius:16px}
+.radius-button{height:44px;border:0;border-radius:12px;background:transparent;color:var(--mute);font:inherit;font-size:13px;font-weight:800;cursor:pointer;transition:.2s}
+.radius-button.active{background:#fff;color:var(--brand);box-shadow:0 4px 12px rgba(30,40,90,.14)}
+
+  .section-heading{margin:30px 0 10px}
+.section-heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.section-title{font-size:18px;font-weight:800;letter-spacing:-.02em}
+.view-all-btn{height:36px;padding:0 14px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--ink);text-decoration:none;display:flex;align-items:center;font-size:11px;font-weight:800;white-space:nowrap}
+.category-filter{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
+.category-filter::-webkit-scrollbar{display:none}
+.category-chip{flex-shrink:0;min-height:40px;padding:0 16px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#4b5468;font:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.2s}
+.category-chip.active{background:var(--g);color:#fff;border-color:transparent;box-shadow:0 8px 18px rgba(255,61,119,.25)}
+
+.shop-section{margin-top:26px}
+.shop-list-header{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:16px}
+.shop-list-title{font-size:26px;font-weight:800;letter-spacing:-.03em}
+.shop-list-count{margin-top:5px;color:var(--mute);font-size:12px;font-weight:600}
+.shop-location{padding:7px 12px;border-radius:999px;background:#fff1ec;color:var(--brand);font-size:11px;font-weight:800;text-align:right}
+.shop-location:empty{display:none}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+
+.shop-card{overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh);transition:.25s}
+.shop-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(30,40,90,.14)}
+.shop-image-wrap{position:relative;aspect-ratio:16/11;overflow:hidden;background:#eceef6}
+.shop-image-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,23,42,0) 45%,rgba(18,23,42,.6));pointer-events:none;z-index:1}
+.shop-image{width:100%;height:100%;display:block;object-fit:cover;transition:transform .5s}
+.shop-card:hover .shop-image{transform:scale(1.05)}
+.verified-badge,.distance-badge{position:absolute;z-index:5;padding:6px 10px;border-radius:999px;font-size:10px;font-weight:800}
+.verified-badge{top:12px;left:12px;background:rgba(255,255,255,.95);color:#15894b}
+.distance-badge{top:12px;right:12px;background:rgba(18,23,42,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff}
+.shop-name-board{position:absolute;z-index:4;left:50%;bottom:12px;transform:translateX(-50%);width:calc(100% - 28px);max-width:340px;padding:8px 14px;background:rgba(255,255,255,.93);border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.2);text-align:center}
+.shop-name-board-text{display:block;color:var(--ink);font-size:13px;font-weight:800;letter-spacing:.06em;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase}
+
+.shop-card-body{padding:16px}
+.shop-name{font-size:16px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shop-category{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:999px;background:#fff1ec;color:var(--brand);font-size:11px;font-weight:700}
+.shop-location-text{margin-top:10px;color:var(--mute);font-size:12px;font-weight:500;line-height:1.5}
+.shop-actions{display:flex;gap:8px;margin-top:12px}
+.shop-actions+.shop-actions{margin-top:8px}
+.shop-action{flex:1;min-width:0;height:42px;display:flex;align-items:center;justify-content:center;border-radius:13px;text-decoration:none;font-size:11px;font-weight:800;text-align:center;transition:.2s}
+.shop-action:active{transform:scale(.97)}
+.call-action{background:#f0f2f8;color:#2c3347}
+.whatsapp-action{background:#25d366;color:#fff;box-shadow:0 8px 18px rgba(37,211,102,.28)}
+.directions-action{background:#fff1ec;color:var(--brand)}
+.visit-action{background:var(--ink);color:#fff}
+.shop-action.disabled{opacity:.4;pointer-events:none}
+
+.shop-empty{grid-column:1/-1;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px;background:#fff;border:1.5px dashed #d5dbea;border-radius:var(--r)}
+.shop-empty-icon{font-size:38px}
+.shop-empty-title{margin-top:10px;font-size:15px;font-weight:800}
+.shop-empty-text{margin-top:6px;color:var(--mute);font-size:12px;line-height:1.55;max-width:320px}
+
+.bottom-nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(560px,calc(100% - 24px));height:70px;display:flex;align-items:center;justify-content:space-around;gap:4px;padding:7px;border-radius:26px;background:rgba(18,23,42,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 16px 40px rgba(10,15,40,.35);z-index:9998}
+.bottom-nav-item{flex:1;height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-radius:19px;text-decoration:none;color:#a9b2c7;font-size:10px;font-weight:700;transition:.2s}
+.bottom-nav-item .nav-icon{font-size:20px;line-height:1}
+.bottom-nav-item.active{background:var(--g);color:#fff;box-shadow:0 8px 18px rgba(255,61,119,.35)}
 
 @media(max-width:700px){
-
-    .header{
-        min-height:72px;
-        padding:0 10px;
-    }
-
-    .logo{
-        font-size:17px;
-        gap:6px;
-    }
-
-    .logo-mark{
-        width:58px;
-        height:40px;
-    }
-
-    .header-actions{
-        gap:5px;
-    }
-
-    .list-shop-btn,
-    .interested-btn{
-        height:40px;
-        padding:0 9px;
-        font-size:10px;
-    }
-
-    .main{
-        padding:30px 4% 70px;
-    }
-
-    .location-content{
-        flex-direction:column;
-        align-items:stretch;
-    }
-
-    .location-button{
-        width:100%;
-    }
-
-    .radius-buttons{
-        gap:8px;
-    }
-
-    .radius-button{
-        height:52px;
-        font-size:12px;
-    }
-
-    .shop-grid{
-        grid-template-columns:1fr;
-    }
-
-    .shop-image-wrap{
-        height:200px;
-    }
-
-    .shop-list-title{
-        font-size:22px;
-    }
-
-    .bottom-nav{
-        left:10px;
-        transform:none;
-        width:calc(100% - 20px);
-        height:64px;
-    }
-
-    .bottom-nav-item{
-        height:54px;
-        font-size:8px;
-    }
-
-    .bottom-nav-item .nav-icon{
-        font-size:19px;
-    }
-
+.header{padding:0 12px;min-height:64px}
+.logo{font-size:17px;gap:5px}
+.logo-mark{width:50px;height:36px}
+.header-actions{gap:5px}
+.list-shop-btn,.interested-btn{height:38px;padding:0 11px;font-size:10px}
+.main{padding:12px 3% 30px}
+.hero{border-radius:24px;padding:24px 16px 16px}
+.panel-grid{grid-template-columns:1fr}
+.shop-grid{grid-template-columns:1fr}
+.shop-list-title{font-size:22px}
+.bottom-nav{height:66px}
+.bottom-nav-item{height:54px;font-size:9px}
 }
-
-.shop-name-board{
-    position:absolute;
-    left:50%;
-    bottom:12px;
-    transform:translateX(-50%);
-    width:calc(100% - 70px);
-    max-width:340px;
-    padding:8px 14px;
-    background:rgba(255,255,255,.96);
-    border:1.5px solid #151a28;
-    border-radius:8px;
-    box-shadow:0 4px 12px rgba(0,0,0,.16);
-    text-align:center;
-    z-index:4;
-}
-
-.shop-name-board-text{
-    display:block;
-    color:#151a28;
-    font-size:14px;
-    font-weight:900;
-    letter-spacing:.6px;
-    line-height:1.2;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    text-transform:uppercase;
-}
-
 </style>
 </head>
 
-<body>
+  <body>
 
 <header class="header">
-
-<a
-    href="index.html"
-    class="logo"
->
-
-    <div class="logo-mark">
-
-        <img
-            src="pyncode-logo.png"
-            alt="Pyncode.in"
-        >
-
-    </div>
-
-    <div>
-
-        <span class="pyn-text">Pyn</span><span class="code-text">code</span><span class="pyn-text">.in</span>
-
-    </div>
-
+<a href="index.html" class="logo">
+<div class="logo-mark"><img src="pyncode-logo.png" alt="Pyncode.in"></div>
+<div><span class="pyn-text">Pyn</span><span class="code-text">code</span><span class="pyn-text">.in</span></div>
 </a>
-
 <div class="header-actions">
-
-<a
-    href="live-qr-create-account.html"
-    class="list-shop-btn"
->
-    + Register QR Store
-</a>
-
-<a
-    href="live-qr-login.html"
-    class="interested-btn"
-    style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;"
->
-    🔐 Login
-</a>
-
+<a href="live-qr-create-account.html" class="list-shop-btn">+ Register QR Store</a>
+<a href="live-qr-login.html" class="interested-btn">🔐 Login</a>
 </div>
-
 </header>
 
 <main class="main">
 
-<section>
-
-<div class="search-title">
-    Find QR Stores Near You
-</div>
-
+<section class="hero">
+<span class="hero-tag">✦ Verified local QR Stores</span>
+<div class="search-title">Find QR Stores Near You</div>
+<p class="hero-sub">Search by pincode or use your live location.</p>
 <div class="search-box">
-
-<span class="search-icon">
-    📍
-</span>
-
-<input
-    id="pincodeInput"
-    class="pincode-input"
-    type="text"
-    inputmode="numeric"
-    maxlength="6"
-    placeholder="Enter your pincode"
-    autocomplete="postal-code"
->
-
-<button
-    id="searchButton"
-    class="search-btn"
-    type="button"
->
-    Search
-</button>
-
+<span class="search-icon">📍</span>
+<input id="pincodeInput" class="pincode-input" type="text" inputmode="numeric" maxlength="6" placeholder="Enter your pincode" autocomplete="postal-code">
+<button id="searchButton" class="search-btn" type="button">Search</button>
 </div>
-
 </section>
 
+<div class="panel-grid">
+
 <section class="location-area">
-
 <div class="location-content">
-
 <div>
-
-<div class="location-title">
-    📍 Find QR Stores Near You
+<div class="location-title">📍 Find QR Stores Near You</div>
+<div id="locationStatus" class="location-status">Use your current location to see nearby registered QR Stores sorted by distance.</div>
 </div>
-
-<div
-    id="locationStatus"
-    class="location-status"
->
-    Use your current location to see nearby registered QR Stores sorted by distance.
+<button id="useLocationButton" class="location-button" type="button">📍 Use My Location</button>
 </div>
-
-</div>
-
-<button
-    id="useLocationButton"
-    class="location-button"
-    type="button"
->
-    📍 Use My Location
-</button>
-
-</div>
-
 </section>
 
 <section class="radius-box">
-
-<div class="radius-title">
-    📏 Show QR Stores within
-</div>
-
+<div class="radius-title">📏 Show QR Stores within</div>
 <div class="radius-buttons">
-
-<button type="button" class="radius-button" data-radius="2">
-    2 KM
-</button>
-
-<button type="button" class="radius-button active" data-radius="5">
-    5 KM
-</button>
-
-<button type="button" class="radius-button" data-radius="10">
-    10 KM
-</button>
-
+<button type="button" class="radius-button" data-radius="2">2 KM</button>
+<button type="button" class="radius-button active" data-radius="5">5 KM</button>
+<button type="button" class="radius-button" data-radius="10">10 KM</button>
 </div>
-
-<div id="radiusStatus" class="radius-status">
-    Use your location to show registered QR Stores within 5 KM.
-</div>
-
+<div id="radiusStatus" class="radius-status">Use your location to show registered QR Stores within 5 KM.</div>
 </section>
 
+</div>
+
 <section>
-
 <div class="section-heading">
-
 <div class="section-heading-row">
-
-<div class="section-title">
-    Browse Store Categories
+<div class="section-title">Browse Store Categories</div>
+<a href="nearby-shops.html" class="view-all-btn">View All →</a>
 </div>
-
-<a
-    href="nearby-shops.html"
-    class="view-all-btn"
->
-    View All →
-</a>
-
 </div>
-
-</div>
-
-<div
-    id="categoryFilter"
-    class="category-filter"
->
-</div>
-
+<div id="categoryFilter" class="category-filter"></div>
 </section>
 
 <section class="shop-section">
-
 <div class="shop-list-header">
-
 <div>
-
-<div
-    id="shopListTitle"
-    class="shop-list-title"
->
-    All QR Stores
+<div id="shopListTitle" class="shop-list-title">All QR Stores</div>
+<div id="shopListCount" class="shop-list-count">Loading registered QR Stores...</div>
 </div>
-
-<div
-    id="shopListCount"
-    class="shop-list-count"
->
-    Loading registered QR Stores...
+<div id="shopLocation" class="shop-location"></div>
 </div>
-
-</div>
-
-<div
-    id="shopLocation"
-    class="shop-location"
->
-</div>
-
-</div>
-
-<div
-    id="shopGrid"
-    class="shop-grid"
->
-
+<div id="shopGrid" class="shop-grid">
 <div class="shop-empty">
-
-<div class="shop-empty-icon">
-    ⏳
+<div class="shop-empty-icon">⏳</div>
+<div class="shop-empty-title">Loading QR Stores...</div>
+<div class="shop-empty-text">Please wait while registered QR Stores are loaded.</div>
 </div>
-
-<div class="shop-empty-title">
-    Loading QR Stores...
 </div>
-
-<div class="shop-empty-text">
-    Please wait while registered QR Stores are loaded.
-</div>
-
-</div>
-
-</div>
-
 </section>
 
 </main>
 
-<nav
-    class="bottom-nav"
-    aria-label="Main navigation"
->
-
-<a
-    href="shops.html"
-    class="bottom-nav-item"
->
-    <span class="nav-icon">🏪</span>
-    <span>Shops</span>
-</a>
-
-<a href="services_matched.html" class="bottom-nav-item">
-    <span class="nav-icon">🛠️</span>
-    <span>Services</span>
-</a>
-
-<a
-    href="nearby-shops.html"
-    class="bottom-nav-item active"
->
-    <span class="nav-icon">📱</span>
-    <span>QR Stores</span>
-</a>
-
-<a
-    href="feeds.html"
-    class="bottom-nav-item"
->
-    <span class="nav-icon">📰</span>
-    <span class="nav-label">
-        Feeds
-    </span>
-</a>
-
-<a
-    href="promotion.html"
-    class="bottom-nav-item"
->
-    <span class="nav-icon">📢</span>
-    <span>Promotion</span>
-</a>
-
+<nav class="bottom-nav" aria-label="Main navigation">
+<a href="shops.html" class="bottom-nav-item"><span class="nav-icon">🏪</span><span>Shops</span></a>
+<a href="services_matched.html" class="bottom-nav-item"><span class="nav-icon">🛠️</span><span>Services</span></a>
+<a href="nearby-shops.html" class="bottom-nav-item active"><span class="nav-icon">📱</span><span>QR Stores</span></a>
+<a href="feeds.html" class="bottom-nav-item"><span class="nav-icon">📰</span><span class="nav-label">Feeds</span></a>
+<a href="ads.html" class="bottom-nav-item"><span class="nav-icon">📢</span><span class="nav-label">Ads</span></a>
 </nav>
 
-<script>
+    <script>
+const SUPABASE_URL="https://mtuspuehsxsjoaxoenen.supabase.co";
+const SUPABASE_KEY="sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const LOCATION_STORAGE_KEY="pyncode_user_location";
 
-  const SUPABASE_URL =
-    "https://mtuspuehsxsjoaxoenen.supabase.co";
+let allShops=[];
+let selectedCategory="";
+let selectedPincode="";
+let userLatitude=null;
+let userLongitude=null;
+let selectedRadiusKm=5;
 
-const SUPABASE_KEY =
-    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-const LOCATION_STORAGE_KEY =
-    "pyncode_user_location";
-
-
-let allShops = [];
-
-let selectedCategory = "";
-
-let selectedPincode = "";
-
-let userLatitude = null;
-
-let userLongitude = null;
-
-let selectedRadiusKm = 5;
-
-
-const categories = [
-
-    "Grocery & Provision Stores",
-
-    "Supermarkets",
-
-    "Fruits & Vegetable Shops",
-
-    "Milk & Dairy Shops",
-
-    "Chicken & Mutton Shops",
-
-    "Fish & Seafood Shops",
-
-    "Bakeries",
-
-    "Cleaning & Home Care Stores",
-
-    "Hotels & Fast Food",
-
-    "Tea, Juice & Snacks Shops",
-
-    "Clothing Stores",
-
-    "Footwear Stores",
-
-    "Mobile & Accessories Shops",
-
-    "Computer & Electronics Stores",
-
-    "Pharmacy & Medical Shops",
-
-    "Cosmetics & Fancy Stores",
-
-    "Gift Shops",
-
-    "Home & Kitchen Stores",
-
-    "Kids & Baby Stores",
-
-    "Stationery & Book Shops",
-
-    "Hardware & Electrical Shops",
-
-    "Paint & Plumbing Stores",
-
-    "Furniture Stores",
-
-    "Plants & Gardening Stores",
-
-    "Auto Spare Parts & Service",
-
-    "Tyre & Battery Shops",
-
-    "Salon & Beauty Parlours",
-
-    "Pet Supplies & Pet Shops",
-
-    "Wholesale Shops",
-
-    "Online Sellers & E-commerce"
-
+const categories=[
+"Grocery & Provision Stores","Supermarkets","Fruits & Vegetable Shops","Milk & Dairy Shops",
+"Chicken & Mutton Shops","Fish & Seafood Shops","Bakeries","Cleaning & Home Care Stores",
+"Hotels & Fast Food","Tea, Juice & Snacks Shops","Clothing Stores","Footwear Stores",
+"Mobile & Accessories Shops","Computer & Electronics Stores","Pharmacy & Medical Shops",
+"Cosmetics & Fancy Stores","Gift Shops","Home & Kitchen Stores","Kids & Baby Stores",
+"Stationery & Book Shops","Hardware & Electrical Shops","Paint & Plumbing Stores",
+"Furniture Stores","Plants & Gardening Stores","Auto Spare Parts & Service",
+"Tyre & Battery Shops","Salon & Beauty Parlours","Pet Supplies & Pet Shops",
+"Wholesale Shops","Online Sellers & E-commerce"
 ];
 
-
 function escapeHtml(value){
-
-    return String(
-        value ?? ""
-    )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
+return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
-
 
 function cleanPhone(value){
-
-    let phone =
-        String(
-            value ?? ""
-        ).replace(
-            /\D/g,
-            ""
-        );
-
-    if(
-        phone.startsWith("91") &&
-        phone.length === 12
-    ){
-
-        phone =
-            phone.slice(2);
-
-    }
-
-    return phone.length === 10
-        ? phone
-        : "";
-
+let phone=String(value??"").replace(/\D/g,"");
+if(phone.startsWith("91")&&phone.length===12){phone=phone.slice(2);}
+return phone.length===10?phone:"";
 }
-
 
 function updateRadiusButtons(){
-
-    document.querySelectorAll(
-        ".radius-button"
-    ).forEach(
-        function(button){
-
-            button.classList.toggle(
-                "active",
-                Number(
-                    button.dataset.radius
-                ) === selectedRadiusKm
-            );
-
-        }
-    );
-
+document.querySelectorAll(".radius-button").forEach(function(button){
+button.classList.toggle("active",Number(button.dataset.radius)===selectedRadiusKm);
+});
 }
-
 
 function updateRadiusStatus(){
-
-    const status =
-        document.getElementById(
-            "radiusStatus"
-        );
-
-    if(!status){
-        return;
-    }
-
-    if(
-        validCoordinate(
-            userLatitude,
-            userLongitude
-        )
-    ){
-
-        status.textContent =
-            "Showing registered QR Stores within " +
-            selectedRadiusKm +
-            " KM, nearest first.";
-
-    }
-    else{
-
-        status.textContent =
-            "Use your location to show registered QR Stores within " +
-            selectedRadiusKm +
-            " KM.";
-
-    }
-
+const status=document.getElementById("radiusStatus");
+if(!status){return;}
+if(validCoordinate(userLatitude,userLongitude)){
+status.textContent="Showing registered QR Stores within "+selectedRadiusKm+" KM, nearest first.";
+}else{
+status.textContent="Use your location to show registered QR Stores within "+selectedRadiusKm+" KM.";
 }
-
+}
 
 function selectRadius(radius){
-
-    selectedRadiusKm =
-        Number(radius) || 5;
-
-    updateRadiusButtons();
-
-    updateRadiusStatus();
-
-    renderShops(
-        allShops
-    );
-
+selectedRadiusKm=Number(radius)||5;
+updateRadiusButtons();
+updateRadiusStatus();
+renderShops(allShops);
 }
 
-
-function validCoordinate(
-    latitude,
-    longitude
-){
-
-    const lat =
-        Number(latitude);
-
-    const lng =
-        Number(longitude);
-
-    return (
-        Number.isFinite(lat) &&
-        Number.isFinite(lng) &&
-        lat >= -90 &&
-        lat <= 90 &&
-        lng >= -180 &&
-        lng <= 180
-    );
-
+function validCoordinate(latitude,longitude){
+const lat=Number(latitude);
+const lng=Number(longitude);
+return Number.isFinite(lat)&&Number.isFinite(lng)&&lat>=-90&&lat<=90&&lng>=-180&&lng<=180;
 }
 
-
-function calculateDistance(
-    lat1,
-    lon1,
-    lat2,
-    lon2
-){
-
-    const earthRadiusKm =
-        6371;
-
-    const dLat =
-        (lat2 - lat1) *
-        Math.PI / 180;
-
-    const dLon =
-        (lon2 - lon1) *
-        Math.PI / 180;
-
-    const a =
-        Math.sin(dLat / 2) *
-        Math.sin(dLat / 2) +
-
-        Math.cos(
-            lat1 * Math.PI / 180
-        ) *
-
-        Math.cos(
-            lat2 * Math.PI / 180
-        ) *
-
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-
-    const c =
-        2 *
-        Math.atan2(
-            Math.sqrt(a),
-            Math.sqrt(1 - a)
-        );
-
-    return earthRadiusKm * c;
-
+function calculateDistance(lat1,lon1,lat2,lon2){
+const earthRadiusKm=6371;
+const dLat=(lat2-lat1)*Math.PI/180;
+const dLon=(lon2-lon1)*Math.PI/180;
+const a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
+const c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+return earthRadiusKm*c;
 }
 
-
-function formatDistance(
-    distance
-){
-
-    if(
-        !Number.isFinite(distance)
-    ){
-
-        return "";
-
-    }
-
-    if(distance < 1){
-
-        return (
-            Math.round(
-                distance * 1000
-            ) +
-            " m away"
-        );
-
-    }
-
-    return (
-        distance.toFixed(1) +
-        " km away"
-    );
-
+function formatDistance(distance){
+if(!Number.isFinite(distance)){return "";}
+if(distance<1){return Math.round(distance*1000)+" m away";}
+return distance.toFixed(1)+" km away";
 }
 
-
-function buildDirectionsUrl(
-    latitude,
-    longitude
-){
-
-    if(
-        !validCoordinate(
-            latitude,
-            longitude
-        )
-    ){
-
-        return "";
-
-    }
-
-    return (
-        "https://www.google.com/maps/dir/?api=1&destination=" +
-        encodeURIComponent(
-            latitude + "," + longitude
-        )
-    );
-
+function buildDirectionsUrl(latitude,longitude){
+if(!validCoordinate(latitude,longitude)){return "";}
+return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(latitude+","+longitude);
 }
-
 
 function saveUserLocation(){
-
-    if(
-        !validCoordinate(
-            userLatitude,
-            userLongitude
-        )
-    ){
-
-        return;
-
-    }
-
-    localStorage.setItem(
-
-        LOCATION_STORAGE_KEY,
-
-        JSON.stringify({
-
-            latitude:
-                userLatitude,
-
-            longitude:
-                userLongitude,
-
-            savedAt:
-                Date.now()
-
-        })
-
-    );
-
+if(!validCoordinate(userLatitude,userLongitude)){return;}
+localStorage.setItem(LOCATION_STORAGE_KEY,JSON.stringify({latitude:userLatitude,longitude:userLongitude,savedAt:Date.now()}));
 }
-
 
 function restoreUserLocation(){
-
-    try{
-
-        const saved =
-            JSON.parse(
-                localStorage.getItem(
-                    LOCATION_STORAGE_KEY
-                ) || "null"
-            );
-
-        if(
-            validCoordinate(
-                saved?.latitude,
-                saved?.longitude
-            )
-        ){
-
-            userLatitude =
-                Number(
-                    saved.latitude
-                );
-
-            userLongitude =
-                Number(
-                    saved.longitude
-                );
-
-            const button =
-                document.getElementById(
-                    "useLocationButton"
-                );
-
-            button.classList.add(
-                "active"
-            );
-
-            button.textContent =
-                "📍 Location Added";
-
-            document.getElementById(
-                "locationStatus"
-            ).textContent =
-                "Saved location is active. Showing nearby QR Stores.";
-
-            updateRadiusStatus();
-
-            return true;
-
-        }
-
-    }
-    catch(error){
-
-        console.warn(
-            "Location restore failed:",
-            error
-        );
-
-    }
-
-    return false;
-
+try{
+const saved=JSON.parse(localStorage.getItem(LOCATION_STORAGE_KEY)||"null");
+if(validCoordinate(saved?.latitude,saved?.longitude)){
+userLatitude=Number(saved.latitude);
+userLongitude=Number(saved.longitude);
+const button=document.getElementById("useLocationButton");
+button.classList.add("active");
+button.textContent="📍 Location Added";
+document.getElementById("locationStatus").textContent="Saved location is active. Showing nearby QR Stores.";
+updateRadiusStatus();
+return true;
 }
-
+}catch(error){
+console.warn("Location restore failed:",error);
+}
+return false;
+}
 
 function requestUserLocation(){
-
-    const button =
-        document.getElementById(
-            "useLocationButton"
-        );
-
-    if(
-        !navigator.geolocation
-    ){
-
-        document.getElementById(
-            "locationStatus"
-        ).textContent =
-            "Location is not supported by this browser.";
-
-        return;
-
-    }
-
-    button.disabled = true;
-
-    button.textContent =
-        "📍 Getting Location...";
-
-    document.getElementById(
-        "locationStatus"
-    ).textContent =
-        "Please allow location access in your browser.";
-
-    navigator.geolocation.getCurrentPosition(
-
-        function(position){
-
-            userLatitude =
-                Number(
-                    position.coords.latitude
-                );
-
-            userLongitude =
-                Number(
-                    position.coords.longitude
-                );
-
-            saveUserLocation();
-
-            button.disabled = false;
-
-            button.classList.add(
-                "active"
-            );
-
-            button.textContent =
-                "📍 Location Added";
-
-            document.getElementById(
-                "locationStatus"
-            ).textContent =
-                "Location added. Showing nearby QR Stores.";
-
-            updateRadiusStatus();
-
-            renderShops(
-                allShops
-            );
-
-        },
-
-        function(error){
-
-            button.disabled = false;
-
-            button.classList.remove(
-                "active"
-            );
-
-            button.textContent =
-                "📍 Use My Location";
-
-            let message =
-                "Unable to get your location. Please try again.";
-
-            if(
-                error.code === 1
-            ){
-
-                message =
-                    "Location permission was denied. Please allow location access and try again.";
-
-            }
-
-            document.getElementById(
-                "locationStatus"
-            ).textContent =
-                message;
-
-        },
-
-        {
-
-            enableHighAccuracy:true,
-
-            timeout:15000,
-
-            maximumAge:300000
-
-        }
-
-    );
-
+const button=document.getElementById("useLocationButton");
+if(!navigator.geolocation){
+document.getElementById("locationStatus").textContent="Location is not supported by this browser.";
+return;
 }
-
+button.disabled=true;
+button.textContent="📍 Getting Location...";
+document.getElementById("locationStatus").textContent="Please allow location access in your browser.";
+navigator.geolocation.getCurrentPosition(
+function(position){
+userLatitude=Number(position.coords.latitude);
+userLongitude=Number(position.coords.longitude);
+saveUserLocation();
+button.disabled=false;
+button.classList.add("active");
+button.textContent="📍 Location Added";
+document.getElementById("locationStatus").textContent="Location added. Showing nearby QR Stores.";
+updateRadiusStatus();
+renderShops(allShops);
+},
+function(error){
+button.disabled=false;
+button.classList.remove("active");
+button.textContent="📍 Use My Location";
+let message="Unable to get your location. Please try again.";
+if(error.code===1){message="Location permission was denied. Please allow location access and try again.";}
+document.getElementById("locationStatus").textContent=message;
+},
+{enableHighAccuracy:true,timeout:15000,maximumAge:300000}
+);
+}
 
 function loadCategories(){
-
-    const container =
-        document.getElementById(
-            "categoryFilter"
-        );
-
-    container.innerHTML = "";
-
-    const allButton =
-        document.createElement(
-            "button"
-        );
-
-    allButton.type =
-        "button";
-
-    allButton.className =
-        "category-chip active";
-
-    allButton.textContent =
-        "All";
-
-    allButton.onclick =
-        function(){
-
-            selectedCategory = "";
-
-            updateActiveCategory();
-
-            renderShops(
-                allShops
-            );
-
-        };
-
-    container.appendChild(
-        allButton
-    );
-
-
-    categories.forEach(
-        function(category){
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-            button.type =
-                "button";
-
-            button.className =
-                "category-chip";
-
-            button.textContent =
-                category;
-
-            button.onclick =
-                function(){
-
-                    window.location.href =
-                        "nearby-shop-list.html?category=" +
-                        encodeURIComponent(
-                            category
-                        );
-
-                };
-
-            container.appendChild(
-                button
-            );
-
-        }
-    );
-
+const container=document.getElementById("categoryFilter");
+container.innerHTML="";
+const allButton=document.createElement("button");
+allButton.type="button";
+allButton.className="category-chip active";
+allButton.textContent="All";
+allButton.onclick=function(){
+selectedCategory="";
+updateActiveCategory();
+renderShops(allShops);
+};
+container.appendChild(allButton);
+categories.forEach(function(category){
+const button=document.createElement("button");
+button.type="button";
+button.className="category-chip";
+button.textContent=category;
+button.onclick=function(){
+window.location.href="nearby-shop-list.html?category="+encodeURIComponent(category);
+};
+container.appendChild(button);
+});
 }
-
 
 function updateActiveCategory(){
-
-    const buttons =
-        document.querySelectorAll(
-            ".category-chip"
-        );
-
-    buttons.forEach(
-        function(button,index){
-
-            if(
-                index === 0 &&
-                !selectedCategory
-            ){
-
-                button.classList.add(
-                    "active"
-                );
-
-            }
-            else{
-
-                button.classList.remove(
-                    "active"
-                );
-
-            }
-
-        }
-    );
-
+document.querySelectorAll(".category-chip").forEach(function(button,index){
+if(index===0&&!selectedCategory){button.classList.add("active");}
+else{button.classList.remove("active");}
+});
 }
-
 
 function normalizeShop(shop){
-
-    const latitude =
-        validCoordinate(
-            shop.latitude,
-            shop.longitude
-        )
-        ?
-        Number(shop.latitude)
-        :
-        null;
-
-    const longitude =
-        validCoordinate(
-            shop.latitude,
-            shop.longitude
-        )
-        ?
-        Number(shop.longitude)
-        :
-        null;
-
-
-    return {
-
-        id:
-            shop.id,
-
-        name:
-            shop.shop_name ||
-            "Unnamed QR Store",
-
-        category:
-            shop.category ||
-            "Local Business",
-
-        owner:
-            shop.owner_name ||
-            "",
-
-        phone:
-            shop.mobile ||
-            "",
-
-        whatsapp:
-            shop.whatsapp ||
-            shop.mobile ||
-            "",
-
-        address:
-            shop.address ||
-            "",
-
-        area:
-            shop.area ||
-            "",
-
-        city:
-            shop.city ||
-            "",
-
-        pincode:
-            shop.pincode ||
-            "",
-
-        image:
-            shop.shop_image ||
-            "icon-512.png",
-
-        listingType:
-            shop.listing_type ||
-            "",
-
-        liveQrEnabled:
-            shop.live_qr_enabled === true,
-
-        liveQrStatus:
-            shop.live_qr_status ||
-            "",
-
-        liveQrToken:
-            shop.live_qr_token ||
-            "",
-
-        latitude:
-            latitude,
-
-        longitude:
-            longitude
-
-    };
-
-              }
-
-  function buildShopLocation(
-    shop
-){
-
-    const locationParts = [
-
-        shop.area,
-
-        shop.city,
-
-        shop.pincode
-
-    ].filter(
-        function(value){
-
-            return String(
-                value || ""
-            ).trim() !== "";
-
-        }
-    );
-
-    if(
-        locationParts.length
-    ){
-
-        return locationParts.join(
-            ", "
-        );
-
-    }
-
-    if(shop.address){
-
-        return shop.address;
-
-    }
-
-    return "Location details unavailable";
-
+const latitude=validCoordinate(shop.latitude,shop.longitude)?Number(shop.latitude):null;
+const longitude=validCoordinate(shop.latitude,shop.longitude)?Number(shop.longitude):null;
+return{
+id:shop.id,
+name:shop.shop_name||"Unnamed QR Store",
+category:shop.category||"Local Business",
+owner:shop.owner_name||"",
+phone:shop.mobile||"",
+whatsapp:shop.whatsapp||shop.mobile||"",
+address:shop.address||"",
+area:shop.area||"",
+city:shop.city||"",
+pincode:shop.pincode||"",
+image:shop.shop_image||"icon-512.png",
+listingType:shop.listing_type||"",
+liveQrEnabled:shop.live_qr_enabled===true,
+liveQrStatus:shop.live_qr_status||"",
+liveQrToken:shop.live_qr_token||"",
+latitude:latitude,
+longitude:longitude
+};
 }
 
+function buildShopLocation(shop){
+const locationParts=[shop.area,shop.city,shop.pincode].filter(function(value){
+return String(value||"").trim()!=="";
+});
+if(locationParts.length){return locationParts.join(", ");}
+if(shop.address){return shop.address;}
+return "Location details unavailable";
+}
 
-function buildShopCard(
-    shop
-){
+function buildShopCard(shop){
+const phone=cleanPhone(shop.phone);
+const whatsapp=cleanPhone(shop.whatsapp||shop.phone);
+const distanceText=formatDistance(shop.distance);
+const directionsUrl=buildDirectionsUrl(shop.latitude,shop.longitude);
+let visitUrl="";
+if(shop.liveQrToken){visitUrl="live-qr-shop.html?token="+encodeURIComponent(shop.liveQrToken);}
 
-    const phone =
-        cleanPhone(
-            shop.phone
-        );
-
-    const whatsapp =
-        cleanPhone(
-            shop.whatsapp ||
-            shop.phone
-        );
-
-    const distanceText =
-        formatDistance(
-            shop.distance
-        );
-
-    const directionsUrl =
-        buildDirectionsUrl(
-            shop.latitude,
-            shop.longitude
-        );
-
-
-    let visitUrl = "";
-
-    if(
-        shop.liveQrToken
-    ){
-
-        visitUrl =
-            "live-qr-shop.html?token=" +
-            encodeURIComponent(
-                shop.liveQrToken
-            );
-
-    }
-
-
-    return `
-
+return `
 <article class="shop-card">
-
 <div class="shop-image-wrap">
-
-<img
-    class="shop-image"
-    src="${escapeHtml(shop.image)}"
-    alt="${escapeHtml(shop.name)}"
-    loading="lazy"
-    onerror="this.src='icon-512.png'"
->
-
-<div class="shop-name-board">
-
-<span class="shop-name-board-text">
-
-${escapeHtml(shop.name)}
-
-</span>
-
+<img class="shop-image" src="${escapeHtml(shop.image)}" alt="${escapeHtml(shop.name)}" loading="lazy" onerror="this.src='icon-512.png'">
+<div class="shop-name-board"><span class="shop-name-board-text">${escapeHtml(shop.name)}</span></div>
+<div class="verified-badge">✓ QR Store</div>
+${distanceText?`<div class="distance-badge">📏 ${escapeHtml(distanceText)}</div>`:""}
 </div>
-
-<div class="verified-badge">
-    ✓ QR Store
-</div>
-
-${
-    distanceText
-    ?
-    `
-    <div class="distance-badge">
-        📏 ${escapeHtml(distanceText)}
-    </div>
-    `
-    :
-    ""
-}
-
-</div>
-
-
 <div class="shop-card-body">
-
-<div class="shop-name">
-    ${escapeHtml(shop.name)}
-</div>
-
-<div class="shop-category">
-    ${escapeHtml(shop.category)}
-</div>
-
-<div class="shop-location-text">
-    📍 ${escapeHtml(
-        buildShopLocation(shop)
-    )}
-</div>
-
-
+<div class="shop-name">${escapeHtml(shop.name)}</div>
+<div class="shop-category">${escapeHtml(shop.category)}</div>
+<div class="shop-location-text">📍 ${escapeHtml(buildShopLocation(shop))}</div>
 <div class="shop-actions">
-
-${
-    phone
-    ?
-    `
-    <a
-        href="tel:+91${phone}"
-        class="shop-action call-action"
-    >
-        📞 Call
-    </a>
-    `
-    :
-    `
-    <span
-        class="shop-action call-action disabled"
-    >
-        📞 Call
-    </span>
-    `
-}
-
-${
-    whatsapp
-    ?
-    `
-    <a
-        href="https://wa.me/91${whatsapp}"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="shop-action whatsapp-action"
-    >
-        💬 WhatsApp
-    </a>
-    `
-    :
-    `
-    <span
-        class="shop-action whatsapp-action disabled"
-    >
-        💬 WhatsApp
-    </span>
-    `
-}
-
+${phone?`<a href="tel:+91${phone}" class="shop-action call-action">📞 Call</a>`:`<span class="shop-action call-action disabled">📞 Call</span>`}
+${whatsapp?`<a href="https://wa.me/91${whatsapp}" target="_blank" rel="noopener noreferrer" class="shop-action whatsapp-action">💬 WhatsApp</a>`:`<span class="shop-action whatsapp-action disabled">💬 WhatsApp</span>`}
 </div>
-
-
 <div class="shop-actions">
-
-${
-    directionsUrl
-    ?
-    `
-    <a
-        href="${directionsUrl}"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="shop-action directions-action"
-    >
-        🧭 Directions
-    </a>
-    `
-    :
-    `
-    <span
-        class="shop-action directions-action disabled"
-    >
-        🧭 Directions
-    </span>
-    `
-}
-
-${
-    visitUrl
-    ?
-    `
-    <a
-        href="${visitUrl}"
-        class="shop-action visit-action"
-    >
-        🏪 Visit Store
-    </a>
-    `
-    :
-    `
-    <span
-        class="shop-action visit-action disabled"
-    >
-        🏪 Visit Store
-    </span>
-    `
-}
-
+${directionsUrl?`<a href="${directionsUrl}" target="_blank" rel="noopener noreferrer" class="shop-action directions-action">🧭 Directions</a>`:`<span class="shop-action directions-action disabled">🧭 Directions</span>`}
+${visitUrl?`<a href="${visitUrl}" class="shop-action visit-action">🏪 Visit Store</a>`:`<span class="shop-action visit-action disabled">🏪 Visit Store</span>`}
 </div>
-
 </div>
-
 </article>
-
 `;
-
 }
 
-
-function renderShops(
-    shops
-){
-
-    let results =
-        [...(
-            shops || []
-        )];
-
-
-    if(
-        selectedCategory
-    ){
-
-        results =
-            results.filter(
-                function(shop){
-
-                    return String(
-                        shop.category || ""
-                    ).toLowerCase() ===
-                    selectedCategory.toLowerCase();
-
-                }
-            );
-
-    }
-
-
-    if(
-        selectedPincode
-    ){
-
-        results =
-            results.filter(
-                function(shop){
-
-                    return String(
-                        shop.pincode || ""
-                    ).trim() ===
-                    selectedPincode;
-
-                }
-            );
-
-    }
-
-
-    if(
-        validCoordinate(
-            userLatitude,
-            userLongitude
-        )
-    ){
-
-        results =
-            results.map(
-                function(shop){
-
-                    const copy = {
-                        ...shop,
-                        distance:null
-                    };
-
-                    if(
-                        validCoordinate(
-                            copy.latitude,
-                            copy.longitude
-                        )
-                    ){
-
-                        copy.distance =
-                            calculateDistance(
-                                userLatitude,
-                                userLongitude,
-                                copy.latitude,
-                                copy.longitude
-                            );
-
-                    }
-
-                    return copy;
-
-                }
-            )
-
-            .filter(
-                function(shop){
-
-                    return (
-                        Number.isFinite(shop.distance) &&
-                        shop.distance <= selectedRadiusKm
-                    );
-
-                }
-            );
-
-        results.sort(
-            function(a,b){
-
-                return a.distance - b.distance;
-
-            }
-        );
-
-    }
-    else if(
-        !selectedPincode
-    ){
-
-        results = [];
-
-    }
-
-
-    const title =
-        document.getElementById(
-            "shopListTitle"
-        );
-
-    const count =
-        document.getElementById(
-            "shopListCount"
-        );
-
-    const location =
-        document.getElementById(
-            "shopLocation"
-        );
-
-
-    title.textContent =
-        selectedCategory ||
-        "QR Stores Near You";
-
-
-    count.textContent =
-        results.length +
-        (
-            results.length === 1
-            ?
-            " registered QR Store found"
-            :
-            " registered QR Stores found"
-        );
-
-
-    if(
-        validCoordinate(
-            userLatitude,
-            userLongitude
-        )
-    ){
-
-        location.textContent =
-            "📍 Within " +
-            selectedRadiusKm +
-            " KM • Nearest first";
-
-    }
-    else if(
-        selectedPincode
-    ){
-
-        location.textContent =
-            "📍 Pincode: " +
-            selectedPincode;
-
-    }
-    else{
-
-        location.textContent =
-            "📍 Location required";
-
-    }
-
-
-    const grid =
-        document.getElementById(
-            "shopGrid"
-        );
-
-
-    if(
-        !results.length
-    ){
-
-        let emptyText =
-            "No registered QR Stores found within " +
-            selectedRadiusKm +
-            " KM. Try a larger radius.";
-
-        if(
-            !validCoordinate(
-                userLatitude,
-                userLongitude
-            ) &&
-            !selectedPincode
-        ){
-
-            emptyText =
-                "Use My Location to find registered QR Stores near you.";
-
-        }
-        else if(
-            selectedPincode
-        ){
-
-            emptyText =
-                "No registered QR Stores found for this pincode.";
-
-        }
-
-        grid.innerHTML = `
-
-<div class="shop-empty">
-
-<div class="shop-empty-icon">
-    🔍
-</div>
-
-<div class="shop-empty-title">
-    No registered QR Stores found
-</div>
-
-<div class="shop-empty-text">
-    ${escapeHtml(emptyText)}
-</div>
-
-</div>
-
-`;
-
-        return;
-
-    }
-
-
-    grid.innerHTML =
-        results
-        .map(
-            buildShopCard
-        )
-        .join("");
-
+function renderShops(shops){
+let results=[...(shops||[])];
+
+if(selectedCategory){
+results=results.filter(function(shop){
+return String(shop.category||"").toLowerCase()===selectedCategory.toLowerCase();
+});
 }
 
-  async function loadShops(){
-
-    const grid =
-        document.getElementById(
-            "shopGrid"
-        );
-
-
-    grid.innerHTML = `
-
-<div class="shop-empty">
-
-<div class="shop-empty-icon">
-    ⏳
-</div>
-
-<div class="shop-empty-title">
-    Loading QR Stores...
-</div>
-
-<div class="shop-empty-text">
-    Loading registered QR Stores from Pyncode.
-</div>
-
-</div>
-
-`;
-
-
-    try{
-
-        /*
-         * IMPORTANT
-         *
-         * Existing QR Store query
-         * is preserved.
-         */
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-
-            .from("shops")
-
-            .select(`
-                id,
-                shop_name,
-                category,
-                owner_name,
-                mobile,
-                whatsapp,
-                address,
-                area,
-                city,
-                pincode,
-                description,
-                shop_image,
-                listing_type,
-                live_qr_enabled,
-                live_qr_token,
-                live_qr_status,
-                latitude,
-                longitude,
-                created_at
-            `)
-
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            );
-
-
-        if(error){
-
-            throw error;
-
-        }
-
-
-        const rows =
-            data || [];
-
-
-        allShops =
-            rows
-
-            .filter(
-                function(shop){
-
-                    return (
-
-                        (
-                            shop.live_qr_enabled === true &&
-                            shop.live_qr_status === "active"
-                        )
-
-                        ||
-
-                        (
-                            shop.listing_type === "nearby"
-                        )
-
-                    );
-
-                }
-            )
-
-            .map(
-                normalizeShop
-            );
-
-
-        renderShops(
-            allShops
-        );
-
-    }
-    catch(error){
-
-        console.error(
-            "QR Stores loading error:",
-            error
-        );
-
-
-        document.getElementById(
-            "shopListCount"
-        ).textContent =
-            "Unable to load QR Stores";
-
-
-        grid.innerHTML = `
-
-<div class="shop-empty">
-
-<div class="shop-empty-icon">
-    ⚠️
-</div>
-
-<div class="shop-empty-title">
-    Unable to load QR Stores
-</div>
-
-<div class="shop-empty-text">
-    ${escapeHtml(
-        error?.message ||
-        "Please refresh the page and try again."
-    )}
-</div>
-
-</div>
-
-`;
-
-    }
-
+if(selectedPincode){
+results=results.filter(function(shop){
+return String(shop.pincode||"").trim()===selectedPincode;
+});
 }
 
+if(validCoordinate(userLatitude,userLongitude)){
+results=results.map(function(shop){
+const copy={...shop,distance:null};
+if(validCoordinate(copy.latitude,copy.longitude)){
+copy.distance=calculateDistance(userLatitude,userLongitude,copy.latitude,copy.longitude);
+}
+return copy;
+}).filter(function(shop){
+return Number.isFinite(shop.distance)&&shop.distance<=selectedRadiusKm;
+});
+results.sort(function(a,b){return a.distance-b.distance;});
+}else if(!selectedPincode){
+results=[];
+}
+
+const title=document.getElementById("shopListTitle");
+const count=document.getElementById("shopListCount");
+const location=document.getElementById("shopLocation");
+
+title.textContent=selectedCategory||"QR Stores Near You";
+count.textContent=results.length+(results.length===1?" registered QR Store found":" registered QR Stores found");
+
+if(validCoordinate(userLatitude,userLongitude)){
+location.textContent="📍 Within "+selectedRadiusKm+" KM • Nearest first";
+}else if(selectedPincode){
+location.textContent="📍 Pincode: "+selectedPincode;
+}else{
+location.textContent="📍 Location required";
+}
+
+const grid=document.getElementById("shopGrid");
+
+if(!results.length){
+let emptyText="No registered QR Stores found within "+selectedRadiusKm+" KM. Try a larger radius.";
+if(!validCoordinate(userLatitude,userLongitude)&&!selectedPincode){
+emptyText="Use My Location to find registered QR Stores near you.";
+}else if(selectedPincode){
+emptyText="No registered QR Stores found for this pincode.";
+}
+grid.innerHTML=`
+<div class="shop-empty">
+<div class="shop-empty-icon">🔍</div>
+<div class="shop-empty-title">No registered QR Stores found</div>
+<div class="shop-empty-text">${escapeHtml(emptyText)}</div>
+</div>
+`;
+return;
+}
+
+grid.innerHTML=results.map(buildShopCard).join("");
+}
+
+async function loadShops(){
+const grid=document.getElementById("shopGrid");
+
+grid.innerHTML=`
+<div class="shop-empty">
+<div class="shop-empty-icon">⏳</div>
+<div class="shop-empty-title">Loading QR Stores...</div>
+<div class="shop-empty-text">Loading registered QR Stores from Pyncode.</div>
+</div>
+`;
+
+try{
+const{data,error}=await supabaseClient
+.from("shops")
+.select(`
+id,
+shop_name,
+category,
+owner_name,
+mobile,
+whatsapp,
+address,
+area,
+city,
+pincode,
+description,
+shop_image,
+listing_type,
+live_qr_enabled,
+live_qr_token,
+live_qr_status,
+latitude,
+longitude,
+created_at
+`)
+.order("created_at",{ascending:false});
+
+if(error){throw error;}
+
+const rows=data||[];
+
+allShops=rows.filter(function(shop){
+return(
+(shop.live_qr_enabled===true&&shop.live_qr_status==="active")||
+(shop.listing_type==="nearby")
+);
+}).map(normalizeShop);
+
+renderShops(allShops);
+
+}catch(error){
+console.error("QR Stores loading error:",error);
+document.getElementById("shopListCount").textContent="Unable to load QR Stores";
+grid.innerHTML=`
+<div class="shop-empty">
+<div class="shop-empty-icon">⚠️</div>
+<div class="shop-empty-title">Unable to load QR Stores</div>
+<div class="shop-empty-text">${escapeHtml(error?.message||"Please refresh the page and try again.")}</div>
+</div>
+`;
+}
+}
 
 function searchPincode(){
-
-    const input =
-        document.getElementById(
-            "pincodeInput"
-        );
-
-    const value =
-        input.value.trim();
-
-
-    if(
-        value &&
-        !/^\d{6}$/.test(
-            value
-        )
-    ){
-
-        alert(
-            "Please enter a valid 6 digit pincode."
-        );
-
-        return;
-
-    }
-
-
-    selectedPincode =
-        value;
-
-
-    renderShops(
-        allShops
-    );
-
+const input=document.getElementById("pincodeInput");
+const value=input.value.trim();
+if(value&&!/^\d{6}$/.test(value)){
+alert("Please enter a valid 6 digit pincode.");
+return;
 }
-
+selectedPincode=value;
+renderShops(allShops);
+}
 
 function openInterestedWhatsApp(){
-
-    const message =
-        "Hi Pyncode.in, I am interested in registering my QR Store.";
-
-    window.open(
-
-        "https://wa.me/?text=" +
-        encodeURIComponent(
-            message
-        ),
-
-        "_blank",
-
-        "noopener,noreferrer"
-
-    );
-
+const message="Hi Pyncode.in, I am interested in registering my QR Store.";
+window.open("https://wa.me/?text="+encodeURIComponent(message),"_blank","noopener,noreferrer");
 }
-
 
 function setupPincodeInput(){
-
-    const input =
-        document.getElementById(
-            "pincodeInput"
-        );
-
-
-    input.addEventListener(
-        "input",
-        function(event){
-
-            event.target.value =
-                event.target.value
-                .replace(
-                    /\D/g,
-                    ""
-                )
-                .slice(
-                    0,
-                    6
-                );
-
-        }
-    );
-
-
-    input.addEventListener(
-        "keydown",
-        function(event){
-
-            if(
-                event.key === "Enter"
-            ){
-
-                event.preventDefault();
-
-                searchPincode();
-
-            }
-
-        }
-    );
-
+const input=document.getElementById("pincodeInput");
+input.addEventListener("input",function(event){
+event.target.value=event.target.value.replace(/\D/g,"").slice(0,6);
+});
+input.addEventListener("keydown",function(event){
+if(event.key==="Enter"){
+event.preventDefault();
+searchPincode();
 }
-
+});
+}
 
 function setupButtons(){
-
-    document.querySelectorAll(
-        ".radius-button"
-    ).forEach(
-        function(button){
-
-            button.addEventListener(
-                "click",
-                function(){
-
-                    selectRadius(
-                        button.dataset.radius
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    updateRadiusButtons();
-
-    updateRadiusStatus();
-
-
-    document.getElementById(
-        "useLocationButton"
-    ).addEventListener(
-        "click",
-        requestUserLocation
-    );
-
-
-    document.getElementById(
-        "searchButton"
-    ).addEventListener(
-        "click",
-        searchPincode
-    );
-
+document.querySelectorAll(".radius-button").forEach(function(button){
+button.addEventListener("click",function(){
+selectRadius(button.dataset.radius);
+});
+});
+updateRadiusButtons();
+updateRadiusStatus();
+document.getElementById("useLocationButton").addEventListener("click",requestUserLocation);
+document.getElementById("searchButton").addEventListener("click",searchPincode);
 }
 
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        loadCategories();
-
-        restoreUserLocation();
-
-        setupPincodeInput();
-
-        setupButtons();
-
-        loadShops();
-
-    }
-);
-
-  </script>
+document.addEventListener("DOMContentLoaded",function(){
+loadCategories();
+restoreUserLocation();
+setupPincodeInput();
+setupButtons();
+loadShops();
+});
+</script>
 
 </body>
 </html>
