@@ -585,8 +585,7 @@ button{
 </h2>
 
 <p class="card-description">
-    Login to manage your posts, profile and
-    Pyncode activities.
+    Login with your mobile number and 4-digit MPIN to access Feeds and Ads.
 </p>
 
 <form
@@ -600,15 +599,17 @@ button{
     class="form-label"
     for="loginEmail"
 >
-    Email
+    Mobile Number
 </label>
 
 <input
     class="form-input"
     id="loginEmail"
-    type="email"
-    autocomplete="email"
-    placeholder="Enter your email"
+    type="tel"
+    inputmode="numeric"
+    autocomplete="tel"
+    maxlength="15"
+    placeholder="Enter mobile number"
 >
 
 </div>
@@ -619,7 +620,7 @@ button{
     class="form-label"
     for="loginPassword"
 >
-    Password
+    4-digit MPIN
 </label>
 
 <div class="input-wrap">
@@ -628,8 +629,10 @@ button{
     class="form-input password-input"
     id="loginPassword"
     type="password"
+    inputmode="numeric"
+    maxlength="4"
     autocomplete="current-password"
-    placeholder="Enter your password"
+    placeholder="Enter 4-digit MPIN"
 >
 
 <button
@@ -692,8 +695,7 @@ Don't have an account?
 </h2>
 
 <p class="card-description">
-    Create your Pyncode account and start
-    publishing your opportunities.
+    One account for Pyncode Feeds and Ads. Use your mobile number and MPIN.
 </p>
 
 <form
@@ -721,7 +723,7 @@ Don't have an account?
 </div>
 
   <div class="form-group">
-    <label class="form-label">Phone Number</label>
+    <label class="form-label" for="signupPhone">Mobile Number</label>
 
     <input
         type="tel"
@@ -758,7 +760,7 @@ Don't have an account?
     class="form-label"
     for="signupPassword"
 >
-    Password
+    Create 4-digit MPIN
 </label>
 
 <div class="input-wrap">
@@ -767,8 +769,10 @@ Don't have an account?
     class="form-input password-input"
     id="signupPassword"
     type="password"
+    inputmode="numeric"
+    maxlength="4"
     autocomplete="new-password"
-    placeholder="Minimum 6 characters"
+    placeholder="Create 4-digit MPIN"
 >
 
 <button
@@ -790,7 +794,7 @@ Don't have an account?
     class="form-label"
     for="signupConfirmPassword"
 >
-    Confirm Password
+    Confirm 4-digit MPIN
 </label>
 
 <div class="input-wrap">
@@ -799,8 +803,10 @@ Don't have an account?
     class="form-input password-input"
     id="signupConfirmPassword"
     type="password"
+    inputmode="numeric"
+    maxlength="4"
     autocomplete="new-password"
-    placeholder="Re-enter password"
+    placeholder="Re-enter 4-digit MPIN"
 >
 
 <button
@@ -943,6 +949,7 @@ Already have an account?
 
 </button>
 
+  
 
 <button
     type="button"
@@ -1366,6 +1373,7 @@ showLoginButton.addEventListener(
     loginEmail,
     loginPassword,
     signupName,
+    signupPhone,
     signupEmail,
     signupPassword,
     signupConfirmPassword
@@ -1402,424 +1410,72 @@ showLoginButton.addEventListener(
 
 
 /* ==========================================
-   REAL SUPABASE LOGIN
+   SHARED MOBILE + MPIN AUTH
    ========================================== */
+const MOBILE_AUTH_URL = "https://mtuspuehsxsjoaxoenen.supabase.co/functions/v1/pyncode-mobile-auth";
+const MOBILE_AUTH_KEY = "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
 
-loginForm.addEventListener(
-    "submit",
-    async function(event){
+async function callMobileAuth(payload) {
+    const response = await fetch(MOBILE_AUTH_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "apikey": MOBILE_AUTH_KEY },
+        body: JSON.stringify(payload)
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.success) throw new Error(result.error || "Authentication failed. Please try again.");
+    if (!result.session?.access_token || !result.session?.refresh_token) throw new Error("Secure login session was not returned.");
 
-        event.preventDefault();
+      const { data, error } = await pyncodeLocalSupabase.auth.setSession({
+        access_token: result.session.access_token,
+        refresh_token: result.session.refresh_token
+    });
+    if (error) throw error;
+    return data.user || result.user;
+}
 
-        const email =
-            loginEmail.value.trim();
+loginForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const mobile = loginEmail.value.trim().replace(/[\s()+-]/g, "");
+    const pin = loginPassword.value.trim();
+    clearStatuses();
+    if (!/^\d{10,15}$/.test(mobile)) { setStatus(loginStatus, "Enter a valid mobile number.", "error"); loginEmail.focus(); return; }
+    if (!/^\d{4}$/.test(pin)) { setStatus(loginStatus, "MPIN must be exactly 4 digits.", "error"); loginPassword.focus(); return; }
+    setLoading(loginButton, true, "Logging in...", "Login");
+    try {
+        const user = await callMobileAuth({ action: "login", mobile, pin });
+        loginPassword.value = "";
+        setStatus(loginStatus, "", "");
+        showAccountMenu(user);
+    } catch (error) {
+        console.error("Mobile login error:", error);
+        setStatus(loginStatus, error.message || "Login failed. Please try again.", "error");
+    } finally { setLoading(loginButton, false, "Logging in...", "Login"); }
+});
 
-        const password =
-            loginPassword.value;
-
-        clearStatuses();
-
-
-        if(!email){
-
-            setStatus(
-                loginStatus,
-                "Please enter your email.",
-                "error"
-            );
-
-            loginEmail.focus();
-
-            return;
-
-        }
-
-
-        if(!isValidEmail(email)){
-
-            setStatus(
-                loginStatus,
-                "Please enter a valid email.",
-                "error"
-            );
-
-            loginEmail.focus();
-
-            return;
-
-        }
-
-
-        if(!password){
-
-            setStatus(
-                loginStatus,
-                "Please enter your password.",
-                "error"
-            );
-
-            loginPassword.focus();
-
-            return;
-
-        }
-
-
-        if(password.length < 6){
-
-            setStatus(
-                loginStatus,
-                "Password must be at least 6 characters.",
-                "error"
-            );
-
-            loginPassword.focus();
-
-            return;
-
-        }
-
-
-        setLoading(
-            loginButton,
-            true,
-            "Logging in...",
-            "Login"
-        );
-
-
-        try{
-
-            const {
-                data,
-                error
-            } =
-            await pyncodeLocalSupabase
-                .auth
-                .signInWithPassword({
-                    email:email,
-                    password:password
-                });
-
-
-            if(error){
-
-                throw error;
-
-            }
-
-
-            if(!data?.user){
-
-                throw new Error(
-                    "Login could not be completed."
-                );
-
-            }
-
-
-            setStatus(
-                loginStatus,
-                "",
-                ""
-            );
-
-            showAccountMenu(
-                data.user
-            );
-
-
-        }catch(error){
-
-            console.error(
-                "Login error:",
-                error
-            );
-
-            setStatus(
-                loginStatus,
-                error?.message ||
-                "Login failed. Please try again.",
-                "error"
-            );
-
-        }finally{
-
-            setLoading(
-                loginButton,
-                false,
-                "Logging in...",
-                "Login"
-            );
-
-        }
-
-    }
-);
-
+signupForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const name = signupName.value.trim();
+    const mobile = signupPhone.value.trim().replace(/[\s()+-]/g, "");
+    const pin = signupPassword.value.trim();
+    const confirmPin = signupConfirmPassword.value.trim();
+    clearStatuses();
+    if (name.length < 2) { setStatus(signupStatus, "Please enter your name.", "error"); signupName.focus(); return; }
+    if (!/^\d{10,15}$/.test(mobile)) { setStatus(signupStatus, "Enter a valid mobile number.", "error"); signupPhone.focus(); return; }
+    if (!/^\d{4}$/.test(pin)) { setStatus(signupStatus, "MPIN must be exactly 4 digits.", "error"); signupPassword.focus(); return; }
+    if (pin !== confirmPin) { setStatus(signupStatus, "MPINs do not match.", "error"); signupConfirmPassword.focus(); return; }
+    setLoading(signupButton, true, "Creating Account...", "Create Account");
+    try {
+        const user = await callMobileAuth({ action: "register", mode: "feeds", name, mobile, pin });
+        signupPassword.value = ""; signupConfirmPassword.value = "";
+        setStatus(signupStatus, "Account created successfully!", "success");
+        showAccountMenu(user);
+    } catch (error) {
+        console.error("Mobile signup error:", error);
+        setStatus(signupStatus, error.message || "Account creation failed.", "error");
+    } finally { setLoading(signupButton, false, "Creating Account...", "Create Account"); }
+});
 
 /* ==========================================
-   REAL SUPABASE ACCOUNT CREATION
-   ========================================== */
-
-signupForm.addEventListener(
-    "submit",
-    async function(event){
-
-        event.preventDefault();
-
-        const name =
-            signupName.value.trim();
-
-      const phone =
-    signupPhone.value.trim();
-
-        const email =
-            signupEmail.value.trim();
-
-        const password =
-            signupPassword.value;
-
-        const confirmPassword =
-            signupConfirmPassword.value;
-
-        clearStatuses();
-
-
-        if(!name){
-
-            setStatus(
-                signupStatus,
-                "Please enter your name.",
-                "error"
-            );
-
-            signupName.focus();
-
-            return;
-
-        }
-
-
-        if(name.length < 2){
-
-            setStatus(
-                signupStatus,
-                "Please enter a valid name.",
-                "error"
-            );
-
-            signupName.focus();
-
-            return;
-
-        }
-
-      if(!phone){
-    setStatus(
-        signupStatus,
-        "Please enter your phone number.",
-        "error"
-    );
-
-    signupPhone.focus();
-
-    return;
-}
-
-if(!/^\d{10,15}$/.test(phone)){
-    setStatus(
-        signupStatus,
-        "Please enter a valid phone number.",
-        "error"
-    );
-
-    signupPhone.focus();
-
-    return;
-}
-
-
-        if(!email){
-
-            setStatus(
-                signupStatus,
-                "Please enter your email.",
-                "error"
-            );
-
-            signupEmail.focus();
-
-            return;
-
-        }
-
-
-        if(!isValidEmail(email)){
-
-            setStatus(
-                signupStatus,
-                "Please enter a valid email.",
-                "error"
-            );
-
-            signupEmail.focus();
-
-            return;
-
-        }
-
-
-        if(!password){
-
-            setStatus(
-                signupStatus,
-                "Please create a password.",
-                "error"
-            );
-
-            signupPassword.focus();
-
-            return;
-
-        }
-
-
-        if(password.length < 6){
-
-            setStatus(
-                signupStatus,
-                "Password must be at least 6 characters.",
-                "error"
-            );
-
-            signupPassword.focus();
-
-            return;
-
-        }
-
-
-        if(password !== confirmPassword){
-
-            setStatus(
-                signupStatus,
-                "Passwords do not match.",
-                "error"
-            );
-
-            signupConfirmPassword.focus();
-
-            return;
-
-        }
-
-
-        setLoading(
-            signupButton,
-            true,
-            "Creating Account...",
-            "Create Account"
-        );
-
-
-        try{
-
-            const {
-                data,
-                error
-            } =
-            await pyncodeLocalSupabase
-                .auth
-                .signUp({
-
-                    email:email,
-
-                    password:password,
-
-                  options:{
-    data:{
-        name:name,
-        full_name:name,
-        phone:phone
-    }
-                  }
-                  
-                });
-
-
-            if(error){
-
-                throw error;
-
-            }
-
-
-            if(!data?.user){
-
-                throw new Error(
-                    "Account could not be created."
-                );
-
-            }
-
-
-            signupPassword.value = "";
-            signupConfirmPassword.value = "";
-
-
-            /*
-             * If Supabase email confirmation
-             * is enabled, session may be null.
-             */
-
-            if(!data.session){
-
-                setStatus(
-                    signupStatus,
-                    "Account created. Please verify your email and then login.",
-                    "success"
-                );
-
-                return;
-
-            }
-
-
-            showAccountMenu(
-                data.user
-            );
-
-
-        }catch(error){
-
-            console.error(
-                "Signup error:",
-                error
-            );
-
-            setStatus(
-                signupStatus,
-                error?.message ||
-                "Account creation failed.",
-                "error"
-            );
-
-        }finally{
-
-            setLoading(
-                signupButton,
-                false,
-                "Creating Account...",
-                "Create Account"
-            );
-
-        }
-
-    }
-);
-
-    /* ==========================================
    ACCOUNT MENU NAVIGATION
    ========================================== */
 
@@ -1974,7 +1630,7 @@ signupName.addEventListener(
 
             event.preventDefault();
 
-            signupEmail.focus();
+            signupPhone.focus();
 
         }
 

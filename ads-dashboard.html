@@ -373,7 +373,8 @@ const categoryData = {
   "Wholesale & Distribution":[
     "FMCG Wholesale","Grocery Wholesale","Clothing Wholesale",
     "Electronics Wholesale","Cosmetics Wholesale","Import & Export",
-    "Bulk Suppliers"
+
+        "Bulk Suppliers"
   ],
   "Education & Training":[
     "Schools","Colleges","Tuition","Coaching","Skill Training",
@@ -557,7 +558,7 @@ async function checkSession() {
     return false;
   }
 
-  $("userEmail").textContent = currentUser.email || "Signed in";
+  $("userEmail").textContent = currentUser.user_metadata?.name || currentUser.user_metadata?.full_name || "Signed in";
   return true;
 }
 
@@ -748,7 +749,8 @@ async function deleteCampaign(campaignId, button) {
       button.disabled = false;
       button.textContent = originalText;
     }
-  }
+
+      }
 }
 
   function resetEditorState() {
@@ -1124,7 +1126,8 @@ $("detectLocationBtn").addEventListener("click", async () => {
     updateLocationStatus(
       "GPS unavailable or permission denied. Enter your business pincode and area manually.",
       true
-    );
+
+          );
 
   } finally {
     btn.disabled = false;

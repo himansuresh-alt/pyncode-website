@@ -48,7 +48,8 @@ main{
 .eyebrow{
   display:inline-block;background:var(--sage);color:var(--green);
   padding:8px 12px;border-radius:30px;font-size:12px;
-  font-weight:bold;margin-bottom:22px;
+
+    font-weight:bold;margin-bottom:22px;
 }
 .intro h2{
   font-size:clamp(32px,4vw,47px);
@@ -99,7 +100,8 @@ input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(73,102,80,.1)}
 .notice.error{display:block;background:#fff0ed;color:#a13a2c}
 .notice.success{display:block;background:#e8f3e8;color:#315c39}
 .terms{font-size:12px;color:var(--muted);line-height:1.7;margin-top:15px}
-.login-line{text-align:center;margin-top:23px;font-size:14px;color:var(--muted)}
+
+  .login-line{text-align:center;margin-top:23px;font-size:14px;color:var(--muted)}
 .login-line a{color:var(--green);font-weight:bold;text-decoration:none}
 .footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
 @media(max-width:760px){
@@ -141,59 +143,19 @@ input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(73,102,80,.1)}
 
   <section class="card">
     <h2>Create your account</h2>
-    <p class="card-subtitle">Enter your business details to get started.</p>
+    <p class="card-subtitle">Create one Pyncode account for both Feeds and Ads.</p>
 
     <div id="notice" class="notice" role="status" aria-live="polite"></div>
 
     <form id="signupForm">
-      <div class="field">
-        <label for="businessName">Business Name *</label>
-        <input id="businessName" name="businessName" type="text"
-          placeholder="Enter your business name" maxlength="120" required>
-      </div>
+      <div class="field"><label for="businessName">Business Name *</label><input id="businessName" name="businessName" type="text" placeholder="Enter your business name" maxlength="120" required></div>
+      <div class="field"><label for="ownerName">Owner Name *</label><input id="ownerName" name="ownerName" type="text" placeholder="Enter owner's full name" maxlength="120" required></div>
+      <div class="field"><label for="mobile">Mobile Number *</label><input id="mobile" name="mobile" type="tel" inputmode="numeric" maxlength="15" autocomplete="tel" placeholder="Enter mobile number" required></div>
+      <div class="field"><label for="pin">Create 4-digit MPIN *</label><input id="pin" name="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="new-password" placeholder="4-digit MPIN" required></div>
 
-      <div class="field">
-        <label for="ownerName">Owner Name *</label>
-        <input id="ownerName" name="ownerName" type="text"
-          placeholder="Enter owner's full name" maxlength="120" required>
-      </div>
-
-      <div class="field">
-        <label for="email">Email Address *</label>
-        <input id="email" name="email" type="email"
-          placeholder="you@example.com" autocomplete="email" required>
-      </div>
-
-      <div class="field">
-        <label for="password">Password *</label>
-        <div class="password-wrap">
-          <input id="password" name="password" type="password"
-            placeholder="At least 8 characters" minlength="8"
-            autocomplete="new-password" required>
-          <button class="toggle-password" id="togglePassword"
-            type="button">Show</button>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="confirmPassword">Confirm Password *</label>
-        <div class="password-wrap">
-          <input id="confirmPassword" name="confirmPassword" type="password"
-            placeholder="Enter password again" minlength="8"
-            autocomplete="new-password" required>
-          <button class="toggle-password" id="toggleConfirmPassword"
-            type="button">Show</button>
-        </div>
-      </div>
-
-      <button id="submitBtn" class="submit-btn" type="submit">
-        Create Account →
-      </button>
-
-      <p class="terms">
-        By creating an account, you agree to use Pyncode Ads responsibly.
-        Keep your password private.
-      </p>
+            <div class="field"><label for="confirmPin">Confirm MPIN *</label><input id="confirmPin" name="confirmPin" type="password" inputmode="numeric" maxlength="4" autocomplete="new-password" placeholder="Re-enter MPIN" required></div>
+      <button id="submitBtn" class="submit-btn" type="submit">Create Account →</button>
+      <p class="terms">One mobile number works for both Pyncode Feeds and Ads. Keep your MPIN private.</p>
     </form>
 
     <div class="login-line">
@@ -207,153 +169,35 @@ input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(73,102,80,.1)}
 <script>
 (function(){
   "use strict";
-
-  const SUPABASE_URL = "https://mtuspuehsxsjoaxoenen.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
-
-  const notice = document.getElementById("notice");
-  const form = document.getElementById("signupForm");
-  const submitBtn = document.getElementById("submitBtn");
-
-  function showNotice(message, type){
-    notice.textContent = message;
-    notice.className = "notice " + type;
-    notice.scrollIntoView({behavior:"smooth",block:"nearest"});
-  }
-
-  function toggleField(inputId, buttonId){
-    const field = document.getElementById(inputId);
-    const button = document.getElementById(buttonId);
-    button.addEventListener("click", function(){
-      const show = field.type === "password";
-      field.type = show ? "text" : "password";
-      button.textContent = show ? "Hide" : "Show";
-    });
-  }
-
-  toggleField("password","togglePassword");
-  toggleField("confirmPassword","toggleConfirmPassword");
-
-  if(!window.supabase){
-    showNotice("Supabase library load aagala. Internet connection check pannitu page refresh pannunga.","error");
-    submitBtn.disabled = true;
-    return;
-  }
-
-  const client = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
-  form.addEventListener("submit", async function(event){
+  const SUPABASE_URL="https://mtuspuehsxsjoaxoenen.supabase.co";
+  const SUPABASE_KEY="sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+  const AUTH_URL="https://mtuspuehsxsjoaxoenen.supabase.co/functions/v1/pyncode-mobile-auth";
+  const notice=document.getElementById("notice"), form=document.getElementById("signupForm"), submitBtn=document.getElementById("submitBtn");
+  function showNotice(message,type){ notice.textContent=message; notice.className="notice "+type; }
+  if(!window.supabase){ showNotice("Supabase library load aagala. Internet connection check pannunga.","error"); submitBtn.disabled=true; return; }
+  const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  form.addEventListener("submit",async function(event){
     event.preventDefault();
-
-    const businessName = document.getElementById("businessName").value.trim();
-    const ownerName = document.getElementById("ownerName").value.trim();
-    const email = document.getElementById("email").value.trim().toLowerCase();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-
-    if(!businessName || !ownerName || !email || !password){
-      showNotice("Ella required fields-um fill pannunga.","error");
-      return;
-    }
-
-    if(password.length < 8){
-      showNotice("Password minimum 8 characters irukkanum.","error");
-      return;
-    }
-
-    if(password !== confirmPassword){
-      showNotice("Password and Confirm Password match aagala.","error");
-      return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Creating account...";
-
+    const business_name=document.getElementById("businessName").value.trim();
+    const name=document.getElementById("ownerName").value.trim();
+    const mobile=document.getElementById("mobile").value.trim().replace(/[\s()+-]/g,"");
+    const pin=document.getElementById("pin").value.trim();
+    const confirmPin=document.getElementById("confirmPin").value.trim();
+    if(business_name.length<2||name.length<2){ showNotice("Business name and owner name enter pannunga.","error"); return; }
+    if(!/^\d{10,15}$/.test(mobile)){ showNotice("Enter a valid mobile number.","error"); return; }
+    if(!/^\d{4}$/.test(pin)){ showNotice("MPIN must be exactly 4 digits.","error"); return; }
+    if(pin!==confirmPin){ showNotice("MPINs do not match.","error"); return; }
+    submitBtn.disabled=true; submitBtn.textContent="Creating account...";
     try{
-      const result = await client.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          data: {
-            business_name: businessName,
-            owner_name: ownerName
-          }
-        }
-      });
-
-      if(result.error) throw result.error;
-
-      const user = result.data.user;
-      const session = result.data.session;
-
-      if(!user){
-        throw new Error("Account create result kidaikkala. Please try again.");
-      }
-
-      /*
-       * When email confirmation is disabled, Supabase normally returns
-       * a session immediately. Create the advertiser profile if logged in.
-       */
-      if(session){
-        const profileResult = await client
-          .from("advertiser_profiles")
-          .upsert({
-            user_id: user.id,
-            business_name: businessName,
-            owner_name: ownerName,
-            updated_at: new Date().toISOString()
-          }, {onConflict:"user_id"});
-
-        if(profileResult.error){
-          console.error("Profile save error:",profileResult.error);
-          showNotice(
-            "Account create aagiduchu. Aana business profile save aagala. Dashboard-la login aagi continue pannunga.",
-            "success"
-          );
-          setTimeout(function(){
-            window.location.href = "ads-dashboard.html";
-          },1800);
-          return;
-        }
-
-        showNotice("Account created successfully! Dashboard-ku redirect aagudhu...","success");
-
-        setTimeout(function(){
-          window.location.href = "ads-dashboard.html";
-        },900);
-
-        return;
-      }
-
-      /*
-       * No session usually means email confirmation is still enabled.
-       * Do not claim that the account is ready to use.
-       */
-      showNotice(
-        "Account request create aagiduchu, aana Supabase email confirmation require pannudhu. Supabase Dashboard → Authentication → Sign In / Providers → Email-la Confirm email OFF pannunga. Appuram indha page-la account create pannunga.",
-        "error"
-      );
-
-    }catch(error){
-      console.error("Signup error:",error);
-
-      let message = error && error.message
-        ? error.message
-        : "Account create panna mudiyala. Please try again.";
-
-      if(/already registered|already exists|user already/i.test(message)){
-        message = "Indha email-ku account already irukku. Login page-la login pannunga.";
-      }else if(/password should be at least/i.test(message)){
-        message = "Password minimum 8 characters irukkanum.";
-      }else if(/rate limit/i.test(message)){
-        message = "Romba attempts pannirukeenga. Konjam neram kazhichu try pannunga.";
-      }
-
-      showNotice(message,"error");
-    }finally{
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Create Account →";
-    }
+      const response=await fetch(AUTH_URL,{method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY},body:JSON.stringify({action:"register",mode:"ads",name,mobile,pin,business_name})});
+      const result=await response.json().catch(()=>({}));
+      if(!response.ok||!result.success) throw new Error(result.error||"Account creation failed.");
+      if(!result.session?.access_token||!result.session?.refresh_token) throw new Error("Secure login session was not returned.");
+      const saved=await client.auth.setSession({access_token:result.session.access_token,refresh_token:result.session.refresh_token});
+      if(saved.error) throw saved.error;
+      showNotice("Account created! Opening Ads dashboard...","success");
+      window.location.replace("ads-dashboard.html");
+    }catch(error){ console.error("Mobile signup error:",error); showNotice(error.message||"Account create panna mudiyala.","error"); submitBtn.disabled=false; submitBtn.textContent="Create Account →"; }
   });
 })();
 </script>

@@ -88,7 +88,8 @@ main{
 }
 .check{
   width:30px;
-  height:30px;
+
+    height:30px;
   flex-shrink:0;
   display:grid;
   place-items:center;
@@ -178,7 +179,8 @@ a{color:var(--green)}
   margin-bottom:18px;
   border-radius:10px;
   font-size:13px;
-  line-height:1.6;
+
+    line-height:1.6;
   overflow-wrap:anywhere;
 }
 .notice.error{display:block;background:#fff0ed;color:#9b3528}
@@ -268,7 +270,8 @@ footer{
         <span class="check">✓</span>
         <span>Review campaign analytics</span>
       </div>
-      <div class="benefit">
+
+            <div class="benefit">
         <span class="check">✓</span>
         <span>Connect with customers</span>
       </div>
@@ -282,7 +285,7 @@ footer{
   <section class="card">
     <h2>Welcome back!</h2>
     <p class="subtitle">
-      Login to your Pyncode Ads advertiser account.
+      Use the same mobile number and 4-digit MPIN as Pyncode Feeds.
     </p>
 
     <div id="notice" class="notice"
@@ -290,43 +293,14 @@ footer{
 
     <form id="loginForm">
       <div class="field">
-        <label for="email">Email Address</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="you@example.com"
-          autocomplete="email"
-          required
-        >
+        <label for="mobile">Mobile Number</label>
+        <input id="mobile" name="mobile" type="tel" inputmode="numeric" maxlength="15" autocomplete="tel" placeholder="Enter mobile number" required>
       </div>
-
       <div class="field">
-        <label for="password">Password</label>
-        <div class="password-wrap">
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Enter your password"
-            autocomplete="current-password"
-            required
-          >
-          <button
-            id="togglePassword"
-            class="toggle-password"
-            type="button"
-          >Show</button>
-        </div>
+        <label for="pin">4-digit MPIN</label>
+        <input id="pin" name="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" placeholder="Enter 4-digit MPIN" required>
       </div>
-
-      <div class="forgot-row">
-        <a href="#" id="forgotPassword">Forgot Password?</a>
-      </div>
-
-      <button id="loginBtn" class="submit-btn" type="submit">
-        Login to Dashboard →
-      </button>
+      <button id="loginBtn" class="submit-btn" type="submit">Login to Dashboard →</button>
     </form>
 
     <div class="divider">NEW TO PYNCODE ADS?</div>
@@ -337,8 +311,7 @@ footer{
     </p>
 
     <p class="security-note">
-      Your account is protected by Supabase authentication.
-      Never share your password with anyone.
+      One secure login for Pyncode Feeds and Ads. Keep your MPIN private.
     </p>
   </section>
 </main>
@@ -350,139 +323,39 @@ footer{
 <script>
 (function(){
   "use strict";
-
-  const SUPABASE_URL =
-    "https://mtuspuehsxsjoaxoenen.supabase.co";
-
-  const SUPABASE_KEY =
-    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
-
+  const SUPABASE_URL = "https://mtuspuehsxsjoaxoenen.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+  const AUTH_URL = "https://mtuspuehsxsjoaxoenen.supabase.co/functions/v1/pyncode-mobile-auth";
   const notice = document.getElementById("notice");
   const form = document.getElementById("loginForm");
   const loginBtn = document.getElementById("loginBtn");
-  const emailInput = document.getElementById("email");
-  const passwordInput = document.getElementById("password");
-
-  function showNotice(message,type){
-    notice.textContent = message;
-    notice.className = "notice " + type;
-    notice.scrollIntoView({behavior:"smooth",block:"nearest"});
-  }
-
-  if(!window.supabase){
-    showNotice(
-      "Supabase library load aagala. Internet connection check pannunga.",
-      "error"
-    );
-    loginBtn.disabled = true;
-    return;
-  }
-
-  const client = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-  document.getElementById("togglePassword")
-    .addEventListener("click",function(){
-      const show = passwordInput.type === "password";
-      passwordInput.type = show ? "text" : "password";
-      this.textContent = show ? "Hide" : "Show";
-    });
-
-  // If already logged in, open the existing dashboard.
-  client.auth.getSession().then(function(result){
-    if(result.data && result.data.session){
-      window.location.replace("ads-dashboard.html");
-    }
-  });
-
+  const mobileInput = document.getElementById("mobile");
+  const pinInput = document.getElementById("pin");
+  function showNotice(message,type){ notice.textContent=message; notice.className="notice "+type; }
+  if(!window.supabase){ showNotice("Supabase library load aagala. Internet connection check pannunga.","error"); loginBtn.disabled=true; return; }
+  const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  client.auth.getSession().then(r=>{ if(r.data?.session) window.location.replace("ads-dashboard.html"); });
   form.addEventListener("submit",async function(event){
     event.preventDefault();
-
-    const email = emailInput.value.trim().toLowerCase();
-    const password = passwordInput.value;
-
-    if(!email || !password){
-      showNotice("Email and password enter pannunga.","error");
-      return;
-    }
-
-    loginBtn.disabled = true;
-    loginBtn.textContent = "Logging in...";
-
+    const mobile=mobileInput.value.trim().replace(/[\s()+-]/g,"");
+    const pin=pinInput.value.trim();
+    if(!/^\d{10,15}$/.test(mobile)){ showNotice("Enter a valid mobile number.","error"); mobileInput.focus(); return; }
+    if(!/^\d{4}$/.test(pin)){ showNotice("MPIN must be exactly 4 digits.","error"); pinInput.focus(); return; }
+    loginBtn.disabled=true; loginBtn.textContent="Logging in...";
     try{
-      const result = await client.auth.signInWithPassword({
-        email:email,
-        password:password
-      });
-
-      if(result.error){
-        throw result.error;
-      }
-
+      const response=await fetch(AUTH_URL,{method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY},body:JSON.stringify({action:"login",mobile,pin})});
+      const result=await response.json().catch(()=>({}));
+      if(!response.ok||!result.success) throw new Error(result.error||"Login failed. Please try again.");
+      if(!result.session?.access_token||!result.session?.refresh_token) throw new Error("Secure login session was not returned.");
+      const saved=await client.auth.setSession({access_token:result.session.access_token,refresh_token:result.session.refresh_token});
+      if(saved.error) throw saved.error;
       showNotice("Login successful! Dashboard open aagudhu...","success");
-
       window.location.replace("ads-dashboard.html");
-
     }catch(error){
-      console.error("Login error:",error);
-
-      let message = error && error.message
-        ? error.message
-        : "Login panna mudiyala. Please try again.";
-
-      if(/invalid login credentials/i.test(message)){
-        message = "Email or password incorrect. Details check pannunga.";
-      }else if(/email not confirmed/i.test(message)){
-        message = "Email confirmation enabled-ah irukku. Supabase Authentication settings-la Confirm email OFF pannunga.";
-      }else if(/too many requests/i.test(message)){
-        message = "Too many attempts. Konjam neram kazhichu try pannunga.";
-      }
-
-      showNotice(message,"error");
-
-      loginBtn.disabled = false;
-      loginBtn.textContent = "Login to Dashboard →";
+      console.error("Mobile login error:",error); showNotice(error.message||"Login panna mudiyala. Please try again.","error");
+      loginBtn.disabled=false; loginBtn.textContent="Login to Dashboard →";
     }
   });
-
-  document.getElementById("forgotPassword")
-    .addEventListener("click",async function(event){
-      event.preventDefault();
-
-      const email = emailInput.value.trim().toLowerCase();
-
-      if(!email){
-        showNotice(
-          "Password reset panna, first Email Address field-la unga email enter pannunga.",
-          "error"
-        );
-        emailInput.focus();
-        return;
-      }
-
-      try{
-        const result = await client.auth.resetPasswordForEmail(email,{
-          redirectTo:window.location.origin + "/ads-reset-password.html"
-        });
-
-        if(result.error) throw result.error;
-
-        showNotice(
-          "If this email is registered, password reset instructions will be sent. Reset link open aana ads-reset-password.html page configure pannirukkanum.",
-          "success"
-        );
-
-      }catch(error){
-        console.error("Password reset error:",error);
-        showNotice(
-          error.message || "Password reset request failed. Please try again.",
-          "error"
-        );
-      }
-    });
-
 })();
 </script>
 
