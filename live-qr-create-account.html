@@ -205,7 +205,8 @@ body{
 }
 
 .field input,
-.field select{
+.field select,
+.field textarea{
     width:100%;
 
     padding:13px 14px;
@@ -226,7 +227,8 @@ body{
 }
 
 .field input:focus,
-.field select:focus{
+.field select:focus,
+.field textarea:focus{
     border-color:#2563eb;
 
     box-shadow:
@@ -236,6 +238,12 @@ body{
 .field select{
     cursor:pointer;
 }
+.field textarea{width:100%;min-height:94px;padding:13px 14px;border:1px solid #d1d5db;border-radius:10px;outline:none;background:#fff;color:#111827;font:inherit;font-size:15px;resize:vertical;transition:.2s}
+.image-help{margin-top:7px;color:#64748b;font-size:12px;line-height:1.5}
+.image-preview-wrap{display:none;margin-top:12px;padding:10px;border:1px solid #e5e7eb;border-radius:12px;background:#f8fafc}
+.image-preview-wrap.show{display:block}
+.image-preview{display:block;width:100%;max-height:220px;object-fit:contain;border-radius:8px;background:#e5e7eb}
+.image-meta{margin-top:8px;color:#166534;font-size:12px;font-weight:700;line-height:1.5;overflow-wrap:anywhere}
 
 
 /* ===============================
@@ -651,7 +659,8 @@ body{
     </option>
 
     <option value="Mobile & Accessories Shops">
-        Mobile & Accessories Shops
+
+              Mobile & Accessories Shops
     </option>
 
     <option value="Computer & Electronics Stores">
@@ -764,6 +773,12 @@ body{
 
 
         <div class="field">
+            <label for="shopAddress">Full Shop Address</label>
+            <textarea id="shopAddress" autocomplete="street-address" placeholder="Door no, street, landmark (enter full shop address)" required></textarea>
+            <div class="image-help">Enter the exact shop address. We use it to find the map coordinates for Nearby QR Stores.</div>
+        </div>
+
+        <div class="field">
 
             <label for="area">
                 Area
@@ -815,6 +830,16 @@ body{
 
         </div>
 
+        <div class="field">
+            <label for="shopImage">Shop Image (Optional)</label>
+            <input id="shopImage" type="file" accept="image/jpeg,image/png,image/webp,image/*">
+            <div class="image-help">Choose a clear shop photo. It will be compressed in your browser to around 200–300 KB before upload (maximum target 300 KB).</div>
+            <div id="imagePreviewWrap" class="image-preview-wrap">
+                <img id="imagePreview" class="image-preview" alt="Compressed shop image preview">
+                <div id="imageMeta" class="image-meta"></div>
+            </div>
+        </div>
+
       <!-- ===============================
      SHOP LOCATION
 ================================ -->
@@ -843,7 +868,7 @@ body{
             line-height:1.5;
         "
     >
-        Shop location is required for nearby QR Store results.
+        We will first use your full address to find coordinates. If the address cannot be matched, you can capture your current shop location instead.
     </div>
 
 </div>
@@ -990,6 +1015,14 @@ const pincodeInput =
     document.getElementById(
         "pincode"
     );
+
+const shopAddressInput = document.getElementById("shopAddress");
+const shopImageInput = document.getElementById("shopImage");
+const imagePreviewWrap = document.getElementById("imagePreviewWrap");
+const imagePreview = document.getElementById("imagePreview");
+const imageMeta = document.getElementById("imageMeta");
+let compressedShopImage = null;
+let compressedShopImageName = "";
 
 
 const createButton =
@@ -1140,6 +1173,111 @@ getLocationButton.addEventListener(
 
     }
 );
+
+/* =====================================================
+   SHOP IMAGE COMPRESSION (TARGET 200–300 KB)
+===================================================== */
+function formatBytes(bytes){
+    if(bytes < 1024) return bytes + " B";
+    return (bytes / 1024).toFixed(0) + " KB";
+}
+
+function loadImageFromFile(file){
+    return new Promise((resolve,reject)=>{
+        const url=URL.createObjectURL(file);
+        const img=new Image();
+        img.onload=()=>{URL.revokeObjectURL(url);resolve(img);};
+        img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("Could not read this image. Please choose another photo."));};
+        img.src=url;
+    });
+}
+
+function canvasToJpegBlob(canvas,quality){
+    return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Image compression failed. Please try another photo.")),"image/jpeg",quality));
+}
+
+async function compressShopImage(file){
+    if(!file) return null;
+    if(!file.type.startsWith("image/")) throw new Error("Please choose an image file.");
+    if(file.size > 15 * 1024 * 1024) throw new Error("Please choose an image smaller than 15 MB.");
+    const img=await loadImageFromFile(file);
+    let maxSide=1600;
+    let canvas=document.createElement("canvas");
+    let blob=null;
+    for(let resizePass=0; resizePass<5; resizePass++){
+        const scale=Math.min(1,maxSide/Math.max(img.naturalWidth,img.naturalHeight));
+        canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));
+        canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));
+        const ctx=canvas.getContext("2d");
+        ctx.fillStyle="#ffffff";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(img,0,0,canvas.width,canvas.height);
+        for(let q=0.86;q>=0.42;q-=0.08){
+            blob=await canvasToJpegBlob(canvas,q);
+            if(blob.size<=300*1024) break;
+        }
+        if(blob && blob.size<=300*1024) break;
+        maxSide=Math.round(maxSide*0.78);
+    }
+    if(!blob || blob.size>300*1024) throw new Error("This image could not be compressed below 300 KB. Please choose another image.");
+    return new File([blob],"shop-"+Date.now()+".jpg",{type:"image/jpeg",lastModified:Date.now()});
+}
+
+shopImageInput.addEventListener("change",async function(){
+    compressedShopImage=null;
+    compressedShopImageName="";
+    imagePreviewWrap.classList.remove("show");
+    imageMeta.textContent="";
+    const file=this.files && this.files[0];
+    if(!file) return;
+    imageMeta.textContent="Compressing image…";
+    imagePreviewWrap.classList.add("show");
+    try{
+        compressedShopImage=await compressShopImage(file);
+        compressedShopImageName=compressedShopImage.name;
+        imagePreview.src=URL.createObjectURL(compressedShopImage);
+        imageMeta.textContent="Ready to upload: "+formatBytes(compressedShopImage.size)+" (compressed from "+formatBytes(file.size)+")";
+        imageMeta.style.color="#166534";
+    }catch(error){
+        this.value="";
+        compressedShopImage=null;
+        imagePreviewWrap.classList.remove("show");
+        showMessage(error.message||"Image compression failed.","error");
+    }
+});
+
+function validShopCoordinates(lat,lng){
+    return lat!==null && lng!==null && Number.isFinite(Number(lat)) && Number.isFinite(Number(lng)) && Number(lat)>=-90 && Number(lat)<=90 && Number(lng)>=-180 && Number(lng)<=180;
+}
+
+/* =====================================================
+   FIND SHOP COORDINATES FROM THE ADDRESS
+===================================================== */
+async function geocodeShopAddress(fullAddress,area,city,pincode){
+    const query=[fullAddress,area,city,pincode,"India"].filter(Boolean).join(", ");
+    const url="https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=in&q="+encodeURIComponent(query);
+    const response=await fetch(url,{headers:{"Accept":"application/json"}});
+    if(!response.ok) throw new Error("Address lookup is temporarily unavailable. Please use the current-location button and try again.");
+    const results=await response.json();
+    if(!Array.isArray(results)||!results.length) throw new Error("We could not find this address on the map. Add a nearby landmark or use the current-location button.");
+    const lat=Number(results[0].lat),lon=Number(results[0].lon);
+    if(!Number.isFinite(lat)||!Number.isFinite(lon)||lat < -90||lat > 90||lon < -180||lon > 180) throw new Error("Map returned invalid coordinates. Please use the current-location button.");
+    return {latitude:lat,longitude:lon,label:results[0].display_name||query};
+}
+
+async function uploadCompressedShopImage(shopId,authUserId){
+    if(!compressedShopImage) return null;
+    if(compressedShopImage.size>300*1024) throw new Error("Compressed image is over 300 KB. Please select the photo again.");
+    const safeName=Date.now()+"-"+Math.random().toString(36).slice(2)+".jpg";
+    const path=authUserId+"/"+shopId+"/"+safeName;
+    const {data,error}=await supabaseClient.storage.from("shop-images").upload(path,compressedShopImage,{
+        contentType:"image/jpeg",cacheControl:"3600",upsert:false
+    });
+    if(error) throw new Error("Image upload failed: "+error.message);
+    const {data:publicData}=supabaseClient.storage.from("shop-images").getPublicUrl(data.path);
+    if(!publicData||!publicData.publicUrl) throw new Error("Image uploaded but its public URL could not be created.");
+    return publicData.publicUrl;
+}
 
 /* =====================================================
    MESSAGE FUNCTIONS
@@ -1305,6 +1443,8 @@ createAccountForm.addEventListener(
         const pincode =
             pincodeInput.value.trim();
 
+        const shopAddress = shopAddressInput.value.trim();
+
 
         /* ---------------------------------------------
            BASIC VALIDATION
@@ -1392,7 +1532,8 @@ createAccountForm.addEventListener(
 
             showMessage(
                 "Please enter mobile number.",
-                "error"
+
+                              "error"
             );
 
             mobileInput.focus();
@@ -1452,6 +1593,17 @@ createAccountForm.addEventListener(
             return;
         }
 
+        if(!shopAddress){
+            showMessage("Please enter the full shop address.","error");
+            shopAddressInput.focus();
+            return;
+        }
+
+        if(compressedShopImage && compressedShopImage.size>300*1024){
+            showMessage("Shop image must be 300 KB or smaller after compression.","error");
+            return;
+        }
+
 
         /* ---------------------------------------------
            BUTTON STATE
@@ -1464,6 +1616,17 @@ createAccountForm.addEventListener(
 
 
         try{
+
+            /* -----------------------------------------
+               GET COORDINATES FROM THE SHOP ADDRESS
+            ----------------------------------------- */
+            if(!validShopCoordinates(shopLatitude,shopLongitude)){
+                const geo=await geocodeShopAddress(shopAddress,area,city,pincode);
+                shopLatitude=geo.latitude;
+                shopLongitude=geo.longitude;
+                locationStatus.textContent="Address located on map. Coordinates ready to save.";
+                locationStatus.style.color="#16a34a";
+            }
 
             /* -----------------------------------------
                CREATE SUPABASE AUTH USER
@@ -1640,6 +1803,26 @@ p_longitude:
 
             }
 
+
+            /* -----------------------------------------
+               UPLOAD IMAGE AND SAVE ADDRESS TO THE SHOP
+            ----------------------------------------- */
+            let shopImageUrl=null;
+            if(compressedShopImage){
+                createButton.textContent="Uploading shop image…";
+                shopImageUrl=await uploadCompressedShopImage(shopId,authUser.id);
+            }
+
+            createButton.textContent="Saving shop details…";
+            const {error:detailsError}=await supabaseClient.rpc("update_live_qr_shop_details",{
+                p_shop_id:shopId,
+                p_address:shopAddress,
+                p_shop_image:shopImageUrl
+            });
+            if(detailsError){
+                console.error("Shop address/image save error:",detailsError);
+                throw new Error("Account was created, but shop address/image could not be saved: "+detailsError.message+". Please contact support before registering again.");
+            }
 
             /* -----------------------------------------
                STORE LIVE QR SESSION DATA
