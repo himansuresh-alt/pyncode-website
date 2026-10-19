@@ -152,6 +152,10 @@
             background:#e8f7ff;
         }
 
+      .qr-approval-icon{
+    background:#e8f7ef;
+      }
+
         .admin-card h2{
             font-size:21px;
             margin-bottom:10px;
@@ -544,6 +548,29 @@
 
         </div>
 
+      
+<!-- QR STORE APPROVALS -->
+<div class="admin-card" id="qrStoreApprovalCard">
+
+    <div class="card-icon qr-approval-icon">
+        🏪
+    </div>
+
+    <h2>QR Stores Approval</h2>
+
+    <p>
+        Review new QR Store registrations,
+        verify manual payments, and approve or
+        reject stores before public listing.
+    </p>
+
+    <button type="button" class="open-btn">
+        Review QR Stores →
+    </button>
+
+</div>
+
+
 
     </section>
 
@@ -812,6 +839,21 @@ document
 
         }
     );
+
+  
+/* =====================================================
+   QR STORE APPROVALS
+===================================================== */
+
+document
+    .getElementById("qrStoreApprovalCard")
+    .addEventListener("click", function () {
+
+        window.location.href =
+            "qr-store-approvals.html";
+
+    });
+
 
 
 

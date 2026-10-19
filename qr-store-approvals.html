@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f7f8">
+<title>QR Stores Approval | Pyncode Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --bg:#f6f7f8;
+  --card:#fff;
+  --text:#171717;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --green:#15803d;
+  --green-bg:#dcfce7;
+  --orange:#a16207;
+  --orange-bg:#fef3c7;
+  --red:#b91c1c;
+  --red-bg:#fee2e2;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:var(--bg);
+}
+button,input { font:inherit; }
+button { cursor:pointer; }
+button:disabled { opacity:.55;cursor:not-allowed; }
+.topbar {
+  position:sticky;
+  top:0;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:15px 18px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+}
+.brand { font-size:18px;font-weight:800; }
+.brand small {
+  display:block;
+  margin-top:4px;
+  font-size:12px;
+  font-weight:400;
+  color:var(--muted);
+}
+.top-actions { display:flex;gap:8px; }
+.btn {
+  border:0;
+  border-radius:10px;
+  padding:12px 14px;
+  font-weight:700;
+}
+.btn-dark { background:#171717;color:#fff; }
+.btn-light { background:#f0f1f3;color:#222; }
+.container {
+  width:min(100%,1000px);
+  margin:auto;
+  padding:24px 16px 42px;
+}
+h1 { margin:0 0 8px;font-size:26px; }
+.subtitle {
+  color:var(--muted);
+  line-height:1.6;
+  margin:0 0 20px;
+}
+.notice {
+  padding:14px;
+  border-radius:12px;
+  background:#eef2ff;
+  color:#3730a3;
+  font-size:14px;
+  line-height:1.6;
+  margin-bottom:18px;
+}
+#message {
+  display:none;
+  padding:13px;
+  border-radius:10px;
+  margin-bottom:16px;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+}
+#message.show { display:block; }
+#message.info { background:#e0f2fe;color:#075985; }
+#message.ok { background:var(--green-bg);color:var(--green); }
+#message.error { background:var(--red-bg);color:var(--red); }
+.stats {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:20px;
+}
+.stat {
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:var(--card);
+}
+.stat-label { color:var(--muted);font-size:13px; }
+.stat-value { font-size:27px;font-weight:800;margin-top:8px; }
+.filters {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:15px;
+}
+.filter {
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:700;
+}
+.filter.active { background:#171717;color:#fff;border-color:#171717; }
+#search {
+  width:100%;
+  border:1px solid #d1d5db;
+  border-radius:12px;
+  padding:14px;
+  background:#fff;
+  margin-bottom:16px;
+  outline:none;
+}
+#search:focus { border-color:#777; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    Pyncode Admin
+    <small>QR Stores Approval</small>
+  </div>
+  <div class="top-actions">
+    <button class="btn btn-light" id="refreshBtn" type="button">↻ Refresh</button>
+    <button class="btn btn-dark" id="dashboardBtn" type="button">Dashboard</button>
+  </div>
+</header>
+
+<main class="container">
+  <h1>QR Stores Approval</h1>
+  <p class="subtitle">
+    Review new QR Store registrations and verify the ₹199 GPay payment
+    before approving a store.
+  </p>
+
+  <div class="notice">
+    GPay payments are verified manually. Tick the payment confirmation
+    only after you have personally checked the payment.
+  </div>
+
+  <div id="message" role="status" aria-live="polite"></div>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-label">Pending</div>
+      <div class="stat-value" id="pendingCount">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Approved</div>
+      <div class="stat-value" id="approvedCount">—</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Rejected</div>
+      <div class="stat-value" id="rejectedCount">—</div>
+    </div>
+  </section>
+
+  <nav class="filters" aria-label="Store status filters">
+    <button class="filter active" data-filter="pending" type="button">Pending</button>
+    <button class="filter" data-filter="approved" type="button">Approved</button>
+    <button class="filter" data-filter="rejected" type="button">Rejected</button>
+    <button class="filter" data-filter="all" type="button">All QR Stores</button>
+  </nav>
+
+  <input id="search" type="search"
+    placeholder="Search shop, owner, mobile or pincode..."
+    autocomplete="off">
+
+  <section id="storeList" aria-live="polite">
+    <div class="notice">Checking admin access…</div>
+  </section>
+
+  <style>
+.store-card {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:17px;
+  margin-bottom:14px;
+  box-shadow:0 3px 14px rgba(0,0,0,.025);
+}
+.store-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:14px;
+}
+.store-name { font-size:19px;font-weight:800;line-height:1.4; }
+.store-category { color:var(--muted);font-size:13px;margin-top:5px; }
+.pill {
+  display:inline-block;
+  padding:7px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+}
+.pill.pending { background:var(--orange-bg);color:var(--orange); }
+.pill.approved { background:var(--green-bg);color:var(--green); }
+.pill.rejected { background:var(--red-bg);color:var(--red); }
+.details {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px 10px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:15px 0;
+}
+.detail-label {
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+.detail-value {
+  font-size:14px;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+}
+.detail-value a { color:#075985; }
+.store-image {
+  display:block;
+  width:100%;
+  max-width:240px;
+  max-height:200px;
+  object-fit:cover;
+  border:1px solid var(--line);
+  border-radius:12px;
+  margin-top:14px;
+}
+.payment-check {
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin-top:15px;
+  padding:13px;
+  background:#fff8e7;
+  border:1px solid #f3dba2;
+  border-radius:12px;
+  font-size:14px;
+  line-height:1.5;
+}
+.payment-check input { width:19px;height:19px;flex-shrink:0;margin-top:2px; }
+.actions { display:flex;flex-wrap:wrap;gap:9px;margin-top:15px; }
+.action-btn {
+  flex:1;
+  min-width:120px;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  font-weight:800;
+}
+.approve-btn { background:#15803d;color:#fff; }
+.reject-btn { background:#fee2e2;color:#991b1b; }
+.action-note { color:var(--muted);font-size:12px;line-height:1.5;margin-top:10px; }
+.empty-state {
+  background:#fff;
+  border:1px dashed #d1d5db;
+  border-radius:15px;
+  padding:34px 18px;
+  text-align:center;
+  color:var(--muted);
+  line-height:1.6;
+}
+.empty-state strong { display:block;color:#222;font-size:17px;margin-bottom:6px; }
+@media(max-width:520px) {
+  .topbar { padding:12px; }
+  .brand { font-size:16px; }
+  .btn { padding:10px;font-size:12px; }
+  .container { padding:20px 12px 32px; }
+  h1 { font-size:24px; }
+  .stats { gap:7px; }
+  .stat { padding:12px 10px; }
+  .stat-label { font-size:11px; }
+  .stat-value { font-size:23px; }
+  .store-card { padding:14px; }
+  .store-name { font-size:17px; }
+  .action-btn { min-width:100%; }
+}
+  </style>
+
+  <script>
+"use strict";
+
+/* Supabase project configuration */
+const SUPABASE_URL = "https://mtuspuehsxsjoaxoenen.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+let stores = [];
+let activeFilter = "pending";
+const busy = new Set();
+
+const $ = id => document.getElementById(id);
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[c]);
+}
+
+function showMessage(message, type = "info") {
+  const el = $("message");
+  el.textContent = message;
+  el.className = "show " + type;
+}
+
+function normalizeStatus(value) {
+  return ["pending","approved","rejected"].includes(
+    String(value || "").toLowerCase()
+  ) ? String(value).toLowerCase() : "pending";
+}
+
+function formatDate(value) {
+  if (!value) return "Not available";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime())
+    ? "Not available"
+    : date.toLocaleString("en-IN", {
+        dateStyle:"medium",
+        timeStyle:"short"
+      });
+}
+
+/* Verify signed-in user against the existing admin_users table. */
+async function verifyAdmin() {
+  const {data,error} = await db.auth.getSession();
+  if (error) throw error;
+
+  const session = data.session;
+  if (!session) {
+    window.location.replace("admin-login.html");
+    return false;
+  }
+
+  const {data:admin,error:adminError} = await db
+    .from("admin_users")
+    .select("auth_user_id")
+    .eq("auth_user_id",session.user.id)
+    .maybeSingle();
+
+  if (adminError) throw adminError;
+
+  if (!admin) {
+    await db.auth.signOut();
+    alert("Admin access only. Please sign in with an authorized admin account.");
+    window.location.replace("admin-login.html");
+    return false;
+  }
+  return true;
+}
+
+function updateCounts() {
+  $("pendingCount").textContent =
+    stores.filter(s => s.approval_status === "pending").length;
+  $("approvedCount").textContent =
+    stores.filter(s => s.approval_status === "approved").length;
+  $("rejectedCount").textContent =
+    stores.filter(s => s.approval_status === "rejected").length;
+}
+
+async function loadStores() {
+  $("storeList").innerHTML =
+    '<div class="empty-state">Loading QR Store registrations…</div>';
+
+  try {
+    const {data,error} = await db
+      .from("shops")
+      .select(`
+        id,
+        shop_name,
+        category,
+        owner_name,
+        mobile,
+        whatsapp,
+        address,
+        area,
+        city,
+        pincode,
+        shop_image,
+        listing_type,
+        live_qr_enabled,
+        live_qr_status,
+        approval_status,
+        created_at
+      `)
+      .eq("listing_type","nearby")
+      .order("created_at",{ascending:false});
+
+    if (error) throw error;
+
+    stores = (data || []).map(s => ({
+      ...s,
+      approval_status:normalizeStatus(s.approval_status)
+    }));
+
+    updateCounts();
+    renderStores();
+  } catch (error) {
+    console.error("QR Store loading error:",error);
+    $("storeList").innerHTML =
+      '<div class="empty-state"><strong>Unable to load QR Stores</strong>' +
+      escapeHTML(error.message || "Please refresh and try again.") +
+      '</div>';
+    showMessage(
+      "Could not load registrations. Check admin access and database permissions.",
+      "error"
+    );
+  }
+}
+
+function filteredStores() {
+  const query = $("search").value.trim().toLowerCase();
+
+  return stores.filter(s => {
+    if (activeFilter !== "all" &&
+        s.approval_status !== activeFilter) return false;
+
+    const haystack = [
+      s.shop_name,s.owner_name,s.mobile,s.whatsapp,
+      s.pincode,s.area,s.city,s.category,s.address
+    ].join(" ").toLowerCase();
+
+    return !query || haystack.includes(query);
+  });
+}
+
+function detail(label,value) {
+  return '<div><div class="detail-label">' + escapeHTML(label) +
+    '</div><div class="detail-value">' +
+    escapeHTML(value || "Not provided") + '</div></div>';
+}
+
+function renderCard(s) {
+  const status = s.approval_status;
+  const id = escapeHTML(s.id);
+  const phone = String(s.mobile || "").replace(/[^\d+]/g,"");
+  const whatsapp = String(s.whatsapp || s.mobile || "").replace(/\D/g,"");
+
+  const phoneValue = phone
+    ? '<a href="tel:' + escapeHTML(phone) + '">Call owner</a>'
+    : "Not provided";
+
+  const whatsappValue = whatsapp
+    ? '<a href="https://wa.me/' + escapeHTML(whatsapp) +
+      '" target="_blank" rel="noopener noreferrer">Open WhatsApp</a>'
+    : "Not provided";
+
+  let payment = "";
+  if (status === "pending") {
+    payment = '<label class="payment-check">' +
+      '<input type="checkbox" class="payment-verified" data-id="' + id + '">' +
+      '<span><strong>₹199 payment verified</strong><br>' +
+      'I personally confirmed the GPay payment for this store.</span></label>';
+  }
+
+  let actions = "";
+  if (status === "pending") {
+    actions = '<div class="actions">' +
+      '<button type="button" class="action-btn approve-btn" data-action="approve" data-id="' + id + '">Approve Store</button>' +
+      '<button type="button" class="action-btn reject-btn" data-action="reject" data-id="' + id + '">Reject Store</button>' +
+      '</div><div class="action-note">Confirm payment before approving this registration.</div>';
+  } else if (status === "approved") {
+    actions = '<div class="actions">' +
+      '<button type="button" class="action-btn reject-btn" data-action="reject" data-id="' + id + '">Move to Rejected</button>' +
+      '</div>';
+  } else {
+    actions = '<div class="actions">' +
+      '<button type="button" class="action-btn approve-btn" data-action="approve" data-id="' + id + '">Approve Store</button>' +
+      '</div>';
+  }
+
+  const image = s.shop_image
+    ? '<img class="store-image" src="' + escapeHTML(s.shop_image) +
+      '" alt="Shop image" loading="lazy" onerror="this.style.display=\'none\'">'
+    : "";
+
+  return '<article class="store-card">' +
+    '<div class="store-head"><div>' +
+      '<div class="store-name">' + escapeHTML(s.shop_name || "Unnamed QR Store") + '</div>' +
+      '<div class="store-category">' + escapeHTML(s.category || "Local Business") +
+      ' · Registered ' + escapeHTML(formatDate(s.created_at)) + '</div>' +
+    '</div><span class="pill ' + status + '">' + status + '</span></div>' +
+    '<div class="details">' +
+      detail("Owner",s.owner_name) +
+      detail("Mobile",s.mobile) +
+      '<div><div class="detail-label">Contact</div><div class="detail-value">' + phoneValue + '</div></div>' +
+      '<div><div class="detail-label">WhatsApp</div><div class="detail-value">' + whatsappValue + '</div></div>' +
+      detail("Pincode",s.pincode) +
+      detail("Area",s.area) +
+      detail("City",s.city) +
+      detail("Address",s.address) +
+    '</div>' + image + payment + actions + '</article>';
+}
+
+function renderStores() {
+  const list = filteredStores();
+
+  if (!list.length) {
+    $("storeList").innerHTML =
+      '<div class="empty-state"><strong>No QR Stores found</strong>' +
+      'No registrations match this filter or search.</div>';
+    return;
+  }
+
+  $("storeList").innerHTML = list.map(renderCard).join("");
+}
+
+    /* Change approval status after admin confirmation. */
+async function changeStatus(id, action) {
+  const store = stores.find(s => String(s.id) === String(id));
+  if (!store) return;
+
+  const approve = action === "approve";
+
+  if (approve && store.approval_status === "pending") {
+    const checkbox = document.querySelector(
+      '.payment-verified[data-id="' + CSS.escape(String(id)) + '"]'
+    );
+
+    if (!checkbox || !checkbox.checked) {
+      showMessage(
+        "Please confirm the ₹199 GPay payment before approving this store.",
+        "error"
+      );
+      return;
+    }
+  }
+
+  const newStatus = approve ? "approved" : "rejected";
+  const actionText = approve ? "approve" : "reject";
+
+  if (!confirm("Are you sure you want to " + actionText +
+      " this QR Store: " + store.shop_name + "?")) return;
+
+  if (busy.has(String(id))) return;
+  busy.add(String(id));
+
+  const buttons = document.querySelectorAll(
+    'button[data-action][data-id="' + CSS.escape(String(id)) + '"]'
+  );
+  buttons.forEach(b => b.disabled = true);
+
+  try {
+    const authorized = await verifyAdmin();
+    if (!authorized) return;
+
+    /*
+      Update shop approval fields.
+      Existing admin RLS policies must allow this operation.
+    */
+    const {data:updated,error:updateError} = await db
+      .from("shops")
+      .update({
+        approval_status:newStatus,
+        live_qr_enabled:approve,
+        live_qr_status:approve ? "active" : "disabled"
+      })
+      .eq("id",id)
+      .eq("listing_type","nearby")
+      .select("id");
+
+    if (updateError) throw updateError;
+    if (!updated || updated.length === 0) {
+      throw new Error("No shop was updated. Check admin permissions and shop ID.");
+    }
+
+    /*
+      Update nearby listing visibility as well.
+      Do not report full success if this second update fails.
+    */
+    const {error:nearbyError} = await db
+      .from("nearby_shops")
+      .update({is_active:approve})
+      .eq("shop_id",id);
+
+    if (nearbyError) {
+      showMessage(
+        "Shop status was updated, but the nearby listing update failed. " +
+        "Please refresh and check the database before proceeding. " +
+        nearbyError.message,
+        "error"
+      );
+      await loadStores();
+      return;
+    }
+
+    showMessage(
+      approve
+        ? "QR Store approved. Verify its public listing before confirming to the owner."
+        : "QR Store rejected and deactivated.",
+      "ok"
+    );
+
+    await loadStores();
+  } catch (error) {
+    console.error("QR Store approval failed:",error);
+    showMessage(
+      "Unable to update the QR Store: " +
+      (error.message || "Please check permissions and retry."),
+      "error"
+    );
+    buttons.forEach(b => b.disabled = false);
+  } finally {
+    busy.delete(String(id));
+  }
+}
+
+/* Filter buttons */
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click",() => {
+    activeFilter = button.dataset.filter;
+    document.querySelectorAll(".filter").forEach(item => {
+      item.classList.toggle("active",item === button);
+    });
+    renderStores();
+  });
+});
+
+/* Action buttons use event delegation */
+$("storeList").addEventListener("click",event => {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+  changeStatus(button.dataset.id,button.dataset.action);
+});
+
+/* Search, refresh and dashboard navigation */
+$("search").addEventListener("input",renderStores);
+$("refreshBtn").addEventListener("click",loadStores);
+$("dashboardBtn").addEventListener("click",() => {
+  window.location.href = "admin-dashboard.html";
+});
+
+/* Start */
+(async function init() {
+  try {
+    if (await verifyAdmin()) {
+      await loadStores();
+    }
+  } catch (error) {
+    console.error("Admin access check failed:",error);
+    $("storeList").innerHTML =
+      '<div class="empty-state"><strong>Admin verification failed</strong>' +
+      escapeHTML(error.message || "Please sign in again.") + '</div>';
+  }
+})();
+</script>
+</main>
+</body>
+</html>
