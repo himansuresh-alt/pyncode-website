@@ -181,7 +181,8 @@ button:active{
     font-weight:800;
     letter-spacing:1px;
 }
-.live-dot{
+
+  .live-dot{
     width:6px;
     height:6px;
     border-radius:50%;
@@ -221,7 +222,7 @@ button:active{
     font-size:14px;
 }
 
-  .action-row{
+.action-row{
     position:relative;
     z-index:5;
     display:grid;
@@ -351,7 +352,8 @@ button:active{
 }
 .quantity-control{
     display:none;
-    height:34px;
+
+      height:34px;
     border:1px solid #E5BFA4;
     border-radius:11px;
     overflow:hidden;
@@ -413,28 +415,45 @@ button:active{
     color:#C4570B;
 }
 
-  /* Zepto-inspired shopping layout; original Pyncode colours preserved */
+/* Premium product grid: preserve Pyncode orange/cream theme */
 .product-search-wrap{margin:0 0 16px;}
 .product-search{width:100%;height:48px;border:1px solid #F1DED0;border-radius:15px;background:#FFFFFF;color:#24201D;padding:0 15px;font:inherit;font-size:14px;outline:none;box-shadow:0 5px 18px rgba(120,65,25,.04)}
 .product-search:focus{border-color:#D96510;box-shadow:0 0 0 3px rgba(217,101,16,.10)}
-.products-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.product-card{min-width:0;display:flex;flex-direction:column;gap:10px;background:#FFFFFF;border:1px solid #F1DED0;border-radius:18px;padding:10px;box-shadow:0 5px 18px rgba(120,65,25,.045);overflow:hidden}
-.product-image-wrap{width:100%;aspect-ratio:1/1;border-radius:13px;background:#FFF5EB;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.product-image{width:100%;height:100%;object-fit:contain;display:block}
-.product-image-placeholder{font-size:38px;color:#D96510;display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(145deg,#FFF5EB,#FCE7D4)}
+.products-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.product-card{min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:9px;background:#FFFFFF;border:1px solid #F1DED0;border-radius:18px;padding:8px;box-shadow:0 5px 18px rgba(120,65,25,.045);overflow:hidden}
+.product-image-wrap{width:100%;aspect-ratio:1/1;border-radius:12px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:5px}
+.product-image{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+.product-image-placeholder{font-size:30px;color:#D96510;display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#FFFFFF}
 .product-details{width:100%;min-width:0;flex:1}
-.product-name{font-size:13px;line-height:1.4;font-weight:750;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
-.product-unit{font-size:11px;color:#9A8D84;margin-top:4px;min-height:15px}
-.product-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-top:auto}
-.product-price{font-size:15px;font-weight:850;color:#24201D}
-.add-button{min-width:72px;height:34px;padding:0 12px;border-radius:10px;background:#FFF0E2;border:1px solid #E9B98F;color:#C4570B;font-size:12px;font-weight:850}
-.quantity-control{margin-left:auto;gap:0;border:1px solid #E9B98F;border-radius:10px;overflow:hidden;background:#FFF0E2}
-.quantity-button{width:27px;height:32px}
-.quantity-value{min-width:26px;height:32px}
+.product-name{font-size:12px;line-height:1.35;font-weight:750;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px}
+.product-unit{font-size:10px;color:#9A8D84;margin-top:4px;min-height:14px}
+.product-actions{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:7px;margin-top:auto}
+.product-price{font-size:14px;line-height:1.2;font-weight:850;color:#24201D;text-align:center}
+.add-button{width:100%;min-width:0;height:33px;padding:0 5px;border-radius:10px;background:#FFF0E2;border:1px solid #E9B98F;color:#C4570B;font-size:11px;font-weight:850}
+.quantity-control{align-self:center;gap:0;border:1px solid #E9B98F;border-radius:10px;overflow:hidden;background:#FFF0E2}
+.quantity-button{width:25px;height:31px}
+.quantity-value{min-width:23px;height:31px}
 .product-card.selected{border-color:#E9B98F;box-shadow:0 7px 20px rgba(180,76,8,.08)}
 .no-search-results{display:none;grid-column:1/-1;padding:26px 14px;text-align:center;color:#9A8D84;background:#FFFFFF;border:1px solid #F1DED0;border-radius:16px;font-size:13px}
-@media(min-width:560px){.products-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.product-card{padding:12px}.product-name{font-size:14px}}
-@media(max-width:360px){.products-list{gap:8px}.product-card{padding:8px}.product-actions{gap:6px}.product-price{font-size:14px}.add-button{min-width:62px;padding:0 8px}}
+@media(min-width:560px){
+    .products-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .product-card{padding:12px}
+    .product-name{font-size:14px}
+    .product-unit{font-size:11px}
+    .product-price{font-size:16px}
+    .add-button{font-size:12px}
+}
+@media(max-width:360px){
+    .products-section{margin-left:12px;margin-right:12px}
+    .products-list{gap:7px}
+    .product-card{padding:6px;border-radius:15px}
+    .product-image-wrap{border-radius:10px;padding:3px}
+    .product-name{font-size:11px;min-height:30px}
+    .product-unit{font-size:9px}
+    .product-price{font-size:12px}
+    .add-button{height:31px;font-size:10px}
+    .product-actions{gap:6px}
+}
 </style>
 </head>
 <body>
@@ -522,13 +541,14 @@ const supabaseClient =
         SUPABASE_KEY
     );
 
-  let currentShop = null;
+let currentShop = null;
 let products = [];
 let cart = {};
 
 const loadingScreen = document.getElementById("loadingScreen");
 const errorScreen = document.getElementById("errorScreen");
-const errorTitle = document.getElementById("errorTitle");
+
+  const errorTitle = document.getElementById("errorTitle");
 const errorMessage = document.getElementById("errorMessage");
 const mainContent = document.getElementById("mainContent");
 const shopHero = document.querySelector(".shop-hero");
@@ -704,7 +724,8 @@ async function loadShop(){
 
     if(!data){
         showError(
-            "Shop unavailable",
+
+                      "Shop unavailable",
             "This Live QR is invalid, disabled, or unavailable."
         );
         return false;
@@ -715,7 +736,7 @@ async function loadShop(){
     return true;
 }
 
-  async function loadProducts(){
+async function loadProducts(){
     const {data,error} = await supabaseClient
         .from("shop_products")
         .select(`
@@ -881,7 +902,8 @@ function createProductCard(product){
 
     addButton.onclick = function(){
         cart[product.id] = 1;
-        refreshCard();
+
+              refreshCard();
         updateOrderFooter();
         showToast("Added to order");
     };
@@ -910,7 +932,7 @@ function createProductCard(product){
     return card;
 }
 
-  function getSelectedProducts(){
+function getSelectedProducts(){
     return products.filter(function(product){
         return Number(cart[product.id] || 0) > 0;
     });
