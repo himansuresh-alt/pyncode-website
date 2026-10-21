@@ -506,6 +506,21 @@ button:active{
     .add-button{height:31px;font-size:10px}
     .product-actions{gap:6px}
 }
+
+  /* Mobile: 2 product columns */
+.products-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+/* Computer / Desktop: 3 product columns */
+@media (min-width: 768px) {
+    .products-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+}
 </style>
 </head>
 <body>
