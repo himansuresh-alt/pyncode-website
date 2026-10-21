@@ -341,6 +341,36 @@ button:disabled{
     border-color:#2563eb;
 }
 
+.field input[type="file"]{
+    padding:10px;
+    background:#f8fafc;
+}
+
+.image-preview-wrap{
+    margin-top:10px;
+    display:none;
+}
+
+.image-preview-wrap.show{
+    display:block;
+}
+
+.image-preview{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    background:#f8fafc;
+}
+
+.image-help{
+    color:#64748b;
+    font-size:12px;
+    line-height:1.5;
+    margin-top:6px;
+}
+
 .checkbox-row{
     display:flex;
     align-items:center;
@@ -683,6 +713,30 @@ button:disabled{
 
         </div>
 
+              <div class="field">
+
+            <label for="productImageFile">
+                Upload Product Image (Gallery / Camera)
+            </label>
+
+            <input
+                id="productImageFile"
+                type="file"
+                accept="image/*"
+            >
+
+            <div class="image-help">
+                Image automatically compressed to 200 KB or less before upload.
+                You can choose an image from your gallery or camera.
+            </div>
+
+            <div id="productImagePreviewWrap" class="image-preview-wrap">
+                <img id="productImagePreview" class="image-preview" alt="Product image preview">
+                <div id="productImageSize" class="image-help"></div>
+            </div>
+
+        </div>
+
         <div class="field">
 
             <label for="productImage">
@@ -694,6 +748,10 @@ button:disabled{
                 type="url"
                 placeholder="https://..."
             >
+
+            <div class="image-help">
+                Optional: use an existing image URL instead of uploading a new image.
+            </div>
 
         </div>
 
@@ -735,7 +793,7 @@ button:disabled{
 
 </div>
 
-  <script>
+<script>
 
 /* =====================================================
    SUPABASE CONFIG
@@ -765,6 +823,8 @@ let currentOwner = null;
 let currentShop = null;
 
 let editingProductId = null;
+let selectedProductImageFile = null;
+let currentProductImageUrl = "";
 
 
 /* =====================================================
@@ -888,48 +948,48 @@ async function initialize(){
             data.session.user;
 
 
-   /* ---------------------------------------------
-   GET LIVE QR OWNER ACCOUNT
---------------------------------------------- */
+        /* ---------------------------------------------
+           GET LIVE QR OWNER ACCOUNT
+        --------------------------------------------- */
 
-const {
-    data: ownerAccount,
-    error: ownerError
-} =
-await supabaseClient
-    .from("live_qr_owner_accounts")
-    .select(
-        "id, shop_id, auth_user_id, owner_name, email, is_active"
-    )
-    .eq(
-        "auth_user_id",
-        currentUser.id
-    )
-    .eq(
-        "is_active",
-        true
-    )
-    .maybeSingle();
-
-
-if(ownerError){
-
-    throw ownerError;
-
-}
+        const {
+            data: ownerAccount,
+            error: ownerError
+        } =
+        await supabaseClient
+            .from("live_qr_owner_accounts")
+            .select(
+                "id, shop_id, auth_user_id, owner_name, email, is_active"
+            )
+            .eq(
+                "auth_user_id",
+                currentUser.id
+            )
+            .eq(
+                "is_active",
+                true
+            )
+            .maybeSingle();
 
 
-if(!ownerAccount){
+        if(ownerError){
 
-    throw new Error(
-        "This account is not registered for Pyncode Live QR."
-    );
+            throw ownerError;
 
-}
+        }
 
 
-currentOwner =
-    ownerAccount;
+        if(!ownerAccount){
+
+            throw new Error(
+                "This account is not registered for Pyncode Live QR."
+            );
+
+        }
+
+
+        currentOwner =
+            ownerAccount;
 
 
         /* ---------------------------------------------
@@ -1069,12 +1129,13 @@ function renderShop(){
     ).textContent =
         currentShop.category || "";
 
-document.getElementById(
-    "ownerName"
-).textContent =
-    currentOwner.owner_name ||
-    currentShop.owner_name ||
-    "-";
+    document.getElementById(
+        "ownerName"
+    ).textContent =
+        currentOwner.owner_name ||
+        currentShop.owner_name ||
+        "-";
+
 
     document.getElementById(
         "shopWhatsapp"
@@ -1272,7 +1333,7 @@ function renderProducts(products){
         products
         .map(function(product){
 
-            const statusClass =
+                      const statusClass =
                 product.is_available
                     ? "available"
                     : "unavailable";
@@ -1420,6 +1481,277 @@ function renderProducts(products){
 
 
 /* =====================================================
+   PRODUCT IMAGE: PREVIEW + COMPRESSION + SUPABASE UPLOAD
+===================================================== */
+
+const MAX_PRODUCT_IMAGE_BYTES = 200 * 1024;
+const PRODUCT_IMAGE_BUCKET = "shop-products";
+
+function clearProductImagePreview(){
+    selectedProductImageFile = null;
+
+    const fileInput =
+        document.getElementById("productImageFile");
+
+    const previewWrap =
+        document.getElementById("productImagePreviewWrap");
+
+    const preview =
+        document.getElementById("productImagePreview");
+
+    const sizeLabel =
+        document.getElementById("productImageSize");
+
+    if(fileInput) fileInput.value = "";
+
+    if(preview) preview.removeAttribute("src");
+
+    if(sizeLabel) sizeLabel.textContent = "";
+
+    if(previewWrap){
+        previewWrap.classList.remove("show");
+    }
+}
+
+function showProductImagePreview(src, sizeText){
+    const previewWrap =
+        document.getElementById("productImagePreviewWrap");
+
+    const preview =
+        document.getElementById("productImagePreview");
+
+    const sizeLabel =
+        document.getElementById("productImageSize");
+
+    preview.src = src;
+
+    sizeLabel.textContent = sizeText || "";
+
+    previewWrap.classList.add("show");
+}
+
+function loadImageElement(file){
+    return new Promise(function(resolve, reject){
+
+        const objectUrl =
+            URL.createObjectURL(file);
+
+        const image = new Image();
+
+        image.onload = function(){
+            URL.revokeObjectURL(objectUrl);
+            resolve(image);
+        };
+
+        image.onerror = function(){
+            URL.revokeObjectURL(objectUrl);
+
+            reject(
+                new Error(
+                    "Unable to read this image. Please choose another image."
+                )
+            );
+        };
+
+        image.src = objectUrl;
+    });
+}
+
+async function compressProductImage(file){
+
+    if(
+        !file ||
+        !file.type ||
+        !file.type.startsWith("image/")
+    ){
+        throw new Error(
+            "Please select a valid image file."
+        );
+    }
+
+    const image =
+        await loadImageElement(file);
+
+    let width = image.naturalWidth;
+
+    let height = image.naturalHeight;
+
+    const maxDimension = 1600;
+
+    const scale = Math.min(
+        1,
+        maxDimension / Math.max(width, height)
+    );
+
+    width = Math.max(
+        1,
+        Math.round(width * scale)
+    );
+
+    height = Math.max(
+        1,
+        Math.round(height * scale)
+    );
+
+    let quality = 0.86;
+
+    let blob = null;
+
+    for(let attempt = 0; attempt < 12; attempt++){
+
+        const canvas =
+            document.createElement("canvas");
+
+        canvas.width = width;
+
+        canvas.height = height;
+
+        const context =
+            canvas.getContext("2d");
+
+        if(!context){
+            throw new Error(
+                "Image compression is not supported by this browser."
+            );
+        }
+
+        context.fillStyle = "#ffffff";
+
+        context.fillRect(
+            0,
+            0,
+            width,
+            height
+        );
+
+        context.drawImage(
+            image,
+            0,
+            0,
+            width,
+            height
+        );
+
+        blob = await new Promise(function(resolve){
+            canvas.toBlob(
+                resolve,
+                "image/jpeg",
+                quality
+            );
+        });
+
+        if(
+            blob &&
+            blob.size <= MAX_PRODUCT_IMAGE_BYTES
+        ){
+            break;
+        }
+
+        if(quality > 0.42){
+            quality -= 0.08;
+        }
+        else{
+            width = Math.max(
+                240,
+                Math.round(width * 0.82)
+            );
+
+            height = Math.max(
+                240,
+                Math.round(height * 0.82)
+            );
+
+            quality = 0.68;
+        }
+    }
+
+    if(!blob){
+        throw new Error(
+            "Image compression failed. Please choose another image."
+        );
+    }
+
+    if(blob.size > MAX_PRODUCT_IMAGE_BYTES){
+        throw new Error(
+            "This image could not be compressed below 200 KB. Please choose a smaller image."
+        );
+    }
+
+    return new File(
+        [blob],
+        "product-" + Date.now() + ".jpg",
+        {
+            type:"image/jpeg",
+            lastModified:Date.now()
+        }
+    );
+}
+
+async function uploadProductImage(file){
+
+    const compressedFile =
+        await compressProductImage(file);
+
+    const safeShopId =
+        String(currentShop.id).replace(
+            /[^a-zA-Z0-9_-]/g,
+            ""
+        );
+
+    const filePath =
+        safeShopId + "/" +
+        Date.now() + "-" +
+        Math.random().toString(36).slice(2, 8) +
+        ".jpg";
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+        .storage
+        .from(PRODUCT_IMAGE_BUCKET)
+        .upload(
+            filePath,
+            compressedFile,
+            {
+                cacheControl:"3600",
+                contentType:"image/jpeg",
+                upsert:false
+            }
+        );
+
+    if(error){
+        throw error;
+    }
+
+    const {
+        data: publicData
+    } =
+    supabaseClient
+        .storage
+        .from(PRODUCT_IMAGE_BUCKET)
+        .getPublicUrl(
+            data.path
+        );
+
+    if(
+        !publicData ||
+        !publicData.publicUrl
+    ){
+        throw new Error(
+            "Image uploaded, but its public URL could not be created."
+        );
+    }
+
+    return {
+        url:publicData.publicUrl,
+        size:compressedFile.size
+    };
+}
+
+
+/* =====================================================
    OPEN ADD PRODUCT
 ===================================================== */
 
@@ -1457,6 +1789,10 @@ function openAddProduct(){
         "productImage"
     ).value =
         "";
+
+    currentProductImageUrl = "";
+
+    clearProductImagePreview();
 
 
     document.getElementById(
@@ -1501,18 +1837,14 @@ async function editProduct(productId){
 
 
         if(error){
-
             throw error;
-
         }
 
 
         if(!data){
-
             throw new Error(
                 "Product not found."
             );
-
         }
 
 
@@ -1549,6 +1881,18 @@ async function editProduct(productId){
         ).value =
             data.image_url || "";
 
+        currentProductImageUrl =
+            data.image_url || "";
+
+        clearProductImagePreview();
+
+        if(currentProductImageUrl){
+            showProductImagePreview(
+                currentProductImageUrl,
+                "Current product image. Choose a new image to replace it."
+            );
+        }
+
 
         document.getElementById(
             "productAvailable"
@@ -1568,6 +1912,7 @@ async function editProduct(productId){
             error
         );
 
+
         showMessage(
             error.message ||
             "Unable to load product.",
@@ -1578,8 +1923,7 @@ async function editProduct(productId){
 
 }
 
-
-/* =====================================================
+  /* =====================================================
    SAVE PRODUCT - START
 ===================================================== */
 
@@ -1608,7 +1952,7 @@ async function saveProduct(){
         .value;
 
 
-    const productImage =
+    let productImage =
         document.getElementById(
             "productImage"
         )
@@ -1664,6 +2008,30 @@ async function saveProduct(){
 
     try{
 
+        if(selectedProductImageFile){
+
+            saveButton.textContent =
+                "Compressing image...";
+
+            const uploadedImage =
+                await uploadProductImage(
+                    selectedProductImageFile
+                );
+
+            productImage =
+                uploadedImage.url;
+
+            document.getElementById(
+                "productImage"
+            ).value =
+                productImage;
+
+            currentProductImageUrl =
+                productImage;
+
+        }
+
+
         if(editingProductId){
 
             const {
@@ -1698,9 +2066,7 @@ async function saveProduct(){
 
 
             if(error){
-
                 throw error;
-
             }
 
 
@@ -1743,9 +2109,7 @@ async function saveProduct(){
 
 
             if(error){
-
                 throw error;
-
             }
 
 
@@ -1822,9 +2186,7 @@ async function toggleProduct(
 
 
         if(error){
-
             throw error;
-
         }
 
 
@@ -1873,9 +2235,7 @@ async function deleteProduct(
 
 
     if(!confirmed){
-
         return;
-
     }
 
 
@@ -1898,9 +2258,7 @@ async function deleteProduct(
 
 
         if(error){
-
             throw error;
-
         }
 
 
@@ -1942,6 +2300,9 @@ function closeProductModal(){
         "show"
     );
 
+    clearProductImagePreview();
+
+    currentProductImageUrl = "";
 
     editingProductId =
         null;
@@ -2221,8 +2582,7 @@ img{
 
 }
 
-
-/* =====================================================
+  /* =====================================================
    COPY QR LINK
 ===================================================== */
 
@@ -2308,10 +2668,6 @@ async function copyQrLink(){
 
 
 /* =====================================================
-   END OF PART 3
-===================================================== */
-
-    /* =====================================================
    EVENT LISTENERS
 ===================================================== */
 
@@ -2385,6 +2741,125 @@ productModal.addEventListener(
 
 
 /* =====================================================
+   PRODUCT IMAGE FILE PICKER
+===================================================== */
+
+document
+    .getElementById("productImageFile")
+    .addEventListener(
+        "change",
+        async function(event){
+
+            const file =
+                event.target.files &&
+                event.target.files[0];
+
+
+            if(!file){
+
+                selectedProductImageFile = null;
+
+                return;
+
+            }
+
+
+            try{
+
+                showMessage(
+                    "Preparing image preview...",
+                    "success"
+                );
+
+
+                const compressedFile =
+                    await compressProductImage(file);
+
+
+                selectedProductImageFile =
+                    compressedFile;
+
+
+                const previewUrl =
+                    URL.createObjectURL(
+                        compressedFile
+                    );
+
+
+                showProductImagePreview(
+                    previewUrl,
+                    "Compressed size: " +
+                    (
+                        compressedFile.size / 1024
+                    ).toFixed(1) +
+                    " KB (maximum 200 KB)."
+                );
+
+
+                document.getElementById(
+                    "productImage"
+                ).value = "";
+
+                currentProductImageUrl = "";
+
+                hideMessage();
+
+            }
+            catch(error){
+
+                selectedProductImageFile = null;
+
+                event.target.value = "";
+
+                clearProductImagePreview();
+
+                showMessage(
+                    error.message ||
+                    "Unable to prepare product image.",
+                    "error"
+                );
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById("productImage")
+    .addEventListener(
+        "input",
+        function(){
+
+            if(this.value.trim()){
+
+                selectedProductImageFile = null;
+
+                const fileInput =
+                    document.getElementById(
+                        "productImageFile"
+                    );
+
+                if(fileInput){
+                    fileInput.value = "";
+                }
+
+
+                const previewWrap =
+                    document.getElementById(
+                        "productImagePreviewWrap"
+                    );
+
+                if(previewWrap){
+                    previewWrap.classList.remove("show");
+                }
+
+            }
+
+        }
+    );
+
+  /* =====================================================
    START APPLICATION
 ===================================================== */
 
