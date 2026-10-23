@@ -6,7 +6,7 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
 >
-<title>Pyncode Live QR</title>
+<title>Pyncode Live QR Store</title>
 <meta name="theme-color" content="#D96510">
 <style>
 *{
@@ -181,8 +181,7 @@ button:active{
     font-weight:800;
     letter-spacing:1px;
 }
-
-  .live-dot{
+.live-dot{
     width:6px;
     height:6px;
     border-radius:50%;
@@ -221,7 +220,6 @@ button:active{
 .location-dot{
     font-size:14px;
 }
-
 .action-row{
     position:relative;
     z-index:5;
@@ -352,8 +350,7 @@ button:active{
 }
 .quantity-control{
     display:none;
-
-      height:34px;
+    height:34px;
     border:1px solid #E5BFA4;
     border-radius:11px;
     overflow:hidden;
@@ -415,47 +412,42 @@ button:active{
     color:#C4570B;
 }
 
-/* Premium product grid: preserve Pyncode orange/cream theme */
+/* Premium product grid */
 .product-search-wrap{margin:0 0 16px;}
 .product-search{width:100%;height:48px;border:1px solid #F1DED0;border-radius:15px;background:#FFFFFF;color:#24201D;padding:0 15px;font:inherit;font-size:14px;outline:none;box-shadow:0 5px 18px rgba(120,65,25,.04)}
 .product-search:focus{border-color:#D96510;box-shadow:0 0 0 3px rgba(217,101,16,.10)}
 .products-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .product-card{min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:9px;background:#FFFFFF;border:1px solid #F1DED0;border-radius:18px;padding:8px;box-shadow:0 5px 18px rgba(120,65,25,.045);overflow:hidden}
 
-
-/* FINAL PRODUCT IMAGE FIX */
-.product-image-wrap {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    padding: 0 !important;
-    border-radius: 12px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
+/* Product image */
+.product-image-wrap{
+    width:100%;
+    aspect-ratio:1/1;
+    padding:0!important;
+    border-radius:12px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
 }
-
-.product-image-wrap .product-image {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-    transform: scale(1.08);
-    transform-origin: center;
+.product-image-wrap .product-image{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+    object-position:center;
+    transform:none;
+    transform-origin:center;
 }
-
-.product-image-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
+.product-image-placeholder{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
 }
-
-
 .product-details{width:100%;min-width:0;flex:1}
 .product-name{font-size:12px;line-height:1.35;font-weight:750;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px}
 .product-unit{font-size:10px;color:#9A8D84;margin-top:4px;min-height:14px}
@@ -468,33 +460,14 @@ button:active{
 .product-card.selected{border-color:#E9B98F;box-shadow:0 7px 20px rgba(180,76,8,.08)}
 .no-search-results{display:none;grid-column:1/-1;padding:26px 14px;text-align:center;color:#9A8D84;background:#FFFFFF;border:1px solid #F1DED0;border-radius:16px;font-size:13px}
 
-@media (min-width: 560px) {
-    .products-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-    }
-
-    .product-card {
-        padding: 10px;
-    }
-
-    .product-name {
-        font-size: 13px;
-    }
-
-    .product-unit {
-        font-size: 11px;
-    }
-
-    .product-price {
-        font-size: 15px;
-    }
-
-    .add-button {
-        font-size: 12px;
-    }
+@media(min-width:560px){
+    .products-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .product-card{padding:10px}
+    .product-name{font-size:13px}
+    .product-unit{font-size:11px}
+    .product-price{font-size:15px}
+    .add-button{font-size:12px}
 }
-
 @media(max-width:360px){
     .products-section{margin-left:12px;margin-right:12px}
     .products-list{gap:7px}
@@ -506,22 +479,128 @@ button:active{
     .add-button{height:31px;font-size:10px}
     .product-actions{gap:6px}
 }
-
-  /* Mobile: 2 product columns */
-.products-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+.products-list{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
 }
-
-/* Desktop: 3 columns */
-@media screen and (min-width: 640px) {
-    .products-list {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
+@media screen and (min-width:640px){
+    .products-list{
+        display:grid;
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        gap:14px;
     }
 }
+
+/* ===== PREMIUM CATEGORY-ADAPTIVE STORE EXPERIENCE ===== */
+:root{
+    --brand:#FFC928;
+    --brand-deep:#D96510;
+    --brand-ink:#282018;
+    --store-soft:#FFF9F0;
+    --store-line:#F0E2D1;
+    --store-green:#169B62;
+}
+body{background:var(--store-soft);color:var(--brand-ink)}
+.page{max-width:760px}
+.shop-hero{
+    min-height:300px;
+    padding:23px 22px 34px;
+    border-radius:0 0 30px 30px;
+    background-color:#282018;
+    background-image:linear-gradient(90deg,rgba(15,12,9,.76),rgba(15,12,9,.25)),linear-gradient(145deg,#9B4A10,#E8A30C);
+    box-shadow:0 18px 42px rgba(63,41,13,.17);
+}
+.shop-hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(0deg,rgba(0,0,0,.32),transparent 65%);
+    pointer-events:none;
+}
+.brand-row{margin-bottom:48px}
+.pyncode-brand{color:#FFE59A}
+.live-badge{background:rgba(255,255,255,.16);backdrop-filter:blur(8px)}
+.shop-name{font-size:clamp(29px,7vw,43px);line-height:1.06;max-width:620px;text-shadow:0 2px 12px rgba(0,0,0,.15)}
+.shop-category{color:#FFF0D1;font-size:13px}
+.action-row{margin:-24px 18px 0;gap:10px}
+.action-button{min-height:54px;border-radius:17px;font-size:13px}
+.call-button{color:#292117;border:1px solid #F2DDB8}
+.whatsapp-button{background:#16A765}
+.shop-info{margin-top:18px}
+.info-pill{border-radius:999px;padding:9px 13px;background:#fffdf9;border-color:#EDE0CE;color:#716354}
+.store-benefits{margin:20px 18px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.store-benefit{background:rgba(255,255,255,.86);border:1px solid var(--store-line);border-radius:15px;padding:12px 8px;text-align:center;min-height:72px;box-shadow:0 5px 16px rgba(78,52,20,.035)}
+.store-benefit-icon{font-size:19px;line-height:1.2;margin-bottom:5px}
+.store-benefit-label{font-size:10px;font-weight:750;color:#665747;line-height:1.3}
+.category-experience{margin:24px 18px 0}
+.experience-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:13px}
+.experience-eyebrow{font-size:10px;letter-spacing:1.5px;font-weight:850;color:#B77918;text-transform:uppercase;margin-bottom:5px}
+.experience-title{font-size:20px;line-height:1.15;font-weight:850;letter-spacing:-.45px}
+.experience-subtitle{font-size:12px;color:#94816C;line-height:1.45;margin-top:5px}
+.experience-mark{flex-shrink:0;width:46px;height:46px;border-radius:15px;background:#FFE8A0;display:flex;align-items:center;justify-content:center;font-size:23px}
+.experience-tools{background:#fff;border:1px solid var(--store-line);border-radius:18px;padding:12px;margin-bottom:14px;box-shadow:0 7px 20px rgba(78,52,20,.035)}
+.tool-label{font-size:10px;color:#8E7C68;font-weight:800;margin-bottom:8px;letter-spacing:.3px}
+.quick-filters{display:flex;gap:8px;overflow-x:auto;padding:1px 0 3px;scrollbar-width:none}
+.quick-filters::-webkit-scrollbar{display:none}
+.quick-filter{white-space:nowrap;flex:0 0 auto;border:1px solid #E9DDCC;background:#FFFCF7;color:#655342;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:750}
+.quick-filter.active{background:#FFC928;border-color:#FFC928;color:#282018}
+.vehicle-tools{display:none;gap:8px;margin-bottom:11px}
+.vehicle-select{flex:1;min-width:0;border:1px solid #E9DDCC;border-radius:12px;background:#FFFCF7;padding:11px 8px;font:inherit;font-size:11px;color:#5D4C3B}
+.collection-tools{display:none;gap:8px;overflow-x:auto;margin-bottom:11px}
+.collection-chip{flex:0 0 auto;border-radius:12px;background:#fff;border:1px solid #E9DDCC;padding:10px 13px;font-size:11px;font-weight:750;color:#5D4C3B}
+.collection-chip.active{background:#FFC928;border-color:#FFC928;color:#282018}
+.product-search-wrap{margin:0 0 14px}
+.product-search{height:51px;border-radius:16px;border-color:#E9DDCC;padding:0 16px;background:#fffdf9;box-shadow:0 6px 18px rgba(78,52,20,.04)}
+.products-section{margin:25px 18px 0}
+.products-heading{margin-bottom:14px;align-items:center}
+.products-title{font-size:25px;letter-spacing:-.7px}
+.products-count{background:#FFF0C6;border-radius:999px;padding:7px 10px;color:#8C6410}
+.products-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product-card{border-radius:19px;padding:9px;border-color:#EFE1D0;box-shadow:0 7px 20px rgba(78,52,20,.045);gap:9px}
+.product-image-wrap{aspect-ratio:1/1;border-radius:13px;background:#F8F3EA}
+
+  .product-image-wrap .product-image{transform:none;object-fit:contain}
+.product-name{font-size:13px;line-height:1.35;min-height:34px;color:#2A241E}
+.product-unit{font-size:11px;color:#96836F;min-height:15px}
+.product-price{font-size:17px;color:#292117;text-align:left}
+.product-actions{gap:8px}
+.add-button{height:39px;border-radius:12px;background:#FFC928;border:1px solid #F0B915;color:#282018;font-size:12px}
+.quantity-control{align-self:stretch;justify-content:center;background:#FFF5D6;border-color:#F0C95C}
+.quantity-button{width:32px;height:35px;background:#FFC928;color:#282018}
+.quantity-value{min-width:34px;height:35px;background:#fff}
+.product-card.selected{border-color:#E6B520;box-shadow:0 9px 24px rgba(188,137,10,.12)}
+.empty-products{margin-top:10px;border-radius:20px}
+.site-footer{padding:35px 20px 25px;color:#A39480}
+.site-footer strong{color:#8C6500}
+#orderFooter{max-width:760px!important;background:linear-gradient(to top,#FFF9F0 68%,rgba(255,249,240,.88))!important;padding:10px 14px 14px!important}
+#orderFooter>div{background:#292117!important;border-radius:19px!important;box-shadow:0 12px 32px rgba(45,33,14,.22)!important}
+#placeOrderButton{background:#FFC928!important;color:#282018!important;border-radius:13px!important}
+#toast{background:#292117!important}
+body[data-store-type="grocery"] .experience-mark{background:#FFE9A1}
+body[data-store-type="automotive"] .experience-mark{background:#E6E8EA}
+body[data-store-type="fashion"] .experience-mark{background:#F9DDE4}
+body[data-store-type="food"] .experience-mark{background:#FFE2B8}
+body[data-store-type="pharmacy"] .experience-mark{background:#DDF4E8}
+body[data-store-type="automotive"] .vehicle-tools{display:flex}
+body[data-store-type="fashion"] .collection-tools{display:flex}
+@media(min-width:640px){
+ .page{max-width:900px}
+ .products-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+ .shop-hero{min-height:330px;padding:28px 30px 38px}
+ .action-row,.shop-info,.store-benefits,.category-experience,.products-section{margin-left:28px;margin-right:28px}
+ .product-card{padding:11px}
+ .product-name{font-size:14px}
+}
+@media(max-width:380px){
+ .store-benefits{gap:6px}
+ .store-benefit{padding:10px 5px}
+ .store-benefit-label{font-size:9px}
+ .category-experience,.products-section{margin-left:12px;margin-right:12px}
+ .product-card{padding:7px}
+ .product-name{font-size:12px}
+}
+
 </style>
 </head>
 <body>
@@ -567,6 +646,40 @@ button:active{
         </button>
     </div>
     <div id="shopInfo" class="shop-info"></div>
+    <section class="store-benefits" id="storeBenefits" aria-label="Store benefits">
+        <div class="store-benefit"><div class="store-benefit-icon" id="benefitIcon1">✨</div><div class="store-benefit-label" id="benefitText1">Quality Products</div></div>
+        <div class="store-benefit"><div class="store-benefit-icon" id="benefitIcon2">🏷️</div><div class="store-benefit-label" id="benefitText2">Great Prices</div></div>
+        <div class="store-benefit"><div class="store-benefit-icon" id="benefitIcon3">💬</div><div class="store-benefit-label" id="benefitText3">Easy Enquiry</div></div>
+    </section>
+    <section class="category-experience" id="categoryExperience">
+        <div class="experience-top">
+            <div>
+                <div class="experience-eyebrow" id="experienceEyebrow">SHOP LOCAL · SHOP EASY</div>
+                <h2 class="experience-title" id="experienceTitle">Find your favourites</h2>
+                <p class="experience-subtitle" id="experienceSubtitle">Explore products available at this store.</p>
+            </div>
+            <div class="experience-mark" id="experienceMark" aria-hidden="true">🛍️</div>
+        </div>
+        <div class="experience-tools">
+            <div class="tool-label" id="quickFilterLabel">QUICK BROWSE</div>
+            <div class="vehicle-tools" id="vehicleTools">
+                <select class="vehicle-select" id="vehicleType" aria-label="Vehicle type">
+                    <option value="">Vehicle type</option><option>Car</option><option>Bike</option><option>Commercial</option>
+                </select>
+                <select class="vehicle-select" id="vehicleBrand" aria-label="Vehicle brand">
+                    <option value="">Vehicle brand</option><option>Maruti Suzuki</option><option>Hyundai</option><option>Honda</option><option>Tata</option><option>TVS</option><option>Bajaj</option><option>Other</option>
+                </select>
+            </div>
+            <div class="collection-tools" id="collectionTools">
+                <button class="collection-chip active" type="button" data-query="">All styles</button>
+                <button class="collection-chip" type="button" data-query="men">Men</button>
+                <button class="collection-chip" type="button" data-query="women">Women</button>
+                <button class="collection-chip" type="button" data-query="kids">Kids</button>
+                <button class="collection-chip" type="button" data-query="new">New arrivals</button>
+            </div>
+            <div class="quick-filters" id="quickFilters"></div>
+        </div>
+    </section>
     <section class="products-section">
         <div class="products-heading">
             <h2 class="products-title">Products</h2>
@@ -597,7 +710,8 @@ button:active{
     </div>
 </div>
 <div id="toast" style="position:fixed;left:50%;bottom:92px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:200;background:#B94F0A;color:#fff;padding:11px 16px;border-radius:12px;font-size:12px;font-weight:650;box-shadow:0 10px 30px rgba(120,65,25,.20);transition:.25s;white-space:nowrap;">Added</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL =
     "https://mtuspuehsxsjoaxoenen.supabase.co";
@@ -615,8 +729,7 @@ let cart = {};
 
 const loadingScreen = document.getElementById("loadingScreen");
 const errorScreen = document.getElementById("errorScreen");
-
-  const errorTitle = document.getElementById("errorTitle");
+const errorTitle = document.getElementById("errorTitle");
 const errorMessage = document.getElementById("errorMessage");
 const mainContent = document.getElementById("mainContent");
 const shopHero = document.querySelector(".shop-hero");
@@ -678,6 +791,188 @@ function buildLocation(shop){
     return parts.join(" · ");
 }
 
+function configureCategoryExperience(){
+    const category = String(currentShop.category || "").toLowerCase();
+
+    let config = {
+        type:"general",
+        icon:"🛍️",
+        eyebrow:"SHOP LOCAL · SHOP EASY",
+        title:"Find your favourites",
+        subtitle:"Explore products and prices available at this store.",
+        benefits:[["✨","Quality Products"],["🏷️","Great Prices"],["💬","Easy Enquiry"]],
+        filters:["All products","Popular","Offers"]
+    };
+
+    if(/grocery|supermarket|fruit|vegetable|dairy|milk|bakery|provision/.test(category)){
+        config={
+            type:"grocery",
+            icon:"🛒",
+            eyebrow:"EVERYDAY ESSENTIALS",
+            title:"Everything for your home",
+            subtitle:"Browse daily needs, discover offers and add your essentials to the order.",
+            benefits:[["🥬","Fresh essentials"],["🏷️","Everyday value"],["🛍️","Easy ordering"]],
+            filters:["All products","Rice","Oil","Snacks","Dairy","Home care"]
+        };
+    }else if(/auto|spare parts|tyre|battery|electrical vehicle/.test(category)){
+        config={
+            type:"automotive",
+            icon:"⚙️",
+            eyebrow:"PARTS · BRANDS · SUPPORT",
+            title:"Find the right part",
+            subtitle:"Choose a vehicle type and search the product catalogue. Confirm fitment with the shop before purchase.",
+            benefits:[["⚙️","Parts catalogue"],["🚘","Vehicle support"],["💬","Fitment enquiry"]],
+            filters:["All products","Engine","Brakes","Filters","Battery","Accessories"]
+        };
+    }else if(/clothing|footwear|fashion|kids|baby|cosmetic|fancy|gift/.test(category)){
+        config={
+            type:"fashion",
+            icon:"👗",
+            eyebrow:"NEW LOOKS · EVERYDAY STYLE",
+            title:"Discover your style",
+            subtitle:"Explore the store catalogue and enquire about available sizes, colours and variants.",
+            benefits:[["✨","Latest picks"],["🎨","Style options"],["💬","Size enquiry"]],
+            filters:["All products","Men","Women","Kids","Footwear","Accessories"]
+        };
+    }else if(/hotel|fast food|tea|juice|snack|restaurant|food/.test(category)){
+        config={
+            type:"food",
+            icon:"🍽️",
+            eyebrow:"MADE TO ENJOY",
+            title:"Explore the menu",
+            subtitle:"Browse available items and place your order directly with the shop.",
+            benefits:[["🍴","Menu favourites"],["🥡","Order direct"],["💬","Quick contact"]],
+            filters:["All items","Meals","Snacks","Drinks","Combos"]
+        };
+    }else if(/pharmacy|medical/.test(category)){
+        config={
+            type:"pharmacy",
+            icon:"✚",
+            eyebrow:"YOUR LOCAL HEALTH STORE",
+            title:"Browse health essentials",
+            subtitle:"Check listed products and contact the pharmacy to confirm availability and suitability.",
+            benefits:[["✚","Health essentials"],["📦","Availability check"],["☎️","Contact pharmacy"]],
+            filters:["All products","Personal care","First aid","Wellness"]
+        };
+    }else if(/hardware|paint|plumbing|home & kitchen|furniture|gardening|plants|home care|cleaning/.test(category)){
+        config={
+            type:"home",
+            icon:"🏡",
+            eyebrow:"BETTER SPACES START HERE",
+            title:"Explore home essentials",
+            subtitle:"Find products for cleaning, repairs, maintenance and everyday living.",
+            benefits:[["🏡","Home essentials"],["🧰","Useful supplies"],["💬","Product enquiry"]],
+            filters:["All products","Cleaning","Tools","Electrical","Kitchen","Garden"]
+        };
+    }else if(/wholesale|online sellers|e-commerce/.test(category)){
+        config={
+            type:"wholesale",
+            icon:"📦",
+            eyebrow:"BULK · RANGE · ENQUIRIES",
+            title:"Explore the catalogue",
+            subtitle:"Browse available items and contact the seller for bulk quantities and pricing.",
+            benefits:[["📦","Product range"],["📋","Bulk enquiry"],["💬","Direct contact"]],
+            filters:["All products","Bulk deals","New stock","Popular"]
+        };
+    }else if(/stationery|book/.test(category)){
+        config={
+            type:"books",
+            icon:"📚",
+            eyebrow:"LEARN · CREATE · ORGANISE",
+            title:"Find your essentials",
+            subtitle:"Explore stationery, books and everyday supplies in the store catalogue.",
+            benefits:[["📚","Useful picks"],["✏️","Daily essentials"],["💬","Ask the shop"]],
+            filters:["All products","Books","Writing","Office","School"]
+        };
+    }else if(/salon|beauty parlour|pet supplies|pet shop/.test(category)){
+        config={
+            type:"services",
+            icon:/pet/.test(category)?"🐾":"💇",
+            eyebrow:"LOCAL EXPERTS · EASY CONTACT",
+            title:"Explore services and products",
+            subtitle:"Browse the listing and contact the shop to confirm options and availability.",
+            benefits:[["⭐","Local service"],["📍","Nearby business"],["💬","Easy enquiry"]],
+            filters:["All listings","Popular","Offers"]
+        };
+    }
+
+    document.body.dataset.storeType=config.type;
+    document.getElementById("experienceMark").textContent=config.icon;
+    document.getElementById("experienceEyebrow").textContent=config.eyebrow;
+    document.getElementById("experienceTitle").textContent=config.title;
+    document.getElementById("experienceSubtitle").textContent=config.subtitle;
+
+    document.getElementById("quickFilterLabel").textContent =
+        config.type==="automotive"
+            ? "FIND PARTS · CHECK FITMENT"
+            : config.type==="fashion"
+                ? "BROWSE COLLECTIONS"
+                : "QUICK BROWSE";
+
+    config.benefits.forEach(function(item,index){
+        document.getElementById("benefitIcon"+(index+1)).textContent=item[0];
+        document.getElementById("benefitText"+(index+1)).textContent=item[1];
+    });
+
+    const quickFilters=document.getElementById("quickFilters");
+    quickFilters.innerHTML="";
+
+    config.filters.forEach(function(label,index){
+        const button=document.createElement("button");
+        button.type="button";
+        button.className="quick-filter"+(index===0?" active":"");
+        button.textContent=label;
+
+        button.onclick=function(){
+            quickFilters.querySelectorAll(".quick-filter").forEach(function(item){
+                item.classList.remove("active");
+            });
+            button.classList.add("active");
+
+            const searchTerm=index===0?"":label;
+            productSearch.value =
+                searchTerm==="All products" ||
+                searchTerm==="All items" ||
+                searchTerm==="All listings"
+                    ? ""
+                    : searchTerm;
+
+            renderProducts();
+            document.querySelector(".products-section").scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+        };
+
+        quickFilters.appendChild(button);
+    });
+
+      document.querySelectorAll(".collection-chip").forEach(function(button){
+        button.addEventListener("click",function(){
+            document.querySelectorAll(".collection-chip").forEach(function(item){
+                item.classList.remove("active");
+            });
+            button.classList.add("active");
+            productSearch.value=button.dataset.query||"";
+            renderProducts();
+        });
+    });
+
+    ["vehicleType","vehicleBrand"].forEach(function(id){
+        document.getElementById(id).addEventListener("change",function(){
+            const vehicle=[
+                document.getElementById("vehicleType").value,
+                document.getElementById("vehicleBrand").value
+            ].filter(Boolean).join(" ");
+
+            productSearch.value=vehicle;
+            renderProducts();
+
+            if(vehicle) showToast("Search catalogue and confirm fitment");
+        });
+    });
+}
+
 function renderShop(){
     const rawShopImage = currentShop.shop_image;
 
@@ -703,6 +998,8 @@ function renderShop(){
     shopName.textContent = currentShop.shop_name || "Shop";
     shopCategory.textContent = currentShop.category || "Local Shop";
     shopLocation.textContent = buildLocation(currentShop);
+
+    configureCategoryExperience();
     shopInfo.innerHTML = "";
 
     if(currentShop.address){
@@ -726,7 +1023,9 @@ function renderShop(){
         shopInfo.appendChild(pill);
     }
 
-    const phone = String(currentShop.mobile || currentShop.whatsapp || "").replace(/\D/g,"");
+    const phone = String(
+        currentShop.mobile || currentShop.whatsapp || ""
+    ).replace(/\D/g,"");
 
     if(phone){
         callButton.style.display = "flex";
@@ -737,7 +1036,9 @@ function renderShop(){
         callButton.style.display = "none";
     }
 
-    const whatsapp = normalizePhone(currentShop.whatsapp || currentShop.mobile);
+    const whatsapp = normalizePhone(
+        currentShop.whatsapp || currentShop.mobile
+    );
 
     if(whatsapp){
         whatsappButton.style.display = "flex";
@@ -792,8 +1093,7 @@ async function loadShop(){
 
     if(!data){
         showError(
-
-                      "Shop unavailable",
+            "Shop unavailable",
             "This Live QR is invalid, disabled, or unavailable."
         );
         return false;
@@ -863,7 +1163,7 @@ function renderProducts(){
         filteredProducts.length === 0 ? "block" : "none";
 }
 
-function createProductCard(product){
+  function createProductCard(product){
     const card = document.createElement("article");
     card.className = "product-card";
 
@@ -970,8 +1270,7 @@ function createProductCard(product){
 
     addButton.onclick = function(){
         cart[product.id] = 1;
-
-              refreshCard();
+        refreshCard();
         updateOrderFooter();
         showToast("Added to order");
     };
@@ -1037,7 +1336,7 @@ function updateOrderFooter(){
     orderTotal.textContent = formatPrice(totalPrice);
 }
 
-function buildWhatsAppMessage(){
+  function buildWhatsAppMessage(){
     const selectedProducts = getSelectedProducts();
     const lines = [];
 
