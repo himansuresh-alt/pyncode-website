@@ -1045,6 +1045,139 @@ a {
 #orderFooter .cart-items {
     color: rgba(255, 255, 255, 0.8) !important;
 }
+
+  /* PREMIUM 3D FLOATING CART */
+#orderFooter {
+    position: fixed !important;
+    left: 14px !important;
+    right: 14px !important;
+    bottom: calc(14px + env(safe-area-inset-bottom)) !important;
+
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+
+    z-index: 1000;
+}
+
+#orderFooter .cart-bar {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 17px 16px;
+    border-radius: 27px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #117b55 0%,
+            #07543b 48%,
+            #033c2b 100%
+        );
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    box-shadow:
+        0 3px 0 rgba(2,45,31,.9),
+        0 8px 18px rgba(2,45,31,.20),
+        0 18px 40px rgba(2,45,31,.18),
+        inset 0 1px 1px rgba(255,255,255,.25),
+        inset 0 -3px 8px rgba(0,0,0,.12);
+}
+
+/* Glass highlight */
+#orderFooter .cart-bar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    width: 76%;
+    height: 1px;
+    background: rgba(255,255,255,.55);
+    pointer-events: none;
+}
+
+#orderFooter .cart-summary {
+    position: relative;
+    z-index: 1;
+    gap: 5px;
+}
+
+#orderFooter .cart-items {
+    color: rgba(255,255,255,.78) !important;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#orderFooter .cart-total {
+    color: #ffffff !important;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -.6px;
+    text-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+#placeOrderButton {
+    position: relative;
+    z-index: 1;
+
+    background: linear-gradient(
+        180deg,
+        #13a36a 0%,
+        #078650 100%
+    ) !important;
+
+    color: #ffffff !important;
+    border: 1px solid rgba(255,255,255,.18) !important;
+    border-radius: 19px !important;
+
+    padding: 16px 17px !important;
+    min-height: 54px;
+
+    font-size: 14px;
+    font-weight: 750;
+
+    box-shadow:
+        0 3px 0 #05643e,
+        inset 0 1px 1px rgba(255,255,255,.30);
+
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+#placeOrderButton:active {
+    transform: translateY(2px);
+    box-shadow:
+        0 1px 0 #05643e,
+        inset 0 1px 2px rgba(0,0,0,.10);
+}
+
+@media (max-width: 380px) {
+    #orderFooter {
+        left: 10px !important;
+        right: 10px !important;
+    }
+
+    #orderFooter .cart-bar {
+        padding: 14px 12px;
+        border-radius: 23px;
+    }
+
+    #orderFooter .cart-total {
+        font-size: 22px;
+    }
+
+    #placeOrderButton {
+        padding: 14px 11px !important;
+        font-size: 12px;
+    }
+}
 </style>
 </head>
 
