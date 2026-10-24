@@ -1517,6 +1517,7 @@ async function loadShop() {
                 pincode,
                 description,
                 shop_image,
+                shop_logo,
                 live_qr_enabled,
                 live_qr_token,
                 live_qr_status
@@ -1583,9 +1584,35 @@ function renderShopDetails() {
         currentShop.address ||
         "Visit our store";
 
-    getElement("shopInitial").textContent =
-        shopName.trim().charAt(0).toUpperCase() || "S";
+    /* SHOP LOGO — show uploaded logo instead of initial letter */
+const logoBox = getElement("shopLogo");
+const logoUrl = String(currentShop.shop_logo || "").trim();
 
+getElement("shopInitial").textContent =
+    shopName.trim().charAt(0).toUpperCase() || "S";
+
+if (logoUrl && /^https:\/\/[^\s"'<>]+$/i.test(logoUrl)) {
+    const logoImg = document.createElement("img");
+
+    logoImg.src = logoUrl;
+    logoImg.alt = shopName + " logo";
+    logoImg.style.width = "100%";
+    logoImg.style.height = "100%";
+    logoImg.style.objectFit = "contain";
+
+    logoImg.onerror = function () {
+        logoImg.remove();
+        getElement("shopInitial").style.display = "grid";
+    };
+
+    getElement("shopInitial").style.display = "none";
+
+    logoBox.querySelector("img")?.remove();
+    logoBox.appendChild(logoImg);
+} else {
+    logoBox.querySelector("img")?.remove();
+    getElement("shopInitial").style.display = "grid";
+}
     /* Existing shop_image is the cover photo */
     if (currentShop.shop_image) {
         const imageURL = String(currentShop.shop_image);
