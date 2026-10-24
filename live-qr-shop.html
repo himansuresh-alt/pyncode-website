@@ -1069,12 +1069,21 @@ a {
 
 /* SMALL SCREEN */
 
+  
 @media (max-width: 420px) {
     .shop-hero {
-        height: 355px;
-        min-height: 320px;
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 1597 / 1053;
         padding: 20px 18px 27px;
+
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: #173d30;
     }
+}
+
 
     .shop-logo {
         width: 78px;
