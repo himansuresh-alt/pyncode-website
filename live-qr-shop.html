@@ -246,30 +246,145 @@ a {
     box-shadow: 0 10px 28px rgba(0,0,0,.22);
 }
 
+/* ==========================================
+   PYNCODE LIVE QR — GLOSSY 3D SHOP LOGO
+   CSS ONLY • MOBILE RESPONSIVE
+   ========================================== */
+
 .shop-logo {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
     width: 100px;
     height: 100px;
     flex: 0 0 100px;
+
     display: grid;
     place-items: center;
-    overflow: hidden;
-    padding: 0;
-    border: 0;
-    border-radius: 24px;
-    background: transparent;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    box-sizing: border-box;
+
+    padding: 8px;
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 27px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.99) 0%,
+            rgba(247, 250, 248, 0.96) 48%,
+            rgba(225, 235, 229, 0.94) 100%
+        );
+
+    box-shadow:
+        0 12px 25px rgba(7, 35, 24, 0.22),
+        0 4px 8px rgba(7, 35, 24, 0.10),
+        inset 0 2px 3px rgba(255, 255, 255, 1),
+        inset 0 -3px 6px rgba(20, 70, 48, 0.07);
+
+    transform: translateZ(0);
 }
 
+/* Glossy top reflection */
+.shop-logo::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+
+    top: 0;
+    left: 8%;
+    width: 84%;
+    height: 43%;
+
+    border-radius: 50% 50% 45% 45% / 35% 35% 25% 25%;
+
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.62),
+        rgba(255, 255, 255, 0.12) 65%,
+        transparent
+    );
+}
+
+/* Fine inner glass edge */
+.shop-logo::after {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    pointer-events: none;
+
+    inset: 3px;
+    border-radius: 23px;
+
+    border: 1px solid rgba(255, 255, 255, 0.55);
+
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.65);
+}
+
+/* Uploaded logo */
 .shop-logo img {
+    position: relative;
+    z-index: 1;
+
     display: block;
     width: 100%;
     height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
     object-fit: contain;
     object-position: center;
+
     padding: 0;
+    margin: 0;
+
     border: 0;
-    border-radius: 24px;
+    border-radius: 15px;
+
     background: transparent;
+}
+
+/* Fallback initial — preserve existing functionality */
+.shop-logo #shopInitial {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 38px;
+    font-weight: 800;
+    color: #08794e;
+}
+
+/* Small mobile screens */
+@media (max-width: 380px) {
+    .shop-logo {
+        width: 82px;
+        height: 82px;
+        flex-basis: 82px;
+        padding: 6px;
+        border-radius: 23px;
+    }
+
+    .shop-logo::after {
+        border-radius: 19px;
+    }
+
+    .shop-logo img {
+        border-radius: 12px;
+    }
+
+    .shop-logo #shopInitial {
+        font-size: 32px;
+    }
 }
 
 .hero-shop-details {
