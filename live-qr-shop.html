@@ -158,7 +158,7 @@ a {
 .shop-hero {
     position: relative;
     height: 320px;
-    min-height: 320px;
+    min-height: 0;
     isolation: isolate;
     display: flex;
     flex-direction: column;
@@ -166,9 +166,10 @@ a {
     padding: 24px 24px 30px;
     color: #fff;
     background-color: #244d3c;
-    background-position: center;
-    background-size: cover;
-    border-radius: 0 0 30px 30px;
+    background-position: center center;
+background-size: contain;
+background-repeat: no-repeat;
+background-color: #244d3c;
 }
 
 .shop-hero::before {
