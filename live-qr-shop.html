@@ -816,24 +816,6 @@ a {
     width: 26px;
     background: var(--green);
 }
-  
-/* Mobile: Taller Store Highlights banner */
-.banner-slider {
-    overflow: hidden;
-}
-
-.promo-banner {
-    min-height: 230px;
-    padding: 12px;
-}
-
-.promo-banner img {
-    width: 100%;
-    height: 230px;
-    object-fit: contain;
-    object-position: center;
-}
-
 
 /* PRODUCT GRID */
 
@@ -2933,13 +2915,14 @@ getElement("clearSearch").addEventListener("click", function () {
 }
 
   /* OWNER UPLOADED STORE BANNERS */
+
 #bannerTrack > .custom-store-banner {
     display: block;
     flex: 0 0 100%;
     width: 100%;
     min-width: 100%;
     min-height: 0 !important;
-    height: clamp(136px, 36vw, 300px);
+    height: clamp(260px, 48vw, 440px);
     padding: 0 !important;
     overflow: hidden;
     border-radius: 23px;
@@ -2953,6 +2936,7 @@ getElement("clearSearch").addEventListener("click", function () {
     object-fit: contain;
     object-position: center;
 }
+
 </style>
 
 <div id="orderFooter" style="display:none;">
