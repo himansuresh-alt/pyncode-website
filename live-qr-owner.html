@@ -1596,38 +1596,96 @@ document.getElementById("copyQrBtn")
     }
   });
 
-    /* STORE LOGO PREVIEW */
+ /* =========================================
+   STORE LOGO — PREVIEW AND SAVE
+========================================= */
 
 let selectedStoreLogoFile = null;
 let storeLogoPreviewUrl = null;
 
 const storeLogoInput = document.getElementById("storeLogoFile");
+const storeLogoSaveButton = document.getElementById("saveStoreLogoBtn");
 
 storeLogoInput.addEventListener("change", function () {
-  const file = this.files && this.files[0];
+    const file = this.files && this.files[0];
 
-  if (!file) return;
+    if (!file) return;
 
-  if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
-    showMessage("PNG, JPG or WebP image select pannunga.", "error");
-    this.value = "";
-    return;
-  }
+    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
+        showMessage("Please select PNG, JPG or WebP image.", "error");
+        this.value = "";
+        selectedStoreLogoFile = null;
+        return;
+    }
 
-  selectedStoreLogoFile = file;
+    selectedStoreLogoFile = file;
 
-  const preview = document.getElementById("storeLogoPreview");
-  const previewWrap = document.getElementById("storeLogoPreviewWrap");
+    if (storeLogoPreviewUrl) {
+        URL.revokeObjectURL(storeLogoPreviewUrl);
+    }
 
-  if (storeLogoPreviewUrl) {
-    URL.revokeObjectURL(storeLogoPreviewUrl);
-  }
+    storeLogoPreviewUrl = URL.createObjectURL(file);
 
-  storeLogoPreviewUrl = URL.createObjectURL(file);
-  preview.src = storeLogoPreviewUrl;
-  previewWrap.classList.add("show");
+    document.getElementById("storeLogoPreview").src =
+        storeLogoPreviewUrl;
 
-  showMessage("Logo selected. Preview ready.", "success");
+    document.getElementById("storeLogoPreviewWrap")
+        .classList.add("show");
+
+    showMessage("Logo selected. Ready to save.", "success");
+});
+
+
+storeLogoSaveButton.addEventListener("click", async function () {
+    if (!selectedStoreLogoFile) {
+        showMessage("Please choose your shop logo first.", "error");
+        return;
+    }
+
+    if (!currentShop || !currentShop.id) {
+        showMessage("Shop details are not loaded. Refresh and try again.", "error");
+        return;
+    }
+
+    const button = this;
+    button.disabled = true;
+    button.textContent = "Saving Logo...";
+
+    try {
+        const logoUrl = await uploadStoreImage(
+            selectedStoreLogoFile,
+            "shop-images",
+            String(currentShop.id) + "/logo",
+            500 * 1024
+        );
+
+        const { error } = await supabaseClient
+            .from("shops")
+            .update({ shop_logo: logoUrl })
+            .eq("id", currentShop.id);
+
+        if (error) throw error;
+
+        currentShop.shop_logo = logoUrl;
+        selectedStoreLogoFile = null;
+        storeLogoInput.value = "";
+
+        showMessage("Store logo saved successfully.", "success");
+        button.textContent = "Logo Saved";
+
+    } catch (error) {
+        console.error("Store logo save failed:", error);
+
+        showMessage(
+            error.message || "Unable to save logo.",
+            "error"
+        );
+
+        button.textContent = "Save Logo";
+
+    } finally {
+        button.disabled = false;
+    }
 });
 
 /* =========================================
