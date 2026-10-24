@@ -2750,12 +2750,12 @@ function updateCartFooter() {
 
     getElement("placeOrderButton").disabled =
         summary.itemCount === 0;
-}
 
+    // Refresh popup whenever cart contents change
     if (getElement("cartModal")?.classList.contains("open")) {
-    renderCartModal();
+        renderCartModal();
     }
-
+}
     
 /* CART POPUP FUNCTIONS */
 function openCartModal() {
@@ -2857,33 +2857,63 @@ function renderCartModal() {
         summary.itemCount === 0;
 }
 
-/* OPEN POPUP BY TAPPING CART BAR */
-getElement("orderFooter").addEventListener("click", function (event) {
-    if (event.target.closest("#placeOrderButton")) return;
-    openCartModal();
-});
+/* CART POPUP EVENT CONNECTION */
+function bindCartPopupEvents() {
+    const footer = getElement("orderFooter");
+    const modal = getElement("cartModal");
+    const closeButton = getElement("closeCartModal");
+    const clearButton = getElement("clearCartButton");
+    const modalOrderButton = getElement("modalOrderButton");
 
-getElement("closeCartModal").addEventListener(
-    "click", closeCartModal
-);
-
-getElement("cartModal").addEventListener("click", function (event) {
-    if (event.target.matches("[data-cart-close]")) {
-        closeCartModal();
+    if (!footer || !modal || !closeButton ||
+        !clearButton || !modalOrderButton) {
+        console.error("Cart popup HTML is missing.");
+        return;
     }
-});
 
-getElement("clearCartButton").addEventListener("click", function () {
-    cart = {};
-    renderProducts();
-    renderCartModal();
-});
+    // Tap cart bar to open popup, except the WhatsApp order button
+    footer.addEventListener("click", function (event) {
+        if (event.target.closest("#placeOrderButton")) return;
+        openCartModal();
+    });
 
-getElement("modalOrderButton").addEventListener("click", function () {
-    if (getCartSummary().itemCount === 0) return;
-    placeWhatsAppOrder();
-});
+    closeButton.addEventListener("click", closeCartModal);
 
+    modal.addEventListener("click", function (event) {
+        if (event.target.matches("[data-cart-close]")) {
+            closeCartModal();
+        }
+    });
+
+    clearButton.addEventListener("click", function () {
+        cart = {};
+        renderProducts();
+        renderCartModal();
+    });
+
+    modalOrderButton.addEventListener("click", function () {
+        if (getCartSummary().itemCount === 0) return;
+        placeWhatsAppOrder();
+    });
+
+    // Close popup with Escape key
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closeCartModal();
+        }
+    });
+}
+
+// Wait until popup HTML exists before connecting events
+if (document.readyState === "loading") {
+    document.addEventListener(
+        "DOMContentLoaded",
+        bindCartPopupEvents,
+        { once: true }
+    );
+} else {
+    bindCartPopupEvents();
+}
 
 /* SEARCH INPUT */
 getElement("productSearch").addEventListener("input", function (event) {
