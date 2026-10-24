@@ -1580,31 +1580,63 @@ document.getElementById("copyQrBtn")
     }
   });
 
-    /* STORE LOGO PREVIEW */
+    /* SAVE STORE LOGO */
 
-let selectedStoreLogoFile = null;
+document.getElementById("saveStoreLogoBtn")
+  .addEventListener("click", async function () {
+    const button = this;
 
-document
-  .getElementById("storeLogoFile")
-  .addEventListener("change", function () {
-    const file = this.files && this.files[0];
-
-    if (!file) return;
-
-    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
-      showMessage("Please select a PNG, JPG or WebP logo.", "error");
-      this.value = "";
+    if (!selectedStoreLogoFile) {
+      showMessage("Please select your shop logo first.", "error");
       return;
     }
 
-    selectedStoreLogoFile = file;
+    if (!currentShop || !currentShop.id) {
+      showMessage("Shop details are not loaded.", "error");
+      return;
+    }
 
-    const preview = document.getElementById("storeLogoPreview");
-    preview.src = URL.createObjectURL(file);
+    button.disabled = true;
+    button.textContent = "Saving Logo...";
 
-    document
-      .getElementById("storeLogoPreviewWrap")
-      .classList.add("show");
+    try {
+      const logoUrl = await uploadStoreImage(
+        selectedStoreLogoFile,
+        "shop-images",
+        String(currentShop.id) + "/logo",
+        500 * 1024
+      );
+
+      /*
+        IMPORTANT:
+        Confirm that your shops table has a shop_logo column
+        before enabling this database update.
+      */
+
+      const { error } = await supabaseClient
+        .from("shops")
+        .update({ shop_logo: logoUrl })
+        .eq("id", currentShop.id);
+
+      if (error) throw error;
+
+      currentShop.shop_logo = logoUrl;
+      selectedStoreLogoFile = null;
+
+      showMessage("Store logo saved successfully.", "success");
+      button.textContent = "Logo Saved";
+    } catch (error) {
+      console.error("Save logo error:", error);
+
+      showMessage(
+        error.message || "Unable to save logo. Please check your database setup.",
+        "error"
+      );
+
+      button.textContent = "Save Logo";
+    } finally {
+      button.disabled = false;
+    }
   });
 
 /* =========================================
