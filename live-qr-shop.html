@@ -1177,6 +1177,94 @@ a {
         padding: 14px 11px !important;
         font-size: 12px;
     }
+
+  /* COMPACT PREMIUM FLOATING CART */
+#orderFooter {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+#orderFooter .cart-bar {
+    min-height: 0 !important;
+    padding: 12px 14px !important;
+    gap: 10px !important;
+    border-radius: 19px !important;
+
+    background: linear-gradient(
+        135deg,
+        #087b52 0%,
+        #064b35 100%
+    ) !important;
+
+    border: 1px solid rgba(255,255,255,.16) !important;
+
+    box-shadow:
+        0 5px 14px rgba(4,65,44,.17),
+        inset 0 1px 0 rgba(255,255,255,.16) !important;
+}
+
+#orderFooter .cart-summary {
+    gap: 2px !important;
+}
+
+#orderFooter .cart-items {
+    font-size: 12px !important;
+    color: rgba(255,255,255,.76) !important;
+}
+
+#orderFooter .cart-total {
+    font-size: 21px !important;
+    line-height: 1.25 !important;
+    font-weight: 750 !important;
+    letter-spacing: -.3px !important;
+    color: #ffffff !important;
+}
+
+#placeOrderButton {
+    min-height: 43px !important;
+    padding: 11px 13px !important;
+    border-radius: 13px !important;
+
+    background: #0b9560 !important;
+    color: #ffffff !important;
+
+    border: 1px solid rgba(255,255,255,.17) !important;
+    box-shadow: 0 2px 0 rgba(0,0,0,.12) !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+}
+
+#placeOrderButton:active {
+    transform: scale(.98);
+}
+
+@media (max-width: 380px) {
+    #orderFooter {
+        left: 9px !important;
+        right: 9px !important;
+    }
+
+    #orderFooter .cart-bar {
+        padding: 11px !important;
+        border-radius: 17px !important;
+    }
+
+    #orderFooter .cart-total {
+        font-size: 19px !important;
+    }
+
+    #placeOrderButton {
+        padding: 10px !important;
+        font-size: 11px !important;
+    }
+}
 }
 </style>
 </head>
