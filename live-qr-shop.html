@@ -246,10 +246,32 @@ a {
     box-shadow: 0 10px 28px rgba(0,0,0,.22);
 }
 
+/* PREMIUM AUTO-FIT STORE LOGO */
+.shop-logo {
+    position: relative;
+    flex-shrink: 0;
+    overflow: hidden;
+    isolation: isolate;
+    background: #ffffff;
+}
+
 .shop-logo img {
+    display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    padding: 7px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 20px;
+    background: #ffffff;
+}
+
+/* Keep the fallback letter centered */
+.shop-logo #shopInitial {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
 }
 
 .hero-shop-details {
