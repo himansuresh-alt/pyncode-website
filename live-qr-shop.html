@@ -2871,7 +2871,21 @@ function bindCartPopupEvents() {
         return;
     }
 
-    // Tap cart bar to open popup, except the WhatsApp order button
+   
+/* OPEN POPUP — CONNECT AFTER HTML LOADS */
+function bindCartPopupEvents() {
+    const footer = getElement("orderFooter");
+    const modal = getElement("cartModal");
+    const closeButton = getElement("closeCartModal");
+    const clearButton = getElement("clearCartButton");
+    const modalOrderButton = getElement("modalOrderButton");
+
+    if (!footer || !modal || !closeButton ||
+        !clearButton || !modalOrderButton) {
+        console.error("Cart popup elements not found");
+        return;
+    }
+
     footer.addEventListener("click", function (event) {
         if (event.target.closest("#placeOrderButton")) return;
         openCartModal();
@@ -2896,7 +2910,6 @@ function bindCartPopupEvents() {
         placeWhatsAppOrder();
     });
 
-    // Close popup with Escape key
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
             closeCartModal();
@@ -2904,7 +2917,6 @@ function bindCartPopupEvents() {
     });
 }
 
-// Wait until popup HTML exists before connecting events
 if (document.readyState === "loading") {
     document.addEventListener(
         "DOMContentLoaded",
@@ -2914,6 +2926,7 @@ if (document.readyState === "loading") {
 } else {
     bindCartPopupEvents();
 }
+
 
 /* SEARCH INPUT */
 getElement("productSearch").addEventListener("input", function (event) {
