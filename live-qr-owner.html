@@ -1,2872 +1,2046 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Pyncode Live QR - Owner</title>
+<meta name="theme-color" content="#f8f8f2">
+<title>Pyncode Live QR — Owner Studio</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-
-*{
-    box-sizing:border-box;
+:root {
+    --green: #087d4b;
+    --green-dark: #06452f;
+    --green-soft: #e7f4e9;
+    --cream: #f8f8f2;
+    --white: #ffffff;
+    --ink: #18372a;
+    --muted: #7c8980;
+    --line: #e4e9df;
+    --orange: #ef7627;
+    --red: #c63c3c;
+    --shadow: 0 8px 28px rgba(28, 59, 39, .07);
+    --radius: 20px;
 }
 
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f5f7fb;
-    color:#172033;
+* {
+    box-sizing: border-box;
 }
 
-.header{
-    background:#111827;
-    color:#fff;
-    padding:18px 16px;
+html {
+    scroll-behavior: smooth;
 }
 
-.header-inner{
-    max-width:900px;
-    margin:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+body {
+    margin: 0;
+    font-family: Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
 }
 
-.brand{
-    font-size:22px;
-    font-weight:800;
+button,
+input {
+    font: inherit;
 }
 
-.live-badge{
-    background:#16a34a;
-    color:#fff;
-    padding:7px 12px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:700;
+button {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:20px 15px 50px;
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
 }
 
-.message{
-    display:none;
-    padding:13px 15px;
-    border-radius:10px;
-    margin-bottom:15px;
-    font-size:14px;
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid rgba(8, 125, 75, .22);
+    outline-offset: 2px;
 }
 
-.message.show{
-    display:block;
+.hidden {
+    display: none !important;
 }
 
-.message.success{
-    background:#dcfce7;
-    color:#166534;
+/* TOP HEADER */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(248, 248, 242, .94);
+    border-bottom: 1px solid rgba(228, 233, 223, .9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
-.message.error{
-    background:#fee2e2;
-    color:#991b1b;
+.header-inner {
+    max-width: 1080px;
+    min-height: 72px;
+    margin: auto;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
 }
 
-.loading{
-    text-align:center;
-    padding:60px 15px;
-    color:#64748b;
+.brand-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
 }
+
+.brand-icon {
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+    color: white;
+    background: linear-gradient(145deg, #10945b, #06452f);
+    box-shadow: 0 4px 12px rgba(8, 125, 75, .18);
+    font-size: 21px;
+    font-weight: 900;
+}
+
+.brand {
+    font-size: 17px;
+    line-height: 1.25;
+    font-weight: 850;
+    letter-spacing: -.4px;
+}
+
+.brand-subtitle {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .4px;
+}
+
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    padding: 9px 12px;
+    border: 1px solid #cce7d2;
+    border-radius: 30px;
+    background: #e9f6ec;
+    color: var(--green-dark);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #16a05b;
+    box-shadow: 0 0 0 3px rgba(22, 160, 91, .12);
+}
+
+/* MAIN PAGE */
+
+.container {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+}
+
+.page-intro {
+    margin-bottom: 23px;
+}
+
+.eyebrow {
+    margin-bottom: 8px;
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.page-title {
+    margin: 0;
+    font-size: clamp(25px, 4vw, 34px);
+    line-height: 1.15;
+    letter-spacing: -1px;
+    font-weight: 850;
+}
+
+.page-description {
+    margin: 9px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* STATUS MESSAGES */
+
+.message {
+    display: none;
+    padding: 13px 15px;
+    border-radius: 13px;
+    margin-bottom: 17px;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.success {
+    background: #e5f5e9;
+    border: 1px solid #cbe8d2;
+    color: #17643a;
+}
+
+.message.error {
+    background: #fff0ee;
+    border: 1px solid #f4d1cc;
+    color: #9b2929;
+}
+
+.loading {
+    text-align: center;
+    padding: 55px 15px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* COMMON CARDS */
 
 .shop-card,
 .product-card,
-.empty{
-    background:#fff;
-    border-radius:16px;
-    box-shadow:0 4px 18px rgba(0,0,0,.06);
+.empty {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
-.shop-card{
-    padding:20px;
-    margin-bottom:20px;
+.shop-card {
+    padding: 22px;
+    margin-bottom: 28px;
 }
 
-.shop-title{
-    font-size:25px;
-    font-weight:800;
-    margin-bottom:6px;
+.shop-title {
+    margin: 0 0 7px;
+    font-size: clamp(22px, 3vw, 29px);
+    font-weight: 850;
+    letter-spacing: -.7px;
+    overflow-wrap: anywhere;
 }
 
-.shop-category{
-    color:#64748b;
-    font-size:14px;
-    margin-bottom:18px;
+.shop-category {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 20px;
 }
 
-.shop-info{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-
-.info-box{
-    background:#f8fafc;
-    border-radius:10px;
-    padding:11px;
-}
-
-.info-label{
-    color:#64748b;
-    font-size:12px;
-    margin-bottom:4px;
-}
-
-.info-value{
-    font-size:14px;
-    font-weight:700;
-    word-break:break-word;
-}
-
-.qr-section{
-    border-top:1px solid #e5e7eb;
-    margin-top:20px;
-    padding-top:20px;
-}
-
-.qr-title{
-    font-size:19px;
-    font-weight:800;
-    margin-bottom:5px;
-}
-
-.qr-note{
-    color:#64748b;
-    font-size:13px;
-    line-height:1.5;
-}
-
-.qr-area{
-    margin-top:18px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
-}
-
-#qrcode{
-    background:#fff;
-    padding:12px;
-    border:1px solid #e5e7eb;
-    border-radius:10px;
-}
-
-.qr-url{
-    width:100%;
-    max-width:650px;
-    padding:11px;
-    border:1px solid #d1d5db;
-    border-radius:9px;
-    background:#f8fafc;
-    font-size:12px;
-}
-
-.button-row{
-    display:flex;
-    flex-wrap:wrap;
-    gap:9px;
-}
-
-button{
-    border:0;
-    border-radius:9px;
-    padding:11px 15px;
-    font-size:14px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-button:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-}
-
-.primary{
-    background:#2563eb;
-    color:#fff;
-}
-
-.secondary{
-    background:#e5e7eb;
-    color:#111827;
-}
-
-.danger{
-    background:#dc2626;
-    color:#fff;
-}
-
-.section-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin:25px 0 12px;
-}
-
-.section-title{
-    font-size:21px;
-    font-weight:800;
-}
-
-.products{
-    display:grid;
-    gap:12px;
-}
-
-.product-card{
-    padding:15px;
-}
-
-.product-top{
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-}
-
-.product-name{
-    font-size:17px;
-    font-weight:800;
-}
-
-.product-unit{
-    color:#64748b;
-    font-size:13px;
-    margin-top:4px;
-}
-
-.product-price{
-    font-size:18px;
-    font-weight:800;
-    white-space:nowrap;
-}
-
-.product-status{
-    margin-top:10px;
-    font-size:12px;
-    font-weight:700;
-}
-
-.available{
-    color:#15803d;
-}
-
-.unavailable{
-    color:#b91c1c;
-}
-
-.product-actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:12px;
-}
-
-.empty{
-    padding:30px 20px;
-    text-align:center;
-    color:#64748b;
-}
-
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    z-index:100;
-    padding:20px;
-    overflow:auto;
-}
-
-.modal.show{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.modal-box{
-    width:100%;
-    max-width:500px;
-    background:#fff;
-    border-radius:18px;
-    padding:20px;
-}
-
-.modal-title{
-    font-size:21px;
-    font-weight:800;
-    margin-bottom:18px;
-}
-
-.field{
-    margin-bottom:14px;
-}
-
-.field label{
-    display:block;
-    font-size:13px;
-    font-weight:700;
-    margin-bottom:6px;
-}
-
-.field input{
-    width:100%;
-    padding:12px;
-    border:1px solid #d1d5db;
-    border-radius:9px;
-    font-size:15px;
-    outline:none;
-}
-
-.field input:focus{
-    border-color:#2563eb;
-}
-
-.field input[type="file"]{
-    padding:10px;
-    background:#f8fafc;
-}
-
-.image-preview-wrap{
-    margin-top:10px;
-    display:none;
-}
-
-.image-preview-wrap.show{
-    display:block;
-}
-
-.image-preview{
-    width:120px;
-    height:120px;
-    object-fit:cover;
-    border:1px solid #e5e7eb;
-    border-radius:10px;
-    background:#f8fafc;
-}
-
-.image-help{
-    color:#64748b;
-    font-size:12px;
-    line-height:1.5;
-    margin-top:6px;
-}
-
-.checkbox-row{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin:12px 0;
-}
-
-.checkbox-row input{
-    width:auto;
-}
-
-.checkbox-row label{
-    margin:0;
-    font-size:13px;
-    font-weight:700;
-}
-
-.modal-actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:8px;
-    margin-top:18px;
-}
-
-.hidden{
-    display:none !important;
-}
-
-@media(max-width:600px){
-
-    .shop-info{
-        grid-template-columns:1fr;
-    }
-
-    .product-top{
-        flex-direction:column;
-    }
-
-    .section-header{
-        align-items:stretch;
-        flex-direction:column;
-    }
-
-    .section-header button{
-        width:100%;
-    }
-
-    .button-row{
-        width:100%;
-        flex-direction:column;
-    }
-
-    .button-row button{
-        width:100%;
-    }
-
-    .product-actions button{
-        flex:1;
-    }
-
-}
-
+/* PART 1 ENDS HERE */
 </style>
-
 </head>
-
 <body>
 
 <header class="header">
-
     <div class="header-inner">
-
-        <div class="brand">
-            Pyncode Live QR
+        <div class="brand-wrap">
+            <div class="brand-icon">P</div>
+            <div>
+                <div class="brand">Pyncode Live QR</div>
+                <div class="brand-subtitle">OWNER STUDIO</div>
+            </div>
         </div>
 
         <div class="live-badge">
-            OWNER
+            <span class="live-dot"></span>
+            OWNER PANEL
         </div>
-
     </div>
-
 </header>
 
 <main class="container">
 
-    <div
-        id="message"
-        class="message"
-    ></div>
+    <div class="page-intro">
+        <div class="eyebrow">Your business dashboard</div>
+        <h1 class="page-title">Manage your store</h1>
+        <p class="page-description">
+            Manage products, prices and your permanent shop QR code.
+        </p>
+    </div>
 
-    <div
-        id="loading"
-        class="loading"
-    >
+    <div id="message" class="message"></div>
+
+    <div id="loading" class="loading">
         Loading your Live QR shop...
     </div>
 
-    <section
-        id="shopSection"
-        class="shop-card hidden"
-    >
+<!-- Continue with Part 2 below this line -->
 
-        <div
-            id="shopName"
-            class="shop-title"
-        ></div>
 
-        <div
-            id="shopCategory"
-            class="shop-category"
-        ></div>
+  <!-- PART 2 — SHOP DETAILS & PERMANENT QR -->
 
-        <div class="shop-info">
+<style>
+/* SHOP INFORMATION */
+.shop-heading-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    flex-wrap: wrap;
+}
 
-            <div class="info-box">
+.shop-heading-main {
+    flex: 1;
+    min-width: 0;
+}
 
-                <div class="info-label">
-                    Owner
-                </div>
+.shop-info {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
 
-                <div
-                    id="ownerName"
-                    class="info-value"
-                ></div>
+.info-box {
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #e9ede5;
+    border-radius: 15px;
+    background: #fafbf7;
+}
 
-            </div>
+.info-label {
+    margin-bottom: 7px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
 
-            <div class="info-box">
+.info-value {
+    font-size: 14px;
+    font-weight: 750;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
 
-                <div class="info-label">
-                    WhatsApp
-                </div>
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border-radius: 30px;
+    background: var(--green-soft);
+    color: var(--green-dark);
+    font-size: 12px;
+    font-weight: 800;
+}
 
-                <div
-                    id="shopWhatsapp"
-                    class="info-value"
-                ></div>
+.status-pill::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #16a05b;
+}
 
-            </div>
+/* QR SECTION */
+.qr-section {
+    margin-top: 24px;
+    padding-top: 23px;
+    border-top: 1px solid var(--line);
+}
 
-            <div class="info-box">
+.qr-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+}
 
-                <div class="info-label">
-                    Area
-                </div>
+.qr-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    background: var(--green-soft);
+    color: var(--green);
+    font-size: 23px;
+}
 
-                <div
-                    id="shopArea"
-                    class="info-value"
-                ></div>
+.qr-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 850;
+    letter-spacing: -.4px;
+}
 
-            </div>
+.qr-note {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.65;
+}
 
-            <div class="info-box">
+.qr-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: 22px;
+    align-items: center;
+    margin-top: 23px;
+}
 
-                <div class="info-label">
-                    City
-                </div>
+.qr-preview-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+    padding: 22px 15px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: #fafbf7;
+}
 
-                <div
-                    id="shopCity"
-                    class="info-value"
-                ></div>
+#qrcode {
+    width: 244px;
+    min-height: 244px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid #e5e9df;
+}
 
-            </div>
+#qrcode canvas,
+#qrcode img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
 
-            <div class="info-box">
+.qr-caption {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 650;
+    text-align: center;
+}
 
-                <div class="info-label">
-                    Pincode
-                </div>
+.qr-details {
+    min-width: 0;
+}
 
-                <div
-                    id="shopPincode"
-                    class="info-value"
-                ></div>
+.qr-link-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 800;
+}
 
-            </div>
+.qr-url {
+    width: 100%;
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid #dfe5db;
+    border-radius: 12px;
+    background: #fafbf7;
+    color: var(--ink);
+    font-size: 12px;
+    line-height: 1.5;
+}
 
-            <div class="info-box">
+.qr-help {
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
 
-                <div class="info-label">
-                    Live QR Status
-                </div>
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 16px;
+}
 
-                <div
-                    id="qrStatus"
-                    class="info-value"
-                ></div>
+button {
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 13px;
+    font-weight: 750;
+    transition: transform .15s ease, opacity .15s ease;
+}
 
-            </div>
+button:active {
+    transform: scale(.98);
+}
 
+.primary {
+    background: var(--green);
+    color: #fff;
+    box-shadow: 0 3px 8px rgba(8, 125, 75, .12);
+}
+
+.secondary {
+    background: #edf1e9;
+    color: var(--ink);
+    border: 1px solid #e1e7dc;
+}
+
+.danger {
+    background: #fff0ee;
+    color: var(--red);
+    border: 1px solid #f4d8d3;
+}
+
+@media (max-width: 720px) {
+    .shop-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .qr-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .qr-preview-panel {
+        padding: 18px 12px;
+    }
+
+    #qrcode {
+        width: 230px;
+        min-height: 230px;
+    }
+
+    .qr-details .button-row button {
+        flex: 1 1 140px;
+    }
+}
+
+@media (max-width: 380px) {
+    .shop-card {
+        padding: 16px;
+    }
+
+    .shop-info {
+        gap: 8px;
+    }
+
+    .info-box {
+        padding: 11px;
+    }
+
+    .info-value {
+        font-size: 13px;
+    }
+
+    .qr-title {
+        font-size: 18px;
+    }
+}
+</style>
+
+<section id="shopSection" class="shop-card hidden">
+
+    <div class="shop-heading-row">
+        <div class="shop-heading-main">
+            <div class="eyebrow">Store profile</div>
+            <h2 id="shopName" class="shop-title">Your Shop</h2>
+            <div id="shopCategory" class="shop-category"></div>
         </div>
 
-        <div class="qr-section">
+        <div id="qrStatus" class="status-pill">Active</div>
+    </div>
 
-            <div class="qr-title">
-                Permanent QR Code
+    <div class="shop-info">
+
+        <div class="info-box">
+            <div class="info-label">Owner</div>
+            <div id="ownerName" class="info-value">—</div>
+        </div>
+
+        <div class="info-box">
+            <div class="info-label">WhatsApp</div>
+            <div id="shopWhatsapp" class="info-value">—</div>
+        </div>
+
+        <div class="info-box">
+            <div class="info-label">Area</div>
+            <div id="shopArea" class="info-value">—</div>
+        </div>
+
+        <div class="info-box">
+            <div class="info-label">City</div>
+            <div id="shopCity" class="info-value">—</div>
+        </div>
+
+        <div class="info-box">
+            <div class="info-label">Pincode</div>
+            <div id="shopPincode" class="info-value">—</div>
+        </div>
+
+        <div class="info-box">
+            <div class="info-label">QR Type</div>
+            <div class="info-value">Permanent QR</div>
+        </div>
+
+    </div>
+
+    <div class="qr-section">
+
+        <div class="qr-heading">
+            <div class="qr-icon">▦</div>
+            <div>
+                <h3 class="qr-title">Your Permanent QR</h3>
+                <div class="qr-note">
+                    Download and print this QR for your shop counter,
+                    packaging or display board. Your QR link remains the
+                    same when you update products and prices.
+                </div>
             </div>
+        </div>
 
-            <div class="qr-note">
-                இந்த QR ஒருமுறை generate ஆனதும் இதே QR-ஐ
-                sticker, board அல்லது print-ல் பயன்படுத்தலாம்.
-                Products மற்றும் prices மட்டும் update ஆகும்.
-            </div>
+        <div class="qr-layout">
 
-            <div class="qr-area">
-
+            <div class="qr-preview-panel">
                 <div id="qrcode"></div>
+                <div class="qr-caption">Scan to explore your store</div>
+            </div>
+
+            <div class="qr-details">
+                <label class="qr-link-label" for="qrUrl">
+                    Permanent store link
+                </label>
 
                 <input
                     id="qrUrl"
                     class="qr-url"
                     type="text"
                     readonly
+                    aria-label="Permanent store QR link"
                 >
 
-                <div class="button-row">
+                <div class="qr-help">
+                    This link opens your customer-facing Live QR store.
+                    Keep the original QR to avoid changing printed materials.
+                </div>
 
-                    <button
-                        type="button"
-                        class="primary"
-                        id="downloadQrBtn"
-                    >
-                        Download QR
+                <div class="button-row">
+                    <button type="button" class="primary" id="downloadQrBtn">
+                        ↓ Download QR
                     </button>
 
-                    <button
-                        type="button"
-                        class="secondary"
-                        id="printQrBtn"
-                    >
+                    <button type="button" class="secondary" id="printQrBtn">
                         Print QR
                     </button>
 
-                    <button
-                        type="button"
-                        class="secondary"
-                        id="copyQrBtn"
-                    >
-                        Copy QR Link
+                    <button type="button" class="secondary" id="copyQrBtn">
+                        Copy link
                     </button>
-
                 </div>
-
             </div>
-
-        </div>
-
-    </section>
-
-    <section
-        id="productsSection"
-        class="hidden"
-    >
-
-        <div class="section-header">
-
-            <div class="section-title">
-                My Products
-            </div>
-
-            <button
-                type="button"
-                class="primary"
-                id="addProductBtn"
-            >
-                + Add Product
-            </button>
-
-        </div>
-
-        <div
-            id="productsList"
-            class="products"
-        ></div>
-
-    </section>
-
-</main>
-
-<div
-    id="productModal"
-    class="modal"
->
-
-    <div class="modal-box">
-
-        <div
-            id="modalTitle"
-            class="modal-title"
-        >
-            Add Product
-        </div>
-
-        <div class="field">
-
-            <label for="productName">
-                Product Name
-            </label>
-
-            <input
-                id="productName"
-                type="text"
-                maxlength="150"
-                placeholder="Example: Aashirvaad Atta"
-            >
-
-        </div>
-
-        <div class="field">
-
-            <label for="productUnit">
-                Unit
-            </label>
-
-            <input
-                id="productUnit"
-                type="text"
-                maxlength="50"
-                placeholder="Example: 1 Kg / 500 g / Piece"
-            >
-
-        </div>
-
-        <div class="field">
-
-            <label for="productPrice">
-                Price
-            </label>
-
-            <input
-                id="productPrice"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-            >
-
-        </div>
-
-              <div class="field">
-
-            <label for="productImageFile">
-                Upload Product Image (Gallery / Camera)
-            </label>
-
-            <input
-                id="productImageFile"
-                type="file"
-                accept="image/*"
-            >
-
-            <div class="image-help">
-                Image automatically compressed to 200 KB or less before upload.
-                You can choose an image from your gallery or camera.
-            </div>
-
-            <div id="productImagePreviewWrap" class="image-preview-wrap">
-                <img id="productImagePreview" class="image-preview" alt="Product image preview">
-                <div id="productImageSize" class="image-help"></div>
-            </div>
-
-        </div>
-
-        <div class="field">
-
-            <label for="productImage">
-                Product Image URL (Optional)
-            </label>
-
-            <input
-                id="productImage"
-                type="url"
-                placeholder="https://..."
-            >
-
-            <div class="image-help">
-                Optional: use an existing image URL instead of uploading a new image.
-            </div>
-
-        </div>
-
-        <div class="checkbox-row">
-
-            <input
-                id="productAvailable"
-                type="checkbox"
-                checked
-            >
-
-            <label for="productAvailable">
-                Product Available
-            </label>
-
-        </div>
-
-        <div class="modal-actions">
-
-            <button
-                type="button"
-                class="secondary"
-                id="cancelProductBtn"
-            >
-                Cancel
-            </button>
-
-            <button
-                type="button"
-                class="primary"
-                id="saveProductBtn"
-            >
-                Save Product
-            </button>
 
         </div>
 
     </div>
 
-</div>
+</section>
 
+<!-- Continue with Part 3 below this line -->
+
+  <!-- PART 3 — PRODUCT MANAGEMENT UI -->
+
+<style>
+/* PRODUCT SECTION */
+.products-section {
+    margin-top: 28px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 17px;
+}
+
+.section-title {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 850;
+    letter-spacing: -.6px;
+}
+
+.section-subtitle {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.product-count-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 11px;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    background: #fff;
+    color: var(--green-dark);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* SEARCH AND FILTERS */
+.product-toolbar {
+    display: flex;
+    gap: 11px;
+    margin-bottom: 18px;
+}
+
+.product-search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.product-search {
+    width: 100%;
+    min-height: 47px;
+    padding: 12px 14px 12px 42px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 14px;
+    outline: none;
+}
+
+.product-search:focus {
+    border-color: #91c9a5;
+    box-shadow: 0 0 0 3px rgba(8,125,75,.07);
+}
+
+.product-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: var(--green);
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.toolbar-button {
+    flex-shrink: 0;
+    min-height: 47px;
+}
+
+/* PRODUCT GRID */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.product-card {
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(28,59,39,.10);
+}
+
+.product-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f0f3eb;
+}
+
+.product-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    color: #8ca695;
+    font-size: 44px;
+    background:
+        radial-gradient(circle at 20% 20%, #f9fbf4, transparent 60%),
+        linear-gradient(135deg, #e8f2e8, #f5f4eb);
+}
+
+.product-status {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 6px 9px;
+    border-radius: 30px;
+    background: rgba(255,255,255,.94);
+    font-size: 10px;
+    font-weight: 850;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.product-status.available {
+    color: var(--green);
+}
+
+.product-status.unavailable {
+    color: var(--red);
+}
+
+.product-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+}
+
+.product-name {
+    min-height: 40px;
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.product-unit {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.product-price {
+    margin-top: auto;
+    margin-bottom: 13px;
+    color: var(--ink);
+    font-size: 21px;
+    font-weight: 850;
+    letter-spacing: -.4px;
+}
+
+.product-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.product-actions button {
+    min-width: 0;
+    padding: 10px 8px;
+    border-radius: 11px;
+    font-size: 12px;
+}
+
+/* EMPTY STATES */
+.empty {
+    padding: 35px 18px;
+    text-align: center;
+    box-shadow: none;
+    border-style: dashed;
+    background: rgba(255,255,255,.65);
+}
+
+.empty-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.empty-title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 850;
+}
+
+.empty-description {
+    max-width: 330px;
+    margin: 8px auto 16px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* ADD / EDIT PRODUCT FORM */
+.form-section {
+    margin-top: 27px;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    scroll-margin-top: 95px;
+}
+
+.form-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.form-title {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 850;
+    letter-spacing: -.4px;
+}
+
+.form-description {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.field {
+    min-width: 0;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.field input {
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    padding: 12px;
+    border: 1px solid #dfe5db;
+    border-radius: 12px;
+    background: #fbfcf8;
+    color: var(--ink);
+    font-size: 14px;
+    outline: none;
+}
+
+.field input:focus {
+    border-color: #8fc9a4;
+    box-shadow: 0 0 0 3px rgba(8,125,75,.07);
+}
+
+.field-hint {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#productFormMessage {
+    display: none;
+    margin-top: 13px;
+    padding: 11px 13px;
+    border-radius: 11px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+#productFormMessage.show {
+    display: block;
+}
+
+#productFormMessage.success {
+    background: #e5f5e9;
+    color: #17643a;
+}
+
+#productFormMessage.error {
+    background: #fff0ee;
+    color: #9b2929;
+}
+
+@media (max-width: 760px) {
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .product-content {
+        padding: 11px;
+    }
+
+    .product-name {
+        font-size: 14px;
+    }
+
+    .product-price {
+        font-size: 19px;
+    }
+
+    .form-section {
+        padding: 17px;
+    }
+}
+
+@media (max-width: 360px) {
+    .product-grid {
+        gap: 8px;
+    }
+
+    .product-content {
+        padding: 9px;
+    }
+
+    .product-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .product-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .product-search-wrap {
+        flex-basis: 100%;
+    }
+
+    .toolbar-button {
+        width: 100%;
+    }
+}
+</style>
+
+<!-- PRODUCT MANAGEMENT -->
+<section id="productsSection" class="products-section hidden">
+
+    <div class="section-heading">
+        <div>
+            <h2 class="section-title">Your Products</h2>
+            <div class="section-subtitle">
+                Manage product images, prices and availability.
+            </div>
+        </div>
+
+        <span id="productCountBadge" class="product-count-badge">
+            0 products
+        </span>
+    </div>
+
+    <div class="product-toolbar">
+        <div class="product-search-wrap">
+            <span class="product-search-icon">⌕</span>
+            <input
+                id="ownerProductSearch"
+                class="product-search"
+                type="search"
+                placeholder="Search your products..."
+                autocomplete="off"
+            >
+        </div>
+
+        <button
+            type="button"
+            class="primary toolbar-button"
+            id="showAddProductBtn"
+        >
+            + Add Product
+        </button>
+    </div>
+
+    <div id="ownerProductGrid" class="product-grid"></div>
+
+    <div id="ownerProductEmpty" class="empty hidden">
+        <div class="empty-icon">📦</div>
+        <h3 class="empty-title">No products yet</h3>
+        <p class="empty-description">
+            Add your first product with its image, price and unit.
+        </p>
+        <button type="button" class="primary" id="emptyAddProductBtn">
+            + Add your first product
+        </button>
+    </div>
+
+    <div id="ownerProductNoResults" class="empty hidden">
+        <div class="empty-icon">⌕</div>
+        <h3 class="empty-title">No matching products</h3>
+        <p class="empty-description">
+            Try another product name.
+        </p>
+    </div>
+
+</section>
+
+<!-- ADD / EDIT PRODUCT FORM -->
+<section id="productFormSection" class="form-section hidden">
+
+    <div class="form-header">
+        <div>
+            <h2 id="productFormTitle" class="form-title">Add Product</h2>
+            <div class="form-description">
+                Enter the product details below.
+            </div>
+        </div>
+    </div>
+
+    <form id="ownerProductForm">
+        <input type="hidden" id="editProductId">
+
+        <div class="form-grid">
+
+            <div class="field full">
+                <label for="ownerProductName">Product name *</label>
+                <input
+                    id="ownerProductName"
+                    type="text"
+                    maxlength="120"
+                    placeholder="Example: Detergent Liquid"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label for="ownerProductPrice">Selling price (₹) *</label>
+                <input
+                    id="ownerProductPrice"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="60"
+                    required
+                >
+            </div>
+
+            <div class="field">
+                <label for="ownerProductUnit">Unit / Size *</label>
+                <input
+                    id="ownerProductUnit"
+                    type="text"
+                    maxlength="40"
+                    placeholder="500ml, 1 litre, 1 kg"
+                    required
+                >
+            </div>
+
+            <div class="field full">
+                <label for="ownerProductImage">Product image URL</label>
+                <input
+                    id="ownerProductImage"
+                    type="url"
+                    placeholder="https://example.com/product.jpg"
+                >
+                <div class="field-hint">
+                    Use a publicly accessible HTTPS image URL.
+                    Upload support will be connected in a later part
+                    only if the existing storage setup supports it.
+                </div>
+            </div>
+
+        </div>
+
+        <div id="productFormMessage"></div>
+
+        <div class="form-actions">
+            <button type="submit" class="primary" id="saveProductBtn">
+                Save Product
+            </button>
+
+            <button type="button" class="secondary" id="cancelProductBtn">
+                Cancel
+            </button>
+        </div>
+    </form>
+
+</section>
+
+<!-- Continue with Part 4 below this line -->
+
+  
+<!-- PART 4 — SUPABASE & DASHBOARD LOGIC -->
 <script>
+"use strict";
 
-/* =====================================================
-   SUPABASE CONFIG
-===================================================== */
-
+/* EXISTING SUPABASE CONFIG */
 const SUPABASE_URL =
     "https://mtuspuehsxsjoaxoenen.supabase.co";
 
 const SUPABASE_KEY =
     "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
 
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
 
-
-/* =====================================================
-   STATE
-===================================================== */
-
+/* APPLICATION STATE */
 let currentUser = null;
-
 let currentOwner = null;
-
 let currentShop = null;
-
+let ownerProducts = [];
 let editingProductId = null;
-let selectedProductImageFile = null;
-let currentProductImageUrl = "";
 
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const message =
-    document.getElementById("message");
-
-const loading =
-    document.getElementById("loading");
-
-const shopSection =
-    document.getElementById("shopSection");
-
-const productsSection =
-    document.getElementById("productsSection");
-
-const productsList =
-    document.getElementById("productsList");
-
-const productModal =
-    document.getElementById("productModal");
-
-
-/* =====================================================
-   MESSAGE FUNCTIONS
-===================================================== */
-
-function showMessage(text, type){
-
-    message.textContent = text;
-
-    message.className =
-        "message show " + type;
-
+/* ELEMENT HELPERS */
+function ownerEl(id) {
+    return document.getElementById(id);
 }
 
-
-function hideMessage(){
-
-    message.className =
-        "message";
-
+function ownerMessage(text, type) {
+    const element = ownerEl("message");
+    element.textContent = text;
+    element.className = "message show " + type;
 }
 
+function ownerHideMessage() {
+    ownerEl("message").className = "message";
+}
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value){
-
-    if(
-        value === null ||
-        value === undefined
-    ){
-
-        return "";
-
-    }
-
-    return String(value)
+function ownerEscape(value) {
+    return String(value ?? "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
-
 }
 
-
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
-async function initialize(){
-
-    hideMessage();
-
-    loading.classList.remove(
-        "hidden"
-    );
-
-    try{
-
-        /* ---------------------------------------------
-           GET CURRENT SESSION
-        --------------------------------------------- */
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .auth
-            .getSession();
-
-
-        if(error){
-
-            throw error;
-
+function ownerFormatPrice(value) {
+    return "₹" + Number(value || 0).toLocaleString(
+        "en-IN",
+        {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
         }
+    );
+}
 
+/* LOAD OWNER, SHOP, QR AND PRODUCTS */
+async function initializeOwnerDashboard() {
+    ownerHideMessage();
+    ownerEl("loading").classList.remove("hidden");
 
-        if(
-            !data ||
-            !data.session ||
-            !data.session.user
-        ){
+    try {
+        const { data: sessionData, error: sessionError } =
+            await supabaseClient.auth.getSession();
 
+        if (sessionError) throw sessionError;
+
+        if (!sessionData?.session?.user) {
             throw new Error(
                 "Please login to your Pyncode Shop Owner account first."
             );
-
         }
 
+        currentUser = sessionData.session.user;
 
-        currentUser =
-            data.session.user;
+        const { data: ownerAccount, error: ownerError } =
+            await supabaseClient
+                .from("live_qr_owner_accounts")
+                .select(
+                    "id, shop_id, auth_user_id, owner_name, email, is_active"
+                )
+                .eq("auth_user_id", currentUser.id)
+                .eq("is_active", true)
+                .maybeSingle();
 
+        if (ownerError) throw ownerError;
 
-        /* ---------------------------------------------
-           GET LIVE QR OWNER ACCOUNT
-        --------------------------------------------- */
-
-        const {
-            data: ownerAccount,
-            error: ownerError
-        } =
-        await supabaseClient
-            .from("live_qr_owner_accounts")
-            .select(
-                "id, shop_id, auth_user_id, owner_name, email, is_active"
-            )
-            .eq(
-                "auth_user_id",
-                currentUser.id
-            )
-            .eq(
-                "is_active",
-                true
-            )
-            .maybeSingle();
-
-
-        if(ownerError){
-
-            throw ownerError;
-
-        }
-
-
-        if(!ownerAccount){
-
+        if (!ownerAccount) {
             throw new Error(
                 "This account is not registered for Pyncode Live QR."
             );
-
         }
 
+        currentOwner = ownerAccount;
 
-        currentOwner =
-            ownerAccount;
+        const { data: shop, error: shopError } =
+            await supabaseClient
+                .from("shops")
+                .select(
+                    "id, shop_name, category, owner_name, mobile, whatsapp, address, area, city, pincode, description, shop_image, live_qr_enabled, live_qr_token, live_qr_status"
+                )
+                .eq("id", ownerAccount.shop_id)
+                .maybeSingle();
 
+        if (shopError) throw shopError;
 
-        /* ---------------------------------------------
-           GET OWNER SHOP
-        --------------------------------------------- */
-
-        const {
-            data: shop,
-            error: shopError
-        } =
-        await supabaseClient
-            .from("shops")
-            .select(
-                "id, shop_name, category, owner_name, mobile, whatsapp, address, area, city, pincode, description, shop_image, live_qr_enabled, live_qr_token, live_qr_status"
-            )
-            .eq(
-                "id",
-                ownerAccount.shop_id
-            )
-            .maybeSingle();
-
-
-        if(shopError){
-
-            throw shopError;
-
+        if (!shop) {
+            throw new Error("Your registered shop could not be found.");
         }
 
+        currentShop = shop;
 
-        if(!shop){
-
-            throw new Error(
-                "Your registered shop could not be found."
-            );
-
-        }
-
-
-        currentShop =
-            shop;
-
-
-        /* ---------------------------------------------
-           LIVE QR STATUS CHECK
-        --------------------------------------------- */
-
-        if(
+        if (
             shop.live_qr_enabled !== true ||
             shop.live_qr_status !== "active"
-        ){
-
-            loading.classList.add(
-                "hidden"
+        ) {
+            throw new Error(
+                "Live QR is not active for your shop. Please contact Pyncode Admin."
             );
-
-            showMessage(
-                "Live QR is not enabled for your shop yet. Please contact Pyncode Admin.",
-                "error"
-            );
-
-            return;
-
         }
 
+        renderOwnerShop();
+        generateOwnerQr();
 
-        /* ---------------------------------------------
-           RENDER SHOP
-        --------------------------------------------- */
+        await loadOwnerProducts();
 
-        renderShop();
+        ownerEl("shopSection").classList.remove("hidden");
+        ownerEl("productsSection").classList.remove("hidden");
 
+    } catch (error) {
+        console.error("Owner dashboard error:", error);
 
-        /* ---------------------------------------------
-           GENERATE QR
-        --------------------------------------------- */
-
-        generateQr();
-
-
-        /* ---------------------------------------------
-           LOAD PRODUCTS
-        --------------------------------------------- */
-
-        await loadProducts();
-
-
-        loading.classList.add(
-            "hidden"
-        );
-
-        shopSection.classList.remove(
-            "hidden"
-        );
-
-        productsSection.classList.remove(
-            "hidden"
-        );
-
-    }
-    catch(error){
-
-        console.error(
-            "Live QR Owner Error:",
-            error
-        );
-
-        loading.classList.add(
-            "hidden"
-        );
-
-        showMessage(
-            error && error.message
-                ? error.message
-                : "Unable to load Live QR owner page.",
+        ownerMessage(
+            error?.message || "Unable to load the owner dashboard.",
             "error"
         );
-
+    } finally {
+        ownerEl("loading").classList.add("hidden");
     }
-
 }
 
+/* SHOP INFORMATION */
+function renderOwnerShop() {
+    ownerEl("shopName").textContent =
+        currentShop.shop_name || "Your Shop";
 
-/* =====================================================
-   RENDER SHOP
-===================================================== */
+    ownerEl("shopCategory").textContent =
+        currentShop.category || "Store";
 
-function renderShop(){
-
-    document.getElementById(
-        "shopName"
-    ).textContent =
-        currentShop.shop_name || "Shop";
-
-
-    document.getElementById(
-        "shopCategory"
-    ).textContent =
-        currentShop.category || "";
-
-    document.getElementById(
-        "ownerName"
-    ).textContent =
+    ownerEl("ownerName").textContent =
         currentOwner.owner_name ||
         currentShop.owner_name ||
-        "-";
+        "—";
 
-
-    document.getElementById(
-        "shopWhatsapp"
-    ).textContent =
+    ownerEl("shopWhatsapp").textContent =
         currentShop.whatsapp ||
         currentShop.mobile ||
-        "-";
+        "—";
 
+    ownerEl("shopArea").textContent =
+        currentShop.area || "—";
 
-    document.getElementById(
-        "shopArea"
-    ).textContent =
-        currentShop.area || "-";
+    ownerEl("shopCity").textContent =
+        currentShop.city || "—";
 
+    ownerEl("shopPincode").textContent =
+        currentShop.pincode || "—";
 
-    document.getElementById(
-        "shopCity"
-    ).textContent =
-        currentShop.city || "-";
-
-
-    document.getElementById(
-        "shopPincode"
-    ).textContent =
-        currentShop.pincode || "-";
-
-
-    document.getElementById(
-        "qrStatus"
-    ).textContent =
-        "Active";
-
+    ownerEl("qrStatus").textContent = "Active";
 }
 
-
-/* =====================================================
-   GENERATE PERMANENT QR
-===================================================== */
-
-function generateQr(){
-
-    const qrContainer =
-        document.getElementById(
-            "qrcode"
-        );
-
-
-    qrContainer.innerHTML =
-        "";
-
-
-    if(!currentShop.live_qr_token){
-
-        throw new Error(
-            "Live QR token is missing for this shop."
-        );
-
+/* PERMANENT QR URL — PRESERVE EXISTING TOKEN */
+function generateOwnerQr() {
+    if (!currentShop?.live_qr_token) {
+        throw new Error("Live QR token is missing for this shop.");
     }
 
+    if (typeof QRCode === "undefined") {
+        throw new Error("QR library could not be loaded.");
+    }
+
+    const qrContainer = ownerEl("qrcode");
+    qrContainer.innerHTML = "";
 
     const shopUrl =
         window.location.origin +
         "/live-qr-shop.html?token=" +
-        encodeURIComponent(
-            currentShop.live_qr_token
-        );
-
-
-    document.getElementById(
-        "qrUrl"
-    ).value =
-        shopUrl;
-
-
-    new QRCode(
-        qrContainer,
-        {
-            text: shopUrl,
-            width: 220,
-            height: 220,
-            correctLevel:
-                QRCode.CorrectLevel.H
-        }
-    );
-
-}
-
-
-/* =====================================================
-   LOAD PRODUCTS
-===================================================== */
-
-async function loadProducts(){
-
-    productsList.innerHTML = `
-        <div class="loading">
-            Loading products...
-        </div>
-    `;
-
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .from("shop_products")
-        .select(
-            "id, shop_id, product_name, unit, price, image_url, is_available, sort_order, created_at, updated_at"
-        )
-        .eq(
-            "shop_id",
-            currentShop.id
-        )
-        .order(
-            "sort_order",
-            {
-                ascending:true
-            }
-        )
-        .order(
-            "created_at",
-            {
-                ascending:true
-            }
-        );
-
-
-    if(error){
-
-        console.error(
-            "Product load error:",
-            error
-        );
-
-        productsList.innerHTML =
-            "";
-
-        throw error;
-
-    }
-
-
-    renderProducts(
-        data || []
-    );
-
-}
-
-
-/* =====================================================
-   RENDER PRODUCTS
-===================================================== */
-
-function renderProducts(products){
-
-    if(!products.length){
-
-        productsList.innerHTML = `
-
-            <div class="empty">
-
-                <div
-                    style="
-                        font-size:35px;
-                        margin-bottom:10px;
-                    "
-                >
-                    🛒
-                </div>
-
-                <strong>
-                    No products added yet.
-                </strong>
-
-                <div
-                    style="
-                        margin-top:6px;
-                    "
-                >
-                    Add your first product to start
-                    your Live QR catalog.
-                </div>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    productsList.innerHTML =
-        products
-        .map(function(product){
-
-                      const statusClass =
-                product.is_available
-                    ? "available"
-                    : "unavailable";
-
-
-            const statusText =
-                product.is_available
-                    ? "Available"
-                    : "Unavailable";
-
-
-            let imageHtml = "";
-
-
-            if(product.image_url){
-
-                imageHtml = `
-
-                    <div
-                        style="
-                            margin-top:10px;
-                        "
-                    >
-
-                        <img
-                            src="${escapeHtml(product.image_url)}"
-                            alt=""
-                            style="
-                                width:70px;
-                                height:70px;
-                                object-fit:cover;
-                                border-radius:8px;
-                            "
-                            onerror="
-                                this.style.display='none';
-                            "
-                        >
-
-                    </div>
-
-                `;
-
-            }
-
-
-            return `
-
-                <div class="product-card">
-
-                    <div class="product-top">
-
-                        <div>
-
-                            <div class="product-name">
-                                ${escapeHtml(
-                                    product.product_name
-                                )}
-                            </div>
-
-                            <div class="product-unit">
-                                ${escapeHtml(
-                                    product.unit || ""
-                                )}
-                            </div>
-
-                        </div>
-
-                        <div class="product-price">
-                            ₹${Number(
-                                product.price || 0
-                            ).toFixed(2)}
-                        </div>
-
-                    </div>
-
-
-                    ${imageHtml}
-
-
-                    <div
-                        class="
-                            product-status
-                            ${statusClass}
-                        "
-                    >
-                        ${statusText}
-                    </div>
-
-
-                    <div class="product-actions">
-
-                        <button
-                            type="button"
-                            class="secondary"
-                            onclick="
-                                editProduct(
-                                    ${Number(product.id)}
-                                )
-                            "
-                        >
-                            Edit
-                        </button>
-
-
-                        <button
-                            type="button"
-                            class="secondary"
-                            onclick="
-                                toggleProduct(
-                                    ${Number(product.id)},
-                                    ${product.is_available ? "true" : "false"}
-                                )
-                            "
-                        >
-                            ${
-                                product.is_available
-                                    ? "Make Unavailable"
-                                    : "Make Available"
-                            }
-                        </button>
-
-
-                        <button
-                            type="button"
-                            class="danger"
-                            onclick="
-                                deleteProduct(
-                                    ${Number(product.id)}
-                                )
-                            "
-                        >
-                            Remove
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        })
-        .join("");
-
-}
-
-
-/* =====================================================
-   PRODUCT IMAGE: PREVIEW + COMPRESSION + SUPABASE UPLOAD
-===================================================== */
-
-const MAX_PRODUCT_IMAGE_BYTES = 200 * 1024;
-const PRODUCT_IMAGE_BUCKET = "shop-products";
-
-function clearProductImagePreview(){
-    selectedProductImageFile = null;
-
-    const fileInput =
-        document.getElementById("productImageFile");
-
-    const previewWrap =
-        document.getElementById("productImagePreviewWrap");
-
-    const preview =
-        document.getElementById("productImagePreview");
-
-    const sizeLabel =
-        document.getElementById("productImageSize");
-
-    if(fileInput) fileInput.value = "";
-
-    if(preview) preview.removeAttribute("src");
-
-    if(sizeLabel) sizeLabel.textContent = "";
-
-    if(previewWrap){
-        previewWrap.classList.remove("show");
-    }
-}
-
-function showProductImagePreview(src, sizeText){
-    const previewWrap =
-        document.getElementById("productImagePreviewWrap");
-
-    const preview =
-        document.getElementById("productImagePreview");
-
-    const sizeLabel =
-        document.getElementById("productImageSize");
-
-    preview.src = src;
-
-    sizeLabel.textContent = sizeText || "";
-
-    previewWrap.classList.add("show");
-}
-
-function loadImageElement(file){
-    return new Promise(function(resolve, reject){
-
-        const objectUrl =
-            URL.createObjectURL(file);
-
-        const image = new Image();
-
-        image.onload = function(){
-            URL.revokeObjectURL(objectUrl);
-            resolve(image);
-        };
-
-        image.onerror = function(){
-            URL.revokeObjectURL(objectUrl);
-
-            reject(
-                new Error(
-                    "Unable to read this image. Please choose another image."
-                )
-            );
-        };
-
-        image.src = objectUrl;
+        encodeURIComponent(currentShop.live_qr_token);
+
+    ownerEl("qrUrl").value = shopUrl;
+
+    new QRCode(qrContainer, {
+        text: shopUrl,
+        width: 220,
+        height: 220,
+        correctLevel: QRCode.CorrectLevel.H
     });
 }
 
-async function compressProductImage(file){
+/* LOAD PRODUCTS FROM EXISTING TABLE */
+async function loadOwnerProducts() {
+    ownerEl("ownerProductGrid").innerHTML =
+        '<div class="loading">Loading products...</div>';
 
-    if(
-        !file ||
-        !file.type ||
-        !file.type.startsWith("image/")
-    ){
-        throw new Error(
-            "Please select a valid image file."
-        );
+    const { data, error } = await supabaseClient
+        .from("shop_products")
+        .select(
+            "id, shop_id, product_name, unit, price, image_url, is_available, sort_order, created_at"
+        )
+        .eq("shop_id", currentShop.id)
+        .order("sort_order", { ascending: true })
+        .order("created_at", { ascending: true });
+
+    if (error) throw error;
+
+    ownerProducts = data || [];
+    renderOwnerProducts();
+}
+
+/* PRODUCT GRID */
+function renderOwnerProducts() {
+    const grid = ownerEl("ownerProductGrid");
+    const query = ownerEl("ownerProductSearch").value
+        .trim()
+        .toLowerCase();
+
+    const filtered = ownerProducts.filter(product =>
+        String(product.product_name || "")
+            .toLowerCase()
+            .includes(query)
+    );
+
+    ownerEl("productCountBadge").textContent =
+        ownerProducts.length +
+        (ownerProducts.length === 1 ? " product" : " products");
+
+    ownerEl("ownerProductEmpty").classList.toggle(
+        "hidden",
+        ownerProducts.length !== 0
+    );
+
+    ownerEl("ownerProductNoResults").classList.toggle(
+        "hidden",
+        ownerProducts.length === 0 || filtered.length !== 0
+    );
+
+    if (ownerProducts.length === 0) {
+        grid.innerHTML = "";
+        return;
     }
 
-    const image =
-        await loadImageElement(file);
+    grid.innerHTML = filtered.map(product => {
+        const available = product.is_available !== false;
 
-    let width = image.naturalWidth;
+        const image = /^https:\/\//i.test(
+            String(product.image_url || "")
+        )
+            ? `<img class="product-image"
+                    src="${ownerEscape(product.image_url)}"
+                    alt="${ownerEscape(product.product_name)}"
+                    loading="lazy">`
+            : `<div class="product-image-placeholder">✦</div>`;
 
-    let height = image.naturalHeight;
+        return `
+            <article class="product-card">
+                <div class="product-image-wrap">
+                    ${image}
+                    <span class="product-status ${
+                        available ? "available" : "unavailable"
+                    }">
+                        ${available ? "Available" : "Unavailable"}
+                    </span>
+                </div>
 
-    const maxDimension = 1600;
+                <div class="product-content">
+                    <h3 class="product-name">
+                        ${ownerEscape(product.product_name)}
+                    </h3>
 
-    const scale = Math.min(
-        1,
-        maxDimension / Math.max(width, height)
-    );
+                    <div class="product-unit">
+                        ${ownerEscape(product.unit || "")}
+                    </div>
 
-    width = Math.max(
-        1,
-        Math.round(width * scale)
-    );
+                    <div class="product-price">
+                        ${ownerFormatPrice(product.price)}
+                    </div>
 
-    height = Math.max(
-        1,
-        Math.round(height * scale)
-    );
+                    <div class="product-actions">
+                        <button type="button"
+                            class="secondary"
+                            data-owner-action="edit"
+                            data-product-id="${ownerEscape(product.id)}">
+                            Edit
+                        </button>
 
-    let quality = 0.86;
+                        <button type="button"
+                            class="secondary"
+                            data-owner-action="toggle"
+                            data-product-id="${ownerEscape(product.id)}">
+                            ${available ? "Mark Unavailable" : "Mark Available"}
+                        </button>
 
-    let blob = null;
+                        <button type="button"
+                            class="danger"
+                            data-owner-action="delete"
+                            data-product-id="${ownerEscape(product.id)}">
+                            Remove
+                        </button>
+                    </div>
+                </div>
+            </article>
+        `;
+    }).join("");
 
-    for(let attempt = 0; attempt < 12; attempt++){
-
-        const canvas =
-            document.createElement("canvas");
-
-        canvas.width = width;
-
-        canvas.height = height;
-
-        const context =
-            canvas.getContext("2d");
-
-        if(!context){
-            throw new Error(
-                "Image compression is not supported by this browser."
-            );
-        }
-
-        context.fillStyle = "#ffffff";
-
-        context.fillRect(
-            0,
-            0,
-            width,
-            height
-        );
-
-        context.drawImage(
-            image,
-            0,
-            0,
-            width,
-            height
-        );
-
-        blob = await new Promise(function(resolve){
-            canvas.toBlob(
-                resolve,
-                "image/jpeg",
-                quality
-            );
+    grid.querySelectorAll("img").forEach(img => {
+        img.addEventListener("error", function () {
+            const placeholder = document.createElement("div");
+            placeholder.className = "product-image-placeholder";
+            placeholder.textContent = "✦";
+            this.replaceWith(placeholder);
         });
-
-        if(
-            blob &&
-            blob.size <= MAX_PRODUCT_IMAGE_BYTES
-        ){
-            break;
-        }
-
-        if(quality > 0.42){
-            quality -= 0.08;
-        }
-        else{
-            width = Math.max(
-                240,
-                Math.round(width * 0.82)
-            );
-
-            height = Math.max(
-                240,
-                Math.round(height * 0.82)
-            );
-
-            quality = 0.68;
-        }
-    }
-
-    if(!blob){
-        throw new Error(
-            "Image compression failed. Please choose another image."
-        );
-    }
-
-    if(blob.size > MAX_PRODUCT_IMAGE_BYTES){
-        throw new Error(
-            "This image could not be compressed below 200 KB. Please choose a smaller image."
-        );
-    }
-
-    return new File(
-        [blob],
-        "product-" + Date.now() + ".jpg",
-        {
-            type:"image/jpeg",
-            lastModified:Date.now()
-        }
-    );
+    });
 }
 
-async function uploadProductImage(file){
+/* SEARCH */
+ownerEl("ownerProductSearch").addEventListener(
+    "input",
+    renderOwnerProducts
+);
 
-    const compressedFile =
-        await compressProductImage(file);
+/* END PART 4 */
+</script>
 
-    const safeShopId =
-        String(currentShop.id).replace(
-            /[^a-zA-Z0-9_-]/g,
-            ""
-        );
 
-    const filePath =
-        safeShopId + "/" +
-        Date.now() + "-" +
-        Math.random().toString(36).slice(2, 8) +
-        ".jpg";
+<!-- PART 5 — PRODUCT CRUD -->
+<script>
+"use strict";
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-        .storage
-        .from(PRODUCT_IMAGE_BUCKET)
-        .upload(
-            filePath,
-            compressedFile,
-            {
-                cacheControl:"3600",
-                contentType:"image/jpeg",
-                upsert:false
-            }
-        );
+/* OPEN PRODUCT FORM */
+function openOwnerProductForm(product = null) {
+    editingProductId = product ? product.id : null;
 
-    if(error){
-        throw error;
+    ownerEl("ownerProductForm").reset();
+    ownerEl("productFormMessage").className = "";
+    ownerEl("productFormMessage").textContent = "";
+
+    ownerEl("productFormTitle").textContent =
+        product ? "Edit Product" : "Add Product";
+
+    ownerEl("saveProductBtn").textContent =
+        product ? "Save Changes" : "Save Product";
+
+    ownerEl("editProductId").value =
+        product ? product.id : "";
+
+    if (product) {
+        ownerEl("ownerProductName").value =
+            product.product_name || "";
+
+        ownerEl("ownerProductPrice").value =
+            product.price ?? "";
+
+        ownerEl("ownerProductUnit").value =
+            product.unit || "";
+
+        ownerEl("ownerProductImage").value =
+            product.image_url || "";
     }
 
-    const {
-        data: publicData
-    } =
-    supabaseClient
-        .storage
-        .from(PRODUCT_IMAGE_BUCKET)
-        .getPublicUrl(
-            data.path
-        );
+    ownerEl("productFormSection").classList.remove("hidden");
 
-    if(
-        !publicData ||
-        !publicData.publicUrl
-    ){
-        throw new Error(
-            "Image uploaded, but its public URL could not be created."
-        );
-    }
+    ownerEl("productFormSection").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 
-    return {
-        url:publicData.publicUrl,
-        size:compressedFile.size
-    };
+    ownerEl("ownerProductName").focus({
+        preventScroll: true
+    });
 }
 
-
-/* =====================================================
-   OPEN ADD PRODUCT
-===================================================== */
-
-function openAddProduct(){
-
-    editingProductId =
-        null;
-
-
-    document.getElementById(
-        "modalTitle"
-    ).textContent =
-        "Add Product";
-
-
-    document.getElementById(
-        "productName"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "productUnit"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "productPrice"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "productImage"
-    ).value =
-        "";
-
-    currentProductImageUrl = "";
-
-    clearProductImagePreview();
-
-
-    document.getElementById(
-        "productAvailable"
-    ).checked =
-        true;
-
-
-    productModal.classList.add(
-        "show"
-    );
-
+/* FORM FEEDBACK */
+function showProductFormMessage(text, type) {
+    const element = ownerEl("productFormMessage");
+    element.textContent = text;
+    element.className = "show " + type;
 }
 
+/* CANCEL FORM */
+function closeOwnerProductForm() {
+    editingProductId = null;
+    ownerEl("productFormSection").classList.add("hidden");
+    ownerEl("ownerProductForm").reset();
+    ownerEl("productFormMessage").className = "";
+}
 
-/* =====================================================
-   EDIT PRODUCT
-===================================================== */
+/* VALIDATE IMAGE URL */
+function isValidOwnerImageUrl(value) {
+    if (!value) return true;
 
-async function editProduct(productId){
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .from("shop_products")
-            .select(
-                "id, shop_id, product_name, unit, price, image_url, is_available"
-            )
-            .eq(
-                "id",
-                productId
-            )
-            .eq(
-                "shop_id",
-                currentShop.id
-            )
-            .maybeSingle();
-
-
-        if(error){
-            throw error;
-        }
-
-
-        if(!data){
-            throw new Error(
-                "Product not found."
-            );
-        }
-
-
-        editingProductId =
-            data.id;
-
-
-        document.getElementById(
-            "modalTitle"
-        ).textContent =
-            "Edit Product";
-
-
-        document.getElementById(
-            "productName"
-        ).value =
-            data.product_name || "";
-
-
-        document.getElementById(
-            "productUnit"
-        ).value =
-            data.unit || "";
-
-
-        document.getElementById(
-            "productPrice"
-        ).value =
-            data.price ?? "";
-
-
-        document.getElementById(
-            "productImage"
-        ).value =
-            data.image_url || "";
-
-        currentProductImageUrl =
-            data.image_url || "";
-
-        clearProductImagePreview();
-
-        if(currentProductImageUrl){
-            showProductImagePreview(
-                currentProductImageUrl,
-                "Current product image. Choose a new image to replace it."
-            );
-        }
-
-
-        document.getElementById(
-            "productAvailable"
-        ).checked =
-            data.is_available !== false;
-
-
-        productModal.classList.add(
-            "show"
-        );
-
+    try {
+        const url = new URL(value);
+        return url.protocol === "https:";
+    } catch {
+        return false;
     }
-    catch(error){
+}
 
-        console.error(
-            "Edit product error:",
-            error
-        );
+/* SAVE OR UPDATE PRODUCT */
+async function saveOwnerProduct(event) {
+    event.preventDefault();
 
+    const name = ownerEl("ownerProductName").value.trim();
+    const unit = ownerEl("ownerProductUnit").value.trim();
+    const priceText = ownerEl("ownerProductPrice").value.trim();
+    const imageUrl = ownerEl("ownerProductImage").value.trim();
 
-        showMessage(
-            error.message ||
-            "Unable to load product.",
+    if (!name) {
+        showProductFormMessage(
+            "Please enter a product name.",
             "error"
         );
-
-    }
-
-}
-
-  /* =====================================================
-   SAVE PRODUCT - START
-===================================================== */
-
-async function saveProduct(){
-
-    const productName =
-        document.getElementById(
-            "productName"
-        )
-        .value
-        .trim();
-
-
-    const productUnit =
-        document.getElementById(
-            "productUnit"
-        )
-        .value
-        .trim();
-
-
-    const productPrice =
-        document.getElementById(
-            "productPrice"
-        )
-        .value;
-
-
-    let productImage =
-        document.getElementById(
-            "productImage"
-        )
-        .value
-        .trim();
-
-
-    const productAvailable =
-        document.getElementById(
-            "productAvailable"
-        )
-        .checked;
-
-
-    if(!productName){
-
-        alert(
-            "Please enter product name."
-        );
-
         return;
-
     }
 
-
-    if(
-        productPrice === "" ||
-        Number(productPrice) < 0
-    ){
-
-        alert(
-            "Please enter a valid price."
-        );
-
-        return;
-
-    }
-
-
-    const saveButton =
-        document.getElementById(
-            "saveProductBtn"
-        );
-
-
-    saveButton.disabled =
-        true;
-
-
-    saveButton.textContent =
-        "Saving...";
-
-
-    try{
-
-        if(selectedProductImageFile){
-
-            saveButton.textContent =
-                "Compressing image...";
-
-            const uploadedImage =
-                await uploadProductImage(
-                    selectedProductImageFile
-                );
-
-            productImage =
-                uploadedImage.url;
-
-            document.getElementById(
-                "productImage"
-            ).value =
-                productImage;
-
-            currentProductImageUrl =
-                productImage;
-
-        }
-
-
-        if(editingProductId){
-
-            const {
-                error
-            } =
-            await supabaseClient
-                .from("shop_products")
-                .update({
-                    product_name:
-                        productName,
-
-                    unit:
-                        productUnit || null,
-
-                    price:
-                        Number(productPrice),
-
-                    image_url:
-                        productImage || null,
-
-                    is_available:
-                        productAvailable
-                })
-                .eq(
-                    "id",
-                    editingProductId
-                )
-                .eq(
-                    "shop_id",
-                    currentShop.id
-                );
-
-
-            if(error){
-                throw error;
-            }
-
-
-            showMessage(
-                "Product updated successfully.",
-                "success"
-            );
-
-        }
-
-        else{
-
-            const {
-                error
-            } =
-            await supabaseClient
-                .from("shop_products")
-                .insert({
-                    shop_id:
-                        currentShop.id,
-
-                    product_name:
-                        productName,
-
-                    unit:
-                        productUnit || null,
-
-                    price:
-                        Number(productPrice),
-
-                    image_url:
-                        productImage || null,
-
-                    is_available:
-                        productAvailable,
-
-                    sort_order:
-                        0
-                });
-
-
-            if(error){
-                throw error;
-            }
-
-
-            showMessage(
-                "Product added successfully.",
-                "success"
-            );
-
-        }
-
-
-        closeProductModal();
-
-
-        await loadProducts();
-
-    }
-    catch(error){
-
-        console.error(
-            "Save product error:",
-            error
-        );
-
-
-        showMessage(
-            error.message ||
-            "Unable to save product.",
+    if (!unit) {
+        showProductFormMessage(
+            "Please enter the product unit or size.",
             "error"
         );
-
-    }
-    finally{
-
-        saveButton.disabled =
-            false;
-
-        saveButton.textContent =
-            "Save Product";
-
+        return;
     }
 
-}
+    const price = Number(priceText);
 
-
-/* =====================================================
-   TOGGLE PRODUCT AVAILABILITY
-===================================================== */
-
-async function toggleProduct(
-    productId,
-    currentlyAvailable
-){
-
-    try{
-
-        const {
-            error
-        } =
-        await supabaseClient
-            .from("shop_products")
-            .update({
-                is_available:
-                    !currentlyAvailable
-            })
-            .eq(
-                "id",
-                productId
-            )
-            .eq(
-                "shop_id",
-                currentShop.id
-            );
-
-
-        if(error){
-            throw error;
-        }
-
-
-        showMessage(
-            currentlyAvailable
-                ? "Product is now unavailable."
-                : "Product is now available.",
-            "success"
-        );
-
-
-        await loadProducts();
-
-    }
-    catch(error){
-
-        console.error(
-            "Toggle product error:",
-            error
-        );
-
-
-        showMessage(
-            error.message ||
-            "Unable to update product status.",
+    if (
+        priceText === "" ||
+        !Number.isFinite(price) ||
+        price < 0
+    ) {
+        showProductFormMessage(
+            "Please enter a valid price.",
             "error"
         );
-
-    }
-
-}
-
-
-/* =====================================================
-   DELETE PRODUCT
-===================================================== */
-
-async function deleteProduct(
-    productId
-){
-
-    const confirmed =
-        confirm(
-            "Remove this product from your Live QR catalog?"
-        );
-
-
-    if(!confirmed){
         return;
     }
 
-
-    try{
-
-        const {
-            error
-        } =
-        await supabaseClient
-            .from("shop_products")
-            .delete()
-            .eq(
-                "id",
-                productId
-            )
-            .eq(
-                "shop_id",
-                currentShop.id
-            );
-
-
-        if(error){
-            throw error;
-        }
-
-
-        showMessage(
-            "Product removed successfully.",
-            "success"
-        );
-
-
-        await loadProducts();
-
-    }
-    catch(error){
-
-        console.error(
-            "Delete product error:",
-            error
-        );
-
-
-        showMessage(
-            error.message ||
-            "Unable to remove product.",
+    if (!isValidOwnerImageUrl(imageUrl)) {
+        showProductFormMessage(
+            "Please enter a valid HTTPS image URL.",
             "error"
         );
-
-    }
-
-}
-
-
-/* =====================================================
-   CLOSE PRODUCT MODAL
-===================================================== */
-
-function closeProductModal(){
-
-    productModal.classList.remove(
-        "show"
-    );
-
-    clearProductImagePreview();
-
-    currentProductImageUrl = "";
-
-    editingProductId =
-        null;
-
-}
-
-
-/* =====================================================
-   DOWNLOAD QR
-===================================================== */
-
-function downloadQr(){
-
-    const canvas =
-        document.querySelector(
-            "#qrcode canvas"
-        );
-
-
-    if(canvas){
-
-        const link =
-            document.createElement(
-                "a"
-            );
-
-
-        link.download =
-            (
-                currentShop.shop_name ||
-                "pyncode"
-            ) +
-            "-live-qr.png";
-
-
-        link.href =
-            canvas.toDataURL(
-                "image/png"
-            );
-
-
-        document.body.appendChild(
-            link
-        );
-
-
-        link.click();
-
-
-        document.body.removeChild(
-            link
-        );
-
-
         return;
-
     }
 
-
-    const image =
-        document.querySelector(
-            "#qrcode img"
-        );
-
-
-    if(image){
-
-        const link =
-            document.createElement(
-                "a"
-            );
-
-
-        link.download =
-            (
-                currentShop.shop_name ||
-                "pyncode"
-            ) +
-            "-live-qr.png";
-
-
-        link.href =
-            image.src;
-
-
-        document.body.appendChild(
-            link
-        );
-
-
-        link.click();
-
-
-        document.body.removeChild(
-            link
-        );
-
-
-        return;
-
-    }
-
-
-    showMessage(
-        "QR code is not ready.",
-        "error"
-    );
-
-}
-
-
-/* =====================================================
-   PRINT QR
-===================================================== */
-
-function printQr(){
-
-    const shopName =
-        currentShop.shop_name ||
-        "Pyncode Shop";
-
-
-    const qrCanvas =
-        document.querySelector(
-            "#qrcode canvas"
-        );
-
-
-    let qrImage = "";
-
-
-    if(qrCanvas){
-
-        qrImage =
-            qrCanvas.toDataURL(
-                "image/png"
-            );
-
-    }
-    else{
-
-        const image =
-            document.querySelector(
-                "#qrcode img"
-            );
-
-
-        if(image){
-
-            qrImage =
-                image.src;
-
-        }
-
-    }
-
-
-    if(!qrImage){
-
-        showMessage(
-            "QR code is not ready.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const printWindow =
-        window.open(
-            "",
-            "_blank"
-        );
-
-
-    if(!printWindow){
-
-        showMessage(
-            "Please allow pop-ups to print the QR code.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const safeShopName =
-        escapeHtml(
-            shopName
-        );
-
-
-    printWindow.document.write(`
-
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>
-    ${safeShopName} - Live QR
-</title>
-
-<style>
-
-body{
-    margin:0;
-    padding:40px 20px;
-    text-align:center;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-h1{
-    margin:0 0 10px;
-    font-size:28px;
-}
-
-p{
-    margin:0 0 25px;
-    color:#555;
-    font-size:16px;
-}
-
-img{
-    width:300px;
-    height:300px;
-    object-fit:contain;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h1>
-    ${safeShopName}
-</h1>
-
-<p>
-    Scan to view products & prices
-</p>
-
-<img
-    src="${qrImage}"
-    alt="Live QR"
->
-
-</body>
-
-</html>
-
-    `);
-
-
-    printWindow.document.close();
-
-
-    printWindow.onload =
-        function(){
-
-            printWindow.focus();
-
-            printWindow.print();
-
+    const button = ownerEl("saveProductBtn");
+    const wasEditing = Boolean(editingProductId);
+
+    button.disabled = true;
+    button.textContent = "Saving...";
+
+    try {
+        const payload = {
+            product_name: name,
+            unit: unit,
+            price: price,
+            image_url: imageUrl || null
         };
 
-}
+        let result;
 
-  /* =====================================================
-   COPY QR LINK
-===================================================== */
-
-async function copyQrLink(){
-
-    const qrUrl =
-        document.getElementById(
-            "qrUrl"
-        ).value;
-
-
-    if(!qrUrl){
-
-        showMessage(
-            "QR link is not available.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    try{
-
-        if(
-            navigator.clipboard &&
-            window.isSecureContext
-        ){
-
-            await navigator.clipboard.writeText(
-                qrUrl
-            );
-
-        }
-        else{
-
-            const input =
-                document.getElementById(
-                    "qrUrl"
-                );
-
-
-            input.focus();
-
-            input.select();
-
-            input.setSelectionRange(
-                0,
-                input.value.length
-            );
-
-
-            document.execCommand(
-                "copy"
-            );
-
+        if (wasEditing) {
+            result = await supabaseClient
+                .from("shop_products")
+                .update(payload)
+                .eq("id", editingProductId)
+                .eq("shop_id", currentShop.id);
+        } else {
+            result = await supabaseClient
+                .from("shop_products")
+                .insert({
+                    ...payload,
+                    shop_id: currentShop.id,
+                    is_available: true,
+                    sort_order: 0
+                });
         }
 
+        if (result.error) {
+            throw result.error;
+        }
 
-        showMessage(
-            "Live QR link copied.",
+        closeOwnerProductForm();
+
+        ownerMessage(
+            wasEditing
+                ? "Product updated successfully."
+                : "Product added successfully.",
             "success"
         );
 
-    }
-    catch(error){
+        await loadOwnerProducts();
 
-        console.error(
-            "Copy QR link error:",
-            error
-        );
+    } catch (error) {
+        console.error("Save product error:", error);
 
-
-        showMessage(
-            "Unable to copy QR link.",
+        showProductFormMessage(
+            error.message || "Unable to save product.",
             "error"
         );
+    } finally {
+        button.disabled = false;
 
+        button.textContent = editingProductId
+            ? "Save Changes"
+            : "Save Product";
     }
-
 }
 
-
-/* =====================================================
-   EVENT LISTENERS
-===================================================== */
-
-document
-    .getElementById("addProductBtn")
-    .addEventListener(
-        "click",
-        openAddProduct
+/* EDIT PRODUCT */
+function editOwnerProduct(productId) {
+    const product = ownerProducts.find(
+        item => String(item.id) === String(productId)
     );
 
+    if (!product) {
+        ownerMessage("Product could not be found.", "error");
+        return;
+    }
 
-document
-    .getElementById("cancelProductBtn")
-    .addEventListener(
-        "click",
-        closeProductModal
+    openOwnerProductForm(product);
+}
+
+/* TOGGLE AVAILABILITY */
+async function toggleOwnerProduct(productId) {
+    const product = ownerProducts.find(
+        item => String(item.id) === String(productId)
     );
 
+    if (!product) {
+        ownerMessage("Product could not be found.", "error");
+        return;
+    }
 
-document
-    .getElementById("saveProductBtn")
-    .addEventListener(
-        "click",
-        saveProduct
+    const nextAvailable = product.is_available === false;
+
+    try {
+        const { error } = await supabaseClient
+            .from("shop_products")
+            .update({
+                is_available: nextAvailable
+            })
+            .eq("id", product.id)
+            .eq("shop_id", currentShop.id);
+
+        if (error) throw error;
+
+        ownerMessage(
+            nextAvailable
+                ? "Product is now available."
+                : "Product is now unavailable.",
+            "success"
+        );
+
+        await loadOwnerProducts();
+
+    } catch (error) {
+        console.error("Availability update error:", error);
+
+        ownerMessage(
+            error.message || "Unable to update product availability.",
+            "error"
+        );
+    }
+}
+
+/* DELETE PRODUCT */
+async function deleteOwnerProduct(productId) {
+    const product = ownerProducts.find(
+        item => String(item.id) === String(productId)
     );
 
+    if (!product) {
+        ownerMessage("Product could not be found.", "error");
+        return;
+    }
 
-document
-    .getElementById("downloadQrBtn")
-    .addEventListener(
-        "click",
-        downloadQr
+    const confirmed = window.confirm(
+        'Remove "' + product.product_name +
+        '" from your Live QR store?'
     );
 
+    if (!confirmed) return;
 
-document
-    .getElementById("printQrBtn")
-    .addEventListener(
-        "click",
-        printQr
-    );
+    try {
+        const { error } = await supabaseClient
+            .from("shop_products")
+            .delete()
+            .eq("id", product.id)
+            .eq("shop_id", currentShop.id);
 
+        if (error) throw error;
 
-document
-    .getElementById("copyQrBtn")
-    .addEventListener(
-        "click",
-        copyQrLink
-    );
+        ownerMessage("Product removed successfully.", "success");
 
+        await loadOwnerProducts();
 
-/* =====================================================
-   CLOSE MODAL WHEN BACKGROUND IS CLICKED
-===================================================== */
+    } catch (error) {
+        console.error("Delete product error:", error);
 
-productModal.addEventListener(
+        ownerMessage(
+            error.message || "Unable to remove product.",
+            "error"
+        );
+    }
+}
+
+/* PRODUCT CARD ACTIONS */
+ownerEl("ownerProductGrid").addEventListener(
     "click",
-    function(event){
+    function (event) {
+        const button = event.target.closest("[data-owner-action]");
 
-        if(
-            event.target ===
-            productModal
-        ){
+        if (!button) return;
 
-            closeProductModal();
+        const productId = button.dataset.productId;
+        const action = button.dataset.ownerAction;
 
+        if (action === "edit") {
+            editOwnerProduct(productId);
+        } else if (action === "toggle") {
+            toggleOwnerProduct(productId);
+        } else if (action === "delete") {
+            deleteOwnerProduct(productId);
         }
-
     }
 );
 
+/* FORM EVENTS */
+ownerEl("ownerProductForm").addEventListener(
+    "submit",
+    saveOwnerProduct
+);
 
-/* =====================================================
-   PRODUCT IMAGE FILE PICKER
-===================================================== */
+ownerEl("cancelProductBtn").addEventListener(
+    "click",
+    closeOwnerProductForm
+);
 
-document
-    .getElementById("productImageFile")
-    .addEventListener(
-        "change",
-        async function(event){
+ownerEl("showAddProductBtn").addEventListener(
+    "click",
+    function () {
+        openOwnerProductForm();
+    }
+);
 
-            const file =
-                event.target.files &&
-                event.target.files[0];
-
-
-            if(!file){
-
-                selectedProductImageFile = null;
-
-                return;
-
-            }
-
-
-            try{
-
-                showMessage(
-                    "Preparing image preview...",
-                    "success"
-                );
-
-
-                const compressedFile =
-                    await compressProductImage(file);
-
-
-                selectedProductImageFile =
-                    compressedFile;
-
-
-                const previewUrl =
-                    URL.createObjectURL(
-                        compressedFile
-                    );
-
-
-                showProductImagePreview(
-                    previewUrl,
-                    "Compressed size: " +
-                    (
-                        compressedFile.size / 1024
-                    ).toFixed(1) +
-                    " KB (maximum 200 KB)."
-                );
-
-
-                document.getElementById(
-                    "productImage"
-                ).value = "";
-
-                currentProductImageUrl = "";
-
-                hideMessage();
-
-            }
-            catch(error){
-
-                selectedProductImageFile = null;
-
-                event.target.value = "";
-
-                clearProductImagePreview();
-
-                showMessage(
-                    error.message ||
-                    "Unable to prepare product image.",
-                    "error"
-                );
-
-            }
-
-        }
-    );
-
-
-document
-    .getElementById("productImage")
-    .addEventListener(
-        "input",
-        function(){
-
-            if(this.value.trim()){
-
-                selectedProductImageFile = null;
-
-                const fileInput =
-                    document.getElementById(
-                        "productImageFile"
-                    );
-
-                if(fileInput){
-                    fileInput.value = "";
-                }
-
-
-                const previewWrap =
-                    document.getElementById(
-                        "productImagePreviewWrap"
-                    );
-
-                if(previewWrap){
-                    previewWrap.classList.remove("show");
-                }
-
-            }
-
-        }
-    );
-
-  /* =====================================================
-   START APPLICATION
-===================================================== */
-
-initialize();
+ownerEl("emptyAddProductBtn").addEventListener(
+    "click",
+    function () {
+        openOwnerProductForm();
+    }
+);
 
 </script>
 
-</body>
+  
+<!-- PART 6 — QR ACTIONS + FINAL INITIALIZATION -->
+<script>
+"use strict";
 
+/* COPY PERMANENT QR LINK */
+async function copyQrLink() {
+    const link = ownerEl("qrUrl").textContent.trim();
+
+    if (!link || link === "Generating QR...") {
+        ownerMessage("QR link is not ready yet.", "error");
+        return;
+    }
+
+    try {
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(link);
+        } else {
+            const input = document.createElement("textarea");
+            input.value = link;
+            input.style.position = "fixed";
+            input.style.opacity = "0";
+            document.body.appendChild(input);
+            input.select();
+
+            const copied = document.execCommand("copy");
+            input.remove();
+
+            if (!copied) throw new Error("Copy was blocked.");
+        }
+
+        ownerMessage("Permanent QR link copied.", "success");
+    } catch (error) {
+        ownerMessage(
+            "Copy failed. Please select and copy the QR link manually.",
+            "error"
+        );
+    }
+}
+
+/* GET THE GENERATED QR IMAGE */
+function getOwnerQrImage() {
+    const qrContainer = ownerEl("qrcode");
+    const canvas = qrContainer.querySelector("canvas");
+
+    if (canvas) return canvas.toDataURL("image/png");
+
+    const image = qrContainer.querySelector("img");
+
+    if (image && image.src) return image.src;
+
+    return null;
+}
+
+/* DOWNLOAD QR */
+function downloadQr() {
+    const imageUrl = getOwnerQrImage();
+
+    if (!imageUrl) {
+        ownerMessage("QR code is not ready yet.", "error");
+        return;
+    }
+
+    const link = document.createElement("a");
+    link.href = imageUrl;
+    link.download = "Pyncode-Live-QR.png";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+}
+
+/* PRINT QR */
+function printQr() {
+    const imageUrl = getOwnerQrImage();
+
+    if (!imageUrl) {
+        ownerMessage("QR code is not ready yet.", "error");
+        return;
+    }
+
+    const printWindow = window.open("", "_blank");
+
+    if (!printWindow) {
+        ownerMessage(
+            "Please allow pop-ups to print your QR code.",
+            "error"
+        );
+        return;
+    }
+
+    const safeShopName = ownerEscape(
+        currentShop?.shop_name || "My Shop"
+    );
+
+    printWindow.document.open();
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Shop QR Code</title>
+            <style>
+                * { box-sizing: border-box; }
+                body {
+                    margin: 0;
+                    padding: 32px 16px;
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    color: #18372a;
+                }
+                h1 {
+                    font-size: 25px;
+                    margin: 8px 0;
+                    overflow-wrap: anywhere;
+                }
+                p { color: #647368; font-size: 14px; }
+                img {
+                    display: block;
+                    width: 260px;
+                    height: 260px;
+                    object-fit: contain;
+                    margin: 24px auto;
+                }
+                .powered {
+                    margin-top: 24px;
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+                @media print {
+                    body { padding: 10mm; }
+                    img { width: 70mm; height: 70mm; }
+                }
+            </style>
+        </head>
+        <body>
+            <p>SCAN TO VIEW OUR STORE</p>
+            <h1>${safeShopName}</h1>
+            <img src="${imageUrl}" alt="Shop QR Code">
+            <p>Scan this code to open our Live QR shop.</p>
+            <div class="powered">Powered by Pyncode.in</div>
+            <script>
+                window.onload = function () {
+                    setTimeout(function () {
+                        window.print();
+                    }, 300);
+                };
+            <\/script>
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+}
+
+/* QR BUTTONS */
+ownerEl("downloadQrBtn").addEventListener("click", downloadQr);
+ownerEl("printQrBtn").addEventListener("click", printQr);
+ownerEl("copyQrBtn").addEventListener("click", copyQrLink);
+
+/* START DASHBOARD */
+if (document.readyState === "loading") {
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeOwnerDashboard,
+        { once: true }
+    );
+} else {
+    initializeOwnerDashboard();
+}
+
+/* PART 6 ENDS HERE */
+</script>
+</main>
+</body>
 </html>
+
+
