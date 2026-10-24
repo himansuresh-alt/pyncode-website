@@ -1488,11 +1488,9 @@ a {
                 <span class="banner-subheading">DISCOVER MORE</span>
             </div>
 
-            <div class="banner-slider" id="bannerSlider">
-                <div class="banner-track" id="bannerTrack">
-              <div id="ownerBannerSlides"></div>
-                </div>
-            </div>
+          <div class="banner-slider" id="bannerSlider">
+    <div class="banner-track" id="bannerTrack"></div>
+          </div>
 
             <div class="banner-dots" id="bannerDots" aria-label="Banner navigation"></div>
         </section>
@@ -1657,8 +1655,9 @@ async function loadShop() {
 
         currentShop = data;
 
-        renderShopDetails();
-        await loadProducts();
+renderShopDetails();
+await loadOwnerBanners();
+await loadProducts();
 
     } catch (error) {
         console.error("Unexpected shop error:", error);
@@ -1838,6 +1837,189 @@ async function loadProducts() {
 
 /* START STORE */
 document.addEventListener("DOMContentLoaded", loadShop);
+
+  /* =========================================
+   LOAD OWNER-UPLOADED STORE BANNERS
+========================================= */
+
+async function loadOwnerBanners() {
+    const track = getElement("bannerTrack");
+    const dotsContainer = getElement("bannerDots");
+    const slider = getElement("bannerSlider");
+
+    if (!currentShop || !track || !dotsContainer || !slider) {
+        return;
+    }
+
+    let uploadedBanners = [];
+
+    try {
+        const { data, error } = await supabaseClient
+            .from("live_qr_store_banners")
+            .select("id, shop_id, title, image_url, is_active, sort_order")
+            .eq("shop_id", currentShop.id)
+            .eq("is_active", true)
+            .order("sort_order", { ascending: true });
+
+        if (error) throw error;
+
+        uploadedBanners = (data || []).filter(function (banner) {
+            return Boolean(banner.image_url);
+        });
+
+    } catch (error) {
+        console.error("Store banner loading failed:", error);
+    }
+
+    const defaultBanners = [
+        {
+            eyebrow: "WELCOME TO YOUR STORE",
+            title: "Discover Your Favourites",
+            description: "Explore products available at your local store.",
+            art: "✦",
+            tone: "banner-one"
+        },
+        {
+            eyebrow: "SHOP LOCAL",
+            title: "Your Store. Your Choice.",
+            description: "Find products and connect directly with the shop.",
+            art: "⌂",
+            tone: "banner-two"
+        },
+        {
+            eyebrow: "SIMPLE ORDERING",
+            title: "Pick. Add. Enquire.",
+            description: "Build your cart and send your order on WhatsApp.",
+            art: "✓",
+            tone: "banner-three"
+        }
+    ];
+
+    track.innerHTML = "";
+    dotsContainer.innerHTML = "";
+
+    if (uploadedBanners.length > 0) {
+        uploadedBanners.forEach(function (banner) {
+            const card = document.createElement("article");
+            card.className = "promo-banner custom-store-banner";
+
+            const image = document.createElement("img");
+            image.src = banner.image_url;
+            image.alt = banner.title || "Store offer banner";
+            image.loading = "lazy";
+
+            image.onerror = function () {
+                console.error("Unable to load banner image:", banner.image_url);
+                card.style.display = "none";
+            };
+
+            card.appendChild(image);
+            track.appendChild(card);
+        });
+    } else {
+        defaultBanners.forEach(function (banner) {
+            const card = document.createElement("article");
+            card.className = "promo-banner " + banner.tone;
+
+            const copy = document.createElement("div");
+            copy.className = "promo-copy";
+
+            const eyebrow = document.createElement("span");
+            eyebrow.className = "promo-eyebrow";
+            eyebrow.textContent = banner.eyebrow;
+
+            const title = document.createElement("h2");
+            title.textContent = banner.title;
+
+            const description = document.createElement("p");
+            description.textContent = banner.description;
+
+            copy.append(eyebrow, title, description);
+
+            const art = document.createElement("div");
+            art.className = "promo-art";
+            art.setAttribute("aria-hidden", "true");
+            art.textContent = banner.art;
+
+            card.append(copy, art);
+            track.appendChild(card);
+        });
+    }
+
+    const slides = Array.from(track.children);
+    let activeSlide = 0;
+    let autoSlideTimer = null;
+    let touchStartX = 0;
+
+    dotsContainer.style.display = slides.length > 1 ? "flex" : "none";
+
+    slides.forEach(function (_, index) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "banner-dot";
+        dot.setAttribute("aria-label", "Show banner " + (index + 1));
+
+        dot.addEventListener("click", function () {
+            goToSlide(index);
+            startAutoSlide();
+        });
+
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = Array.from(dotsContainer.children);
+
+    function goToSlide(index) {
+        if (!slides.length) return;
+
+        activeSlide = (index + slides.length) % slides.length;
+
+        track.style.transform =
+            "translateX(-" + (activeSlide * 100) + "%)";
+
+        dots.forEach(function (dot, dotIndex) {
+            dot.classList.toggle("active", dotIndex === activeSlide);
+        });
+    }
+
+    function stopAutoSlide() {
+        if (autoSlideTimer) {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = null;
+        }
+    }
+
+    function startAutoSlide() {
+        stopAutoSlide();
+
+        if (slides.length > 1) {
+            autoSlideTimer = setInterval(function () {
+                if (!document.hidden) {
+                    goToSlide(activeSlide + 1);
+                }
+            }, 4500);
+        }
+    }
+
+    slider.addEventListener("touchstart", function (event) {
+        touchStartX = event.changedTouches[0].clientX;
+        stopAutoSlide();
+    }, { passive: true });
+
+    slider.addEventListener("touchend", function (event) {
+        const difference =
+            event.changedTouches[0].clientX - touchStartX;
+
+        if (Math.abs(difference) > 45 && slides.length > 1) {
+            goToSlide(activeSlide + (difference < 0 ? 1 : -1));
+        }
+
+        startAutoSlide();
+    }, { passive: true });
+
+    goToSlide(0);
+    startAutoSlide();
+}
 </script>
 
 <!-- Part 3/6 ends here -->
@@ -2528,6 +2710,28 @@ getElement("clearSearch").addEventListener("click", function () {
         padding: 13px 14px;
         font-size: 13px;
     }
+}
+
+  /* OWNER UPLOADED STORE BANNERS */
+#bannerTrack > .custom-store-banner {
+    display: block;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    min-height: 0 !important;
+    height: clamp(136px, 36vw, 300px);
+    padding: 0 !important;
+    overflow: hidden;
+    border-radius: 23px;
+    background: #071b3e;
+}
+
+#bannerTrack > .custom-store-banner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
 }
 </style>
 
