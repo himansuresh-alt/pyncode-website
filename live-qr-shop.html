@@ -2856,21 +2856,6 @@ function renderCartModal() {
     getElement("modalOrderButton").disabled =
         summary.itemCount === 0;
 }
-
-/* CART POPUP EVENT CONNECTION */
-function bindCartPopupEvents() {
-    const footer = getElement("orderFooter");
-    const modal = getElement("cartModal");
-    const closeButton = getElement("closeCartModal");
-    const clearButton = getElement("clearCartButton");
-    const modalOrderButton = getElement("modalOrderButton");
-
-    if (!footer || !modal || !closeButton ||
-        !clearButton || !modalOrderButton) {
-        console.error("Cart popup HTML is missing.");
-        return;
-    }
-
    
 /* OPEN POPUP — CONNECT AFTER HTML LOADS */
 function bindCartPopupEvents() {
