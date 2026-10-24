@@ -1543,21 +1543,26 @@ setupImagePreview(
    PERMANENT QR ACTIONS
 ========================================= */
 
+
 document.getElementById("downloadQrBtn")
   .addEventListener("click", function () {
-    const qrImage = document.querySelector("#qrcode img");
-    const qrCanvas = document.querySelector("#qrcode canvas");
+    const qrContainer = document.getElementById("qrcode");
+    const qrImage = qrContainer.querySelector("img");
+    const qrCanvas = qrContainer.querySelector("canvas");
 
     let imageUrl = "";
 
-    if (qrImage) {
-      imageUrl = qrImage.src;
-    } else if (qrCanvas) {
+    if (qrCanvas) {
       imageUrl = qrCanvas.toDataURL("image/png");
+    } else if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
+      imageUrl = qrImage.src;
     }
 
     if (!imageUrl) {
-      showMessage("QR image is not ready.", "error");
+      showMessage(
+        "QR is still loading. Please wait a moment and try again.",
+        "error"
+      );
       return;
     }
 
@@ -1567,8 +1572,11 @@ document.getElementById("downloadQrBtn")
       (currentShop.shop_name || "Pyncode-Live-QR")
         .replace(/[^a-z0-9-_]/gi, "-") + "-QR.png";
 
+    document.body.appendChild(link);
     link.click();
+    link.remove();
   });
+
 
 document.getElementById("printQrBtn")
   .addEventListener("click", function () {
