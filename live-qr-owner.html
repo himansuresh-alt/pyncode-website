@@ -1,1074 +1,440 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Pyncode Live QR - Owner</title>
-
+<title>Pyncode Live QR — Owner Studio</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-
-*{
-    box-sizing:border-box;
+:root {
+  --ink:#18251f;
+  --muted:#738078;
+  --green:#245b45;
+  --green-dark:#173e30;
+  --sage:#e8efe8;
+  --cream:#f7f6f0;
+  --white:#fff;
+  --line:#e3e8e1;
+  --red:#b83b3b;
+  --shadow:0 12px 36px rgba(28,48,36,.07);
 }
-
+*{box-sizing:border-box}
 body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f5f7fb;
-    color:#172033;
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  line-height:1.5;
 }
-
+button,input{font:inherit}
+button{cursor:pointer;transition:.2s ease}
+button:disabled{opacity:.55;cursor:not-allowed}
 .header{
-    background:#111827;
-    color:#fff;
-    padding:18px 16px;
+  background:var(--green-dark);color:white;
+  padding:17px 20px;position:sticky;top:0;z-index:20;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
 }
-
 .header-inner{
-    max-width:900px;
-    margin:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+  max-width:1100px;margin:auto;display:flex;
+  align-items:center;justify-content:space-between;gap:14px;
 }
-
-.brand{
-    font-size:22px;
-    font-weight:800;
-}
-
+.brand{font-size:20px;font-weight:850;letter-spacing:-.5px}
+.brand small{display:block;font-size:11px;font-weight:500;opacity:.72;letter-spacing:1.5px}
 .live-badge{
-    background:#16a34a;
-    color:#fff;
-    padding:7px 12px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:700;
+  background:#d8eddd;color:#1e5937;padding:7px 12px;
+  border-radius:30px;font-size:11px;font-weight:800;letter-spacing:.8px;
 }
-
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:20px 15px 50px;
+.container{max-width:1100px;margin:auto;padding:26px 18px 60px}
+.message{display:none;padding:13px 16px;border-radius:12px;margin-bottom:18px;font-size:14px}
+.message.show{display:block}
+.message.success{background:#dff4e5;color:#185b32}
+.message.error{background:#ffe5e3;color:#922d2d}
+.loading{text-align:center;padding:65px 15px;color:var(--muted)}
+.shop-card,.product-card,.empty{
+  background:var(--white);border:1px solid var(--line);
+  border-radius:20px;box-shadow:var(--shadow);
 }
-
-.message{
-    display:none;
-    padding:13px 15px;
-    border-radius:10px;
-    margin-bottom:15px;
-    font-size:14px;
+.shop-card{padding:25px;margin-bottom:25px}
+.shop-title{font-size:clamp(23px,4vw,32px);font-weight:850;letter-spacing:-.8px}
+.shop-category{color:var(--muted);font-size:14px;margin:4px 0 22px}
+.shop-info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.info-box{background:#f7f9f5;border:1px solid #edf0e9;border-radius:13px;padding:14px}
+.info-label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.info-value{font-size:14px;font-weight:750;overflow-wrap:anywhere}
+.qr-section{border-top:1px solid var(--line);margin-top:24px;padding-top:24px}
+.qr-title{font-size:21px;font-weight:850;letter-spacing:-.4px}
+.qr-note{color:var(--muted);font-size:13px;max-width:620px;margin-top:5px}
+.qr-area{margin-top:20px;display:flex;flex-direction:column;align-items:center;gap:14px}
+#qrcode{background:#fff;padding:13px;border:1px solid var(--line);border-radius:16px;min-height:20px}
+#qrcode img,#qrcode canvas{max-width:100%;height:auto}
+.qr-url{width:100%;max-width:650px;padding:12px;border:1px solid var(--line);border-radius:11px;background:#f8faf7;font-size:12px}
+.button-row{display:flex;flex-wrap:wrap;gap:9px}
+button{border:0;border-radius:11px;padding:11px 16px;font-size:13px;font-weight:750}
+.primary{background:var(--green);color:white}
+.primary:hover{background:var(--green-dark)}
+.secondary{background:#edf1eb;color:var(--ink)}
+.secondary:hover{background:#dfe7dd}
+.danger{background:#ffebea;color:var(--red)}
+.section-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:30px 0 14px}
+.section-title{font-size:21px;font-weight:850;letter-spacing:-.4px}
+.product-card{padding:19px}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.product-top{display:flex;justify-content:space-between;gap:12px}
+.product-name{font-size:16px;font-weight:850;overflow-wrap:anywhere}
+.product-unit{color:var(--muted);font-size:13px;margin-top:4px}
+.product-price{font-size:18px;font-weight:850;white-space:nowrap}
+.product-status{margin-top:12px;font-size:12px;font-weight:800}
+.available{color:#21834b}.unavailable{color:var(--red)}
+.product-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.empty{padding:28px 18px;text-align:center;color:var(--muted);grid-column:1/-1}
+.modal{display:none;position:fixed;inset:0;background:rgba(14,27,20,.58);z-index:100;padding:18px;overflow:auto}
+.modal.show{display:flex;align-items:center;justify-content:center}
+.modal-box{width:100%;max-width:520px;background:white;border-radius:22px;padding:24px;box-shadow:0 24px 80px #0002}
+.modal-title{font-size:22px;font-weight:850;margin-bottom:20px}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:12px;font-weight:800;margin-bottom:7px}
+.field input{width:100%;padding:12px 13px;border:1px solid #dce3da;border-radius:11px;font-size:14px;outline:none;background:white}
+.field input:focus{border-color:var(--green);box-shadow:0 0 0 3px #245b4512}
+.field input[type=file]{background:#f8faf7}
+.image-preview-wrap{display:none;margin-top:11px}
+.image-preview-wrap.show{display:block}
+.image-preview{width:140px;height:110px;object-fit:cover;border:1px solid var(--line);border-radius:12px;background:#f5f7f2}
+.image-help{color:var(--muted);font-size:12px;line-height:1.55;margin-top:6px}
+.checkbox-row{display:flex;align-items:center;gap:9px;margin:12px 0}
+.checkbox-row input{width:auto}
+.checkbox-row label{font-size:13px;font-weight:750}
+.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}
+.hidden{display:none!important}
+@media(max-width:700px){
+  .container{padding:18px 12px 42px}
+  .shop-card{padding:17px;border-radius:17px}
+  .shop-info{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .info-box{padding:11px}
+  .products{grid-template-columns:1fr}
+  .section-header{align-items:stretch;flex-direction:column}
+  .section-header button{width:100%}
+  .button-row{width:100%}
+  .button-row button{flex:1}
+  .product-actions button{flex:1}
+  .modal-box{padding:18px}
 }
-
-.message.show{
-    display:block;
+@media print{
+  body{background:white}
+  .header,.message,.button-row,.section-header,#productsSection,
+  #storeDesignSection,#storeCategoriesSection{display:none!important}
+  .container{padding:0}
+  .shop-card{box-shadow:none;border:0}
+  .qr-section{border:0}
 }
-
-.message.success{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.message.error{
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-.loading{
-    text-align:center;
-    padding:60px 15px;
-    color:#64748b;
-}
-
-.shop-card,
-.product-card,
-.empty{
-    background:#fff;
-    border-radius:16px;
-    box-shadow:0 4px 18px rgba(0,0,0,.06);
-}
-
-.shop-card{
-    padding:20px;
-    margin-bottom:20px;
-}
-
-.shop-title{
-    font-size:25px;
-    font-weight:800;
-    margin-bottom:6px;
-}
-
-.shop-category{
-    color:#64748b;
-    font-size:14px;
-    margin-bottom:18px;
-}
-
-.shop-info{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-
-.info-box{
-    background:#f8fafc;
-    border-radius:10px;
-    padding:11px;
-}
-
-.info-label{
-    color:#64748b;
-    font-size:12px;
-    margin-bottom:4px;
-}
-
-.info-value{
-    font-size:14px;
-    font-weight:700;
-    word-break:break-word;
-}
-
-.qr-section{
-    border-top:1px solid #e5e7eb;
-    margin-top:20px;
-    padding-top:20px;
-}
-
-.qr-title{
-    font-size:19px;
-    font-weight:800;
-    margin-bottom:5px;
-}
-
-.qr-note{
-    color:#64748b;
-    font-size:13px;
-    line-height:1.5;
-}
-
-.qr-area{
-    margin-top:18px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
-}
-
-#qrcode{
-    background:#fff;
-    padding:12px;
-    border:1px solid #e5e7eb;
-    border-radius:10px;
-}
-
-.qr-url{
-    width:100%;
-    max-width:650px;
-    padding:11px;
-    border:1px solid #d1d5db;
-    border-radius:9px;
-    background:#f8fafc;
-    font-size:12px;
-}
-
-.button-row{
-    display:flex;
-    flex-wrap:wrap;
-    gap:9px;
-}
-
-button{
-    border:0;
-    border-radius:9px;
-    padding:11px 15px;
-    font-size:14px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-button:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-}
-
-.primary{
-    background:#2563eb;
-    color:#fff;
-}
-
-.secondary{
-    background:#e5e7eb;
-    color:#111827;
-}
-
-.danger{
-    background:#dc2626;
-    color:#fff;
-}
-
-.section-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin:25px 0 12px;
-}
-
-.section-title{
-    font-size:21px;
-    font-weight:800;
-}
-
-.products{
-    display:grid;
-    gap:12px;
-}
-
-.product-card{
-    padding:15px;
-}
-
-.product-top{
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-}
-
-.product-name{
-    font-size:17px;
-    font-weight:800;
-}
-
-.product-unit{
-    color:#64748b;
-    font-size:13px;
-    margin-top:4px;
-}
-
-.product-price{
-    font-size:18px;
-    font-weight:800;
-    white-space:nowrap;
-}
-
-.product-status{
-    margin-top:10px;
-    font-size:12px;
-    font-weight:700;
-}
-
-.available{
-    color:#15803d;
-}
-
-.unavailable{
-    color:#b91c1c;
-}
-
-.product-actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:12px;
-}
-
-.empty{
-    padding:30px 20px;
-    text-align:center;
-    color:#64748b;
-}
-
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    z-index:100;
-    padding:20px;
-    overflow:auto;
-}
-
-.modal.show{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.modal-box{
-    width:100%;
-    max-width:500px;
-    background:#fff;
-    border-radius:18px;
-    padding:20px;
-}
-
-.modal-title{
-    font-size:21px;
-    font-weight:800;
-    margin-bottom:18px;
-}
-
-.field{
-    margin-bottom:14px;
-}
-
-.field label{
-    display:block;
-    font-size:13px;
-    font-weight:700;
-    margin-bottom:6px;
-}
-
-.field input{
-    width:100%;
-    padding:12px;
-    border:1px solid #d1d5db;
-    border-radius:9px;
-    font-size:15px;
-    outline:none;
-}
-
-.field input:focus{
-    border-color:#2563eb;
-}
-
-.field input[type="file"]{
-    padding:10px;
-    background:#f8fafc;
-}
-
-.image-preview-wrap{
-    margin-top:10px;
-    display:none;
-}
-
-.image-preview-wrap.show{
-    display:block;
-}
-
-.image-preview{
-    width:120px;
-    height:120px;
-    object-fit:cover;
-    border:1px solid #e5e7eb;
-    border-radius:10px;
-    background:#f8fafc;
-}
-
-.image-help{
-    color:#64748b;
-    font-size:12px;
-    line-height:1.5;
-    margin-top:6px;
-}
-
-.checkbox-row{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin:12px 0;
-}
-
-.checkbox-row input{
-    width:auto;
-}
-
-.checkbox-row label{
-    margin:0;
-    font-size:13px;
-    font-weight:700;
-}
-
-.modal-actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:8px;
-    margin-top:18px;
-}
-
-.hidden{
-    display:none !important;
-}
-
-@media(max-width:600px){
-
-    .shop-info{
-        grid-template-columns:1fr;
-    }
-
-    .product-top{
-        flex-direction:column;
-    }
-
-    .section-header{
-        align-items:stretch;
-        flex-direction:column;
-    }
-
-    .section-header button{
-        width:100%;
-    }
-
-    .button-row{
-        width:100%;
-        flex-direction:column;
-    }
-
-    .button-row button{
-        width:100%;
-    }
-
-    .product-actions button{
-        flex:1;
-    }
-
-}
-
 </style>
-
 </head>
-
 <body>
 
 <header class="header">
-
-    <div class="header-inner">
-
-        <div class="brand">
-            Pyncode Live QR
-        </div>
-
-        <div class="live-badge">
-            OWNER
-        </div>
-
+  <div class="header-inner">
+    <div class="brand">
+      Pyncode Live QR
+      <small>STORE OWNER STUDIO</small>
     </div>
-
+    <div class="live-badge">OWNER</div>
+  </div>
 </header>
 
 <main class="container">
+  <div id="message" class="message"></div>
 
-    <div
-        id="message"
-        class="message"
-    ></div>
+  <div id="loading" class="loading">
+    Loading your Live QR shop...
+  </div>
 
-    <div
-        id="loading"
-        class="loading"
-    >
-        Loading your Live QR shop...
+  <section id="shopSection" class="shop-card hidden">
+    <div id="shopName" class="shop-title"></div>
+    <div id="shopCategory" class="shop-category"></div>
+
+    <div class="shop-info">
+      <div class="info-box">
+        <div class="info-label">Owner</div>
+        <div id="ownerName" class="info-value"></div>
+      </div>
+      <div class="info-box">
+        <div class="info-label">WhatsApp</div>
+        <div id="shopWhatsapp" class="info-value"></div>
+      </div>
+      <div class="info-box">
+        <div class="info-label">Area</div>
+        <div id="shopArea" class="info-value"></div>
+      </div>
+      <div class="info-box">
+        <div class="info-label">City</div>
+        <div id="shopCity" class="info-value"></div>
+      </div>
+      <div class="info-box">
+        <div class="info-label">Pincode</div>
+        <div id="shopPincode" class="info-value"></div>
+      </div>
+      <div class="info-box">
+        <div class="info-label">Live QR Status</div>
+        <div id="qrStatus" class="info-value"></div>
+      </div>
     </div>
 
-    <section
-        id="shopSection"
-        class="shop-card hidden"
-    >
-
-        <div
-            id="shopName"
-            class="shop-title"
-        ></div>
-
-        <div
-            id="shopCategory"
-            class="shop-category"
-        ></div>
-
-        <div class="shop-info">
-
-            <div class="info-box">
-
-                <div class="info-label">
-                    Owner
-                </div>
-
-                <div
-                    id="ownerName"
-                    class="info-value"
-                ></div>
-
-            </div>
-
-                      <div class="info-box">
-
-                <div class="info-label">
-                    WhatsApp
-                </div>
-
-                <div
-                    id="shopWhatsapp"
-                    class="info-value"
-                ></div>
-
-            </div>
-
-            <div class="info-box">
-
-                <div class="info-label">
-                    Area
-                </div>
-
-                <div
-                    id="shopArea"
-                    class="info-value"
-                ></div>
-
-            </div>
-
-            <div class="info-box">
-
-                <div class="info-label">
-                    City
-                </div>
-
-                <div
-                    id="shopCity"
-                    class="info-value"
-                ></div>
-
-            </div>
-
-            <div class="info-box">
-
-                <div class="info-label">
-                    Pincode
-                </div>
-
-                <div
-                    id="shopPincode"
-                    class="info-value"
-                ></div>
-
-            </div>
-
-            <div class="info-box">
-
-                <div class="info-label">
-                    Live QR Status
-                </div>
-
-                <div
-                    id="qrStatus"
-                    class="info-value"
-                ></div>
-
-            </div>
-
+    <div class="qr-section">
+      <div class="qr-title">Your Permanent Store QR</div>
+      <div class="qr-note">
+        இந்த QR-ஐ print செய்து கடையில் வைக்கலாம்.
+        Products மற்றும் prices update செய்தாலும் permanent QR link மாறாது.
+      </div>
+      <div class="qr-area">
+        <div id="qrcode"></div>
+        <input id="qrUrl" class="qr-url" type="text" readonly>
+        <div class="button-row">
+          <button type="button" class="primary" id="downloadQrBtn">Download QR</button>
+          <button type="button" class="secondary" id="printQrBtn">Print QR</button>
+          <button type="button" class="secondary" id="copyQrBtn">Copy QR Link</button>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="qr-section">
-
-            <div class="qr-title">
-                Permanent QR Code
-            </div>
-
-            <div class="qr-note">
-                இந்த QR ஒருமுறை generate ஆனதும் இதே QR-ஐ
-                sticker, board அல்லது print-ல் பயன்படுத்தலாம்.
-                Products மற்றும் prices மட்டும் update ஆகும்.
-            </div>
-
-            <div class="qr-area">
-
-                <div id="qrcode"></div>
-
-                <input
-                    id="qrUrl"
-                    class="qr-url"
-                    type="text"
-                    readonly
-                >
-
-                <div class="button-row">
-
-                    <button
-                        type="button"
-                        class="primary"
-                        id="downloadQrBtn"
-                    >
-                        Download QR
-                    </button>
-
-                    <button
-                        type="button"
-                        class="secondary"
-                        id="printQrBtn"
-                    >
-                        Print QR
-                    </button>
-
-                    <button
-                        type="button"
-                        class="secondary"
-                        id="copyQrBtn"
-                    >
-                        Copy QR Link
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
+  <!-- PART 2 STARTS HERE -->
     <!-- STORE DESIGN MANAGEMENT -->
+  <section id="storeDesignSection" class="hidden">
 
-    <section id="storeDesignSection" class="hidden">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Store Design Studio</div>
+        <div class="image-help">Customize the look of your customer-facing QR store.</div>
+      </div>
+    </div>
 
-        <div class="section-header">
+    <!-- STORE COVER -->
+    <div class="product-card">
+      <div class="section-title">Store Cover Image</div>
+      <p class="image-help">
+        உங்கள் customer QR store-ன் மேலே காட்டப்படும் cover image.
+        Upload செய்வதற்கு முன் image compress செய்யப்படும்.
+      </p>
 
-            <div class="section-title">
-                Store Design Studio
-            </div>
+      <div class="field" style="margin-top:16px">
+        <label for="storeCoverFile">Upload Store Cover</label>
+        <input id="storeCoverFile" type="file" accept="image/*">
 
+        <div id="storeCoverPreviewWrap" class="image-preview-wrap">
+          <img id="storeCoverPreview" class="image-preview" alt="Store cover preview">
+          <div id="storeCoverSize" class="image-help"></div>
         </div>
+      </div>
 
-        <!-- STORE COVER -->
+      <div class="button-row">
+        <button type="button" class="primary" id="saveStoreCoverBtn">
+          Save Cover Image
+        </button>
+      </div>
+    </div>
 
-        <div class="product-card">
+    <!-- STORE BANNERS -->
+    <div class="product-card" style="margin-top:16px">
+      <div class="section-title">Store Banners</div>
+      <p class="image-help">
+        Offers, new arrivals மற்றும் announcements-க்கான banners சேர்க்கலாம்.
+      </p>
 
-            <div class="section-title">
-                Store Cover Image
-            </div>
+      <div class="field" style="margin-top:16px">
+        <label for="storeBannerTitle">Banner Title (Optional)</label>
+        <input
+          id="storeBannerTitle"
+          type="text"
+          maxlength="120"
+          placeholder="Example: Special Offer"
+        >
+      </div>
 
-            <p class="image-help">
-                Customer-facing Live QR store-ன் மேல் பகுதியில்
-                காட்டப்படும் cover image.
-            </p>
+      <div class="field">
+        <label for="storeBannerFile">Upload Banner Image</label>
+        <input id="storeBannerFile" type="file" accept="image/*">
 
-            <div class="field" style="margin-top:15px;">
-
-                <label for="storeCoverFile">
-                    Upload Store Cover
-                </label>
-
-                <input
-                    id="storeCoverFile"
-                    type="file"
-                    accept="image/*"
-                >
-
-                <div
-                    id="storeCoverPreviewWrap"
-                    class="image-preview-wrap show"
-                >
-
-                    <img
-                        id="storeCoverPreview"
-                        class="image-preview"
-                        alt="Store cover preview"
-                    >
-
-                    <div
-                        id="storeCoverSize"
-                        class="image-help"
-                    ></div>
-
-                </div>
-
-            </div>
-
-            <div class="button-row">
-
-                <button
-                    type="button"
-                    class="primary"
-                    id="saveStoreCoverBtn"
-                >
-                    Save Cover Image
-                </button>
-
-            </div>
-
+        <div id="storeBannerPreviewWrap" class="image-preview-wrap">
+          <img id="storeBannerPreview" class="image-preview" alt="Banner preview">
+          <div id="storeBannerSize" class="image-help"></div>
         </div>
+      </div>
 
-        <!-- STORE BANNERS -->
+      <div class="button-row">
+        <button type="button" class="primary" id="addStoreBannerBtn">
+          Add Banner
+        </button>
+      </div>
 
-        <div class="product-card" style="margin-top:15px;">
+      <div id="storeBannersList" class="products" style="margin-top:16px"></div>
+    </div>
+  </section>
 
-            <div class="section-title">
-                Store Banners
-            </div>
+  <!-- STORE CATEGORIES -->
+  <section id="storeCategoriesSection" class="hidden">
 
-            <p class="image-help">
-                உங்கள் கடைக்கான offers, new arrivals மற்றும்
-                announcements போன்ற banners சேர்க்கலாம்.
-            </p>
-
-            <div class="field" style="margin-top:15px;">
-
-                <label for="storeBannerTitle">
-                    Banner Title (Optional)
-                </label>
-
-                <input
-                    id="storeBannerTitle"
-                    type="text"
-                    maxlength="120"
-                    placeholder="Example: Diwali Special Offer"
-                >
-
-            </div>
-
-            <div class="field">
-
-                <label for="storeBannerFile">
-                    Upload Banner Image
-                </label>
-
-                <input
-                    id="storeBannerFile"
-                    type="file"
-                    accept="image/*"
-                >
-
-                <div
-                    id="storeBannerPreviewWrap"
-                    class="image-preview-wrap"
-                >
-
-                    <img
-                        id="storeBannerPreview"
-                        class="image-preview"
-                        alt="Banner preview"
-                    >
-
-                    <div
-                        id="storeBannerSize"
-                        class="image-help"
-                    ></div>
-
-                </div>
-
-            </div>
-
-            <div class="button-row">
-
-                <button
-                    type="button"
-                    class="primary"
-                    id="addStoreBannerBtn"
-                >
-                    Add Banner
-                </button>
-
-            </div>
-
-            <div
-                id="storeBannersList"
-                class="products"
-                style="margin-top:15px;"
-            ></div>
-
+    <div class="section-header">
+      <div>
+        <div class="section-title">Store Categories</div>
+        <div class="image-help">
+          Add categories such as Grocery, Detergents, Snacks and more.
         </div>
+      </div>
+    </div>
 
-    </section>
+    <div class="product-card">
+      <div class="field">
+        <label for="storeCategoryName">Category Name</label>
+        <input
+          id="storeCategoryName"
+          type="text"
+          maxlength="100"
+          placeholder="Example: Grocery"
+        >
+      </div>
 
-    <!-- STORE CATEGORIES -->
+      <div class="field">
+        <label for="storeCategoryFile">Category Image (Optional)</label>
+        <input id="storeCategoryFile" type="file" accept="image/*">
 
-    <section id="storeCategoriesSection" class="hidden">
-
-        <div class="section-header">
-
-            <div class="section-title">
-                Store Categories
-            </div>
-
+        <div id="storeCategoryPreviewWrap" class="image-preview-wrap">
+          <img id="storeCategoryPreview" class="image-preview" alt="Category preview">
+          <div id="storeCategorySize" class="image-help"></div>
         </div>
+      </div>
 
-        <div class="product-card">
+      <div class="button-row">
+        <button type="button" class="primary" id="saveStoreCategoryBtn">
+          Add Category
+        </button>
+      </div>
 
-            <p class="image-help">
-                Grocery, Detergents, Snacks போன்ற category-களை
-                தனித்தனியாக image-உடன் அமைக்கலாம்.
-            </p>
+      <div id="storeCategoriesList" class="products" style="margin-top:16px"></div>
+    </div>
+  </section>
 
-            <div class="field" style="margin-top:15px;">
+  <!-- PART 3 STARTS HERE -->
+    <!-- MY PRODUCTS -->
+  <section id="productsSection" class="hidden">
 
-                <label for="storeCategoryName">
-                    Category Name
-                </label>
-
-                <input
-                    id="storeCategoryName"
-                    type="text"
-                    maxlength="100"
-                    placeholder="Example: Grocery"
-                >
-
-            </div>
-
-            <div class="field">
-
-                <label for="storeCategoryFile">
-                    Category Image (Optional)
-                </label>
-
-                <input
-                    id="storeCategoryFile"
-                    type="file"
-                    accept="image/*"
-                >
-
-                <div
-                    id="storeCategoryPreviewWrap"
-                    class="image-preview-wrap"
-                >
-
-                    <img
-                        id="storeCategoryPreview"
-                        class="image-preview"
-                        alt="Category preview"
-                    >
-
-                    <div
-                        id="storeCategorySize"
-                        class="image-help"
-                    ></div>
-
-                </div>
-
-            </div>
-
-            <div class="button-row">
-
-                <button
-                    type="button"
-                    class="primary"
-                    id="saveStoreCategoryBtn"
-                >
-                    Add Category
-                </button>
-
-            </div>
-
-            <div
-                id="storeCategoriesList"
-                class="products"
-                style="margin-top:15px;"
-            ></div>
-
+    <div class="section-header">
+      <div>
+        <div class="section-title">My Products</div>
+        <div class="image-help">
+          Manage your products, prices, images and availability.
         </div>
+      </div>
 
-    </section>
+      <button type="button" class="primary" id="addProductBtn">
+        + Add Product
+      </button>
+    </div>
 
-    <section
-        id="productsSection"
-        class="hidden"
-    >
-
-        <div class="section-header">
-
-            <div class="section-title">
-                My Products
-            </div>
-
-            <button
-                type="button"
-                class="primary"
-                id="addProductBtn"
-            >
-                + Add Product
-            </button>
-
-        </div>
-
-        <div
-            id="productsList"
-            class="products"
-        ></div>
-
-    </section>
+    <div id="productsList" class="products"></div>
+  </section>
 
 </main>
 
-  <!-- ADD / EDIT PRODUCT MODAL -->
+<!-- ADD / EDIT PRODUCT MODAL -->
+<div id="productModal" class="modal">
+  <div class="modal-box">
 
-<div
-    id="productModal"
-    class="modal"
->
+    <div id="modalTitle" class="modal-title">Add Product</div>
 
-    <div class="modal-box">
-
-        <div
-            id="modalTitle"
-            class="modal-title"
-        >
-            Add Product
-        </div>
-
-        <div class="field">
-
-            <label for="productName">
-                Product Name
-            </label>
-
-            <input
-                id="productName"
-                type="text"
-                maxlength="150"
-                placeholder="Example: Aashirvaad Atta"
-            >
-
-        </div>
-
-        <div class="field">
-
-            <label for="productUnit">
-                Unit
-            </label>
-
-            <input
-                id="productUnit"
-                type="text"
-                maxlength="50"
-                placeholder="Example: 1 Kg / 500 g / Piece"
-            >
-
-        </div>
-
-        <div class="field">
-
-            <label for="productPrice">
-                Price (₹)
-            </label>
-
-            <input
-                id="productPrice"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-            >
-
-        </div>
-
-        <div class="field">
-
-            <label for="productImageFile">
-                Upload Product Image
-            </label>
-
-            <input
-                id="productImageFile"
-                type="file"
-                accept="image/*"
-            >
-
-            <div class="image-help">
-                Gallery அல்லது camera-லிருந்து image தேர்வு செய்யலாம்.
-                Upload செய்வதற்கு முன் image compress செய்யப்படும்.
-            </div>
-
-            <div
-                id="productImagePreviewWrap"
-                class="image-preview-wrap"
-            >
-
-                <img
-                    id="productImagePreview"
-                    class="image-preview"
-                    alt="Product image preview"
-                >
-
-                <div
-                    id="productImageSize"
-                    class="image-help"
-                ></div>
-
-            </div>
-
-        </div>
-
-        <div class="field">
-
-            <label for="productImage">
-                Product Image URL (Optional)
-            </label>
-
-            <input
-                id="productImage"
-                type="url"
-                placeholder="https://..."
-            >
-
-            <div class="image-help">
-                ஏற்கெனவே image URL இருந்தால் இங்கே paste செய்யலாம்.
-            </div>
-
-        </div>
-
-        <div class="checkbox-row">
-
-            <input
-                id="productAvailable"
-                type="checkbox"
-                checked
-            >
-
-            <label for="productAvailable">
-                Product Available
-            </label>
-
-        </div>
-
-        <div class="modal-actions">
-
-            <button
-                type="button"
-                class="secondary"
-                id="cancelProductBtn"
-            >
-                Cancel
-            </button>
-
-            <button
-                type="button"
-                class="primary"
-                id="saveProductBtn"
-            >
-                Save Product
-            </button>
-
-        </div>
-
+    <div class="field">
+      <label for="productName">Product Name</label>
+      <input
+        id="productName"
+        type="text"
+        maxlength="150"
+        placeholder="Example: Premium Rice"
+      >
     </div>
 
+    <div class="field">
+      <label for="productUnit">Unit</label>
+      <input
+        id="productUnit"
+        type="text"
+        maxlength="50"
+        placeholder="Example: 1 Kg / 500 g / Piece"
+      >
+    </div>
+
+    <div class="field">
+      <label for="productPrice">Price (₹)</label>
+      <input
+        id="productPrice"
+        type="number"
+        min="0"
+        step="0.01"
+        placeholder="0.00"
+      >
+    </div>
+
+    <div class="field">
+      <label for="productImageFile">Upload Product Image</label>
+      <input id="productImageFile" type="file" accept="image/*">
+      <div class="image-help">
+        Gallery அல்லது camera-லிருந்து image தேர்வு செய்யலாம்.
+        Upload செய்வதற்கு முன் image compress செய்யப்படும்.
+      </div>
+
+      <div id="productImagePreviewWrap" class="image-preview-wrap">
+        <img
+          id="productImagePreview"
+          class="image-preview"
+          alt="Product image preview"
+        >
+        <div id="productImageSize" class="image-help"></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="productImage">Product Image URL (Optional)</label>
+      <input
+        id="productImage"
+        type="url"
+        placeholder="https://..."
+      >
+      <div class="image-help">
+        ஏற்கெனவே image URL இருந்தால் இங்கே paste செய்யலாம்.
+      </div>
+    </div>
+
+    <div class="checkbox-row">
+      <input id="productAvailable" type="checkbox" checked>
+      <label for="productAvailable">Product Available</label>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="secondary" id="cancelProductBtn">
+        Cancel
+      </button>
+      <button type="button" class="primary" id="saveProductBtn">
+        Save Product
+      </button>
+    </div>
+
+  </div>
 </div>
 
-<!-- END PRODUCT MODAL -->
-
+<!-- PART 4 STARTS HERE -->
   <script>
-
 /* =========================================
    SUPABASE CONFIGURATION
+   Preserve existing project configuration
 ========================================= */
 
 const SUPABASE_URL =
-    "https://mtuspuehsxsjoaxoenen.supabase.co";
+  "https://mtuspuehsxsjoaxoenen.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+  "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
 
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 /* =========================================
    APPLICATION STATE
@@ -1090,1475 +456,1078 @@ let selectedCoverFile = null;
 let selectedBannerFile = null;
 let selectedCategoryFile = null;
 
-
 /* =========================================
    ELEMENT REFERENCES
 ========================================= */
 
-const message =
-    document.getElementById("message");
-
-const loading =
-    document.getElementById("loading");
-
-const shopSection =
-    document.getElementById("shopSection");
-
-const productsSection =
-    document.getElementById("productsSection");
-
-const productsList =
-    document.getElementById("productsList");
-
-const productModal =
-    document.getElementById("productModal");
-
+const message = document.getElementById("message");
+const loading = document.getElementById("loading");
+const shopSection = document.getElementById("shopSection");
+const productsSection = document.getElementById("productsSection");
+const productsList = document.getElementById("productsList");
+const productModal = document.getElementById("productModal");
 
 /* =========================================
    MESSAGE HELPERS
 ========================================= */
 
-function showMessage(text, type){
-
-    message.textContent = text;
-
-    message.className =
-        "message show " + type;
-
+function showMessage(text, type) {
+  message.textContent = text;
+  message.className = "message show " + type;
 }
 
-function hideMessage(){
-
-    message.className = "message";
-
+function hideMessage() {
+  message.className = "message";
 }
-
 
 /* =========================================
    HTML ESCAPING
 ========================================= */
 
-function escapeHtml(value){
+function escapeHtml(value) {
+  if (value === null || value === undefined) {
+    return "";
+  }
 
-    if(value === null || value === undefined){
-        return "";
-    }
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
-
 
 /* =========================================
    INITIALIZE OWNER DASHBOARD
 ========================================= */
 
-async function initialize(){
+async function initialize() {
+  hideMessage();
+  loading.classList.remove("hidden");
 
-    hideMessage();
-    loading.classList.remove("hidden");
+  try {
+    const { data, error } =
+      await supabaseClient.auth.getSession();
 
-    try{
+    if (error) throw error;
 
-        const {
-            data,
-            error
-        } = await supabaseClient.auth.getSession();
-
-        if(error){
-            throw error;
-        }
-
-        if(
-            !data ||
-            !data.session ||
-            !data.session.user
-        ){
-            throw new Error(
-                "Please login to your Pyncode Shop Owner account first."
-            );
-        }
-
-        currentUser = data.session.user;
-
-
-        /* GET OWNER ACCOUNT */
-
-        const {
-            data: ownerAccount,
-            error: ownerError
-        } = await supabaseClient
-            .from("live_qr_owner_accounts")
-            .select(
-                "id, shop_id, auth_user_id, owner_name, email, is_active"
-            )
-            .eq("auth_user_id", currentUser.id)
-            .eq("is_active", true)
-            .maybeSingle();
-
-        if(ownerError){
-            throw ownerError;
-        }
-
-        if(!ownerAccount){
-            throw new Error(
-                "This account is not registered for Pyncode Live QR."
-            );
-        }
-
-        currentOwner = ownerAccount;
-
-
-        /* GET REGISTERED SHOP */
-
-        const {
-            data: shop,
-            error: shopError
-        } = await supabaseClient
-            .from("shops")
-            .select(`
-                id,
-                shop_name,
-                category,
-                owner_name,
-                mobile,
-                whatsapp,
-                address,
-                area,
-                city,
-                pincode,
-                description,
-                shop_image,
-                live_qr_enabled,
-                live_qr_token,
-                live_qr_status
-            `)
-            .eq("id", ownerAccount.shop_id)
-            .maybeSingle();
-
-        if(shopError){
-            throw shopError;
-        }
-
-        if(!shop){
-            throw new Error(
-                "Your registered shop could not be found."
-            );
-        }
-
-        currentShop = shop;
-
-
-        /* VERIFY LIVE QR STATUS */
-
-        if(
-            shop.live_qr_enabled !== true ||
-            shop.live_qr_status !== "active"
-        ){
-            throw new Error(
-                "Live QR is not enabled for your shop. Please contact Pyncode Admin."
-            );
-        }
-
-
-        /* SHOW SHOP DETAILS */
-
-        renderShop();
-        generateQr();
-
-
-        /* LOAD STORE CONTENT */
-
-        await loadProducts();
-        await loadStoreBanners();
-        await loadStoreCategories();
-
-        loading.classList.add("hidden");
-
-        shopSection.classList.remove("hidden");
-        productsSection.classList.remove("hidden");
-
-        const designSection =
-            document.getElementById("storeDesignSection");
-
-        const categoriesSection =
-            document.getElementById("storeCategoriesSection");
-
-        if(designSection){
-            designSection.classList.remove("hidden");
-        }
-
-        if(categoriesSection){
-            categoriesSection.classList.remove("hidden");
-        }
-
-    }catch(error){
-
-        console.error("Live QR Owner Error:", error);
-
-        loading.classList.add("hidden");
-
-        showMessage(
-            error && error.message
-                ? error.message
-                : "Unable to load Live QR owner page.",
-            "error"
-        );
-
+    if (!data || !data.session || !data.session.user) {
+      throw new Error(
+        "Please login to your Pyncode Shop Owner account first."
+      );
     }
 
-}
+    currentUser = data.session.user;
 
+    /* GET OWNER ACCOUNT */
+
+    const {
+      data: ownerAccount,
+      error: ownerError
+    } = await supabaseClient
+      .from("live_qr_owner_accounts")
+      .select(
+        "id, shop_id, auth_user_id, owner_name, email, is_active"
+      )
+      .eq("auth_user_id", currentUser.id)
+      .eq("is_active", true)
+      .maybeSingle();
+
+    if (ownerError) throw ownerError;
+
+    if (!ownerAccount) {
+      throw new Error(
+        "This account is not registered for Pyncode Live QR."
+      );
+    }
+
+    currentOwner = ownerAccount;
+
+    /* GET REGISTERED SHOP */
+
+    const {
+      data: shop,
+      error: shopError
+    } = await supabaseClient
+      .from("shops")
+      .select(`
+        id,
+        shop_name,
+        category,
+        owner_name,
+        mobile,
+        whatsapp,
+        address,
+        area,
+        city,
+        pincode,
+        description,
+        shop_image,
+        live_qr_enabled,
+        live_qr_token,
+        live_qr_status
+      `)
+      .eq("id", ownerAccount.shop_id)
+      .maybeSingle();
+
+    if (shopError) throw shopError;
+
+    if (!shop) {
+      throw new Error(
+        "Your registered shop could not be found."
+      );
+    }
+
+    currentShop = shop;
+
+    /* VERIFY LIVE QR STATUS */
+
+    if (
+      shop.live_qr_enabled !== true ||
+      shop.live_qr_status !== "active"
+    ) {
+      throw new Error(
+        "Live QR is not enabled for your shop. Please contact Pyncode Admin."
+      );
+    }
+
+    /* SHOW SHOP DETAILS AND EXISTING QR TOKEN */
+
+    renderShop();
+    generateQr();
+
+    /* LOAD EXISTING STORE DATA */
+
+    await loadProducts();
+    await loadStoreBanners();
+    await loadStoreCategories();
+
+    loading.classList.add("hidden");
+    shopSection.classList.remove("hidden");
+    productsSection.classList.remove("hidden");
+
+    document
+      .getElementById("storeDesignSection")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("storeCategoriesSection")
+      .classList.remove("hidden");
+
+  } catch (error) {
+    console.error("Live QR Owner Error:", error);
+
+    loading.classList.add("hidden");
+
+    showMessage(
+      error && error.message
+        ? error.message
+        : "Unable to load Live QR owner page.",
+      "error"
+    );
+  }
+}
 
 /* =========================================
    RENDER SHOP DETAILS
 ========================================= */
 
-function renderShop(){
+function renderShop() {
+  document.getElementById("shopName").textContent =
+    currentShop.shop_name || "Shop";
 
-    document.getElementById("shopName").textContent =
-        currentShop.shop_name || "Shop";
+  document.getElementById("shopCategory").textContent =
+    currentShop.category || "";
 
-    document.getElementById("shopCategory").textContent =
-        currentShop.category || "";
+  document.getElementById("ownerName").textContent =
+    currentOwner.owner_name ||
+    currentShop.owner_name ||
+    "-";
 
-    document.getElementById("ownerName").textContent =
-        currentOwner.owner_name ||
-        currentShop.owner_name ||
-        "-";
+  document.getElementById("shopWhatsapp").textContent =
+    currentShop.whatsapp ||
+    currentShop.mobile ||
+    "-";
 
-    document.getElementById("shopWhatsapp").textContent =
-        currentShop.whatsapp ||
-        currentShop.mobile ||
-        "-";
+  document.getElementById("shopArea").textContent =
+    currentShop.area || "-";
 
-    document.getElementById("shopArea").textContent =
-        currentShop.area || "-";
+  document.getElementById("shopCity").textContent =
+    currentShop.city || "-";
 
-    document.getElementById("shopCity").textContent =
-        currentShop.city || "-";
+  document.getElementById("shopPincode").textContent =
+    currentShop.pincode || "-";
 
-    document.getElementById("shopPincode").textContent =
-        currentShop.pincode || "-";
-
-    document.getElementById("qrStatus").textContent =
-        "Active";
-
+  document.getElementById("qrStatus").textContent = "Active";
 }
-
 
 /* =========================================
    PERMANENT QR GENERATION
+   Do not create a new token here
 ========================================= */
 
-function generateQr(){
+function generateQr() {
+  const qrContainer = document.getElementById("qrcode");
+  qrContainer.innerHTML = "";
 
-    const qrContainer =
-        document.getElementById("qrcode");
+  if (!currentShop.live_qr_token) {
+    throw new Error(
+      "Live QR token is missing for this shop."
+    );
+  }
 
-    qrContainer.innerHTML = "";
+  const shopUrl =
+    window.location.origin +
+    "/live-qr-shop.html?token=" +
+    encodeURIComponent(currentShop.live_qr_token);
 
-    if(!currentShop.live_qr_token){
-        throw new Error(
-            "Live QR token is missing for this shop."
-        );
-    }
+  document.getElementById("qrUrl").value = shopUrl;
 
-    const shopUrl =
-        window.location.origin +
-        "/live-qr-shop.html?token=" +
-        encodeURIComponent(currentShop.live_qr_token);
-
-    document.getElementById("qrUrl").value =
-        shopUrl;
-
-    new QRCode(qrContainer, {
-        text: shopUrl,
-        width: 220,
-        height: 220,
-        correctLevel: QRCode.CorrectLevel.H
-    });
-
+  new QRCode(qrContainer, {
+    text: shopUrl,
+    width: 220,
+    height: 220,
+    correctLevel: QRCode.CorrectLevel.H
+  });
 }
 
-  </script>
-
-  <script>
-
+/* PART 5 STARTS HERE */
 /* =========================================
    IMAGE COMPRESSION
 ========================================= */
 
-async function compressImage(file, maxBytes = 200 * 1024){
+async function compressImage(file, maxBytes = 200 * 1024) {
+  if (!file || !file.type.startsWith("image/")) {
+    throw new Error("Please select a valid image.");
+  }
 
-    if(!file || !file.type.startsWith("image/")){
-        throw new Error("Please select a valid image.");
+  const image = new Image();
+  const imageUrl = URL.createObjectURL(file);
+
+  try {
+    await new Promise((resolve, reject) => {
+      image.onload = resolve;
+      image.onerror = () =>
+        reject(new Error("Unable to read the selected image."));
+      image.src = imageUrl;
+    });
+
+    const canvas = document.createElement("canvas");
+    let width = image.naturalWidth;
+    let height = image.naturalHeight;
+    const maxDimension = 1600;
+
+    if (width > maxDimension || height > maxDimension) {
+      const scale = Math.min(
+        maxDimension / width,
+        maxDimension / height
+      );
+      width = Math.round(width * scale);
+      height = Math.round(height * scale);
     }
 
-    const image = new Image();
+    canvas.width = width;
+    canvas.height = height;
 
-    const imageUrl = URL.createObjectURL(file);
+    const context = canvas.getContext("2d");
+    context.drawImage(image, 0, 0, width, height);
 
-    try{
+    let quality = 0.85;
+    let blob = null;
 
-        await new Promise((resolve, reject) => {
+    do {
+      blob = await new Promise(resolve => {
+        canvas.toBlob(resolve, "image/jpeg", quality);
+      });
 
-            image.onload = resolve;
-            image.onerror = () => reject(
-                new Error("Unable to read the selected image.")
-            );
+      if (!blob) {
+        throw new Error("Image compression failed.");
+      }
 
-            image.src = imageUrl;
+      if (blob.size <= maxBytes) break;
+      quality -= 0.1;
+    } while (quality >= 0.35);
 
-        });
-
-        const canvas = document.createElement("canvas");
-
-        let width = image.naturalWidth;
-        let height = image.naturalHeight;
-
-        const maxDimension = 1600;
-
-        if(width > maxDimension || height > maxDimension){
-
-            const scale = Math.min(
-                maxDimension / width,
-                maxDimension / height
-            );
-
-            width = Math.round(width * scale);
-            height = Math.round(height * scale);
-
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-
-        const context = canvas.getContext("2d");
-
-        context.drawImage(image, 0, 0, width, height);
-
-        let quality = 0.85;
-        let blob = null;
-
-        do{
-
-            blob = await new Promise(resolve => {
-                canvas.toBlob(resolve, "image/jpeg", quality);
-            });
-
-            if(!blob){
-                throw new Error("Image compression failed.");
-            }
-
-            if(blob.size <= maxBytes){
-                break;
-            }
-
-            quality -= 0.1;
-
-        }while(quality >= 0.35);
-
-        if(blob.size > maxBytes){
-            throw new Error(
-                "Image is too large after compression. Please choose a smaller image."
-            );
-        }
-
-        return new File(
-            [blob],
-            "image-" + Date.now() + ".jpg",
-            {type:"image/jpeg"}
-        );
-
-    }finally{
-
-        URL.revokeObjectURL(imageUrl);
-
+    if (blob.size > maxBytes) {
+      throw new Error(
+        "Image is too large after compression. Please choose a smaller image."
+      );
     }
 
+    return new File(
+      [blob],
+      "image-" + Date.now() + ".jpg",
+      { type: "image/jpeg" }
+    );
+  } finally {
+    URL.revokeObjectURL(imageUrl);
+  }
 }
-
 
 /* =========================================
    UPLOAD IMAGE TO SUPABASE STORAGE
 ========================================= */
 
-async function uploadStoreImage(file, bucket, folder, maxBytes){
+async function uploadStoreImage(file, bucket, folder, maxBytes) {
+  const compressed = await compressImage(file, maxBytes);
 
-    const compressed = await compressImage(file, maxBytes);
+  const path =
+    folder + "/" +
+    Date.now() + "-" +
+    Math.random().toString(36).slice(2, 10) +
+    ".jpg";
 
-    const path =
-        folder + "/" +
-        Date.now() + "-" +
-        Math.random().toString(36).slice(2, 10) +
-        ".jpg";
+  const { error } = await supabaseClient
+    .storage
+    .from(bucket)
+    .upload(path, compressed, {
+      contentType: "image/jpeg",
+      upsert: false
+    });
 
-    const {error} = await supabaseClient
-        .storage
-        .from(bucket)
-        .upload(path, compressed, {
-            contentType:"image/jpeg",
-            upsert:false
-        });
+  if (error) throw error;
 
-    if(error){
-        throw error;
-    }
+  const { data } = supabaseClient
+    .storage
+    .from(bucket)
+    .getPublicUrl(path);
 
-    const {data} = supabaseClient
-        .storage
-        .from(bucket)
-        .getPublicUrl(path);
-
-    return data.publicUrl;
-
+  return data.publicUrl;
 }
-
 
 /* =========================================
    IMAGE PREVIEW HELPERS
 ========================================= */
 
-function setupImagePreview(inputId, wrapId, imageId, sizeId, maxBytes){
+function setupImagePreview(inputId, wrapId, imageId, sizeId, maxBytes) {
+  const input = document.getElementById(inputId);
 
-    const input = document.getElementById(inputId);
+  input.addEventListener("change", async function () {
+    const file = input.files && input.files[0];
+    if (!file) return;
 
-    input.addEventListener("change", async function(){
+    try {
+      const compressed = await compressImage(file, maxBytes);
+      const previewUrl = URL.createObjectURL(compressed);
 
-        const file = input.files && input.files[0];
+      const preview = document.getElementById(imageId);
+      if (preview.dataset.previewUrl) {
+        URL.revokeObjectURL(preview.dataset.previewUrl);
+      }
 
-        if(!file){
-            return;
-        }
+      preview.src = previewUrl;
+      preview.dataset.previewUrl = previewUrl;
 
-        try{
+      document.getElementById(wrapId).classList.add("show");
+      document.getElementById(sizeId).textContent =
+        "Ready to upload · " +
+        Math.round(compressed.size / 1024) +
+        " KB";
 
-            const compressed = await compressImage(file, maxBytes);
-
-            document.getElementById(imageId).src =
-                URL.createObjectURL(compressed);
-
-            document.getElementById(wrapId).classList.add("show");
-
-            document.getElementById(sizeId).textContent =
-                "Ready to upload · " +
-                Math.round(compressed.size / 1024) +
-                " KB";
-
-            if(inputId === "productImageFile"){
-                selectedProductImageFile = file;
-            }
-
-            if(inputId === "storeCoverFile"){
-                selectedCoverFile = file;
-            }
-
-            if(inputId === "storeBannerFile"){
-                selectedBannerFile = file;
-            }
-
-            if(inputId === "storeCategoryFile"){
-                selectedCategoryFile = file;
-            }
-
-        }catch(error){
-
-            showMessage(error.message, "error");
-
-            input.value = "";
-
-        }
-
-    });
-
+      if (inputId === "productImageFile") {
+        selectedProductImageFile = file;
+      }
+      if (inputId === "storeCoverFile") {
+        selectedCoverFile = file;
+      }
+      if (inputId === "storeBannerFile") {
+        selectedBannerFile = file;
+      }
+      if (inputId === "storeCategoryFile") {
+        selectedCategoryFile = file;
+      }
+    } catch (error) {
+      showMessage(error.message, "error");
+      input.value = "";
+    }
+  });
 }
 
-
 /* =========================================
-   LOAD PRODUCTS
+   LOAD AND RENDER PRODUCTS
 ========================================= */
 
-async function loadProducts(){
+async function loadProducts() {
+  const { data, error } = await supabaseClient
+    .from("shop_products")
+    .select("*")
+    .eq("shop_id", currentShop.id)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
 
-    const {data, error} = await supabaseClient
+  if (error) throw error;
+
+  ownerProducts = data || [];
+  renderProducts(ownerProducts);
+}
+
+function renderProducts(products) {
+  if (!products.length) {
+    productsList.innerHTML =
+      '<div class="empty">No products added yet.</div>';
+    return;
+  }
+
+  productsList.innerHTML = products.map(product => `
+    <div class="product-card">
+      <div class="product-top">
+        <div>
+          <div class="product-name">${escapeHtml(product.product_name)}</div>
+          <div class="product-unit">${escapeHtml(product.unit || "")}</div>
+        </div>
+        <div class="product-price">₹${Number(product.price || 0).toFixed(2)}</div>
+      </div>
+
+      ${product.image_url ? `
+        <img
+          src="${escapeHtml(product.image_url)}"
+          alt="${escapeHtml(product.product_name)}"
+          loading="lazy"
+          style="width:100px;height:100px;object-fit:cover;border-radius:12px;margin-top:12px"
+        >
+      ` : ""}
+
+      <div class="product-status ${product.is_available ? "available" : "unavailable"}">
+        ${product.is_available ? "Available" : "Unavailable"}
+      </div>
+
+      <div class="product-actions">
+        <button class="secondary" type="button" data-edit-product="${Number(product.id)}">Edit</button>
+        <button class="secondary" type="button" data-toggle-product="${Number(product.id)}">
+          ${product.is_available ? "Mark Unavailable" : "Mark Available"}
+        </button>
+        <button class="danger" type="button" data-delete-product="${Number(product.id)}">Delete</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+/* =========================================
+   PRODUCT MODAL
+========================================= */
+
+function openProductModal(product = null) {
+  editingProductId = product ? product.id : null;
+  selectedProductImageFile = null;
+  currentProductImageUrl = product ? (product.image_url || "") : "";
+
+  document.getElementById("modalTitle").textContent =
+    product ? "Edit Product" : "Add Product";
+
+  document.getElementById("productName").value =
+    product ? (product.product_name || "") : "";
+
+  document.getElementById("productUnit").value =
+    product ? (product.unit || "") : "";
+
+  document.getElementById("productPrice").value =
+    product ? product.price : "";
+
+  document.getElementById("productImage").value =
+    product ? (product.image_url || "") : "";
+
+  document.getElementById("productAvailable").checked =
+    product ? Boolean(product.is_available) : true;
+
+  document.getElementById("productImageFile").value = "";
+
+  const previewWrap = document.getElementById("productImagePreviewWrap");
+  const preview = document.getElementById("productImagePreview");
+
+  previewWrap.classList.toggle("show", Boolean(product && product.image_url));
+
+  if (product && product.image_url) {
+    preview.src = product.image_url;
+  } else {
+    preview.removeAttribute("src");
+  }
+
+  productModal.classList.add("show");
+}
+
+async function saveProduct() {
+  const name = document.getElementById("productName").value.trim();
+  const unit = document.getElementById("productUnit").value.trim();
+  const price = Number(document.getElementById("productPrice").value);
+
+  if (!name) {
+    showMessage("Enter product name.", "error");
+    return;
+  }
+
+  if (!Number.isFinite(price) || price < 0) {
+    showMessage("Enter a valid product price.", "error");
+    return;
+  }
+
+  const saveButton = document.getElementById("saveProductBtn");
+  saveButton.disabled = true;
+
+  try {
+    let imageUrl =
+      document.getElementById("productImage").value.trim();
+
+    if (selectedProductImageFile) {
+      imageUrl = await uploadStoreImage(
+        selectedProductImageFile,
+        "shop-products",
+        String(currentShop.id),
+        200 * 1024
+      );
+    }
+
+    const payload = {
+      shop_id: currentShop.id,
+      product_name: name,
+      unit: unit,
+      price: price,
+      image_url: imageUrl || null,
+      is_available: document.getElementById("productAvailable").checked
+    };
+
+    let result;
+
+    if (editingProductId) {
+      result = await supabaseClient
         .from("shop_products")
-        .select("*")
-        .eq("shop_id", currentShop.id)
-        .order("sort_order", {ascending:true})
-        .order("created_at", {ascending:true});
-
-    if(error){
-        throw error;
+        .update(payload)
+        .eq("id", editingProductId)
+        .eq("shop_id", currentShop.id);
+    } else {
+      result = await supabaseClient
+        .from("shop_products")
+        .insert(payload);
     }
 
-    ownerProducts = data || [];
+    if (result.error) throw result.error;
 
-    renderProducts(ownerProducts);
-
+    productModal.classList.remove("show");
+    await loadProducts();
+    showMessage("Product saved successfully.", "success");
+  } catch (error) {
+    console.error(error);
+    showMessage(error.message || "Unable to save product.", "error");
+  } finally {
+    saveButton.disabled = false;
+  }
 }
 
+/* =========================================
+   SAVE STORE COVER IMAGE
+========================================= */
 
-function renderProducts(products){
+async function saveStoreCover() {
+  if (!selectedCoverFile) {
+    showMessage("Please select a cover image.", "error");
+    return;
+  }
 
-    if(!products.length){
+  const button = document.getElementById("saveStoreCoverBtn");
+  button.disabled = true;
 
-        productsList.innerHTML = `
-            <div class="empty">
-                No products added yet.
-            </div>
-        `;
-
-        return;
-
-    }
-
-    productsList.innerHTML = products.map(product => `
-
-        <div class="product-card">
-
-            <div class="product-top">
-
-                <div>
-                    <div class="product-name">
-                        ${escapeHtml(product.product_name)}
-                    </div>
-
-                    <div class="product-unit">
-                        ${escapeHtml(product.unit || "")}
-                    </div>
-                </div>
-
-                <div class="product-price">
-                    ₹${Number(product.price || 0).toFixed(2)}
-                </div>
-
-            </div>
-
-            ${
-                product.image_url
-                ? `<img
-                    src="${escapeHtml(product.image_url)}"
-                    alt=""
-                    style="width:100px;height:100px;object-fit:cover;border-radius:10px;margin-top:12px"
-                >`
-                : ""
-            }
-
-            <div class="product-status ${
-                product.is_available ? "available" : "unavailable"
-            }">
-                ${product.is_available ? "Available" : "Unavailable"}
-            </div>
-
-            <div class="product-actions">
-
-                <button
-                    class="secondary"
-                    type="button"
-                    data-edit-product="${Number(product.id)}"
-                >Edit</button>
-
-                <button
-                    class="secondary"
-                    type="button"
-                    data-toggle-product="${Number(product.id)}"
-                >${product.is_available ? "Mark Unavailable" : "Mark Available"}</button>
-
-                <button
-                    class="danger"
-                    type="button"
-                    data-delete-product="${Number(product.id)}"
-                >Delete</button>
-
-            </div>
-
-        </div>
-
-    `).join("");
-
-}
-
-
-function openProductModal(product = null){
-
-    editingProductId = product ? product.id : null;
-
-    selectedProductImageFile = null;
-
-    currentProductImageUrl = product ? (product.image_url || "") : "";
-
-    document.getElementById("modalTitle").textContent =
-        product ? "Edit Product" : "Add Product";
-
-    document.getElementById("productName").value =
-        product ? product.product_name : "";
-
-    document.getElementById("productUnit").value =
-        product ? (product.unit || "") : "";
-
-    document.getElementById("productPrice").value =
-        product ? product.price : "";
-
-    document.getElementById("productImage").value =
-        product ? (product.image_url || "") : "";
-
-    document.getElementById("productAvailable").checked =
-        product ? product.is_available : true;
-
-    document.getElementById("productImageFile").value = "";
-
-    document.getElementById("productImagePreviewWrap").classList.toggle(
-        "show",
-        Boolean(product && product.image_url)
+  try {
+    const imageUrl = await uploadStoreImage(
+      selectedCoverFile,
+      "shop-images",
+      String(currentShop.id),
+      500 * 1024
     );
 
-    if(product && product.image_url){
-        document.getElementById("productImagePreview").src =
-            product.image_url;
-    }
+    const { error } = await supabaseClient
+      .from("shops")
+      .update({ shop_image: imageUrl })
+      .eq("id", currentShop.id);
 
-    productModal.classList.add("show");
+    if (error) throw error;
 
+    currentShop.shop_image = imageUrl;
+    selectedCoverFile = null;
+
+    showMessage(
+      "Store cover saved. Refresh the customer QR page to view it.",
+      "success"
+    );
+  } catch (error) {
+    console.error(error);
+    showMessage(error.message || "Unable to save cover image.", "error");
+  } finally {
+    button.disabled = false;
+  }
 }
 
+/* =========================================
+   LOAD AND RENDER STORE BANNERS
+========================================= */
 
-async function saveProduct(){
+async function loadStoreBanners() {
+  const { data, error } = await supabaseClient
+    .from("live_qr_store_banners")
+    .select("*")
+    .eq("shop_id", currentShop.id)
+    .order("sort_order", { ascending: true });
 
-    const name = document.getElementById("productName").value.trim();
+  if (error) throw error;
 
-    const unit = document.getElementById("productUnit").value.trim();
+  storeBanners = data || [];
+  renderStoreBanners();
+}
 
-    const price = Number(
-        document.getElementById("productPrice").value
+function renderStoreBanners() {
+  const container = document.getElementById("storeBannersList");
+
+  if (!storeBanners.length) {
+    container.innerHTML = '<div class="empty">No banners added yet.</div>';
+    return;
+  }
+
+  container.innerHTML = storeBanners.map(banner => `
+    <div class="product-card">
+      <strong>${escapeHtml(banner.title || "Store Banner")}</strong>
+      <img
+        src="${escapeHtml(banner.image_url)}"
+        alt="${escapeHtml(banner.title || "Store banner")}"
+        loading="lazy"
+        style="display:block;width:100%;max-height:180px;object-fit:cover;border-radius:12px;margin-top:10px"
+      >
+      <div class="product-actions">
+        <button class="secondary" type="button" data-toggle-banner="${Number(banner.id)}">
+          ${banner.is_active ? "Hide" : "Show"}
+        </button>
+        <button class="danger" type="button" data-delete-banner="${Number(banner.id)}">Remove</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+async function addStoreBanner() {
+  const file = selectedBannerFile;
+
+  if (!file) {
+    showMessage("Please select a banner image.", "error");
+    return;
+  }
+
+  const button = document.getElementById("addStoreBannerBtn");
+  button.disabled = true;
+
+  try {
+    const imageUrl = await uploadStoreImage(
+      file,
+      "shop-images",
+      String(currentShop.id) + "/banners",
+      500 * 1024
     );
 
-    if(!name){
-        showMessage("Enter product name.", "error");
-        return;
-    }
+    const { error } = await supabaseClient
+      .from("live_qr_store_banners")
+      .insert({
+        shop_id: currentShop.id,
+        title: document.getElementById("storeBannerTitle").value.trim() || null,
+        image_url: imageUrl,
+        sort_order: storeBanners.length
+      });
 
-    if(!Number.isFinite(price) || price < 0){
-        showMessage("Enter a valid product price.", "error");
-        return;
-    }
+    if (error) throw error;
 
-    const saveButton = document.getElementById("saveProductBtn");
+    selectedBannerFile = null;
+    document.getElementById("storeBannerFile").value = "";
+    document.getElementById("storeBannerTitle").value = "";
+    document.getElementById("storeBannerPreviewWrap").classList.remove("show");
 
-    saveButton.disabled = true;
-
-    try{
-
-        let imageUrl = document.getElementById("productImage").value.trim();
-
-        if(selectedProductImageFile){
-
-            imageUrl = await uploadStoreImage(
-                selectedProductImageFile,
-                "shop-products",
-                String(currentShop.id),
-                200 * 1024
-            );
-
-        }
-
-        const payload = {
-            shop_id:currentShop.id,
-            product_name:name,
-            unit:unit,
-            price:price,
-            image_url:imageUrl || null,
-            is_available:document.getElementById("productAvailable").checked
-        };
-
-        let result;
-
-        if(editingProductId){
-
-            result = await supabaseClient
-                .from("shop_products")
-                .update(payload)
-                .eq("id", editingProductId)
-                .eq("shop_id", currentShop.id);
-
-        }else{
-
-            result = await supabaseClient
-                .from("shop_products")
-                .insert(payload);
-
-        }
-
-        if(result.error){
-            throw result.error;
-        }
-
-        productModal.classList.remove("show");
-
-        await loadProducts();
-
-        showMessage("Product saved successfully.", "success");
-
-    }catch(error){
-
-        console.error(error);
-
-        showMessage(
-            error.message || "Unable to save product.",
-            "error"
-        );
-
-    }finally{
-
-        saveButton.disabled = false;
-
-    }
-
+    await loadStoreBanners();
+    showMessage("Banner added successfully.", "success");
+  } catch (error) {
+    console.error(error);
+    showMessage(error.message || "Unable to add banner.", "error");
+  } finally {
+    button.disabled = false;
+  }
 }
 
-
 /* =========================================
-   STORE COVER
+   LOAD AND RENDER STORE CATEGORIES
 ========================================= */
 
-async function saveStoreCover(){
+async function loadStoreCategories() {
+  const { data, error } = await supabaseClient
+    .from("live_qr_store_categories")
+    .select("*")
+    .eq("shop_id", currentShop.id)
+    .order("sort_order", { ascending: true });
 
-    if(!selectedCoverFile){
-        showMessage("Please select a cover image.", "error");
-        return;
-    }
+  if (error) throw error;
 
-    const button = document.getElementById("saveStoreCoverBtn");
-
-    button.disabled = true;
-
-    try{
-
-        const imageUrl = await uploadStoreImage(
-            selectedCoverFile,
-            "shop-images",
-            String(currentShop.id),
-            500 * 1024
-        );
-
-        const {error} = await supabaseClient
-            .from("shops")
-            .update({shop_image:imageUrl})
-            .eq("id", currentShop.id);
-
-        if(error){
-            throw error;
-        }
-
-        currentShop.shop_image = imageUrl;
-
-        selectedCoverFile = null;
-
-        showMessage(
-            "Store cover saved. Refresh your customer QR page to view it.",
-            "success"
-        );
-
-    }catch(error){
-
-        console.error(error);
-
-        showMessage(
-            error.message || "Unable to save cover image.",
-            "error"
-        );
-
-    }finally{
-
-        button.disabled = false;
-
-    }
-
+  storeCategories = data || [];
+  renderStoreCategories();
 }
 
+function renderStoreCategories() {
+  const container = document.getElementById("storeCategoriesList");
 
-/* =========================================
-   LOAD STORE BANNERS
-========================================= */
+  if (!storeCategories.length) {
+    container.innerHTML = '<div class="empty">No categories added yet.</div>';
+    return;
+  }
 
-async function loadStoreBanners(){
-
-    const {data, error} = await supabaseClient
-        .from("live_qr_store_banners")
-        .select("*")
-        .eq("shop_id", currentShop.id)
-        .order("sort_order", {ascending:true});
-
-    if(error){
-        throw error;
-    }
-
-    storeBanners = data || [];
-
-    renderStoreBanners();
-
+  container.innerHTML = storeCategories.map(category => `
+    <div class="product-card">
+      ${category.image_url ? `
+        <img
+          src="${escapeHtml(category.image_url)}"
+          alt="${escapeHtml(category.name)}"
+          loading="lazy"
+          style="width:90px;height:90px;object-fit:cover;border-radius:12px;margin-bottom:10px"
+        >
+      ` : ""}
+      <strong>${escapeHtml(category.name)}</strong>
+      <div class="product-actions">
+        <button class="secondary" type="button" data-toggle-category="${Number(category.id)}">
+          ${category.is_active ? "Hide" : "Show"}
+        </button>
+        <button class="danger" type="button" data-delete-category="${Number(category.id)}">
+          Remove
+        </button>
+      </div>
+    </div>
+  `).join("");
 }
 
+async function saveStoreCategory() {
+  const name = document.getElementById("storeCategoryName").value.trim();
 
-function renderStoreBanners(){
+  if (!name) {
+    showMessage("Enter a category name.", "error");
+    return;
+  }
 
-    const container =
-        document.getElementById("storeBannersList");
+  const button = document.getElementById("saveStoreCategoryBtn");
+  button.disabled = true;
 
-    container.innerHTML = storeBanners.map(banner => `
+  try {
+    let imageUrl = null;
 
-        <div class="product-card">
-
-            <strong>${escapeHtml(banner.title || "Store Banner")}</strong>
-
-            <img
-                src="${escapeHtml(banner.image_url)}"
-                alt=""
-                style="display:block;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-top:10px"
-            >
-
-            <div class="product-actions">
-
-                <button
-                    class="secondary"
-                    type="button"
-                    data-toggle-banner="${Number(banner.id)}"
-                >${banner.is_active ? "Hide" : "Show"}</button>
-
-                <button
-                    class="danger"
-                    type="button"
-                    data-delete-banner="${Number(banner.id)}"
-                >Remove</button>
-
-            </div>
-
-        </div>
-
-    `).join("");
-
-}
-
-
-async function addStoreBanner(){
-
-    const file = selectedBannerFile;
-
-    if(!file){
-        showMessage("Please select a banner image.", "error");
-        return;
+    if (selectedCategoryFile) {
+      imageUrl = await uploadStoreImage(
+        selectedCategoryFile,
+        "shop-images",
+        String(currentShop.id) + "/categories",
+        500 * 1024
+      );
     }
 
-    try{
+    const { error } = await supabaseClient
+      .from("live_qr_store_categories")
+      .insert({
+        shop_id: currentShop.id,
+        name: name,
+        image_url: imageUrl,
+        sort_order: storeCategories.length
+      });
 
-        const imageUrl = await uploadStoreImage(
-            file,
-            "shop-images",
-            String(currentShop.id) + "/banners",
-            500 * 1024
-        );
+    if (error) throw error;
 
-        const {error} = await supabaseClient
-            .from("live_qr_store_banners")
-            .insert({
-                shop_id:currentShop.id,
-                title:document.getElementById("storeBannerTitle").value.trim() || null,
-                image_url:imageUrl,
-                sort_order:storeBanners.length
-            });
+    selectedCategoryFile = null;
+    document.getElementById("storeCategoryName").value = "";
+    document.getElementById("storeCategoryFile").value = "";
+    document.getElementById("storeCategoryPreviewWrap").classList.remove("show");
 
-        if(error){
-            throw error;
-        }
-
-        selectedBannerFile = null;
-
-        document.getElementById("storeBannerFile").value = "";
-
-        document.getElementById("storeBannerTitle").value = "";
-
-        document.getElementById("storeBannerPreviewWrap").classList.remove("show");
-
-        await loadStoreBanners();
-
-        showMessage("Banner added successfully.", "success");
-
-    }catch(error){
-
-        console.error(error);
-
-        showMessage(error.message || "Unable to add banner.", "error");
-
-    }
-
+    await loadStoreCategories();
+    showMessage("Category added successfully.", "success");
+  } catch (error) {
+    console.error(error);
+    showMessage(error.message || "Unable to save category.", "error");
+  } finally {
+    button.disabled = false;
+  }
 }
 
+/* PART 6 STARTS HERE */
 
-/* =========================================
-   LOAD STORE CATEGORIES
-========================================= */
-
-async function loadStoreCategories(){
-
-    const {data, error} = await supabaseClient
-        .from("live_qr_store_categories")
-        .select("*")
-        .eq("shop_id", currentShop.id)
-        .order("sort_order", {ascending:true});
-
-    if(error){
-        throw error;
-    }
-
-    storeCategories = data || [];
-
-    renderStoreCategories();
-
-}
-
-
-function renderStoreCategories(){
-
-    const container =
-        document.getElementById("storeCategoriesList");
-
-    container.innerHTML = storeCategories.map(category => `
-
-        <div class="product-card">
-
-            ${
-                category.image_url
-                ? `<img
-                    src="${escapeHtml(category.image_url)}"
-                    alt=""
-                    style="width:90px;height:90px;object-fit:cover;border-radius:10px;margin-bottom:10px"
-                >`
-                : ""
-            }
-
-            <strong>${escapeHtml(category.name)}</strong>
-
-            <div class="product-actions">
-
-                <button
-                    class="secondary"
-                    type="button"
-                    data-toggle-category="${Number(category.id)}"
-                >${category.is_active ? "Hide" : "Show"}</button>
-
-                <button
-                    class="danger"
-                    type="button"
-                    data-delete-category="${Number(category.id)}"
-                >Remove</button>
-
-            </div>
-
-        </div>
-
-    `).join("");
-
-}
-
-
-async function saveStoreCategory(){
-
-    const name = document.getElementById("storeCategoryName").value.trim();
-
-    if(!name){
-        showMessage("Enter a category name.", "error");
-        return;
-    }
-
-    try{
-
-        let imageUrl = null;
-
-        if(selectedCategoryFile){
-
-            imageUrl = await uploadStoreImage(
-                selectedCategoryFile,
-                "shop-images",
-                String(currentShop.id) + "/categories",
-                500 * 1024
-            );
-
-        }
-
-        const {error} = await supabaseClient
-            .from("live_qr_store_categories")
-            .insert({
-                shop_id:currentShop.id,
-                name:name,
-                image_url:imageUrl,
-                sort_order:storeCategories.length
-            });
-
-        if(error){
-            throw error;
-        }
-
-        selectedCategoryFile = null;
-
-        document.getElementById("storeCategoryName").value = "";
-
-        document.getElementById("storeCategoryFile").value = "";
-
-        document.getElementById("storeCategoryPreviewWrap").classList.remove("show");
-
-        await loadStoreCategories();
-
-        showMessage("Category added successfully.", "success");
-
-    }catch(error){
-
-        console.error(error);
-
-        showMessage(
-            error.message || "Unable to save category.",
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================
-   END PART 5
-========================================= */
-
-  </script>
-
-  <script>
-
-/* =========================================
+  /* =========================================
    PRODUCT ACTIONS
 ========================================= */
 
 document.getElementById("addProductBtn")
-    .addEventListener("click", function(){
-
-        openProductModal();
-
-    });
+  .addEventListener("click", function () {
+    openProductModal();
+  });
 
 document.getElementById("cancelProductBtn")
-    .addEventListener("click", function(){
-
-        productModal.classList.remove("show");
-
-    });
+  .addEventListener("click", function () {
+    productModal.classList.remove("show");
+  });
 
 document.getElementById("saveProductBtn")
-    .addEventListener("click", saveProduct);
+  .addEventListener("click", saveProduct);
 
-
-productsList.addEventListener("click", async function(event){
-
-    const editButton =
-        event.target.closest("[data-edit-product]");
-
-    const toggleButton =
-        event.target.closest("[data-toggle-product]");
-
-    const deleteButton =
-        event.target.closest("[data-delete-product]");
-
-
-    if(editButton){
-
-        const id = Number(editButton.dataset.editProduct);
-
-        const product = ownerProducts.find(item => Number(item.id) === id);
-
-        if(product){
-            openProductModal(product);
-        }
-
-        return;
-
-    }
-
-
-    if(toggleButton){
-
-        const id = Number(toggleButton.dataset.toggleProduct);
-
-        const product = ownerProducts.find(item => Number(item.id) === id);
-
-        if(!product){
-            return;
-        }
-
-        const {error} = await supabaseClient
-            .from("shop_products")
-            .update({
-                is_available:!product.is_available
-            })
-            .eq("id", id)
-            .eq("shop_id", currentShop.id);
-
-        if(error){
-
-            showMessage(error.message, "error");
-
-        }else{
-
-            await loadProducts();
-
-            showMessage("Product availability updated.", "success");
-
-        }
-
-        return;
-
-    }
-
-
-    if(deleteButton){
-
-        const id = Number(deleteButton.dataset.deleteProduct);
-
-        if(!confirm("Delete this product?")){
-            return;
-        }
-
-        const {error} = await supabaseClient
-            .from("shop_products")
-            .delete()
-            .eq("id", id)
-            .eq("shop_id", currentShop.id);
-
-        if(error){
-
-            showMessage(error.message, "error");
-
-        }else{
-
-            await loadProducts();
-
-            showMessage("Product deleted.", "success");
-
-        }
-
-    }
-
+productModal.addEventListener("click", function (event) {
+  if (event.target === productModal) {
+    productModal.classList.remove("show");
+  }
 });
 
+productsList.addEventListener("click", async function (event) {
+  const editButton = event.target.closest("[data-edit-product]");
+  const toggleButton = event.target.closest("[data-toggle-product]");
+  const deleteButton = event.target.closest("[data-delete-product]");
+
+  try {
+    if (editButton) {
+      const id = Number(editButton.dataset.editProduct);
+      const product = ownerProducts.find(item => Number(item.id) === id);
+      if (product) openProductModal(product);
+      return;
+    }
+
+    if (toggleButton) {
+      const id = Number(toggleButton.dataset.toggleProduct);
+      const product = ownerProducts.find(item => Number(item.id) === id);
+      if (!product) return;
+
+      const { error } = await supabaseClient
+        .from("shop_products")
+        .update({ is_available: !product.is_available })
+        .eq("id", id)
+        .eq("shop_id", currentShop.id);
+
+      if (error) throw error;
+
+      await loadProducts();
+      showMessage("Product availability updated.", "success");
+      return;
+    }
+
+    if (deleteButton) {
+      const id = Number(deleteButton.dataset.deleteProduct);
+      if (!confirm("Delete this product?")) return;
+
+      const { error } = await supabaseClient
+        .from("shop_products")
+        .delete()
+        .eq("id", id)
+        .eq("shop_id", currentShop.id);
+
+      if (error) throw error;
+
+      await loadProducts();
+      showMessage("Product deleted.", "success");
+    }
+  } catch (error) {
+    console.error(error);
+    showMessage(error.message || "Product action failed.", "error");
+  }
+});
 
 /* =========================================
    STORE COVER
 ========================================= */
 
 document.getElementById("saveStoreCoverBtn")
-    .addEventListener("click", saveStoreCover);
-
+  .addEventListener("click", saveStoreCover);
 
 /* =========================================
    STORE BANNERS
 ========================================= */
 
 document.getElementById("addStoreBannerBtn")
-    .addEventListener("click", addStoreBanner);
-
+  .addEventListener("click", addStoreBanner);
 
 document.getElementById("storeBannersList")
-    .addEventListener("click", async function(event){
+  .addEventListener("click", async function (event) {
+    const toggleButton = event.target.closest("[data-toggle-banner]");
+    const deleteButton = event.target.closest("[data-delete-banner]");
 
-        const toggleButton =
-            event.target.closest("[data-toggle-banner]");
+    try {
+      if (toggleButton) {
+        const id = Number(toggleButton.dataset.toggleBanner);
+        const banner = storeBanners.find(item => Number(item.id) === id);
+        if (!banner) return;
 
-        const deleteButton =
-            event.target.closest("[data-delete-banner]");
+        const { error } = await supabaseClient
+          .from("live_qr_store_banners")
+          .update({ is_active: !banner.is_active })
+          .eq("id", id)
+          .eq("shop_id", currentShop.id);
 
+        if (error) throw error;
 
-        if(toggleButton){
+        await loadStoreBanners();
+        showMessage("Banner status updated.", "success");
+        return;
+      }
 
-            const id = Number(toggleButton.dataset.toggleBanner);
+      if (deleteButton) {
+        const id = Number(deleteButton.dataset.deleteBanner);
+        if (!confirm("Remove this banner?")) return;
 
-            const banner = storeBanners.find(
-                item => Number(item.id) === id
-            );
+        const { error } = await supabaseClient
+          .from("live_qr_store_banners")
+          .delete()
+          .eq("id", id)
+          .eq("shop_id", currentShop.id);
 
-            if(!banner){
-                return;
-            }
+        if (error) throw error;
 
-            const {error} = await supabaseClient
-                .from("live_qr_store_banners")
-                .update({
-                    is_active:!banner.is_active
-                })
-                .eq("id", id)
-                .eq("shop_id", currentShop.id);
-
-            if(error){
-
-                showMessage(error.message, "error");
-
-            }else{
-
-                await loadStoreBanners();
-
-                showMessage("Banner status updated.", "success");
-
-            }
-
-            return;
-
-        }
-
-
-        if(deleteButton){
-
-            const id = Number(deleteButton.dataset.deleteBanner);
-
-            if(!confirm("Remove this banner?")){
-                return;
-            }
-
-            const {error} = await supabaseClient
-                .from("live_qr_store_banners")
-                .delete()
-                .eq("id", id)
-                .eq("shop_id", currentShop.id);
-
-            if(error){
-
-                showMessage(error.message, "error");
-
-            }else{
-
-                await loadStoreBanners();
-
-                showMessage("Banner removed.", "success");
-
-            }
-
-        }
-
-    });
-
+        await loadStoreBanners();
+        showMessage("Banner removed.", "success");
+      }
+    } catch (error) {
+      console.error(error);
+      showMessage(error.message || "Banner action failed.", "error");
+    }
+  });
 
 /* =========================================
    STORE CATEGORIES
 ========================================= */
 
 document.getElementById("saveStoreCategoryBtn")
-    .addEventListener("click", saveStoreCategory);
-
+  .addEventListener("click", saveStoreCategory);
 
 document.getElementById("storeCategoriesList")
-    .addEventListener("click", async function(event){
+  .addEventListener("click", async function (event) {
+    const toggleButton = event.target.closest("[data-toggle-category]");
+    const deleteButton = event.target.closest("[data-delete-category]");
 
-        const toggleButton =
-            event.target.closest("[data-toggle-category]");
+    try {
+      if (toggleButton) {
+        const id = Number(toggleButton.dataset.toggleCategory);
+        const category = storeCategories.find(item => Number(item.id) === id);
+        if (!category) return;
 
-        const deleteButton =
-            event.target.closest("[data-delete-category]");
+        const { error } = await supabaseClient
+          .from("live_qr_store_categories")
+          .update({ is_active: !category.is_active })
+          .eq("id", id)
+          .eq("shop_id", currentShop.id);
 
+        if (error) throw error;
 
-        if(toggleButton){
+        await loadStoreCategories();
+        showMessage("Category status updated.", "success");
+        return;
+      }
 
-            const id = Number(toggleButton.dataset.toggleCategory);
+      if (deleteButton) {
+        const id = Number(deleteButton.dataset.deleteCategory);
+        if (!confirm("Remove this category?")) return;
 
-            const category = storeCategories.find(
-                item => Number(item.id) === id
-            );
+        const { error } = await supabaseClient
+          .from("live_qr_store_categories")
+          .delete()
+          .eq("id", id)
+          .eq("shop_id", currentShop.id);
 
-            if(!category){
-                return;
-            }
+        if (error) throw error;
 
-            const {error} = await supabaseClient
-                .from("live_qr_store_categories")
-                .update({
-                    is_active:!category.is_active
-                })
-                .eq("id", id)
-                .eq("shop_id", currentShop.id);
-
-            if(error){
-
-                showMessage(error.message, "error");
-
-            }else{
-
-                await loadStoreCategories();
-
-                showMessage("Category status updated.", "success");
-
-            }
-
-            return;
-
-        }
-
-
-        if(deleteButton){
-
-            const id = Number(deleteButton.dataset.deleteCategory);
-
-            if(!confirm("Remove this category?")){
-                return;
-            }
-
-            const {error} = await supabaseClient
-                .from("live_qr_store_categories")
-                .delete()
-                .eq("id", id)
-                .eq("shop_id", currentShop.id);
-
-            if(error){
-
-                showMessage(error.message, "error");
-
-            }else{
-
-                await loadStoreCategories();
-
-                showMessage("Category removed.", "success");
-
-            }
-
-        }
-
-    });
-
+        await loadStoreCategories();
+        showMessage("Category removed.", "success");
+      }
+    } catch (error) {
+      console.error(error);
+      showMessage(error.message || "Category action failed.", "error");
+    }
+  });
 
 /* =========================================
    IMAGE PREVIEW EVENTS
 ========================================= */
 
 setupImagePreview(
-    "productImageFile",
-    "productImagePreviewWrap",
-    "productImagePreview",
-    "productImageSize",
-    200 * 1024
+  "productImageFile",
+  "productImagePreviewWrap",
+  "productImagePreview",
+  "productImageSize",
+  200 * 1024
 );
 
 setupImagePreview(
-    "storeCoverFile",
-    "storeCoverPreviewWrap",
-    "storeCoverPreview",
-    "storeCoverSize",
-    500 * 1024
+  "storeCoverFile",
+  "storeCoverPreviewWrap",
+  "storeCoverPreview",
+  "storeCoverSize",
+  500 * 1024
 );
 
 setupImagePreview(
-    "storeBannerFile",
-    "storeBannerPreviewWrap",
-    "storeBannerPreview",
-    "storeBannerSize",
-    500 * 1024
+  "storeBannerFile",
+  "storeBannerPreviewWrap",
+  "storeBannerPreview",
+  "storeBannerSize",
+  500 * 1024
 );
 
 setupImagePreview(
-    "storeCategoryFile",
-    "storeCategoryPreviewWrap",
-    "storeCategoryPreview",
-    "storeCategorySize",
-    500 * 1024
+  "storeCategoryFile",
+  "storeCategoryPreviewWrap",
+  "storeCategoryPreview",
+  "storeCategorySize",
+  500 * 1024
 );
-
 
 /* =========================================
    PERMANENT QR ACTIONS
 ========================================= */
 
 document.getElementById("downloadQrBtn")
-    .addEventListener("click", function(){
+  .addEventListener("click", function () {
+    const qrImage = document.querySelector("#qrcode img");
+    const qrCanvas = document.querySelector("#qrcode canvas");
 
-        const qrImage =
-            document.querySelector("#qrcode img");
+    let imageUrl = "";
 
-        const qrCanvas =
-            document.querySelector("#qrcode canvas");
+    if (qrImage) {
+      imageUrl = qrImage.src;
+    } else if (qrCanvas) {
+      imageUrl = qrCanvas.toDataURL("image/png");
+    }
 
-        let imageUrl = "";
+    if (!imageUrl) {
+      showMessage("QR image is not ready.", "error");
+      return;
+    }
 
-        if(qrImage){
+    const link = document.createElement("a");
+    link.href = imageUrl;
+    link.download =
+      (currentShop.shop_name || "Pyncode-Live-QR")
+        .replace(/[^a-z0-9-_]/gi, "-") + "-QR.png";
 
-            imageUrl = qrImage.src;
-
-        }else if(qrCanvas){
-
-            imageUrl = qrCanvas.toDataURL("image/png");
-
-        }
-
-        if(!imageUrl){
-
-            showMessage("QR image is not ready.", "error");
-
-            return;
-
-        }
-
-        const link = document.createElement("a");
-
-        link.href = imageUrl;
-
-        link.download =
-            (currentShop.shop_name || "Pyncode-Live-QR")
-                .replace(/[^a-z0-9-_]/gi, "-") +
-            "-QR.png";
-
-        link.click();
-
-    });
-
+    link.click();
+  });
 
 document.getElementById("printQrBtn")
-    .addEventListener("click", function(){
-
-        window.print();
-
-    });
-
+  .addEventListener("click", function () {
+    window.print();
+  });
 
 document.getElementById("copyQrBtn")
-    .addEventListener("click", async function(){
+  .addEventListener("click", async function () {
+    const url = document.getElementById("qrUrl").value;
 
-        const url = document.getElementById("qrUrl").value;
+    try {
+      await navigator.clipboard.writeText(url);
+      showMessage("QR link copied.", "success");
+    } catch (error) {
+      const input = document.getElementById("qrUrl");
+      input.select();
 
-        try{
+      const copied = document.execCommand("copy");
 
-            await navigator.clipboard.writeText(url);
-
-            showMessage("QR link copied.", "success");
-
-        }catch(error){
-
-            const input = document.getElementById("qrUrl");
-
-            input.select();
-
-            document.execCommand("copy");
-
-            showMessage("QR link copied.", "success");
-
-        }
-
-    });
-
+      if (copied) {
+        showMessage("QR link copied.", "success");
+      } else {
+        showMessage("Unable to copy automatically. Please copy the link manually.", "error");
+      }
+    }
+  });
 
 /* =========================================
    START APPLICATION
 ========================================= */
 
 initialize();
-
 </script>
 
 </body>
 </html>
-
-  
