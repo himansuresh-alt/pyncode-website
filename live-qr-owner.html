@@ -143,6 +143,7 @@ button{border:0;border-radius:11px;padding:11px 16px;font-size:13px;font-weight:
 .brand small {
   margin-top: 5px;
 }
+  
 </style>
 </head>
 <body>
@@ -231,6 +232,38 @@ button{border:0;border-radius:11px;padding:11px 16px;font-size:13px;font-weight:
         <div class="image-help">Customize the look of your customer-facing QR store.</div>
       </div>
     </div>
+
+    <!-- STORE LOGO -->
+<div class="product-card" id="storeLogoSection">
+  <div class="section-title">Store Logo</div>
+  <p class="image-help">
+    Upload your own shop logo. It will appear on your customer QR store.
+  </p>
+
+  <div style="margin-top:16px">
+    <label for="storeLogoFile">Upload Your Logo</label>
+    <input
+      id="storeLogoFile"
+      type="file"
+      accept="image/png,image/jpeg,image/webp"
+      style="display:block;width:100%;margin-top:10px"
+    >
+  </div>
+
+  <div id="storeLogoPreviewWrap" class="image-preview-wrap">
+    <img
+      id="storeLogoPreview"
+      class="image-preview"
+      alt="Store logo preview"
+    >
+  </div>
+
+  <div class="button-row" style="margin-top:16px">
+    <button type="button" class="primary" id="saveStoreLogoBtn">
+      Save Logo
+    </button>
+  </div>
+</div>
 
     <!-- STORE COVER -->
     <div class="product-card">
@@ -1545,6 +1578,33 @@ document.getElementById("copyQrBtn")
         showMessage("Unable to copy automatically. Please copy the link manually.", "error");
       }
     }
+  });
+
+    /* STORE LOGO PREVIEW */
+
+let selectedStoreLogoFile = null;
+
+document
+  .getElementById("storeLogoFile")
+  .addEventListener("change", function () {
+    const file = this.files && this.files[0];
+
+    if (!file) return;
+
+    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
+      showMessage("Please select a PNG, JPG or WebP logo.", "error");
+      this.value = "";
+      return;
+    }
+
+    selectedStoreLogoFile = file;
+
+    const preview = document.getElementById("storeLogoPreview");
+    preview.src = URL.createObjectURL(file);
+
+    document
+      .getElementById("storeLogoPreviewWrap")
+      .classList.add("show");
   });
 
 /* =========================================
