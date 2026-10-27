@@ -1157,6 +1157,328 @@ body{
     color:#151923;
 }
 
+  /* PYNCODE HOME ACTION BANNERS */
+.pyncode-banner-stack {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 24px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pyncode-banner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 180px;
+    align-items: center;
+    gap: 18px;
+    min-height: 220px;
+    padding: 24px 26px;
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,.8);
+    box-shadow: 0 10px 28px rgba(23,45,35,.09);
+}
+
+.pyncode-banner:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(130deg,transparent 55%,rgba(255,255,255,.4));
+}
+
+.pyncode-banner.qr {
+    background: linear-gradient(115deg,#e9f8ed,#b8e4c8);
+}
+
+.pyncode-banner.shop {
+    background: linear-gradient(115deg,#fff1df,#ffd39f);
+}
+
+.pyncode-banner.service {
+    background: linear-gradient(115deg,#e8f3ff,#b8d9ff);
+}
+
+.pyncode-banner-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+}
+
+.pyncode-banner-tag {
+    display: inline-block;
+    padding: 7px 11px;
+    border-radius: 99px;
+    background: #167c4b;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .4px;
+}
+
+.pyncode-banner.shop .pyncode-banner-tag,
+.pyncode-banner.shop .pyncode-banner-button {
+    background: #e85c18;
+}
+
+.pyncode-banner.service .pyncode-banner-tag,
+.pyncode-banner.service .pyncode-banner-button {
+    background: #1768c7;
+}
+
+.pyncode-banner h2 {
+    margin: 12px 0 4px;
+    font-size: clamp(28px,4vw,42px);
+    line-height: 1.05;
+    font-weight: 900;
+    color: #172820;
+}
+
+.pyncode-banner.shop h2 span {
+    color: #d64a12;
+}
+
+.pyncode-banner.service h2 span {
+    color: #145eb3;
+}
+
+.pyncode-banner h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #263a30;
+}
+
+.pyncode-banner p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #3e5147;
+    max-width: 600px;
+}
+
+.pyncode-banner-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 11px 16px;
+    border-radius: 12px;
+    background: #167c4b;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.pyncode-banner-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    position: relative;
+}
+
+.banner-phone {
+    width: 88px;
+    padding: 9px 7px;
+    border: 4px solid #1b2922;
+    border-radius: 19px;
+    background: #fff;
+    box-shadow: 0 10px 20px #193b2928;
+    transform: rotate(-6deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: #1c2d23;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.banner-phone .phone-notch {
+    width: 32px;
+    height: 5px;
+    background: #17231d;
+    border-radius: 8px;
+}
+
+.banner-phone .phone-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #e4f3e8;
+    font-size: 17px;
+}
+
+.banner-phone span {
+    padding: 4px;
+    background: #f0f6f2;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+}
+
+.banner-qr {
+    width: 90px;
+    padding: 10px 7px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 9px 20px #193b2928;
+    transform: rotate(5deg);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.banner-qr-pattern {
+    width: 58px;
+    height: 58px;
+    border: 5px solid #18271f;
+    background: repeating-conic-gradient(#18271f 0 25%,#fff 0 50%) 0/12px 12px;
+}
+
+.banner-shop-emoji,
+.banner-service-emoji {
+    font-size: 88px;
+    filter: drop-shadow(0 8px 8px #6d421b25);
+}
+
+.banner-benefit-list,
+.banner-service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.banner-benefit-list span,
+.banner-service-list span {
+    background: #ffffffdf;
+    padding: 8px 9px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 800;
+    white-space: nowrap;
+    color: #27382e;
+}
+
+@media(max-width:700px) {
+    .pyncode-banner-stack {
+        padding: 16px 16px 6px;
+        gap: 13px;
+    }
+
+    .pyncode-banner {
+        grid-template-columns: minmax(0,1fr) 94px;
+        gap: 6px;
+        min-height: 0;
+        padding: 17px 13px;
+        border-radius: 19px;
+    }
+
+    .pyncode-banner-tag {
+        font-size: 8px;
+        padding: 6px 8px;
+        letter-spacing: 0;
+    }
+
+    .pyncode-banner h2 {
+        font-size: clamp(24px,6.8vw,32px);
+        margin-top: 10px;
+        letter-spacing: -.5px;
+    }
+
+    .pyncode-banner h3 {
+        font-size: 13px;
+        line-height: 1.3;
+        margin-bottom: 6px;
+    }
+
+    .pyncode-banner p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .pyncode-banner-button {
+        font-size: 10px;
+        padding: 9px 10px;
+        gap: 5px;
+        margin-top: 11px;
+        border-radius: 10px;
+    }
+
+    .pyncode-banner-art {
+        min-height: 130px;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .banner-phone {
+        width: 67px;
+        padding: 6px 4px;
+        border-width: 3px;
+        border-radius: 13px;
+        font-size: 7px;
+        gap: 3px;
+    }
+
+    .banner-phone .phone-notch {
+        width: 25px;
+        height: 4px;
+    }
+
+    .banner-phone .phone-avatar {
+        width: 21px;
+        height: 21px;
+        font-size: 13px;
+    }
+
+    .banner-phone span {
+        padding: 3px;
+    }
+
+    .banner-qr {
+        width: 67px;
+        padding: 6px 4px;
+        border-radius: 8px;
+        font-size: 8px;
+        gap: 4px;
+    }
+
+    .banner-qr-pattern {
+        width: 43px;
+        height: 43px;
+        border-width: 3px;
+        background-size: 9px 9px;
+    }
+
+    .banner-shop-emoji,
+    .banner-service-emoji {
+        font-size: 60px;
+    }
+
+    .banner-benefit-list,
+    .banner-service-list {
+        gap: 4px;
+    }
+
+    .banner-benefit-list span,
+    .banner-service-list span {
+        font-size: 7px;
+        padding: 5px 4px;
+        white-space: normal;
+        text-align: center;
+    }
+}
 
 
 </style>
@@ -1211,7 +1533,108 @@ body{
     </div>
 
 </header>
+  
+<!-- PYNCODE HOME ACTION BANNERS -->
+<section class="pyncode-banner-stack" aria-label="Pyncode services">
 
+  <!-- QR STORE -->
+  <article class="pyncode-banner qr">
+    <div class="pyncode-banner-copy">
+      <span class="pyncode-banner-tag">DIGITAL BUSINESS CARD</span>
+
+      <h2>QR <span>Store</span></h2>
+      <h3>Your Business. One QR.</h3>
+
+      <p>
+        Create a digital business profile with your contact details,
+        WhatsApp, social links and website. Share one QR code so
+        customers can connect with your business easily.
+      </p>
+
+      <a class="pyncode-banner-button" href="live-qr-create-account.html">
+  Create Your Live QR <b>→</b>
+      </a>
+    </div>
+
+    <div class="pyncode-banner-art" aria-hidden="true">
+      <div class="banner-phone">
+        <div class="phone-notch"></div>
+        <div class="phone-avatar">🏪</div>
+        <b>Your Business</b>
+        <span>🟢 WhatsApp</span>
+        <span>📞 Call</span>
+        <span>🌐 Website</span>
+      </div>
+
+      <div class="banner-qr">
+        <b>SCAN ME</b>
+        <div class="banner-qr-pattern"></div>
+        <small>Pyncode.in</small>
+      </div>
+    </div>
+  </article>
+
+  <!-- LIST YOUR SHOP -->
+  <article class="pyncode-banner shop">
+    <div class="pyncode-banner-copy">
+      <span class="pyncode-banner-tag">FOR SHOP OWNERS</span>
+
+      <h2>List Your <span>Shop</span></h2>
+      <h3>Get More Customers</h3>
+
+      <p>
+        Add your shop name, category, location and contact details
+        to Pyncode. Help local customers discover your business and offers.
+      </p>
+
+      <a class="pyncode-banner-button" href="list-your-shop.html">
+        Register Your Shop <b>→</b>
+      </a>
+    </div>
+
+    <div class="pyncode-banner-art" aria-hidden="true">
+      <div class="banner-shop-emoji">🏬</div>
+
+      <div class="banner-benefit-list">
+        <span>✓ Local Customers</span>
+        <span>✓ Show Offers</span>
+        <span>✓ Grow Your Shop</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- LIST YOUR SERVICE -->
+  <article class="pyncode-banner service">
+    <div class="pyncode-banner-copy">
+      <span class="pyncode-banner-tag">FOR SERVICE PROVIDERS</span>
+
+      <h2>List Your <span>Service</span></h2>
+      <h3>Let Customers Find You</h3>
+
+      <p>
+        Are you an electrician, plumber, AC technician or other
+        service provider? List your service so customers can discover
+        and contact you.
+      </p>
+
+      <a class="pyncode-banner-button" href="list-your-service.html">
+        Register Your Service <b>→</b>
+      </a>
+    </div>
+
+    <div class="pyncode-banner-art" aria-hidden="true">
+      <div class="banner-service-emoji">🧑‍🔧</div>
+
+      <div class="banner-service-list">
+        <span>❄️ AC Service</span>
+        <span>⚡ Electrician</span>
+        <span>🔧 Plumber</span>
+        <span>🎨 Painter</span>
+      </div>
+    </div>
+  </article>
+
+</section>
 
 <!-- =====================================================
      CATEGORIES
