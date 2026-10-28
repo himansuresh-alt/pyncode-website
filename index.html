@@ -720,7 +720,9 @@ body{
 
     width:100%;
 
-    max-width:1180px;
+    max-wid
+
+  th:1180px;
 
     margin:
         23px auto 0;
@@ -1320,7 +1322,9 @@ body{
 .banner-phone span {
     padding: 4px;
     background: #f0f6f2;
-    border-radius: 5px;
+    border-radius:
+
+  5px;
     width: 100%;
     text-align: center;
 }
@@ -1481,6 +1485,110 @@ body{
 }
 
 
+
+
+/* QR STORE CUSTOM IMAGE BANNER — DESIGN ONLY */
+.pyncode-qr-image-banner {
+    display: block;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    background: #fff8ef;
+    border-radius: 24px;
+    box-shadow: 0 12px 32px rgba(90, 48, 16, .10);
+}
+.pyncode-qr-image-banner::after {
+    display: none;
+}
+.pyncode-qr-image-banner a {
+    display: block;
+    width: 100%;
+    line-height: 0;
+    border-radius: inherit;
+}
+.pyncode-qr-image-banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: inherit;
+}
+.pyncode-qr-image-banner a:focus-visible {
+    outline: 3px solid #f05a24;
+    outline-offset: 4px;
+}
+@media (max-width: 700px) {
+    .pyncode-qr-image-banner {
+        padding: 0;
+        border-radius: 16px;
+    }
+    .pyncode-qr-image-banner img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+}
+
+
+
+/* =====================================================
+   PYNCODE THREE PREMIUM IMAGE BANNERS — DESIGN ONLY
+   Original destinations and all page functionality preserved.
+===================================================== */
+.pyncode-banner-stack .pyncode-image-banner {
+    display: block;
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+    border: 1px solid rgba(255,255,255,.92);
+    border-radius: 24px;
+    overflow: hidden;
+    background: #fffaf5;
+    box-shadow: 0 12px 32px rgba(30, 35, 45, .09);
+    line-height: 0;
+    isolation: auto;
+    transition: transform .22s ease, box-shadow .22s ease;
+}
+.pyncode-banner-stack .pyncode-image-banner::after { display: none; }
+.pyncode-banner-stack .pyncode-image-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 17px 38px rgba(30, 35, 45, .13);
+}
+.pyncode-banner-stack .pyncode-image-banner > a {
+    display: block;
+    width: 100%;
+    line-height: 0;
+    border-radius: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+.pyncode-banner-stack .pyncode-image-banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1536 / 640;
+    object-fit: cover;
+    object-position: center;
+    border-radius: inherit;
+}
+.pyncode-banner-stack .pyncode-image-banner > a:focus-visible {
+    outline: 3px solid #f05a24;
+    outline-offset: -4px;
+}
+@media (max-width: 700px) {
+    .pyncode-banner-stack { padding: 16px 14px 8px; gap: 14px; }
+    .pyncode-banner-stack .pyncode-image-banner { border-radius: 17px; }
+    .pyncode-banner-stack .pyncode-image-banner img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1536 / 640;
+        object-fit: contain;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .pyncode-banner-stack .pyncode-image-banner { transition: none; }
+    .pyncode-banner-stack .pyncode-image-banner:hover { transform: none; }
+}
+
 </style>
 
 </head>
@@ -1537,101 +1645,31 @@ body{
 <!-- PYNCODE HOME ACTION BANNERS -->
 <section class="pyncode-banner-stack" aria-label="Pyncode services">
 
-  <!-- QR STORE -->
-  <article class="pyncode-banner qr">
-    <div class="pyncode-banner-copy">
-      <span class="pyncode-banner-tag">DIGITAL BUSINESS CARD</span>
-
-      <h2>QR <span>Store</span></h2>
-      <h3>Your Business. One QR.</h3>
-
-      <p>
-        Create a digital business profile with your contact details,
-        WhatsApp, social links and website. Share one QR code so
-        customers can connect with your business easily.
-      </p>
-
-      <a class="pyncode-banner-button" href="live-qr-create-account.html">
-  Create Your Live QR <b>→</b>
-      </a>
-    </div>
-
-    <div class="pyncode-banner-art" aria-hidden="true">
-      <div class="banner-phone">
-        <div class="phone-notch"></div>
-        <div class="phone-avatar">🏪</div>
-        <b>Your Business</b>
-        <span>🟢 WhatsApp</span>
-        <span>📞 Call</span>
-        <span>🌐 Website</span>
-      </div>
-
-      <div class="banner-qr">
-        <b>SCAN ME</b>
-        <div class="banner-qr-pattern"></div>
-        <small>Pyncode.in</small>
-      </div>
-    </div>
+  <!-- QR STORE IMAGE BANNER -->
+  <article class="pyncode-banner pyncode-image-banner qr-image-banner">
+    <a href="live-qr-create-account.html" aria-label="Register Now for Pyncode QR Store">
+      <img src="pyncode-qr-store-banner.png"
+           alt="Pyncode QR Store — Your Online Shopping Marketplace. Scan Your Store Online. Register Now."
+           loading="eager">
+    </a>
   </article>
 
-  <!-- LIST YOUR SHOP -->
-  <article class="pyncode-banner shop">
-    <div class="pyncode-banner-copy">
-      <span class="pyncode-banner-tag">FOR SHOP OWNERS</span>
-
-      <h2>List Your <span>Shop</span></h2>
-      <h3>Get More Customers</h3>
-
-      <p>
-        Add your shop name, category, location and contact details
-        to Pyncode. Help local customers discover your business and offers.
-      </p>
-
-      <a class="pyncode-banner-button" href="list-your-shop.html">
-        Register Your Shop <b>→</b>
-      </a>
-    </div>
-
-    <div class="pyncode-banner-art" aria-hidden="true">
-      <div class="banner-shop-emoji">🏬</div>
-
-      <div class="banner-benefit-list">
-        <span>✓ Local Customers</span>
-        <span>✓ Show Offers</span>
-        <span>✓ Grow Your Shop</span>
-      </div>
-    </div>
+  <!-- LIST YOUR SHOP IMAGE BANNER -->
+  <article class="pyncode-banner pyncode-image-banner shop-image-banner">
+    <a href="list-your-shop.html" aria-label="Register Your Shop on Pyncode">
+      <img src="pyncode-list-your-shop-banner.png"
+           alt="List Your Shop on Pyncode. Register Your Shop and Reach More Customers."
+           loading="lazy">
+    </a>
   </article>
 
-  <!-- LIST YOUR SERVICE -->
-  <article class="pyncode-banner service">
-    <div class="pyncode-banner-copy">
-      <span class="pyncode-banner-tag">FOR SERVICE PROVIDERS</span>
-
-      <h2>List Your <span>Service</span></h2>
-      <h3>Let Customers Find You</h3>
-
-      <p>
-        Are you an electrician, plumber, AC technician or other
-        service provider? List your service so customers can discover
-        and contact you.
-      </p>
-
-      <a class="pyncode-banner-button" href="list-your-service.html">
-        Register Your Service <b>→</b>
-      </a>
-    </div>
-
-    <div class="pyncode-banner-art" aria-hidden="true">
-      <div class="banner-service-emoji">🧑‍🔧</div>
-
-      <div class="banner-service-list">
-        <span>❄️ AC Service</span>
-        <span>⚡ Electrician</span>
-        <span>🔧 Plumber</span>
-        <span>🎨 Painter</span>
-      </div>
-    </div>
+  <!-- LIST YOUR SERVICE IMAGE BANNER -->
+  <article class="pyncode-banner pyncode-image-banner service-image-banner">
+    <a href="list-your-service.html" aria-label="Register Your Service on Pyncode">
+      <img src="pyncode-list-your-service-banner.png"
+           alt="List Your Service on Pyncode. Register Your Service and Reach More Customers."
+           loading="lazy">
+    </a>
   </article>
 
 </section>
@@ -1660,7 +1698,9 @@ body{
 
         <p class="section-subtitle">
 
-            Find Shops and Businesses Near You
+            Find Shops and Businesses Near Y
+
+          ou
 
         </p>
 
@@ -2113,3 +2153,4 @@ if(
 </body>
 
 </html>
+
