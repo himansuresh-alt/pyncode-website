@@ -1071,14 +1071,15 @@ a {
 
 @media (max-width: 420px) {
 .shop-hero {
-height: auto;
-min-height: 0;
-aspect-ratio: 1597 / 775;
-padding: 20px 18px 27px;
-background-size: contain;
-background-position: center center;
-background-repeat: no-repeat;
-background-color: #173d30;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1597 / 775;
+    padding: 20px 18px 27px;
+
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #173d30;
 }
 
 .shop-logo {
@@ -3360,6 +3361,10 @@ body.cart-modal-open {
         bottom: 20px;
     }
 }
+
+  #bannerTrack > .custom-store-banner {
+    height: clamp(260px, 48vw, 440px);
+  }
 
 
 </style>
