@@ -1553,17 +1553,136 @@ height: 430px;
     }
 }
 
+/* Pyncode Animated Storefront Loader */
+.store-loading-icon {
+width: 88px;
+height: 82px;
+position: relative;
+margin: 0 auto 22px;
+animation: storeAppear 0.8s ease both;
+}
+
+.store-roof {
+position: absolute;
+top: 3px;
+left: 9px;
+width: 70px;
+height: 28px;
+background: #087c50;
+border-radius: 9px 9px 3px 3px;
+clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.store-awning {
+position: absolute;
+top: 29px;
+left: 8px;
+width: 72px;
+height: 13px;
+display: flex;
+overflow: hidden;
+border-radius: 3px;
+background: #dce9d9;
+}
+
+.store-awning span {
+flex: 1;
+border-right: 2px solid #087c50;
+background: #dce9d9;
+animation: awningGlow 1.4s ease-in-out infinite alternate;
+}
+
+.store-awning span:nth-child(2) {
+animation-delay: 0.2s;
+}
+
+.store-awning span:nth-child(3) {
+animation-delay: 0.4s;
+}
+
+.store-front {
+position: absolute;
+top: 42px;
+left: 14px;
+width: 60px;
+height: 30px;
+background: #e3eee2;
+border: 3px solid #087c50;
+border-radius: 2px 2px 0 0;
+display: flex;
+justify-content: space-around;
+align-items: flex-end;
+}
+
+.store-door {
+width: 16px;
+height: 23px;
+background: #087c50;
+border-radius: 3px 3px 0 0;
+animation: doorGlow 1.5s ease-in-out infinite alternate;
+}
+
+.store-window {
+width: 17px;
+height: 15px;
+margin-bottom: 5px;
+background: #b9d9c4;
+border: 2px solid #087c50;
+border-radius: 2px;
+}
+
+.store-base {
+position: absolute;
+bottom: 5px;
+left: 7px;
+width: 74px;
+height: 4px;
+border-radius: 4px;
+background: #087c50;
+}
+
+@keyframes storeAppear {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes awningGlow {
+from { background: #dce9d9; }
+to { background: #a7d1b5; }
+}
+
+@keyframes doorGlow {
+from { opacity: 0.7; }
+to { opacity: 1; }
+}
+
+#loadingScreen .loading-logo {
+display: none;
+}
+  
 </style>
 </head>
 
 <body>
 <div class="page">
 
-    <div id="loadingScreen" class="loading-screen">
-        <div class="loading-logo">P</div>
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Opening your store...</div>
-    </div>
+   <div id="loadingScreen" class="loading-screen">
+    <div class="store-loading-icon">
+        <div class="store-roof"></div>
+        <div class="store-awning">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="store-front">
+            <div class="store-door"></div>
+            <div class="store-window"></div>
+        </div>
+        <div class="store-base"></div>
+    </div><div class="loading-spinner"></div>
+<div class="loading-text">Opening your store...</div>
+
+   </div>
 
     <div id="errorScreen" class="error-screen" style="display:none;">
         <div class="error-icon">!</div>
