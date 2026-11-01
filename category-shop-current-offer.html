@@ -94,12 +94,8 @@ body {
   min-height: 215px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(
-    110deg,
-    #e5edb2,
-    #fff9df 43%,
-    #9fcf7b
-  );
+ background-color: #e5edb2;
+background-image: none;
   border-radius: 0 0 22px 22px;
   box-shadow: var(--shadow);
 }
@@ -1133,6 +1129,18 @@ async function loadShop() {
     if (imageUrl) {
       shopImage.src = imageUrl;
     }
+
+    // LOAD SHOP COVER IMAGE
+const hero = document.querySelector(".category-hero");
+
+if (hero && imageUrl) {
+  hero.style.backgroundImage =
+    `linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), url("${imageUrl}")`;
+
+  hero.style.backgroundSize = "cover";
+  hero.style.backgroundPosition = "center";
+  hero.style.backgroundRepeat = "no-repeat";
+}
 
     shopImage.onerror = () => {
       shopImage.style.visibility = "hidden";
