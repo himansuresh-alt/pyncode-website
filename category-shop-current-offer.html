@@ -292,7 +292,7 @@ background-image: none;
 .shop-actions {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 9px;
   margin-top: 5px;
 }
@@ -324,6 +324,10 @@ background-image: none;
   font-size: 18px;
   line-height: 1;
 }
+
+.shop-action.instagram .action-icon { color: #c13584; }
+.shop-action.website .action-icon { color: #0875d9; }
+.shop-action.share .action-icon { color: #0875d9; }
 
 .shop-action.whatsapp {
   background: #e6f9eb;
@@ -381,9 +385,7 @@ background-image: none;
   scroll-snap-type: x mandatory;
   scrollbar-width: thin;
   scrollbar-color: #d4ded5 transparent;
-
-
-    -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
 }
 
 .offers-track::-webkit-scrollbar {
@@ -521,7 +523,9 @@ background-image: none;
 .info-row strong {
   font-weight: 800;
   color: #29372d;
-}
+
+
+  }
 
 .info-row span {
   text-align: right;
@@ -766,9 +770,7 @@ body.viewer-open {
 <main class="container">
 
   <!-- SHOP PROFILE -->
-
-
-    <section class="shop-profile">
+  <section class="shop-profile">
     <div class="shop-image-wrap">
       <img
         id="shopImage"
@@ -823,72 +825,7 @@ body.viewer-open {
     </div>
   </section>
 
-  <!-- SHOP INFORMATION -->
-  <section class="info-grid">
-
-    <article class="info-card">
-      <h3 class="info-heading">
-        <span class="info-icon">◷</span>
-        Shop Information
-      </h3>
-
-      <div class="info-row">
-        <strong>Shop</strong>
-        <span id="infoShopName">—</span>
-      </div>
-
-      <div class="info-row">
-        <strong>Category</strong>
-        <span id="infoShopCategory">—</span>
-      </div>
-
-      <div class="info-row">
-        <strong>Area</strong>
-        <span id="infoShopArea">—</span>
-      </div>
-    </article>
-
-    <article class="info-card">
-      <h3 class="info-heading">
-        <span class="info-icon">⌖</span>
-        Location
-      </h3>
-
-      <p class="location-address" id="locationAddress">
-        Shop address will appear here.
-      </p>
-
-      <a
-        id="directionsLink"
-        class="shop-action directions"
-        href="#"
-        target="_blank"
-        rel="noopener"
-        style="margin-top:12px;display:none"
-      >
-        <span class="action-icon">➤</span>
-        Get Directions
-      </a>
-
-      <div class="map-placeholder" id="locationHint">
-        <span>📍</span>
-        <div>Find this shop near you</div>
-      </div>
-    </article>
-
-  </section>
-
-  <!-- ABOUT SHOP -->
-  <section class="info-card about-card" id="aboutSection">
-    <h3 class="info-heading">
-      <span class="info-icon">ⓘ</span>
-      About This Shop
-    </h3>
-
-    <p class="info-text" id="aboutShop">
-      Discover this local business and explore its latest offers and updates.
-    </p>
-  </section>
+  <!-- Shop Information, Location, and About sections removed as requested. -->
 
   <div id="pageMessage" aria-live="polite"></div>
 
@@ -1027,23 +964,57 @@ function renderShopActions(shop) {
   container.replaceChildren();
 
   const address = [shop.address, shop.area, shop.city].filter(Boolean).join(", ");
-  const addAction = (label, icon, href, onClick) => {
-    const button = makeElement(href ? "a" : "button", "shop-action");
+  const cleanPhone = value => String(value || "").replace(/[^\d+]/g, "");
+  const phone = cleanPhone(shop.mobile);
+  const whatsapp = cleanPhone(shop.whatsapp || shop.mobile).replace(/^\+/, "");
+  const safeUrl = value => {
+    const url = safeImageUrl(value);
+    return url;
+  };
+  const addAction = (label, icon, href, className = "") => {
+    if (!href) return;
+    const button = makeElement("a", ("shop-action " + className).trim());
+    button.href = href;
+    button.target = "_blank";
+    button.rel = "noopener noreferrer";
     button.setAttribute("aria-label", label);
-    if (href) { button.href = href; button.target = "_blank"; button.rel = "noopener"; }
-    if (onClick) { button.type = "button"; button.addEventListener("click", onClick); }
     button.append(makeElement("span", "action-icon", icon), makeElement("span", "", label));
     container.appendChild(button);
   };
 
-  if (address) addAction("Directions", "📍", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address));
-  addAction("Share", "↗", null, async () => {
+  if (phone) addAction("Call Shop", "📞", "tel:" + phone, "call");
+  if (whatsapp) addAction("WhatsApp", "◉", "https://wa.me/" + whatsapp, "whatsapp");
+  if (address) addAction("Directions", "📍", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address), "directions");
+  const instagram = safeUrl(shop.instagram_url);
+  if (instagram) addAction("Instagram", "◎", instagram, "instagram");
+  const website = safeUrl(shop.website_url);
+  if (website) addAction("Website", "🌐", website, "website");
+
+  const share = makeElement("button", "shop-action share");
+  share.type = "button";
+  share.setAttribute("aria-label", "Share shop");
+  share.append(makeElement("span", "action-icon", "↗"), makeElement("span", "", "Share"));
+  share.addEventListener("click", async () => {
     const shareData = { title: shop.shop_name || "Shop on Pyncode", text: [shop.shop_name, address].filter(Boolean).join(" — "), url: location.href };
-    try { if (navigator.share) await navigator.share(shareData); else if (navigator.clipboard) { await navigator.clipboard.writeText(location.href); alert("Shop link copied!"); } else prompt("Copy this shop link:", location.href); } catch (e) { if (e.name !== "AbortError") console.error(e); }
+    try {
+      if (navigator.share) await navigator.share(shareData);
+      else if (navigator.clipboard) { await navigator.clipboard.writeText(location.href); alert("Shop link copied!"); }
+      else prompt("Copy this shop link:", location.href);
+    } catch (e) { if (e.name !== "AbortError") console.error(e); }
   });
-  addAction("Save", "☆", null, async () => {
-    try { if (navigator.share && /Android|iPhone|iPad/i.test(navigator.userAgent)) { await navigator.share({title: shop.shop_name || "Pyncode shop", url: location.href}); } else if (navigator.clipboard) { await navigator.clipboard.writeText(location.href); alert("Shop link copied. Save it in your bookmarks!"); } else prompt("Save this shop link:", location.href); } catch (e) { if (e.name !== "AbortError") console.error(e); }
+  container.appendChild(share);
+
+  const save = makeElement("button", "shop-action save");
+  save.type = "button";
+  save.setAttribute("aria-label", "Save shop link");
+  save.append(makeElement("span", "action-icon", "☆"), makeElement("span", "", "Save"));
+  save.addEventListener("click", async () => {
+    try {
+      if (navigator.clipboard) { await navigator.clipboard.writeText(location.href); alert("Shop link copied. You can save it in your bookmarks."); }
+      else prompt("Save this shop link:", location.href);
+    } catch (e) { console.error(e); prompt("Save this shop link:", location.href); }
   });
+  container.appendChild(save);
 }
 
 /* =========================================
@@ -1081,7 +1052,11 @@ async function loadShop() {
         address,
         area,
         city,
-        shop_image
+        shop_image,
+        mobile,
+        whatsapp,
+        instagram_url,
+        website_url
       `)
       .eq("id", shopId)
       .maybeSingle();
@@ -1152,8 +1127,6 @@ async function loadShop() {
       name + " — explore the latest offers and updates from this local business."
     );
 
-
-    
     const imageUrl = safeImageUrl(shop.shop_image);
 
     if (imageUrl) {
