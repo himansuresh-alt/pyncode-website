@@ -1,1818 +1,992 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Upload Advertisement - Pyncode</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pyncode | Shop Owner Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-*{
-    box-sizing:border-box;
-}
-
-html,
+*{box-sizing:border-box}
 body{
-    margin:0;
-    padding:0;
-    min-height:100%;
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
-    background:#f6f7fb;
-    color:#171717;
+ margin:0;background:#f5f6f8;color:#202124;
+ font-family:Arial,Helvetica,sans-serif
 }
-
-body{
-    min-height:100vh;
+.page{max-width:720px;margin:auto;padding:16px}
+.header,.card{
+ background:#fff;border-radius:18px;padding:18px;
+ margin-bottom:15px;box-shadow:0 5px 22px #0000000b
 }
-
-.page{
-    width:100%;
-    max-width:600px;
-    margin:0 auto;
-    padding:18px 14px 30px;
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-logo{
+ width:46px;height:46px;border-radius:14px;
+ display:flex;align-items:center;justify-content:center;
+ color:#fff;font-size:23px;font-weight:900;
+ background:linear-gradient(135deg,#ff7a18,#ff4d4d)
 }
-
-/* ================================
-   HEADER
-================================ */
-
-.header{
-    background:#ffffff;
-    border-radius:18px;
-    padding:16px;
-    box-shadow:
-        0 6px 24px rgba(0,0,0,0.07);
-    margin-bottom:16px;
+h1{font-size:20px;margin:0}
+.subtitle{font-size:12px;color:#777;margin:5px 0 0}
+h2{font-size:18px;margin:0 0 8px}
+.desc{font-size:13px;color:#777;line-height:1.5;margin:0 0 16px}
+label{display:block;font-size:13px;font-weight:700;margin:14px 0 7px}
+input,textarea,select{
+ width:100%;padding:12px;border:1px solid #ddd;
+ border-radius:10px;background:#fff;font-size:14px;
+ color:#222;outline:none
 }
-
-.brand-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
+input:focus,textarea:focus,select:focus{border-color:#ff7836}
+textarea{min-height:80px;resize:vertical}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{
+ border:0;border-radius:11px;padding:13px 15px;
+ font-weight:800;font-size:14px;cursor:pointer
 }
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.primary{background:linear-gradient(135deg,#ff7a18,#ff4d4d);color:white}
+.dark{background:#222;color:white}
+.light{background:#f1f1f1;color:#222}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.full{width:100%;margin-top:16px}
+.status{
+ display:inline-block;padding:8px 11px;border-radius:20px;
+ background:#f0fdf4;color:#15803d;font-size:12px;font-weight:700;
+ margin-top:12px
 }
-
-.logo{
-    width:46px;
-    height:46px;
-    border-radius:13px;
-    background:linear-gradient(
-        135deg,
-        #ff7a18,
-        #ff4d4d
-    );
-    color:#ffffff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
-    font-weight:800;
-    box-shadow:
-        0 5px 15px rgba(255,100,40,0.25);
+.message{display:none;padding:12px;border-radius:10px;margin-top:12px;
+ font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.message.success{display:block;background:#f0fdf4;color:#166534}
+.message.error{display:block;background:#fff1f2;color:#be123c}
+.message.info{display:block;background:#eff6ff;color:#1d4ed8}
+.hidden{display:none!important}
+.image-preview{
+ width:100%;max-height:220px;object-fit:contain;
+ background:#f4f4f4;border-radius:12px;margin-top:10px;
+ border:1px solid #eee
 }
-
-.brand-text h1{
-    margin:0;
-    font-size:20px;
-    font-weight:800;
+.small{font-size:12px;color:#777;line-height:1.5}
+.divider{border:0;border-top:1px solid #eee;margin:18px 0}
+.footer{text-align:center;color:#888;font-size:11px;padding:15px}
+@media(max-width:480px){
+ .page{padding:10px}
+ .card,.header{padding:15px}
+ .grid{grid-template-columns:1fr}
+ .header-row{align-items:flex-start}
+ h1{font-size:18px}
 }
-
-.brand-text p{
-    margin:2px 0 0;
-    font-size:12px;
-    color:#777;
-}
-
-.back-btn{
-    border:none;
-    background:#171717;
-    color:#fff;
-    padding:9px 13px;
-    border-radius:10px;
-    font-size:13px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-/* ================================
-   OWNER CARD
-================================ */
-
-.owner-card{
-    background:#ffffff;
-    border-radius:18px;
-    padding:18px;
-    margin-bottom:16px;
-    box-shadow:
-        0 6px 24px rgba(0,0,0,0.07);
-}
-
-.section-title{
-    font-size:14px;
-    font-weight:800;
-    margin-bottom:12px;
-}
-
-.owner-shop-name{
-    font-size:20px;
-    font-weight:800;
-    margin-bottom:6px;
-}
-
-.owner-category{
-    font-size:13px;
-    color:#666;
-    margin-bottom:8px;
-}
-
-.owner-location{
-    font-size:13px;
-    color:#777;
-    line-height:1.5;
-}
-
-.owner-status{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    margin-top:12px;
-    padding:7px 10px;
-    background:#f0fdf4;
-    color:#15803d;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:700;
-}
-
-/* ================================
-   UPLOAD CARD
-================================ */
-
-.upload-card{
-    background:#ffffff;
-    border-radius:18px;
-    padding:18px;
-    box-shadow:
-        0 6px 24px rgba(0,0,0,0.07);
-}
-
-.upload-title{
-    font-size:19px;
-    font-weight:800;
-    margin:0 0 5px;
-}
-
-.upload-subtitle{
-    font-size:13px;
-    color:#777;
-    margin:0 0 18px;
-    line-height:1.5;
-}
-
-/* ================================
-   FILE PICKER
-================================ */
-
-.poster-label{
-    display:block;
-    width:100%;
-    border:2px dashed #d6d6d6;
-    border-radius:16px;
-    padding:25px 16px;
-    text-align:center;
-    cursor:pointer;
-    background:#fafafa;
-    transition:0.2s ease;
-}
-
-.poster-label:hover{
-    border-color:#ff6b35;
-    background:#fffaf7;
-}
-
-.poster-icon{
-    font-size:38px;
-    margin-bottom:8px;
-}
-
-.poster-label strong{
-    display:block;
-    font-size:15px;
-    margin-bottom:5px;
-}
-
-.poster-label span{
-    display:block;
-    font-size:12px;
-    color:#777;
-}
-
-#posterInput{
-    display:none;
-}
-
-/* ================================
-   PREVIEW
-================================ */
-
-.preview-box{
-    display:none;
-    margin-top:15px;
-}
-
-.preview-box img{
-    display:block;
-    width:100%;
-    max-height:420px;
-    object-fit:contain;
-    background:#f3f3f3;
-    border-radius:14px;
-    border:1px solid #e6e6e6;
-}
-
-.file-info{
-    margin-top:9px;
-    padding:10px 12px;
-    background:#f7f7f7;
-    border-radius:10px;
-    font-size:12px;
-    color:#666;
-    word-break:break-word;
-}
-
-/* ================================
-   BUTTON
-================================ */
-
-.upload-btn{
-    width:100%;
-    margin-top:17px;
-    border:none;
-    border-radius:13px;
-    padding:14px 16px;
-    background:linear-gradient(
-        135deg,
-        #ff7a18,
-        #ff4d4d
-    );
-    color:#ffffff;
-    font-size:15px;
-    font-weight:800;
-    cursor:pointer;
-    box-shadow:
-        0 7px 18px rgba(255,90,40,0.22);
-}
-
-.upload-btn:disabled{
-    opacity:0.55;
-    cursor:not-allowed;
-    box-shadow:none;
-}
-
-/* ================================
-   MESSAGE
-================================ */
-
-.message{
-    display:none;
-    margin-top:14px;
-    padding:12px 13px;
-    border-radius:11px;
-    font-size:13px;
-    line-height:1.5;
-}
-
-.message.success{
-    display:block;
-    background:#f0fdf4;
-    color:#166534;
-    border:1px solid #bbf7d0;
-}
-
-.message.error{
-    display:block;
-    background:#fff1f2;
-    color:#be123c;
-    border:1px solid #fecdd3;
-}
-
-.message.info{
-    display:block;
-    background:#eff6ff;
-    color:#1d4ed8;
-    border:1px solid #bfdbfe;
-}
-
-/* ================================
-   FOOTER
-================================ */
-
-.footer{
-    text-align:center;
-    padding:20px 10px 0;
-    color:#888;
-    font-size:11px;
-    line-height:1.5;
-}
-
-.hidden{
-    display:none !important;
-}
-
 </style>
-
 </head>
 
 <body>
-
 <div class="page">
 
-    <!-- ================================
-         HEADER
-    ================================= -->
+<header class="header">
+ <div class="header-row">
+  <div class="brand">
+   <div class="brand-logo">P</div>
+   <div>
+    <h1>Pyncode</h1>
+    <p class="subtitle">Shop Owner Dashboard</p>
+   </div>
+  </div>
+  <button class="btn dark" type="button" onclick="goBack()">← Back</button>
+ </div>
+ <div id="ownerStatus" class="status">Checking owner login...</div>
+</header>
 
-    <div class="header">
+<div id="loginNotice" class="card hidden">
+ <h2>Login required</h2>
+ <p class="desc">Please login using your registered Shop Owner account.</p>
+ <button class="btn primary full" onclick="goToLogin()">Go to Login</button>
+</div>
 
-        <div class="brand-row">
+<div id="dashboard" class="hidden">
 
-            <div class="brand">
+<section class="card">
+ <h2>Your Registered Shop</h2>
+ <p class="desc">Edit your registered shop information. Changes are saved to Pyncode.</p>
 
-                <div class="logo">
-                    P
-                </div>
+ <div class="grid">
+  <div>
+   <label for="shopName">Shop Name</label>
+   <input id="shopName" maxlength="150" placeholder="Shop name">
+  </div>
+  <div>
+   <label for="category">Category</label>
+   <input id="category" maxlength="100" placeholder="Shop category">
+  </div>
+ </div>
 
-                <div class="brand-text">
+ <label for="ownerName">Owner Name</label>
+ <input id="ownerName" maxlength="150" placeholder="Owner name">
 
-                    <h1>Pyncode</h1>
+ <label for="mobile">Mobile Number</label>
+ <input id="mobile" type="tel" maxlength="20" placeholder="Contact number">
 
-                    <p>
-                        Shop Owner Advertisement
-                    </p>
+ <label for="whatsapp">WhatsApp Number</label>
+ <input id="whatsapp" type="tel" maxlength="20" placeholder="WhatsApp number">
 
-                </div>
+ <label for="address">Full Address</label>
+ <textarea id="address" maxlength="1000" placeholder="Shop address"></textarea>
 
-            </div>
+ <div class="grid">
+  <div>
+   <label for="area">Area</label>
+   <input id="area" maxlength="150" placeholder="Area">
+  </div>
+  <div>
+   <label for="city">City</label>
+   <input id="city" maxlength="150" placeholder="City">
+  </div>
+ </div>
 
-            <button
-                class="back-btn"
-                type="button"
-                onclick="goBack()"
-            >
-                ← Back
-            </button>
+ <label for="pincode">Pincode</label>
+ <input id="pincode" inputmode="numeric" maxlength="6" placeholder="6-digit pincode">
 
-        </div>
+ <label for="description">Shop Description</label>
+ <textarea id="description" maxlength="2000" placeholder="About your shop"></textarea>
 
-    </div>
+ <button id="saveShopBtn" class="btn primary full" type="button" disabled>
+  Save Shop Details
+ </button>
+ <div id="shopMessage" class="message"></div>
+</section>
 
+<section class="card">
+ <h2>Shop Cover Image</h2>
+ <p class="desc">Upload the main image customers see on your shop profile.</p>
+ <label for="coverInput">Choose Cover Image</label>
+ <input id="coverInput" type="file" accept="image/jpeg,image/png,image/webp">
+ <img id="coverPreview" class="image-preview hidden" alt="Cover image preview">
+ <button id="coverBtn" class="btn primary full" type="button" disabled>Upload Cover Image</button>
+ <div id="coverMessage" class="message"></div>
 
-    <!-- ================================
-         OWNER / SHOP INFORMATION
-    ================================= -->
+ <hr class="divider">
 
-    <div
-        class="owner-card"
-        id="ownerCard"
-    >
+ <h2>Shop Logo</h2>
+ <label for="logoInput">Choose Logo Image</label>
+ <input id="logoInput" type="file" accept="image/jpeg,image/png,image/webp">
+ <img id="logoPreview" class="image-preview hidden" alt="Shop logo preview">
+ <button id="logoBtn" class="btn primary full" type="button" disabled>Upload Shop Logo</button>
+ <div id="logoMessage" class="message"></div>
+ <p class="small">JPG, PNG or WEBP. Maximum file size: 500 KB.</p>
+</section>
 
-        <div class="section-title">
-            Your Registered Shop
-        </div>
+<section class="card">
+ <h2>Opening Hours & Holidays</h2>
+ <p class="desc">Set the usual shop timings and holiday status.</p>
 
-        <div
-            class="owner-shop-name"
-            id="shopName"
-        >
-            Loading...
-        </div>
+ <div class="grid">
+  <div>
+   <label for="openingTime">Opening Time</label>
+   <input id="openingTime" type="time">
+  </div>
+  <div>
+   <label for="closingTime">Closing Time</label>
+   <input id="closingTime" type="time">
+  </div>
+ </div>
 
-        <div
-            class="owner-category"
-            id="shopCategory"
-        >
-            Loading...
-        </div>
+ <label for="weeklyLeave">Weekly Leave</label>
+ <select id="weeklyLeave">
+  <option value="">No fixed weekly leave</option>
+  <option>Monday</option><option>Tuesday</option>
+  <option>Wednesday</option><option>Thursday</option>
+  <option>Friday</option><option>Saturday</option>
+  <option>Sunday</option>
+ </select>
 
-        <div
-            class="owner-location"
-            id="shopLocation"
-        >
-            Loading...
-        </div>
+ <label for="temporaryLeave">Temporary Holiday</label>
+ <select id="temporaryLeave">
+  <option value="false">Shop Open as Usual</option>
+  <option value="true">Temporarily Closed</option>
+ </select>
 
-        <div
-            class="owner-status"
-            id="ownerStatus"
-        >
-            ● Verifying owner account...
-        </div>
+ <label for="holidayMessage">Holiday Notice</label>
+ <textarea id="holidayMessage" maxlength="500" placeholder="Example: Closed today. Reopens tomorrow."></textarea>
 
-    </div>
+ <button id="saveHoursBtn" class="btn primary full" type="button" disabled>
+  Save Opening Hours
+ </button>
+ <div id="hoursMessage" class="message"></div>
+</section>
 
+  <section class="card">
+ <h2>Social Links & Website</h2>
+ <p class="desc">Customers can use these links to contact or follow your business.</p>
 
-    <!-- ================================
-         UPLOAD CARD
-    ================================= -->
+ <label for="instagram">Instagram Profile URL</label>
+ <input id="instagram" type="url" maxlength="500"
+        placeholder="https://www.instagram.com/yourshop">
 
-    <div
-        class="upload-card"
-        id="uploadCard"
-    >
+ <label for="website">Website URL</label>
+ <input id="website" type="url" maxlength="500"
+        placeholder="https://yourwebsite.in">
 
-        <h2 class="upload-title">
-            Upload Advertisement
-        </h2>
+ <button id="saveLinksBtn" class="btn primary full" type="button" disabled>
+  Save Social Links
+ </button>
+ <div id="linksMessage" class="message"></div>
+</section>
 
-        <p class="upload-subtitle">
-            Upload your offer poster here.
-            Your advertisement will be sent to
-            Pyncode Admin for verification.
-        </p>
+<section class="card">
+ <h2>Shop Map Location</h2>
+ <p class="desc">
+  Use your device location while you are at the shop, or enter the coordinates manually.
+ </p>
 
+ <div class="grid">
+  <div>
+   <label for="latitude">Latitude</label>
+   <input id="latitude" type="number" step="any" placeholder="13.0827">
+  </div>
+  <div>
+   <label for="longitude">Longitude</label>
+   <input id="longitude" type="number" step="any" placeholder="80.2707">
+  </div>
+ </div>
 
-        <!-- IMPORTANT:
-             label is properly closed.
-             Upload button is NOT inside this label.
-        -->
+ <button id="getLocationBtn" class="btn light full" type="button">
+  📍 Get Current Device Location
+ </button>
 
-        <label
-            class="poster-label"
-            for="posterInput"
-        >
+ <button id="saveLocationBtn" class="btn primary full" type="button" disabled>
+  Save Map Location
+ </button>
 
-            <div class="poster-icon">
-                🖼️
-            </div>
+ <a id="directionsLink" class="btn light full hidden"
+    style="display:block;text-align:center;text-decoration:none;margin-top:12px"
+    target="_blank" rel="noopener noreferrer">Open Directions</a>
 
-            <strong>
-                Select Advertisement Poster
-            </strong>
+ <div id="locationMessage" class="message"></div>
+</section>
 
-            <span>
-                JPG, PNG or WEBP • Maximum 200kb - 500kb
-            </span>
+<section class="card">
+ <h2>Upload Offer Poster</h2>
+ <p class="desc">
+  Select your shop offer poster. After upload, the offer will be saved to your shop.
+ </p>
 
-        </label>
+ <label for="offerTitle">Offer Title (optional)</label>
+ <input id="offerTitle" maxlength="150" placeholder="Example: 20% Discount">
 
+ <label for="offerDescription">Offer Description (optional)</label>
+ <textarea id="offerDescription" maxlength="1000"
+           placeholder="Describe your offer"></textarea>
 
-        <input
-            id="posterInput"
-            type="file"
-            accept="image/jpeg,image/png,image/webp"
-        >
+ <label for="offerExpiry">Offer Expiry (optional)</label>
+ <input id="offerExpiry" type="date">
 
+ <label for="offerInput">Offer Poster</label>
+ <input id="offerInput" type="file" accept="image/jpeg,image/png,image/webp">
 
-        <!-- PREVIEW -->
+ <img id="offerPreview" class="image-preview hidden" alt="Offer poster preview">
 
-        <div
-            class="preview-box"
-            id="previewBox"
-        >
+ <button id="offerBtn" class="btn primary full" type="button" disabled>
+  Upload Offer Poster
+ </button>
 
-            <img
-                id="posterPreview"
-                alt="Advertisement preview"
-            >
+ <div id="offerMessage" class="message"></div>
+ <p class="small">
+  Poster size must be 200–500 KB in this version. JPG, PNG and WEBP are supported.
+ </p>
+</section>
 
-            <div
-                class="file-info"
-                id="fileInfo"
-            ></div>
-
-        </div>
-
-
-        <!-- UPLOAD BUTTON -->
-
-        <button
-            class="upload-btn"
-            id="uploadBtn"
-            type="button"
-            disabled
-        >
-            Upload Advertisement
-        </button>
-
-
-        <!-- MESSAGE -->
-
-        <div
-            class="message"
-            id="message"
-        ></div>
-
-    </div>
-
-
-    <div class="footer">
-        Pyncode • Discover Local Businesses Near You
-    </div>
+<section class="card">
+ <h2>Account</h2>
+ <p id="accountInfo" class="desc">Verifying your account...</p>
+ <button id="logoutBtn" class="btn dark full" type="button">Logout</button>
+ <div id="accountMessage" class="message"></div>
+</section>
 
 </div>
 
+<div class="footer">Pyncode.in • Discover Local Businesses Near You</div>
+</div>
 
 <script>
+/* PART 3 starts here */
 
-/* =================================
-   SUPABASE CONFIGURATION
-================================= */
+  const SUPABASE_URL = "https://mtuspuehsxsjoaxoenen.supabase.co";
+const SUPABASE_KEY = "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
 
-const SUPABASE_URL =
-    "https://mtuspuehsxsjoaxoenen.supabase.co";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const SUPABASE_KEY =
-    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
+let currentUser = null;
+let currentShop = null;
+let selectedCover = null;
+let selectedLogo = null;
+let selectedOffer = null;
 
-const STORAGE_BUCKET =
-    "shop-offers";
+const $ = id => document.getElementById(id);
 
-
-/* =================================
-   SUPABASE CLIENT
-================================= */
-
-const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-
-
-/* =================================
-   GLOBAL VARIABLES
-================================= */
-
-let selectedFile = null;
-
-let verifiedShopId = null;
-
-let verifiedPincode = null;
-
-let verifiedOwnerId = null;
-
-let uploadStage = "Starting";
-
-
-/* =================================
-   DOM ELEMENTS
-================================= */
-
-const posterInput =
-    document.getElementById("posterInput");
-
-const posterPreview =
-    document.getElementById("posterPreview");
-
-const previewBox =
-    document.getElementById("previewBox");
-
-const fileInfo =
-    document.getElementById("fileInfo");
-
-const uploadBtn =
-    document.getElementById("uploadBtn");
-
-const messageBox =
-    document.getElementById("message");
-
-const shopName =
-    document.getElementById("shopName");
-
-const shopCategory =
-    document.getElementById("shopCategory");
-
-const shopLocation =
-    document.getElementById("shopLocation");
-
-const ownerStatus =
-    document.getElementById("ownerStatus");
-
-
-/* =================================
-   MESSAGE HELPER
-================================= */
-
-function showMessage(
-    text,
-    type = "info"
-){
-
-    messageBox.className =
-        "message " + type;
-
-    messageBox.textContent =
-        text;
-
+function message(id, text, type = "info") {
+  const el = $(id);
+  el.className = "message " + type;
+  el.textContent = text;
 }
 
-
-/* =================================
-   CLEAR MESSAGE
-================================= */
-
-function clearMessage(){
-
-    messageBox.className =
-        "message";
-
-    messageBox.textContent =
-        "";
-
+function clearMessage(id) {
+  $(id).className = "message";
+  $(id).textContent = "";
 }
 
-
-/* =================================
-   FORMAT FILE SIZE
-================================= */
-
-function formatFileSize(bytes){
-
-    if(bytes < 1024){
-        return bytes + " B";
-    }
-
-    if(bytes < 1024 * 1024){
-        return (
-            bytes / 1024
-        ).toFixed(1) + " KB";
-    }
-
-    return (
-        bytes /
-        (1024 * 1024)
-    ).toFixed(2) + " MB";
-
+function goBack() {
+  if (history.length > 1) history.back();
+  else location.href = "index.html";
 }
 
-
-/* =================================
-   PAGE BACK
-================================= */
-
-function goBack(){
-
-    window.history.back();
-
+function goToLogin() {
+  // Change this only if your actual owner-login page has another filename.
+  location.href = "shop-owner-login.html";
 }
 
-
-/* =================================
-   LOAD OWNER + SHOP
-================================= */
-
-async function loadOwnerShop(){
-
-    try{
-
-        uploadStage =
-            "Checking login";
-
-        const {
-            data: sessionData,
-            error: sessionError
-        } =
-            await supabaseClient
-                .auth
-                .getSession();
-
-
-        if(sessionError){
-
-            console.error(
-                "Session error:",
-                sessionError
-            );
-
-            throw sessionError;
-
-        }
-
-
-        const session =
-            sessionData?.session;
-
-
-        if(!session || !session.user){
-
-            showMessage(
-                "Please login as a Shop Owner first.",
-                "error"
-            );
-
-            ownerStatus.textContent =
-                "● Login required";
-
-            uploadBtn.disabled =
-                true;
-
-            return;
-
-        }
-
-
-        const user =
-            session.user;
-
-
-        /* ================================
-           OWNER ACCOUNT
-        ================================= */
-
-        uploadStage =
-            "Checking owner mapping";
-
-        const {
-            data: ownerData,
-            error: ownerError
-        } =
-            await supabaseClient
-                .from("shop_owner_accounts")
-                .select(
-                    "owner_id, shop_id, registered_mobile"
-                )
-                .eq(
-                    "auth_user_id",
-                    user.id
-                )
-                .maybeSingle();
-
-
-        if(ownerError){
-
-            console.error(
-                "Owner account error:",
-                ownerError
-            );
-
-            throw ownerError;
-
-        }
-
-
-        if(!ownerData){
-
-            showMessage(
-                "Your account is not linked to a registered Pyncode shop.",
-                "error"
-            );
-
-            ownerStatus.textContent =
-                "● Shop mapping not found";
-
-            uploadBtn.disabled =
-                true;
-
-            return;
-
-        }
-
-
-        verifiedOwnerId =
-            ownerData.owner_id;
-
-        verifiedShopId =
-            ownerData.shop_id;
-
-
-        /* ================================
-           SHOP DETAILS
-        ================================= */
-
-        uploadStage =
-            "Checking registered shop";
-
-        const {
-            data: shopData,
-            error: shopError
-        } =
-            await supabaseClient
-                .from("shops")
-                .select(
-                    "id, shop_name, category, area, city, pincode"
-                )
-                .eq(
-                    "id",
-                    ownerData.shop_id
-                )
-                .maybeSingle();
-
-
-        if(shopError){
-
-            console.error(
-                "Shop query error:",
-                shopError
-            );
-
-            throw shopError;
-
-        }
-
-
-        if(!shopData){
-
-            showMessage(
-                "Your registered shop could not be found.",
-                "error"
-            );
-
-            ownerStatus.textContent =
-                "● Shop not found";
-
-            uploadBtn.disabled =
-                true;
-
-            return;
-
-        }
-
-
-        /* ================================
-           VERIFY SHOP ID
-        ================================= */
-
-        if(
-            Number(shopData.id) !==
-            Number(ownerData.shop_id)
-        ){
-
-            throw new Error(
-                "Owner shop mapping verification failed."
-            );
-
-        }
-
-
-        verifiedShopId =
-            shopData.id;
-
-
-        verifiedPincode =
-            String(
-                shopData.pincode || ""
-            ).replace(
-                /\D/g,
-                ""
-            );
-
-
-        if(
-            verifiedPincode.length !== 6
-        ){
-
-            showMessage(
-                "Your registered shop does not have a valid 6-digit pincode.",
-                "error"
-            );
-
-            ownerStatus.textContent =
-                "● Pincode required";
-
-            uploadBtn.disabled =
-                true;
-
-            return;
-
-        }
-
-
-        /* ================================
-           DISPLAY SHOP
-        ================================= */
-
-        shopName.textContent =
-            shopData.shop_name ||
-            "Registered Shop";
-
-        shopCategory.textContent =
-            shopData.category ||
-            "Business";
-
-        const locationParts = [
-            shopData.area,
-            shopData.city
-        ].filter(Boolean);
-
-        shopLocation.textContent =
-            locationParts.length
-                ? locationParts.join(", ") +
-                  " • Pincode " +
-                  verifiedPincode
-                : "Pincode " +
-                  verifiedPincode;
-
-
-        ownerStatus.textContent =
-            "● Owner verified • " +
-            (verifiedOwnerId || "Pyncode Owner");
-
-
-        uploadBtn.disabled =
-            !selectedFile;
-
-
-        clearMessage();
-
-        console.log(
-            "OWNER VERIFIED:",
-            {
-                owner_id: verifiedOwnerId,
-                shop_id: verifiedShopId,
-                pincode: verifiedPincode
-            }
-        );
-
-    }
-    catch(error){
-
-        console.error(
-            "loadOwnerShop error:",
-            error
-        );
-
-        uploadStage =
-            "Owner verification";
-
-        showMessage(
-            "Unable to verify your shop. Please login again and try.",
-            "error"
-        );
-
-        ownerStatus.textContent =
-            "● Verification failed";
-
-        uploadBtn.disabled =
-            true;
-
-    }
-
+function setDashboardEnabled(enabled) {
+  [
+    "saveShopBtn", "coverBtn", "logoBtn", "saveHoursBtn",
+    "saveLinksBtn", "saveLocationBtn", "offerBtn"
+  ].forEach(id => $(id).disabled = !enabled);
 }
 
+function setValue(id, value) {
+  $(id).value = value ?? "";
+}
 
-/* =================================
-   FILE SELECT
-================================= */
+function showPreview(input, previewId, assignFile) {
+  const file = input.files && input.files[0];
+  assignFile(file || null);
 
-posterInput.addEventListener(
-    "change",
-    function(){
+  const preview = $(previewId);
 
-        clearMessage();
-
-        const file =
-            posterInput.files &&
-            posterInput.files[0];
-
-
-        if(!file){
-
-            selectedFile =
-                null;
-
-            previewBox.style.display =
-                "none";
-
-            uploadBtn.disabled =
-                true;
-
-            return;
-
-        }
-
-
-        /* ================================
-           FILE TYPE CHECK
-        ================================= */
-
-        const allowedTypes = [
-            "image/jpeg",
-            "image/png",
-            "image/webp"
-        ];
-
-
-        if(
-            !allowedTypes.includes(
-                file.type
-            )
-        ){
-
-            posterInput.value =
-                "";
-
-            selectedFile =
-                null;
-
-            previewBox.style.display =
-                "none";
-
-            uploadBtn.disabled =
-                true;
-
-            showMessage(
-                "Only JPG, PNG or WEBP images are allowed.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-   /* ================================
-   FILE SIZE CHECK
-   Allowed: 200 KB - 500 KB
-================================= */
-
-const MIN_FILE_SIZE =
-    200 * 1024;
-
-const MAX_FILE_SIZE =
-    500 * 1024;
-
-
-/* ================================
-   TOO SMALL
-================================= */
-
-if(file.size < MIN_FILE_SIZE){
-
-    posterInput.value =
-        "";
-
-    selectedFile =
-        null;
-
-    previewBox.style.display =
-        "none";
-
-    uploadBtn.disabled =
-        true;
-
-    showMessage(
-        "Image size is too small. Please choose an image between 200 KB and 500 KB.",
-        "error"
-    );
-
+  if (!file) {
+    preview.src = "";
+    preview.classList.add("hidden");
     return;
+  }
 
+  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+    input.value = "";
+    assignFile(null);
+    preview.classList.add("hidden");
+    alert("Choose a JPG, PNG or WEBP image.");
+    return;
+  }
+
+  if (file.size > 500 * 1024) {
+    input.value = "";
+    assignFile(null);
+    preview.classList.add("hidden");
+    alert("Image must be 500 KB or smaller.");
+    return;
+  }
+
+  preview.src = URL.createObjectURL(file);
+  preview.classList.remove("hidden");
+}
+
+$("coverInput").addEventListener("change", () =>
+  showPreview($("coverInput"), "coverPreview", file => selectedCover = file)
+);
+
+$("logoInput").addEventListener("change", () =>
+  showPreview($("logoInput"), "logoPreview", file => selectedLogo = file)
+);
+
+$("offerInput").addEventListener("change", () => {
+  const file = $("offerInput").files?.[0] || null;
+
+  if (!file) {
+    selectedOffer = null;
+    $("offerPreview").classList.add("hidden");
+    $("offerBtn").disabled = !currentShop;
+    return;
+  }
+
+  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+    $("offerInput").value = "";
+    selectedOffer = null;
+    $("offerPreview").classList.add("hidden");
+    alert("Choose a JPG, PNG or WEBP image.");
+    return;
+  }
+
+  if (file.size < 200 * 1024 || file.size > 500 * 1024) {
+    $("offerInput").value = "";
+    selectedOffer = null;
+    $("offerPreview").classList.add("hidden");
+    alert("Offer poster must be between 200 KB and 500 KB.");
+    return;
+  }
+
+  selectedOffer = file;
+  $("offerPreview").src = URL.createObjectURL(file);
+  $("offerPreview").classList.remove("hidden");
+  $("offerBtn").disabled = !currentShop;
+});
+
+async function loadOwnerDashboard() {
+  setDashboardEnabled(false);
+
+  try {
+    const { data: sessionData, error: sessionError } =
+      await db.auth.getSession();
+
+    if (sessionError) throw sessionError;
+
+    currentUser = sessionData.session?.user || null;
+
+    if (!currentUser) {
+      $("ownerStatus").textContent = "● Login required";
+      $("loginNotice").classList.remove("hidden");
+      message("accountMessage", "Please login as a Shop Owner.", "error");
+      return;
+    }
+
+    const { data: owner, error: ownerError } = await db
+      .from("shop_owner_accounts")
+      .select("owner_id, shop_id, registered_mobile")
+      .eq("auth_user_id", currentUser.id)
+      .maybeSingle();
+
+    if (ownerError) throw ownerError;
+
+    if (!owner) {
+      $("ownerStatus").textContent = "● Shop mapping not found";
+      $("loginNotice").classList.remove("hidden");
+      message(
+        "accountMessage",
+        "Your login is not linked to a shop. Please contact Pyncode support.",
+        "error"
+      );
+      return;
+    }
+
+    const { data: shop, error: shopError } = await db
+      .from("shops")
+      .select("*")
+      .eq("id", owner.shop_id)
+      .maybeSingle();
+
+    if (shopError) throw shopError;
+    if (!shop) throw new Error("Registered shop could not be found.");
+
+    currentShop = shop;
+    $("dashboard").classList.remove("hidden");
+    $("ownerStatus").textContent = "● Owner verified";
+    $("accountInfo").textContent =
+      "Logged in as " + (currentUser.email || "registered shop owner");
+
+    // Shop details
+    setValue("shopName", shop.shop_name);
+    setValue("category", shop.category);
+    setValue("ownerName", shop.owner_name);
+    setValue("mobile", shop.mobile);
+    setValue("whatsapp", shop.whatsapp);
+    setValue("address", shop.address);
+    setValue("area", shop.area);
+    setValue("city", shop.city);
+    setValue("pincode", shop.pincode);
+    setValue("description", shop.description);
+
+    // Opening hours and holidays
+    setValue("openingTime", shop.opening_time);
+    setValue("closingTime", shop.closing_time);
+    setValue("weeklyLeave", shop.weekly_leave);
+    setValue("temporaryLeave", String(!!shop.temporary_leave));
+    setValue("holidayMessage", shop.temporary_leave_message);
+
+    // Links and map coordinates
+    setValue("instagram", shop.instagram_url);
+    setValue("website", shop.website_url);
+    setValue("latitude", shop.latitude);
+    setValue("longitude", shop.longitude);
+
+    // Existing images
+    if (shop.shop_image) {
+      $("coverPreview").src = shop.shop_image;
+      $("coverPreview").classList.remove("hidden");
+    }
+
+    if (shop.shop_logo) {
+      $("logoPreview").src = shop.shop_logo;
+      $("logoPreview").classList.remove("hidden");
+    }
+
+    updateDirectionsLink();
+    setDashboardEnabled(true);
+    $("offerBtn").disabled = !selectedOffer;
+
+  } catch (error) {
+    console.error("Owner dashboard error:", error);
+    $("ownerStatus").textContent = "● Verification failed";
+    message(
+      "accountMessage",
+      error.message || "Unable to load shop. Please try again.",
+      "error"
+    );
+  }
+}
+
+async function verifyOwnerAgain() {
+  const { data: sessionData, error: sessionError } =
+    await db.auth.getSession();
+
+  if (sessionError) throw sessionError;
+
+  const user = sessionData.session?.user;
+  if (!user) throw new Error("Login session expired. Please login again.");
+
+  const { data: owner, error: ownerError } = await db
+    .from("shop_owner_accounts")
+    .select("shop_id")
+    .eq("auth_user_id", user.id)
+    .maybeSingle();
+
+  if (ownerError) throw ownerError;
+  if (!owner || !currentShop ||
+      Number(owner.shop_id) !== Number(currentShop.id)) {
+    throw new Error("Shop ownership could not be verified.");
+  }
+
+  return { user, shopId: Number(owner.shop_id) };
+}
+
+async function saveShopFields(fields, messageId) {
+  try {
+    const { shopId } = await verifyOwnerAgain();
+
+    const { data, error } = await db
+      .from("shops")
+      .update(fields)
+      .eq("id", shopId)
+      .select("id")
+      .maybeSingle();
+
+    if (error) throw error;
+    if (!data) {
+      throw new Error(
+        "No shop was updated. Check your owner mapping and Supabase UPDATE policy."
+      );
+    }
+
+    currentShop = { ...currentShop, ...fields };
+    message(messageId, "Saved successfully.", "success");
+
+  } catch (error) {
+    console.error("Save error:", error);
+    message(messageId, error.message || "Save failed.", "error");
+  }
+}
+
+  // SAVE SHOP DETAILS
+$("saveShopBtn").addEventListener("click", async () => {
+  const name = $("shopName").value.trim();
+  const category = $("category").value.trim();
+
+  if (!name || !category) {
+    message("shopMessage", "Shop name and category are required.", "error");
+    return;
+  }
+
+  $("saveShopBtn").disabled = true;
+
+  try {
+    await saveShopFields({
+      shop_name: name,
+      category,
+      owner_name: $("ownerName").value.trim() || null,
+      mobile: $("mobile").value.trim() || null,
+      whatsapp: $("whatsapp").value.trim() || null,
+      address: $("address").value.trim() || null,
+      area: $("area").value.trim() || null,
+      city: $("city").value.trim() || null,
+      pincode: $("pincode").value.trim() || null,
+      description: $("description").value.trim() || null
+    }, "shopMessage");
+  } finally {
+    $("saveShopBtn").disabled = !currentShop;
+  }
+});
+
+
+// SAVE OPENING HOURS & HOLIDAYS
+$("saveHoursBtn").addEventListener("click", async () => {
+  $("saveHoursBtn").disabled = true;
+
+  try {
+    await saveShopFields({
+      opening_time: $("openingTime").value || null,
+      closing_time: $("closingTime").value || null,
+      weekly_leave: $("weeklyLeave").value || null,
+      temporary_leave: $("temporaryLeave").value === "true",
+      temporary_leave_message: $("holidayMessage").value.trim() || null
+    }, "hoursMessage");
+  } finally {
+    $("saveHoursBtn").disabled = !currentShop;
+  }
+});
+
+
+// SAVE SOCIAL LINKS
+$("saveLinksBtn").addEventListener("click", async () => {
+  const instagram = $("instagram").value.trim();
+  const website = $("website").value.trim();
+
+  for (const url of [instagram, website]) {
+    if (url && !/^https?:\/\//i.test(url)) {
+      message(
+        "linksMessage",
+        "Enter complete links beginning with https://",
+        "error"
+      );
+      return;
+    }
+  }
+
+  $("saveLinksBtn").disabled = true;
+
+  try {
+    await saveShopFields({
+      instagram_url: instagram || null,
+      website_url: website || null
+    }, "linksMessage");
+  } finally {
+    $("saveLinksBtn").disabled = !currentShop;
+  }
+});
+
+
+// UPDATE DIRECTIONS LINK
+function updateDirectionsLink() {
+  const lat = Number($("latitude").value);
+  const lng = Number($("longitude").value);
+  const link = $("directionsLink");
+
+  if (
+    $("latitude").value.trim() !== "" &&
+    $("longitude").value.trim() !== "" &&
+    Number.isFinite(lat) &&
+    Number.isFinite(lng) &&
+    lat >= -90 && lat <= 90 &&
+    lng >= -180 && lng <= 180
+  ) {
+    link.href =
+      "https://www.google.com/maps/dir/?api=1&destination=" +
+      encodeURIComponent(lat + "," + lng);
+
+    link.classList.remove("hidden");
+  } else {
+    link.removeAttribute("href");
+    link.classList.add("hidden");
+  }
+}
+
+$("latitude").addEventListener("input", updateDirectionsLink);
+$("longitude").addEventListener("input", updateDirectionsLink);
+
+
+// GET DEVICE LOCATION
+$("getLocationBtn").addEventListener("click", () => {
+  if (!navigator.geolocation) {
+    message(
+      "locationMessage",
+      "Your browser does not support location access.",
+      "error"
+    );
+    return;
+  }
+
+  $("getLocationBtn").disabled = true;
+  message(
+    "locationMessage",
+    "Requesting device location. Please allow location access.",
+    "info"
+  );
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      $("latitude").value = position.coords.latitude;
+      $("longitude").value = position.coords.longitude;
+      updateDirectionsLink();
+      $("getLocationBtn").disabled = false;
+
+      message(
+        "locationMessage",
+        "Location obtained. Check the coordinates and save them.",
+        "success"
+      );
+    },
+    error => {
+      $("getLocationBtn").disabled = false;
+
+      const reasons = {
+        1: "Location permission was denied.",
+        2: "Device location is unavailable.",
+        3: "Location request timed out."
+      };
+
+      message(
+        "locationMessage",
+        reasons[error.code] || "Unable to get device location.",
+        "error"
+      );
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+  );
+});
+
+
+// SAVE MAP LOCATION
+$("saveLocationBtn").addEventListener("click", async () => {
+  const latText = $("latitude").value.trim();
+  const lngText = $("longitude").value.trim();
+  const lat = Number(latText);
+  const lng = Number(lngText);
+
+  if (
+    !latText || !lngText ||
+    !Number.isFinite(lat) || !Number.isFinite(lng) ||
+    lat < -90 || lat > 90 || lng < -180 || lng > 180
+  ) {
+    message("locationMessage", "Enter valid latitude and longitude.", "error");
+    return;
+  }
+
+  $("saveLocationBtn").disabled = true;
+
+  try {
+    await saveShopFields({
+      latitude: lat,
+      longitude: lng
+    }, "locationMessage");
+
+    updateDirectionsLink();
+  } finally {
+    $("saveLocationBtn").disabled = !currentShop;
+  }
+});
+
+
+// UPLOAD IMAGE TO SUPABASE STORAGE
+async function uploadShopImage(file, field, messageId, buttonId, bucket) {
+  if (!file || !currentShop) return;
+
+  $(buttonId).disabled = true;
+  message(messageId, "Uploading image...", "info");
+
+  try {
+    const { user, shopId } = await verifyOwnerAgain();
+
+    const ext = file.name.split(".").pop().toLowerCase();
+    const safeExt = ext === "jpeg" ? "jpg" : ext;
+    const path =
+      user.id + "/" + shopId + "/" +
+      field + "-" + crypto.randomUUID() + "." + safeExt;
+
+    const { error: uploadError } = await db.storage
+      .from(bucket)
+      .upload(path, file, {
+        contentType: file.type,
+        upsert: false,
+        cacheControl: "3600"
+      });
+
+    if (uploadError) throw uploadError;
+
+    const { data: publicData } = db.storage
+      .from(bucket)
+      .getPublicUrl(path);
+
+    const publicUrl = publicData?.publicUrl;
+
+    if (!publicUrl) throw new Error("Could not create image URL.");
+
+    const update = {};
+    update[field] = publicUrl;
+
+    const { data, error: updateError } = await db
+      .from("shops")
+      .update(update)
+      .eq("id", shopId)
+      .select("id")
+      .maybeSingle();
+
+    if (updateError) throw updateError;
+    if (!data) {
+      throw new Error(
+        "Image uploaded, but shop profile update was denied. Check the shops UPDATE policy."
+      );
+    }
+
+    currentShop[field] = publicUrl;
+
+    if (field === "shop_image") {
+      $("coverPreview").src = publicUrl;
+    } else {
+      $("logoPreview").src = publicUrl;
+    }
+
+    message(messageId, "Image uploaded and saved successfully.", "success");
+
+  } catch (error) {
+    console.error("Image upload error:", error);
+    message(
+      messageId,
+      error.message || "Image upload failed. Check Storage permissions.",
+      "error"
+    );
+  } finally {
+    $(buttonId).disabled = !currentShop;
+  }
 }
 
 
-/* ================================
-   TOO LARGE
-================================= */
+// COVER IMAGE
+$("coverBtn").addEventListener("click", async () => {
+  if (!selectedCover) {
+    message("coverMessage", "Please select a cover image.", "error");
+    return;
+  }
 
-if(file.size > MAX_FILE_SIZE){
+  await uploadShopImage(
+    selectedCover,
+    "shop_image",
+    "coverMessage",
+    "coverBtn",
+    "shop-images"
+  );
+});
 
-    posterInput.value =
-        "";
 
-    selectedFile =
-        null;
+// SHOP LOGO
+$("logoBtn").addEventListener("click", async () => {
+  if (!selectedLogo) {
+    message("logoMessage", "Please select a logo image.", "error");
+    return;
+  }
 
-    previewBox.style.display =
-        "none";
+  await uploadShopImage(
+    selectedLogo,
+    "shop_logo",
+    "logoMessage",
+    "logoBtn",
+    "shop-images"
+  );
+});
 
-    uploadBtn.disabled =
-        true;
 
-    showMessage(
-        "Image is too large. Please choose an image between 200 KB and 500 KB.",
-        "error"
+// UPLOAD OFFER POSTER
+$("offerBtn").addEventListener("click", async () => {
+  if (!selectedOffer || !currentShop) {
+    message("offerMessage", "Select an offer poster first.", "error");
+    return;
+  }
+
+  $("offerBtn").disabled = true;
+  message("offerMessage", "Verifying owner and uploading poster...", "info");
+
+  let uploadedPath = null;
+
+  try {
+    const { user, shopId } = await verifyOwnerAgain();
+
+    const expiryValue = $("offerExpiry").value;
+    let expiresAt = null;
+
+    if (expiryValue) {
+      const expiryDate = new Date(expiryValue + "T23:59:59");
+      if (Number.isNaN(expiryDate.getTime())) {
+        throw new Error("Invalid offer expiry date.");
+      }
+      expiresAt = expiryDate.toISOString();
+    }
+
+    const ext = selectedOffer.name.split(".").pop().toLowerCase();
+    const safeExt = ext === "jpeg" ? "jpg" : ext;
+
+    uploadedPath =
+      user.id + "/" + crypto.randomUUID() + "." + safeExt;
+
+    const { error: storageError } = await db.storage
+      .from("shop-offers")
+      .upload(uploadedPath, selectedOffer, {
+        contentType: selectedOffer.type,
+        upsert: false,
+        cacheControl: "3600"
+      });
+
+    if (storageError) throw storageError;
+
+    const { data: urlData } = db.storage
+      .from("shop-offers")
+      .getPublicUrl(uploadedPath);
+
+    const imageUrl = urlData?.publicUrl;
+    if (!imageUrl) throw new Error("Offer image URL could not be created.");
+
+    const { error: insertError } = await db
+      .from("shop_offers")
+      .insert({
+        shop_id: shopId,
+        offer_title: $("offerTitle").value.trim() || null,
+        offer_description: $("offerDescription").value.trim() || null,
+        offer_image: imageUrl,
+        pincode: String(currentShop.pincode || "").replace(/\D/g, ""),
+        status: "pending",
+        is_active: false,
+        expires_at: expiresAt
+      });
+
+    if (insertError) throw insertError;
+
+    message(
+      "offerMessage",
+      "Poster uploaded successfully and submitted for admin approval.",
+      "success"
     );
 
-    return;
-
-}
-
-        /* ================================
-           STORE SELECTED FILE
-        ================================= */
-
-        selectedFile =
-            file;
-
-
-        /* ================================
-           PREVIEW
-        ================================= */
-
-        const reader =
-            new FileReader();
-
-
-        reader.onload =
-            function(event){
-
-                posterPreview.src =
-                    event.target.result;
-
-                previewBox.style.display =
-                    "block";
-
-                fileInfo.textContent =
-                    file.name +
-                    " • " +
-                    formatFileSize(
-                        file.size
-                    );
-
-            };
-
-
-        reader.readAsDataURL(
-            file
-        );
-
-
-        uploadBtn.disabled =
-            !verifiedShopId;
-
-
-        console.log(
-            "FILE SELECTED:",
-            file.name,
-            file.type,
-            file.size
-        );
-
-    }
-);
-
-/* =================================
-   UPLOAD ADVERTISEMENT
-================================= */
-
-uploadBtn.addEventListener(
-    "click",
-    async function(){
-
-        clearMessage();
-
-
-        /* ================================
-           BASIC FILE CHECK
-        ================================= */
-
-        if(!selectedFile){
-
-            showMessage(
-                "Please select an advertisement poster first.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if(!verifiedShopId){
-
-            showMessage(
-                "Your shop is not verified. Please login again.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if(
-            !verifiedPincode ||
-            verifiedPincode.length !== 6
-        ){
-
-            showMessage(
-                "Your shop pincode is invalid.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* ================================
-           DISABLE BUTTON
-        ================================= */
-
-        uploadBtn.disabled =
-            true;
-
-        uploadBtn.textContent =
-            "Uploading...";
-
-
-        let filePath =
-            null;
-
-
-        try{
-
-            /* ================================
-               1. CHECK CURRENT SESSION
-            ================================= */
-
-            uploadStage =
-                "Checking login";
-
-            const {
-                data: sessionData,
-                error: sessionError
-            } =
-                await supabaseClient
-                    .auth
-                    .getSession();
-
-
-            if(sessionError){
-
-                console.error(
-                    "Session error:",
-                    sessionError
-                );
-
-                throw sessionError;
-
-            }
-
-
-            const session =
-                sessionData?.session;
-
-
-            if(
-                !session ||
-                !session.user
-            ){
-
-                throw new Error(
-                    "Your login session has expired. Please login again."
-                );
-
-            }
-
-
-            console.log(
-                "CURRENT AUTH USER:",
-                session.user.id
-            );
-
-
-            /* ================================
-               2. RE-CHECK OWNER MAPPING
-            ================================= */
-
-            uploadStage =
-                "Verifying owner mapping";
-
-            const {
-                data: ownerData,
-                error: ownerError
-            } =
-                await supabaseClient
-                    .from("shop_owner_accounts")
-                    .select(
-                        "owner_id, shop_id, registered_mobile"
-                    )
-                    .eq(
-                        "auth_user_id",
-                        session.user.id
-                    )
-                    .maybeSingle();
-
-
-            if(ownerError){
-
-                console.error(
-                    "Owner mapping error:",
-                    ownerError
-                );
-
-                throw ownerError;
-
-            }
-
-
-            if(!ownerData){
-
-                throw new Error(
-                    "Owner account mapping was not found."
-                );
-
-            }
-
-
-            /* ================================
-               3. VERIFY SHOP ID
-            ================================= */
-
-            if(
-                Number(ownerData.shop_id) !==
-                Number(verifiedShopId)
-            ){
-
-                throw new Error(
-                    "Shop ownership verification failed."
-                );
-
-            }
-
-
-            const finalShopId =
-                Number(
-                    ownerData.shop_id
-                );
-
-
-            console.log(
-                "VERIFIED SHOP ID:",
-                finalShopId
-            );
-
-
-            /* ================================
-               4. RE-CHECK SHOP
-            ================================= */
-
-            uploadStage =
-                "Checking registered shop";
-
-            const {
-                data: shopData,
-                error: shopError
-            } =
-                await supabaseClient
-                    .from("shops")
-                    .select(
-                        "id, shop_name, category, area, city, pincode"
-                    )
-                    .eq(
-                        "id",
-                        finalShopId
-                    )
-                    .maybeSingle();
-
-
-            if(shopError){
-
-                console.error(
-                    "Shop verification error:",
-                    shopError
-                );
-
-                throw shopError;
-
-            }
-
-
-            if(!shopData){
-
-                throw new Error(
-                    "Registered shop could not be found."
-                );
-
-            }
-
-
-            if(
-                Number(shopData.id) !==
-                finalShopId
-            ){
-
-                throw new Error(
-                    "Shop ID verification failed."
-                );
-
-            }
-
-
-            const finalPincode =
-                String(
-                    shopData.pincode || ""
-                ).replace(
-                    /\D/g,
-                    ""
-                );
-
-
-            if(
-                finalPincode.length !== 6
-            ){
-
-                throw new Error(
-                    "Registered shop pincode is invalid."
-                );
-
-            }
-
-
-            /* ================================
-               5. CREATE FILE PATH
-            ================================= */
-
-            const extension =
-                selectedFile.name
-                    .split(".")
-                    .pop()
-                    .toLowerCase();
-
-
-            const safeExtension =
-                extension === "jpeg"
-                    ? "jpg"
-                    : extension;
-
-
-            const uniqueName =
-                crypto.randomUUID() +
-                "." +
-                safeExtension;
-
-
-            /*
-             IMPORTANT:
-             First folder = auth.uid()
-
-             This matches the existing
-             Storage INSERT policy.
-            */
-
-            filePath =
-                session.user.id +
-                "/" +
-                uniqueName;
-
-
-            console.log(
-                "UPLOAD START:",
-                filePath
-            );
-
-            console.log(
-                "FILE:",
-                selectedFile.name,
-                selectedFile.type,
-                selectedFile.size
-            );
-
-
-            /* ================================
-               6. CREATE SIGNED UPLOAD URL
-            ================================= */
-
-            uploadStage =
-                "Creating secure upload link";
-
-            uploadBtn.textContent =
-                "Preparing Upload...";
-
-
-            console.log(
-                "CREATE SIGNED UPLOAD URL:",
-                filePath
-            );
-
-
-            const {
-                data: signedUploadData,
-                error: signedUploadError
-            } =
-                await supabaseClient
-                    .storage
-                    .from(
-                        STORAGE_BUCKET
-                    )
-                    .createSignedUploadUrl(
-                        filePath
-                    );
-
-
-            if(signedUploadError){
-
-                console.error(
-                    "Create signed upload URL error:",
-                    signedUploadError
-                );
-
-                throw signedUploadError;
-
-            }
-
-
-            if(
-                !signedUploadData ||
-                !signedUploadData.token
-            ){
-
-                throw new Error(
-                    "Storage upload token could not be created."
-                );
-
-            }
-
-
-            console.log(
-                "SIGNED UPLOAD TOKEN CREATED"
-            );
-
-
-            /* ================================
-               7. UPLOAD USING SIGNED URL
-            ================================= */
-
-            uploadStage =
-                "Uploading advertisement";
-
-            uploadBtn.textContent =
-                "Uploading Advertisement...";
-
-
-            console.log(
-                "SIGNED UPLOAD START:",
-                filePath
-            );
-
-
-            const {
-                data: signedResult,
-                error: signedUploadError2
-            } =
-                await supabaseClient
-                    .storage
-                    .from(
-                        STORAGE_BUCKET
-                    )
-                    .uploadToSignedUrl(
-                        filePath,
-                        signedUploadData.token,
-                        selectedFile,
-                        {
-                            contentType:
-                                selectedFile.type,
-
-                            cacheControl:
-                                "31536000"
-                        }
-                    );
-
-
-            if(signedUploadError2){
-
-                console.error(
-                    "Signed storage upload error:",
-                    signedUploadError2
-                );
-
-                throw signedUploadError2;
-
-            }
-
-
-            console.log(
-                "SIGNED STORAGE UPLOAD SUCCESS:",
-                signedResult
-            );
-
-
-            /* ================================
-               8. GET PUBLIC URL
-            ================================= */
-
-            uploadStage =
-                "Creating advertisement link";
-
-            uploadBtn.textContent =
-                "Finalizing...";
-
-
-            const {
-                data: publicUrlData
-            } =
-                supabaseClient
-                    .storage
-                    .from(
-                        STORAGE_BUCKET
-                    )
-                    .getPublicUrl(
-                        filePath
-                    );
-
-
-            const publicImageUrl =
-                publicUrlData &&
-                publicUrlData.publicUrl;
-
-
-            if(!publicImageUrl){
-
-                throw new Error(
-                    "Public advertisement image URL could not be created."
-                );
-
-            }
-
-
-            console.log(
-                "PUBLIC IMAGE URL:",
-                publicImageUrl
-            );
-
-
-            /* ================================
-               9. INSERT SHOP OFFER
-            ================================= */
-
-            uploadStage =
-                "Saving advertisement";
-
-            uploadBtn.textContent =
-                "Saving Advertisement...";
-
-
-           const {
-    error: offerError
-} =
-    await supabaseClient
-        .from("shop_offers")
-        .insert({
-
-            shop_id:
-                finalShopId,
-
-            offer_image:
-                publicImageUrl,
-
-            pincode:
-                finalPincode,
-
-            status:
-                "approved",
-
-            is_active:
-                true
-
-        });
-
-
-            if(offerError){
-
-                console.error(
-                    "Shop offer insert error:",
-                    offerError
-                );
-
-                throw offerError;
-
-            }
-
-
-            /* ================================
-               10. SUCCESS
-            ================================= */
-
-            uploadStage =
-                "Completed";
-
-
-          showMessage(
-    "Uploaded successfully! Check your Offer Page. Thank you!",
-    "success"
-);
-
-
-            uploadBtn.textContent =
-                "Advertisement Submitted ✓";
-
-
-            /* ================================
-               RESET FILE
-            ================================= */
-
-            posterInput.value =
-                "";
-
-            selectedFile =
-                null;
-
-            previewBox.style.display =
-                "none";
-
-
-            /*
-             Keep button disabled after
-             successful submission.
-            */
-
-            uploadBtn.disabled =
-                true;
-
-
-        }
-        catch(error){
-
-            console.error(
-                "ADVERTISEMENT UPLOAD ERROR:",
-                error
-            );
-
-
-            /* ================================
-               DETAILED ERROR
-            ================================= */
-
-            let errorText =
-                "Please try again.";
-
-
-            if(error){
-
-                if(
-                    typeof error.message ===
-                    "string" &&
-                    error.message.trim()
-                ){
-
-                    errorText =
-                        error.message.trim();
-
-                }
-                else if(
-                    typeof error.error_description ===
-                    "string" &&
-                    error.error_description.trim()
-                ){
-
-                    errorText =
-                        error.error_description.trim();
-
-                }
-                else if(
-                    typeof error.statusCode !==
-                    "undefined"
-                ){
-
-                    errorText =
-                        "Storage request returned status " +
-                        error.statusCode;
-
-                }
-
-            }
-
-
-            showMessage(
-                "Upload failed at: " +
-                uploadStage +
-                ". " +
-                errorText,
-                "error"
-            );
-
-
-            uploadBtn.textContent =
-                "Upload Advertisement";
-
-
-            uploadBtn.disabled =
-                !selectedFile;
-
-
-        }
-
-    }
-);
-
-
-/* =================================
-   INITIAL LOAD
-================================= */
-
-loadOwnerShop();
-
+    $("offerInput").value = "";
+    $("offerTitle").value = "";
+    $("offerDescription").value = "";
+    $("offerExpiry").value = "";
+    $("offerPreview").classList.add("hidden");
+    selectedOffer = null;
+
+  } catch (error) {
+    console.error("Offer upload error:", error);
+
+    message(
+      "offerMessage",
+      error.message || "Offer upload failed. Check storage and table permissions.",
+      "error"
+    );
+  } finally {
+    $("offerBtn").disabled = !currentShop || !selectedOffer;
+  }
+});
+
+
+// LOGOUT
+$("logoutBtn").addEventListener("click", async () => {
+  $("logoutBtn").disabled = true;
+
+  try {
+    const { error } = await db.auth.signOut();
+    if (error) throw error;
+
+    location.href = "shop-owner-login.html";
+  } catch (error) {
+    message(
+      "accountMessage",
+      error.message || "Unable to logout.",
+      "error"
+    );
+    $("logoutBtn").disabled = false;
+  }
+});
+
+
+// INITIAL LOAD
+loadOwnerDashboard();
 </script>
-
 </body>
 </html>
