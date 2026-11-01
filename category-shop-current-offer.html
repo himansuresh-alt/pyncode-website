@@ -713,6 +713,7 @@ body.viewer-open {
 .shop-actions{width:100%;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:7px}
 .shop-action{min-width:0;min-height:62px;display:flex;align-items:center;justify-content:center;gap:7px;padding:12px 8px;border:1px solid #e5e9e3;border-radius:18px;background:#fff;color:#07563f;text-decoration:none;font-weight:800;box-shadow:0 3px 10px rgba(0,0,0,.035);font-size:13px}
 .action-icon{font-size:21px;line-height:1}
+.action-icon svg{display:block;width:21px;height:21px;flex-shrink:0}
 .prototype-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 20px}
 .prototype-tabs a{display:flex;align-items:center;justify-content:center;min-height:52px;padding:10px 8px;border-radius:28px;background:#ecefea;color:#172019;text-decoration:none;font-weight:800;font-size:15px}
 .prototype-tabs a:first-child{background:linear-gradient(120deg,#087a4d,#07563f);color:white;box-shadow:0 5px 13px #07563f2b}
@@ -967,10 +968,19 @@ function renderShopActions(shop) {
   const cleanPhone = value => String(value || "").replace(/[^\d+]/g, "");
   const phone = cleanPhone(shop.mobile);
   const whatsapp = cleanPhone(shop.whatsapp || shop.mobile).replace(/^\+/, "");
-  const safeUrl = value => {
-    const url = safeImageUrl(value);
-    return url;
+  const safeUrl = value => safeImageUrl(value);
+
+  // Inline SVG icons only; keep the existing actions and destinations unchanged.
+  const icons = {
+    call: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.19 18a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.09 3.18 2 2 0 0 1 4.08 1h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.63 2.63a2 2 0 0 1-.45 2.11L8 8.72a16 16 0 0 0 6 6l1.26-1.26a2 2 0 0 1 2.11-.45c.85.3 1.73.51 2.63.63A2 2 0 0 1 22 16.92Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.3ZM12.2 21.6a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.7 9.7 0 1 1 8.4 4.7Zm5.4-7.3c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.2-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.5s1.1 2.8 1.3 3c.2.2 2.2 3.4 5.3 4.7.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.5Z"/></svg>',
+    directions: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>',
+    website: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2.8 12h18.4M12 2.5c2.5 2.6 3.7 5.8 3.7 9.5S14.5 18.9 12 21.5C9.5 18.9 8.3 15.7 8.3 12S9.5 5.1 12 2.5Z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>',
+    share: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="m8.7 10.6 6.6-4.2M8.7 13.4l6.6 4.2" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    save: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h12a1 1 0 0 1 1 1V22l-7-4-7 4V4.5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>'
   };
+
   const addAction = (label, icon, href, className = "") => {
     if (!href) return;
     const button = makeElement("a", ("shop-action " + className).trim());
@@ -978,22 +988,26 @@ function renderShopActions(shop) {
     button.target = "_blank";
     button.rel = "noopener noreferrer";
     button.setAttribute("aria-label", label);
-    button.append(makeElement("span", "action-icon", icon), makeElement("span", "", label));
+    const iconElement = makeElement("span", "action-icon");
+    iconElement.innerHTML = icon;
+    button.append(iconElement, makeElement("span", "", label));
     container.appendChild(button);
   };
 
-  if (phone) addAction("Call Shop", "📞", "tel:" + phone, "call");
-  if (whatsapp) addAction("WhatsApp", "◉", "https://wa.me/" + whatsapp, "whatsapp");
-  if (address) addAction("Directions", "📍", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address), "directions");
+  if (phone) addAction("Call Shop", icons.call, "tel:" + phone, "call");
+  if (whatsapp) addAction("WhatsApp", icons.whatsapp, "https://wa.me/" + whatsapp, "whatsapp");
+  if (address) addAction("Directions", icons.directions, "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address), "directions");
   const instagram = safeUrl(shop.instagram_url);
-  if (instagram) addAction("Instagram", "◎", instagram, "instagram");
+  if (instagram) addAction("Instagram", icons.instagram, instagram, "instagram");
   const website = safeUrl(shop.website_url);
-  if (website) addAction("Website", "🌐", website, "website");
+  if (website) addAction("Website", icons.website, website, "website");
 
   const share = makeElement("button", "shop-action share");
   share.type = "button";
   share.setAttribute("aria-label", "Share shop");
-  share.append(makeElement("span", "action-icon", "↗"), makeElement("span", "", "Share"));
+  const shareIcon = makeElement("span", "action-icon");
+  shareIcon.innerHTML = icons.share;
+  share.append(shareIcon, makeElement("span", "", "Share"));
   share.addEventListener("click", async () => {
     const shareData = { title: shop.shop_name || "Shop on Pyncode", text: [shop.shop_name, address].filter(Boolean).join(" — "), url: location.href };
     try {
@@ -1007,7 +1021,9 @@ function renderShopActions(shop) {
   const save = makeElement("button", "shop-action save");
   save.type = "button";
   save.setAttribute("aria-label", "Save shop link");
-  save.append(makeElement("span", "action-icon", "☆"), makeElement("span", "", "Save"));
+  const saveIcon = makeElement("span", "action-icon");
+  saveIcon.innerHTML = icons.save;
+  save.append(saveIcon, makeElement("span", "", "Save"));
   save.addEventListener("click", async () => {
     try {
       if (navigator.clipboard) { await navigator.clipboard.writeText(location.href); alert("Shop link copied. You can save it in your bookmarks."); }
@@ -1016,7 +1032,6 @@ function renderShopActions(shop) {
   });
   container.appendChild(save);
 }
-
 function formatTime12(timeValue) {
   if (!timeValue) return "";
   const parts = String(timeValue).split(":");
