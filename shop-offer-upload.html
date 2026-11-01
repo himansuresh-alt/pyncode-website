@@ -931,8 +931,8 @@ $("offerBtn").addEventListener("click", async () => {
         offer_description: $("offerDescription").value.trim() || null,
         offer_image: imageUrl,
         pincode: String(currentShop.pincode || "").replace(/\D/g, ""),
-        status: "pending",
-        is_active: false,
+        status: "approved",
+        is_active: true,
         expires_at: expiresAt
       });
 
@@ -940,7 +940,7 @@ $("offerBtn").addEventListener("click", async () => {
 
     message(
       "offerMessage",
-      "Poster uploaded successfully and submitted for admin approval.",
+      "Poster uploaded successfully! Your offer is now live.",
       "success"
     );
 
