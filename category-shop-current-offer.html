@@ -321,23 +321,8 @@ background-image: none;
 }
 
 .shop-action .action-icon {
-  width: 24px;
-  height: 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 24px;
-}
-.action-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.shop-action.whatsapp .action-icon svg { fill: #0a9d52; stroke: #fff; }
-.shop-action.whatsapp .action-icon svg .wa-cut { fill: none; stroke: #fff; stroke-width: .7; }
-.shop-action.directions .action-icon svg > path:first-child { fill: currentColor; stroke: currentColor; }
-.shop-action.directions .action-icon svg .icon-cut { stroke: #fff; }
-.shop-action { flex-direction: column; min-height: 92px; gap: 5px; }
-.shop-actions { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-@media (max-width: 520px) {
-  .shop-actions { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .shop-action { min-height: 84px; font-size: 12px; }
+  font-size: 18px;
+  line-height: 1;
 }
 
 .shop-action.instagram .action-icon { color: #c13584; }
@@ -396,8 +381,7 @@ background-image: none;
   display: flex;
   gap: 12px;
   overflow-x: auto;
-
-    padding: 6px 1px 12px;
+  padding: 6px 1px 12px;
   scroll-snap-type: x mandatory;
   scrollbar-width: thin;
   scrollbar-color: #d4ded5 transparent;
@@ -987,41 +971,29 @@ function renderShopActions(shop) {
     const url = safeImageUrl(value);
     return url;
   };
-  const icons = {
-    call: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 11.2 18a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 3.2 2 2 0 0 1 4.1 1h3a2 2 0 0 1 2 1.7l.5 3a2 2 0 0 1-.6 1.9L7.1 9.5a16 16 0 0 0 6 6l1.9-1.9a2 2 0 0 1 1.9-.6l3 .5a2 2 0 0 1 2.1 2.4Z"/></svg>',
-    whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 2 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5Z"/><path class="wa-cut" d="M8.2 7.3c-.3-.7-.7-.7-1-.7h-.8c-.3 0-.7.2-.9.6-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.5c.2.2 2.4 3.8 5.9 5.1 2.9 1.1 3.5.9 4.1.8.6-.1 2-.8 2.3-1.6.3-.8.3-1.4.2-1.6-.1-.2-.3-.3-.7-.5l-2.4-1.2c-.3-.1-.6-.2-.8.2-.2.3-.9 1.2-1.1 1.4-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.3-2.1-2.7-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.6.1-.2 0-.5 0-.7Z"/></svg>',
-    directions: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12 12 2Z"/><path class="icon-cut" d="M8 12h8m-3-3 3 3-3 3M12 8v8"/></svg>',
-    instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.7h.01"/></svg>',
-    website: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>',
-    share: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4m-6.6 7 6.6 4.2"/></svg>',
-    save: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg>'
-  };
-  const addAction = (label, iconName, href, className = "") => {
+  const addAction = (label, icon, href, className = "") => {
     if (!href) return;
     const button = makeElement("a", ("shop-action " + className).trim());
     button.href = href;
-    if (className !== "call") { button.target = "_blank"; button.rel = "noopener noreferrer"; }
+    button.target = "_blank";
+    button.rel = "noopener noreferrer";
     button.setAttribute("aria-label", label);
-    const icon = makeElement("span", "action-icon");
-    icon.innerHTML = icons[iconName] || icons.website;
-    button.append(icon, makeElement("span", "action-label", label));
+    button.append(makeElement("span", "action-icon", icon), makeElement("span", "", label));
     container.appendChild(button);
   };
 
-  if (phone) addAction("Call Shop", "call", "tel:" + phone, "call");
-  if (whatsapp) addAction("WhatsApp", "whatsapp", "https://wa.me/" + whatsapp, "whatsapp");
-  if (address) addAction("Directions", "directions", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address), "directions");
+  if (phone) addAction("Call Shop", "📞", "tel:" + phone, "call");
+  if (whatsapp) addAction("WhatsApp", "◉", "https://wa.me/" + whatsapp, "whatsapp");
+  if (address) addAction("Directions", "📍", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address), "directions");
   const instagram = safeUrl(shop.instagram_url);
-  if (instagram) addAction("Instagram", "instagram", instagram, "instagram");
+  if (instagram) addAction("Instagram", "◎", instagram, "instagram");
   const website = safeUrl(shop.website_url);
-  if (website) addAction("Website", "website", website, "website");
+  if (website) addAction("Website", "🌐", website, "website");
 
   const share = makeElement("button", "shop-action share");
   share.type = "button";
   share.setAttribute("aria-label", "Share shop");
-  const shareIcon = makeElement("span", "action-icon");
-  shareIcon.innerHTML = icons.share;
-  share.append(shareIcon, makeElement("span", "action-label", "Share"));
+  share.append(makeElement("span", "action-icon", "↗"), makeElement("span", "", "Share"));
   share.addEventListener("click", async () => {
     const shareData = { title: shop.shop_name || "Shop on Pyncode", text: [shop.shop_name, address].filter(Boolean).join(" — "), url: location.href };
     try {
@@ -1035,9 +1007,7 @@ function renderShopActions(shop) {
   const save = makeElement("button", "shop-action save");
   save.type = "button";
   save.setAttribute("aria-label", "Save shop link");
-  const saveIcon = makeElement("span", "action-icon");
-  saveIcon.innerHTML = icons.save;
-  save.append(saveIcon, makeElement("span", "action-label", "Save"));
+  save.append(makeElement("span", "action-icon", "☆"), makeElement("span", "", "Save"));
   save.addEventListener("click", async () => {
     try {
       if (navigator.clipboard) { await navigator.clipboard.writeText(location.href); alert("Shop link copied. You can save it in your bookmarks."); }
@@ -1047,52 +1017,60 @@ function renderShopActions(shop) {
   container.appendChild(save);
 }
 
-/* =========================================
-   BUSINESS HOURS — CHENNAI LOCAL TIME
-   Lakhi Detergents: Mon-Sat 9 AM-9 PM; Sun 10 AM-2 PM
-========================================= */
+function formatTime12(timeValue) {
+  if (!timeValue) return "";
+  const parts = String(timeValue).split(":");
+  let hour = Number(parts[0]);
+  const minute = Number(parts[1] || 0);
+  if (!Number.isFinite(hour) || !Number.isFinite(minute)) return String(timeValue);
+  const suffix = hour >= 12 ? "PM" : "AM";
+  hour = hour % 12 || 12;
+  return `${hour}:${String(minute).padStart(2, "0")} ${suffix}`;
+}
+
 function updateBusinessHours(shop) {
-  const name = String(shop?.shop_name || "").toLowerCase();
-  const isLakhi = name.includes("lakhi");
-  if (!isLakhi) {
-    setText("openStatus", "Shop Information");
-    setText("hoursSub", "Please contact the shop to confirm opening hours");
-    setText("businessHoursText", "Please contact the shop to confirm timings.");
+  const hoursEl = $("businessHoursText");
+  const statusEl = $("openStatus");
+  const subEl = $("hoursSub");
+  const opening = shop.opening_time;
+  const closing = shop.closing_time;
+  const leave = (shop.weekly_leave || "").trim().toLowerCase();
+  const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  const today = dayNames[new Date().getDay()];
+  const timeText = opening && closing ? `${formatTime12(opening)} – ${formatTime12(closing)}` : "Please contact the shop to confirm timings.";
+  if (hoursEl) hoursEl.textContent = leave ? `${timeText}${opening && closing ? " | " : ""}Weekly off: ${shop.weekly_leave}` : timeText;
+
+  if (shop.temporary_leave) {
+    if (statusEl) statusEl.textContent = "Temporarily Closed";
+    if (subEl) subEl.textContent = shop.temporary_leave_message || "The shop has temporarily closed.";
     return;
   }
-
-  // Always calculate in Chennai / India local time, regardless of device timezone.
-  const nowParts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Asia/Kolkata", weekday: "short", hour: "2-digit",
-    minute: "2-digit", hourCycle: "h23"
-  }).formatToParts(new Date());
-  const parts = Object.fromEntries(nowParts.map(p => [p.type, p.value]));
-  const dayIndex = ({Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6})[parts.weekday];
-  const nowMinutes = Number(parts.hour) * 60 + Number(parts.minute);
-  const isSunday = dayIndex === 0;
-  const openMinutes = isSunday ? 10 * 60 : 9 * 60;
-  const closeMinutes = isSunday ? 14 * 60 : 21 * 60;
-
-  const time12 = mins => {
-    const h24 = Math.floor(mins / 60);
-    const mm = mins % 60;
-    const ap = h24 >= 12 ? "PM" : "AM";
-    const h12 = h24 % 12 || 12;
-    return h12 + ":" + String(mm).padStart(2, "0") + " " + ap;
+  if (leave && (leave === today || leave.startsWith(today.slice(0, 3)))) {
+    if (statusEl) statusEl.textContent = "Closed Today";
+    if (subEl) subEl.textContent = "Weekly holiday";
+    return;
+  }
+  if (!opening || !closing) {
+    if (statusEl) statusEl.textContent = "Hours Not Set";
+    if (subEl) subEl.textContent = "Please contact the shop to confirm opening hours.";
+    return;
+  }
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const toMinutes = value => {
+    const [h, m] = String(value).split(":").map(Number);
+    return h * 60 + (m || 0);
   };
-
-  // Keep AM/PM visible for every day; never show 21:00-style times.
-  setText("businessHoursText", "Mon–Sat: 9:00 AM – 9:00 PM | Sun: 10:00 AM – 2:00 PM");
-  const isOpen = nowMinutes >= openMinutes && nowMinutes < closeMinutes;
-  setText("openStatus", isOpen ? "Open Now" : "Closed Now");
-
-  if (isOpen) {
-    setText("hoursSub", "Closes today at " + time12(closeMinutes));
-  } else if (nowMinutes < openMinutes) {
-    setText("hoursSub", "Opens today at " + time12(openMinutes));
-  } else {
-    const nextOpen = dayIndex === 6 ? "tomorrow at 10:00 AM" : "tomorrow at 9:00 AM";
-    setText("hoursSub", "Closed · Opens " + nextOpen);
+  const openMinutes = toMinutes(opening);
+  const closeMinutes = toMinutes(closing);
+  const isOpen = closeMinutes < openMinutes
+    ? currentMinutes >= openMinutes || currentMinutes < closeMinutes
+    : currentMinutes >= openMinutes && currentMinutes < closeMinutes;
+  if (statusEl) statusEl.textContent = isOpen ? "Open Now" : "Closed Now";
+  if (subEl) {
+    if (isOpen) subEl.textContent = `Closes today at ${formatTime12(closing)}`;
+    else if (currentMinutes < openMinutes) subEl.textContent = `Opens today at ${formatTime12(opening)}`;
+    else subEl.textContent = `Opens tomorrow at ${formatTime12(opening)}`;
   }
 }
 
@@ -1132,6 +1110,12 @@ async function loadShop() {
         area,
         city,
         shop_image,
+        shop_logo,
+        opening_time,
+        closing_time,
+        weekly_leave,
+        temporary_leave,
+        temporary_leave_message,
         mobile,
         whatsapp,
         instagram_url,
@@ -1170,10 +1154,7 @@ async function loadShop() {
     setText("shopCategory", category);
     setText("businessAddressText", address, "Location not available");
     setText("businessCategoryText", category, "Local Business");
-    window.currentShopForHours = shop;
     updateBusinessHours(shop);
-    if (window.__pyncodeHoursTimer) clearInterval(window.__pyncodeHoursTimer);
-    window.__pyncodeHoursTimer = setInterval(() => updateBusinessHours(currentShop), 60000);
     const mapPreviewLink = $("mapPreviewLink");
     if (mapPreviewLink && address) mapPreviewLink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address);
     setText(
@@ -1208,10 +1189,13 @@ async function loadShop() {
       name + " — explore the latest offers and updates from this local business."
     );
 
+    // The profile thumbnail uses shop_logo; the cover uses shop_image.
+    const logoUrl = safeImageUrl(shop.shop_logo) || safeImageUrl(shop.shop_image);
     const imageUrl = safeImageUrl(shop.shop_image);
 
-    if (imageUrl) {
-      shopImage.src = imageUrl;
+    if (logoUrl) {
+      shopImage.src = logoUrl + (logoUrl.includes("?") ? "&" : "?") + "v=" + Date.now();
+      shopImage.style.visibility = "visible";
     }
 
     // LOAD SHOP COVER IMAGE
@@ -1227,7 +1211,13 @@ if (hero && imageUrl) {
 }
 
     shopImage.onerror = () => {
-      shopImage.style.visibility = "hidden";
+      const fallbackUrl = safeImageUrl(shop.shop_image);
+      if (fallbackUrl && shopImage.src !== fallbackUrl) {
+        shopImage.onerror = () => { shopImage.style.visibility = "hidden"; };
+        shopImage.src = fallbackUrl + (fallbackUrl.includes("?") ? "&" : "?") + "v=" + Date.now();
+      } else {
+        shopImage.style.visibility = "hidden";
+      }
     };
 
     const directionsLink = $("directionsLink");
@@ -1586,8 +1576,6 @@ $("backButton").addEventListener("click", () => {
 ========================================= */
 
 loadShop();
-// Refresh Open/Closed status every minute while the page remains open.
-setInterval(() => { if (window.currentShopForHours) updateBusinessHours(window.currentShopForHours); }, 60000);
 </script>
 
 </body>
