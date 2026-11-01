@@ -320,8 +320,6 @@ background-image: none;
   transform: scale(.96);
 }
 
- .shop-action .action-icon svg { width: 22px; height: 22px; display: block; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
-.shop-action .action-icon svg .svg-fill { fill: currentColor; stroke: none; }
 .shop-action .action-icon {
   font-size: 18px;
   line-height: 1;
@@ -973,42 +971,29 @@ function renderShopActions(shop) {
     const url = safeImageUrl(value);
     return url;
   };
-  const icons = {
-    phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.19 18a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.09 3.18 2 2 0 0 1 4.08 1h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.63 2.63a2 2 0 0 1-.45 2.11L8 8.72a16 16 0 0 0 6 6l1.26-1.26a2 2 0 0 1 2.11-.45c.85.3 1.73.51 2.63.63A2 2 0 0 1 22 16.92Z"/></svg>',
-    whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.4ZM12.1 21.7a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.9 1 1-3.8-.3-.4a9.8 9.8 0 1 1 8.6 4.8Zm5.4-7.3c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.6l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.8 1.2 3.2 1.4 3.4a13 13 0 0 0 5 4.4c.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2-1.4s.3-1.3.2-1.4-.2-.3-.5-.4Z"/></svg>',
-    pin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>',
-    instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" class="svg-fill"/></svg>',
-    globe: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20M4.5 5.5h15M4.5 18.5h15"/></svg>',
-    share: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7M21 3 10 14"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>',
-    bookmark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4Z"/></svg>'
-  };
   const addAction = (label, icon, href, className = "") => {
     if (!href) return;
     const button = makeElement("a", ("shop-action " + className).trim());
     button.href = href;
-    button.target = href.startsWith("tel:") ? "_self" : "_blank";
+    button.target = "_blank";
     button.rel = "noopener noreferrer";
     button.setAttribute("aria-label", label);
-    const iconNode = makeElement("span", "action-icon");
-    iconNode.innerHTML = icon;
-    button.append(iconNode, makeElement("span", "", label));
+    button.append(makeElement("span", "action-icon", icon), makeElement("span", "", label));
     container.appendChild(button);
   };
 
-  if (phone) addAction("Call Shop", icons.phone, "tel:" + phone, "call");
-  if (whatsapp) addAction("WhatsApp", icons.whatsapp, "https://wa.me/" + whatsapp, "whatsapp");
-  if (address) addAction("Directions", icons.pin, "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address), "directions");
+  if (phone) addAction("Call Shop", "📞", "tel:" + phone, "call");
+  if (whatsapp) addAction("WhatsApp", "◉", "https://wa.me/" + whatsapp, "whatsapp");
+  if (address) addAction("Directions", "📍", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address), "directions");
   const instagram = safeUrl(shop.instagram_url);
-  if (instagram) addAction("Instagram", icons.instagram, instagram, "instagram");
+  if (instagram) addAction("Instagram", "◎", instagram, "instagram");
   const website = safeUrl(shop.website_url);
-  if (website) addAction("Website", icons.globe, website, "website");
+  if (website) addAction("Website", "🌐", website, "website");
 
   const share = makeElement("button", "shop-action share");
   share.type = "button";
   share.setAttribute("aria-label", "Share shop");
-  const shareIcon = makeElement("span", "action-icon");
-  shareIcon.innerHTML = icons.share;
-  share.append(shareIcon, makeElement("span", "", "Share"));
+  share.append(makeElement("span", "action-icon", "↗"), makeElement("span", "", "Share"));
   share.addEventListener("click", async () => {
     const shareData = { title: shop.shop_name || "Shop on Pyncode", text: [shop.shop_name, address].filter(Boolean).join(" — "), url: location.href };
     try {
@@ -1022,9 +1007,7 @@ function renderShopActions(shop) {
   const save = makeElement("button", "shop-action save");
   save.type = "button";
   save.setAttribute("aria-label", "Save shop link");
-  const saveIcon = makeElement("span", "action-icon");
-  saveIcon.innerHTML = icons.bookmark;
-  save.append(saveIcon, makeElement("span", "", "Save"));
+  save.append(makeElement("span", "action-icon", "☆"), makeElement("span", "", "Save"));
   save.addEventListener("click", async () => {
     try {
       if (navigator.clipboard) { await navigator.clipboard.writeText(location.href); alert("Shop link copied. You can save it in your bookmarks."); }
@@ -1034,40 +1017,60 @@ function renderShopActions(shop) {
   container.appendChild(save);
 }
 
-/* =========================================
-   BUSINESS HOURS / LIVE OPEN-CLOSED STATUS
-========================================= */
-function updateBusinessHours(schedule) {
+function formatTime12(timeValue) {
+  if (!timeValue) return "";
+  const parts = String(timeValue).split(":");
+  let hour = Number(parts[0]);
+  const minute = Number(parts[1] || 0);
+  if (!Number.isFinite(hour) || !Number.isFinite(minute)) return String(timeValue);
+  const suffix = hour >= 12 ? "PM" : "AM";
+  hour = hour % 12 || 12;
+  return `${hour}:${String(minute).padStart(2, "0")} ${suffix}`;
+}
+
+function updateBusinessHours(shop) {
+  const hoursEl = $("businessHoursText");
+  const statusEl = $("openStatus");
+  const subEl = $("hoursSub");
+  const opening = shop.opening_time;
+  const closing = shop.closing_time;
+  const leave = (shop.weekly_leave || "").trim().toLowerCase();
+  const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  const today = dayNames[new Date().getDay()];
+  const timeText = opening && closing ? `${formatTime12(opening)} – ${formatTime12(closing)}` : "Please contact the shop to confirm timings.";
+  if (hoursEl) hoursEl.textContent = leave ? `${timeText}${opening && closing ? " | " : ""}Weekly off: ${shop.weekly_leave}` : timeText;
+
+  if (shop.temporary_leave) {
+    if (statusEl) statusEl.textContent = "Temporarily Closed";
+    if (subEl) subEl.textContent = shop.temporary_leave_message || "The shop has temporarily closed.";
+    return;
+  }
+  if (leave && (leave === today || leave.startsWith(today.slice(0, 3)))) {
+    if (statusEl) statusEl.textContent = "Closed Today";
+    if (subEl) subEl.textContent = "Weekly holiday";
+    return;
+  }
+  if (!opening || !closing) {
+    if (statusEl) statusEl.textContent = "Hours Not Set";
+    if (subEl) subEl.textContent = "Please contact the shop to confirm opening hours.";
+    return;
+  }
   const now = new Date();
-  // Use the visitor's local time. India users will see their current local time.
-  const day = now.getDay(); // 0 = Sunday
-  const todaysHours = day === 0 ? schedule.sunday : schedule.mondayToSaturday;
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const formatTime = (value) => {
-    const [h, m] = value.split(":").map(Number);
-    const d = new Date();
-    d.setHours(h, m, 0, 0);
-    return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-  };
-  const hoursText = day === 0
-    ? "Sunday: " + formatTime(schedule.sunday.open) + " – " + formatTime(schedule.sunday.close)
-    : "Mon–Sat: " + formatTime(schedule.mondayToSaturday.open) + " – " + formatTime(schedule.mondayToSaturday.close);
-  setText("businessHoursText", hoursText);
-
-  const [openHour, openMinute] = todaysHours.open.split(":").map(Number);
-  const [closeHour, closeMinute] = todaysHours.close.split(":").map(Number);
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
-  const openingMinutes = openHour * 60 + openMinute;
-  const closingMinutes = closeHour * 60 + closeMinute;
-  const isOpen = currentMinutes >= openingMinutes && currentMinutes < closingMinutes;
-
-  setText("openStatus", isOpen ? "Open Now" : "Closed Now");
-  if (isOpen) {
-    setText("hoursSub", "Closes at " + formatTime(todaysHours.close));
-  } else if (currentMinutes < openingMinutes) {
-    setText("hoursSub", "Opens today at " + formatTime(todaysHours.open));
-  } else {
-    setText("hoursSub", "Opens tomorrow at " + formatTime(day === 6 ? schedule.sunday.open : schedule.mondayToSaturday.open));
+  const toMinutes = value => {
+    const [h, m] = String(value).split(":").map(Number);
+    return h * 60 + (m || 0);
+  };
+  const openMinutes = toMinutes(opening);
+  const closeMinutes = toMinutes(closing);
+  const isOpen = closeMinutes < openMinutes
+    ? currentMinutes >= openMinutes || currentMinutes < closeMinutes
+    : currentMinutes >= openMinutes && currentMinutes < closeMinutes;
+  if (statusEl) statusEl.textContent = isOpen ? "Open Now" : "Closed Now";
+  if (subEl) {
+    if (isOpen) subEl.textContent = `Closes today at ${formatTime12(closing)}`;
+    else if (currentMinutes < openMinutes) subEl.textContent = `Opens today at ${formatTime12(opening)}`;
+    else subEl.textContent = `Opens tomorrow at ${formatTime12(opening)}`;
   }
 }
 
@@ -1107,6 +1110,12 @@ async function loadShop() {
         area,
         city,
         shop_image,
+        shop_logo,
+        opening_time,
+        closing_time,
+        weekly_leave,
+        temporary_leave,
+        temporary_leave_message,
         mobile,
         whatsapp,
         instagram_url,
@@ -1145,19 +1154,7 @@ async function loadShop() {
     setText("shopCategory", category);
     setText("businessAddressText", address, "Location not available");
     setText("businessCategoryText", category, "Local Business");
-    // Business hours: Lakhi Detergents schedule confirmed by the owner.
-    // Other shops must have their own timings configured before showing a live status.
-    const isLakhiShop = String(name).toLowerCase().includes("lakhi");
-    if (isLakhiShop) {
-      updateBusinessHours({
-        mondayToSaturday: { open: "09:00", close: "21:00" },
-        sunday: { open: "10:00", close: "14:00" }
-      });
-    } else {
-      setText("businessHoursText", "Please contact the shop to confirm timings.");
-      setText("hoursSub", "Opening hours not available");
-      setText("openStatus", "Hours unavailable");
-    }
+    updateBusinessHours(shop);
     const mapPreviewLink = $("mapPreviewLink");
     if (mapPreviewLink && address) mapPreviewLink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address);
     setText(
@@ -1192,10 +1189,13 @@ async function loadShop() {
       name + " — explore the latest offers and updates from this local business."
     );
 
+    // The profile thumbnail uses shop_logo; the cover uses shop_image.
+    const logoUrl = safeImageUrl(shop.shop_logo) || safeImageUrl(shop.shop_image);
     const imageUrl = safeImageUrl(shop.shop_image);
 
-    if (imageUrl) {
-      shopImage.src = imageUrl;
+    if (logoUrl) {
+      shopImage.src = logoUrl + (logoUrl.includes("?") ? "&" : "?") + "v=" + Date.now();
+      shopImage.style.visibility = "visible";
     }
 
     // LOAD SHOP COVER IMAGE
@@ -1211,7 +1211,13 @@ if (hero && imageUrl) {
 }
 
     shopImage.onerror = () => {
-      shopImage.style.visibility = "hidden";
+      const fallbackUrl = safeImageUrl(shop.shop_image);
+      if (fallbackUrl && shopImage.src !== fallbackUrl) {
+        shopImage.onerror = () => { shopImage.style.visibility = "hidden"; };
+        shopImage.src = fallbackUrl + (fallbackUrl.includes("?") ? "&" : "?") + "v=" + Date.now();
+      } else {
+        shopImage.style.visibility = "hidden";
+      }
     };
 
     const directionsLink = $("directionsLink");
