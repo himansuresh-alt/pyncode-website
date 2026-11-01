@@ -1,3612 +1,1500 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Shop Offers - Pyncode</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+:root {
+  --green: #07563f;
+  --green2: #0b7b42;
+  --orange: #f26735;
+  --cream: #fffdf7;
+  --ink: #111914;
+  --muted: #6d766f;
+  --line: #e8e9e2;
+  --shadow: 0 7px 22px rgba(20,45,31,.11);
 }
 
-html{
-    scroll-behavior:smooth;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body{
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background:#f5f6fa;
-
-    color:#171923;
-
-    min-height:100vh;
-
-    display:flex;
-
-    flex-direction:column;
-
-    padding-bottom:78px;
-
-    overflow-x:hidden;
+html {
+  scroll-behavior: smooth;
 }
 
-
-/* =====================================================
-   CATEGORY HERO
-   MATCH SHOP.HTML STYLE
-===================================================== */
-
-.category-hero{
-
-    width:calc(100% - 32px);
-
-    max-width:1050px;
-
-    min-height:225px;
-
-    margin:20px auto 0;
-
-    position:relative;
-
-    overflow:hidden;
-
-    border-radius:22px;
-
-    background:#ffffff;
-
-    border:1px solid #e5e8ed;
-
-    box-shadow:
-        0 12px 30px
-        rgba(20,30,60,.10);
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f6ef;
+  color: var(--ink);
+  min-height: 100vh;
+  padding-bottom: 105px;
+  overflow-x: hidden;
 }
 
+/* HEADER */
 
-.category-hero-content{
-
-    width:100%;
-
-    min-height:225px;
-
-    padding:28px 30px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    background:#ffffff;
+.site-header {
+  height: 72px;
+  max-width: 980px;
+  margin: auto;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cream);
 }
 
-
-/* =====================================================
-   HERO EYEBROW
-===================================================== */
-
-.hero-eyebrow{
-
-    color:#ef603e;
-
-    font-size:11px;
-
-    font-weight:900;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-
-    margin-bottom:7px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: -1.1px;
+  color: var(--green);
+  text-decoration: none;
 }
 
-
-/* =====================================================
-   HERO TITLE
-===================================================== */
-
-.hero-title{
-
-    color:#151a28;
-
-    font-size:30px;
-
-    line-height:1.12;
-
-    font-weight:900;
-
-    letter-spacing:-.7px;
+.brand-mark {
+  width: 31px;
+  height: 35px;
+  border-radius: 9px 14px 9px 9px;
+  background: linear-gradient(
+    145deg,
+    #f47a35 0 34%,
+    #fff 34% 44%,
+    #08714c 44%
+  );
 }
 
-
-/* =====================================================
-   HERO DESCRIPTION
-===================================================== */
-
-.hero-description{
-
-    margin-top:7px;
-
-    color:#737b89;
-
-    font-size:13px;
-
-    line-height:1.5;
+.brand .dot {
+  color: var(--orange);
 }
 
-
-/* =====================================================
-   HERO BRANDS
-===================================================== */
-
-.hero-brands{
-
-    display:flex;
-
-    gap:10px;
-
-    margin-top:16px;
-
-    overflow-x:auto;
-
-    scrollbar-width:none;
-
-    padding:2px 2px 8px;
+.header-actions {
+  display: flex;
+  gap: 18px;
+  color: var(--green);
+  font-size: 26px;
 }
 
-.hero-brands::-webkit-scrollbar{
+/* HERO BANNER */
 
-    display:none;
+.category-hero {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  min-height: 215px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    110deg,
+    #e5edb2,
+    #fff9df 43%,
+    #9fcf7b
+  );
+  border-radius: 0 0 22px 22px;
+  box-shadow: var(--shadow);
 }
 
-
-/* =====================================================
-   HERO BRAND CARD
-===================================================== */
-
-.hero-brand{
-
-    flex:0 0 105px;
-
-    height:62px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:8px;
-
-    background:#ffffff;
-
-    border:1px solid #e4e7ec;
-
-    border-radius:12px;
-
-    box-shadow:
-        0 4px 12px
-        rgba(20,30,60,.06);
+.category-hero::before {
+  content: "";
+  position: absolute;
+  right: -5%;
+  bottom: -68px;
+  width: 58%;
+  height: 180px;
+  border-radius: 50%;
+  background: linear-gradient(
+    130deg,
+    #0d803a,
+    #b7db70
+  );
+  transform: rotate(-9deg);
 }
 
-
-.hero-brand img{
-
-    max-width:85px;
-
-    max-height:44px;
-
-    width:auto;
-
-    height:auto;
-
-    object-fit:contain;
+.category-hero::after {
+  content: "";
+  position: absolute;
+  right: 9%;
+  top: 18px;
+  width: 120px;
+  height: 150px;
+  border-radius: 70% 25% 70% 20%;
+  background: linear-gradient(
+    145deg,
+    #277d3b,
+    #a5cb54
+  );
+  opacity: .22;
+  transform: rotate(25deg);
 }
 
-
-.hero-brand-name{
-
-    display:block;
-
-    color:#343b48;
-
-    font-size:10px;
-
-    font-weight:900;
-
-    text-align:center;
-
-    line-height:1.25;
+.category-hero-content {
+  position: relative;
+  z-index: 1;
+  min-height: 215px;
+  padding: 25px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 68%;
 }
 
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.container{
-
-    width:100%;
-
-    max-width:1050px;
-
-    margin:0 auto;
-
-    padding:22px 16px 40px;
-
-    flex:1;
+.hero-eyebrow {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  color: var(--green2);
+  margin-bottom: 8px;
 }
 
-
-/* =====================================================
-   SHOP PROFILE
-===================================================== */
-
-.shop-profile{
-
-    background:#fff;
-
-    border-radius:24px;
-
-    padding:18px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:16px;
-
-    box-shadow:
-        0 8px 30px
-        rgba(17,24,39,.07);
-
-    margin-bottom:25px;
-
-    border:1px solid
-        rgba(0,0,0,.035);
+.hero-title {
+  font-size: clamp(25px, 4vw, 37px);
+  line-height: 1.04;
+  font-weight: 950;
+  letter-spacing: -1.1px;
+  color: #06462f;
+  max-width: 400px;
 }
 
-
-.shop-image-wrap{
-
-    width:92px;
-
-    height:92px;
-
-    flex-shrink:0;
-
-    border-radius:22px;
-
-    padding:3px;
-
-    background:#f0f1f5;
-
-    overflow:hidden;
+.hero-description {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #325d40;
+  margin-top: 9px;
+  max-width: 320px;
 }
 
+/* CATEGORY BRANDS */
 
-.shop-image{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    border-radius:19px;
-
-    background:#f0f1f5;
-
-    display:block;
+.hero-brands {
+  display: flex;
+  gap: 7px;
+  margin-top: 13px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px 2px 6px;
 }
 
-
-.shop-info{
-
-    min-width:0;
-
-    flex:1;
+.hero-brands::-webkit-scrollbar {
+  display: none;
 }
 
-
-.shop-name{
-
-    font-size:22px;
-
-    line-height:1.2;
-
-    font-weight:800;
-
-    letter-spacing:-.3px;
-
-    word-break:break-word;
+.hero-brand {
+  flex: 0 0 76px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px;
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(8,85,55,.12);
+  border-radius: 10px;
 }
 
-
-.shop-category{
-
-    color:#7b8190;
-
-    font-size:13px;
-
-    font-weight:600;
-
-    margin-top:5px;
+.hero-brand img {
+  max-width: 22px;
+  max-height: 22px;
+  object-fit: contain;
 }
 
-
-.shop-location{
-
-    color:#626978;
-
-    font-size:13px;
-
-    line-height:1.4;
-
-    margin-top:8px;
-
-    word-break:break-word;
+.hero-brand-name {
+  font-size: 9px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.15;
+  color: #264b35;
 }
 
+/* MAIN CONTAINER */
 
-/* =====================================================
-   SECTION TITLE
-===================================================== */
-
-.offers-heading{
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:space-between;
-
-    gap:12px;
-
-    margin-bottom:15px;
+.container {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 15px 28px;
 }
 
+/* SHOP PROFILE */
 
-.offers-title{
-
-    font-size:24px;
-
-    font-weight:800;
-
-    letter-spacing:-.4px;
+.shop-profile {
+  position: relative;
+  z-index: 2;
+  background: rgba(255,255,255,.97);
+  border-radius: 25px;
+  padding: 17px;
+  margin: -14px 0 19px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  border: 1px solid rgba(255,255,255,.9);
+  box-shadow: var(--shadow);
 }
 
-
-.offers-subtitle{
-
-    color:#858b98;
-
-    font-size:13px;
-
-    margin-top:5px;
+.shop-image-wrap {
+  width: 94px;
+  height: 94px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  padding: 4px;
+  background: #fff4d9;
+  box-shadow: 0 4px 12px #12351d20;
+  overflow: hidden;
 }
 
-
-.offer-counter{
-
-    flex-shrink:0;
-
-    padding:7px 11px;
-
-    border-radius:20px;
-
-    background:#fff;
-
-    color:#666d7b;
-
-    font-size:12px;
-
-    font-weight:700;
-
-    box-shadow:
-        0 3px 12px
-        rgba(0,0,0,.05);
+.shop-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #f6f1e4;
+  display: block;
 }
 
-
-/* =====================================================
-   OFFER AREA
-===================================================== */
-
-.offer-stage{
-
-    width:100%;
-
-    position:relative;
-
-    padding:8px 0 18px;
+.shop-info {
+  min-width: 0;
+  flex: 1;
 }
 
-
-.offer-slider{
-
-    width:100%;
-
-    overflow:hidden;
-
-    border-radius:28px;
-
-    position:relative;
-
-    touch-action:pan-y;
+.shop-name {
+  font-size: clamp(19px, 3vw, 27px);
+  line-height: 1.14;
+  font-weight: 900;
+  letter-spacing: -.7px;
+  overflow-wrap: anywhere;
 }
 
-
-.slides{
-
-    display:flex;
-
-    width:100%;
-
-    transition:
-        transform .45s
-        cubic-bezier(.22,.61,.36,1);
-
-    touch-action:pan-y;
+.shop-category {
+  color: #727a73;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 5px;
 }
 
-
-.slide{
-
-    min-width:100%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:0 10px;
+.shop-location {
+  color: #3d4d43;
+  font-size: 13px;
+  line-height: 1.45;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
 }
 
+/* OFFERS HEADING */
 
-/* =====================================================
-   POSTER
-===================================================== */
-
-.poster-frame{
-
-    width:min(100%,520px);
-
-    padding:7px;
-
-    border-radius:28px;
-
-    background:#fff;
-
-    box-shadow:
-        0 18px 45px
-        rgba(17,24,39,.16);
+.offers-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 22px 3px 12px;
 }
 
-
-.poster{
-
-    width:100%;
-
-    aspect-ratio:9 / 16;
-
-    object-fit:cover;
-
-    display:block;
-
-    border-radius:22px;
-
-    cursor:pointer;
-
-    user-select:none;
-
-    -webkit-user-select:none;
+.offers-title {
+  font-size: clamp(20px, 3vw, 25px);
+  font-weight: 900;
+  letter-spacing: -.6px;
 }
 
-
-/* =====================================================
-   SLIDER ARROWS
-===================================================== */
-
-.slider-arrow{
-
-    position:absolute;
-
-    top:50%;
-
-    transform:
-        translateY(-50%);
-
-    width:44px;
-
-    height:44px;
-
-    border:0;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:
-        rgba(20,24,32,.72);
-
-    color:#fff;
-
-    font-size:28px;
-
-    cursor:pointer;
-
-    z-index:5;
-
-    box-shadow:
-        0 5px 18px
-        rgba(0,0,0,.18);
-
-    backdrop-filter:
-        blur(8px);
+.offers-subtitle {
+  color: #818981;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
-
-.slider-prev{
-
-    left:8px;
+.offer-counter {
+  flex-shrink: 0;
+  padding: 7px 11px;
+  border-radius: 20px;
+  background: #e2f5e6;
+  color: #08733d;
+  font-size: 12px;
+  font-weight: 800;
 }
 
+  /* SHOP ACTION BUTTONS */
 
-.slider-next{
-
-    right:8px;
+.shop-actions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 5px;
 }
 
-
-/* =====================================================
-   DOTS
-===================================================== */
-
-.dots{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:6px;
-
-    margin-top:14px;
+.shop-action {
+  min-height: 49px;
+  padding: 10px 5px;
+  border: 1px solid #e4e6df;
+  border-radius: 15px;
+  background: #fff;
+  color: #15251b;
+  box-shadow: 0 3px 9px #1835200d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
 }
 
-
-.dot{
-
-    width:7px;
-
-    height:7px;
-
-    border-radius:50%;
-
-    background:#d0d4dc;
-
-    cursor:pointer;
-
-    transition:
-        all .25s ease;
+.shop-action:active {
+  transform: scale(.96);
 }
 
-
-.dot.active{
-
-    width:23px;
-
-    border-radius:20px;
-
-    background:#ff5b2a;
+.shop-action .action-icon {
+  font-size: 18px;
+  line-height: 1;
 }
 
-
-/* =====================================================
-   EMPTY STATE
-===================================================== */
-
-.empty{
-
-    background:#fff;
-
-    border-radius:24px;
-
-    padding:55px 20px;
-
-    text-align:center;
-
-    box-shadow:
-        0 8px 28px
-        rgba(0,0,0,.05);
+.shop-action.whatsapp {
+  background: #e6f9eb;
+  border-color: #d1f0d9;
 }
 
-
-.empty-icon{
-
-    width:70px;
-
-    height:70px;
-
-    margin:0 auto 16px;
-
-    border-radius:22px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:#f2f3f7;
-
-    font-size:32px;
+.shop-action.call .action-icon {
+  color: #1677ec;
 }
 
-
-.empty-title{
-
-    font-size:18px;
-
-    font-weight:800;
+.shop-action.whatsapp .action-icon {
+  color: #0a9d52;
 }
 
-
-.empty-text{
-
-    color:#7c8290;
-
-    font-size:13px;
-
-    line-height:1.5;
-
-    margin-top:7px;
+.shop-action.directions .action-icon {
+  color: #1977ed;
 }
 
-
-/* =====================================================
-   FULLSCREEN VIEWER
-===================================================== */
-
-.viewer{
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-        rgba(0,0,0,.97);
-
-    z-index:9999;
-
-    display:none;
-
-    align-items:center;
-
-    justify-content:center;
+.shop-action.save .action-icon {
+  color: #ef4b42;
 }
 
+/* OFFERS PANEL */
 
-.viewer.active{
-
-    display:flex;
+.offers-panel {
+  background: #fff;
+  border: 1px solid #eeefe9;
+  border-radius: 24px;
+  padding: 17px 14px 15px;
+  margin-top: 17px;
+  box-shadow: var(--shadow);
 }
 
-
-.viewer-image{
-
-    width:100%;
-
-    height:100%;
-
-    max-width:100%;
-
-    max-height:100%;
-
-    object-fit:contain;
-
-    user-select:none;
-
-    -webkit-user-select:none;
-
-    touch-action:none;
+.offers-heading {
+  margin-top: 0;
 }
 
-
-.viewer-close{
-
-    position:absolute;
-
-    top:16px;
-
-    right:16px;
-
-    width:46px;
-
-    height:46px;
-
-    border:0;
-
-    border-radius:50%;
-
-    background:
-        rgba(255,255,255,.16);
-
-    color:#fff;
-
-    font-size:30px;
-
-    cursor:pointer;
-
-    z-index:10001;
+.view-all {
+  border: 0;
+  background: transparent;
+  color: #0875d9;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
+/* HORIZONTAL OFFER POSTERS */
 
-.viewer-arrow{
-
-    position:absolute;
-
-    top:50%;
-
-    transform:
-        translateY(-50%);
-
-    width:48px;
-
-    height:48px;
-
-    border:0;
-
-    border-radius:50%;
-
-    background:
-        rgba(255,255,255,.16);
-
-    color:#fff;
-
-    font-size:32px;
-
-    cursor:pointer;
-
-    z-index:10001;
+.offers-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 6px 1px 12px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: #d4ded5 transparent;
+  -webkit-overflow-scrolling: touch;
 }
 
-
-.viewer-prev{
-
-    left:15px;
+.offers-track::-webkit-scrollbar {
+  height: 4px;
 }
 
-
-.viewer-next{
-
-    right:15px;
+.offers-track::-webkit-scrollbar-thumb {
+  background: #d4ded5;
+  border-radius: 10px;
 }
 
-  /* =====================================================
-   FIXED BOTTOM NAVIGATION
-===================================================== */
-
-.bottom-nav{
-
-    position:fixed;
-
-    left:0;
-
-    right:0;
-
-    bottom:0;
-
-    height:72px;
-
-    background:
-        rgba(255,255,255,.96);
-
-    border-top:1px solid
-        #e6e7eb;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-around;
-
-    z-index:5000;
-
-    box-shadow:
-        0 -5px 22px
-        rgba(0,0,0,.07);
-
-    backdrop-filter:
-        blur(14px);
+.offer-card {
+  flex: 0 0 145px;
+  width: 145px;
+  aspect-ratio: 3 / 4;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #e9f3d9, #d5e9da);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #0c7750, 0 5px 12px #163a2420;
+  scroll-snap-align: start;
+  cursor: pointer;
+  isolation: isolate;
 }
 
-
-.bottom-nav-item{
-
-    flex:1;
-
-    height:100%;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:3px;
-
-    text-decoration:none;
-
-    color:#7c8290;
-
-    transition:.2s;
-
-    -webkit-tap-highlight-color:
-        transparent;
+.offer-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease;
 }
 
-
-.nav-icon{
-
-    font-size:21px;
-
-    line-height:1;
+.offer-card:active img {
+  transform: scale(1.04);
 }
 
-
-.nav-label{
-
-    font-size:10px;
-
-    font-weight:700;
+.offer-card::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent, rgba(0,0,0,.2));
+  pointer-events: none;
 }
 
-
-.bottom-nav-item.active{
-
-    color:#ff572d;
+.offer-badge {
+  position: absolute;
+  z-index: 1;
+  top: 8px;
+  left: 8px;
+  padding: 5px 8px;
+  border-radius: 20px;
+  background: #fff;
+  color: #087348;
+  font-size: 10px;
+  font-weight: 900;
+  box-shadow: 0 2px 7px #00000012;
 }
 
-
-.bottom-nav-item:active{
-
-    transform:scale(.94);
+.offer-empty {
+  width: 100%;
+  padding: 32px 15px;
+  text-align: center;
+  border: 1px dashed #dce5db;
+  border-radius: 18px;
+  background: #f8fbf6;
+  color: #6d796f;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:600px){
-
-    body{
-
-        padding-bottom:74px;
-    }
-
-
-    .category-hero{
-
-        width:calc(100% - 32px);
-
-        min-height:225px;
-
-        margin:16px 16px 0;
-
-        border-radius:18px;
-    }
-
-
-    .category-hero-content{
-
-        min-height:225px;
-
-        padding:22px 18px;
-    }
-
-
-    .hero-title{
-
-        font-size:25px;
-    }
-
-
-    .hero-description{
-
-        font-size:12px;
-    }
-
-
-    .hero-brands{
-
-        margin-top:15px;
-
-        gap:9px;
-    }
-
-
-    .hero-brand{
-
-        flex-basis:92px;
-
-        height:57px;
-    }
-
-
-    .container{
-
-        padding:
-            17px
-            13px
-            32px;
-    }
-
-
-    .shop-profile{
-
-        padding:15px;
-
-        border-radius:21px;
-
-        gap:13px;
-
-        margin-bottom:21px;
-    }
-
-
-    .shop-image-wrap{
-
-        width:76px;
-
-        height:76px;
-
-        border-radius:19px;
-    }
-
-
-    .shop-image{
-
-        border-radius:16px;
-    }
-
-
-    .shop-name{
-
-        font-size:19px;
-    }
-
-
-    .shop-category{
-
-        font-size:12px;
-    }
-
-
-    .shop-location{
-
-        font-size:12px;
-
-        margin-top:6px;
-    }
-
-
-    .offers-title{
-
-        font-size:22px;
-    }
-
-
-    .offers-subtitle{
-
-        font-size:12px;
-    }
-
-
-    .offer-counter{
-
-        font-size:11px;
-
-        padding:6px 9px;
-    }
-
-
-    .offer-slider{
-
-        border-radius:23px;
-    }
-
-
-    .slide{
-
-        padding:0 5px;
-    }
-
-
-    .poster-frame{
-
-        width:100%;
-
-        padding:5px;
-
-        border-radius:23px;
-    }
-
-
-    .poster{
-
-        border-radius:18px;
-    }
-
-
-    .slider-arrow{
-
-        width:38px;
-
-        height:38px;
-
-        font-size:24px;
-    }
-
-
-    .slider-prev{
-
-        left:8px;
-    }
-
-
-    .slider-next{
-
-        right:8px;
-    }
-
+/* INFORMATION CARDS */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 17px;
 }
 
-
-/* =====================================================
-   VERY SMALL DEVICES
-===================================================== */
-
-@media(max-width:380px){
-
-    .shop-image-wrap{
-
-        width:68px;
-
-        height:68px;
-    }
-
-
-    .shop-name{
-
-        font-size:17px;
-    }
-
-
-    .hero-title{
-
-        font-size:22px;
-    }
-
+.info-card {
+  min-width: 0;
+  background: #fff;
+  border: 1px solid #e9ebe5;
+  border-radius: 23px;
+  padding: 17px;
+  box-shadow: var(--shadow);
 }
 
-</style>
+.info-heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 16px;
+  font-weight: 900;
+  margin-bottom: 13px;
+  letter-spacing: -.3px;
+}
 
+.info-icon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: #08734b;
+  background: #e6f4e9;
+  font-size: 17px;
+}
+
+.info-text {
+  color: #59645b;
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eff0eb;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.info-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.info-row strong {
+  font-weight: 800;
+  color: #29372d;
+}
+
+.info-row span {
+  text-align: right;
+  color: #657066;
+}
+
+.location-address {
+  color: #4b574e;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.map-placeholder {
+  margin-top: 13px;
+  min-height: 65px;
+  padding: 12px;
+  border-radius: 15px;
+  background: linear-gradient(130deg, #e9f2e2, #f9f4df);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #216545;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.map-placeholder span {
+  font-size: 23px;
+}
+
+.about-card {
+  margin-top: 16px;
+}
+
+.about-card .info-heading {
+  margin-bottom: 7px;
+}
+
+/* FIXED BACK BUTTON */
+
+.back-bar {
+  position: fixed;
+  z-index: 50;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: linear-gradient(
+    to top,
+    rgba(244,246,239,.99),
+    rgba(244,246,239,.94)
+  );
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  width: 100%;
+  max-width: 940px;
+  min-height: 59px;
+  margin: auto;
+  border: 2px solid #fff;
+  outline: 1px solid #0a664b;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #087052, #034c38);
+  color: #fff;
+  box-shadow:
+    0 5px 0 #033b2b,
+    0 8px 18px #073c2c30,
+    inset 0 1px 2px #ffffff60;
+  font-size: 19px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.back-button .back-arrow {
+  font-size: 27px;
+  line-height: 1;
+}
+
+.back-button:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #033b2b;
+}
+
+/* FULLSCREEN OFFER VIEWER */
+
+.offer-viewer {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5,13,9,.96);
+  padding: 20px;
+}
+
+.offer-viewer.active {
+  display: flex;
+}
+
+.viewer-image {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.viewer-close,
+.viewer-prev,
+.viewer-next {
+  position: absolute;
+  border: 0;
+  color: #fff;
+  background: rgba(255,255,255,.15);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.viewer-close {
+  top: 20px;
+  right: 18px;
+  width: 45px;
+  height: 45px;
+  font-size: 27px;
+}
+
+.viewer-prev,
+.viewer-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 43px;
+  height: 43px;
+  font-size: 24px;
+}
+
+.viewer-prev {
+  left: 12px;
+}
+
+.viewer-next {
+  right: 12px;
+}
+
+body.viewer-open {
+  overflow: hidden;
+}
+
+/* LOADING AND ERROR */
+
+.loading-message,
+.error-message {
+  padding: 26px 15px;
+  text-align: center;
+  color: #6c776e;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.error-message {
+  color: #b72f2f;
+  }
+
+  </style>
 </head>
 
 <body>
-
-
-<!-- =====================================================
-     CATEGORY HERO
-===================================================== -->
-
+<!-- SHOP COVER -->
 <section class="category-hero">
-
-    <div class="category-hero-content">
-
-        <div class="hero-eyebrow">
-            📍 Discover Local
-        </div>
-
-
-        <h1
-            id="categoryHeroTitle"
-            class="hero-title"
-        >
-            Loading Category...
-        </h1>
-
-
-        <p
-            id="categoryHeroDescription"
-            class="hero-description"
-        >
-            Discover shops and businesses near you.
-        </p>
-
-
-        <div
-            id="categoryHeroBrands"
-            class="hero-brands"
-        ></div>
-
-    </div>
-
+  <div class="category-hero-content">
+    <div class="hero-eyebrow">Discover local businesses</div>
+    <h1 class="hero-title" id="heroShopName">Your Local Store</h1>
+    <p class="hero-description" id="heroShopCategory">
+      Explore products, offers and updates from this shop.
+    </p>
+    <div class="hero-brands" id="heroBrands"></div>
+  </div>
 </section>
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
 
 <main class="container">
 
+  <!-- SHOP PROFILE -->
+  <section class="shop-profile">
+    <div class="shop-image-wrap">
+      <img
+        id="shopImage"
+        class="shop-image"
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23e8f1df'/%3E%3Ctext x='50%25' y='55%25' text-anchor='middle' font-size='60' fill='%2307563f'%3EP%3C/text%3E%3C/svg%3E"
+        alt="Shop image"
+      >
+    </div>
 
-    <!-- =================================================
-         SHOP PROFILE
-    ================================================= -->
+    <div class="shop-info">
+      <h2 class="shop-name" id="shopName">Loading shop...</h2>
+      <p class="shop-category" id="shopCategory">Local Business</p>
+      <p class="shop-location" id="shopAddress">Loading location...</p>
+    </div>
 
-    <section class="shop-profile">
+    <!-- Shop action buttons will appear only when details are available -->
+    <div class="shop-actions" id="shopActions"></div>
+  </section>
 
-
-        <div class="shop-image-wrap">
-
-           <img
-    id="shopImage"
-    class="shop-image"
-    src=""
-    alt="Shop"
-    loading="lazy"
-    decoding="async"
->
-
-        </div>
-
-
-        <div class="shop-info">
-
-
-            <div
-                id="shopName"
-                class="shop-name"
-            >
-                Loading...
-            </div>
-
-
-            <div
-                id="shopCategory"
-                class="shop-category"
-            >
-                —
-            </div>
-
-
-            <div
-                id="shopLocation"
-                class="shop-location"
-            >
-                📍 Loading...
-            </div>
-
-
-        </div>
-
-
-    </section>
-
-
-    <!-- =================================================
-         OFFERS HEADING
-    ================================================= -->
-
+  <!-- OFFERS -->
+  <section class="offers-panel">
     <div class="offers-heading">
+      <div>
+        <h2 class="offers-title">🔥 Offers &amp; Updates</h2>
+        <p class="offers-subtitle">Discover the latest shop posters</p>
+      </div>
 
-
-        <div>
-
-            <h2 class="offers-title">
-                🔥 Current Offers
-            </h2>
-
-
-            <p class="offers-subtitle">
-                Latest deals from this shop
-            </p>
-
-        </div>
-
-
-        <div
-            id="offerCounter"
-            class="offer-counter"
-        >
-            0 Offers
-        </div>
-
-
+      <span class="offer-counter" id="offerCounter">0 Offers</span>
     </div>
 
-
-    <!-- =================================================
-         OFFER STAGE
-    ================================================= -->
-
-    <section
-        class="offer-stage"
-        id="offerStage"
-    >
-
-
-        <div
-            class="offer-slider"
-            id="offerSlider"
-            style="display:none;"
-        >
-
-
-            <div
-                class="slides"
-                id="slides"
-            ></div>
-
-
-            <button
-                type="button"
-                class="slider-arrow slider-prev"
-                id="prevBtn"
-                aria-label="Previous offer"
-            >
-                ‹
-            </button>
-
-
-            <button
-                type="button"
-                class="slider-arrow slider-next"
-                id="nextBtn"
-                aria-label="Next offer"
-            >
-                ›
-            </button>
-
-
-        </div>
-
-
-        <div
-            class="dots"
-            id="dots"
-        ></div>
-
-
-    </section>
-
-
-    <!-- =================================================
-         EMPTY
-    ================================================= -->
-
-    <div
-        id="emptyBox"
-        class="empty"
-        style="display:none;"
-    >
-
-
-        <div class="empty-icon">
-            📭
-        </div>
-
-
-        <div class="empty-title">
-            No Current Offers
-        </div>
-
-
-        <div
-            id="emptyText"
-            class="empty-text"
-        >
-            This shop has no approved offers right now.
-        </div>
-
-
+    <div class="offers-track" id="offersTrack">
+      <div class="loading-message">Loading offers...</div>
     </div>
+  </section>
 
+  <!-- SHOP INFORMATION -->
+  <section class="info-grid">
+
+    <article class="info-card">
+      <h3 class="info-heading">
+        <span class="info-icon">◷</span>
+        Shop Information
+      </h3>
+
+      <div class="info-row">
+        <strong>Shop</strong>
+        <span id="infoShopName">—</span>
+      </div>
+
+      <div class="info-row">
+        <strong>Category</strong>
+        <span id="infoShopCategory">—</span>
+      </div>
+
+      <div class="info-row">
+        <strong>Area</strong>
+        <span id="infoShopArea">—</span>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <h3 class="info-heading">
+        <span class="info-icon">⌖</span>
+        Location
+      </h3>
+
+      <p class="location-address" id="locationAddress">
+        Shop address will appear here.
+      </p>
+
+      <a
+        id="directionsLink"
+        class="shop-action directions"
+        href="#"
+        target="_blank"
+        rel="noopener"
+        style="margin-top:12px;display:none"
+      >
+        <span class="action-icon">➤</span>
+        Get Directions
+      </a>
+
+      <div class="map-placeholder" id="locationHint">
+        <span>📍</span>
+        <div>Find this shop near you</div>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ABOUT SHOP -->
+  <section class="info-card about-card">
+    <h3 class="info-heading">
+      <span class="info-icon">ⓘ</span>
+      About This Shop
+    </h3>
+
+    <p class="info-text" id="aboutShop">
+      Discover this local business and explore its latest offers and updates.
+    </p>
+  </section>
+
+  <div id="pageMessage" aria-live="polite"></div>
 
 </main>
 
-
-<!-- =====================================================
-     FIXED NAVIGATION
-===================================================== -->
-
-<nav class="bottom-nav">
-
-
-    <a
-        href="shops.html"
-        class="bottom-nav-item active"
-    >
-
-        <span class="nav-icon">
-            🏪
-        </span>
-
-        <span class="nav-label">
-            Shops
-        </span>
-
-    </a>
-
-
-    <a
-        href="services.html"
-        class="bottom-nav-item"
-    >
-
-        <span class="nav-icon">
-            🛠️
-        </span>
-
-        <span class="nav-label">
-            Services
-        </span>
-
-    </a>
-
-
-    <a
-        href="index.html"
-        class="bottom-nav-item"
-    >
-
-        <span class="nav-icon">
-            ▦
-        </span>
-
-        <span class="nav-label">
-            index
-        </span>
-
-    </a>
-
-
-    <a
-        href="promotion.html"
-        class="bottom-nav-item"
-    >
-
-        <span class="nav-icon">
-            📣
-        </span>
-
-        <span class="nav-label">
-            Promotion
-        </span>
-
-    </a>
-
-
-</nav>
-
-
-<!-- =====================================================
-     FULLSCREEN VIEWER
-===================================================== -->
-
-<div
-    class="viewer"
-    id="viewer"
->
-
-
-    <button
-        type="button"
-        class="viewer-close"
-        id="viewerClose"
-        aria-label="Close"
-    >
-        ×
-    </button>
-
-
-    <button
-        type="button"
-        class="viewer-arrow viewer-prev"
-        id="viewerPrev"
-        aria-label="Previous"
-    >
-        ‹
-    </button>
-
-
-    <img
-        id="viewerImage"
-        class="viewer-image"
-        alt="Offer"
-    >
-
-
-    <button
-        type="button"
-        class="viewer-arrow viewer-next"
-        id="viewerNext"
-        aria-label="Next"
-    >
-        ›
-    </button>
-
-
+<!-- FIXED BACK BUTTON -->
+<div class="back-bar">
+  <button class="back-button" id="backButton" type="button">
+    <span class="back-arrow">←</span>
+    <span>Back</span>
+  </button>
 </div>
 
+<!-- FULLSCREEN POSTER VIEWER -->
+<div
+  class="offer-viewer"
+  id="offerViewer"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Offer poster viewer"
+>
+  <button class="viewer-close" id="viewerClose" aria-label="Close poster">×</button>
+  <button class="viewer-prev" id="viewerPrev" aria-label="Previous poster">‹</button>
 
-<script>
+  <img
+    class="viewer-image"
+    id="viewerImage"
+    src=""
+    alt="Offer poster"
+  >
 
-/* =====================================================
+  <button class="viewer-next" id="viewerNext" aria-label="Next poster">›</button>
+</div>
+
+  <script>
+/* =========================================
    SUPABASE CONNECTION
-===================================================== */
+========================================= */
 
 const SUPABASE_URL =
-    "https://mtuspuehsxsjoaxoenen.supabase.co";
-
+  "https://mtuspuehsxsjoaxoenen.supabase.co";
 
 const SUPABASE_KEY =
-    "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
-
+  "sb_publishable_JpopjwDVjFvsDjXeG_56NQ_k3nA2mU6";
 
 const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-
-/* =====================================================
+/* =========================================
    ELEMENTS
-===================================================== */
+========================================= */
 
-const categoryHeroTitle =
-    document.getElementById(
-        "categoryHeroTitle"
-    );
+const $ = id => document.getElementById(id);
 
+const shopImage = $("shopImage");
+const shopName = $("shopName");
+const shopCategory = $("shopCategory");
+const shopAddress = $("shopAddress");
 
-const categoryHeroDescription =
-    document.getElementById(
-        "categoryHeroDescription"
-    );
+const offersTrack = $("offersTrack");
+const offerCounter = $("offerCounter");
 
+const viewer = $("offerViewer");
+const viewerImage = $("viewerImage");
 
-const categoryHeroBrands =
-    document.getElementById(
-        "categoryHeroBrands"
-    );
-
-
-const shopNameElement =
-    document.getElementById(
-        "shopName"
-    );
-
-
-const shopCategoryElement =
-    document.getElementById(
-        "shopCategory"
-    );
-
-
-const shopLocationElement =
-    document.getElementById(
-        "shopLocation"
-    );
-
-
-const shopImageElement =
-    document.getElementById(
-        "shopImage"
-    );
-
-
-const offerSlider =
-    document.getElementById(
-        "offerSlider"
-    );
-
-
-const slides =
-    document.getElementById(
-        "slides"
-    );
-
-
-const prevBtn =
-    document.getElementById(
-        "prevBtn"
-    );
-
-
-const nextBtn =
-    document.getElementById(
-        "nextBtn"
-    );
-
-
-const dotsContainer =
-    document.getElementById(
-        "dots"
-    );
-
-
-const offerCounter =
-    document.getElementById(
-        "offerCounter"
-    );
-
-
-const emptyBox =
-    document.getElementById(
-        "emptyBox"
-    );
-
-
-const emptyText =
-    document.getElementById(
-        "emptyText"
-    );
-
-
-const viewer =
-    document.getElementById(
-        "viewer"
-    );
-
-
-const viewerImage =
-    document.getElementById(
-        "viewerImage"
-    );
-
-
-const viewerClose =
-    document.getElementById(
-        "viewerClose"
-    );
-
-
-const viewerPrev =
-    document.getElementById(
-        "viewerPrev"
-    );
-
-
-const viewerNext =
-    document.getElementById(
-        "viewerNext"
-    );
-
-
-/* =====================================================
-   GET SHOP ID FROM URL
-===================================================== */
-
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-
-const shopId =
-    params.get("shop_id");
-
-  /* =====================================================
-   CATEGORY HERO DATA
-===================================================== */
-
-const categoryHeroData = {
-
-
-    "Home Appliances": {
-
-        description:
-            "Find home appliance shops near you.",
-
-        brands:[
-            ["Sathya","sathya.in"],
-            ["Vasanth & Co","vasanthandco.in"],
-            ["Viveks","viveks.com"],
-            ["Girias","girias.in"],
-            ["Croma","croma.com"],
-            ["Reliance Digital","reliancedigital.in"],
-            ["Poorvika","poorvika.com"],
-            ["Lalithaa","lalithaa.in"],
-            ["Pai International","paiinternational.in"],
-            ["Electronics Mart","electronicsmartindia.in"]
-        ]
-
-    },
-
-
-    "Mobile Showrooms": {
-
-        description:
-            "Find mobile showrooms and smartphone dealers.",
-
-        brands:[
-            ["Poorvika","poorvika.com"],
-            ["Sathya","sathya.in"],
-            ["Sangeetha Mobiles","sangeethamobiles.com"],
-            ["Reliance Digital","reliancedigital.com"],
-            ["Croma","croma.com"],
-            ["Vasanth & Co","vasanthandco.in"],
-            ["Lot Mobiles","lotmobiles.com"],
-            ["Bharath Mobiles","bharathmobiles.com"],
-            ["iPlanet","iplanet.one"],
-            ["Imagine","imagineonline.store"]
-        ]
-
-    },
-
-
-    "EV Bike Showrooms": {
-
-        description:
-            "Discover EV bike showrooms and dealers.",
-
-        brands:[
-            ["Ather","atherenergy.com"],
-            ["Ola Electric","olaelectric.com"],
-            ["TVS iQube","tvsmotor.com"],
-            ["Bajaj Chetak","chetak.com"],
-            ["Hero Electric","heroelectric.in"],
-            ["Vida","vidaworld.com"],
-            ["Ampere","ampere.greaveselectricmobility.com"],
-            ["Revolt","revoltmotors.com"],
-            ["Okinawa","okinawascooters.com"],
-            ["Ultraviolette","ultraviolette.com"]
-        ]
-
-    },
-
-
-    "Bike Showrooms": {
-
-        description:
-            "Find bike showrooms and motorcycle dealers.",
-
-        brands:[
-            ["Hero","heromotocorp.com"],
-            ["Honda","honda2wheelersindia.com"],
-            ["TVS","tvsmotor.com"],
-            ["Bajaj","bajajauto.com"],
-            ["Yamaha","yamaha-motor-india.com"],
-            ["Royal Enfield","royalenfield.com"],
-            ["Suzuki","suzukimotorcycle.co.in"],
-            ["KTM","ktmindia.com"],
-            ["Jawa","jawamotorcycles.com"],
-            ["BMW Motorrad","bmw-motorrad.in"]
-        ]
-
-    },
-
-
-    "Car Showrooms": {
-
-        description:
-            "Find car showrooms and automobile dealers.",
-
-        brands:[
-            ["Maruti Suzuki","marutisuzuki.com"],
-            ["Hyundai","hyundai.com"],
-            ["Tata Motors","tatamotors.com"],
-            ["Mahindra","mahindra.com"],
-            ["Toyota","toyotabharat.com"],
-            ["Honda","hondacarindia.com"],
-            ["Kia","kia.com"],
-            ["MG Motor","mgmotor.co.in"],
-            ["Renault","renault.co.in"],
-            ["Nissan","nissan.in"]
-        ]
-
-    },
-
-
-    "Furnitures": {
-
-        description:
-            "Find furniture shops and home furnishing stores.",
-
-        brands:[
-            ["IKEA","ikea.com"],
-            ["Pepperfry","pepperfry.com"],
-            ["Urban Ladder","urbanladder.com"],
-            ["Home Centre","homecentre.in"],
-            ["Durian","durian.in"],
-            ["Wakefit","wakefit.co"],
-            ["Godrej Interio","godrejinterio.com"],
-            ["Nilkamal","nilkamal.com"],
-            ["Royaloak","royaloakindia.com"],
-            ["HomeTown","hometown.in"]
-        ]
-
-    },
-
-
-    "Battery Shops": {
-
-        description:
-            "Find battery dealers and battery service shops.",
-
-        brands:[
-            ["Amaron","amaron.in"],
-            ["Exide","exideindustries.com"],
-            ["Luminous","luminousindia.com"],
-            ["Livguard","livguard.com"],
-            ["Okaya","okaya.in"],
-            ["SF Sonic","sfsonic.com"],
-            ["Tata Green Batteries","tatagreenbattery.com"],
-            ["Base Batteries","basebatteries.com"],
-            ["HBL","hbl.in"],
-            ["Powerzone","powerzone.in"]
-        ]
-
-    },
-
-
-    "Men's Clothing": {
-
-        description:
-            "Find men's clothing stores and fashion outlets.",
-
-        brands:[
-            ["Peter England","peterengland.com"],
-            ["Louis Philippe","louisphilippe.com"],
-            ["Van Heusen","vanheusenindia.com"],
-            ["Allen Solly","allensolly.com"],
-            ["Raymond","raymond.in"],
-            ["Manyavar","manyavar.com"],
-            ["Max Fashion","maxfashion.in"],
-            ["Lifestyle","lifestylestores.com"],
-            ["Pantaloons","pantaloons.com"],
-            ["Reliance Trends","reliancetrends.com"]
-        ]
-
-    },
-
-
-    "Women's Clothing": {
-
-        description:
-            "Discover women's clothing and fashion stores.",
-
-        brands:[
-            ["Biba","biba.in"],
-            ["W","wforwoman.com"],
-            ["Aurelia","aurelia.in"],
-            ["Max Fashion","maxfashion.in"],
-            ["Lifestyle","lifestylestores.com"],
-            ["Pantaloons","pantaloons.com"],
-            ["Fabindia","fabindia.com"],
-            ["Soch","soch.com"],
-            ["Manyavar","manyavar.com"],
-            ["Reliance Trends","reliancetrends.com"]
-        ]
-
-    },
-
-
-    "Kids Clothing": {
-
-        description:
-            "Find kids clothing stores and children's fashion.",
-
-        brands:[
-            ["FirstCry","firstcry.com"],
-            ["Mothercare","mothercare.in"],
-            ["Max Fashion","maxfashion.in"],
-            ["Lifestyle","lifestylestores.com"],
-            ["Pantaloons","pantaloons.com"],
-            ["Hopscotch","hopscotch.in"],
-            ["Allen Solly Junior","allensolly.com"],
-            ["U.S. Polo Assn. Kids","uspoloassn.in"],
-            ["Peppermint","peppermint.in"],
-            ["Gini & Jony","giniandjony.com"]
-        ]
-
-    },
-
-
-    "Toys Showrooms": {
-
-        description:
-            "Discover toy shops and children's entertainment stores.",
-
-        brands:[
-            ["Hamleys","hamleys.in"],
-            ["Funskool","funskoolindia.com"],
-            ["FirstCry","firstcry.com"],
-            ["Toycra","toycra.com"],
-            ["Smytten Toys","smytten.com"],
-            ["Babyhug","firstcry.com"],
-            ["Mattel","mattel.com"],
-            ["LEGO","lego.com"],
-            ["Hot Wheels","hotwheels.com"],
-            ["Funskool","funskoolindia.com"]
-        ]
-
-    },
-
-
-    "Cleaning Products": {
-
-        description:
-            "Find cleaning products and home care stores.",
-
-        brands:[
-            ["Harpic","harpic.co.in"],
-            ["Lizol","lizol.co.in"],
-            ["Vim","vim.co.in"],
-            ["Domex","domex.co.in"],
-            ["Surf Excel","surfexcel.in"],
-            ["Ariel","ariel.in"],
-            ["Tide","tide.in"],
-            ["Colin","colinindia.com"],
-            ["Dettol","dettol.co.in"],
-            ["Mr. Muscle","mrmuscleclean.com"]
-        ]
-
-    },
-
-
-    "Pharmacy/Medicals": {
-
-        description:
-            "Find pharmacies, medical shops and healthcare stores.",
-
-        brands:[
-            ["Apollo Pharmacy","apollopharmacy.in"],
-            ["MedPlus","medplusmart.com"],
-            ["Netmeds","netmeds.com"],
-            ["Tata 1mg","1mg.com"],
-            ["PharmEasy","pharmeasy.in"],
-            ["Wellness Forever","wellnessforever.com"],
-            ["Guardian Pharmacy","guardian.in"],
-            ["Fortis","fortishealthcare.com"],
-            ["Kauvery","kauveryhospital.com"],
-            ["MGM Healthcare","mgmhealthcare.in"]
-        ]
-
-    },
-
-
-    "Bakery & Cake Shops": {
-
-        description:
-            "Discover bakeries and cake shops.",
-
-        brands:[
-            ["Adyar Ananda Bhavan","aabsweets.com"],
-            ["Hot Breads","hotbreads.com"],
-            ["CakeBee","cakebee.in"],
-            ["The French Loaf","thefrenchloaf.com"],
-            ["Monginis","monginis.net"],
-            ["Winkies","winkies.co.in"],
-            ["Mio Amore","mioamore.com"],
-            ["Bakingo","bakingo.com"],
-            ["Sandy's","sandys.in"],
-            ["Winners Bakery","winnersbakery.com"]
-        ]
-
-    },
-
-
-    "Pet Shops & Vet": {
-
-        description:
-            "Find pet shops and veterinary services.",
-
-        brands:[
-            ["Heads Up For Tails","headsupfortails.com"],
-            ["Just Dogs","justdogsstore.com"],
-            ["Zigly","zigly.com"],
-            ["Petsworld","petsworld.in"],
-            ["Supertails","supertails.com"],
-            ["HUFT","headsupfortails.com"],
-            ["Pet Zone","petzone.com"],
-            ["Royal Canin","royalcanin.com"],
-            ["Drools","drools.com"],
-            ["Pedigree","pedigree.in"]
-        ]
-
-    },
-
-
-    "Solar Panel Shops": {
-
-        description:
-            "Find solar panel dealers and installers.",
-
-        brands:[
-            ["Tata Power Solar","tatapowersolar.com"],
-            ["Waaree","waaree.com"],
-            ["Adani Solar","adanisolar.com"],
-            ["Vikram Solar","vikramsolar.com"],
-            ["Luminous","luminousindia.com"],
-            ["RenewSys","renewsysworld.com"],
-            ["Jakson Solar","jakson.com"],
-            ["Solex","solex.in"],
-            ["Goldi Solar","goldisolar.com"],
-            ["Rayzon Solar","rayzonsolar.com"]
-        ]
-
-    },
-
-
-    "Coaching & Tuition Centers": {
-
-        description:
-            "Find coaching and tuition centres near you.",
-
-        brands:[
-            ["Aakash Institute","aakash.ac.in"],
-            ["ALLEN","allen.in"],
-            ["FIITJEE","fiitjee.com"],
-            ["Vedantu","vedantu.com"],
-            ["BYJU'S","byjus.com"],
-            ["Physics Wallah","pw.live"],
-            ["Narayana","narayanagroup.com"],
-            ["Sri Chaitanya","srichaitanya.net"],
-            ["TIME","time4education.com"],
-            ["Career Launcher","careerlauncher.com"]
-        ]
-
-    },
-
-
-    "Hotels & Resorts": {
-
-        description:
-            "Discover hotels and resorts near you.",
-
-        brands:[
-            ["Taj Hotels","tajhotels.com"],
-            ["ITC Hotels","itchotels.com"],
-            ["The Leela","theleela.com"],
-            ["Marriott","marriott.com"],
-            ["Hyatt","hyatt.com"],
-            ["Radisson","radissonhotels.com"],
-            ["Hilton","hilton.com"],
-            ["Novotel","all.accor.com"],
-            ["Accor","group.accor.com"],
-            ["Lemon Tree Hotels","lemontreehotels.com"]
-        ]
-
-    },
-
-
-    "Packers & Movers": {
-
-        description:
-            "Find packers and movers near you.",
-
-        brands:[
-            ["Agarwal Packers & Movers","agarwalpackers.com"],
-            ["DHL","dhl.com"],
-            ["SafeExpress","safexpress.com"],
-            ["VRL Logistics","vrllogistics.com"],
-            ["TCI","tcil.com"],
-            ["Gati","gati.com"],
-            ["DTDC","dtdc.in"],
-            ["Blue Dart","bluedart.com"],
-            ["Porter","porter.in"],
-            ["NoBroker Packers & Movers","nobroker.in"]
-        ]
-
-    },
-
-      "Wedding Halls / Kalyana Mandapam": {
-
-        description:
-            "Find wedding halls and marriage venues.",
-
-        brands:[
-            ["Sri Krishna Mahal",""],
-            ["Vijaya Mahal",""],
-            ["Raja Annamalai Mandram",""],
-            ["AGS Convention Centre",""],
-            ["MRC Hall",""],
-            ["The Leela Palace","theleela.com"],
-            ["ITC Grand Chola","itchotels.com"],
-            ["Rani Meiyyammai Hall",""],
-            ["MGR Janaki College Hall",""],
-            ["Chennai Convention Centre",""]
-        ]
-
-    },
-
-
-    "Event Decorators": {
-
-        description:
-            "Discover event decorators and decoration services.",
-
-        brands:[
-            ["7Events",""],
-            ["WedMeGood","wedmegood.com"],
-            ["WeddingWire","weddingwire.in"],
-            ["BookEventz","bookeventz.com"],
-            ["Event Capital",""],
-            ["Party Cruisers","partycruisers.in"],
-            ["Dream Decor",""],
-            ["Wedding Bells",""],
-            ["Royal Events",""],
-            ["Celebrations",""]
-        ]
-
-    },
-
-
-    "Wedding Photography": {
-
-        description:
-            "Find wedding photographers near you.",
-
-        brands:[
-            ["WedMeGood","wedmegood.com"],
-            ["WeddingWire","weddingwire.in"],
-            ["The Wedding Story","theweddingstory.com"],
-            ["Cupcake Productions",""],
-            ["Stories by Joseph Radhik","josephradhik.com"],
-            ["PixelStory",""],
-            ["ShutterDown","shutterdown.com"],
-            ["Happyframes",""],
-            ["Studio A",""],
-            ["Wedding Candid",""]
-        ]
-
-    },
-
-
-    "Musical Instruments": {
-
-        description:
-            "Find musical instrument stores.",
-
-        brands:[
-            ["Furtados","furtadosonline.com"],
-            ["Musee Musical",""],
-            ["Yamaha","yamaha.com"],
-            ["Casio","casio.com"],
-            ["Roland","roland.com"],
-            ["Korg","korg.com"],
-            ["Fender","fender.com"],
-            ["Gibson","gibson.com"],
-            ["Pearl","pearldrum.com"],
-            ["Tama","tama.com"]
-        ]
-
-    },
-
-
-    "Gaming Zones": {
-
-        description:
-            "Discover gaming zones and entertainment centres.",
-
-        brands:[
-            ["Timezone","timezonegames.com"],
-            ["Funcity","funcity.in"],
-            ["Smaaash","smaaash.in"],
-            ["Snow Kingdom","snowkingdom.com"],
-            ["VR Chennai","vrchennai.com"],
-            ["Funskool","funskoolindia.com"],
-            ["Hamleys","hamleys.in"],
-            ["Game Point",""],
-            ["Play Arena","playarena.in"],
-            ["Timezone Chennai","timezonegames.com"]
-        ]
-
-    },
-
-
-    "Seeds & Fertilizer Shops": {
-
-        description:
-            "Find seeds and fertilizer shops.",
-
-        brands:[
-            ["Coromandel","coromandel.biz"],
-            ["IFFCO","iffco.in"],
-            ["Kaveri Seed","kaveriseeds.in"],
-            ["Nuziveedu Seeds","nuziveeduseeds.com"],
-            ["Bayer","bayer.com"],
-            ["Syngenta","syngenta.com"],
-            ["UPL","upl-ltd.com"],
-            ["Rallis India","rallis.com"],
-            ["Mahyco","mahyco.com"],
-            ["Adama","adama.com"]
-        ]
-
-    },
-
-
-    "Farm Equipment": {
-
-        description:
-            "Find agricultural and farm equipment dealers.",
-
-        brands:[
-            ["John Deere","deere.com"],
-            ["Mahindra","mahindra.com"],
-            ["Swaraj","swarajtractors.com"],
-            ["Sonalika","sonalika.com"],
-            ["New Holland","newholland.com"],
-            ["TAFE","tafe.com"],
-            ["Kubota","kubota.com"],
-            ["Escorts Kubota","escortskubota.com"],
-            ["VST Tillers","vsttillers.com"],
-            ["Eicher","eichertractors.in"]
-        ]
-
-    },
-
-
-    "Insurance Offices": {
-
-        description:
-            "Find insurance offices and advisors.",
-
-        brands:[
-            ["LIC","licindia.in"],
-            ["SBI Life","sbilife.co.in"],
-            ["HDFC Life","hdfclife.com"],
-            ["ICICI Prudential","iciciprulife.com"],
-            ["Max Life","maxlifeinsurance.com"],
-            ["Bajaj Allianz","bajajallianz.com"],
-            ["Tata AIA","tataaia.com"],
-            ["Aditya Birla Sun Life","adityabirlacapital.com"],
-            ["Star Health","starhealth.in"],
-            ["New India Assurance","newindia.co.in"]
-        ]
-
-    },
-
-
-    "Loan & Finance Companies": {
-
-        description:
-            "Find loan and finance service providers.",
-
-        brands:[
-            ["HDFC Bank","hdfcbank.com"],
-            ["ICICI Bank","icicibank.com"],
-            ["SBI","sbi.co.in"],
-            ["Axis Bank","axisbank.com"],
-            ["Bajaj Finserv","bajajfinserv.in"],
-            ["Tata Capital","tatacapital.com"],
-            ["Muthoot Finance","muthootfinance.com"],
-            ["Manappuram Finance","manappuram.com"],
-            ["Cholamandalam Finance","cholamandalam.com"],
-            ["Shriram Finance","shriramfinance.in"]
-        ]
-
-    },
-
-
-    "Chit Fund Companies": {
-
-        description:
-            "Find chit fund and financial service offices.",
-
-        brands:[
-            ["Shri Ram Chits",""],
-            ["Margadarsi Chit Fund","margadarsi.com"],
-            ["Kapil Chits","kapilchits.com"],
-            ["Sriram Chits",""],
-            ["Kerala State Financial Enterprises","ksfe.com"],
-            ["Sundaram Finance","sundaramfinance.in"],
-            ["Muthoot","muthoot.com"],
-            ["Manappuram","manappuram.com"],
-            ["Cholamandalam","cholamandalam.com"],
-            ["Shriram","shriramfinance.in"]
-        ]
-
-    },
-
-
-    "Play Schools & Kindergarten": {
-
-        description:
-            "Find playschools and kindergarten centres.",
-
-        brands:[
-            ["EuroKids","eurokidsindia.com"],
-            ["Kidzee","kidzee.com"],
-            ["Bachpan","bachpanglobal.com"],
-            ["Hello Kids","hellokids.co.in"],
-            ["Little Millennium","littlemillennium.com"],
-            ["Kangaroo Kids","kangarookids.co.in"],
-            ["Shemrock","shemrock.com"],
-            ["Podar Jumbo Kids","podarjumbokids.com"],
-            ["Orchids","orchidsinternationalschool.com"],
-            ["The Learning Curve",""]
-        ]
-
-    },
-
-
-    "Drawing & Art Classes": {
-
-        description:
-            "Find drawing and art classes near you.",
-
-        brands:[
-            ["Srishti Art Academy",""],
-            ["Kalakshetra","kalakshetra.in"],
-            ["Chennai Art Academy",""],
-            ["Drawspace","drawspace.com"],
-            ["Shankar Art School",""],
-            ["Art World",""],
-            ["Creative Hands",""],
-            ["Art House",""],
-            ["Colors Art Academy",""],
-            ["Little Artists",""]
-        ]
-
-    },
-
-
-    "Dance Classes": {
-
-        description:
-            "Discover dance academies and classes.",
-
-        brands:[
-            ["Shiamak Davar","shiamak.com"],
-            ["Attakkalari","attakkalari.org"],
-            ["Kalakshetra","kalakshetra.in"],
-            ["Natyarangam",""],
-            ["Nrityanjali",""],
-            ["Tanjore Dance Academy",""],
-            ["Nritarutya","nritarutya.com"],
-            ["Danza",""],
-            ["Dance India",""],
-            ["Step2Step",""]
-        ]
-
-    },
-
-
-    "Music Classes": {
-
-        description:
-            "Find music schools and music classes.",
-
-        brands:[
-            ["KM Music Conservatory","kmmc.in"],
-            ["Swarnabhoomi Academy","swarnabhoomi.org"],
-            ["AR Rahman Foundation","arrahmanfoundation.org"],
-            ["Kalakshetra","kalakshetra.in"],
-            ["Yamaha Music School","in.yamaha.com"],
-            ["Tansen Academy",""],
-            ["Bharathi Music School",""],
-            ["Shankar Mahadevan Academy","shankarmahadevanacademy.org"],
-            ["Furtados School of Music","furtadosschoolofmusic.com"],
-            ["Music Academy Chennai","musicacademymadras.in"]
-        ]
-
-    },
-
-
-    "Sports Academy": {
-
-        description:
-            "Find sports academies and training centres.",
-
-        brands:[
-            ["Decathlon","decathlon.in"],
-            ["Sports Authority of India","sportsauthorityofindia.nic.in"],
-            ["FC Madras","fcmadras.com"],
-            ["Chennaiyin FC Academy","chennaiyinfc.com"],
-            ["MCC Cricket Academy",""],
-            ["TAF Academy",""],
-            ["SDAT","sdat.tn.gov.in"],
-            ["Khelo India","kheloindia.gov.in"],
-            ["Bharat Sports Academy",""],
-            ["Chennai Sports Academy",""]
-        ]
-
-    }
-
-};
-
-
-/* =====================================================
-   DEFAULT CATEGORY
-===================================================== */
-
-const defaultCategoryData = {
-
-    description:
-        "Discover shops and businesses near you.",
-
-    brands:[]
-
-};
-
-
-/* =====================================================
-   UPDATE CATEGORY HERO
-===================================================== */
-
-function updateCategoryHero(category){
-
-    const value =
-        String(category || "").trim();
-
-
-    categoryHeroTitle.textContent =
-        value ||
-        "All Shops";
-
-
-    const categoryData =
-        categoryHeroData[value] ||
-        defaultCategoryData;
-
-
-    categoryHeroDescription.textContent =
-        categoryData.description ||
-        "Discover shops and businesses near you.";
-
-
-    renderCategoryHeroBrands(
-        categoryData.brands || []
-    );
-
-}
-
-
-/* =====================================================
-   RENDER CATEGORY HERO BRANDS
-===================================================== */
-
-function renderCategoryHeroBrands(brands){
-
-    if(
-        !brands ||
-        !brands.length
-    ){
-
-        categoryHeroBrands.innerHTML =
-            "";
-
-        return;
-
-    }
-
-
-    categoryHeroBrands.innerHTML =
-        brands
-        .map(
-            function(brand){
-
-                const name =
-                    Array.isArray(brand)
-                    ? brand[0]
-                    : brand;
-
-
-                const domain =
-                    Array.isArray(brand)
-                    ? brand[1]
-                    : "";
-
-
-                if(domain){
-
-                    const logo =
-                        "https://www.google.com/s2/favicons?domain=" +
-                        encodeURIComponent(domain) +
-                        "&sz=128";
-
-
-                    return `
-
-                        <div
-                            class="hero-brand"
-                            title="${escapeHtml(name)}"
-                        >
-
-                            <img
-                                src="${logo}"
-                                alt="${escapeHtml(name)}"
-                                loading="lazy"
-                                onerror="this.style.display='none';"
-                            >
-
-                            <span
-                                class="hero-brand-name"
-                            >
-                                ${escapeHtml(name)}
-                            </span>
-
-                        </div>
-
-                    `;
-
-                }
-
-
-                return `
-
-                    <div
-                        class="hero-brand"
-                        title="${escapeHtml(name)}"
-                    >
-
-                        <span
-                            class="hero-brand-name"
-                        >
-                            ${escapeHtml(name)}
-                        </span>
-
-                    </div>
-
-                `;
-
-            }
-        )
-        .join("");
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value){
-
-    return String(value || "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-  /* =====================================================
-   SLIDER VARIABLES
-===================================================== */
-
-let offers = [];
-
+let currentOffers = [];
 let currentIndex = 0;
+let currentShop = null;
 
-let autoSlide = null;
+/* =========================================
+   HELPERS
+========================================= */
 
+function setText(id, value, fallback = "—") {
+  const element = $(id);
 
-/* =====================================================
-   LOAD SHOP DETAILS
-===================================================== */
-
-async function loadShop(){
-
-    if(!shopId){
-
-        shopNameElement.textContent =
-            "Shop Not Found";
-
-        shopCategoryElement.textContent =
-            "";
-
-        shopLocationElement.textContent =
-            "";
-
-        categoryHeroTitle.textContent =
-            "Shop Not Found";
-
-        showEmpty(
-            "Invalid shop link."
-        );
-
-        return false;
-    }
-
-
-    try{
-
-        const {
-            data: shop,
-            error
-        } =
-        await supabaseClient
-            .from("shops")
-            .select(`
-                id,
-                shop_name,
-                category,
-                address,
-                area,
-                city,
-                shop_image
-            `)
-            .eq(
-                "id",
-                shopId
-            )
-            .maybeSingle();
-
-
-        if(error){
-
-            console.error(
-                "Shop load error:",
-                error
-            );
-
-            shopNameElement.textContent =
-                "Unable to load shop";
-
-            categoryHeroTitle.textContent =
-                "Unable to load shop";
-
-            showEmpty(
-                "Please try again."
-            );
-
-            return false;
-        }
-
-
-        if(!shop){
-
-            shopNameElement.textContent =
-                "Shop Not Found";
-
-            shopCategoryElement.textContent =
-                "";
-
-            shopLocationElement.textContent =
-                "";
-
-            categoryHeroTitle.textContent =
-                "Shop Not Found";
-
-            showEmpty(
-                "This shop could not be found."
-            );
-
-            return false;
-        }
-
-
-        /* =================================================
-           SHOP NAME
-        ================================================= */
-
-        shopNameElement.textContent =
-            shop.shop_name ||
-            "Shop";
-
-
-        /* =================================================
-           CATEGORY
-        ================================================= */
-
-        shopCategoryElement.textContent =
-            shop.category ||
-            "Business";
-
-
-        /* =================================================
-           CATEGORY HERO
-           IMPORTANT:
-           No recursive call here.
-        ================================================= */
-
-        updateCategoryHero(
-            shop.category
-        );
-
-
-        /* =================================================
-           LOCATION
-        ================================================= */
-
-        const locationParts = [
-
-            shop.address,
-
-            shop.area,
-
-            shop.city
-
-        ].filter(Boolean);
-
-
-        if(locationParts.length){
-
-            shopLocationElement.textContent =
-                "📍 " +
-                locationParts.join(
-                    ", "
-                );
-
-        }else{
-
-            shopLocationElement.textContent =
-                "";
-
-        }
-
-
-        /* =================================================
-           SHOP IMAGE
-        ================================================= */
-
-        if(shop.shop_image){
-
-            shopImageElement.src =
-                shop.shop_image;
-
-            shopImageElement.style.display =
-                "block";
-
-        }else{
-
-            shopImageElement.style.display =
-                "block";
-
-            shopImageElement.removeAttribute(
-                "src"
-            );
-
-        }
-
-
-        return true;
-
-    }
-    catch(error){
-
-        console.error(
-            "Unexpected shop loading error:",
-            error
-        );
-
-        shopNameElement.textContent =
-            "Unable to load shop";
-
-        categoryHeroTitle.textContent =
-            "Unable to load shop";
-
-        showEmpty(
-            "Something went wrong. Please refresh the page."
-        );
-
-        return false;
-
-    }
-
+  if (element) {
+    element.textContent = value || fallback;
+  }
 }
 
+function getShopId() {
+  const params = new URLSearchParams(
+    window.location.search
+  );
 
-/* =====================================================
-   EMPTY STATE
-===================================================== */
+  return (
+    params.get("shop_id") ||
+    params.get("id")
+  );
+}
 
-function showEmpty(text){
+function safeImageUrl(url) {
+  if (!url) return "";
 
-    clearInterval(
-        autoSlide
+  try {
+    const parsed = new URL(url);
+
+    if (
+      parsed.protocol === "https:" ||
+      parsed.protocol === "http:"
+    ) {
+      return parsed.href;
+    }
+
+    return "";
+  } catch {
+    return "";
+  }
+}
+
+function makeElement(tag, className, text) {
+  const element = document.createElement(tag);
+
+  if (className) {
+    element.className = className;
+  }
+
+  if (text !== undefined) {
+    element.textContent = text;
+  }
+
+  return element;
+}
+
+/* =========================================
+   SHOP ACTIONS
+========================================= */
+
+function renderShopActions(shop) {
+  const container = $("shopActions");
+
+  if (!container) return;
+
+  container.replaceChildren();
+
+  /*
+    Phone and WhatsApp buttons are not generated
+    because the original shops query does not
+    include phone or WhatsApp fields.
+  */
+
+  if (shop.address || shop.area || shop.city) {
+    const address = [
+      shop.address,
+      shop.area,
+      shop.city
+    ].filter(Boolean).join(", ");
+
+    const button = makeElement(
+      "a",
+      "shop-action directions"
     );
 
-
-    offerSlider.style.display =
-        "none";
-
-
-    dotsContainer.innerHTML =
-        "";
-
-
-    offerCounter.textContent =
-        "0 Offers";
-
-
-    emptyBox.style.display =
-        "block";
-
-
-    emptyText.textContent =
-        text;
-
-}
-
-
-/* =====================================================
-   LOAD APPROVED OFFERS
-===================================================== */
-
-async function loadOffers(){
-
-    if(!shopId){
-
-        return;
-    }
-
-
-    try{
-
-        const {
-            data,
-            error
-        } =
-        await supabaseClient
-            .from("shop_offers")
-            .select(`
-                id,
-                shop_id,
-                offer_image,
-                pincode,
-                status,
-                is_active,
-                created_at,
-                expires_at
-            `)
-            .eq(
-                "shop_id",
-                shopId
-            )
-            .eq(
-                "is_active",
-                true
-            )
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            );
-
-
-        if(error){
-
-            console.error(
-                "Offers load error:",
-                error
-            );
-
-            showEmpty(
-                "Unable to load current offers."
-            );
-
-            return;
-        }
-
-
-        const now =
-            new Date();
-
-
-        offers =
-            (data || []).filter(
-                function(offer){
-
-                    if(
-                        !offer.expires_at
-                    ){
-
-                        return true;
-                    }
-
-
-                    return new Date(
-                        offer.expires_at
-                    ) > now;
-
-                }
-            );
-
-
-        if(
-            offers.length === 0
-        ){
-
-            showEmpty(
-                "This shop has no approved offers right now."
-            );
-
-            return;
-        }
-
-
-        emptyBox.style.display =
-            "none";
-
-
-        offerSlider.style.display =
-            "block";
-
-
-        offerCounter.textContent =
-            offers.length +
-            (
-                offers.length === 1
-                ? " Offer"
-                : " Offers"
-            );
-
-
-        renderOffers();
-
-    }
-    catch(error){
-
-        console.error(
-            "Unexpected offers error:",
-            error
-        );
-
-        showEmpty(
-            "Unable to load current offers."
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   RENDER OFFERS
-===================================================== */
-
-function renderOffers(){
-
-    slides.innerHTML =
-        "";
-
-    dotsContainer.innerHTML =
-        "";
-
-    currentIndex =
-        0;
-
-
-    offers.forEach(
-        function(
-            offer,
-            index
-        ){
-
-            const slide =
-                document.createElement(
-                    "div"
-                );
-
-
-            slide.className =
-                "slide";
-
-
-            const frame =
-                document.createElement(
-                    "div"
-                );
-
-
-            frame.className =
-                "poster-frame";
-
-
-            const image =
-                document.createElement(
-                    "img"
-                );
-
-
-            image.className =
-                "poster";
-
-
-            image.src =
-                offer.offer_image;
-
-
-            image.alt =
-                "Current Offer";
-
-
-            image.loading =
-                "lazy";
-
-
-            image.addEventListener(
-                "click",
-                function(){
-
-                    currentIndex =
-                        index;
-
-                    updateViewer();
-
-                    viewer.classList.add(
-                        "active"
-                    );
-
-                    document.body.style.overflow =
-                        "hidden";
-
-                }
-            );
-
-
-            image.addEventListener(
-                "error",
-                function(){
-
-                    console.error(
-                        "Offer image failed:",
-                        offer.offer_image
-                    );
-
-                }
-            );
-
-
-            frame.appendChild(
-                image
-            );
-
-
-            slide.appendChild(
-                frame
-            );
-
-
-            slides.appendChild(
-                slide
-            );
-
-
-            const dot =
-                document.createElement(
-                    "div"
-                );
-
-
-            dot.className =
-                "dot";
-
-
-            dot.setAttribute(
-                "aria-label",
-                "Offer " + (index + 1)
-            );
-
-
-            dot.addEventListener(
-                "click",
-                function(){
-
-                    currentIndex =
-                        index;
-
-                    updateSlider();
-
-                    restartAutoSlide();
-
-                }
-            );
-
-
-            dotsContainer.appendChild(
-                dot
-            );
-
-        }
+    button.href =
+      "https://www.google.com/maps/search/?api=1&query=" +
+      encodeURIComponent(address);
+
+    button.target = "_blank";
+    button.rel = "noopener";
+
+    const icon = makeElement(
+      "span",
+      "action-icon",
+      "📍"
     );
 
-
-    updateSlider();
-
-    startAutoSlide();
-
-}
-
-
-/* =====================================================
-   UPDATE SLIDER
-===================================================== */
-
-function updateSlider(){
-
-    if(!offers.length){
-
-        return;
-    }
-
-
-    slides.style.transform =
-        "translateX(-" +
-        (
-            currentIndex *
-            100
-        ) +
-        "%)";
-
-
-    const dots =
-        dotsContainer.querySelectorAll(
-            ".dot"
-        );
-
-
-    dots.forEach(
-        function(
-            dot,
-            index
-        ){
-
-            dot.classList.toggle(
-                "active",
-                index === currentIndex
-            );
-
-        }
+    const label = makeElement(
+      "span",
+      "",
+      "Directions"
     );
 
-
-    offerCounter.textContent =
-        (
-            currentIndex + 1
-        ) +
-        " / " +
-        offers.length;
-
+    button.append(icon, label);
+    container.appendChild(button);
+  }
 }
 
+/* =========================================
+   LOAD SHOP
+========================================= */
 
-/* =====================================================
-   NEXT SLIDE
-===================================================== */
+async function loadShop() {
+  const shopId = getShopId();
 
-function nextSlide(){
+  if (!shopId) {
+    setText(
+      "shopName",
+      "Shop not found",
+      "Shop not found"
+    );
 
-    if(
-        offers.length === 0
-    ){
+    setText(
+      "shopAddress",
+      "The shop link is missing its ID."
+    );
 
-        return;
+    return;
+  }
+
+  try {
+    const {
+      data: shop,
+      error
+    } = await supabaseClient
+      .from("shops")
+      .select(`
+        id,
+        shop_name,
+        category,
+        address,
+        area,
+        city,
+        shop_image
+      `)
+      .eq("id", shopId)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (!shop) {
+      setText("shopName", "Shop not found");
+      setText(
+        "shopAddress",
+        "This shop may no longer be available."
+      );
+
+      return;
     }
 
+    currentShop = shop;
 
-    currentIndex++;
+    const name =
+      shop.shop_name || "Local Shop";
 
+    const category =
+      shop.category || "Local Business";
 
-    if(
-        currentIndex >=
-        offers.length
-    ){
+    const address = [
+      shop.address,
+      shop.area,
+      shop.city
+    ].filter(Boolean).join(", ");
 
-        currentIndex =
-            0;
+    setText("shopName", name);
+    setText("shopCategory", category);
+    setText(
+      "shopAddress",
+      address,
+      "Location not available"
+    );
+
+    setText("heroShopName", name);
+    setText(
+      "heroShopCategory",
+      "Explore offers and updates from " + name
+    );
+
+    setText("infoShopName", name);
+    setText("infoShopCategory", category);
+    setText(
+      "infoShopArea",
+      [shop.area, shop.city]
+        .filter(Boolean)
+        .join(", ")
+    );
+
+    setText(
+      "locationAddress",
+      address,
+      "Location not available"
+    );
+
+    setText(
+      "aboutShop",
+      name + " — explore the latest offers and updates from this local business."
+    );
+
+    const imageUrl = safeImageUrl(shop.shop_image);
+
+    if (imageUrl) {
+      shopImage.src = imageUrl;
     }
 
+    shopImage.onerror = () => {
+      shopImage.style.visibility = "hidden";
+    };
 
-    updateSlider();
+    const directionsLink = $("directionsLink");
 
+    if (directionsLink && address) {
+      directionsLink.href =
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(address);
+
+      directionsLink.style.display = "flex";
+    }
+
+    const locationHint = $("locationHint");
+
+    if (locationHint && address) {
+      locationHint.replaceChildren();
+
+      const icon = makeElement(
+        "span",
+        "",
+        "📍"
+      );
+
+      const text = makeElement(
+        "div",
+        "",
+        "Location: " + address
+      );
+
+      locationHint.append(icon, text);
+    }
+
+    renderShopActions(shop);
+
+    document.title = name + " | Pyncode.in";
+
+    await loadOffers(shop.id);
+
+  } catch (error) {
+    console.error("Shop loading error:", error);
+
+    setText("shopName", "Unable to load shop");
+
+    setText(
+      "shopAddress",
+      "Please refresh the page and try again."
+    );
+  }
 }
 
+/* =========================================
+   LOAD OFFER POSTERS
+========================================= */
 
-/* =====================================================
-   PREVIOUS SLIDE
-===================================================== */
+async function loadOffers(shopId) {
+  offersTrack.replaceChildren();
 
-function previousSlide(){
+  offersTrack.appendChild(
+    makeElement(
+      "div",
+      "loading-message",
+      "Loading offers..."
+    )
+  );
 
-    if(
-        offers.length === 0
-    ){
+  try {
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("shop_offers")
+      .select(`
+        id,
+        shop_id,
+        offer_image,
+        pincode,
+        status,
+        is_active,
+        created_at,
+        expires_at
+      `)
+      .eq("shop_id", shopId)
+      .eq("is_active", true)
+      .order("created_at", {
+        ascending: false
+      });
 
-        return;
+    if (error) throw error;
+
+    const now = new Date();
+
+    currentOffers = (data || []).filter(offer => {
+      if (!offer.offer_image) return false;
+
+      if (offer.expires_at) {
+        const expiry = new Date(offer.expires_at);
+
+        if (
+          !Number.isNaN(expiry.getTime()) &&
+          expiry < now
+        ) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+
+    offersTrack.replaceChildren();
+
+    setText(
+      "offerCounter",
+      currentOffers.length +
+        (currentOffers.length === 1
+          ? " Offer"
+          : " Offers")
+    );
+
+    if (!currentOffers.length) {
+      offersTrack.appendChild(
+        makeElement(
+          "div",
+          "offer-empty",
+          "No active offers available right now. Please check again later."
+        )
+      );
+
+      return;
     }
 
+    currentOffers.forEach((offer, index) => {
+      const imageUrl = safeImageUrl(
+        offer.offer_image
+      );
 
-    currentIndex--;
+      if (!imageUrl) return;
 
+      const card = makeElement(
+        "button",
+        "offer-card"
+      );
 
-    if(
-        currentIndex < 0
-    ){
+      card.type = "button";
 
-        currentIndex =
-            offers.length - 1;
-    }
+      card.setAttribute(
+        "aria-label",
+        "View offer " + (index + 1)
+      );
 
+      const image = document.createElement("img");
 
-    updateSlider();
+      image.src = imageUrl;
+      image.alt =
+        "Offer from " +
+        (currentShop?.shop_name || "this shop");
 
+      image.loading = "lazy";
+
+      image.onerror = () => {
+        card.remove();
+
+        setText(
+          "offerCounter",
+          offersTrack.querySelectorAll(
+            ".offer-card"
+          ).length + " Offers"
+        );
+      };
+
+      card.appendChild(image);
+
+      const badge = makeElement(
+        "span",
+        "offer-badge",
+        "VIEW OFFER"
+      );
+
+      card.appendChild(badge);
+
+      card.addEventListener("click", () => {
+        openViewer(index);
+      });
+
+      offersTrack.appendChild(card);
+    });
+
+  } catch (error) {
+    console.error("Offers loading error:", error);
+
+    offersTrack.replaceChildren();
+
+    offersTrack.appendChild(
+      makeElement(
+        "div",
+        "error-message",
+        "Unable to load offers. Please refresh and try again."
+      )
+    );
+
+    setText("offerCounter", "Offers");
+  }
 }
 
+/* =========================================
+   FULLSCREEN POSTER VIEWER
+========================================= */
 
-/* =====================================================
-   SLIDER BUTTONS
-===================================================== */
+function openViewer(index) {
+  if (
+    index < 0 ||
+    index >= currentOffers.length
+  ) {
+    return;
+  }
 
-nextBtn.addEventListener(
-    "click",
-    function(){
+  currentIndex = index;
 
-        nextSlide();
+  const offer = currentOffers[currentIndex];
 
-        restartAutoSlide();
+  const imageUrl = safeImageUrl(
+    offer.offer_image
+  );
 
-    }
+  if (!imageUrl) return;
+
+  viewerImage.src = imageUrl;
+
+  viewer.classList.add("active");
+
+  document.body.classList.add("viewer-open");
+}
+
+function closeViewer() {
+  viewer.classList.remove("active");
+
+  document.body.classList.remove("viewer-open");
+
+  viewerImage.src = "";
+}
+
+function showNextOffer() {
+  if (!currentOffers.length) return;
+
+  currentIndex =
+    (currentIndex + 1) % currentOffers.length;
+
+  openViewer(currentIndex);
+}
+
+function showPreviousOffer() {
+  if (!currentOffers.length) return;
+
+  currentIndex =
+    (currentIndex - 1 + currentOffers.length) %
+    currentOffers.length;
+
+  openViewer(currentIndex);
+}
+
+$("viewerClose").addEventListener(
+  "click",
+  closeViewer
 );
 
-
-prevBtn.addEventListener(
-    "click",
-    function(){
-
-        previousSlide();
-
-        restartAutoSlide();
-
-    }
+$("viewerNext").addEventListener(
+  "click",
+  showNextOffer
 );
 
-
-/* =====================================================
-   AUTO SLIDE
-===================================================== */
-
-function startAutoSlide(){
-
-    clearInterval(
-        autoSlide
-    );
-
-
-    if(
-        offers.length <= 1
-    ){
-
-        return;
-    }
-
-
-    autoSlide =
-        setInterval(
-            function(){
-
-                nextSlide();
-
-            },
-            4000
-        );
-
-}
-
-
-function restartAutoSlide(){
-
-    clearInterval(
-        autoSlide
-    );
-
-    startAutoSlide();
-
-}
-
-
-/* =====================================================
-   FULLSCREEN VIEWER
-===================================================== */
-
-function updateViewer(){
-
-    if(
-        offers.length === 0
-    ){
-
-        return;
-    }
-
-
-    viewerImage.src =
-        offers[
-            currentIndex
-        ].offer_image;
-
-}
-
-
-/* =====================================================
-   VIEWER NEXT
-===================================================== */
-
-viewerNext.addEventListener(
-    "click",
-    function(){
-
-        nextSlide();
-
-        updateViewer();
-
-    }
+$("viewerPrev").addEventListener(
+  "click",
+  showPreviousOffer
 );
 
+viewer.addEventListener("click", event => {
+  if (event.target === viewer) {
+    closeViewer();
+  }
+});
 
-/* =====================================================
-   VIEWER PREVIOUS
-===================================================== */
+document.addEventListener("keydown", event => {
+  if (!viewer.classList.contains("active")) {
+    return;
+  }
 
-viewerPrev.addEventListener(
-    "click",
-    function(){
+  if (event.key === "Escape") {
+    closeViewer();
+  }
 
-        previousSlide();
+  if (event.key === "ArrowRight") {
+    showNextOffer();
+  }
 
-        updateViewer();
+  if (event.key === "ArrowLeft") {
+    showPreviousOffer();
+  }
+});
 
-    }
-);
+/* =========================================
+   TOUCH SWIPE
+========================================= */
 
-
-/* =====================================================
-   CLOSE VIEWER
-===================================================== */
-
-function closeViewer(){
-
-    viewer.classList.remove(
-        "active"
-    );
-
-
-    viewerImage.src =
-        "";
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-viewerClose.addEventListener(
-    "click",
-    closeViewer
-);
-
-
-/* =====================================================
-   CLOSE VIEWER - OUTSIDE
-===================================================== */
+let touchStartX = 0;
+let touchStartY = 0;
 
 viewer.addEventListener(
-    "click",
-    function(event){
+  "touchstart",
+  event => {
+    if (!event.touches.length) return;
 
-        if(
-            event.target === viewer
-        ){
-
-            closeViewer();
-
-        }
-
-    }
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+  },
+  { passive: true }
 );
 
+viewer.addEventListener(
+  "touchend",
+  event => {
+    if (!event.changedTouches.length) return;
 
-/* =====================================================
-   MAIN SLIDER SWIPE
-===================================================== */
+    const endX = event.changedTouches[0].clientX;
+    const endY = event.changedTouches[0].clientY;
 
-let startX = 0;
+    const deltaX = endX - touchStartX;
+    const deltaY = endY - touchStartY;
 
-let endX = 0;
-
-
-slides.addEventListener(
-    "touchstart",
-    function(event){
-
-        if(
-            !event.touches ||
-            !event.touches.length
-        ){
-
-            return;
-        }
-
-
-        startX =
-            event.touches[0].clientX;
-
-    },
-    {
-        passive:true
+    if (
+      Math.abs(deltaX) > 55 &&
+      Math.abs(deltaX) > Math.abs(deltaY)
+    ) {
+      if (deltaX < 0) {
+        showNextOffer();
+      } else {
+        showPreviousOffer();
+      }
     }
+  },
+  { passive: true }
 );
 
-
-slides.addEventListener(
-    "touchend",
-    function(event){
-
-        if(
-            !event.changedTouches ||
-            !event.changedTouches.length
-        ){
-
-            return;
-        }
-
-
-        endX =
-            event.changedTouches[0].clientX;
-
-
-        const difference =
-            endX -
-            startX;
-
-
-        if(
-            Math.abs(difference) < 50
-        ){
-
-            return;
-        }
-
-
-        if(
-            difference < 0
-        ){
-
-            nextSlide();
-
-        }else{
-
-            previousSlide();
-
-        }
-
-
-        restartAutoSlide();
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-/* =====================================================
-   FULLSCREEN SWIPE
-===================================================== */
-
-let viewerStartX = 0;
-
-let viewerEndX = 0;
-
-
-viewerImage.addEventListener(
-    "touchstart",
-    function(event){
-
-        if(
-            !event.touches ||
-            !event.touches.length
-        ){
-
-            return;
-        }
-
-
-        viewerStartX =
-            event.touches[0].clientX;
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-viewerImage.addEventListener(
-    "touchend",
-    function(event){
-
-        if(
-            !event.changedTouches ||
-            !event.changedTouches.length
-        ){
-
-            return;
-        }
-
-
-        viewerEndX =
-            event.changedTouches[0].clientX;
-
-
-        const difference =
-            viewerEndX -
-            viewerStartX;
-
-
-        if(
-            Math.abs(difference) < 50
-        ){
-
-            return;
-        }
-
-
-        if(
-            difference < 0
-        ){
-
-            nextSlide();
-
-        }else{
-
-            previousSlide();
-
-        }
-
-
-        updateViewer();
-
-    },
-    {
-        passive:true
-    }
-);
-
-
-/* =====================================================
-   PREVENT IMAGE DRAGGING
-===================================================== */
-
-shopImageElement.addEventListener(
-    "dragstart",
-    function(event){
-
-        event.preventDefault();
-
-    }
-);
-
-
-viewerImage.addEventListener(
-    "dragstart",
-    function(event){
-
-        event.preventDefault();
-
-    }
-);
-
-
-/* =====================================================
-   KEYBOARD CONTROLS
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(
-            !viewer.classList.contains(
-                "active"
-            )
-        ){
-
-            return;
-        }
-
-
-        if(
-            event.key ===
-            "ArrowRight"
-        ){
-
-            nextSlide();
-
-            updateViewer();
-
-        }
-
-
-        if(
-            event.key ===
-            "ArrowLeft"
-        ){
-
-            previousSlide();
-
-            updateViewer();
-
-        }
-
-
-        if(
-            event.key ===
-            "Escape"
-        ){
-
-            closeViewer();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   PAGE INITIALIZE
-===================================================== */
-
-(async function(){
-
-    const shopLoaded =
-        await loadShop();
-
-
-    if(!shopLoaded){
-
-        return;
-    }
-
-
-    await loadOffers();
-
-})();
-
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+$("backButton").addEventListener("click", () => {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.href = "index.html";
+  }
+});
+
+/* =========================================
+   INITIALIZE PAGE
+========================================= */
+
+loadShop();
 </script>
 
 </body>
-
 </html>
