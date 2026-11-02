@@ -1426,7 +1426,6 @@ body{
 
     }
 
-}
 
     .header-actions{
 
@@ -1769,7 +1768,132 @@ body{
 
 }
 
-    /* Hide Feeds and Promotion from bottom navigation */
+  /* ===== PYNCODE FEATURE CARDS ===== */
+
+.pyncode-feature-section {
+    padding: 18px 15px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.pyncode-feature-heading {
+    font-size: 20px;
+    font-weight: 800;
+    color: #203d32;
+    margin: 0 0 14px;
+}
+
+.pyncode-feature-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 17px 15px;
+    margin-bottom: 12px;
+    background: #ffffff;
+    border: 1px solid #e5ece5;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(25, 55, 40, 0.06);
+    text-decoration: none;
+    color: #263a30;
+    transition: transform 0.2s ease;
+}
+
+.pyncode-feature-card:active {
+    transform: scale(0.98);
+}
+
+.pyncode-feature-icon {
+    width: 55px;
+    height: 55px;
+    min-width: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    font-size: 27px;
+    background: #edf5ed;
+}
+
+.pyncode-feature-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.pyncode-feature-title {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    color: #234c3a;
+}
+
+.pyncode-feature-description {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #6c776f;
+}
+
+.pyncode-feature-arrow {
+    font-size: 23px;
+    color: #62816d;
+    font-weight: 700;
+}
+
+/* ===== HORIZONTAL CATEGORIES ===== */
+
+.pyncode-category-section {
+    padding: 8px 0 20px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.pyncode-category-heading {
+    font-size: 19px;
+    font-weight: 800;
+    color: #203d32;
+    margin: 0 15px 13px;
+}
+
+.pyncode-category-row {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 2px 15px 12px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.pyncode-category-row::-webkit-scrollbar {
+    display: none;
+}
+
+.pyncode-category-chip {
+    flex: 0 0 auto;
+    padding: 11px 16px;
+    border-radius: 30px;
+    border: 1px solid #dce8dc;
+    background: #f3f7f1;
+    color: #315642;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.pyncode-category-chip:active {
+    background: #dcebdd;
+}
+
+@media (min-width: 600px) {
+    .pyncode-feature-section {
+        padding-top: 24px;
+    }
+
+    .pyncode-feature-card {
+        padding: 20px;
+    }
+}
+
+  /* Hide Feeds and Promotion from bottom navigation */
 .bottom-nav-item[href="#"],
 .bottom-nav-item[href="feeds.html"],
 .bottom-nav-item[href="promotion.html"],
@@ -1823,6 +1947,7 @@ body{
     </div>
 
 </header>
+
 
 
 <!-- =====================================================
