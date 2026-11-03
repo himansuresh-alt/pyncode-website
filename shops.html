@@ -433,19 +433,47 @@ renderShops();
 });
 }
 
-      /* CATEGORIES */
+/* CATEGORIES */
 function loadCategoryFilter(){
-const box=$("categoryFilter");
-box.innerHTML="";
+
+const box = $("categoryFilter");
+
+box.innerHTML = "";
+
 [""].concat(categories).forEach(function(c){
-const b=document.createElement("button");
-b.type="button";
-b.className="chip";
-b.dataset.category=c;
-b.textContent=c||"All";
-b.onclick=function(){selectedCategory=c;updateActiveCategory();renderShops();};
-box.appendChild(b);
+
+    const b = document.createElement("button");
+
+    b.type = "button";
+    b.className = "chip";
+    b.dataset.category = c;
+    b.textContent = c || "All";
+
+    b.onclick = function(){
+
+        /* ALL BUTTON - EXISTING BEHAVIOUR */
+        if(!c){
+
+            selectedCategory = "";
+
+            updateActiveCategory();
+
+            renderShops();
+
+            return;
+        }
+
+        /* OPEN SELECTED CATEGORY PAGE */
+        window.location.href =
+            "category.html?category=" +
+            encodeURIComponent(c);
+
+    };
+
+    box.appendChild(b);
+
 });
+
 }
 
 function updateActiveCategory(){
