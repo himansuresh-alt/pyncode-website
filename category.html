@@ -1893,183 +1893,237 @@ body{
     }
 }
 
-  /* Hide Feeds and Promotion from bottom navigation */
-.bottom-nav-item[href="#"],
-.bottom-nav-item[href="feeds.html"],
-.bottom-nav-item[href="promotion.html"],
-.bottom-nav-item[href="ads.html"] {
-    display: none !important;
+
+
+/* =====================================================
+   APPROVED CATEGORY PAGE DESIGN — PRESENTATION ONLY
+   Existing Supabase queries, banner loader, shop cards and actions remain intact.
+===================================================== */
+body{background:#f7f9f7;color:#17251f;}
+.main{padding-top:0 !important;}
+.category-banner-section{
+    position:relative;
+    width:calc(100% + 40px) !important;
+    margin:-1px -20px 22px !important;
+    padding:0 !important;
+    overflow:hidden;
+    border-radius:0 0 26px 26px;
+    background:#eef4ed;
+}
+.category-banner-wrap{
+    width:100%;
+    border:0 !important;
+    border-radius:0 0 26px 26px !important;
+    box-shadow:none !important;
+    background:#eef4ed;
+}
+.category-banner-image,.banner-slide img{
+    display:block;width:100%;height:auto;max-height:none !important;object-fit:cover;
+}
+.banner-slider{width:100%;}
+.category-overlay-header{
+    position:absolute !important;
+    z-index:20;
+    top:0;left:0;right:0;
+    width:100%;
+    min-height:76px;
+    display:flex;align-items:center;gap:12px;
+    padding:12px 16px !important;
+    background:linear-gradient(180deg,rgba(0,0,0,.68),rgba(0,0,0,0)) !important;
+    border:0 !important;box-shadow:none !important;
+}
+.category-overlay-header .logo{
+    display:flex;flex-direction:column;align-items:flex-start;gap:1px;
+    color:#fff !important;text-decoration:none;font-size:24px;font-weight:900;
+    line-height:1.05;text-shadow:0 1px 5px rgba(0,0,0,.35);
+}
+.category-overlay-header .logo small{font-size:10px;font-weight:700;letter-spacing:.1px;color:#fff;}
+.category-overlay-header .pyn-text{color:#ff7445 !important;}
+.category-overlay-header .code-text{color:#fff !important;}
+.category-back-btn{
+    flex:0 0 42px;width:42px;height:42px;display:grid;place-items:center;
+    border-radius:50%;background:#fff;color:#174b38;text-decoration:none;
+    font-size:25px;font-weight:800;box-shadow:0 3px 12px rgba(0,0,0,.16);
+}
+.category-overlay-header .header-actions{margin-left:auto;display:flex;align-items:center;gap:7px;}
+.category-overlay-header .create-account-btn,.category-overlay-header .home-btn{
+    min-height:38px;padding:0 11px;border-radius:22px;display:inline-flex;align-items:center;
+    justify-content:center;font-size:11px;font-weight:800;text-decoration:none;white-space:nowrap;
+}
+.category-overlay-header .create-account-btn{background:rgba(255,255,255,.93);color:#174b38;border:1px solid rgba(255,255,255,.65);}
+.category-overlay-header .home-btn{background:#174b38;color:#fff;border:1px solid rgba(255,255,255,.35);}
+.pyncode-category-section{width:100%;padding:0 0 18px;overflow:hidden;}
+.pyncode-category-topline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 12px;}
+.pyncode-category-heading{margin:0;color:#174b38;font-size:19px;font-weight:900;}
+.pyncode-category-topline>span{color:#87918a;font-size:11px;font-weight:700;white-space:nowrap;}
+.pyncode-category-row{display:flex;gap:10px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.pyncode-category-row::-webkit-scrollbar{display:none;}
+.pyncode-category-chip{flex:0 0 auto;padding:12px 17px;border:1px solid #dce8dc;border-radius:28px;background:#f1f6ed;color:#315642;text-decoration:none;font-size:13px;font-weight:800;white-space:nowrap;}
+.pyncode-category-chip:active{background:#dcebdd;}
+.pincode-search{margin:0 0 24px !important;}
+.pincode-row{gap:9px !important;}
+.pincode-input{height:58px !important;border-radius:17px !important;background:#fff !important;}
+.find-btn{min-height:58px !important;border-radius:17px !important;background:linear-gradient(135deg,#ff792d,#f04467) !important;}
+.results-heading{margin:0 2px 14px !important;}
+.results-title{color:#174b38 !important;font-size:21px !important;font-weight:900 !important;}
+.shop-card{border-radius:22px !important;border:1px solid #e7ece7 !important;box-shadow:0 7px 22px rgba(24,55,39,.08) !important;}
+.shop-card::before{background:linear-gradient(180deg,#1a7655,#b5d8b8) !important;}
+.bottom-nav{width:min(560px,calc(100% - 24px)) !important;background:#073f2c !important;border-radius:26px !important;}
+.bottom-nav-item{color:#d9e9df !important;}
+.bottom-nav-item.active{background:#f3f8ec !important;color:#073f2c !important;}
+@media(max-width:600px){
+ .category-banner-section{width:calc(100% + 28px) !important;margin-left:-14px !important;margin-right:-14px !important;}
+ .category-overlay-header{padding:10px 11px !important;gap:8px;min-height:68px;}
+ .category-overlay-header .logo{font-size:20px;}
+ .category-overlay-header .logo small{font-size:8px;}
+ .category-back-btn{width:36px;height:36px;flex-basis:36px;font-size:22px;}
+ .category-overlay-header .create-account-btn,.category-overlay-header .home-btn{min-height:34px;padding:0 8px;font-size:9px;}
+ .pyncode-category-heading{font-size:18px;}
+ .pyncode-category-chip{padding:11px 15px;font-size:12px;}
+ .pincode-row{gap:7px !important;}
+ .pincode-input{height:54px !important;font-size:13px !important;}
+ .find-btn{min-height:54px !important;padding:0 12px !important;font-size:12px !important;}
 }
 
+/* Hide only the unwanted header elements */
+.category-overlay-header .category-back-btn,
+.category-overlay-header .header-actions {
+display: none !important;
+}
+
+/* Hide visible logo while keeping its HTML element */
+.category-overlay-header .logo {
+visibility: hidden !important;
+pointer-events: none !important;
+}
+  
+/* =========================================
+BOTTOM NAVIGATION
+MATCHED WITH SHOPS.HTML
+========================================= */
+
+.bottom-nav {
+position: fixed !important;
+
+left: 50% !important;
+bottom: 10px !important;
+right: auto !important;
+
+transform: translateX(-50%) !important;
+
+width: min(560px, calc(100% - 20px)) !important;
+height: 66px !important;
+
+display: flex !important;
+align-items: center !important;
+justify-content: space-around !important;
+
+gap: 4px !important;
+padding: 6px !important;
+
+background: rgba(14, 19, 34, .96) !important;
+border: none !important;
+border-radius: 22px !important;
+
+z-index: 99999 !important;
+
+box-shadow: 0 12px 32px rgba(10, 20, 40, .3) !important;
+box-sizing: border-box !important;
+
+}
+
+.bottom-nav-item {
+flex: 1 !important;
+min-width: 0 !important;
+height: 100% !important;
+
+display: flex !important;
+flex-direction: column !important;
+align-items: center !important;
+justify-content: center !important;
+
+gap: 3px !important;
+
+border-radius: 17px !important;
+
+background: transparent !important;
+color: #aab2c8 !important;
+
+font-size: 10px !important;
+font-weight: 700 !important;
+text-decoration: none !important;
+
+}
+
+.bottom-nav-item .nav-icon {
+font-size: 19px !important;
+line-height: 1 !important;
+}
+
+.bottom-nav-item .nav-label {
+font-size: 10px !important;
+font-weight: 700 !important;
+white-space: nowrap !important;
+}
+
+.bottom-nav-item.active {
+background: #ffffff !important;
+color: #151a28 !important;
+}
+
+/* Keep page content above navigation */
+body {
+padding-bottom: 105px !important;
+}
+  
 </style>
 
 </head>
 
 <body>
 
-  <!-- =====================================================
+
+    <!-- =====================================================
      HEADER
 ===================================================== -->
 
-<header class="header">
-
-    <a
-        href="index.html"
-        class="logo"
-        id="adminTrigger"
-        aria-label="Pyncode Home"
-    >
-
-        <span>
-            <span class="pyn-text">Pyn</span><span class="code-text">code.in</span>
-        </span>
-
-    </a>
-
-    <div class="header-actions">
-
-        <a
-            href="shopowner-upload-login.html"
-            class="create-account-btn"
-            id="promotionButton"
-        >
-            📢 For Promotion
-        </a>
-
-        <button
-            type="button"
-            class="home-btn"
-            onclick="goHome()"
-        >
-            ← Home
-        </button>
-
-    </div>
-
-</header>
-
-
-
-<!-- =====================================================
+  <!-- =====================================================
      MAIN
 ===================================================== -->
 
 <main class="main">
 
 
+
 <!-- =====================================================
      CATEGORY HERO
 ===================================================== -->
 
-<section class="category-hero">
-
-    <div class="category-hero-content">
-
-        <div
-            class="category-label pyncode-hidden"
-            aria-hidden="true"
-        >
-
-            <div class="category-eyebrow">
-
-                <span id="listingTypeLabel">
-                    Local Shops
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="shop-promo-content">
-
-            <div class="shop-promo-small">
-
-                ✨ உங்கள் கடையும் இங்கே இருக்கட்டும்!
-
-            </div>
-
-
-            <h1 class="shop-promo-title">
-
-                இன்றே உங்கள் Shop-ஐ
-                <span>FREE-ஆ list பண்ணுங்க!</span>
-
-            </h1>
-
-
-            <p class="shop-promo-text">
-
-                உங்கள் அருகிலுள்ள customers &amp; neighbours
-                உங்கள் business-ஐ எளிதாக கண்டுபிடிக்கட்டும்.
-
-            </p>
-
-        </div>
-
-
-        <h1
-            class="category-title pyncode-hidden"
-            id="categoryTitle"
-        >
-            Loading...
-        </h1>
-
-
-        <p
-            class="category-subtitle pyncode-hidden"
-            id="categorySubtitle"
-        >
-            Finding shops near you...
-        </p>
-
-
-        <div
-            class="result-badge"
-            id="resultBadge"
-        >
-
-            🏪
-
-            <span id="resultTypeText">
-                Shops
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     CATEGORY BANNER
-     ADMIN → banners TABLE
-     STORAGE → banners BUCKET
-===================================================== -->
+<!-- Hidden category metadata retained for existing JavaScript compatibility -->
+<div class="pyncode-hidden" aria-hidden="true">
+    <span id="listingTypeLabel">Local Shops</span>
+    <h1 id="categoryTitle">Loading...</h1>
+    <p id="categorySubtitle">Finding shops near you...</p>
+    <div id="resultBadge"><span id="resultTypeText">Shops</span></div>
+</div>
 
 <section
     class="category-banner-section"
     id="categoryBannerSection"
 >
-
-    <div class="category-banner-title">
-
-        <div class="category-banner-heading">
-            📢 Featured
-        </div>
-
-        <div
-            class="category-banner-name"
-            id="categoryBannerName"
-        >
-            Loading...
-        </div>
-
+<header class="header category-overlay-header">
+    <a href="index.html" class="category-back-btn" aria-label="Back to Home">←</a>
+    <a href="index.html" class="logo" id="adminTrigger" aria-label="Pyncode Home">
+        <span><span class="pyn-text">Pyn</span><span class="code-text">code.in</span></span>
+        <small>Local Shops · Services · Offers</small>
+    </a>
+    <div class="header-actions">
+        <a href="shopowner-upload-login.html" class="create-account-btn" id="promotionButton">📢 For Promotion</a>
+        <a href="index.html" class="home-btn">⌂ Home</a>
     </div>
-
-
-    <div
+</header>
+    <span id="categoryBannerName" class="pyncode-hidden">Loading...</span>
+<div
         class="category-banner-wrap"
         id="categoryBannerWrap"
     >
@@ -2092,6 +2146,89 @@ body{
 
 </section>
 
+<!-- TEXT-ONLY HORIZONTAL CATEGORY SCROLLER -->
+<section class="pyncode-category-section" aria-label="Browse categories">
+    <div class="pyncode-category-topline">
+        <h2 class="pyncode-category-heading">Explore Categories</h2>
+        <span>Swipe to explore</span>
+    </div>
+    <div class="pyncode-category-row">
+        <a class="pyncode-category-chip" href="category.html?category=Home%20Appliances" aria-label="Home Appliances">Home Appliances</a>
+        <a class="pyncode-category-chip" href="category.html?category=Mobile%20Showrooms" aria-label="Mobile Showrooms">Mobile Showrooms</a>
+        <a class="pyncode-category-chip" href="category.html?category=EV%20Bike%20Showrooms" aria-label="EV Bike Showrooms">EV Bike Showrooms</a>
+        <a class="pyncode-category-chip" href="category.html?category=Bike%20Showrooms" aria-label="Bike Showrooms">Bike Showrooms</a>
+        <a class="pyncode-category-chip" href="category.html?category=Car%20Showrooms" aria-label="Car Showrooms">Car Showrooms</a>
+        <a class="pyncode-category-chip" href="category.html?category=Furnitures" aria-label="Furnitures">Furnitures</a>
+        <a class="pyncode-category-chip" href="category.html?category=Battery%20Shops" aria-label="Battery Shops">Battery Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Men&#x27;s%20Clothing" aria-label="Men&#x27;s Clothing">Men&#x27;s Clothing</a>
+        <a class="pyncode-category-chip" href="category.html?category=Women&#x27;s%20Clothing" aria-label="Women&#x27;s Clothing">Women&#x27;s Clothing</a>
+        <a class="pyncode-category-chip" href="category.html?category=New%20Born%20Babies%20Shops" aria-label="New Born Babies Shops">New Born Babies Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Toys%20Showrooms" aria-label="Toys Showrooms">Toys Showrooms</a>
+        <a class="pyncode-category-chip" href="category.html?category=Utensils%20%26%20Cookware" aria-label="Utensils &amp; Cookware">Utensils &amp; Cookware</a>
+        <a class="pyncode-category-chip" href="category.html?category=Mattress%20%26%20Bedding" aria-label="Mattress &amp; Bedding">Mattress &amp; Bedding</a>
+        <a class="pyncode-category-chip" href="category.html?category=Ethnic%20Wear%20Showroom" aria-label="Ethnic Wear Showroom">Ethnic Wear Showroom</a>
+        <a class="pyncode-category-chip" href="category.html?category=Ayurvedic%20%26%20Herbals" aria-label="Ayurvedic &amp; Herbals">Ayurvedic &amp; Herbals</a>
+        <a class="pyncode-category-chip" href="category.html?category=Nutrition%20%26%20Supplements" aria-label="Nutrition &amp; Supplements">Nutrition &amp; Supplements</a>
+        <a class="pyncode-category-chip" href="category.html?category=Electrics%20%26%20Electronics" aria-label="Electrics &amp; Electronics">Electrics &amp; Electronics</a>
+        <a class="pyncode-category-chip" href="category.html?category=Hardware" aria-label="Hardware">Hardware</a>
+        <a class="pyncode-category-chip" href="category.html?category=Paint%20Shops" aria-label="Paint Shops">Paint Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Cleaning%20Products" aria-label="Cleaning Products">Cleaning Products</a>
+        <a class="pyncode-category-chip" href="category.html?category=Pharmacy/Medicals" aria-label="Pharmacy/Medicals">Pharmacy/Medicals</a>
+        <a class="pyncode-category-chip" href="category.html?category=Fitness%20Equipments" aria-label="Fitness Equipments">Fitness Equipments</a>
+        <a class="pyncode-category-chip" href="category.html?category=Building%20Materials" aria-label="Building Materials">Building Materials</a>
+        <a class="pyncode-category-chip" href="category.html?category=Books%20%26%20Stationary" aria-label="Books &amp; Stationary">Books &amp; Stationary</a>
+        <a class="pyncode-category-chip" href="category.html?category=Garden%20%26%20Plants" aria-label="Garden &amp; Plants">Garden &amp; Plants</a>
+        <a class="pyncode-category-chip" href="category.html?category=Gift%20Shops" aria-label="Gift Shops">Gift Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Pooja%20%26%20Religious%20Shops" aria-label="Pooja &amp; Religious Shops">Pooja &amp; Religious Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Opticals%20%26%20Sunglasses" aria-label="Opticals &amp; Sunglasses">Opticals &amp; Sunglasses</a>
+        <a class="pyncode-category-chip" href="category.html?category=Jewellery%20Showrooms" aria-label="Jewellery Showrooms">Jewellery Showrooms</a>
+        <a class="pyncode-category-chip" href="category.html?category=Footwares" aria-label="Footwares">Footwares</a>
+        <a class="pyncode-category-chip" href="category.html?category=Modular%20Kitchen" aria-label="Modular Kitchen">Modular Kitchen</a>
+        <a class="pyncode-category-chip" href="category.html?category=Flooring%20%26%20Tiles" aria-label="Flooring &amp; Tiles">Flooring &amp; Tiles</a>
+        <a class="pyncode-category-chip" href="category.html?category=Printers%20%26%20Scanners" aria-label="Printers &amp; Scanners">Printers &amp; Scanners</a>
+        <a class="pyncode-category-chip" href="category.html?category=Home%20Theatre%20%26%20Audio" aria-label="Home Theatre &amp; Audio">Home Theatre &amp; Audio</a>
+        <a class="pyncode-category-chip" href="category.html?category=Computers%20%26%20Laptops" aria-label="Computers &amp; Laptops">Computers &amp; Laptops</a>
+        <a class="pyncode-category-chip" href="category.html?category=CCTV%20%26%20Security" aria-label="CCTV &amp; Security">CCTV &amp; Security</a>
+        <a class="pyncode-category-chip" href="category.html?category=Mobile%20Accessories" aria-label="Mobile Accessories">Mobile Accessories</a>
+        <a class="pyncode-category-chip" href="category.html?category=Car%20Detailing%20Showrooms" aria-label="Car Detailing Showrooms">Car Detailing Showrooms</a>
+        <a class="pyncode-category-chip" href="category.html?category=Tyre%20Shops" aria-label="Tyre Shops">Tyre Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Bike%20Service%20Shops" aria-label="Bike Service Shops">Bike Service Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Car%20Service%20Shops" aria-label="Car Service Shops">Car Service Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Home%20Appliances%20Service" aria-label="Home Appliances Service">Home Appliances Service</a>
+        <a class="pyncode-category-chip" href="category.html?category=Cycle%20Showrooms" aria-label="Cycle Showrooms">Cycle Showrooms</a>
+        <a class="pyncode-category-chip" href="category.html?category=Hospitals" aria-label="Hospitals">Hospitals</a>
+        <a class="pyncode-category-chip" href="category.html?category=Interior%20Designers" aria-label="Interior Designers">Interior Designers</a>
+        <a class="pyncode-category-chip" href="category.html?category=Doors%20%26%20Windows%20Shops" aria-label="Doors &amp; Windows Shops">Doors &amp; Windows Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Salon%20%26%20Spa" aria-label="Salon &amp; Spa">Salon &amp; Spa</a>
+        <a class="pyncode-category-chip" href="category.html?category=Photography%20Studios" aria-label="Photography Studios">Photography Studios</a>
+        <a class="pyncode-category-chip" href="category.html?category=Bakery%20%26%20Cake%20Shops" aria-label="Bakery &amp; Cake Shops">Bakery &amp; Cake Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Pet%20Shops%20%26%20Vet" aria-label="Pet Shops &amp; Vet">Pet Shops &amp; Vet</a>
+        <a class="pyncode-category-chip" href="category.html?category=Solar%20Panel%20Shops" aria-label="Solar Panel Shops">Solar Panel Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Coaching%20%26%20Tuition%20Centers" aria-label="Coaching &amp; Tuition Centers">Coaching &amp; Tuition Centers</a>
+        <a class="pyncode-category-chip" href="category.html?category=Hotels%20%26%20Resorts" aria-label="Hotels &amp; Resorts">Hotels &amp; Resorts</a>
+        <a class="pyncode-category-chip" href="category.html?category=Wedding%20Halls%20/%20Kalyana%20Mandapam" aria-label="Wedding Halls / Kalyana Mandapam">Wedding Halls / Kalyana Mandapam</a>
+        <a class="pyncode-category-chip" href="category.html?category=Musical%20Instruments" aria-label="Musical Instruments">Musical Instruments</a>
+        <a class="pyncode-category-chip" href="category.html?category=Gaming%20Zones" aria-label="Gaming Zones">Gaming Zones</a>
+        <a class="pyncode-category-chip" href="category.html?category=Seeds%20%26%20Fertilizer%20Shops" aria-label="Seeds &amp; Fertilizer Shops">Seeds &amp; Fertilizer Shops</a>
+        <a class="pyncode-category-chip" href="category.html?category=Insurance%20Offices" aria-label="Insurance Offices">Insurance Offices</a>
+        <a class="pyncode-category-chip" href="category.html?category=Loan%20%26%20Finance%20Companies" aria-label="Loan &amp; Finance Companies">Loan &amp; Finance Companies</a>
+        <a class="pyncode-category-chip" href="category.html?category=Play%20Schools%20%26%20Kindergarten" aria-label="Play Schools &amp; Kindergarten">Play Schools &amp; Kindergarten</a>
+        <a class="pyncode-category-chip" href="category.html?category=Freelancers" aria-label="Freelancers">Freelancers</a>
+        <a class="pyncode-category-chip" href="category.html?category=Franchise%20Outlets" aria-label="Franchise Outlets">Franchise Outlets</a>
+        <a class="pyncode-category-chip" href="category.html?category=Real%20Estate" aria-label="Real Estate">Real Estate</a>
+        <a class="pyncode-category-chip" href="category.html?category=Used%20Car%20%26%20Bikes%20Dealers" aria-label="Used Car &amp; Bikes Dealers">Used Car &amp; Bikes Dealers</a>
+        <a class="pyncode-category-chip" href="category.html?category=Men&#x27;s/Women&#x27;s%20Accessories" aria-label="Men&#x27;s/Women&#x27;s Accessories">Men&#x27;s/Women&#x27;s Accessories</a>
+        <a class="pyncode-category-chip" href="category.html?category=Sandhai%20/%20Market%20Place" aria-label="Sandhai / Market Place">Sandhai / Market Place</a>
+        <a class="pyncode-category-chip" href="category.html?category=Travel%20%26%20Tour%20Services" aria-label="Travel &amp; Tour Services">Travel &amp; Tour Services</a>
+        <a class="pyncode-category-chip" href="category.html?category=Wedding%20%26%20Events%20Services" aria-label="Wedding &amp; Events Services">Wedding &amp; Events Services</a>
+        <a class="pyncode-category-chip" href="category.html?category=Digital%20Marketing%20Agencies" aria-label="Digital Marketing Agencies">Digital Marketing Agencies</a>
+        <a class="pyncode-category-chip" href="category.html?category=Manpower%20/%20Staffing%20Services" aria-label="Manpower / Staffing Services">Manpower / Staffing Services</a>
+        <a class="pyncode-category-chip" href="category.html?category=Construction%20%26%20Contractors" aria-label="Construction &amp; Contractors">Construction &amp; Contractors</a>
+        <a class="pyncode-category-chip" href="category.html?category=Online%20Business" aria-label="Online Business">Online Business</a>
+        <a class="pyncode-category-chip" href="category.html?category=Courier%20Services" aria-label="Courier Services">Courier Services</a>
+        <a class="pyncode-category-chip" href="category.html?category=Manufacturer%20%26%20Suppliers" aria-label="Manufacturer &amp; Suppliers">Manufacturer &amp; Suppliers</a>
+    </div>
+</section>
 
 <!-- =====================================================
      PINCODE SEARCH
@@ -2101,8 +2238,7 @@ body{
 
     <div class="pincode-row">
 
-        <input
-            type="text"
+        <input            type="text"
             id="pincodeInput"
             class="pincode-input"
             placeholder="Enter 6 digit pincode"
@@ -4207,7 +4343,7 @@ else{
 
     <a
         href="shops.html"
-        class="bottom-nav-item"
+        class="bottom-nav-item active"
     >
         <span class="nav-icon">
             🏪
@@ -4247,33 +4383,7 @@ else{
     </a>
 
 
-    <a
-        href="#"
-        class="bottom-nav-item"
-        onclick="return false;"
-    >
-        <span class="nav-icon">
-            📰
-        </span>
-
-        <span class="nav-label">
-            Feeds
-        </span>
-    </a>
-
-
-    <a
-        href="promotion.html"
-        class="bottom-nav-item"
-    >
-        <span class="nav-icon">
-            📢
-        </span>
-
-        <span class="nav-label">
-            Promotion
-        </span>
-    </a>
+    
 
 </nav>
 
