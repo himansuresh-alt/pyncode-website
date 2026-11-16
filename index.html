@@ -1162,9 +1162,9 @@ body{
   /* PYNCODE HOME ACTION BANNERS */
 .pyncode-banner-stack {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 24px 8px;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 0 8px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -1565,8 +1565,8 @@ body{
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 1536 / 640;
-    object-fit: cover;
+    aspect-ratio: auto;
+    object-fit: contain;
     object-position: center;
     border-radius: inherit;
 }
@@ -1575,13 +1575,20 @@ body{
     outline-offset: -4px;
 }
 @media (max-width: 700px) {
-    .pyncode-banner-stack { padding: 16px 14px 8px; gap: 14px; }
-    .pyncode-banner-stack .pyncode-image-banner { border-radius: 17px; }
+    .pyncode-banner-stack {
+        padding: 12px 0 8px;
+        gap: 12px;
+    }
+
+    .pyncode-banner-stack .pyncode-image-banner {
+        border-radius: 0;
+    }
+
     .pyncode-banner-stack .pyncode-image-banner img {
         width: 100%;
         height: auto;
-        aspect-ratio: 1536 / 640;
-        object-fit: contain;
+        aspect-ratio: unset;
+        object-fit: unset;
     }
 }
 @media (prefers-reduced-motion: reduce) {
