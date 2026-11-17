@@ -59,9 +59,25 @@ a{color:inherit;text-decoration:none}
 .btn-wa .ic{width:17px;height:17px}
 
 /* HERO */
-.hero{background:radial-gradient(900px 300px at 85% -10%,rgba(255,61,110,.38),transparent 60%),radial-gradient(700px 300px at 0 110%,rgba(255,122,26,.28),transparent 60%),var(--ink);color:#fff;padding:32px 0 24px;border-radius:0 0 28px 28px}
-.hero h1{font-size:clamp(26px,5.5vw,40px);font-weight:800;letter-spacing:-1px;line-height:1.1;max-width:560px}
-.hero p{margin-top:8px;color:#aab2c8;font-size:14px}
+.hero{
+  background:radial-gradient(900px 300px at 85% -10%,rgba(255,61,110,.38),transparent 60%),
+  radial-gradient(700px 300px at 0 110%,rgba(255,122,26,.28),transparent 60%),
+  var(--ink);
+  color:#fff;
+  padding:22px 0 16px;
+  border-radius:0 0 28px 28px;
+}
+  .hero h1{
+  font-size:clamp(26px,5.5vw,40px);
+  font-weight:800;
+  letter-spacing:-1px;
+  line-height:1.1;
+  max-width:600px;
+}
+
+.hero p{
+  display:none;
+}
 .search-box{margin-top:20px;display:flex;gap:8px;padding:6px;background:#fff;border-radius:16px;box-shadow:0 14px 34px rgba(0,0,0,.28)}
 .search-box .ic{width:20px;height:20px;align-self:center;margin-left:10px;color:var(--b2)}
 .pincode-input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font-size:15px;font-weight:600}
@@ -90,9 +106,31 @@ a{color:inherit;text-decoration:none}
 .chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
 
 /* SHOPS */
-.list-head{margin:22px 0 14px}
-.shop-list-title{font-size:24px;font-weight:800;letter-spacing:-.5px}
-.shop-list-count{margin-top:3px;font-size:13px;font-weight:600;color:var(--mut)}
+.list-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:10px 0 14px;
+}
+
+.shop-list-title{
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:-.5px;
+}
+
+.shop-list-count{
+  margin-top:0;
+  padding:6px 12px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:#fff;
+  color:var(--mut);
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+}
 .shop-grid{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:700px){.shop-grid{grid-template-columns:repeat(2,1fr)}.hero{padding:48px 0 34px}}
 @media(min-width:1000px){.shop-grid{grid-template-columns:repeat(3,1fr)}}
@@ -803,7 +841,7 @@ list.sort((a,b)=>(a.distance??1e9)-(b.distance??1e9));
 }
 
 $("shopListTitle").textContent=selectedCategory||(active?"Shops near you":"All shops");
-$("shopListCount").textContent=list.length+(list.length===1?" shop":" shops")+
+$("shopListCount").textContent=list.length+(list.length===1?" Shop":" Shops")+
 (radiusMode?" within "+selectedRadiusKm+" km":"")+
 (selectedPincode?" in "+selectedPincode:"");
 
