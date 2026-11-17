@@ -80,25 +80,152 @@ a{color:inherit;text-decoration:none}
 .shop-grid{margin-top:16px;display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:700px){.shop-grid{grid-template-columns:repeat(2,1fr)}.hero{padding:34px 0 30px}}
 @media(min-width:1000px){.shop-grid{grid-template-columns:repeat(3,1fr)}}
-.shop-card{overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(14,19,34,.04),0 10px 28px rgba(14,19,34,.06)}
-.shop-image-wrap{position:relative;height:190px;background:#e9edf4}
-.shop-image{width:100%;height:100%;object-fit:cover;display:block}
-.board{position:absolute;z-index:2;left:50%;bottom:12px;transform:translateX(-50%);width:calc(100% - 28px);max-width:340px;padding:9px 14px;background:rgba(255,255,255,.95);border-radius:14px;box-shadow:0 8px 20px rgba(0,0,0,.22);text-align:center}
-.board span{display:block;font-size:13px;font-weight:800;letter-spacing:.07em;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase}
-.badge{position:absolute;z-index:3;top:12px;display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800}
-.verified{left:12px;background:rgba(255,255,255,.95);color:#12a150}
-.distance{right:12px;background:rgba(14,19,34,.78);color:#fff}
-.shop-body{padding:15px;display:flex;flex-direction:column;flex:1}
-.shop-name{font-size:17px;font-weight:800;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.shop-category{align-self:flex-start;margin-top:7px;padding:4px 10px;border-radius:999px;background:#fff1ec;color:#e0502c;font-size:11px;font-weight:800}
-.shop-location{display:flex;align-items:flex-start;gap:6px;margin-top:10px;color:var(--mut);font-size:12.5px;line-height:1.4}
-.shop-location .ic{margin-top:1px}
-.shop-actions{margin-top:auto;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.act{height:40px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;font-size:12px;font-weight:800;border:1px solid var(--line);background:#f5f7fb;color:var(--ink)}
-.act.wa{background:var(--wa);border-color:var(--wa);color:#fff}
-.act.dir{background:#fff1ec;border-color:#fad4c8;color:#e0502c}
-.act.visit{background:var(--ink);border-color:var(--ink);color:#fff}
-span.act{opacity:.45}
+
+/* COMPACT QR STORE CARD */
+.shop-card {
+  display:flex;
+  flex-direction:row;
+  align-items:stretch;
+  gap:12px;
+  padding:10px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:0 5px 18px rgba(14,19,34,.07);
+  overflow:hidden;
+}
+
+.shop-image-wrap {
+  position:relative;
+  flex:0 0 36%;
+  min-width:0;
+  min-height:145px;
+  border-radius:15px;
+  overflow:hidden;
+  background:#e9edf4;
+}
+
+.shop-image {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.badge {
+  position:absolute;
+  z-index:3;
+  top:9px;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:5px 8px;
+  border-radius:30px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.verified {
+  left:7px;
+  background:#fff;
+  color:#159653;
+}
+
+.distance {
+  right:7px;
+  background:rgba(14,19,34,.8);
+  color:#fff;
+}
+
+.shop-body {
+  flex:1;
+  min-width:0;
+  padding:3px 2px;
+  display:flex;
+  flex-direction:column;
+}
+
+.shop-name {
+  font-size:15px;
+  font-weight:800;
+  line-height:1.4;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+
+.shop-category {
+  align-self:flex-start;
+  margin-top:7px;
+  padding:5px 10px;
+  border-radius:30px;
+  background:#fff0e7;
+  color:#df613d;
+  font-size:10px;
+  font-weight:800;
+}
+
+.shop-location {
+  display:flex;
+  align-items:flex-start;
+  gap:5px;
+  margin-top:9px;
+  color:var(--mut);
+  font-size:11px;
+  line-height:1.45;
+}
+
+.shop-actions {
+  margin-top:auto;
+  padding-top:12px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:6px;
+}
+
+.act.visit {
+  width:100%;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  border-radius:30px;
+  background:#064e3b;
+  border:0;
+  color:#fff;
+  font-size:13px;
+  font-weight:800;
+}
+
+span.act {
+  opacity:.45;
+}
+
+@media(max-width:380px) {
+  .shop-card {
+    gap:9px;
+    padding:8px;
+  }
+
+  .shop-image-wrap {
+    flex-basis:34%;
+    min-height:125px;
+  }
+
+  .shop-name {
+    font-size:13px;
+  }
+
+  .shop-location {
+    font-size:10px;
+  }
+
+  .act.visit {
+    height:37px;
+    font-size:11px;
+  }
+}
+
 .skeleton{height:340px;border-radius:20px;background:linear-gradient(100deg,#e9edf4 30%,#f6f8fb 50%,#e9edf4 70%);background-size:200% 100%;animation:sk 1.2s linear infinite}
 @keyframes sk{to{background-position:-200% 0}}
 .shop-empty{grid-column:1/-1;padding:34px 20px;text-align:center;background:#fff;border:1px dashed #cfd5e1;border-radius:20px}
@@ -462,32 +589,32 @@ return "Location details unavailable";
 }
 
 /* CARD */
+
 function buildShopCard(s){
-const name=escapeHtml(s.name);
-const phone=cleanPhone(s.phone);
-const wa=cleanPhone(s.whatsapp||s.phone);
-const dist=formatDistance(s.distance);
-const dir=buildDirectionsUrl(s.latitude,s.longitude);
-const visit=s.liveQrToken?"live-qr-shop.html?token="+encodeURIComponent(s.liveQrToken):"";
+  const name=escapeHtml(s.name);
+  const dist=formatDistance(s.distance);
+  const visit=s.liveQrToken
+    ?"live-qr-shop.html?token="+encodeURIComponent(s.liveQrToken)
+    :"";
 
-const callBtn=phone?'<a href="tel:+91'+phone+'" class="act">'+icon("phone")+'Call</a>':'<span class="act">'+icon("phone")+'Call</span>';
-const waBtn=wa?'<a href="https://wa.me/91'+wa+'" target="_blank" rel="noopener noreferrer" class="act wa">'+waIcon()+'WhatsApp</a>':'<span class="act wa">'+waIcon()+'WhatsApp</span>';
-const dirBtn=dir?'<a href="'+dir+'" target="_blank" rel="noopener noreferrer" class="act dir">'+icon("nav")+'Directions</a>':'<span class="act dir">'+icon("nav")+'Directions</span>';
-const visitBtn=visit?'<a href="'+visit+'" class="act visit">'+icon("store")+'Visit store</a>':'<span class="act visit">'+icon("store")+'Visit store</span>';
+  const visitBtn=visit
+    ?'<a href="'+visit+'" class="act visit">'+icon("store")+'Visit Store</a>'
+    :'<span class="act visit">'+icon("store")+'Visit Store</span>';
 
-return '<article class="shop-card">'+
-'<div class="shop-image-wrap">'+
-'<img class="shop-image" src="'+escapeHtml(s.image)+'" alt="'+name+'" loading="lazy" onerror="this.onerror=null;this.src=\'icon-512.png\'">'+
-'<span class="badge verified">'+icon("qr")+'QR Store</span>'+
-(dist?'<span class="badge distance">'+icon("pin")+escapeHtml(dist)+'</span>':"")+
-'</div>'+
-'<div class="shop-body">'+
-'<div class="shop-name" title="'+name+'">'+name+'</div>'+
-'<div class="shop-category">'+escapeHtml(s.category)+'</div>'+
-'<div class="shop-location">'+icon("pin")+'<span>'+escapeHtml(buildShopLocation(s))+'</span></div>'+
-'<div class="shop-actions">'+callBtn+waBtn+dirBtn+visitBtn+'</div>'+
-'</div></article>';
+  return '<article class="shop-card">'+
+    '<div class="shop-image-wrap">'+
+      '<img class="shop-image" src="'+escapeHtml(s.image)+'" alt="'+name+'" loading="lazy" onerror="this.onerror=null;this.src=\'icon-512.png\'">'+
+      '<span class="badge verified">'+icon("qr")+'QR Store</span>'+
+      (dist?'<span class="badge distance">'+icon("pin")+escapeHtml(dist)+'</span>':"")+
+    '</div>'+
+    '<div class="shop-body">'+
+      '<div class="shop-name" title="'+name+'">'+name+'</div>'+
+      '<div class="shop-category">'+escapeHtml(s.category)+'</div>'+
+      '<div class="shop-location">'+icon("pin")+'<span>'+escapeHtml(buildShopLocation(s))+'</span></div>'+
+      '<div class="shop-actions">'+visitBtn+'</div>'+
+    '</div></article>';
 }
+
 
 function emptyHtml(ic,title,text){
 return '<div class="shop-empty">'+icon(ic)+'<div class="shop-empty-title">'+title+'</div><div class="shop-empty-text">'+escapeHtml(text)+'</div></div>';
