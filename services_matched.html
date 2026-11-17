@@ -145,9 +145,25 @@ a{color:inherit;text-decoration:none}
 .chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
 
 /* LIST */
-.list-head{margin:10px 0 14px}
-.shop-list-title{font-size:24px;font-weight:800;letter-spacing:-.5px}
-.shop-list-count{margin-top:3px;font-size:13px;font-weight:600;color:var(--mut)}
+.list-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:10px 0 14px;
+}
+
+.shop-list-count{
+  margin-top:0;
+  padding:6px 12px;
+  border:1px solid var(--line);
+  border-radius:30px;
+  background:#fff;
+  color:var(--mut);
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap;
+}
 .shop-grid{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:700px){.shop-grid{grid-template-columns:repeat(2,1fr)}.hero{padding:48px 0 34px}}
 @media(min-width:1000px){.shop-grid{grid-template-columns:repeat(3,1fr)}}
@@ -816,7 +832,7 @@ list.sort((a,b)=>(a.distance??1e9)-(b.distance??1e9));
 }
 
 $("shopListTitle").textContent=selectedCategory||(active?"Services near you":"All services");
-$("shopListCount").textContent=list.length+(list.length===1?" service provider":" service providers")+
+$("shopListCount").textContent=list.length+(list.length===1?" Service Provider":" Service Providers")+
 (radiusMode?" within "+selectedRadiusKm+" km":"")+
 (selectedPincode?" in "+selectedPincode:"");
 
