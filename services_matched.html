@@ -75,24 +75,165 @@ a{color:inherit;text-decoration:none}
 .shop-grid{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:700px){.shop-grid{grid-template-columns:repeat(2,1fr)}.hero{padding:48px 0 34px}}
 @media(min-width:1000px){.shop-grid{grid-template-columns:repeat(3,1fr)}}
-.shop-card{overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(14,19,34,.04),0 10px 28px rgba(14,19,34,.06)}
-.shop-image-wrap{position:relative;height:178px;background:#e9edf4}
-.shop-image-wrap::after{content:"";position:absolute;inset:auto 0 0;height:60%;background:linear-gradient(transparent,rgba(14,19,34,.5))}
-.shop-image{width:100%;height:100%;object-fit:cover;display:block}
-.badge{position:absolute;z-index:1;display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800}
-.verified{top:12px;left:12px;background:rgba(255,255,255,.95);color:var(--ok)}
-.distance{left:12px;bottom:12px;background:rgba(14,19,34,.78);color:#fff}
-.shop-body{padding:15px;display:flex;flex-direction:column;flex:1}
-.shop-name{font-size:17px;font-weight:800;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.shop-category{align-self:flex-start;margin-top:7px;padding:4px 10px;border-radius:999px;background:#fff1ec;color:#e0502c;font-size:11px;font-weight:800}
-.shop-location{display:flex;align-items:center;gap:6px;margin-top:10px;color:var(--mut);font-size:12.5px;line-height:1.4}
-.shop-rating{margin-top:8px;font-size:12px;font-weight:800;color:#4c556b}
-.star{color:#f4a623}
-.shop-actions{margin-top:auto;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.act{height:40px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:12px;font-size:12px;font-weight:800;border:1px solid var(--line);background:#f5f7fb;color:var(--ink)}
-.act.wa{background:var(--wa);border-color:var(--wa);color:#fff}
-.act.dir{background:#fff1ec;border-color:#fad4c8;color:#e0502c}
-span.act{opacity:.45}
+
+/* COMPACT SERVICE CARD DESIGN */
+.shop-card {
+  display:flex;
+  flex-direction:row;
+  align-items:stretch;
+  gap:12px;
+  padding:10px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:17px;
+  box-shadow:0 3px 12px rgba(14,19,34,.06);
+  overflow:hidden;
+}
+
+.shop-image-wrap {
+  position:relative;
+  flex:0 0 112px;
+  height:125px;
+  border-radius:12px;
+  overflow:hidden;
+  background:#e9edf4;
+}
+
+.shop-image-wrap::after { display:none; }
+
+.shop-image {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.badge {
+  position:absolute;
+  z-index:1;
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  padding:4px 6px;
+  border-radius:20px;
+  font-size:9px;
+  font-weight:800;
+}
+
+.verified {
+  top:5px;
+  left:5px;
+  background:#fff;
+  color:var(--ok);
+}
+
+.distance {
+  left:5px;
+  bottom:5px;
+  background:rgba(14,19,34,.8);
+  color:#fff;
+}
+
+.shop-body {
+  min-width:0;
+  flex:1;
+  padding:3px 0;
+  display:flex;
+  flex-direction:column;
+}
+
+.shop-name {
+  font-size:15px;
+  font-weight:800;
+  line-height:1.35;
+  white-space:normal;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+}
+
+.shop-category {
+  align-self:flex-start;
+  margin-top:5px;
+  padding:4px 9px;
+  border-radius:20px;
+  background:#fff1ec;
+  color:#e0502c;
+  font-size:10px;
+  font-weight:800;
+}
+
+.shop-location {
+  display:flex;
+  align-items:flex-start;
+  gap:5px;
+  margin-top:6px;
+  color:var(--mut);
+  font-size:11px;
+  line-height:1.4;
+}
+
+.shop-rating {
+  margin-top:4px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.shop-actions {
+  margin-top:auto;
+  padding-top:9px;
+  display:grid;
+  grid-template-columns:1fr 1.35fr 1fr;
+  gap:5px;
+}
+
+.act {
+  height:34px;
+  min-width:0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  border-radius:9px;
+  font-size:10px;
+  font-weight:800;
+  border:1px solid var(--line);
+  background:#f5f7fb;
+  color:var(--ink);
+  white-space:nowrap;
+}
+
+.act.wa {
+  background:var(--wa);
+  border-color:var(--wa);
+  color:#fff;
+}
+
+.act.offer {
+  background:#ff701b;
+  border-color:#ff701b;
+  color:#fff;
+}
+
+span.act { opacity:.45; }
+
+@media(max-width:380px) {
+  .shop-image-wrap {
+    flex-basis:88px;
+    height:115px;
+  }
+  .shop-card {
+    gap:8px;
+    padding:8px;
+  }
+  .shop-name { font-size:13px; }
+  .act {
+    font-size:9px;
+    height:32px;
+  }
+}
+
 .skeleton{height:330px;border-radius:20px;background:linear-gradient(100deg,#e9edf4 30%,#f6f8fb 50%,#e9edf4 70%);background-size:200% 100%;animation:sk 1.2s linear infinite}
 @keyframes sk{to{background-position:-200% 0}}
 .shop-empty{grid-column:1/-1;padding:34px 20px;text-align:center;background:#fff;border:1px dashed #cfd5e1;border-radius:20px}
@@ -152,7 +293,7 @@ span.act{opacity:.45}
     <div><span class="pyn">Pyn</span><span>code</span><span class="pyn">.in</span></div>
   </div>
   <div class="head-actions">
-    <a href="list-your-service.html" class="btn-dark">List<span class="hide-s">&nbsp;Your</span>&nbsp;Service</a>
+    <a href="list-your-service.html" class="btn-dark">Add<span class="hide-s">&nbsp;Your</span>&nbsp;Service</a>
   </div>
 </header>
 
@@ -530,35 +671,44 @@ if(e.key==="Escape")closeLeadForm();
 });
 
 /* CARD */
+
 function buildShopCard(s){
-const name=escapeHtml(s.name||"Unnamed Service Provider");
-const cat=escapeHtml(s.category||"Service Provider");
-const place=escapeHtml(s.location||s.address||"Location available");
-const img=escapeHtml(s.image||"/icon-512.png");
-const phone=cleanPhoneNumber(s.phone);
-const wa=cleanPhoneNumber(s.whatsapp||s.phone);
-const dist=formatDistance(s.distance);
-const dir=buildDirectionsUrl(s.latitude,s.longitude);
+  const name=escapeHtml(s.name||"Unnamed Service Provider");
+  const cat=escapeHtml(s.category||"Service Provider");
+  const place=escapeHtml(s.location||s.address||"Location available");
+  const img=escapeHtml(s.image||"/icon-512.png");
+  const phone=cleanPhoneNumber(s.phone);
+  const wa=cleanPhoneNumber(s.whatsapp||s.phone);
+  const dist=formatDistance(s.distance);
 
-const callBtn=phone?'<a href="tel:+91'+phone+'" class="act">'+icon("phone")+'Call</a>':'<span class="act">'+icon("phone")+'Call</span>';
-const waBtn=wa?'<a href="https://wa.me/91'+wa+'" target="_blank" rel="noopener" class="act wa">'+waIcon()+'WhatsApp</a>':'<span class="act wa">'+waIcon()+'WhatsApp</span>';
-const dirBtn=dir?'<a href="'+dir+'" target="_blank" rel="noopener" class="act dir">'+icon("nav")+'Directions</a>':"";
-const offBtn=s.id?'<a href="category-shop-current-offer.html?shop_id='+encodeURIComponent(s.id)+'" class="act">'+icon("gift")+'Offers</a>':"";
+  const callBtn=phone
+    ?'<a href="tel:+91'+phone+'" class="act">'+icon("phone")+'Call</a>'
+    :'<span class="act">'+icon("phone")+'Call</span>';
 
-return '<article class="shop-card">'+
-'<div class="shop-image-wrap">'+
-'<img class="shop-image" src="'+img+'" alt="'+name+'" loading="lazy" onerror="this.onerror=null;this.src=\'/icon-512.png\'">'+
-'<span class="badge verified">'+icon("check")+'Verified</span>'+
-(dist?'<span class="badge distance">'+icon("pin")+escapeHtml(dist)+'</span>':"")+
-'</div>'+
-'<div class="shop-body">'+
-'<div class="shop-name" title="'+name+'">'+name+'</div>'+
-'<div class="shop-category">'+cat+'</div>'+
-'<div class="shop-location">'+icon("pin")+'<span>'+place+'</span></div>'+
-(s.rating?'<div class="shop-rating"><span class="star">★</span> '+escapeHtml(String(s.rating))+'</div>':"")+
-'<div class="shop-actions">'+callBtn+waBtn+dirBtn+offBtn+'</div>'+
-'</div></article>';
+  const waBtn=wa
+    ?'<a href="https://wa.me/91'+wa+'" target="_blank" rel="noopener" class="act wa">'+waIcon()+'WhatsApp</a>'
+    :'<span class="act wa">'+waIcon()+'WhatsApp</span>';
+
+  const offBtn=s.id
+    ?'<a href="category-shop-current-offer.html?shop_id='+encodeURIComponent(s.id)+'" class="act offer">'+icon("gift")+'Offers</a>'
+    :"";
+
+  return '<article class="shop-card">'+
+    '<div class="shop-image-wrap">'+
+      '<img class="shop-image" src="'+img+'" alt="'+name+'" loading="lazy" onerror="this.onerror=null;this.src=\'/icon-512.png\'">'+
+      '<span class="badge verified">'+icon("check")+'Verified</span>'+
+      (dist?'<span class="badge distance">'+icon("pin")+escapeHtml(dist)+'</span>':"")+
+    '</div>'+
+    '<div class="shop-body">'+
+      '<div class="shop-name" title="'+name+'">'+name+'</div>'+
+      '<div class="shop-category">'+cat+'</div>'+
+      '<div class="shop-location">'+icon("pin")+'<span>'+place+'</span></div>'+
+      (s.rating?'<div class="shop-rating"><span class="star">★</span> '+escapeHtml(String(s.rating))+'</div>':"")+
+      '<div class="shop-actions">'+callBtn+waBtn+offBtn+'</div>'+
+    '</div>'+
+  '</article>';
 }
+
 
 function emptyHtml(ic,title,text,label,fn){
 return '<div class="shop-empty">'+icon(ic)+'<div class="shop-empty-title">'+title+'</div><div class="shop-empty-text">'+text+'</div>'+
